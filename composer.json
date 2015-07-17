@@ -1,0 +1,35 @@
+{
+  "name": "drd-plus/tables",
+  "license": "MIT",
+  "type": "project",
+  "description": "Drd+ tables and their units conversion",
+  "autoload": {
+    "psr-4": { "DrdPlus\\": "DrdPlus/" }
+  },
+  "require": {
+    "php": ">=5.5.0",
+    "granam/strict-object": "dev-master",
+    "granam/exception-hierarchy": "dev-master",
+    "granam/float": "dev-master",
+    "granam/integer": "dev-master",
+    "granam/scalar": "dev-master",
+    "drd-plus/properties": "dev-master",
+    "drd-plus/tools": "dev-master",
+    "doctrineum/strict-string": "dev-master",
+    "doctrineum/scalar": "dev-master",
+    "doctrineum/float": "dev-master",
+    "doctrineum/integer": "dev-master",
+    "granam/float": "dev-master",
+    "granam/integer": "dev-master",
+    "granam/strict-integer": "dev-master",
+    "granam/strict-string": "dev-master",
+    "granam/strict-float": "dev-master",
+    "granam/strict-scalar": "dev-master",
+    "granam/scalar": "dev-master",
+    "drd/dice-roll": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4",
+    "mockery/mockery": ">=0.9"
+  }
+}
