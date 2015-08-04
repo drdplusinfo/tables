@@ -55,6 +55,9 @@ class LevelMeasurement extends AbstractExperiencesMeasurement
     }
 
     /**
+     * Experiences, need from previous to current level.
+     * Note: converting to experiences is lossless conversion, but reversal conversion could be lossy.
+     *
      * @return int
      */
     public function toExperiences()
