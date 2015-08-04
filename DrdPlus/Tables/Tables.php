@@ -2,9 +2,11 @@
 namespace DrdPlus\Tables;
 
 use DrdPlus\Tables\Amount\AmountTable;
+use DrdPlus\Tables\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Distance\DistanceTable;
 use DrdPlus\Tables\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Fatigue\FatigueTable;
+use DrdPlus\Tables\Price\PriceTable;
 use DrdPlus\Tables\Speed\SpeedTable;
 use DrdPlus\Tables\Time\TimeTable;
 use DrdPlus\Tables\Weight\WeightTable;
@@ -20,14 +22,28 @@ class Tables extends StrictObject
     private $amountTable;
 
     /**
+     * @var BaseOfWoundsTable
+     */
+    private $baseOfWoundsTable;
+
+    /**
      * @var DistanceTable
      */
     private $distanceTable;
 
     /**
+     * @var ExperiencesTable
+     */
+    private $experiencesTable;
+    /**
      * @var FatigueTable
      */
     private $fatigueTable;
+
+    /**
+     * @var PriceTable
+     */
+    private $priceTable;
 
     /**
      * @var SpeedTable
@@ -49,21 +65,19 @@ class Tables extends StrictObject
      */
     private $woundsTable;
 
-    /**
-     * @var ExperiencesTable
-     */
-    private $experiencesTable;
-
     public function __construct()
     {
         $this->amountTable = new AmountTable();
+        $this->baseOfWoundsTable = new BaseOfWoundsTable();
         $this->distanceTable = new DistanceTable();
+        $woundsTable = new WoundsTable();
+        $this->experiencesTable = new ExperiencesTable($woundsTable);
         $this->fatigueTable = new FatigueTable();
+        $this->priceTable = new PriceTable($this->amountTable);
         $this->speedTable = new SpeedTable();
         $this->timeTable = new TimeTable();
         $this->weightTable = new WeightTable();
-        $this->woundsTable = new WoundsTable();
-        $this->experiencesTable = new ExperiencesTable($this->woundsTable);
+        $this->woundsTable = $woundsTable;
     }
 
     /**
@@ -75,6 +89,14 @@ class Tables extends StrictObject
     }
 
     /**
+     * @return BaseOfWoundsTable
+     */
+    public function getBaseOfWoundsTable()
+    {
+        return $this->baseOfWoundsTable;
+    }
+
+    /**
      * @return DistanceTable
      */
     public function getDistanceTable()
@@ -83,11 +105,27 @@ class Tables extends StrictObject
     }
 
     /**
+     * @return ExperiencesTable
+     */
+    public function getExperiencesTable()
+    {
+        return $this->experiencesTable;
+    }
+
+    /**
      * @return FatigueTable
      */
     public function getFatigueTable()
     {
         return $this->fatigueTable;
+    }
+
+    /**
+     * @return PriceTable
+     */
+    public function getPriceTable()
+    {
+        return $this->priceTable;
     }
 
     /**
@@ -120,14 +158,6 @@ class Tables extends StrictObject
     public function getWoundsTable()
     {
         return $this->woundsTable;
-    }
-
-    /**
-     * @return ExperiencesTable
-     */
-    public function getExperiencesTable()
-    {
-        return $this->experiencesTable;
     }
 
 }
