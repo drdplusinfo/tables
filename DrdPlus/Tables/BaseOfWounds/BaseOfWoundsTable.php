@@ -3,6 +3,9 @@ namespace DrdPlus\Tables\BaseOfWounds;
 
 use DrdPlus\Properties\Base\Strength;
 
+/**
+ * Base of wounds is special table, without standard interface
+ */
 class BaseOfWoundsTable
 {
 
@@ -108,6 +111,7 @@ class BaseOfWoundsTable
 
     /**
      * @param array|int[] $bonuses
+     *
      * @return int|null summarized bonuses, or null if no given (single bonus results into the same bonus)
      */
     public function getBonusesIntersection(array $bonuses)
@@ -150,11 +154,13 @@ class BaseOfWoundsTable
     public function calculateBaseOfWounds($strength, $weaponBaseOfWounds)
     {
         $strength = new Strength($strength);
+
         return $this->getBonusesIntersection([$strength->getValue(), $weaponBaseOfWounds]);
     }
 
     /**
      * @param int $bonus
+     *
      * @return mixed
      */
     public function halfBonus($bonus)
@@ -165,6 +171,7 @@ class BaseOfWoundsTable
 
     /**
      * @param int $bonus
+     *
      * @return mixed
      */
     public function doubleBonus($bonus)
@@ -175,6 +182,7 @@ class BaseOfWoundsTable
 
     /**
      * @param int $bonus
+     *
      * @return mixed
      */
     public function tenMultipleBonus($bonus)
@@ -185,6 +193,7 @@ class BaseOfWoundsTable
 
     /**
      * @param int $bonus
+     *
      * @return mixed
      */
     public function tenMinifyBonus($bonus)
