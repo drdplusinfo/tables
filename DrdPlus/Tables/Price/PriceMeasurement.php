@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Fatigue;
+namespace DrdPlus\Tables\Price;
 
 use DrdPlus\Tables\AbstractMeasurement;
 
