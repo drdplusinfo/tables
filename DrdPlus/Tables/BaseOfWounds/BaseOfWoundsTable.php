@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\BaseOfWounds;
 
-use DrdPlus\Properties\Strength;
+use DrdPlus\Properties\Base\Strength;
 
 class BaseOfWoundsTable
 {
@@ -142,13 +142,14 @@ class BaseOfWoundsTable
     }
 
     /**
-     * @param Strength $strength
+     * @param int $strength
      * @param int $weaponBaseOfWounds
      *
      * @return int
      */
-    public function calculateBaseOfWounds(Strength $strength, $weaponBaseOfWounds)
+    public function calculateBaseOfWounds($strength, $weaponBaseOfWounds)
     {
+        $strength = new Strength($strength);
         return $this->getBonusesIntersection([$strength->getValue(), $weaponBaseOfWounds]);
     }
 

@@ -1,7 +1,6 @@
 <?php
 namespace DrdPlus\Tests\Tables\BaseOfWounds;
 
-use DrdPlus\Properties\Strength;
 use DrdPlus\Tables\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tests\Tables\TestWithMockery;
 
@@ -15,11 +14,11 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), -5));
-        $this->assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(0), 0));
-        $this->assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), 20));
-        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), 20));
-        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), -5));
+        $this->assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(-5, -5));
+        $this->assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(0, 0));
+        $this->assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(20, 20));
+        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(-5, 20));
+        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(20, -5));
         $this->assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
         $this->assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, -3, 10]));
         for ($bonus = -5; $bonus <= 20; $bonus++) {
