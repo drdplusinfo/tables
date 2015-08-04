@@ -27,7 +27,6 @@ class BaseOfWoundsTable
         $data = $this->loadData();
         $this->axisX = $this->collectAxisX($data);
         $this->axisY = $this->collectAxisY($data);
-        $this->checkAxises($this->axisX, $this->axisY);
         $this->bonuses = $this->collectBonuses($data);
     }
 
@@ -74,13 +73,6 @@ class BaseOfWoundsTable
         $bonusToRowRank = $this->transpose($axisY);
 
         return $bonusToRowRank; // rank (index) starts by number 1
-    }
-
-    private function checkAxises(array $firstAxis, array $secondAxis)
-    {
-        if ($firstAxis !== $secondAxis) {
-            throw new \LogicException("Both axises should have same values");
-        }
     }
 
     private function collectBonuses(array $data)

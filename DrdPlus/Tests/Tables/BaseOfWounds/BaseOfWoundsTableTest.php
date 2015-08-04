@@ -33,6 +33,8 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
+        $this->assertSame(null, $baseOfWoundsTable->sumBonuses([]));
+        $this->assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
         $this->assertSame(5, $baseOfWoundsTable->sumBonuses([-5, -5, -5]));
         $this->assertSame(14, $baseOfWoundsTable->sumBonuses([-5, 0, 10]));
         $this->assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, -3, -2, -1, 0]));
