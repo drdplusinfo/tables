@@ -20,7 +20,7 @@ class DistanceMeasurementTest extends TestWithMockery
         $inM = new DistanceMeasurement($value = 456, $unit = DistanceMeasurement::M);
         $this->assertSame((float)$value, $inM->getValue());
         $this->assertSame($unit, $inM->getUnit());
-        $this->assertSame((float)$value, $inKm->toMeters());
-        $this->assertSame((float)($value / 1000), $inKm->toKilometers());
+        $this->assertSame((float)$value, $inM->toMeters());
+        $this->assertSame((float)($value / 1000), $inM->toKilometers());
     }
 }
