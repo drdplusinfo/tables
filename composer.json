@@ -12,9 +12,6 @@
     "granam/float": "dev-master",
     "granam/integer": "dev-master",
     "drd-plus/properties": "dev-master",
-    "drd-plus/tools": "dev-master",
-    "doctrineum/float": "dev-master",
-    "doctrineum/integer": "dev-master",
     "drd/dice-roll": "dev-master"
   },
   "require-dev": {
