@@ -2,7 +2,9 @@
 namespace DrdPlus\Tables\Distance;
 
 use DrdPlus\Tables\AbstractMeasurement;
+use DrdPlus\Tables\Exceptions\UnknownUnit;
 use Granam\Float\Tools\ToFloat;
+use Granam\Scalar\Tools\ValueDescriber;
 
 class DistanceMeasurement extends AbstractMeasurement
 {
@@ -61,7 +63,9 @@ class DistanceMeasurement extends AbstractMeasurement
         if ($fromUnit === self::KM && $toUnit === self::M) {
             return $value * 1000;
         }
-        throw new \LogicException("Unknown from / to units ($fromUnit / $toUnit)");
+        throw new UnknownUnit(
+            'Unknown one or both from ' . ValueDescriber::describe($fromUnit) . ' to ' . ValueDescriber::describe($toUnit) . ' unit'
+        );
     }
 
     public function toKilometers()

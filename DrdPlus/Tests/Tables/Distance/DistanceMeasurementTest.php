@@ -78,4 +78,23 @@ class DistanceMeasurementTest extends TestWithMockery
         $measurement->addInDifferentUnit($amount, DistanceMeasurement::KM);
     }
 
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Exceptions\UnknownUnit
+     */
+    public function I_cannot_use_unknown_unit_even_if_broke_the_main_check()
+    {
+        $measurement = new InvalidDistanceMeasurement($amount = 123, DistanceMeasurement::M);
+        $measurement->addInDifferentUnit($amount, 'non-existing-unit');
+    }
+
+}
+
+/** inner */
+class InvalidDistanceMeasurement extends DistanceMeasurement
+{
+    protected function checkValueInDifferentUnit($value, $unit)
+    {
+        return; // disabling the check
+    }
 }
