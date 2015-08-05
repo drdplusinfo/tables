@@ -41,6 +41,12 @@ abstract class AbstractMeasurement extends StrictObject implements MeasurementIn
      */
     public function addInDifferentUnit($value, $unit)
     {
+        $this->checkValueInDifferentUnit($value, $unit);
+        // extend this method in child, if supports different units
+    }
+
+    protected function checkValueInDifferentUnit($value, $unit)
+    {
         $this->checkUnit($unit);
         if ($unit === $this->getUnit() && $this->getValue() !== ToFloat::toFloat($value)) {
             throw new Exceptions\SameValueExpectedForSameUnit(
@@ -48,7 +54,6 @@ abstract class AbstractMeasurement extends StrictObject implements MeasurementIn
                 'got ' . ValueDescriber::describe($value)
             );
         }
-        // extend this method in child, if supports different units
     }
 
     /**

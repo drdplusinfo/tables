@@ -33,10 +33,10 @@ class DistanceMeasurement extends AbstractMeasurement
      */
     public function addInDifferentUnit($value, $unit)
     {
-        $this->checkUnit($unit);
+        $this->checkValueInDifferentUnit($value, $unit);
         $inOriginalUnit = $this->toDifferentUnit($value, $unit, $this->getUnit());
         if ($inOriginalUnit !== $this->getValue()) {
-            throw new \LogicException(
+            throw new Exceptions\IncorrectRatio(
                 "Every another expression in another unit has to equal to original measure after conversion."
                 . " Expected equation to {$this->getValue()}({$this->getUnit()}), got $value($unit) converted into"
                 . " $inOriginalUnit({$this->getUnit()})"
