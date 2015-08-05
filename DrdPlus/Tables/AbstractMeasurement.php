@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables;
 
 use Granam\Float\Tools\ToFloat;
+use Granam\Scalar\Tools\ValueDescriber;
 use Granam\Strict\Object\StrictObject;
 
 abstract class AbstractMeasurement extends StrictObject implements MeasurementInterface
@@ -30,8 +31,24 @@ abstract class AbstractMeasurement extends StrictObject implements MeasurementIn
     protected function checkUnit($unit)
     {
         if (!in_array($unit, $this->getPossibleUnits())) {
-            throw new \LogicException('Unknown unit ' . var_export($unit, true));
+            throw new Exceptions\UnknownUnit('Unknown unit ' . ValueDescriber::describe($unit));
         }
+    }
+
+    /**
+     * @param float $value
+     * @param string $unit
+     */
+    public function addInDifferentUnit($value, $unit)
+    {
+        $this->checkUnit($unit);
+        if ($unit === $this->getUnit() && $this->getValue() !== ToFloat::toFloat($value)) {
+            throw new Exceptions\SameValueExpectedForSameUnit(
+                "Value for unit {$this->getUnit()} is already set to value of {$this->getValue()}, " .
+                'got ' . ValueDescriber::describe($value)
+            );
+        }
+        // extend this method in child, if supports different units
     }
 
     /**
