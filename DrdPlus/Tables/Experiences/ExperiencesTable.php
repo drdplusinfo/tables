@@ -1,11 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Experiences;
 
+use DrdPlus\Tables\Exceptions\UnknownUnit;
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;
-use DrdPlus\Tables\Wounds\WoundsMeasurement;
 use DrdPlus\Tables\Wounds\WoundsTable;
-use Granam\Integer\Tools\ToInteger;
+use Granam\Scalar\Tools\ValueDescriber;
 use Granam\Strict\Object\StrictObject;
 
 /**
@@ -23,83 +23,88 @@ class ExperiencesTable extends StrictObject implements TableInterface
     }
 
     /**
-     * @param MeasurementInterface $experiencesMeasurement
+     * @param MeasurementInterface $measurement
      *
      * @return int
      */
-    public function toBonus(MeasurementInterface $experiencesMeasurement)
+    public function toBonus(MeasurementInterface $measurement)
     {
-        $this->checkUnit($experiencesMeasurement->getUnit());
         $experiencesValue = null;
-        switch ($experiencesMeasurement->getUnit()) {
+        switch ($measurement->getUnit()) {
             case ExperiencesMeasurement::EXPERIENCES :
-                $experiencesValue = $experiencesMeasurement->getValue();
-                break;
+                /** @var ExperiencesMeasurement $measurement */
+                $experiencesValue = $measurement->getValue();
+
+                return $this->woundsTable->woundsToBonus($experiencesValue);
             case LevelMeasurement::LEVEL :
-                /** @var LevelMeasurement $experiencesMeasurement */
-                $experiencesValue = $experiencesMeasurement->toExperiences();
-                break;
+                /** @var LevelMeasurement $measurement */
+                $levelBonus = $this->woundsTable->woundsToBonus($measurement->getValue());
+
+                return $levelBonus + 15;
             default :
-                throw new \LogicException("Unknown unit {$experiencesMeasurement->getUnit()}");
+                throw new UnknownUnit("Unknown unit {$measurement->getUnit()}");
         }
-
-        return $this->woundsTable->woundsToBonus($experiencesValue);
-    }
-
-    private function checkUnit($unit)
-    {
-        if (!in_array($unit, $this->getSupportedUnits())) {
-            throw new \LogicException(
-                'Expected one of ' . implode(',', $this->getSupportedUnits()) . ", got $unit"
-            );
-        }
-    }
-
-    private function getSupportedUnits()
-    {
-        return [ExperiencesMeasurement::EXPERIENCES, LevelMeasurement::LEVEL];
     }
 
     /**
-     * @param int $bonus
-     * @param string $unit
+     * @param int $experiencesBonus
+     * @param string $toUnit
      *
      * @return ExperiencesMeasurement|LevelMeasurement
      */
-    public function toMeasurement($bonus, $unit = ExperiencesMeasurement::EXPERIENCES)
+    public function toMeasurement($experiencesBonus, $toUnit)
     {
-        $this->checkUnit($unit);
-        $wounds = $this->woundsTable->toMeasurement($bonus, WoundsMeasurement::WOUNDS);
-        $experiences = new ExperiencesMeasurement($wounds->getValue(), $unit, $this);
-
-        switch ($unit) {
+        switch ($toUnit) {
             case ExperiencesMeasurement::EXPERIENCES :
-                return $experiences;
+                return $this->toExperiencesMeasurement($experiencesBonus);
             case LevelMeasurement::LEVEL :
-                return new LevelMeasurement($experiences->toLevel(), LevelMeasurement::LEVEL, $this);
+                return $this->toLevelMeasurement($experiencesBonus);
             default :
-                throw new \LogicException("Unknown unit $unit");
+                throw new UnknownUnit('Unknown unit ' . ValueDescriber::describe($toUnit));
         }
     }
 
     /**
-     * @param int $bonus
+     * @param int $experiencesBonus
      *
-     * @return int
+     * @return ExperiencesMeasurement
      */
-    public function toExperiences($bonus)
+    public function toExperiencesMeasurement($experiencesBonus)
     {
-        return ToInteger::toInteger($this->toMeasurement($bonus, ExperiencesMeasurement::EXPERIENCES)->getValue());
+        return ExperiencesMeasurement::getIt($this->toExperiences($experiencesBonus), $this);
     }
 
     /**
-     * @param int $bonus
+     * @param int $experiencesBonus
+     *
+     * @return LevelMeasurement
+     */
+    public function toLevelMeasurement($experiencesBonus)
+    {
+        return LevelMeasurement::getIt($this->toLevel($experiencesBonus), $this);
+    }
+
+    /**
+     * @param int $experiencesBonus
      *
      * @return int
      */
-    public function toLevel($bonus)
+    public function toExperiences($experiencesBonus)
     {
-        return $this->toMeasurement($bonus, LevelMeasurement::LEVEL)->toLevel();
+        return $this->woundsTable->toWounds($experiencesBonus);
+    }
+
+    /**
+     * @param int $experiencesBonus
+     *
+     * @return int
+     */
+    public function toLevel($experiencesBonus)
+    {
+        $levelBonus = $experiencesBonus - 15;
+        $woundsAsLevel = $this->woundsTable->toWounds($levelBonus);
+
+        return $woundsAsLevel;
     }
 
     /**
@@ -109,7 +114,9 @@ class ExperiencesTable extends StrictObject implements TableInterface
      */
     public function experiencesToLevel($experiencesValue)
     {
-        return $this->toLevel($this->experiencesToBonus($experiencesValue));
+        $experiencesBonus = $this->experiencesToBonus($experiencesValue);
+
+        return $this->toLevel($experiencesBonus);
     }
 
     /**
@@ -117,27 +124,9 @@ class ExperiencesTable extends StrictObject implements TableInterface
      *
      * @return int
      */
-    public function experiencesToBonus($amount)
+    private function experiencesToBonus($amount)
     {
         return $this->woundsTable->woundsToBonus($amount);
-    }
-
-    /**
-     * @param int $levelValue
-     * @return int
-     */
-    public function levelToExperiences($levelValue)
-    {
-        return $this->toExperiences($this->levelToBonus($levelValue));
-    }
-
-    /**
-     * @param int $levelValue
-     * @return int
-     */
-    public function levelToTotalExperiences($levelValue)
-    {
-        return $this->toMeasurement($this->levelToBonus($levelValue), LevelMeasurement::LEVEL)->toTotalExperiences();
     }
 
     /**
@@ -145,8 +134,56 @@ class ExperiencesTable extends StrictObject implements TableInterface
      *
      * @return int
      */
-    public function levelToBonus($levelValue)
+    public function levelToExperiences($levelValue)
     {
-        return $this->experiencesToBonus(LevelMeasurement::getIt($levelValue, $this)->toExperiences());
+        $experiencesBonus = $this->levelToExperiencesBonus($levelValue);
+
+        return $this->toExperiences($experiencesBonus);
     }
+
+    /**
+     * @param int $level
+     *
+     * @return int
+     */
+    private function levelToExperiencesBonus($level)
+    {
+        return $level + 15;
+    }
+
+    /**
+     * @param int $level
+     *
+     * @return int
+     */
+    public function levelToTotalExperiences($level)
+    {
+        $experiencesSum = 0;
+        for ($levelToCast = $level; $levelToCast > 0; $levelToCast--) {
+            $experiencesSum += $this->levelToExperiences($levelToCast);
+        }
+
+        return $experiencesSum;
+    }
+
+    /**
+     * @param int $experiences
+     *
+     * @return int
+     */
+    public function experiencesToTotalLevel($experiences)
+    {
+        $levelSum = 0;
+        $lastUsedLevel = 0;
+        for ($experiencesToCast = 1; $experiencesToCast < $experiences; $experiencesToCast++) {
+            $level = $this->experiencesToLevel($experiencesToCast);
+            if ($level > $lastUsedLevel) {
+                $levelSum += $level;
+                $lastUsedLevel = $level;
+            }
+        }
+
+        return $levelSum;
+    }
+
 }
