@@ -3,7 +3,6 @@ namespace DrdPlus\Tables\Fatigue;
 
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;
-use DrdPlus\Tables\Wounds\WoundsMeasurement;
 use DrdPlus\Tables\Wounds\WoundsTable;
 use Granam\Strict\Object\StrictObject;
 
@@ -41,7 +40,7 @@ class FatigueTable extends StrictObject implements TableInterface
      */
     public function toMeasurement($bonus, $unit = FatigueMeasurement::FATIGUE)
     {
-        $wounds = $this->woundsTable->toMeasurement($bonus, WoundsMeasurement::WOUNDS);
+        $wounds = $this->woundsTable->toMeasurement($bonus);
 
         return new FatigueMeasurement($wounds->getValue(), $unit);
     }

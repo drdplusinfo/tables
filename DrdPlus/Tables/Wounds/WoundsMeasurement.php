@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Wounds;
 
 use DrdPlus\Tables\AbstractMeasurement;
 use Granam\Float\Tools\ToFloat;
+use Granam\Integer\Tools\ToInteger;
 
 class WoundsMeasurement extends AbstractMeasurement
 {
@@ -11,6 +12,14 @@ class WoundsMeasurement extends AbstractMeasurement
     public function __construct($value, $unit = self::WOUNDS)
     {
         parent::__construct($value, $unit);
+    }
+
+    /**
+     * @return int
+     */
+    public function getValue()
+    {
+        return ToInteger::toInteger(parent::getValue());
     }
 
     /**

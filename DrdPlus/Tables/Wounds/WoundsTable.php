@@ -7,7 +7,6 @@ use DrdPlus\Tables\DiceChanceEvaluator;
 
 /**
  * PPH page 165, top
- * @method WoundsMeasurement toMeasurement($bonus, $unit)
  */
 class WoundsTable extends AbstractTable
 {
@@ -28,12 +27,23 @@ class WoundsTable extends AbstractTable
 
     /**
      * @param int $bonus
+     * @param string $unit
      *
-     * @return float
+     * @return WoundsMeasurement
+     */
+    public function toMeasurement($bonus, $unit = WoundsMeasurement::WOUNDS)
+    {
+        return parent::toMeasurement($bonus, $unit);
+    }
+
+    /**
+     * @param int $bonus
+     *
+     * @return int
      */
     public function toWounds($bonus)
     {
-        return $this->toMeasurement($bonus, WoundsMeasurement::WOUNDS)->getValue();
+        return $this->toMeasurement($bonus)->getValue();
     }
 
     /**
