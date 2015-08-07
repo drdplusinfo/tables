@@ -14,24 +14,24 @@ class WoundsTableTest extends TestWithMockery
     public function can_convert_bonus_to_wounds()
     {
         $woundsTable = new WoundsTable();
+        $attempt = 1;
         do {
-            $attempt = 1;
             $attempt++;
             $zeroOrOne = $woundsTable->toWounds(-20);
             if ($zeroOrOne === 1.0) {
                 break;
             }
         } while ($attempt < 1000);
-        $this->assertSame(1.0, $zeroOrOne);
+        $this->assertSame(1, $zeroOrOne);
 
         // for bonus -10 to -7 are the same wounds
-        $this->assertSame(1.0, $woundsTable->toWounds(-10));
-        $this->assertSame(1.0, $woundsTable->toWounds(-9));
-        $this->assertSame(1.0, $woundsTable->toWounds(-8));
-        $this->assertSame(1.0, $woundsTable->toWounds(-7));
+        $this->assertSame(1, $woundsTable->toWounds(-10));
+        $this->assertSame(1, $woundsTable->toWounds(-9));
+        $this->assertSame(1, $woundsTable->toWounds(-8));
+        $this->assertSame(1, $woundsTable->toWounds(-7));
 
-        $this->assertSame(3.0, $woundsTable->toWounds(0));
-        $this->assertSame(28000.0, $woundsTable->toWounds(79));
+        $this->assertSame(3, $woundsTable->toWounds(0));
+        $this->assertSame(28000, $woundsTable->toWounds(79));
     }
 
     /**
