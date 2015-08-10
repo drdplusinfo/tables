@@ -40,13 +40,17 @@ class SpeedMeasurement extends AbstractMeasurement
 
     private function checkProportion($value, $unit, $originalValue, $originalUnit)
     {
-        if ($unit === self::M_PER_ROUND && $originalUnit === self::KM_PER_HOUR) {
+        if ($originalUnit === self::KM_PER_HOUR && $unit === self::M_PER_ROUND) {
             if ($value <= $originalValue) {
-                throw new \LogicException;
+                throw new Exceptions\MetersHaveToBeGreaterThanKilometers(
+                    "Given $value ($unit), expected at least $originalValue ($originalUnit)"
+                );
             }
-        } else if ($unit === self::KM_PER_HOUR && $originalUnit === self::M_PER_ROUND) {
+        } else if ($originalUnit === self::M_PER_ROUND && $unit === self::KM_PER_HOUR) {
             if ($value >= $originalValue) {
-                throw new \LogicException;
+                throw new Exceptions\KilometersHaveToBeLesserThanKilometers(
+                    "Given $value ($unit), expected at most $originalValue ($originalUnit)"
+                );
             }
         }
     }
@@ -65,7 +69,7 @@ class SpeedMeasurement extends AbstractMeasurement
             // conversion has been set already
             return $this->inDifferentUnits[$wantedUnit];
         }
-        throw new \LogicException(
+        throw new Exceptions\MissingConversion(
             "Can not convert {$this->getValue()}({$this->getUnit()}) into $wantedUnit"
         );
     }
