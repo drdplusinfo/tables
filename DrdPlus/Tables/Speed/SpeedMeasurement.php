@@ -31,18 +31,16 @@ class SpeedMeasurement extends AbstractMeasurement
      */
     public function addInDifferentUnit($value, $unit)
     {
-        $this->checkUnit($unit);
+        parent::checkValueInDifferentUnit($value, $unit);
         $this->checkProportion($value, $unit, $this->getValue(), $this->getUnit());
-        $this->inDifferentUnits[$unit] = ToFloat::toFloat($value);
+        if ($this->getUnit() !== $unit) {
+            $this->inDifferentUnits[$unit] = ToFloat::toFloat($value);
+        }
     }
 
     private function checkProportion($value, $unit, $originalValue, $originalUnit)
     {
-        if ($unit === $originalUnit) {
-            if ($value !== $originalValue) {
-                throw new \LogicException;
-            }
-        } else if ($unit === self::M_PER_ROUND && $originalUnit === self::KM_PER_HOUR) {
+        if ($unit === self::M_PER_ROUND && $originalUnit === self::KM_PER_HOUR) {
             if ($value <= $originalValue) {
                 throw new \LogicException;
             }
