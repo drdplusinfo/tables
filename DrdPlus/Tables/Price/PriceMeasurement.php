@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Price;
 
 use DrdPlus\Tables\AbstractMeasurement;
+use DrdPlus\Tables\Exceptions\UnknownUnit;
 
 class PriceMeasurement extends AbstractMeasurement
 {
@@ -22,7 +23,10 @@ class PriceMeasurement extends AbstractMeasurement
 
     public function getPossibleUnits()
     {
-        return array_merge([self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN], array_keys($this->inDifferentUnit));
+        return array_merge(
+            [self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN],
+            array_keys($this->inDifferentUnit)
+        );
     }
 
     /**
@@ -31,49 +35,71 @@ class PriceMeasurement extends AbstractMeasurement
      */
     public function addInDifferentUnit($value, $unit)
     {
-        throw new \LogicException('Not supported');
+        $this->checkValueInDifferentUnit($value, $unit);
+        $expectedValue = false;
+        switch ($unit) {
+            case $this->getUnit() :
+                break;
+            case self::COPPER_COIN :
+                $expectedValue = $this->toCopperCoins();
+                break;
+            case self::SILVER_COIN :
+                $expectedValue = $this->toSilverCoins();
+                break;
+            case self::GOLD_COIN :
+                $expectedValue = $this->toGoldCoins();
+                break;
+        }
+        if (is_numeric($expectedValue) && $expectedValue !== (float)$value) {
+            throw new Exceptions\IncorrectAmount(
+                "Expected $expectedValue for $unit, got $value"
+            );
+        }
     }
 
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function toCopperCoins()
     {
-        if ($this->getUnit() === self::COPPER_COIN) {
-            return $this->getValue();
+        switch ($this->getUnit()) {
+            case (self::COPPER_COIN) :
+                return $this->getValue();
+            case (self::SILVER_COIN) :
+                return $this->getValue() * 10;
+            case (self::GOLD_COIN) :
+                return $this->getValue() * 100;
+            default :
+                throw new UnknownUnit('Unknown unit ' . $this->getUnit());
         }
-        if ($this->getUnit() === self::SILVER_COIN) {
-            return $this->getValue() * 10;
-        }
-        if ($this->getUnit() === self::GOLD_COIN) {
-            return $this->getValue() * 100;
-        }
-        throw new \LogicException("Can't convert {$this->getUnit()} to " . self::COPPER_COIN);
     }
 
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function toSilverCoins()
     {
-        if ($this->getUnit() === self::COPPER_COIN) {
-            return $this->getValue() / 10;
+        switch ($this->getUnit()) {
+            case (self::COPPER_COIN) :
+                return $this->getValue() / 10;
+            case (self::SILVER_COIN) :
+                return $this->getValue();
+            case (self::GOLD_COIN) :
+                return $this->getValue() * 10;
+            default :
+                throw new UnknownUnit('Unknown unit ' . $this->getUnit());
         }
-        if ($this->getUnit() === self::SILVER_COIN) {
-            return $this->getValue();
-        }
-        if ($this->getUnit() === self::GOLD_COIN) {
-            return $this->getValue() * 10;
-        }
-        throw new \LogicException("Can't convert {$this->getUnit()} to " . self::SILVER_COIN);
     }
 
+    /** @noinspection PhpInconsistentReturnPointsInspection */
     public function toGoldCoins()
     {
-        if ($this->getUnit() === self::COPPER_COIN) {
-            return $this->getValue() / 100;
+        switch ($this->getUnit()) {
+            case (self::COPPER_COIN) :
+                return $this->getValue() / 100;
+            case (self::SILVER_COIN) :
+                return $this->getValue() / 10;
+            case (self::GOLD_COIN) :
+                return $this->getValue();
+            default :
+                throw new UnknownUnit('Unknown unit ' . $this->getUnit());
         }
-        if ($this->getUnit() === self::SILVER_COIN) {
-            return $this->getValue() / 10;
-        }
-        if ($this->getUnit() === self::GOLD_COIN) {
-            return $this->getValue();
-        }
-        throw new \LogicException("Can't convert {$this->getUnit()} to " . self::GOLD_COIN);
     }
 
 }

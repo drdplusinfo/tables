@@ -28,14 +28,14 @@ class PriceTable implements TableInterface
     }
 
     /**
-     * @param int $bonus
+     * @param int $amountBonus
      * @param string $unit
      *
      * @return PriceMeasurement
      */
-    public function toMeasurement($bonus, $unit)
+    public function toMeasurement($amountBonus, $unit)
     {
-        $amount = $this->amountTable->toAmount($bonus);
+        $amount = $this->amountTable->toAmount($amountBonus);
 
         return new PriceMeasurement($amount, $unit);
     }
