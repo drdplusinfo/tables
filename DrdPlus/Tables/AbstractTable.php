@@ -188,7 +188,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
     private function checkUnit($unit)
     {
         if (!in_array($unit, $this->getExpectedDataHeader())) {
-            throw new \LogicException(
+            throw new Exceptions\UnknownUnit(
                 "Expected unit " . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
             );
         }

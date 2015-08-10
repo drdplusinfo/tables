@@ -24,16 +24,4 @@ abstract class AbstractExperiencesMeasurement extends AbstractMeasurement
     {
         return ToInteger::toInteger(parent::getValue());
     }
-
-    /**
-     * @param float $value
-     * @param string $unit
-     */
-    public function addInDifferentUnit($value, $unit)
-    {
-        $this->checkUnit($unit);
-        if ($this->getValue() !== ToInteger::toInteger($value)) {
-            throw new \LogicException("Experiences already has a value {$this->getValue()} and can not be replaced by $value");
-        }
-    }
 }

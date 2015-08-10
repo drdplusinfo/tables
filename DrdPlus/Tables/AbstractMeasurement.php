@@ -48,7 +48,7 @@ abstract class AbstractMeasurement extends StrictObject implements MeasurementIn
     protected function checkValueInDifferentUnit($value, $unit)
     {
         $this->checkUnit($unit);
-        if ($unit === $this->getUnit() && $this->getValue() !== ToFloat::toFloat($value)) {
+        if ($unit === $this->getUnit() && ToFloat::toFloat($this->getValue()) !== ToFloat::toFloat($value)) {
             throw new Exceptions\SameValueExpectedForSameUnit(
                 "Value for unit {$this->getUnit()} is already set to value of {$this->getValue()}, " .
                 'got ' . ValueDescriber::describe($value)
