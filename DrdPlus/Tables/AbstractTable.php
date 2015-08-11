@@ -100,7 +100,10 @@ abstract class AbstractTable extends StrictObject implements TableInterface
 
     private function parseNumber($value)
     {
-        return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
+        $dashReplaced = str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
+        $commaToDot = str_replace(',', '.', $dashReplaced);
+
+        return $commaToDot;
     }
 
     private function parseValue($value)
@@ -144,7 +147,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
      */
     public function toMeasurement($bonus, $wantedUnit = null)
     {
-        $bonus = $this->convertToInteger($bonus);
+        $bonus = ToInteger::toInteger($bonus);
         $this->checkBonus($bonus);
         if (is_null($wantedUnit) && isset($this->data[$bonus])) {
             $wantedUnit = key($this->data[$bonus]);
@@ -168,14 +171,9 @@ abstract class AbstractTable extends StrictObject implements TableInterface
             return $measurement;
         }
 
-        throw new \LogicException(
-            "Missing data for bonus $bonus and expected data columns " . implode(',', $this->getExpectedDataHeader())
+        throw new \OutOfRangeException(
+            "Missing data for bonus $bonus with unit $wantedUnit"
         );
-    }
-
-    protected function convertToInteger($value)
-    {
-        return ToInteger::toInteger($value);
     }
 
     private function checkBonus($bonus)
