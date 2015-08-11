@@ -24,11 +24,11 @@ class TimeTable extends AbstractTable
     /**
      * @param int $bonus
      *
-     * @return float
+     * @return int
      */
     public function toRounds($bonus)
     {
-        return $this->toMeasurement($bonus, TimeMeasurement::ROUND)->getValue();
+        return (int)$this->toMeasurement($bonus, TimeMeasurement::ROUND)->getValue();
     }
 
     /**
@@ -48,7 +48,7 @@ class TimeTable extends AbstractTable
      */
     public function toMinutes($bonus)
     {
-        return $this->toMeasurement($bonus, TimeMeasurement::MINUTE)->getValue();
+        return (int)$this->toMeasurement($bonus, TimeMeasurement::MINUTE)->getValue();
     }
 
     /**
