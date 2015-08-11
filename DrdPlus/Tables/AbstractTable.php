@@ -38,7 +38,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
     {
         $resource = fopen($dataSourceFile, 'r');
         if (!$resource) {
-            throw new \RuntimeException("File with table data could not be read from $dataSourceFile");
+            throw new Exceptions\FileCanNotBeRead("File with table data could not be read from $dataSourceFile");
         }
         $data = [];
         do {
@@ -49,7 +49,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
         } while (is_array($row));
 
         if (!$data) {
-            throw new \RuntimeException("No data have been read from $dataSourceFile");
+            throw new Exceptions\FileIsEmpty("No data have been read from $dataSourceFile");
         }
 
         return $data;
@@ -59,7 +59,9 @@ abstract class AbstractTable extends StrictObject implements TableInterface
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
         if (!isset($data[0]) || $data[0] !== $expectedHeader) {
-            throw new \RuntimeException('Data file is corrupted. Expected header with values ' . implode(',', $expectedHeader));
+            throw new Exceptions\DataFromFileAreCorrupted(
+                'Data file is corrupted. Expected header with ' . implode(',', $expectedHeader)
+            );
         }
         $indexed = [];
         unset($data[0]); // removing human header
@@ -70,7 +72,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
             }
         }
         if (count($indexed) === 0) {
-            throw new \RuntimeException("Data file is empty. Expected at least single row with values (header excluded)");
+            throw new Exceptions\DataRowsAreMissingInFile("Data file is empty. Expected at least single row with values (header excluded)");
         }
 
         return $indexed;
@@ -215,7 +217,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
     {
         $chanceParts = explode('/', $chance);
         if (!isset($chanceParts[1]) || intval($chanceParts[1]) !== 6) {
-            throw new \LogicException("Expected only x/6 chance, got $chance");
+            throw new Exceptions\UnexpectedChangeNotation("Expected only x/6 chance, got $chance");
         }
 
         return intval([0]);
