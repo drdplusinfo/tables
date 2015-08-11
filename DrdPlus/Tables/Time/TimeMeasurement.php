@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Time;
 
 use DrdPlus\Tables\AbstractMeasurement;
+use DrdPlus\Tables\Exceptions\DifferentValueExpectedForDifferentUnit;
 use Granam\Float\Tools\ToFloat;
 
 class TimeMeasurement extends AbstractMeasurement
@@ -38,26 +39,35 @@ class TimeMeasurement extends AbstractMeasurement
      */
     public function addInDifferentUnit($value, $unit)
     {
-        $this->checkUnit($unit);
-        $this->checkProportion($value, $unit, $this->getValue(), $this->getUnit());
+        $this->checkValueInDifferentUnit($value, $unit);
         $this->inDifferentUnits[$unit] = ToFloat::toFloat($value);
     }
 
-    private function checkProportion($value, $unit, $originalValue, $originalUnit)
+    protected function checkValueInDifferentUnit($newValue, $newUnit)
     {
-        if ($unit === $originalUnit) {
-            if ($value !== $originalValue) {
-                throw new \LogicException;
+        parent::checkValueInDifferentUnit($newValue, $newUnit);
+        if ($newUnit === $this->getUnit()) {
+            return;
+        }
+        if (ToFloat::toFloat($newValue) === ToFloat::toFloat($this->getValue())) {
+            throw new DifferentValueExpectedForDifferentUnit(
+                "New value $newValue ($newUnit) can not be same as current {$this->getValue()} ({$this->getUnit()})"
+            );
+        }
+
+        $newUnitSequence = array_search($newUnit, $this->getPossibleUnits());
+        $originalUnitSequence = array_search($this->getUnit(), $this->getPossibleUnits());
+        // if key is lesser than the unit is smaller, see sequence in getPossibleUnits()
+        if ($newUnitSequence < $originalUnitSequence) {
+            if (ToFloat::toFloat($newValue) > ToFloat::toFloat($this->getValue())) {
+                throw new Exceptions\PreviouslyDefinedUnitShouldBeLesser(
+                    "Expected value lesser than {$this->getValue()} ({$this->getUnit()}), got $newValue ($newUnit)"
+                );
             }
-            // if key is lesser then the unit is smaller, see sequence in getPossibleUnits()
-        } else if (array_search($unit, $this->getPossibleUnits()) < array_search($originalUnit, $this->getPossibleUnits())) {
-            if ($value >= $originalValue) {
-                throw new \LogicException;
-            }
-        } else {
-            if ($value <= $originalValue) {
-                throw new \LogicException;
-            }
+        } else if (ToFloat::toFloat($newValue) < ToFloat::toFloat($this->getValue())) {
+            throw new Exceptions\LaterDefinedValueShouldBeGreater(
+                "Expected value greater than {$this->getValue()} ({$this->getUnit()}), got $newValue ($newUnit)"
+            );
         }
     }
 
