@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Amount;
 
 use DrdPlus\Tables\Amount\AmountMeasurement;
-use DrdPlus\Tests\Tables\TestWithMockery;
+use DrdPlus\Tests\Tables\AbstractTestOfMeasurement;
 
-class AmountMeasurementTest extends TestWithMockery
+class AmountMeasurementTest extends AbstractTestOfMeasurement
 {
 
     /**

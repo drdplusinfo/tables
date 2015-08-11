@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Distance;
 
 use DrdPlus\Tables\Distance\DistanceMeasurement;
-use DrdPlus\Tests\Tables\TestWithMockery;
+use DrdPlus\Tests\Tables\AbstractTestOfMeasurement;
 
-class DistanceMeasurementTest extends TestWithMockery
+class DistanceMeasurementTest extends AbstractTestOfMeasurement
 {
 
     /**
