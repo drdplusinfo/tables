@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Time;
 use DrdPlus\Tables\AbstractMeasurement;
 use DrdPlus\Tables\Exceptions\DifferentValueExpectedForDifferentUnit;
 use Granam\Float\Tools\ToFloat;
+use Granam\Integer\Tools\ToInteger;
 
 class TimeMeasurement extends AbstractMeasurement
 {
@@ -23,6 +24,18 @@ class TimeMeasurement extends AbstractMeasurement
     public function __construct($value, $unit)
     {
         parent::__construct($value, $unit);
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getValue()
+    {
+        if ($this->getUnit() === self::ROUND || $this->getUnit() === self::MINUTE) {
+            return ToInteger::toInteger(parent::getValue());
+        }
+
+        return parent::getValue();
     }
 
     /**
@@ -71,46 +84,4 @@ class TimeMeasurement extends AbstractMeasurement
         }
     }
 
-    public function toRounds()
-    {
-        return $this->convertTo(self::ROUND);
-    }
-
-    private function convertTo($wantedUnit)
-    {
-        if ($wantedUnit === $this->getUnit()) {
-            return $this->getValue();
-        }
-        if (isset($this->inDifferentUnits[$wantedUnit])) {
-            return $this->inDifferentUnits[$wantedUnit];
-        }
-        throw new \LogicException(
-            "Can not convert {$this->getValue()}({$this->getUnit()}) into $wantedUnit"
-        );
-    }
-
-    public function toMinutes()
-    {
-        return $this->convertTo(self::MINUTE);
-    }
-
-    public function toHours()
-    {
-        return $this->convertTo(self::HOUR);
-    }
-
-    public function toDays()
-    {
-        return $this->convertTo(self::DAY);
-    }
-
-    public function toMonths()
-    {
-        return $this->convertTo(self::MONTH);
-    }
-
-    public function toYears()
-    {
-        return $this->convertTo(self::YEAR);
-    }
 }

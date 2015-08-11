@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\Time;
 use DrdPlus\Tables\AbstractTable;
 use DrdPlus\Tables\DummyEvaluator;
 
+/**
+ * @method TimeMeasurement toMeasurement($bonus, $unit)
+ */
 class TimeTable extends AbstractTable
 {
     public function __construct()
