@@ -59,13 +59,13 @@ class TimeMeasurement extends AbstractMeasurement
         $originalUnitSequence = array_search($this->getUnit(), $this->getPossibleUnits());
         // if key is lesser than the unit is smaller, see sequence in getPossibleUnits()
         if ($newUnitSequence < $originalUnitSequence) {
-            if (ToFloat::toFloat($newValue) > ToFloat::toFloat($this->getValue())) {
-                throw new Exceptions\PreviouslyDefinedUnitShouldBeLesser(
+            if (ToFloat::toFloat($newValue) < ToFloat::toFloat($this->getValue())) {
+                throw new Exceptions\PreviouslyDefinedUnitShouldBeGreater(
                     "Expected value lesser than {$this->getValue()} ({$this->getUnit()}), got $newValue ($newUnit)"
                 );
             }
-        } else if (ToFloat::toFloat($newValue) < ToFloat::toFloat($this->getValue())) {
-            throw new Exceptions\LaterDefinedValueShouldBeGreater(
+        } else if (ToFloat::toFloat($newValue) > ToFloat::toFloat($this->getValue())) {
+            throw new Exceptions\LaterDefinedValueShouldBeLesser(
                 "Expected value greater than {$this->getValue()} ({$this->getUnit()}), got $newValue ($newUnit)"
             );
         }
