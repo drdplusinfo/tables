@@ -68,6 +68,12 @@ abstract class AbstractTable extends StrictObject implements TableInterface
         foreach ($data as $row) {
             if (!empty($row)) {
                 $formattedRow = $this->formatRow($row, $expectedHeader);
+                if (isset($indexed[key($formattedRow)])) {
+                    throw new Exceptions\BonusAlreadyPaired(
+                        'Bonus ' . key($formattedRow) . ' is already paired with value(s) ' . implode(',', $indexed[key($formattedRow)])
+                        . ', got ' . implode(',', current($formattedRow))
+                    );
+                }
                 $indexed[key($formattedRow)] = current($formattedRow);
             }
         }
@@ -220,7 +226,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
             throw new Exceptions\UnexpectedChangeNotation("Expected only x/6 chance, got $chance");
         }
 
-        return intval([0]);
+        return intval($chanceParts[0]);
     }
 
     /**

@@ -9,6 +9,18 @@ class AbstractTableTest extends TestWithMockery
 {
 
     /**
+     * @var string
+     */
+    private $tempFilename;
+
+    protected function tearDown()
+    {
+        if (file_exists($this->tempFilename)) {
+            unlink($this->tempFilename);
+        }
+    }
+
+    /**
      * @test
      * @expectedException \DrdPlus\Tables\Exceptions\FileCanNotBeRead
      */
@@ -17,7 +29,7 @@ class AbstractTableTest extends TestWithMockery
         $originalErrorReporting = error_reporting();
         try {
             error_reporting($originalErrorReporting ^ E_WARNING);
-            TestOfBrokenAbstractTable::getIt('non-existing-file');
+            TestOfAbstractTable::getIt('non-existing-file');
         } catch (\Exception $exception) {
             error_reporting($originalErrorReporting);
             $lastError = error_get_last();
@@ -32,7 +44,12 @@ class AbstractTableTest extends TestWithMockery
      */
     public function I_can_not_create_table_with_empty_source_file()
     {
-        TestOfBrokenAbstractTable::getIt(tempnam(sys_get_temp_dir(), 'foo'));
+        TestOfAbstractTable::getIt($this->createTempFilename());
+    }
+
+    private function createTempFilename()
+    {
+        return $this->tempFilename = tempnam(sys_get_temp_dir(), 'foo');
     }
 
     /**
@@ -41,9 +58,9 @@ class AbstractTableTest extends TestWithMockery
      */
     public function I_can_not_create_table_with_corrupted_data()
     {
-        $filename = tempnam(sys_get_temp_dir(), 'foo');
+        $filename = $this->createTempFilename();
         file_put_contents($filename, 'bar');
-        TestOfBrokenAbstractTable::getIt($filename);
+        TestOfAbstractTable::getIt($filename);
     }
 
     /**
@@ -52,9 +69,9 @@ class AbstractTableTest extends TestWithMockery
      */
     public function I_can_not_create_table_without_data()
     {
-        $filename = tempnam(sys_get_temp_dir(), 'foo');
+        $filename = $this->createTempFilename();
         file_put_contents($filename, 'bonus');
-        TestOfBrokenAbstractTable::getIt($filename);
+        TestOfAbstractTable::getIt($filename);
     }
 
     /**
@@ -63,10 +80,10 @@ class AbstractTableTest extends TestWithMockery
      */
     public function I_can_not_convert_bonus_to_unknown_unit()
     {
-        $filename = tempnam(sys_get_temp_dir(), 'foo');
+        $filename = $this->createTempFilename();
         $bonus = 123;
         file_put_contents($filename, "bonus\n$bonus");
-        $table = TestOfBrokenAbstractTable::getIt($filename);
+        $table = TestOfAbstractTable::getIt($filename);
         $table->toMeasurement($bonus, 'non-existing-unit');
     }
 
@@ -76,19 +93,70 @@ class AbstractTableTest extends TestWithMockery
      */
     public function I_can_not_convert_bonus_to_invalid_value_change()
     {
-        $filename = tempnam(sys_get_temp_dir(), 'foo');
+        $filename = $this->createTempFilename();
         $bonus = 123;
         $unit = 'bar';
         $invalidChance = '1/1';
         file_put_contents($filename, "bonus,$unit\n$bonus,$invalidChance");
-        $table = TestOfBrokenAbstractTable::getIt($filename, $unit);
+        $table = TestOfAbstractTable::getIt($filename, $unit);
         $table->toMeasurement($bonus, $unit);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Exceptions\BonusAlreadyPaired
+     */
+    public function I_can_not_use_same_bonus_for_more_values()
+    {
+        $filename = $this->createTempFilename();
+        $bonus = 123;
+        $unit = 'bar';
+        file_put_contents($filename, "bonus,$unit\n$bonus,1\n$bonus,2");
+        TestOfAbstractTable::getIt($filename, $unit);
+    }
+
+    /**
+     * @test
+     */
+    public function My_chance_is_evaluated_properly()
+    {
+        $filename = $this->createTempFilename();
+        $bonuses = range(1, 6);
+        $unit = 'bar';
+        $chances = [];
+        $rows = [];
+        foreach ($bonuses as $bonus) {
+            $chances[] = $chance = $this->createSomeChance($bonus);
+            $rows[] = "$bonus,$chance/6";
+        }
+        file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
+        $table = TestOfAbstractTable::getIt($filename, $unit, $evaluator = $this->mockery(EvaluatorInterface::class));
+        $valuesToEvaluate = [];
+        $evaluator->shouldReceive('evaluate')
+            ->atLeast()->once()
+            ->andReturnUsing(function () use (&$valuesToEvaluate) {
+                $valuesToEvaluate[] = $toEvaluate = func_get_arg(0);
+
+                return $toEvaluate;
+            });
+        foreach ($bonuses as $bonus) {
+            $this->assertSame(
+                [$unit => $this->createSomeChance($bonus)], /** @see \DrdPlus\Tests\Tables\TestOfAbstractTable::convertToMeasurement */
+                $table->toMeasurement($bonus, $unit)
+            );
+        }
+        $this->assertSame($chances, $valuesToEvaluate);
+    }
+
+    private function createSomeChance($referenceNumber)
+    {
+        return $referenceNumber * 2;
     }
 
 }
 
 /** inner */
-class TestOfBrokenAbstractTable extends AbstractTable
+class TestOfAbstractTable extends AbstractTable
 {
     /**
      * @var string
@@ -96,9 +164,9 @@ class TestOfBrokenAbstractTable extends AbstractTable
     private $dataFileName;
     private $dataHeader;
 
-    public static function getIt($dataFileName, $unit = false)
+    public static function getIt($dataFileName, $unit = null, EvaluatorInterface $evaluator = null)
     {
-        $evaluator = \Mockery::mock(EvaluatorInterface::class);
+        $evaluator = $evaluator ?: \Mockery::mock(EvaluatorInterface::class);
 
         /** @var EvaluatorInterface $evaluator */
 
@@ -108,7 +176,7 @@ class TestOfBrokenAbstractTable extends AbstractTable
     public function __construct(EvaluatorInterface $evaluator, $dataFileName = false, $unit = false)
     {
         $this->dataFileName = $dataFileName;
-        $this->dataHeader = $unit !== false ? [$unit] : [];
+        $this->dataHeader = $unit !== null ? [$unit] : [];
         parent::__construct($evaluator);
     }
 
@@ -136,7 +204,7 @@ class TestOfBrokenAbstractTable extends AbstractTable
      */
     protected function convertToMeasurement($value, $unit)
     {
-        throw new \LogicException('This should not be called');
+        return [$unit => $value];
     }
 
 }
