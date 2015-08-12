@@ -10,7 +10,7 @@ class DummyEvaluator implements EvaluatorInterface
      */
     public function evaluate($maxRollToGetValue)
     {
-        throw new \LogicException('Dummy evaluator should never be called');
+        throw new Exceptions\UnsupportedMethodCalled('Dummy evaluator should never be called');
     }
 
 }
