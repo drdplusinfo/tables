@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Fatigue;
+namespace DrdPlus\Tables\Derived\Fatigue;
 
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;

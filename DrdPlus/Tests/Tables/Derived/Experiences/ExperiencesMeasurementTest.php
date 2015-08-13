@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Experiences;
+namespace DrdPlus\Tests\Tables\Derived\Experiences;
 
-use DrdPlus\Tables\Experiences\ExperiencesMeasurement;
-use DrdPlus\Tables\Experiences\ExperiencesTable;
+use DrdPlus\Tables\Derived\Experiences\ExperiencesMeasurement;
+use DrdPlus\Tables\Derived\Experiences\ExperiencesTable;
 
 class ExperiencesMeasurementTest extends AbstractTestOfExperiencesMeasurement
 {

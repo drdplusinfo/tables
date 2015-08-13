@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Experiences;
+namespace DrdPlus\Tables\Derived\Experiences;
 
 use DrdPlus\Tables\Exceptions\UnknownUnit;
 use DrdPlus\Tables\MeasurementInterface;

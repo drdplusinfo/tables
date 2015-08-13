@@ -1,9 +1,9 @@
 <?php
-namespace DrdPlus\Tests\Tables\Price;
+namespace DrdPlus\Tests\Tables\Derived\Price;
 
 use DrdPlus\Tables\Base\Amount\AmountTable;
-use DrdPlus\Tables\Price\PriceMeasurement;
-use DrdPlus\Tables\Price\PriceTable;
+use DrdPlus\Tables\Derived\Price\PriceMeasurement;
+use DrdPlus\Tables\Derived\Price\PriceTable;
 use DrdPlus\Tests\Tables\TestWithMockery;
 
 class PriceTableTest extends TestWithMockery

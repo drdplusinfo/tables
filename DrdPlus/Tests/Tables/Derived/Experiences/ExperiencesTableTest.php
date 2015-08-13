@@ -1,9 +1,9 @@
 <?php
-namespace DrdPlus\Tests\Tables\Experiences;
+namespace DrdPlus\Tests\Tables\Derived\Experiences;
 
-use DrdPlus\Tables\Experiences\ExperiencesMeasurement;
-use DrdPlus\Tables\Experiences\ExperiencesTable;
-use DrdPlus\Tables\Experiences\LevelMeasurement;
+use DrdPlus\Tables\Derived\Experiences\ExperiencesMeasurement;
+use DrdPlus\Tables\Derived\Experiences\ExperiencesTable;
+use DrdPlus\Tables\Derived\Experiences\LevelMeasurement;
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\Base\Wounds\WoundsTable;
 use DrdPlus\Tests\Tables\TestWithMockery;

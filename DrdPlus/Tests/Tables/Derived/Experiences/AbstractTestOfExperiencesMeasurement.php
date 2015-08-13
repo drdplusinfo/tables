@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Experiences;
+namespace DrdPlus\Tests\Tables\Derived\Experiences;
 
-use DrdPlus\Tables\Experiences\ExperiencesTable;
+use DrdPlus\Tables\Derived\Experiences\ExperiencesTable;
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tests\Tables\AbstractTestOfMeasurement;
 

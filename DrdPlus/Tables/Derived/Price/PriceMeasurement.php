@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Price;
+namespace DrdPlus\Tables\Derived\Price;
 
 use DrdPlus\Tables\AbstractMeasurement;
 use DrdPlus\Tables\Exceptions\UnknownUnit;

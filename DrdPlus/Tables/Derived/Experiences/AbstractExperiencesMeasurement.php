@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Experiences;
+namespace DrdPlus\Tables\Derived\Experiences;
 
 use DrdPlus\Tables\AbstractMeasurement;
 use Granam\Integer\Tools\ToInteger;

@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Price;
+namespace DrdPlus\Tests\Tables\Derived\Price;
 
-use DrdPlus\Tables\Price\PriceMeasurement;
+use DrdPlus\Tables\Derived\Price\PriceMeasurement;
 use DrdPlus\Tests\Tables\AbstractTestOfMeasurement;
 
 class PriceMeasurementTest extends AbstractTestOfMeasurement
@@ -59,7 +59,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_silver_value_to_copper()
     {
@@ -69,7 +69,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_gold_value_to_copper()
     {
@@ -79,7 +79,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_copper_value_to_silver()
     {
@@ -89,7 +89,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_gold_value_to_silver()
     {
@@ -99,7 +99,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_copper_value_to_gold()
     {
@@ -109,7 +109,7 @@ class PriceMeasurementTest extends AbstractTestOfMeasurement
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Price\Exceptions\IncorrectAmount
+     * @expectedException \DrdPlus\Tables\Derived\Price\Exceptions\IncorrectAmount
      */
     public function I_cannot_add_wrong_silver_value_to_gold()
     {

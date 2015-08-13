@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Experiences;
+namespace DrdPlus\Tables\Derived\Experiences;
 
 class LevelMeasurement extends AbstractExperiencesMeasurement
 {

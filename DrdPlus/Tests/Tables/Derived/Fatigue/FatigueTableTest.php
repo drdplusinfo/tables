@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Fatigue;
+namespace DrdPlus\Tests\Tables\Derived\Fatigue;
 
-use DrdPlus\Tables\Fatigue\FatigueMeasurement;
-use DrdPlus\Tables\Fatigue\FatigueTable;
+use DrdPlus\Tables\Derived\Fatigue\FatigueMeasurement;
+use DrdPlus\Tables\Derived\Fatigue\FatigueTable;
 use DrdPlus\Tests\Tables\TestWithMockery;
 
 class FatigueTableTest extends TestWithMockery
