@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Derived\Fatigue;
 
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;
-use DrdPlus\Tables\Base\Wounds\WoundsTable;
+use DrdPlus\Tables\BonusBased\Wounds\WoundsTable;
 use Granam\Strict\Object\StrictObject;
 
 /**
@@ -12,7 +12,7 @@ use Granam\Strict\Object\StrictObject;
 class FatigueTable extends StrictObject implements TableInterface
 {
     /**
-     * @var \DrdPlus\Tables\Base\Wounds\WoundsTable
+     * @var \DrdPlus\Tables\BonusBased\Wounds\WoundsTable
      */
     private $woundsTable;
 

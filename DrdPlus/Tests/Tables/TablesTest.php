@@ -1,17 +1,17 @@
 <?php
 namespace DrdPlus\Tests\Tables;
 
-use DrdPlus\Tables\Base\Amount\AmountTable;
+use DrdPlus\Tables\BonusBased\Amount\AmountTable;
 use DrdPlus\Tables\BaseOfWounds\BaseOfWoundsTable;
-use DrdPlus\Tables\Base\Distance\DistanceTable;
+use DrdPlus\Tables\BonusBased\Distance\DistanceTable;
 use DrdPlus\Tables\Derived\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Derived\Fatigue\FatigueTable;
 use DrdPlus\Tables\Derived\Price\PriceTable;
-use DrdPlus\Tables\Base\Speed\SpeedTable;
+use DrdPlus\Tables\BonusBased\Speed\SpeedTable;
 use DrdPlus\Tables\Tables;
-use DrdPlus\Tables\Base\Time\TimeTable;
-use DrdPlus\Tables\Base\Weight\WeightTable;
-use DrdPlus\Tables\Base\Wounds\WoundsTable;
+use DrdPlus\Tables\BonusBased\Time\TimeTable;
+use DrdPlus\Tables\BonusBased\Weight\WeightTable;
+use DrdPlus\Tables\BonusBased\Wounds\WoundsTable;
 
 class TablesTest extends TestWithMockery
 {

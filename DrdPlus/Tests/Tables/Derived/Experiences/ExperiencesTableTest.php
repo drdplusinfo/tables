@@ -5,7 +5,7 @@ use DrdPlus\Tables\Derived\Experiences\ExperiencesMeasurement;
 use DrdPlus\Tables\Derived\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Derived\Experiences\LevelMeasurement;
 use DrdPlus\Tables\MeasurementInterface;
-use DrdPlus\Tables\Base\Wounds\WoundsTable;
+use DrdPlus\Tables\BonusBased\Wounds\WoundsTable;
 use DrdPlus\Tests\Tables\TestWithMockery;
 
 class ExperiencesTableTest extends TestWithMockery

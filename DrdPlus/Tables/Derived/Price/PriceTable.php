@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Derived\Price;
 
-use DrdPlus\Tables\Base\Amount\AmountTable;
+use DrdPlus\Tables\BonusBased\Amount\AmountTable;
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;
 
 class PriceTable implements TableInterface
 {
     /**
-     * @var \DrdPlus\Tables\Base\Amount\AmountTable
+     * @var \DrdPlus\Tables\BonusBased\Amount\AmountTable
      */
     private $amountTable;
 
