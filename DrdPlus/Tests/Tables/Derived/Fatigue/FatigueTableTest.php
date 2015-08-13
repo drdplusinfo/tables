@@ -14,14 +14,15 @@ class FatigueTableTest extends TestWithMockery
     public function can_convert_bonus_to_fatigue()
     {
         $fatigueTable = new FatigueTable();
+        $attempt = 1;
+        $maxAttempts = 10000;
         do {
-            $attempt = 1;
-            $attempt++;
             $zeroOrOne = $fatigueTable->toFatigue(-20);
             if ($zeroOrOne === 1.0) {
                 break;
             }
-        } while ($attempt < 1000);
+        } while ($attempt++ < $maxAttempts);
+        $this->assertLessThan($maxAttempts, $attempt);
         $this->assertSame(1.0, $zeroOrOne);
 
         // for bonus -10 to -7 are the same fatigue

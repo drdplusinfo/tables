@@ -14,14 +14,15 @@ class AmountTableTest extends TestWithMockery
     public function can_convert_bonus_to_amount()
     {
         $amountTable = new AmountTable();
+        $maxAttempts = 10000;
+        $attempt = 1;
         do {
-            $attempt = 1;
-            $attempt++;
             $zeroOrOne = $amountTable->toAmount(-20);
             if ($zeroOrOne === 1.0) {
                 break;
             }
-        } while ($attempt < 1000);
+        } while ($attempt++ < $maxAttempts);
+        $this->assertLessThan($maxAttempts, $attempt);
         $this->assertSame(1.0, $zeroOrOne);
         $this->assertSame(1.0, $amountTable->toAmount(0));
         $this->assertSame(90000.0, $amountTable->toAmount(99));
