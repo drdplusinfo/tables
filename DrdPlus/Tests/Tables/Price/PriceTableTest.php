@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Price;
 
-use DrdPlus\Tables\Amount\AmountTable;
+use DrdPlus\Tables\Base\Amount\AmountTable;
 use DrdPlus\Tables\Price\PriceMeasurement;
 use DrdPlus\Tables\Price\PriceTable;
 use DrdPlus\Tests\Tables\TestWithMockery;

@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Experiences;
 use DrdPlus\Tables\Exceptions\UnknownUnit;
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\TableInterface;
-use DrdPlus\Tables\Wounds\WoundsTable;
+use DrdPlus\Tables\Base\Wounds\WoundsTable;
 use Granam\Scalar\Tools\ValueDescriber;
 use Granam\Strict\Object\StrictObject;
 
@@ -13,7 +13,7 @@ use Granam\Strict\Object\StrictObject;
  */
 class ExperiencesTable extends StrictObject implements TableInterface
 {
-    /** @var \DrdPlus\Tables\Wounds\WoundsTable */
+    /** @var \DrdPlus\Tables\Base\Wounds\WoundsTable */
     private $woundsTable;
 
     public function __construct(WoundsTable $woundsTable)
