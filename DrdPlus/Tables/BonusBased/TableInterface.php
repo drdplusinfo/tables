@@ -1,5 +1,7 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\BonusBased;
+
+use DrdPlus\Tables\MeasurementInterface;
 
 interface TableInterface
 {

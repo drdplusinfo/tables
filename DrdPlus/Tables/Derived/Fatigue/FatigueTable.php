@@ -2,14 +2,13 @@
 namespace DrdPlus\Tables\Derived\Fatigue;
 
 use DrdPlus\Tables\MeasurementInterface;
-use DrdPlus\Tables\TableInterface;
 use DrdPlus\Tables\BonusBased\Wounds\WoundsTable;
 use Granam\Strict\Object\StrictObject;
 
 /**
  * PPH page 165, top
  */
-class FatigueTable extends StrictObject implements TableInterface
+class FatigueTable extends StrictObject
 {
     /**
      * @var \DrdPlus\Tables\BonusBased\Wounds\WoundsTable

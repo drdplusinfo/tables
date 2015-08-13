@@ -3,9 +3,8 @@ namespace DrdPlus\Tables\Derived\Price;
 
 use DrdPlus\Tables\BonusBased\Amount\AmountTable;
 use DrdPlus\Tables\MeasurementInterface;
-use DrdPlus\Tables\TableInterface;
 
-class PriceTable implements TableInterface
+class PriceTable
 {
     /**
      * @var \DrdPlus\Tables\BonusBased\Amount\AmountTable

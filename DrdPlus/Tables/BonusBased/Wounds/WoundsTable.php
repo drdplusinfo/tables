@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\BonusBased\Wounds;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
-use DrdPlus\Tables\AbstractTable;
+use DrdPlus\Tables\BonusBased\AbstractTable;
 use DrdPlus\Tables\DiceChanceEvaluator;
 
 /**

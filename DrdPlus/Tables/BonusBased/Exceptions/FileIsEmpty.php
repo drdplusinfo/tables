@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Exceptions;
+namespace DrdPlus\Tables\BonusBased\Exceptions;
 
 class FileIsEmpty extends \RuntimeException implements Runtime
 {

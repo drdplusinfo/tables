@@ -1,9 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables;
+namespace DrdPlus\Tests\Tables\BonusBased;
 
-use DrdPlus\Tables\AbstractTable;
+use DrdPlus\Tables\BonusBased\AbstractTable;
 use DrdPlus\Tables\EvaluatorInterface;
 use DrdPlus\Tables\MeasurementInterface;
+use DrdPlus\Tests\Tables\TestWithMockery;
 
 class AbstractTableTest extends TestWithMockery
 {
@@ -22,7 +23,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\FileCanNotBeRead
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\FileCanNotBeRead
      */
     public function I_can_not_create_table_without_source_file()
     {
@@ -40,7 +41,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\FileIsEmpty
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\FileIsEmpty
      */
     public function I_can_not_create_table_with_empty_source_file()
     {
@@ -54,7 +55,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\DataFromFileAreCorrupted
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\DataFromFileAreCorrupted
      */
     public function I_can_not_create_table_with_corrupted_data()
     {
@@ -65,7 +66,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\DataRowsAreMissingInFile
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\DataRowsAreMissingInFile
      */
     public function I_can_not_create_table_without_data()
     {
@@ -89,7 +90,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\UnexpectedChangeNotation
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\UnexpectedChangeNotation
      */
     public function I_can_not_convert_bonus_to_invalid_value_change()
     {
@@ -104,7 +105,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\BonusAlreadyPaired
+     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\BonusAlreadyPaired
      */
     public function I_can_not_use_same_bonus_for_more_values()
     {

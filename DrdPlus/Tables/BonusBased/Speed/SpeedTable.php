@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\BonusBased\Speed;
-use DrdPlus\Tables\AbstractTable;
+
+use DrdPlus\Tables\BonusBased\AbstractTable;
 use DrdPlus\Tables\DummyEvaluator;
 
 /**

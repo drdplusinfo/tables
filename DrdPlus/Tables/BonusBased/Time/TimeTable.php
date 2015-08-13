@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\BonusBased\Time;
 
-use DrdPlus\Tables\AbstractTable;
+use DrdPlus\Tables\BonusBased\AbstractTable;
 use DrdPlus\Tables\DummyEvaluator;
 
 /**

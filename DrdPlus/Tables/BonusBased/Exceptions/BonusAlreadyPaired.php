@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Exceptions;
+namespace DrdPlus\Tables\BonusBased\Exceptions;
 
 class BonusAlreadyPaired extends \LogicException implements Logic
 {

@@ -1,11 +1,14 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\BonusBased;
 
+use DrdPlus\Tables\EvaluatorInterface;
+use DrdPlus\Tables\Exceptions\UnknownUnit;
+use DrdPlus\Tables\MeasurementInterface;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 
-abstract class AbstractTable extends StrictObject implements TableInterface
+abstract class AbstractTable extends StrictObject
 {
 
     /**
@@ -194,7 +197,7 @@ abstract class AbstractTable extends StrictObject implements TableInterface
     private function checkUnit($unit)
     {
         if (!in_array($unit, $this->getExpectedDataHeader())) {
-            throw new Exceptions\UnknownUnit(
+            throw new UnknownUnit(
                 "Expected unit " . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
             );
         }
