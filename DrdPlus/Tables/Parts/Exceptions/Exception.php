@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Derived\Price\Exceptions;
+namespace DrdPlus\Tables\Parts\Exceptions;
 
 interface Exception extends \DrdPlus\Tables\Exceptions\Exception
 {
