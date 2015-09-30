@@ -2,11 +2,12 @@
 namespace DrdPlus\Tables\BaseOfWounds;
 
 use DrdPlus\Properties\Base\Strength;
+use Granam\Strict\Object\StrictObject;
 
 /**
  * Base of wounds is special table, without standard interface
  */
-class BaseOfWoundsTable
+class BaseOfWoundsTable extends StrictObject
 {
 
     /**

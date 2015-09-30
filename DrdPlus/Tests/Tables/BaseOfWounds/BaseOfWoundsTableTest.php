@@ -10,7 +10,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_calculate_base_of_wounds()
+    public function I_can_calculate_base_of_wounds()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
@@ -29,7 +29,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_sum_bonuses() // like weights
+    public function I_can_sum_bonuses() // like weights
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
@@ -43,7 +43,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_double_bonus()
+    public function I_can_double_bonus()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
@@ -53,7 +53,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_half_bonus()
+    public function I_can_half_bonus()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
@@ -63,7 +63,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_ten_times_multiple_bonus()
+    public function I_can_ten_times_multiple_bonus()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
@@ -73,7 +73,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_ten_times_divide_bonus()
+    public function I_can_ten_times_divide_bonus()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
