@@ -2,6 +2,7 @@
 namespace DrdPlus\Tests\Tables;
 
 use DrdPlus\Tables\MeasurementInterface;
+use DrdPlus\Tables\Parts\AbstractTable;
 
 abstract class AbstractTestOfMeasurement extends TestWithMockery
 {
@@ -9,59 +10,104 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_add_value_in_same_unit()
+    public function I_can_get_value_and_unit()
     {
-        $measurement = $this->createSut($amount = 123, $this->getDefaultUnit());
-        $this->assertEquals($amount, $measurement->getValue());
-        $this->assertSame($this->getDefaultUnit(), $measurement->getUnit());
-        $measurement->addInDifferentUnit($amount, $this->getDefaultUnit());
+        $measurement = $this->createSut($amount = 123);
         $this->assertEquals($amount, $measurement->getValue());
         $this->assertSame($this->getDefaultUnit(), $measurement->getUnit());
     }
 
     /**
      * @param int $amount
-     * @param string $unit
      *
      * @return MeasurementInterface
      */
-    protected function createSut($amount, $unit)
+    protected function createSut($amount)
     {
-        $sutClass = $this->getTestedClass();
+        $sutClass = $this->getSutClass();
+        $unit = $this->getDefaultUnit();
+        $table = $this->findTable();
 
-        return new $sutClass($amount, $unit);
+        if (!$table) {
+            return new $sutClass($amount, $unit);
+        }
+
+        return new $sutClass($amount, $unit, $table);
     }
 
     /**
      * @return string|MeasurementInterface
      */
-    protected static function getTestedClass()
+    protected static function getSutClass()
     {
         return preg_replace('~Tests\\\(.+)Test$~', '$1', static::class);
     }
 
     protected function getDefaultUnit()
     {
-        return strtolower(preg_replace('~.+\\\(\w+)MeasurementTest$~', '$1', static::class));
+        return constant($this->getConstantAbsoluteName());
+    }
+
+    protected function getConstantAbsoluteName()
+    {
+        $constantBaseName = $this->getConstantBaseName();
+        $class = $this->getSutClass();
+
+        return "$class::$constantBaseName";
+    }
+
+    protected function getConstantBaseName()
+    {
+        $classBaseName = $this->parseClassBaseName($this->getSutClass());
+        $underscored = ltrim(preg_replace('~([A-Z])~', '_$1', $classBaseName), '_');
+        $constantBaseName = strtoupper($underscored);
+
+        return $constantBaseName;
     }
 
     /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\UnknownUnit
+     * @param string $className
+     *
+     * @return string
      */
-    public function I_cannot_add_in_different_unit()
+    protected function parseClassBaseName($className)
     {
-        $measurement = $this->createSut($amount = 123, $this->getDefaultUnit());
-        $measurement->addInDifferentUnit($amount, 'non-existing-unit');
+        return preg_replace('~.+\\\(\w+)$~', '$1', $className);
     }
 
     /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\SameValueExpectedForSameUnit
+     * @return string[]
      */
-    public function I_cannot_add_different_value_with_same_unit()
+    protected function getAllUnits()
     {
-        $measurement = $this->createSut($amount = 123, $this->getDefaultUnit());
-        $measurement->addInDifferentUnit($amount + 1, $this->getDefaultUnit());
+        return [$this->getDefaultUnit()];
+    }
+
+    /**
+     * @return \Mockery\MockInterface|AbstractTable|null
+     */
+    protected function findTable()
+    {
+        $tableClass = $this->getTableClass();
+        if (!$tableClass) {
+            return null;
+        }
+
+        return $this->mockery($tableClass);
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTableClass()
+    {
+        $measurementClass = $this->getSutClass();
+        $tableClass = "{$measurementClass}Table";
+
+        if (!class_exists($tableClass)) {
+            return false;
+        }
+
+        return $tableClass;
     }
 }
