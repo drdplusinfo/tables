@@ -11,6 +11,7 @@
     "granam/strict-object": "dev-master",
     "granam/float": "dev-master",
     "granam/integer": "dev-master",
+    "granam/number": "dev-master",
     "drd-plus/properties": "dev-master",
     "drd/dice-roll": "dev-master"
   },
