@@ -1,14 +1,21 @@
 <?php
-namespace DrdPlus\Tables\BonusBased;
+namespace DrdPlus\Tables\Parts;
 
-use DrdPlus\Tables\EvaluatorInterface;
+use DrdPlus\Tables\MeasurementWithBonusInterface;
+use DrdPlus\Tables\Exceptions\BonusAlreadyPaired;
+use DrdPlus\Tables\Exceptions\DataFromFileAreCorrupted;
+use DrdPlus\Tables\Exceptions\DataRowsAreMissingInFile;
+use DrdPlus\Tables\Exceptions\FileCanNotBeRead;
+use DrdPlus\Tables\Exceptions\FileIsEmpty;
+use DrdPlus\Tables\Exceptions\UnexpectedChangeNotation;
 use DrdPlus\Tables\Exceptions\UnknownUnit;
-use DrdPlus\Tables\MeasurementInterface;
+use DrdPlus\Tables\Tools\EvaluatorInterface;
 use Granam\Float\Tools\ToFloat;
-use Granam\Integer\Tools\ToInteger;
-use Granam\Strict\Object\StrictObject;
 
-abstract class AbstractTable extends StrictObject
+/**
+ * Note: every file-table can create Bonus as well as Measurement
+ */
+abstract class AbstractFileTable extends AbstractTable
 {
 
     /**
@@ -22,9 +29,33 @@ abstract class AbstractTable extends StrictObject
 
     public function __construct(EvaluatorInterface $evaluator)
     {
-        $this->data = $this->fetchData();
         $this->evaluator = $evaluator;
+        $this->data = $this->fetchData();
     }
+
+    /**
+     * @return \string[]
+     */
+    abstract protected function getExpectedDataHeader();
+
+    /**
+     * @return string
+     */
+    abstract protected function getDataFileName();
+
+    /**
+     * @param int $bonusValue
+     * @return AbstractBonus
+     */
+    abstract protected function createBonus($bonusValue);
+
+    /**
+     * @param float $value
+     * @param string $unit
+     *
+     * @return MeasurementWithBonusInterface
+     */
+    abstract protected function convertToMeasurement($value, $unit);
 
     /**
      * @return array
@@ -41,7 +72,7 @@ abstract class AbstractTable extends StrictObject
     {
         $resource = fopen($dataSourceFile, 'r');
         if (!$resource) {
-            throw new Exceptions\FileCanNotBeRead("File with table data could not be read from $dataSourceFile");
+            throw new FileCanNotBeRead("File with table data could not be read from $dataSourceFile");
         }
         $data = [];
         do {
@@ -52,7 +83,7 @@ abstract class AbstractTable extends StrictObject
         } while (is_array($row));
 
         if (!$data) {
-            throw new Exceptions\FileIsEmpty("No data have been read from $dataSourceFile");
+            throw new FileIsEmpty("No data have been read from $dataSourceFile");
         }
 
         return $data;
@@ -62,7 +93,7 @@ abstract class AbstractTable extends StrictObject
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
         if (!isset($data[0]) || $data[0] !== $expectedHeader) {
-            throw new Exceptions\DataFromFileAreCorrupted(
+            throw new DataFromFileAreCorrupted(
                 'Data file is corrupted. Expected header with ' . implode(',', $expectedHeader)
             );
         }
@@ -72,7 +103,7 @@ abstract class AbstractTable extends StrictObject
             if (!empty($row)) {
                 $formattedRow = $this->formatRow($row, $expectedHeader);
                 if (isset($indexed[key($formattedRow)])) {
-                    throw new Exceptions\BonusAlreadyPaired(
+                    throw new BonusAlreadyPaired(
                         'Bonus ' . key($formattedRow) . ' is already paired with value(s) ' . implode(',', $indexed[key($formattedRow)])
                         . ', got ' . implode(',', current($formattedRow))
                     );
@@ -81,7 +112,7 @@ abstract class AbstractTable extends StrictObject
             }
         }
         if (count($indexed) === 0) {
-            throw new Exceptions\DataRowsAreMissingInFile("Data file is empty. Expected at least single row with values (header excluded)");
+            throw new DataRowsAreMissingInFile("Data file is empty. Expected at least single row with values (header excluded)");
         }
 
         return $indexed;
@@ -123,7 +154,7 @@ abstract class AbstractTable extends StrictObject
         if ($value === '') {
             return $value;
         }
-        if ($this->isDiceRollChance($value)) { // dice chance bonus, like 1/6
+        if ($this->isItDiceRollChanceNotation($value)) { // dice chance bonus, like 1/6
             return $value;
         }
 
@@ -135,66 +166,47 @@ abstract class AbstractTable extends StrictObject
      *
      * @return int
      */
-    private function isDiceRollChance($value)
+    private function isItDiceRollChanceNotation($value)
     {
         return preg_match('~^\d+/\d+$~', $value);
     }
 
     /**
-     * @return \string[]
-     */
-    abstract protected function getExpectedDataHeader();
-
-    /**
-     * @return string
-     */
-    abstract protected function getDataFileName();
-
-    /**
-     * @param int $bonus
+     * @param AbstractBonus $bonus
      * @param string $wantedUnit
      *
-     * @return MeasurementInterface
+     * @return MeasurementWithBonusInterface
      */
-    public function toMeasurement($bonus, $wantedUnit = null)
+    protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
     {
-        $bonus = ToInteger::toInteger($bonus);
         $this->checkBonus($bonus);
-        if (is_null($wantedUnit) && isset($this->data[$bonus])) {
-            $wantedUnit = key($this->data[$bonus]);
+        $bonusValue = $bonus->getValue();
+        if (is_null($wantedUnit) && isset($this->data[$bonusValue])) {
+            $wantedUnit = key($this->data[$bonusValue]);
         } else {
             $this->checkUnit($wantedUnit);
         }
 
-        if (isset($this->data[$bonus][$wantedUnit])) {
-            $rawValues = $this->data[$bonus];
-            $values = [];
-            foreach ($rawValues as $unit => $rawValue) {
-                $values[$unit] = $this->evaluate($rawValue);
-            }
-            $wantedValue = $values[$wantedUnit];
-            $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
-            unset($values[$wantedUnit]);
-            foreach ($values as $anotherUnit => $anotherValue) {
-                $measurement->addInDifferentUnit($anotherValue, $anotherUnit);
-            }
-
-            return $measurement;
+        if (!isset($this->data[$bonusValue][$wantedUnit])) {
+            throw new \OutOfRangeException(
+                "Missing data for bonus $bonus with unit $wantedUnit"
+            );
         }
+        $rawValue = $this->data[$bonusValue][$wantedUnit];
+        $wantedValue = $this->evaluate($rawValue);
+        $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
 
-        throw new \OutOfRangeException(
-            "Missing data for bonus $bonus with unit $wantedUnit"
-        );
+        return $measurement;
     }
 
-    private function checkBonus($bonus)
+    private function checkBonus(AbstractBonus $bonus)
     {
-        if (!isset($this->data[$bonus])) {
+        if (!isset($this->data[$bonus->getValue()])) {
             throw new \OutOfRangeException("Value to bonus $bonus is not defined.");
         }
     }
 
-    private function checkUnit($unit)
+    protected function checkUnit($unit)
     {
         if (!in_array($unit, $this->getExpectedDataHeader())) {
             throw new UnknownUnit(
@@ -226,29 +238,31 @@ abstract class AbstractTable extends StrictObject
     {
         $chanceParts = explode('/', $chance);
         if (!isset($chanceParts[1]) || intval($chanceParts[1]) !== 6) {
-            throw new Exceptions\UnexpectedChangeNotation("Expected only x/6 chance, got $chance");
+            throw new UnexpectedChangeNotation("Expected only x/6 chance, got $chance");
         }
 
         return intval($chanceParts[0]);
     }
 
     /**
-     * @param float $value
-     * @param string $unit
+     * @param MeasurementWithBonusInterface $measurement
      *
-     * @return MeasurementInterface
+     * @return AbstractBonus
      */
-    abstract protected function convertToMeasurement($value, $unit);
+    public function toBonus(MeasurementWithBonusInterface $measurement)
+    {
+        return $this->createBonus($this->determineBonus($measurement));
+    }
 
     /**
-     * @param MeasurementInterface $measurement
+     * @param MeasurementWithBonusInterface $measurement
      *
      * @return int
      */
-    public function toBonus(MeasurementInterface $measurement)
+    private function determineBonus(MeasurementWithBonusInterface $measurement)
     {
         $searchedUnit = $measurement->getUnit();
-        $searchedValue = ToFloat::toFloat($this->parseNumber($measurement->getValue()));
+        $searchedValue = $measurement->getValue();
         $finds = $this->findBonusMatchingTo($searchedValue, $searchedUnit);
         if (is_int($finds)) {
             return $finds; // we found the bonus by value exact match
@@ -259,6 +273,7 @@ abstract class AbstractTable extends StrictObject
 
     private function findBonusMatchingTo($searchedValue, $searchedUnit)
     {
+        $searchedValue = ToFloat::toFloat($searchedValue);
         $closest = ['lower' => [], 'higher' => []];
         foreach ($this->getData() as $bonus => $relatedValues) {
             if (!isset($relatedValues[$searchedUnit])) { // current row doesn't have required unit
@@ -291,8 +306,16 @@ abstract class AbstractTable extends StrictObject
         return $closest;
     }
 
-    private function getBonusClosestTo($searchedValue, array $closestLower, $closestHigher)
+    /**
+     * @param float $searchedValue
+     * @param array $closestLower
+     * @param array $closestHigher
+     *
+     * @return int
+     */
+    private function getBonusClosestTo($searchedValue, array $closestLower, array $closestHigher)
     {
+        $searchedValue = ToFloat::toFloat($searchedValue);
         $closerValue = $this->getCloserValue($searchedValue, key($closestLower), key($closestHigher));
         if ($closerValue !== false) {
             if (isset($closestLower[$closerValue])) {

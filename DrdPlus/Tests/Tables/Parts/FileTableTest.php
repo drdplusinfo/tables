@@ -1,12 +1,12 @@
 <?php
-namespace DrdPlus\Tests\Tables\BonusBased;
+namespace DrdPlus\Tests\Tables;
 
-use DrdPlus\Tables\BonusBased\AbstractTable;
-use DrdPlus\Tables\EvaluatorInterface;
 use DrdPlus\Tables\MeasurementInterface;
-use DrdPlus\Tests\Tables\TestWithMockery;
+use DrdPlus\Tables\Parts\AbstractBonus;
+use DrdPlus\Tables\Parts\AbstractFileTable;
+use DrdPlus\Tables\Tools\EvaluatorInterface;
 
-class AbstractTableTest extends TestWithMockery
+class FileTableTest extends TestWithMockery
 {
 
     /**
@@ -16,6 +16,7 @@ class AbstractTableTest extends TestWithMockery
 
     protected function tearDown()
     {
+        parent::tearDown();
         if (file_exists($this->tempFilename)) {
             unlink($this->tempFilename);
         }
@@ -23,7 +24,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\FileCanNotBeRead
+     * @expectedException \DrdPlus\Tables\Exceptions\FileCanNotBeRead
      */
     public function I_can_not_create_table_without_source_file()
     {
@@ -41,7 +42,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\FileIsEmpty
+     * @expectedException \DrdPlus\Tables\Exceptions\FileIsEmpty
      */
     public function I_can_not_create_table_with_empty_source_file()
     {
@@ -55,7 +56,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\DataFromFileAreCorrupted
+     * @expectedException \DrdPlus\Tables\Exceptions\DataFromFileAreCorrupted
      */
     public function I_can_not_create_table_with_corrupted_data()
     {
@@ -66,7 +67,7 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\DataRowsAreMissingInFile
+     * @expectedException \DrdPlus\Tables\Exceptions\DataRowsAreMissingInFile
      */
     public function I_can_not_create_table_without_data()
     {
@@ -82,7 +83,7 @@ class AbstractTableTest extends TestWithMockery
     public function I_can_not_convert_bonus_to_unknown_unit()
     {
         $filename = $this->createTempFilename();
-        $bonus = 123;
+        $bonus = new BonusForTestOfAbstractTable(123);
         file_put_contents($filename, "bonus\n$bonus");
         $table = TestOfAbstractTable::getIt($filename);
         $table->toMeasurement($bonus, 'non-existing-unit');
@@ -90,22 +91,22 @@ class AbstractTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\UnexpectedChangeNotation
+     * @expectedException \DrdPlus\Tables\Exceptions\UnexpectedChangeNotation
      */
     public function I_can_not_convert_bonus_to_invalid_value_change()
     {
         $filename = $this->createTempFilename();
-        $bonus = 123;
+        $bonus = new BonusForTestOfAbstractTable(123);
         $unit = 'bar';
         $invalidChance = '1/1';
         file_put_contents($filename, "bonus,$unit\n$bonus,$invalidChance");
-        $table = TestOfAbstractTable::getIt($filename, $unit);
+        $table = TestOfAbstractTable::getIt($filename, [$unit]);
         $table->toMeasurement($bonus, $unit);
     }
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\BonusBased\Exceptions\BonusAlreadyPaired
+     * @expectedException \DrdPlus\Tables\Exceptions\BonusAlreadyPaired
      */
     public function I_can_not_use_same_bonus_for_more_values()
     {
@@ -113,7 +114,42 @@ class AbstractTableTest extends TestWithMockery
         $bonus = 123;
         $unit = 'bar';
         file_put_contents($filename, "bonus,$unit\n$bonus,1\n$bonus,2");
-        TestOfAbstractTable::getIt($filename, $unit);
+        TestOfAbstractTable::getIt($filename, [$unit]);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_measurement_with_auto_chosen_unit_by_bonus()
+    {
+        $filename = $this->createTempFilename();
+        $bonusValue1 = 123;
+        $bonusValue2 = 456;
+        $bonusValue3 = 789;
+        $unit1 = 'bar';
+        $unit2 = 'baz';
+        $values1 = [1, 2];
+        $values2 = [10, 20, 30];
+        file_put_contents(
+            $filename,
+            "bonus,$unit1,$unit2
+            $bonusValue1,{$values1[0]},{$values2[1]}
+            $bonusValue2,{$values1[1]},{$values2[1]}
+            $bonusValue3,,{$values2[2]}"
+        );
+        $table = TestOfAbstractTable::getIt($filename, [$unit1, $unit2]);
+        $measurementFromSecondRow = $table->toMeasurement(
+            new BonusForTestOfAbstractTable($bonusValue2),
+            null /* auto-select unit*/
+        );
+        $this->assertSame(2.0, current($measurementFromSecondRow));
+        $this->assertSame($unit1, key($measurementFromSecondRow));
+        $measurementFromThirdRow = $table->toMeasurement(
+            new BonusForTestOfAbstractTable($bonusValue3),
+            null /* auto-select unit*/
+        );
+        $this->assertSame(30.0, current($measurementFromThirdRow));
+        $this->assertSame($unit2, key($measurementFromThirdRow));
     }
 
     /**
@@ -122,16 +158,16 @@ class AbstractTableTest extends TestWithMockery
     public function My_chance_is_evaluated_properly()
     {
         $filename = $this->createTempFilename();
-        $bonuses = range(1, 6);
+        $bonusValues = range(1, 6);
         $unit = 'bar';
         $chances = [];
         $rows = [];
-        foreach ($bonuses as $bonus) {
-            $chances[] = $chance = $this->createSomeChance($bonus);
-            $rows[] = "$bonus,$chance/6";
+        foreach ($bonusValues as $bonusValue) {
+            $chances[] = $chance = $this->createSomeChance($bonusValue);
+            $rows[] = "$bonusValue,$chance/6";
         }
         file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
-        $table = TestOfAbstractTable::getIt($filename, $unit, $evaluator = $this->mockery(EvaluatorInterface::class));
+        $table = TestOfAbstractTable::getIt($filename, [$unit], $evaluator = $this->mockery(EvaluatorInterface::class));
         $valuesToEvaluate = [];
         $evaluator->shouldReceive('evaluate')
             ->atLeast()->once()
@@ -140,9 +176,11 @@ class AbstractTableTest extends TestWithMockery
 
                 return $toEvaluate;
             });
-        foreach ($bonuses as $bonus) {
+        foreach ($bonusValues as $bonusValue) {
+            $bonus = new BonusForTestOfAbstractTable($bonusValue);
             $this->assertSame(
-                [$unit => $this->createSomeChance($bonus)], /** @see \DrdPlus\Tests\Tables\TestOfAbstractTable::convertToMeasurement */
+            /** @see \DrdPlus\Tests\Tables\TestOfAbstractTable::convertToMeasurement */
+                [$unit => $this->createSomeChance($bonusValue)],
                 $table->toMeasurement($bonus, $unit)
             );
         }
@@ -157,7 +195,7 @@ class AbstractTableTest extends TestWithMockery
 }
 
 /** inner */
-class TestOfAbstractTable extends AbstractTable
+class TestOfAbstractTable extends AbstractFileTable
 {
     /**
      * @var string
@@ -165,19 +203,19 @@ class TestOfAbstractTable extends AbstractTable
     private $dataFileName;
     private $dataHeader;
 
-    public static function getIt($dataFileName, $unit = null, EvaluatorInterface $evaluator = null)
+    public static function getIt($dataFileName, $units = [], EvaluatorInterface $evaluator = null)
     {
         $evaluator = $evaluator ?: \Mockery::mock(EvaluatorInterface::class);
 
         /** @var EvaluatorInterface $evaluator */
 
-        return new static($evaluator, $dataFileName, $unit);
+        return new static($evaluator, $dataFileName, $units);
     }
 
-    public function __construct(EvaluatorInterface $evaluator, $dataFileName = false, $unit = false)
+    public function __construct(EvaluatorInterface $evaluator, $dataFileName = false, $units = [])
     {
         $this->dataFileName = $dataFileName;
-        $this->dataHeader = $unit !== null ? [$unit] : [];
+        $this->dataHeader = $units;
         parent::__construct($evaluator);
     }
 
@@ -208,4 +246,34 @@ class TestOfAbstractTable extends AbstractTable
         return [$unit => $value];
     }
 
+    /**
+     * @param int $bonusValue
+     *
+     * @return AbstractBonus
+     */
+    protected function createBonus($bonusValue)
+    {
+        return new BonusForTestOfAbstractTable($bonusValue);
+    }
+
+    /**
+     * @param AbstractBonus $bonus
+     * @param null $unit
+     *
+     * @return array
+     */
+    public function toMeasurement(AbstractBonus $bonus, $unit = null)
+    {
+        return parent::toMeasurement($bonus, $unit);
+    }
+
+}
+
+/**inner */
+class BonusForTestOfAbstractTable extends AbstractBonus
+{
+    public function __construct($value)
+    {
+        parent::__construct($value);
+    }
 }
