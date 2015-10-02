@@ -1,13 +1,10 @@
 <?php
 namespace DrdPlus\Tables;
 
-interface MeasurementInterface
-{
+use Granam\Number\NumberInterface;
 
-    /**
-     * @return float
-     */
-    public function getValue();
+interface MeasurementInterface extends NumberInterface
+{
 
     /**
      * @return string
@@ -15,13 +12,8 @@ interface MeasurementInterface
     public function getUnit();
 
     /**
-     * @return string[]
+     * @return array|string[]
      */
     public function getPossibleUnits();
 
-    /**
-     * @param float $value
-     * @param string $unit
-     */
-    public function addInDifferentUnit($value, $unit);
 }
