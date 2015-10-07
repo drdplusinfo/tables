@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\BonusBased\Speed\Exceptions;
+namespace DrdPlus\Tables\Speed\Exceptions;
 
 class MissingConversion extends \LogicException implements Logic
 {
