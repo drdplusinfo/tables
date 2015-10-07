@@ -27,20 +27,22 @@ class ExperiencesTable extends AbstractTable
      */
     public function toLevel(Experiences $experiences)
     {
-        $woundsBonus = $this->toLosslessBonus($experiences);
+        $woundsBonus = $this->toWoundsBonus($experiences);
 
         return new Level($this->bonusToLevelValue($woundsBonus), $this);
     }
 
-    private function toLosslessBonus(Experiences $experiences)
+    private function toWoundsBonus(Experiences $experiences)
     {
         $experiencesValue = $experiences->getValue();
         do {
             $woundsBonus = $this->woundsTable->toBonus(
                 new Wounds($experiencesValue--, Wounds::WOUNDS, $this->woundsTable)
             );
-            /** avoiding standard bonus round-up,
-             * @see \DrdPlus\Tables\Parts\AbstractFileTable::determineBonus */
+            /**
+             * avoiding standard bonus round-up, which is unacceptable for experiences to level conversion;
+             * @see \DrdPlus\Tables\Parts\AbstractFileTable::determineBonus
+             */
         } while ($woundsBonus->getWounds()->getValue() > $experiences->getValue());
 
         return $woundsBonus;

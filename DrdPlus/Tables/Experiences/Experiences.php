@@ -4,6 +4,10 @@ namespace DrdPlus\Tables\Experiences;
 use DrdPlus\Tables\Parts\AbstractMeasurementWithBonus;
 use Granam\Integer\Tools\ToInteger;
 
+/**
+ * @method int getValue()
+ * @see \DrdPlus\Tables\Experiences\Experiences::normalizeValue
+ */
 class Experiences extends AbstractMeasurementWithBonus
 {
     const EXPERIENCES = 'experiences';
