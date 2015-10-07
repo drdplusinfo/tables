@@ -1,8 +1,9 @@
 <?php
-namespace DrdPlus\Tests\Tables;
+namespace DrdPlus\Tests\Tables\Tools;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
-use DrdPlus\Tables\DiceChanceEvaluator;
+use DrdPlus\Tables\Tools\DiceChanceEvaluator;
+use DrdPlus\Tests\Tables\TestWithMockery;
 
 class DiceChanceEvaluatorTest extends TestWithMockery
 {

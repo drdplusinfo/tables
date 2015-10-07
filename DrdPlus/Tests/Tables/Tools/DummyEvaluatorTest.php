@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables;
 
-use DrdPlus\Tables\DummyEvaluator;
+use DrdPlus\Tables\Tools\DummyEvaluator;
 
 class DummyEvaluatorTest extends TestWithMockery
 {

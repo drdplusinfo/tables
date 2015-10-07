@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\Tools;
 
 interface EvaluatorInterface
 {

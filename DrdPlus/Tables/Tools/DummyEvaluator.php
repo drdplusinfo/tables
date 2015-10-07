@@ -1,5 +1,7 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\Tools;
+
+use DrdPlus\Tables\Exceptions\UnsupportedMethodCalled;
 
 class DummyEvaluator implements EvaluatorInterface
 {
@@ -10,7 +12,7 @@ class DummyEvaluator implements EvaluatorInterface
      */
     public function evaluate($maxRollToGetValue)
     {
-        throw new Exceptions\UnsupportedMethodCalled('Dummy evaluator should never be called');
+        throw new UnsupportedMethodCalled('Dummy evaluator should never be called');
     }
 
 }

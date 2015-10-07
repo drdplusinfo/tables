@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\Tools;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
 
