@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Tables;
+namespace DrdPlus\Tests\Tables\Parts;
 
 use DrdPlus\Tables\MeasurementInterface;
 use DrdPlus\Tables\Parts\AbstractTable;
