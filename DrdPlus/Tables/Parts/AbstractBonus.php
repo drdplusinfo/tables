@@ -20,11 +20,7 @@ abstract class AbstractBonus extends StrictObject implements BonusInterface
         try {
             $this->value = ToInteger::toInteger($value);
         } catch (\Granam\Integer\Tools\Exceptions\WrongParameterType $exception) {
-            throw new Exceptions\BonusRequiresInteger(
-                $exception->getMessage(),
-                $exception->getCode(),
-                $exception
-            );
+            throw new Exceptions\BonusRequiresInteger($exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
