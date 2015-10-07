@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\BonusBased\Exceptions;
+namespace DrdPlus\Tables\Exceptions;
 
 class DataRowsAreMissingInFile extends FileIsEmpty
 {
