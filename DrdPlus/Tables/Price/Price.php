@@ -1,16 +1,14 @@
 <?php
-namespace DrdPlus\Tables\Derived\Price;
+namespace DrdPlus\Tables\Price;
 
-use DrdPlus\Tables\AbstractMeasurement;
 use DrdPlus\Tables\Exceptions\UnknownUnit;
+use DrdPlus\Tables\Parts\AbstractMeasurement;
 
-class PriceMeasurement extends AbstractMeasurement
+class Price extends AbstractMeasurement
 {
     const COPPER_COIN = 'copper_coin';
     const SILVER_COIN = 'silver_coin';
     const GOLD_COIN = 'gold_coin';
-
-    private $inDifferentUnit = [];
 
     /**
      * @param float $value
@@ -23,42 +21,14 @@ class PriceMeasurement extends AbstractMeasurement
 
     public function getPossibleUnits()
     {
-        return array_merge(
-            [self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN],
-            array_keys($this->inDifferentUnit)
-        );
+        return [self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN];
     }
 
     /**
-     * @param float $value
-     * @param string $unit
+     * @return int
+     * @noinspection PhpInconsistentReturnPointsInspection
      */
-    public function addInDifferentUnit($value, $unit)
-    {
-        $this->checkValueInDifferentUnit($value, $unit);
-        $expectedValue = false;
-        switch ($unit) {
-            case $this->getUnit() :
-                break;
-            case self::COPPER_COIN :
-                $expectedValue = $this->toCopperCoins();
-                break;
-            case self::SILVER_COIN :
-                $expectedValue = $this->toSilverCoins();
-                break;
-            case self::GOLD_COIN :
-                $expectedValue = $this->toGoldCoins();
-                break;
-        }
-        if (is_numeric($expectedValue) && $expectedValue !== (float)$value) {
-            throw new Exceptions\IncorrectAmount(
-                "Expected $expectedValue for $unit, got $value"
-            );
-        }
-    }
-
-    /** @noinspection PhpInconsistentReturnPointsInspection */
-    public function toCopperCoins()
+    public function getCopperCoins()
     {
         switch ($this->getUnit()) {
             case (self::COPPER_COIN) :
@@ -72,8 +42,11 @@ class PriceMeasurement extends AbstractMeasurement
         }
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
-    public function toSilverCoins()
+    /**
+     * @return float
+     * @noinspection PhpInconsistentReturnPointsInspection
+     */
+    public function getSilverCoins()
     {
         switch ($this->getUnit()) {
             case (self::COPPER_COIN) :
@@ -87,8 +60,11 @@ class PriceMeasurement extends AbstractMeasurement
         }
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
-    public function toGoldCoins()
+    /**
+     * @return float
+     * @noinspection PhpInconsistentReturnPointsInspection
+     */
+    public function getGoldCoins()
     {
         switch ($this->getUnit()) {
             case (self::COPPER_COIN) :
