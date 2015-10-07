@@ -1,7 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Experiences;
 
-class Experiences extends AbstractExperiencesMeasurement
+use DrdPlus\Tables\Parts\AbstractMeasurementWithBonus;
+use Granam\Integer\Tools\ToInteger;
+
+class Experiences extends AbstractMeasurementWithBonus
 {
     const EXPERIENCES = 'experiences';
 
@@ -17,6 +20,16 @@ class Experiences extends AbstractExperiencesMeasurement
     }
 
     /**
+     * @param mixed $value
+     *
+     * @return int
+     */
+    protected function normalizeValue($value)
+    {
+        return ToInteger::toInteger($value);
+    }
+
+    /**
      * @return array|string[]
      */
     public function getPossibleUnits()
@@ -29,7 +42,7 @@ class Experiences extends AbstractExperiencesMeasurement
      */
     public function getLevel()
     {
-        return $this->experiencesTable->experiencesToLevel($this);
+        return $this->getBonus();
     }
 
     /**
@@ -39,15 +52,15 @@ class Experiences extends AbstractExperiencesMeasurement
      */
     public function getTotalLevel()
     {
-        return $this->experiencesTable->experiencesToTotalLevel($this);
+        return $this->experiencesTable->toTotalLevel($this);
     }
 
     /**
-     * @return ExperiencesBonus
+     * @return Level
      */
     public function getBonus()
     {
-        return $this->experiencesTable->experiencesToBonus($this);
+        return $this->experiencesTable->toLevel($this);
     }
 
 }

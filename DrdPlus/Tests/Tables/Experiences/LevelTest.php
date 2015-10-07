@@ -1,18 +1,46 @@
 <?php
 namespace DrdPlus\Tests\Tables\Experiences;
 
+use DrdPlus\Tables\BonusInterface;
+use DrdPlus\Tables\Experiences\Experiences;
 use DrdPlus\Tables\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Experiences\Level;
-use DrdPlus\Tests\Tables\AbstractTestOfMeasurement;
+use DrdPlus\Tables\Wounds\WoundsTable;
+use DrdPlus\Tests\Tables\AbstractTestOfBonus;
 
-class LevelTest extends AbstractTestOfMeasurement
+class LevelTest extends AbstractTestOfBonus
 {
+    /**
+     * @test
+     */
+    public function I_can_create_bonus()
+    {
+        $sut = $this->createSut($value = 20);
+        $this->assertInstanceOf(BonusInterface::class, $sut);
+        $this->assertSame($value, $sut->getValue());
+    }
+
+    protected function getTableInstance()
+    {
+        return new ExperiencesTable(new WoundsTable());
+    }
+
+    protected function getNameOfMeasurementGetter()
+    {
+        return 'getExperiences';
+    }
+
+    protected function getMeasurementClass()
+    {
+        return Experiences::class;
+    }
+
     /**
      * @test
      */
     public function I_can_get_level()
     {
-        $level = new Level($levelValue = 456, Level::LEVEL, $this->getExperiencesTable());
+        $level = new Level($levelValue = 20, $this->getExperiencesTable());
         $this->assertSame($levelValue, $level->getValue());
     }
 
@@ -35,11 +63,10 @@ class LevelTest extends AbstractTestOfMeasurement
     public function I_can_get_experiences()
     {
         $level = new Level(
-            $value = 111,
-            Level::LEVEL,
+            $value = 11,
             $experiencesTable = $this->getExperiencesTable()
         );
-        $experiencesTable->shouldReceive('levelToExperiences')
+        $experiencesTable->shouldReceive('toExperiences')
             ->atLeast()->once()
             ->with($level)
             ->andReturn($experiencesValue = 222);
@@ -52,15 +79,17 @@ class LevelTest extends AbstractTestOfMeasurement
     public function I_can_get_total_experiences()
     {
         $level = new Level(
-            $value = 111,
-            Level::LEVEL,
+            $value = 10,
             $experiencesTable = $this->getExperiencesTable()
         );
-        $experiencesTable->shouldReceive('levelToTotalExperiences')
+        $experiencesTable->shouldReceive('toTotalExperiences')
             ->atLeast()->once()
-            ->with($level)
+            ->with($level, true)
             ->andReturn($totalExperiencesValue = 222);
-        $this->assertSame($totalExperiencesValue, $level->getTotalExperiences());
+        $this->assertSame(
+            $totalExperiencesValue,
+            $level->getTotalExperiences(true /* for main profession */)
+        );
     }
 
 }

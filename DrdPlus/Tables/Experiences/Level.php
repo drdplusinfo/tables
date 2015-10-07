@@ -1,24 +1,31 @@
 <?php
 namespace DrdPlus\Tables\Experiences;
 
-class Level extends AbstractExperiencesMeasurement
+use DrdPlus\Tables\Parts\AbstractBonus;
+
+class Level extends AbstractBonus
 {
     const LEVEL = 'level';
+    const MAX_LEVEL = 20;
 
     /**
      * @var ExperiencesTable
      */
     private $experiencesTable;
 
-    public function __construct($value, $unit, ExperiencesTable $experiencesTable)
+    public function __construct($value, ExperiencesTable $experiencesTable)
     {
-        parent::__construct($value, $unit);
+        parent::__construct($value);
+        $this->checkMaxLevel($this->getValue());
         $this->experiencesTable = $experiencesTable;
     }
 
-    public function getPossibleUnits()
+    private function checkMaxLevel($levelValue)
     {
-        return [self::LEVEL];
+        // level is not limited by table values, so has to be in code
+        if ($levelValue > static::MAX_LEVEL) {
+            throw new \LogicException("Level can not be greater than " . self::MAX_LEVEL);
+        }
     }
 
     /**
@@ -26,25 +33,19 @@ class Level extends AbstractExperiencesMeasurement
      */
     public function getExperiences()
     {
-        return $this->experiencesTable->levelToExperiences($this);
+        return $this->experiencesTable->toExperiences($this);
     }
 
     /**
      * Summary of experiences, needed to achieve current level
      *
+     * @param bool $isMainProfession
+     *
      * @return Experiences
      */
-    public function getTotalExperiences()
+    public function getTotalExperiences($isMainProfession)
     {
-        return $this->experiencesTable->levelToTotalExperiences($this);
-    }
-
-    /**
-     * @return ExperiencesBonus
-     */
-    public function getBonus()
-    {
-        return $this->getExperiences()->getBonus();
+        return $this->experiencesTable->toTotalExperiences($this, $isMainProfession);
     }
 
 }

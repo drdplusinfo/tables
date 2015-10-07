@@ -12,7 +12,11 @@ class ExperiencesTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_experiences()
     {
-        $experiences = new Experiences($value = 456, Experiences::EXPERIENCES, $this->getExperiencesTable());
+        $experiences = new Experiences(
+            $value = 456,
+            Experiences::EXPERIENCES,
+            $this->getExperiencesTable()
+        );
         $this->assertSame($value, $experiences->getValue());
     }
 
@@ -34,7 +38,7 @@ class ExperiencesTest extends AbstractTestOfMeasurement
             Experiences::EXPERIENCES,
             $experiencesTable = $this->getExperiencesTable()
         );
-        $experiencesTable->shouldReceive('experiencesToLevel')
+        $experiencesTable->shouldReceive('toLevel')
             ->atLeast()->once()
             ->with($experiences)
             ->andReturn($level = 222);
@@ -51,7 +55,7 @@ class ExperiencesTest extends AbstractTestOfMeasurement
             Experiences::EXPERIENCES,
             $experiencesTable = $this->getExperiencesTable()
         );
-        $experiencesTable->shouldReceive('experiencesToTotalLevel')
+        $experiencesTable->shouldReceive('toTotalLevel')
             ->atLeast()->once()
             ->with($experiences)
             ->andReturn($level = 456);
