@@ -188,9 +188,7 @@ abstract class AbstractFileTable extends AbstractTable
         }
 
         if (!isset($this->data[$bonusValue][$wantedUnit])) {
-            throw new \OutOfRangeException(
-                "Missing data for bonus $bonus with unit $wantedUnit"
-            );
+            throw new Exceptions\MissingDataForBonus("Missing data for bonus $bonus with unit $wantedUnit");
         }
         $rawValue = $this->data[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
@@ -202,7 +200,7 @@ abstract class AbstractFileTable extends AbstractTable
     private function checkBonus(AbstractBonus $bonus)
     {
         if (!isset($this->data[$bonus->getValue()])) {
-            throw new \OutOfRangeException("Value to bonus $bonus is not defined.");
+            throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
         }
     }
 
@@ -300,7 +298,7 @@ abstract class AbstractFileTable extends AbstractTable
         }
 
         if (count($closest['lower']) === 0 || count($closest['higher']) === 0) {
-            throw new \OutOfRangeException("Value $searchedValue($searchedUnit) is out of table values.");
+            throw new Exceptions\RequestedDataOutOfTableRange("Value $searchedValue($searchedUnit) is out of table values.");
         }
 
         return $closest;

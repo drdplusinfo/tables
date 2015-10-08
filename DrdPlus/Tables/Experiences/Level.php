@@ -24,7 +24,7 @@ class Level extends AbstractBonus
     {
         // level is not limited by table values, so has to be in code
         if ($levelValue > static::MAX_LEVEL) {
-            throw new \LogicException("Level can not be greater than " . self::MAX_LEVEL);
+            throw new Exceptions\MaxLevelOverflow("Level can not be greater than " . self::MAX_LEVEL);
         }
     }
 

@@ -5,7 +5,7 @@ use DrdPlus\Tables\Parts\AbstractBonus;
 use DrdPlus\Tests\Tables\TestWithMockery;
 use Granam\Integer\IntegerInterface;
 
-class BonusTest extends TestWithMockery
+class AbstractBonusTest extends TestWithMockery
 {
     /**
      * @test

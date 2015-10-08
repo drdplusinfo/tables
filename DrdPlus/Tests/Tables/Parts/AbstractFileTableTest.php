@@ -6,7 +6,7 @@ use DrdPlus\Tables\Parts\AbstractBonus;
 use DrdPlus\Tables\Parts\AbstractFileTable;
 use DrdPlus\Tables\Tools\EvaluatorInterface;
 
-class FileTableTest extends TestWithMockery
+class AbstractFileTableTest extends TestWithMockery
 {
 
     /**
