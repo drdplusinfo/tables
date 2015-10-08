@@ -19,6 +19,24 @@ class MeasurementTest extends TestWithMockery
         $this->assertSame($unit, $measurement->getUnit());
     }
 
+    /**
+     * @test
+     */
+    public function I_can_get_measurement_value_by_to_string_conversion()
+    {
+        $measurement = new DeAbstractedMeasurement($value = 123, DeAbstractedMeasurement::POSSIBLE_UNIT);
+        $this->assertSame((string)$value, (string)$measurement);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Exceptions\UnknownUnit
+     */
+    public function I_cannot_create_measurement_with_unknown_unit()
+    {
+        new DeAbstractedMeasurement(123, 'non-existing unit');
+    }
+
 }
 
 /** inner */

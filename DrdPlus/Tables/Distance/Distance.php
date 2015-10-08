@@ -71,7 +71,8 @@ class Distance extends AbstractMeasurementWithBonus
             return $value * 1000;
         }
         throw new UnknownUnit(
-            'Unknown one or both from ' . ValueDescriber::describe($fromUnit) . ' to ' . ValueDescriber::describe($toUnit) . ' unit'
+            'Unknown one or both from ' . ValueDescriber::describe($fromUnit)
+            . ' to ' . ValueDescriber::describe($toUnit) . ' unit(s)'
         );
     }
 

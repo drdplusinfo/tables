@@ -92,4 +92,13 @@ class LevelTest extends AbstractTestOfBonus
         );
     }
 
+    /**
+     * @test
+     * @expectedException \LogicException
+     */
+    public function I_cannot_create_higher_level_than_cap()
+    {
+        new Level(21, $this->getExperiencesTable());
+    }
+
 }
