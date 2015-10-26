@@ -88,10 +88,15 @@ class RacesTable extends AbstractTable
             self::WILL => Will::getIt($this->getValue([$race, $subrace], [self::WILL])),
             self::INTELLIGENCE => Intelligence::getIt($this->getValue([$race, $subrace], [self::INTELLIGENCE])),
             self::CHARISMA => Charisma::getIt($this->getValue([$race, $subrace], [self::CHARISMA])),
+            // TODO give Endurance a getIt factory
             self::ENDURANCE => new Endurance($this->getValue([$race, $subrace], [self::ENDURANCE])),
+            // TODO provide Infravision as a boolean enum property
             self::INFRAVISION => $this->getValue([$race, $subrace], [self::INFRAVISION]),
+            // TODO provide NativeRegeneration as a boolean enum property
             self::NATIVE_REGENERATION => $this->getValue([$race, $subrace], [self::NATIVE_REGENERATION]),
+            // TODO provide Senses as a boolean enum property
             self::SENSES => Senses::getIt($this->getValue([$race, $subrace], [self::SENSES])),
+            // TODO provide RequiresDMAgreement as a local boolean enum property
             self::REQUIRES_DM_AGREEMENT => $this->getValue([$race, $subrace], [self::REQUIRES_DM_AGREEMENT]),
         ];
     }
