@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\BaseOfWounds;
 
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use DrdPlus\Tools\Tests\TestWithMockery;
 
 class BaseOfWoundsTableTest extends TestWithMockery
 {

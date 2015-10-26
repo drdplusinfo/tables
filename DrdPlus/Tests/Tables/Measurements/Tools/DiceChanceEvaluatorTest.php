@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use DrdPlus\Tools\Tests\TestWithMockery;
 
 class DiceChanceEvaluatorTest extends TestWithMockery
 {
