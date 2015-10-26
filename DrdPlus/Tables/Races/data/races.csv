@@ -1,0 +1,15 @@
+Race,Subrace,Strength,Agility,Knack,Will,Intelligence,Charisma,Endurance,Infravision,Native regeneration,Senses,Requires DM agreement
+Human,Common,0,0,0,0,0,0,,,,,
+Human,Highlander,1,0,0,1,−1,−1,,,,,
+Elf,Common,−1,1,1,−2,1,1,-1,,,,
+Elf,Green,−1,1,0,−1,1,1,-1,,,,
+Elf,Dark,0,0,0,0,1,0,-1,1,,,1
+Dwarf,Common,1,−1,0,2,−1,−2,1,1,,-1,
+Dwarf,Wood,1,−1,0,1,−1,−1,1,1,,-1,
+Dwarf,Mountain,2,−1,0,2,−2,−2,1,1,,-1,
+Hobbit,Common,−3,1,1,0,−1,2,,,,,
+Kroll,Common,3,−2,−1,1,−3,−1,,,1,,
+Kroll,Wild,3,−1,−2,2,−3,−2,,,1,,1
+Orc,Common,0,2,0,−1,0,−2,,1,,1,1
+Orc,Skurut,1,1,−1,0,0,−2,,1,,1,1
+Orc,Goblin,−1,2,1,−2,0,−1,,1,,1,1

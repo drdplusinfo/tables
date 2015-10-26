@@ -13,7 +13,9 @@
     "granam/integer": "dev-master",
     "granam/number": "dev-master",
     "drd-plus/properties": "dev-master",
-    "drd/dice-roll": "dev-master"
+    "drd/dice-roll": "dev-master",
+    "drd-plus/races": "dev-master",
+    "drd/genders": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",
