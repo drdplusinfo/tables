@@ -1,4 +1,4 @@
-Race,Subrace,Height,Weight,Size
+Race,Subrace,Height in cm,Weight in kg,Size
 Human,,180,80,0
 Dwarf,,140,70,0
 Elf,,160,50,-1

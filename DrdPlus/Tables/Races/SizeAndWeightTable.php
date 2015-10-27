@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Properties\Body\HeightInCm;
 use DrdPlus\Properties\Body\Size;
+use DrdPlus\Properties\Body\WeightInKg;
 
 class SizeAndWeightTable extends AbstractTable
 {
@@ -13,8 +15,8 @@ class SizeAndWeightTable extends AbstractTable
         return __DIR__ . '/data/size_and_weight.csv';
     }
 
-    const HEIGHT = 'Height';
-    const WEIGHT = 'Weight';
+    const HEIGHT_IN_CM = 'Height in cm';
+    const WEIGHT_IN_KG = 'Weight in kg';
     const SIZE = 'Size';
 
     /**
@@ -24,8 +26,8 @@ class SizeAndWeightTable extends AbstractTable
     {
         return [
             [
-                self::HEIGHT,
-                self::WEIGHT,
+                self::HEIGHT_IN_CM,
+                self::WEIGHT_IN_KG,
                 self::SIZE,
             ]
         ];
@@ -57,11 +59,9 @@ class SizeAndWeightTable extends AbstractTable
     private function getRaceModifiers($race, $subrace)
     {
         return [
-            // TODO height as standard property
-            self::HEIGHT => $this->getValue([$race, $subrace], [self::HEIGHT]),
-            // TODO weight as standard property
-            self::WEIGHT => $this->getValue([$race, $subrace], [self::WEIGHT]),
-            self::SIZE => new Size($this->getValue([$race, $subrace], [self::SIZE])),
+            self::HEIGHT_IN_CM => HeightInCm::getIt($this->getValue([$race, $subrace], [self::HEIGHT_IN_CM])),
+            self::WEIGHT_IN_KG => WeightInKg::getIt($this->getValue([$race, $subrace], [self::WEIGHT_IN_KG])),
+            self::SIZE => Size::getIt($this->getValue([$race, $subrace], [self::SIZE])),
         ];
     }
 

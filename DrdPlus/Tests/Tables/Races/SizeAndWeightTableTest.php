@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Properties\Body\HeightInCm;
 use DrdPlus\Properties\Body\Size;
+use DrdPlus\Properties\Body\WeightInKg;
 use DrdPlus\Tests\Races\TestWithMockery;
 
 class SizeAndWeightTableTest extends TestWithMockery
@@ -18,8 +20,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         );
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 180,
-                SizeAndWeightTable::WEIGHT => 80,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(180),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(80),
                 SizeAndWeightTable::SIZE => new Size(0),
             ],
             $sizeAndWeightTable->getCommonHumanModifiers()
@@ -39,8 +41,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         );
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 140,
-                SizeAndWeightTable::WEIGHT => 70,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(140),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(70),
                 SizeAndWeightTable::SIZE => new Size(0),
             ],
             $sizeAndWeightTable->getCommonDwarfModifier()
@@ -60,8 +62,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         );
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 160,
-                SizeAndWeightTable::WEIGHT => 50,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(160),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(50),
                 SizeAndWeightTable::SIZE => new Size(-1),
             ],
             $sizeAndWeightTable->getCommonElfModifiers()
@@ -76,8 +78,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         $sizeAndWeightTable = new SizeAndWeightTable();
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 110,
-                SizeAndWeightTable::WEIGHT => 40,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(110),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(40),
                 SizeAndWeightTable::SIZE => new Size(-2),
             ],
             $sizeAndWeightTable->getCommonHobbitModifiers()
@@ -96,8 +98,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         );
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 220,
-                SizeAndWeightTable::WEIGHT => 120,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(220),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(120),
                 SizeAndWeightTable::SIZE => new Size(3),
             ],
             $sizeAndWeightTable->getCommonKrollModifier()
@@ -112,8 +114,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         $sizeAndWeightTable = new SizeAndWeightTable();
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 160,
-                SizeAndWeightTable::WEIGHT => 60,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(160),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(60),
                 SizeAndWeightTable::SIZE => new Size(-1),
             ],
             $sizeAndWeightTable->getCommonOrcModifiers()
@@ -128,8 +130,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         $sizeAndWeightTable = new SizeAndWeightTable();
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 150,
-                SizeAndWeightTable::WEIGHT => 55,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(150),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(55),
                 SizeAndWeightTable::SIZE => new Size(-1),
             ],
             $sizeAndWeightTable->getGoblinModifiers()
@@ -144,8 +146,8 @@ class SizeAndWeightTableTest extends TestWithMockery
         $sizeAndWeightTable = new SizeAndWeightTable();
         $this->assertEquals(
             [
-                SizeAndWeightTable::HEIGHT => 180,
-                SizeAndWeightTable::WEIGHT => 90,
+                SizeAndWeightTable::HEIGHT_IN_CM => HeightInCm::getIt(180),
+                SizeAndWeightTable::WEIGHT_IN_KG => WeightInKg::getIt(90),
                 SizeAndWeightTable::SIZE => new Size(1),
             ],
             $sizeAndWeightTable->getSkurutModifiers()
