@@ -9,6 +9,8 @@ use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Base\Will;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Properties\Derived\Senses;
+use DrdPlus\Properties\Native\Infravision;
+use DrdPlus\Properties\Native\NativeRegeneration;
 use DrdPlus\Tests\Races\TestWithMockery;
 
 class RacesTableTest extends TestWithMockery
@@ -30,8 +32,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
                 RacesTable::CHARISMA => Charisma::getIt(-2),
                 RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -55,8 +57,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
                 RacesTable::CHARISMA => Charisma::getIt(-1),
                 RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -80,8 +82,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-2),
                 RacesTable::CHARISMA => Charisma::getIt(-2),
                 RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -105,8 +107,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(1),
                 RacesTable::CHARISMA => Charisma::getIt(1),
                 RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -130,8 +132,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(1),
                 RacesTable::CHARISMA => Charisma::getIt(0),
                 RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => 1
             ],
@@ -155,8 +157,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(1),
                 RacesTable::CHARISMA => Charisma::getIt(1),
                 RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -180,8 +182,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(0),
                 RacesTable::CHARISMA => Charisma::getIt(0),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -205,8 +207,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
                 RacesTable::CHARISMA => Charisma::getIt(-1),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -230,8 +232,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
                 RacesTable::CHARISMA => Charisma::getIt(2),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -255,8 +257,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-3),
                 RacesTable::CHARISMA => Charisma::getIt(-1),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => 1,
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => ''
             ],
@@ -280,8 +282,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(-3),
                 RacesTable::CHARISMA => Charisma::getIt(-2),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => '',
-                RacesTable::NATIVE_REGENERATION => 1,
+                RacesTable::INFRAVISION => Infravision::getIt(false),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
                 RacesTable::SENSES => Senses::getIt(0),
                 RacesTable::REQUIRES_DM_AGREEMENT => 1
             ],
@@ -305,8 +307,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(0),
                 RacesTable::CHARISMA => Charisma::getIt(-2),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
                 RacesTable::REQUIRES_DM_AGREEMENT => 1
             ],
@@ -330,8 +332,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(0),
                 RacesTable::CHARISMA => Charisma::getIt(-1),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
                 RacesTable::REQUIRES_DM_AGREEMENT => 1
             ],
@@ -355,8 +357,8 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INTELLIGENCE => Intelligence::getIt(0),
                 RacesTable::CHARISMA => Charisma::getIt(-2),
                 RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => 1,
-                RacesTable::NATIVE_REGENERATION => '',
+                RacesTable::INFRAVISION => Infravision::getIt(true),
+                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
                 RacesTable::REQUIRES_DM_AGREEMENT => 1
             ],

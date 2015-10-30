@@ -12,4 +12,4 @@
 composer.lock
 
 tests/_output/*
-phpunit.log
+phpunit_log.xml
