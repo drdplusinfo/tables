@@ -11,6 +11,7 @@ use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Properties\Derived\Senses;
 use DrdPlus\Properties\Native\Infravision;
 use DrdPlus\Properties\Native\NativeRegeneration;
+use DrdPlus\Tables\Races\Restrictions\RequiresDmAgreement;
 
 class RacesTable extends AbstractTable
 {
@@ -94,8 +95,7 @@ class RacesTable extends AbstractTable
             self::INFRAVISION => Infravision::getIt($this->getValue([$race, $subrace], [self::INFRAVISION])),
             self::NATIVE_REGENERATION => NativeRegeneration::getIt($this->getValue([$race, $subrace], [self::NATIVE_REGENERATION])),
             self::SENSES => Senses::getIt($this->getValue([$race, $subrace], [self::SENSES])),
-            // TODO provide RequiresDmAgreement as a local boolean enum property
-            self::REQUIRES_DM_AGREEMENT => $this->getValue([$race, $subrace], [self::REQUIRES_DM_AGREEMENT]),
+            self::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt($this->getValue([$race, $subrace], [self::REQUIRES_DM_AGREEMENT])),
         ];
     }
 

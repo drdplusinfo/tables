@@ -11,6 +11,7 @@ use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Properties\Derived\Senses;
 use DrdPlus\Properties\Native\Infravision;
 use DrdPlus\Properties\Native\NativeRegeneration;
+use DrdPlus\Tables\Races\Restrictions\RequiresDmAgreement;
 use DrdPlus\Tests\Races\TestWithMockery;
 
 class RacesTableTest extends TestWithMockery
@@ -35,7 +36,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -60,7 +61,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -85,7 +86,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -110,7 +111,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -135,7 +136,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => 1
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
             ],
             $modifiers
         );
@@ -160,7 +161,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -185,7 +186,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -210,7 +211,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -235,7 +236,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -260,7 +261,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => ''
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
             ],
             $modifiers
         );
@@ -285,7 +286,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(false),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
                 RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => 1
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
             ],
             $modifiers
         );
@@ -310,7 +311,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => 1
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
             ],
             $modifiers
         );
@@ -335,7 +336,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => 1
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
             ],
             $modifiers
         );
@@ -360,7 +361,7 @@ class RacesTableTest extends TestWithMockery
                 RacesTable::INFRAVISION => Infravision::getIt(true),
                 RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
                 RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => 1
+                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
             ],
             $modifiers
         );
