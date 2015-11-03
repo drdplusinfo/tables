@@ -12,7 +12,7 @@ use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use Granam\Strict\Object\StrictObject;
 
-class Tables extends StrictObject
+class MeasurementTables extends StrictObject
 {
     private $tables = [];
 
