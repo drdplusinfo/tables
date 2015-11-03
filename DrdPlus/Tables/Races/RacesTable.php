@@ -11,7 +11,7 @@ use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Properties\Derived\Senses;
 use DrdPlus\Properties\Native\Infravision;
 use DrdPlus\Properties\Native\NativeRegeneration;
-use DrdPlus\Tables\Races\Restrictions\RequiresDmAgreement;
+use DrdPlus\Tables\Races\Enums\Restrictions\RequiresDmAgreement;
 
 class RacesTable extends AbstractTable
 {

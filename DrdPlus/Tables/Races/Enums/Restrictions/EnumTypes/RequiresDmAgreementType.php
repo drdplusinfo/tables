@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tables\Races\Restrictions\EnumTypes;
+namespace DrdPlus\Tables\Races\Enums\Restrictions\EnumTypes;
 
 use Doctrineum\Boolean\BooleanEnumType;
-use DrdPlus\Tables\Races\Restrictions\RequiresDmAgreement;
+use DrdPlus\Tables\Races\Enums\Restrictions\RequiresDmAgreement;
 
 class RequiresDmAgreementType extends BooleanEnumType
 {

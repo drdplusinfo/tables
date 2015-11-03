@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Races\Restrictions;
+namespace DrdPlus\Tables\Races\Enums\Restrictions;
 
 use Doctrineum\Boolean\BooleanEnum;
 use DrdPlus\Properties\PropertyInterface;

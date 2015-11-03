@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Races\Restrictions;
+namespace DrdPlus\Tests\Tables\Races\Enums\Restrictions;
 
-use DrdPlus\Tables\Races\Restrictions\RequiresDmAgreement;
+use DrdPlus\Tables\Races\Enums\Restrictions\RequiresDmAgreement;
 
 class RequiresDmAgreementTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Tables\Races\Restrictions\EnumTypes;
+namespace DrdPlus\Tests\Tables\Races\Enums\Restrictions\EnumTypes;
 
 use DrdPlus\Tests\Properties\EnumTypes\AbstractTestOfBooleanPropertyType;
 
