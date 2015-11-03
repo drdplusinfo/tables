@@ -75,4 +75,58 @@ class FemaleModifiersTableTest extends TestWithMockery
             $this->getFemaleModifiersTable()->getDwarfModifiers()
         );
     }
+
+    /**
+     * @test
+     */
+    public function I_can_get_hobbit_female_modifiers()
+    {
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => new Strength(-1),
+                RacesTable::AGILITY => new Agility(1),
+                RacesTable::KNACK => new Knack(-1),
+                RacesTable::WILL => new Will(0),
+                RacesTable::INTELLIGENCE => new Intelligence(0),
+                RacesTable::CHARISMA => new Charisma(1),
+            ],
+            $this->getFemaleModifiersTable()->getHobbitModifiers()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_kroll_female_modifiers()
+    {
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => new Strength(-1),
+                RacesTable::AGILITY => new Agility(1),
+                RacesTable::KNACK => new Knack(0),
+                RacesTable::WILL => new Will(-1),
+                RacesTable::INTELLIGENCE => new Intelligence(0),
+                RacesTable::CHARISMA => new Charisma(1),
+            ],
+            $this->getFemaleModifiersTable()->getKrollModifiers()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_orc_female_modifiers()
+    {
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => new Strength(-1),
+                RacesTable::AGILITY => new Agility(0),
+                RacesTable::KNACK => new Knack(0),
+                RacesTable::WILL => new Will(1),
+                RacesTable::INTELLIGENCE => new Intelligence(0),
+                RacesTable::CHARISMA => new Charisma(0),
+            ],
+            $this->getFemaleModifiersTable()->getOrcModifiers()
+        );
+    }
 }

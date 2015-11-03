@@ -21,15 +21,31 @@ class MeasurementTablesTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new MeasurementTables();
 
-        $this->assertInstanceOf(AmountTable::class, $factory->getAmountTable());
-        $this->assertInstanceOf(BaseOfWoundsTable::class, $factory->getBaseOfWoundsTable());
-        $this->assertInstanceOf(DistanceTable::class, $factory->getDistanceTable());
-        $this->assertInstanceOf(DistanceTable::class, $factory->getDistanceTable());
-        $this->assertInstanceOf(ExperiencesTable::class, $factory->getExperiencesTable());
-        $this->assertInstanceOf(FatigueTable::class, $factory->geFatigueTable());
-        $this->assertInstanceOf(SpeedTable::class, $factory->getSpeedTable());
-        $this->assertInstanceOf(TimeTable::class, $factory->getTimeTable());
-        $this->assertInstanceOf(WeightTable::class, $factory->getWeightTable());
-        $this->assertInstanceOf(WoundsTable::class, $factory->getWoundsTable());
+        $this->assertInstanceOf(AmountTable::class, $amountTable = $factory->getAmountTable());
+        $this->assertSame($amountTable, $factory->getAmountTable());
+
+        $this->assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $factory->getBaseOfWoundsTable());
+        $this->assertSame($baseOfWoundsTable, $factory->getBaseOfWoundsTable());
+
+        $this->assertInstanceOf(DistanceTable::class, $distanceTable = $factory->getDistanceTable());
+        $this->assertSame($distanceTable, $factory->getDistanceTable());
+
+        $this->assertInstanceOf(ExperiencesTable::class, $experiencesTable = $factory->getExperiencesTable());
+        $this->assertSame($experiencesTable, $factory->getExperiencesTable());
+
+        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $factory->geFatigueTable());
+        $this->assertSame($fatigueTable, $factory->geFatigueTable());
+
+        $this->assertInstanceOf(SpeedTable::class, $speedTable =$factory->getSpeedTable());
+        $this->assertSame($speedTable, $factory->getSpeedTable());
+
+        $this->assertInstanceOf(TimeTable::class, $timeTable = $factory->getTimeTable());
+        $this->assertSame($timeTable, $factory->getTimeTable());
+
+        $this->assertInstanceOf(WeightTable::class, $weightTable = $factory->getWeightTable());
+        $this->assertSame($weightTable, $factory->getWeightTable());
+
+        $this->assertInstanceOf(WoundsTable::class, $woundsTable = $factory->getWoundsTable());
+        $this->assertSame($woundsTable, $factory->getWoundsTable());
     }
 }

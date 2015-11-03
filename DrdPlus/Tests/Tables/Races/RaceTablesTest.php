@@ -15,8 +15,13 @@ class RaceTablesTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new RaceTables();
 
-        $this->assertInstanceOf(RacesTable::class, $factory->getRacesTable());
-        $this->assertInstanceOf(FemaleModifiersTable::class, $factory->getFemaleModifiersTable());
-        $this->assertInstanceOf(SizeAndWeightTable::class, $factory->getSizeAndWeightTable());
+        $this->assertInstanceOf(RacesTable::class, $raceTables = $factory->getRacesTable());
+        $this->assertSame($raceTables, $factory->getRacesTable());
+
+        $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $factory->getFemaleModifiersTable());
+        $this->assertSame($femaleModifiers, $factory->getFemaleModifiersTable());
+
+        $this->assertInstanceOf(SizeAndWeightTable::class, $sizeAndWeightTable = $factory->getSizeAndWeightTable());
+        $this->assertSame($sizeAndWeightTable, $factory->getSizeAndWeightTable());
     }
 }
