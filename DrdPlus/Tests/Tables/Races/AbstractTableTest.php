@@ -65,6 +65,26 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
         $horizontal = new TableWithPublicHeaders(); // new instance to ensure nothing loaded yet
         $this->assertEquals(['bar' => 0], $horizontal->getHorizontalHeader());
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\RequiredDataNotFound
+     */
+    public function I_can_not_require_invalid_vertical_coordinates()
+    {
+        $table = new TableWithPublicHeaders();
+        $table->getValue(['invalid'], []);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\RequiredDataNotFound
+     */
+    public function I_can_not_require_invalid_horizontal_coordinates()
+    {
+        $table = new TableWithPublicHeaders();
+        $table->getValue(['baz'], ['invalid']);
+    }
 }
 
 /** inner */

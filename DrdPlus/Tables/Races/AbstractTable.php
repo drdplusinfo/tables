@@ -241,50 +241,40 @@ abstract class AbstractTable implements TableInterface
     {
         $rowIndex = $this->findIndex($header, $verticalCoordinates);
 
-        if (!is_int($rowIndex)) {
-            throw new Exceptions\RequiredRowNotFound(
-                'Row has not been found for vertical coordinates ' . var_export($verticalCoordinates, true)
-            );
-        }
-        if (!isset($data[$rowIndex])) {
-            throw new Exceptions\RequiredRowNotFound('Missing row with index ' . $rowIndex);
-        }
-
         return $data[$rowIndex];
     }
 
+    /** @noinspection PhpInconsistentReturnPointsInspection */
+    /**
+     * @param array $header
+     * @param array $searchedCoordinates
+     *
+     * @return int
+     */
     private function findIndex(array $header, array $searchedCoordinates)
     {
         $headerPart = $header;
-        $dataIndex = false;
+        $index = null;
         foreach ($searchedCoordinates as $coordinatePart) {
             if (!isset($headerPart[$coordinatePart])) {
-                return false;
+                throw new Exceptions\RequiredDataNotFound(
+                    'Was searching for data index in header "' . var_export($header, true)
+                    . '" by coordinates "' . var_export($searchedCoordinates, true) . '"'
+                );
             }
             $headerPart = &$headerPart[$coordinatePart];
-            if (is_numeric($headerPart)) {
-                $dataIndex = $headerPart;
+            if (is_int($headerPart)) {
+                $index = $headerPart;
                 break;
             }
         }
 
-        return $dataIndex;
+        return $index;
     }
 
     private function getValueInRow(array $row, array $horizontalHeader, array $horizontalCoordinates)
     {
         $columnIndex = $this->findIndex($horizontalHeader, $horizontalCoordinates);
-        if (!is_numeric($columnIndex)) {
-            throw new Exceptions\RequiredColumnValueNotFound(
-                'Index has not been found by horizontal coordinates ' . var_export($horizontalCoordinates, true)
-            );
-        }
-        if (!isset($row[$columnIndex])) {
-            throw new Exceptions\RequiredColumnValueNotFound(
-                'Value has not been found in row ' . var_export($row, true)
-                . ' by horizontal coordinates ' . var_export($horizontalCoordinates, true)
-            );
-        }
 
         return $row[$columnIndex];
     }
