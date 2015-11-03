@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Races;
 
 use Granam\Integer\Tools\ToInteger;
+use Granam\Scalar\Tools\ValueDescriber;
 
 abstract class AbstractTable implements TableInterface
 {
@@ -69,34 +70,35 @@ abstract class AbstractTable implements TableInterface
     private function parseVerticalHeaderNames(array $rawData)
     {
         $verticalHeaderNames = [];
-        foreach ($this->getExpectedVerticalHeader() as $rowIndex => $expectedVerticalHeaderRow) {
-            $verticalHeaderNames[$rowIndex] = [];
-            foreach ($expectedVerticalHeaderRow as $columnIndex => $expectedHeaderValue) {
-                $this->checkHeaderValue($rawData, $rowIndex, $columnIndex, $expectedHeaderValue);
-                $verticalHeaderNames[$rowIndex][$columnIndex] = $expectedHeaderValue;
+        foreach ($this->getExpectedVerticalHeader() as $expectedRowIndex => $expectedVerticalHeaderRow) {
+            $verticalHeaderNames[$expectedRowIndex] = [];
+            foreach ($expectedVerticalHeaderRow as $expectedColumnIndex => $expectedHeaderValue) {
+                $this->checkHeaderValue($rawData, $expectedRowIndex, $expectedColumnIndex, $expectedHeaderValue);
+                $verticalHeaderNames[$expectedRowIndex][$expectedColumnIndex] = $expectedHeaderValue;
             }
         }
 
         return $verticalHeaderNames;
     }
 
-    /** @return array */
+    /** @return string[][] */
     abstract protected function getExpectedVerticalHeader();
 
-    private function checkHeaderValue($rawData, $rowIndex, $columnIndex, $expectedHeaderValue)
+    private function checkHeaderValue($rawData, $expectedRowIndex, $columnIndex, $expectedHeaderValue)
     {
-        if (!isset($rawData[$rowIndex])) {
-            throw new Exceptions\DataAreCorrupted('Expected header row with index ' . ($rowIndex + 1));
+        if (!isset($rawData[$expectedRowIndex])) {
+            throw new Exceptions\DataAreCorrupted('Expected header row with index ' . $expectedRowIndex);
         }
-        if (!isset($rawData[$rowIndex][$columnIndex])) {
+        if (!isset($rawData[$expectedRowIndex][$columnIndex])) {
             throw new Exceptions\DataAreCorrupted(
-                'Missing cell with row index ' . ($rowIndex + 1) . ' and column index ' . ($columnIndex + 1)
+                'Missing cell with row index ' . $expectedRowIndex . ' and column index ' . $columnIndex
             );
         }
-        if ($rawData[$rowIndex][$columnIndex] !== $expectedHeaderValue) {
+        if ($rawData[$expectedRowIndex][$columnIndex] !== $expectedHeaderValue) {
             throw new Exceptions\DataAreCorrupted(
-                "Expected header with name '$expectedHeaderValue' on row "
-                . ($rowIndex + 1) . " and column " . ($columnIndex + 1)
+                "Expected header with name '$expectedHeaderValue' on row index "
+                . $expectedRowIndex . " and column index " . $columnIndex
+                . ', got ' . ValueDescriber::describe($rawData[$expectedRowIndex][$columnIndex])
             );
         }
     }
@@ -182,7 +184,7 @@ abstract class AbstractTable implements TableInterface
         );
     }
 
-    /** @return array */
+    /** @return string[][] */
     abstract protected function getExpectedHorizontalHeader();
 
     private function parseValue($value)
@@ -203,7 +205,7 @@ abstract class AbstractTable implements TableInterface
     /** @return array */
     protected function getHorizontalHeader()
     {
-        if (!isset($this->values)) {
+        if (!isset($this->horizontalHeader)) {
             $this->loadData();
         }
 
@@ -213,7 +215,7 @@ abstract class AbstractTable implements TableInterface
     /** @return array */
     protected function getVerticalHeader()
     {
-        if (!isset($this->values)) {
+        if (!isset($this->verticalHeader)) {
             $this->loadData();
         }
 
