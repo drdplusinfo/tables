@@ -33,8 +33,8 @@ class MeasurementTablesTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(ExperiencesTable::class, $experiencesTable = $factory->getExperiencesTable());
         $this->assertSame($experiencesTable, $factory->getExperiencesTable());
 
-        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $factory->geFatigueTable());
-        $this->assertSame($fatigueTable, $factory->geFatigueTable());
+        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $factory->getFatigueTable());
+        $this->assertSame($fatigueTable, $factory->getFatigueTable());
 
         $this->assertInstanceOf(SpeedTable::class, $speedTable =$factory->getSpeedTable());
         $this->assertSame($speedTable, $factory->getSpeedTable());

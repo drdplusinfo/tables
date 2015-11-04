@@ -83,7 +83,7 @@ class MeasurementTables extends StrictObject
     /**
      * @return FatigueTable
      */
-    public function geFatigueTable()
+    public function getFatigueTable()
     {
         return $this->getWoundsDependentTableFor('fatigue');
     }
