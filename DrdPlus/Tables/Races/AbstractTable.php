@@ -16,6 +16,9 @@ abstract class AbstractTable implements TableInterface
     /** @var array */
     private $values;
 
+    /** @var array */
+    private $normalizedExpectedColumnHeader;
+
     /** @return array */
     public function getValues()
     {
@@ -125,8 +128,9 @@ abstract class AbstractTable implements TableInterface
 
     private function cutOffRowsHeader(array $values)
     {
+        $columnIndexes = array_keys($this->getExpectedRowsHeader());
         foreach (array_keys($values) as $rowIndex) {
-            foreach (array_keys($this->getExpectedRowsHeader()) as $columnIndex) {
+            foreach ($columnIndexes as $columnIndex) {
                 unset($values[$rowIndex][$columnIndex]);
             }
             // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
@@ -173,16 +177,18 @@ abstract class AbstractTable implements TableInterface
 
     private function getNormalizedExpectedColumnsHeader()
     {
-        $normalized = [];
-        $columnIndex = 0;
-        foreach ($this->getExpectedColumnsHeader() as $headerName => $columnScalarType) {
-            $normalized[$columnIndex++] = [
-                'value' => $headerName,
-                'type' => $this->normalizeScalarType($columnScalarType),
-            ];
+        if (!isset($this->normalizedExpectedColumnHeader)) {
+            $this->normalizedExpectedColumnHeader = [];
+            $columnIndex = 0;
+            foreach ($this->getExpectedColumnsHeader() as $headerName => $columnScalarType) {
+                $this->normalizedExpectedColumnHeader[$columnIndex++] = [
+                    'value' => $headerName,
+                    'type' => $this->normalizeScalarType($columnScalarType),
+                ];
+            }
         }
 
-        return $normalized;
+        return $this->normalizedExpectedColumnHeader;
     }
 
     private function normalizeScalarType($scalarType)
@@ -195,7 +201,9 @@ abstract class AbstractTable implements TableInterface
             case self::INTEGER :
                 return self::INTEGER;
             default :
-                throw new \LogicException('Unknown scalar type ' . ValueDescriber::describe($scalarType));
+                throw new Exceptions\UnknownScalarTypeForColumn(
+                    'Unknown scalar type ' . ValueDescriber::describe($scalarType)
+                );
         }
     }
 
@@ -213,7 +221,9 @@ abstract class AbstractTable implements TableInterface
             case self::FLOAT :
                 return ToFloat::toFloat($this->normalizeMinus($value));
             default :
-                throw new \LogicException('Unknown scalar type ' . ValueDescriber::describe($columnType));
+                throw new Exceptions\UnknownScalarTypeForColumn(
+                    'Unknown scalar type ' . ValueDescriber::describe($columnType)
+                );
         }
     }
 

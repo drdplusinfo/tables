@@ -74,6 +74,16 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
         $table = new TableWithPublicHeaders();
         $table->getValue(['baz'], 'invalid');
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownScalarTypeForColumn
+     */
+    public function I_can_not_use_table_with_unknown_column_type()
+    {
+        $table = new TableWithUnknownColumnScalarType();
+        $table->getValues();
+    }
 }
 
 /** inner */
@@ -206,5 +216,25 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
     protected function getExpectedColumnsHeader()
     {
         return ['bar' => self::INTEGER];
+    }
+}
+
+class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
+{
+    protected function getDataFileName()
+    {
+        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
+
+        return $this->dataFileName;
+    }
+
+    protected function getExpectedRowsHeader()
+    {
+        return ['foo'];
+    }
+
+    protected function getExpectedColumnsHeader()
+    {
+        return ['bar' => 'unknown type'];
     }
 }
