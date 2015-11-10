@@ -179,7 +179,7 @@ class RacesTable extends AbstractTable
      */
     private function getProperty($raceCode, $subraceCode, $propertyName)
     {
-        return $this->getValue([$raceCode, $subraceCode], [$propertyName]);
+        return $this->getValue([$raceCode, $subraceCode], $propertyName);
     }
 
     /**
@@ -235,5 +235,60 @@ class RacesTable extends AbstractTable
     public function getCharisma($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, self::CHARISMA);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getEndurance($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::ENDURANCE);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return bool
+     */
+    public function getInfravision($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::INFRAVISION);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return bool
+     */
+    public function getNativeRegeneration($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::NATIVE_REGENERATION);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getSenses($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::SENSES);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return bool
+     */
+    public function requiresDmAgreement($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::REQUIRES_DM_AGREEMENT);
     }
 }
