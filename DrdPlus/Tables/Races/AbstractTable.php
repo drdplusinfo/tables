@@ -215,16 +215,17 @@ abstract class AbstractTable implements TableInterface
         $value = trim($value);
         switch ($columnType = $this->getColumnType($columnIndex)) {
             case self::BOOLEAN :
-                return ToBoolean::toBoolean($value);
+                $value = ToBoolean::toBoolean($value);
+                break;
             case self::INTEGER :
-                return ToInteger::toInteger($this->normalizeMinus($value));
+                $value = ToInteger::toInteger($this->normalizeMinus($value));
+                break;
             case self::FLOAT :
-                return ToFloat::toFloat($this->normalizeMinus($value));
-            default :
-                throw new Exceptions\UnknownScalarTypeForColumn(
-                    'Unknown scalar type ' . ValueDescriber::describe($columnType)
-                );
+                $value = ToFloat::toFloat($this->normalizeMinus($value));
+                break;
         }
+
+        return $value;
     }
 
     private function getColumnType($columnIndex)
