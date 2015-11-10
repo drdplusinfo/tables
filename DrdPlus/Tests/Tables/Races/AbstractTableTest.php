@@ -85,12 +85,12 @@ class TableWithWrongFileReference extends AbstractTable
         return 'non existing filename';
     }
 
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [];
     }
 
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [];
     }
@@ -136,12 +136,12 @@ class TableWithMissingHeaderRow extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [999 => ['foo']];
     }
 
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [];
     }
@@ -157,12 +157,12 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [999 => 'foo'];
     }
 
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [];
     }
@@ -178,12 +178,12 @@ class TableWithUnexpectedHeaderValue extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return ['expected header'];
     }
 
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [];
     }
@@ -198,12 +198,12 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return ['foo'];
     }
 
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return ['bar' => self::INTEGER];
     }

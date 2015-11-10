@@ -28,7 +28,7 @@ class RacesTable extends AbstractTable
     /**
      * @return array|string
      */
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [
             self::STRENGTH => self::INTEGER,
@@ -50,7 +50,7 @@ class RacesTable extends AbstractTable
     /**
      * @return array
      */
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [
             self::RACE,

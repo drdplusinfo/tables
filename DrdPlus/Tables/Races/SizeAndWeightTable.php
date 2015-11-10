@@ -18,7 +18,7 @@ class SizeAndWeightTable extends AbstractTable
     /**
      * @return array|string
      */
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [
             self::HEIGHT_IN_CM => self::FLOAT,
@@ -30,7 +30,7 @@ class SizeAndWeightTable extends AbstractTable
     /**
      * @return array
      */
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [
             RacesTable::RACE,

@@ -14,7 +14,7 @@ class FemaleModifiersTable extends AbstractTable
     /**
      * @return array|string
      */
-    protected function getExpectedHorizontalHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [
             RacesTable::STRENGTH => self::INTEGER,
@@ -29,7 +29,7 @@ class FemaleModifiersTable extends AbstractTable
     /**
      * @return array
      */
-    protected function getExpectedVerticalHeader()
+    protected function getExpectedRowsHeader()
     {
         return [RacesTable::RACE];
     }

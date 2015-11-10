@@ -59,33 +59,32 @@ abstract class AbstractTable implements TableInterface
 
     private function mapValues(array $rawData)
     {
-        // TODO vertical header should be columnIndex=>columnName, @see usage in indexData
-        $verticalHeader = $this->parseVerticalHeader($rawData);
-        $valuesWithoutVerticalHeader = $this->cutOffVerticalHeader($rawData);
+        $rowsHeader = $this->parseRowsHeader($rawData);
+        $valuesWithoutRowsHeader = $this->cutOffRowsHeader($rawData);
 
-        $horizontalHeader = $this->parseHorizontalHeader($valuesWithoutVerticalHeader);
-        $valuesWithoutHeader = $this->cutOffHorizontalHeader($valuesWithoutVerticalHeader);
+        $columnsHeader = $this->parseColumnsHeader($valuesWithoutRowsHeader);
+        $valuesWithoutHeader = $this->cutOffColumnsHeader($valuesWithoutRowsHeader);
 
         $formattedValues = $this->formatValues($valuesWithoutHeader);
 
-        $indexed = $this->indexData($formattedValues, $verticalHeader, $horizontalHeader);
+        $indexed = $this->indexData($formattedValues, $rowsHeader, $columnsHeader);
 
         return $indexed;
     }
 
-    private function parseVerticalHeaderNames(array $rawData)
+    private function parseRowsHeaderNames(array $rawData)
     {
-        $verticalHeaderNames = [];
-        foreach ($this->getExpectedVerticalHeader() as $expectedColumnIndex => $expectedHeaderValue) {
+        $rowsHeaderNames = [];
+        foreach ($this->getExpectedRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
             $this->checkHeaderValue($rawData, $expectedColumnIndex, $expectedHeaderValue);
-            $verticalHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
+            $rowsHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
         }
 
-        return $verticalHeaderNames;
+        return $rowsHeaderNames;
     }
 
     /** @return string[] */
-    abstract protected function getExpectedVerticalHeader();
+    abstract protected function getExpectedRowsHeader();
 
     private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
     {
@@ -102,32 +101,32 @@ abstract class AbstractTable implements TableInterface
         }
     }
 
-    private function parseVerticalHeader(array $data)
+    private function parseRowsHeader(array $data)
     {
-        $verticalHeaderNamesRow = $this->parseVerticalHeaderNames($data);
-        $verticalHeaderValues = []; // vertical header values to data row index
+        $rowsHeaderNamesRow = $this->parseRowsHeaderNames($data);
+        $rowsHeaderValues = []; // rows header values to data row index
         foreach ($data as $rowIndex => $dataRow) {
             if ($rowIndex === 0) {
                 continue; // skipping header names
             }
-            $verticalHeaderValuesPart = &$verticalHeaderValues;
-            foreach ($verticalHeaderNamesRow as $dataColumnIndex => $headerName) {
+            $rowsHeaderValuesPart = &$rowsHeaderValues;
+            foreach ($rowsHeaderNamesRow as $dataColumnIndex => $headerName) {
                 $headerValue = $dataRow[$dataColumnIndex];
-                if (!isset($verticalHeaderValuesPart[$headerValue])) {
-                    $verticalHeaderValuesPart[$headerValue] = [];
+                if (!isset($rowsHeaderValuesPart[$headerValue])) {
+                    $rowsHeaderValuesPart[$headerValue] = [];
                 }
-                $verticalHeaderValuesPart = &$verticalHeaderValuesPart[$headerValue];
+                $rowsHeaderValuesPart = &$rowsHeaderValuesPart[$headerValue];
             }
-            $verticalHeaderValuesPart = $rowIndex - 1; // because of gap by skipped first row
+            $rowsHeaderValuesPart = $rowIndex - 1; // because of gap by skipped first row
         }
 
-        return $verticalHeaderValues;
+        return $rowsHeaderValues;
     }
 
-    private function cutOffVerticalHeader(array $values)
+    private function cutOffRowsHeader(array $values)
     {
         foreach (array_keys($values) as $rowIndex) {
-            foreach (array_keys($this->getExpectedVerticalHeader()) as $columnIndex) {
+            foreach (array_keys($this->getExpectedRowsHeader()) as $columnIndex) {
                 unset($values[$rowIndex][$columnIndex]);
             }
             // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
@@ -137,20 +136,20 @@ abstract class AbstractTable implements TableInterface
         return $values; // pure values without header
     }
 
-    private function parseHorizontalHeader(array $data)
+    private function parseColumnsHeader(array $data)
     {
-        $horizontalHeaderValues = [];
-        $expectedHeaderRow = $this->getNormalizedExpectedHorizontalHeader(); // the very first rows of data
+        $columnsHeaderValues = [];
+        $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
         foreach (array_keys($expectedHeaderRow) as $dataColumnIndex) {
             $expectedHeaderValue = $expectedHeaderRow[$dataColumnIndex]['value'];
             $this->checkHeaderValue($data, $dataColumnIndex, $expectedHeaderValue);
-            $horizontalHeaderValues[$expectedHeaderValue] = $dataColumnIndex;
+            $columnsHeaderValues[$dataColumnIndex] = $expectedHeaderValue;
         }
 
-        return $horizontalHeaderValues;
+        return $columnsHeaderValues;
     }
 
-    private function cutOffHorizontalHeader(array $rawData)
+    private function cutOffColumnsHeader(array $rawData)
     {
         unset($rawData[0]);
 
@@ -172,11 +171,11 @@ abstract class AbstractTable implements TableInterface
         );
     }
 
-    private function getNormalizedExpectedHorizontalHeader()
+    private function getNormalizedExpectedColumnsHeader()
     {
         $normalized = [];
         $columnIndex = 0;
-        foreach ($this->getExpectedHorizontalHeader() as $headerName => $columnScalarType) {
+        foreach ($this->getExpectedColumnsHeader() as $headerName => $columnScalarType) {
             $normalized[$columnIndex++] = [
                 'value' => $headerName,
                 'type' => $this->normalizeScalarType($columnScalarType),
@@ -201,7 +200,7 @@ abstract class AbstractTable implements TableInterface
     }
 
     /** @return string[] */
-    abstract protected function getExpectedHorizontalHeader();
+    abstract protected function getExpectedColumnsHeader();
 
     private function parseValue($value, $columnIndex)
     {
@@ -220,7 +219,7 @@ abstract class AbstractTable implements TableInterface
 
     private function getColumnType($columnIndex)
     {
-        $header = $this->getNormalizedExpectedHorizontalHeader();
+        $header = $this->getNormalizedExpectedColumnsHeader();
 
         return $header[$columnIndex]['type'];
     }
@@ -230,15 +229,15 @@ abstract class AbstractTable implements TableInterface
         return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
     }
 
-    private function indexData(array $values, array $horizontalHeader, array $verticalHeader)
+    private function indexData(array $values, array $rowsHeader, array $columnsHeader)
     {
-        $indexedRows = $this->indexByHorizontalHeader($values, $horizontalHeader);
-        $indexed = $this->indexByVerticalHeader($indexedRows, $verticalHeader);
+        $indexedRows = $this->indexByRowsHeader($values, $rowsHeader);
+        $indexed = $this->indexByColumnsHeader($indexedRows, $columnsHeader);
 
         return $indexed;
     }
 
-    private function indexByHorizontalHeader(array $toIndex, array $rowKeys)
+    private function indexByRowsHeader(array $toIndex, array $rowKeys)
     {
         $indexed = [];
         foreach ($rowKeys as $keyPart => $keyPartsOrRowIndex) {
@@ -247,24 +246,24 @@ abstract class AbstractTable implements TableInterface
                 $indexed[$keyPart] = $toIndex[$rowIndex];
             } else {
                 $indexed[$keyPart] = [];
-                $indexed[$keyPart] = $this->indexByHorizontalHeader($toIndex, $keyPartsOrRowIndex);
+                $indexed[$keyPart] = $this->indexByRowsHeader($toIndex, $keyPartsOrRowIndex);
             }
         }
 
         return $indexed;
     }
 
-    private function indexByVerticalHeader(array $toIndex, array $columnKeys)
+    private function indexByColumnsHeader(array $toIndex, array $columnKeys)
     {
         $indexed = [];
         foreach ($toIndex as $rowKeyOrColumnIndex => $rowOrFinalValue) {
             if (!is_array($rowOrFinalValue)) {
                 $columnIndex = $rowKeyOrColumnIndex;
                 $finalValue = $rowOrFinalValue;
-                $columnKey = array_search($columnIndex, $columnKeys);
+                $columnKey = $columnKeys[$columnIndex];
                 $indexed[$columnKey] = $finalValue;
             } else {
-                $indexed[$rowKeyOrColumnIndex] = $this->indexByVerticalHeader($rowOrFinalValue, $columnKeys);
+                $indexed[$rowKeyOrColumnIndex] = $this->indexByColumnsHeader($rowOrFinalValue, $columnKeys);
             }
         }
 
