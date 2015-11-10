@@ -3,7 +3,6 @@ namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\MeasurementInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractTable;
-use DrdPlus\Tools\Tests\TestWithMockery;
 
 abstract class AbstractTestOfMeasurement extends TestWithMockery
 {

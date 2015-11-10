@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractMeasurement;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
 
 class MeasurementTest extends TestWithMockery
 {

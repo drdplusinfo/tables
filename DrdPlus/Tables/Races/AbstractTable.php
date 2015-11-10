@@ -1,17 +1,20 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use Granam\Boolean\Tools\ToBoolean;
+use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Tools\ValueDescriber;
 
 abstract class AbstractTable implements TableInterface
 {
+    const INTEGER = 'integer';
+    const FLOAT = 'float';
+    const BOOLEAN = 'boolean';
+    const DEFAULT_TYPE = self::INTEGER;
+
     /** @var array */
     private $values;
-    /** @var array */
-    private $horizontalHeader;
-    /** @var array */
-    private $verticalHeader;
 
     /** @return array */
     public function getValues()
@@ -27,7 +30,7 @@ abstract class AbstractTable implements TableInterface
     private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
-        list($this->verticalHeader, $this->horizontalHeader, $this->values) = $this->mapValues($rawData);
+        $this->values = $this->mapValues($rawData);
     }
 
     /** @return string */
@@ -56,6 +59,7 @@ abstract class AbstractTable implements TableInterface
 
     private function mapValues(array $rawData)
     {
+        // TODO vertical header should be columnIndex=>columnName, @see usage in indexData
         $verticalHeader = $this->parseVerticalHeader($rawData);
         $valuesWithoutVerticalHeader = $this->cutOffVerticalHeader($rawData);
 
@@ -64,64 +68,57 @@ abstract class AbstractTable implements TableInterface
 
         $formattedValues = $this->formatValues($valuesWithoutHeader);
 
-        return [$verticalHeader, $horizontalHeader, $formattedValues];
+        $indexed = $this->indexData($formattedValues, $verticalHeader, $horizontalHeader);
+
+        return $indexed;
     }
 
     private function parseVerticalHeaderNames(array $rawData)
     {
         $verticalHeaderNames = [];
-        foreach ($this->getExpectedVerticalHeader() as $expectedRowIndex => $expectedVerticalHeaderRow) {
-            $verticalHeaderNames[$expectedRowIndex] = [];
-            foreach ($expectedVerticalHeaderRow as $expectedColumnIndex => $expectedHeaderValue) {
-                $this->checkHeaderValue($rawData, $expectedRowIndex, $expectedColumnIndex, $expectedHeaderValue);
-                $verticalHeaderNames[$expectedRowIndex][$expectedColumnIndex] = $expectedHeaderValue;
-            }
+        foreach ($this->getExpectedVerticalHeader() as $expectedColumnIndex => $expectedHeaderValue) {
+            $this->checkHeaderValue($rawData, $expectedColumnIndex, $expectedHeaderValue);
+            $verticalHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
         }
 
         return $verticalHeaderNames;
     }
 
-    /** @return string[][] */
+    /** @return string[] */
     abstract protected function getExpectedVerticalHeader();
 
-    private function checkHeaderValue($rawData, $expectedRowIndex, $columnIndex, $expectedHeaderValue)
+    private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
     {
-        if (!isset($rawData[$expectedRowIndex])) {
-            throw new Exceptions\DataAreCorrupted('Expected header row with index ' . $expectedRowIndex);
-        }
-        if (!isset($rawData[$expectedRowIndex][$columnIndex])) {
+        if (!isset($rawData[$columnIndex])) {
             throw new Exceptions\DataAreCorrupted(
-                'Missing cell with row index ' . $expectedRowIndex . ' and column index ' . $columnIndex
+                'Missing cell with header with column index ' . $columnIndex
             );
         }
-        if ($rawData[$expectedRowIndex][$columnIndex] !== $expectedHeaderValue) {
+        if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
             throw new Exceptions\DataAreCorrupted(
-                "Expected header with name '$expectedHeaderValue' on row index "
-                . $expectedRowIndex . " and column index " . $columnIndex
-                . ', got ' . ValueDescriber::describe($rawData[$expectedRowIndex][$columnIndex])
+                "Expected header with name '$expectedHeaderValue' on column index " . $columnIndex
+                . ', got ' . ValueDescriber::describe($rawData[$columnIndex])
             );
         }
     }
 
     private function parseVerticalHeader(array $data)
     {
-        $verticalHeaderNames = $this->parseVerticalHeaderNames($data);
+        $verticalHeaderNamesRow = $this->parseVerticalHeaderNames($data);
         $verticalHeaderValues = []; // vertical header values to data row index
         foreach ($data as $rowIndex => $dataRow) {
-            $verticalHeaderValuesIndex = $rowIndex - count($verticalHeaderNames);
-            if ($verticalHeaderValuesIndex >= 0) { // otherwise skip header names
-                $verticalHeaderValuesRow = [];
-                $verticalHeaderValuesRowPart = &$verticalHeaderValuesRow;
-                foreach ($verticalHeaderNames as $verticalHeaderNamesRow) {
-                    foreach ($verticalHeaderNamesRow as $dataColumnIndex => $headerName) {
-                        $headerValue = $dataRow[$dataColumnIndex];
-                        $verticalHeaderValuesRowPart[$headerValue] = [];
-                        $verticalHeaderValuesRowPart = &$verticalHeaderValuesRowPart[$headerValue];
-                    }
-                }
-                $verticalHeaderValuesRowPart = $verticalHeaderValuesIndex;
-                $verticalHeaderValues = array_merge_recursive($verticalHeaderValues, $verticalHeaderValuesRow);
+            if ($rowIndex === 0) {
+                continue; // skipping header names
             }
+            $verticalHeaderValuesPart = &$verticalHeaderValues;
+            foreach ($verticalHeaderNamesRow as $dataColumnIndex => $headerName) {
+                $headerValue = $dataRow[$dataColumnIndex];
+                if (!isset($verticalHeaderValuesPart[$headerValue])) {
+                    $verticalHeaderValuesPart[$headerValue] = [];
+                }
+                $verticalHeaderValuesPart = &$verticalHeaderValuesPart[$headerValue];
+            }
+            $verticalHeaderValuesPart = $rowIndex - 1; // because of gap by skipped first row
         }
 
         return $verticalHeaderValues;
@@ -130,7 +127,7 @@ abstract class AbstractTable implements TableInterface
     private function cutOffVerticalHeader(array $values)
     {
         foreach (array_keys($values) as $rowIndex) {
-            foreach (array_keys($this->getExpectedVerticalHeader()[0]) as $columnIndex) {
+            foreach (array_keys($this->getExpectedVerticalHeader()) as $columnIndex) {
                 unset($values[$rowIndex][$columnIndex]);
             }
             // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
@@ -143,18 +140,11 @@ abstract class AbstractTable implements TableInterface
     private function parseHorizontalHeader(array $data)
     {
         $horizontalHeaderValues = [];
-        $expectedHeader = $this->getExpectedHorizontalHeader(); // the very first rows of data
-        foreach (array_keys(current($expectedHeader)) as $dataColumnIndex) {
-            $horizontalHeaderValuesColumn = [];
-            $horizontalHeaderValuesColumnPart = &$horizontalHeaderValuesColumn;
-            foreach ($expectedHeader as $headerRowIndex => $expectedHeaderRow) {
-                $expectedHeaderValue = $expectedHeaderRow[$dataColumnIndex];
-                $this->checkHeaderValue($data, $headerRowIndex, $dataColumnIndex, $expectedHeaderValue);
-                $horizontalHeaderValuesColumnPart[$expectedHeaderValue] = [];
-                $horizontalHeaderValuesColumnPart = &$horizontalHeaderValuesColumnPart[$expectedHeaderValue];
-            }
-            $horizontalHeaderValuesColumnPart = $dataColumnIndex;
-            $horizontalHeaderValues = array_merge_recursive($horizontalHeaderValues, $horizontalHeaderValuesColumn);
+        $expectedHeaderRow = $this->getNormalizedExpectedHorizontalHeader(); // the very first rows of data
+        foreach (array_keys($expectedHeaderRow) as $dataColumnIndex) {
+            $expectedHeaderValue = $expectedHeaderRow[$dataColumnIndex]['value'];
+            $this->checkHeaderValue($data, $dataColumnIndex, $expectedHeaderValue);
+            $horizontalHeaderValues[$expectedHeaderValue] = $dataColumnIndex;
         }
 
         return $horizontalHeaderValues;
@@ -162,9 +152,7 @@ abstract class AbstractTable implements TableInterface
 
     private function cutOffHorizontalHeader(array $rawData)
     {
-        foreach (array_keys($this->getExpectedHorizontalHeader()) as $rowIndexWithAxisXHeader) {
-            unset($rawData[$rowIndexWithAxisXHeader]);
-        }
+        unset($rawData[0]);
 
         return array_merge($rawData); // fixing row numeric indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
     }
@@ -174,107 +162,162 @@ abstract class AbstractTable implements TableInterface
         return array_map(
             function (array $row) {
                 return array_map(
-                    function ($value) {
-                        return $this->parseValue($value);
+                    function ($value, $columnIndex) {
+                        return $this->parseValue($value, $columnIndex);
                     },
-                    $row
+                    $row, array_keys($row)
                 );
             },
             $data
         );
     }
 
-    /** @return string[][] */
-    abstract protected function getExpectedHorizontalHeader();
-
-    private function parseValue($value)
+    private function getNormalizedExpectedHorizontalHeader()
     {
-        $value = trim($value);
-        if ($value === '') {
-            return $value;
+        $normalized = [];
+        $columnIndex = 0;
+        foreach ($this->getExpectedHorizontalHeader() as $headerName => $columnScalarType) {
+            $normalized[$columnIndex++] = [
+                'value' => $headerName,
+                'type' => $this->normalizeScalarType($columnScalarType),
+            ];
         }
 
-        return ToInteger::toInteger($this->parseNumber($value));
+        return $normalized;
     }
 
-    private function parseNumber($value)
+    private function normalizeScalarType($scalarType)
+    {
+        switch (strtolower($scalarType)) {
+            case self::BOOLEAN :
+                return self::BOOLEAN;
+            case self::FLOAT :
+                return self::FLOAT;
+            case self::INTEGER :
+                return self::INTEGER;
+            default :
+                throw new \LogicException('Unknown scalar type ' . ValueDescriber::describe($scalarType));
+        }
+    }
+
+    /** @return string[] */
+    abstract protected function getExpectedHorizontalHeader();
+
+    private function parseValue($value, $columnIndex)
+    {
+        $value = trim($value);
+        switch ($columnType = $this->getColumnType($columnIndex)) {
+            case self::BOOLEAN :
+                return ToBoolean::toBoolean($value);
+            case self::INTEGER :
+                return ToInteger::toInteger($this->normalizeMinus($value));
+            case self::FLOAT :
+                return ToFloat::toFloat($this->normalizeMinus($value));
+            default :
+                throw new \LogicException('Unknown scalar type ' . ValueDescriber::describe($columnType));
+        }
+    }
+
+    private function getColumnType($columnIndex)
+    {
+        $header = $this->getNormalizedExpectedHorizontalHeader();
+
+        return $header[$columnIndex]['type'];
+    }
+
+    private function normalizeMinus($value)
     {
         return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
     }
 
-    /** @return array */
-    protected function getHorizontalHeader()
+    private function indexData(array $values, array $horizontalHeader, array $verticalHeader)
     {
-        if (!isset($this->horizontalHeader)) {
-            $this->loadData();
-        }
+        $indexedRows = $this->indexByHorizontalHeader($values, $horizontalHeader);
+        $indexed = $this->indexByVerticalHeader($indexedRows, $verticalHeader);
 
-        return $this->horizontalHeader;
+        return $indexed;
     }
 
-    /** @return array */
-    protected function getVerticalHeader()
+    private function indexByHorizontalHeader(array $toIndex, array $rowKeys)
     {
-        if (!isset($this->verticalHeader)) {
-            $this->loadData();
+        $indexed = [];
+        foreach ($rowKeys as $keyPart => $keyPartsOrRowIndex) {
+            if (is_int($keyPartsOrRowIndex)) { // last string key pointing to row index
+                $rowIndex = $keyPartsOrRowIndex;
+                $indexed[$keyPart] = $toIndex[$rowIndex];
+            } else {
+                $indexed[$keyPart] = [];
+                $indexed[$keyPart] = $this->indexByHorizontalHeader($toIndex, $keyPartsOrRowIndex);
+            }
         }
 
-        return $this->verticalHeader;
+        return $indexed;
+    }
+
+    private function indexByVerticalHeader(array $toIndex, array $columnKeys)
+    {
+        $indexed = [];
+        foreach ($toIndex as $rowKeyOrColumnIndex => $rowOrFinalValue) {
+            if (!is_array($rowOrFinalValue)) {
+                $columnIndex = $rowKeyOrColumnIndex;
+                $finalValue = $rowOrFinalValue;
+                $columnKey = array_search($columnIndex, $columnKeys);
+                $indexed[$columnKey] = $finalValue;
+            } else {
+                $indexed[$rowKeyOrColumnIndex] = $this->indexByVerticalHeader($rowOrFinalValue, $columnKeys);
+            }
+        }
+
+        return $indexed;
     }
 
     /**
-     * @param array $verticalCoordinates
-     * @param array $horizontalCoordinates
+     * @param array $rowIndexes
+     * @param string $columnIndex
      *
-     * @return int|false
+     * @return int|float|bool
      */
-    public function getValue(array $verticalCoordinates, array $horizontalCoordinates)
+    public function getValue(array $rowIndexes, $columnIndex)
     {
-        $row = $this->getRow($this->getValues(), $this->getVerticalHeader(), $verticalCoordinates);
+        $row = $this->getRow($rowIndexes);
 
-        $value = $this->getValueInRow($row, $this->getHorizontalHeader(), $horizontalCoordinates);
+        $value = $this->getValueInRow($row, $columnIndex);
 
         return $value;
     }
 
-    private function getRow(array $data, array $header, array $verticalCoordinates)
-    {
-        $rowIndex = $this->findIndex($header, $verticalCoordinates);
-
-        return $data[$rowIndex];
-    }
-
-    /** @noinspection PhpInconsistentReturnPointsInspection */
     /**
-     * @param array $header
-     * @param array $searchedCoordinates
+     * @param array $rowIndexes
      *
-     * @return int
+     * @return array|mixed[]
      */
-    private function findIndex(array $header, array $searchedCoordinates)
+    public function getRow(array $rowIndexes)
     {
-        $headerPart = $header;
-        $index = null;
-        foreach ($searchedCoordinates as $coordinatePart) {
-            if (!isset($headerPart[$coordinatePart])) {
+        $values = $this->getValues();
+        $row = null;
+        foreach ($rowIndexes as $rowIndex) {
+            if (!isset($values[$rowIndex])) {
                 throw new Exceptions\RequiredDataNotFound(
-                    'Was searching for data index in header "' . var_export($header, true)
-                    . '" by coordinates "' . var_export($searchedCoordinates, true) . '"'
+                    'Has not found data by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
-            $headerPart = &$headerPart[$coordinatePart];
-            if (is_int($headerPart)) {
-                $index = $headerPart;
+            $values = &$values[$rowIndex];
+            if (!is_array(current($values))) { // flat array found
+                $row = $values;
                 break;
             }
         }
 
-        return $index;
+        return $row;
     }
 
-    private function getValueInRow(array $row, array $horizontalHeader, array $horizontalCoordinates)
+    private function getValueInRow(array $row, $columnIndex)
     {
-        $columnIndex = $this->findIndex($horizontalHeader, $horizontalCoordinates);
+        if (!isset($row[$columnIndex])) {
+            throw new Exceptions\RequiredDataNotFound(
+                'Has not found value in row by index ' . ValueDescriber::describe($columnIndex)
+            );
+        }
 
         return $row[$columnIndex];
     }

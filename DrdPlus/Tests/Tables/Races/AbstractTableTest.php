@@ -57,23 +57,12 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     */
-    public function I_can_get_whole_headers_without_anything_else()
-    {
-        $vertical = new TableWithPublicHeaders();
-        $this->assertEquals(['baz' => 0], $vertical->getVerticalHeader());
-        $horizontal = new TableWithPublicHeaders(); // new instance to ensure nothing loaded yet
-        $this->assertEquals(['bar' => 0], $horizontal->getHorizontalHeader());
-    }
-
-    /**
-     * @test
      * @expectedException \DrdPlus\Tables\Races\Exceptions\RequiredDataNotFound
      */
     public function I_can_not_require_invalid_vertical_coordinates()
     {
         $table = new TableWithPublicHeaders();
-        $table->getValue(['invalid'], []);
+        $table->getValue(['invalid'], null);
     }
 
     /**
@@ -83,7 +72,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_not_require_invalid_horizontal_coordinates()
     {
         $table = new TableWithPublicHeaders();
-        $table->getValue(['baz'], ['invalid']);
+        $table->getValue(['baz'], 'invalid');
     }
 }
 
@@ -98,12 +87,12 @@ class TableWithWrongFileReference extends AbstractTable
 
     protected function getExpectedVerticalHeader()
     {
-        return [[]];
+        return [];
     }
 
     protected function getExpectedHorizontalHeader()
     {
-        return [[]];
+        return [];
     }
 
 }
@@ -154,7 +143,7 @@ class TableWithMissingHeaderRow extends TableWithEmptyFilename
 
     protected function getExpectedHorizontalHeader()
     {
-        return [[]];
+        return [];
     }
 }
 
@@ -170,12 +159,12 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
 
     protected function getExpectedVerticalHeader()
     {
-        return [[999 => 'foo']];
+        return [999 => 'foo'];
     }
 
     protected function getExpectedHorizontalHeader()
     {
-        return [[]];
+        return [];
     }
 }
 
@@ -191,12 +180,12 @@ class TableWithUnexpectedHeaderValue extends TableWithEmptyFilename
 
     protected function getExpectedVerticalHeader()
     {
-        return [['expected header']];
+        return ['expected header'];
     }
 
     protected function getExpectedHorizontalHeader()
     {
-        return [[]];
+        return [];
     }
 }
 
@@ -211,21 +200,11 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
 
     protected function getExpectedVerticalHeader()
     {
-        return [['foo']];
+        return ['foo'];
     }
 
     protected function getExpectedHorizontalHeader()
     {
-        return [['bar']];
-    }
-
-    public function getHorizontalHeader()
-    {
-        return parent::getHorizontalHeader();
-    }
-
-    public function getVerticalHeader()
-    {
-        return parent::getVerticalHeader();
+        return ['bar' => self::INTEGER];
     }
 }

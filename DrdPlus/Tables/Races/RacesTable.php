@@ -1,18 +1,6 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Charisma;
-use DrdPlus\Properties\Base\Intelligence;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Properties\Base\Will;
-use DrdPlus\Properties\Derived\Endurance;
-use DrdPlus\Properties\Derived\Senses;
-use DrdPlus\Properties\Native\Infravision;
-use DrdPlus\Properties\Native\NativeRegeneration;
-use DrdPlus\Tables\Races\Enums\Restrictions\RequiresDmAgreement;
-
 class RacesTable extends AbstractTable
 {
 
@@ -43,19 +31,17 @@ class RacesTable extends AbstractTable
     protected function getExpectedHorizontalHeader()
     {
         return [
-            [
-                self::STRENGTH,
-                self::AGILITY,
-                self::KNACK,
-                self::WILL,
-                self::INTELLIGENCE,
-                self::CHARISMA,
-                self::ENDURANCE,
-                self::INFRAVISION,
-                self::NATIVE_REGENERATION,
-                self::SENSES,
-                self::REQUIRES_DM_AGREEMENT,
-            ]
+            self::STRENGTH => self::INTEGER,
+            self::AGILITY => self::INTEGER,
+            self::KNACK => self::INTEGER,
+            self::WILL => self::INTEGER,
+            self::INTELLIGENCE => self::INTEGER,
+            self::CHARISMA => self::INTEGER,
+            self::ENDURANCE => self::INTEGER,
+            self::INFRAVISION => self::BOOLEAN,
+            self::NATIVE_REGENERATION => self::BOOLEAN,
+            self::SENSES => self::INTEGER,
+            self::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
         ];
     }
 
@@ -67,10 +53,8 @@ class RacesTable extends AbstractTable
     protected function getExpectedVerticalHeader()
     {
         return [
-            [
-                self::RACE,
-                self::SUBRACE
-            ]
+            self::RACE,
+            self::SUBRACE
         ];
     }
 
@@ -79,115 +63,177 @@ class RacesTable extends AbstractTable
 
     public function getCommonHumanModifiers()
     {
-        return $this->getRaceModifiers(self::HUMAN, self::COMMON);
-    }
-
-    private function getRaceModifiers($race, $subrace)
-    {
-        return [
-            self::STRENGTH => Strength::getIt($this->getValue([$race, $subrace], [self::STRENGTH])),
-            self::AGILITY => Agility::getIt($this->getValue([$race, $subrace], [self::AGILITY])),
-            self::KNACK => Knack::getIt($this->getValue([$race, $subrace], [self::KNACK])),
-            self::WILL => Will::getIt($this->getValue([$race, $subrace], [self::WILL])),
-            self::INTELLIGENCE => Intelligence::getIt($this->getValue([$race, $subrace], [self::INTELLIGENCE])),
-            self::CHARISMA => Charisma::getIt($this->getValue([$race, $subrace], [self::CHARISMA])),
-            self::ENDURANCE => Endurance::getIt($this->getValue([$race, $subrace], [self::ENDURANCE])),
-            self::INFRAVISION => Infravision::getIt($this->getValue([$race, $subrace], [self::INFRAVISION])),
-            self::NATIVE_REGENERATION => NativeRegeneration::getIt($this->getValue([$race, $subrace], [self::NATIVE_REGENERATION])),
-            self::SENSES => Senses::getIt($this->getValue([$race, $subrace], [self::SENSES])),
-            self::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt($this->getValue([$race, $subrace], [self::REQUIRES_DM_AGREEMENT])),
-        ];
+        return $this->getRow([self::HUMAN, self::COMMON]);
     }
 
     const HIGHLANDER = 'Highlander';
 
     public function getHighlanderModifiers()
     {
-        return $this->getRaceModifiers(self::HUMAN, self::HIGHLANDER);
+        return $this->getRow([self::HUMAN, self::HIGHLANDER]);
     }
 
     const ELF = 'Elf';
 
     public function getCommonElfModifiers()
     {
-        return $this->getRaceModifiers(self::ELF, self::COMMON);
+        return $this->getRow([self::ELF, self::COMMON]);
     }
 
     const DARK = 'Dark';
 
     public function getDarkElfModifiers()
     {
-        return $this->getRaceModifiers(self::ELF, self::DARK);
+        return $this->getRow([self::ELF, self::DARK]);
     }
 
     const GREEN = 'Green';
 
     public function getGreenElfModifiers()
     {
-        return $this->getRaceModifiers(self::ELF, self::GREEN);
+        return $this->getRow([self::ELF, self::GREEN]);
     }
 
     const DWARF = 'Dwarf';
 
     public function getCommonDwarfModifiers()
     {
-        return $this->getRaceModifiers(self::DWARF, self::COMMON);
+        return $this->getRow([self::DWARF, self::COMMON]);
     }
 
     const MOUNTAIN = 'Mountain';
 
     public function getMountainDwarfModifiers()
     {
-        return $this->getRaceModifiers(self::DWARF, self::MOUNTAIN);
+        return $this->getRow([self::DWARF, self::MOUNTAIN]);
     }
 
     const WOOD = 'Wood';
 
     public function getWoodDwarfModifiers()
     {
-        return $this->getRaceModifiers(self::DWARF, self::WOOD);
+        return $this->getRow([self::DWARF, self::WOOD]);
     }
 
     const HOBBIT = 'Hobbit';
 
     public function getCommonHobbitModifiers()
     {
-        return $this->getRaceModifiers(self::HOBBIT, self::COMMON);
+        return $this->getRow([self::HOBBIT, self::COMMON]);
     }
 
     const KROLL = 'Kroll';
 
     public function getCommonKrollModifiers()
     {
-        return $this->getRaceModifiers(self::KROLL, self::COMMON);
+        return $this->getRow([self::KROLL, self::COMMON]);
     }
 
     const WILD = 'Wild';
 
     public function getWildKrollModifiers()
     {
-        return $this->getRaceModifiers(self::KROLL, self::WILD);
+        return $this->getRow([self::KROLL, self::WILD]);
     }
 
     const ORC = 'Orc';
 
     public function getCommonOrcModifiers()
     {
-        return $this->getRaceModifiers(self::ORC, self::COMMON);
+        return $this->getRow([self::ORC, self::COMMON]);
     }
 
     const GOBLIN = 'Goblin';
 
     public function getGoblinModifiers()
     {
-        return $this->getRaceModifiers(self::ORC, self::GOBLIN);
+        return $this->getRow([self::ORC, self::GOBLIN]);
     }
 
     const SKURUT = 'Skurut';
 
     public function getSkurutModifiers()
     {
-        return $this->getRaceModifiers(self::ORC, self::SKURUT);
+        return $this->getRow([self::ORC, self::SKURUT]);
     }
 
+    // TODO missing tests for explicit property getters
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getStrength($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::STRENGTH);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param $propertyName
+     *
+     * @return int
+     */
+    private function getProperty($raceCode, $subraceCode, $propertyName)
+    {
+        return $this->getValue([$raceCode, $subraceCode], [$propertyName]);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getAgility($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::AGILITY);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getKnack($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::KNACK);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getWill($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::WILL);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getIntelligence($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::INTELLIGENCE);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getCharisma($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::CHARISMA);
+    }
 }

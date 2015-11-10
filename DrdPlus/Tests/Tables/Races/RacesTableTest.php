@@ -1,20 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Charisma;
-use DrdPlus\Properties\Base\Intelligence;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Properties\Base\Will;
-use DrdPlus\Properties\Derived\Endurance;
-use DrdPlus\Properties\Derived\Senses;
-use DrdPlus\Properties\Native\Infravision;
-use DrdPlus\Properties\Native\NativeRegeneration;
-use DrdPlus\Tables\Races\Enums\Restrictions\RequiresDmAgreement;
-use DrdPlus\Tests\Races\TestWithMockery;
-
-class RacesTableTest extends TestWithMockery
+class RacesTableTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -26,17 +13,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(1),
-                RacesTable::AGILITY => Agility::getIt(-1),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(2),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
-                RacesTable::CHARISMA => Charisma::getIt(-2),
-                RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 2,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => -2,
+                RacesTable::ENDURANCE => 1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => -1,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -51,17 +38,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getWoodDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(1),
-                RacesTable::AGILITY => Agility::getIt(-1),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(1),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
-                RacesTable::CHARISMA => Charisma::getIt(-1),
-                RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 1,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => -1,
+                RacesTable::ENDURANCE => 1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => -1,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -76,17 +63,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getMountainDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(2),
-                RacesTable::AGILITY => Agility::getIt(-1),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(2),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-2),
-                RacesTable::CHARISMA => Charisma::getIt(-2),
-                RacesTable::ENDURANCE => Endurance::getIt(1),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(-1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 2,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 2,
+                RacesTable::INTELLIGENCE => -2,
+                RacesTable::CHARISMA => -2,
+                RacesTable::ENDURANCE => 1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => -1,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -101,17 +88,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(-1),
-                RacesTable::AGILITY => Agility::getIt(1),
-                RacesTable::KNACK => Knack::getIt(1),
-                RacesTable::WILL => Will::getIt(-2),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(1),
-                RacesTable::CHARISMA => Charisma::getIt(1),
-                RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => -2,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 1,
+                RacesTable::ENDURANCE => -1,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -126,17 +113,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getDarkElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(0),
-                RacesTable::AGILITY => Agility::getIt(0),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(0),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(1),
-                RacesTable::CHARISMA => Charisma::getIt(0),
-                RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
+                RacesTable::STRENGTH => 0,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 0,
+                RacesTable::ENDURANCE => -1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -151,17 +138,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getGreenElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(-1),
-                RacesTable::AGILITY => Agility::getIt(1),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(-1),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(1),
-                RacesTable::CHARISMA => Charisma::getIt(1),
-                RacesTable::ENDURANCE => Endurance::getIt(-1),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => -1,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 1,
+                RacesTable::ENDURANCE => -1,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -176,17 +163,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonHumanModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(0),
-                RacesTable::AGILITY => Agility::getIt(0),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(0),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(0),
-                RacesTable::CHARISMA => Charisma::getIt(0),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 0,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => 0,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -201,17 +188,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getHighlanderModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(1),
-                RacesTable::AGILITY => Agility::getIt(0),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(1),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
-                RacesTable::CHARISMA => Charisma::getIt(-1),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 1,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => -1,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -226,17 +213,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonHobbitModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(-3),
-                RacesTable::AGILITY => Agility::getIt(1),
-                RacesTable::KNACK => Knack::getIt(1),
-                RacesTable::WILL => Will::getIt(0),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-1),
-                RacesTable::CHARISMA => Charisma::getIt(2),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => -3,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => 2,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -251,17 +238,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonKrollModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(3),
-                RacesTable::AGILITY => Agility::getIt(-2),
-                RacesTable::KNACK => Knack::getIt(-1),
-                RacesTable::WILL => Will::getIt(1),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-3),
-                RacesTable::CHARISMA => Charisma::getIt(-1),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(false)
+                RacesTable::STRENGTH => 3,
+                RacesTable::AGILITY => -2,
+                RacesTable::KNACK => -1,
+                RacesTable::WILL => 1,
+                RacesTable::INTELLIGENCE => -3,
+                RacesTable::CHARISMA => -1,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => true,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -276,17 +263,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getWildKrollModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(3),
-                RacesTable::AGILITY => Agility::getIt(-1),
-                RacesTable::KNACK => Knack::getIt(-2),
-                RacesTable::WILL => Will::getIt(2),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(-3),
-                RacesTable::CHARISMA => Charisma::getIt(-2),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(false),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(true),
-                RacesTable::SENSES => Senses::getIt(0),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
+                RacesTable::STRENGTH => 3,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => -2,
+                RacesTable::WILL => 2,
+                RacesTable::INTELLIGENCE => -3,
+                RacesTable::CHARISMA => -2,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => true,
+                RacesTable::SENSES => 0,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -301,17 +288,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getCommonOrcModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(0),
-                RacesTable::AGILITY => Agility::getIt(2),
-                RacesTable::KNACK => Knack::getIt(0),
-                RacesTable::WILL => Will::getIt(-1),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(0),
-                RacesTable::CHARISMA => Charisma::getIt(-2),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
+                RacesTable::STRENGTH => 0,
+                RacesTable::AGILITY => 2,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => -1,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => -2,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 1,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -326,17 +313,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getGoblinModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(-1),
-                RacesTable::AGILITY => Agility::getIt(2),
-                RacesTable::KNACK => Knack::getIt(1),
-                RacesTable::WILL => Will::getIt(-2),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(0),
-                RacesTable::CHARISMA => Charisma::getIt(-1),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 2,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => -2,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => -1,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 1,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -351,17 +338,17 @@ class RacesTableTest extends TestWithMockery
         $modifiers = $racesTable->getSkurutModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => Strength::getIt(1),
-                RacesTable::AGILITY => Agility::getIt(1),
-                RacesTable::KNACK => Knack::getIt(-1),
-                RacesTable::WILL => Will::getIt(0),
-                RacesTable::INTELLIGENCE => Intelligence::getIt(0),
-                RacesTable::CHARISMA => Charisma::getIt(-2),
-                RacesTable::ENDURANCE => Endurance::getIt(0),
-                RacesTable::INFRAVISION => Infravision::getIt(true),
-                RacesTable::NATIVE_REGENERATION => NativeRegeneration::getIt(false),
-                RacesTable::SENSES => Senses::getIt(1),
-                RacesTable::REQUIRES_DM_AGREEMENT => RequiresDmAgreement::getIt(true)
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => -1,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => -2,
+                RacesTable::ENDURANCE => 0,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::SENSES => 1,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -375,20 +362,101 @@ class RacesTableTest extends TestWithMockery
         $racesTable = new RacesTable();
         $this->assertSame(
             [
-                0 => [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => '', 7 => '', 8 => '', 9 => '', 10 => ''],
-                1 => [0 => 1, 1 => 0, 2 => 0, 3 => 1, 4 => -1, 5 => -1, 6 => '', 7 => '', 8 => '', 9 => '', 10 => ''],
-                2 => [0 => -1, 1 => 1, 2 => 1, 3 => -2, 4 => 1, 5 => 1, 6 => -1, 7 => '', 8 => '', 9 => '', 10 => ''],
-                3 => [0 => -1, 1 => 1, 2 => 0, 3 => -1, 4 => 1, 5 => 1, 6 => -1, 7 => '', 8 => '', 9 => '', 10 => ''],
-                4 => [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 1, 5 => 0, 6 => -1, 7 => 1, 8 => '', 9 => '', 10 => 1],
-                5 => [0 => 1, 1 => -1, 2 => 0, 3 => 2, 4 => -1, 5 => -2, 6 => 1, 7 => 1, 8 => '', 9 => -1, 10 => ''],
-                6 => [0 => 1, 1 => -1, 2 => 0, 3 => 1, 4 => -1, 5 => -1, 6 => 1, 7 => 1, 8 => '', 9 => -1, 10 => ''],
-                7 => [0 => 2, 1 => -1, 2 => 0, 3 => 2, 4 => -2, 5 => -2, 6 => 1, 7 => 1, 8 => '', 9 => -1, 10 => ''],
-                8 => [0 => -3, 1 => 1, 2 => 1, 3 => 0, 4 => -1, 5 => 2, 6 => '', 7 => '', 8 => '', 9 => '', 10 => ''],
-                9 => [0 => 3, 1 => -2, 2 => -1, 3 => 1, 4 => -3, 5 => -1, 6 => '', 7 => '', 8 => 1, 9 => '', 10 => ''],
-                10 => [0 => 3, 1 => -1, 2 => -2, 3 => 2, 4 => -3, 5 => -2, 6 => '', 7 => '', 8 => 1, 9 => '', 10 => 1],
-                11 => [0 => 0, 1 => 2, 2 => 0, 3 => -1, 4 => 0, 5 => -2, 6 => '', 7 => 1, 8 => '', 9 => 1, 10 => 1],
-                12 => [0 => 1, 1 => 1, 2 => -1, 3 => 0, 4 => 0, 5 => -2, 6 => '', 7 => 1, 8 => '', 9 => 1, 10 => 1],
-                13 => [0 => -1, 1 => 2, 2 => 1, 3 => -2, 4 => 0, 5 => -1, 6 => '', 7 => 1, 8 => '', 9 => 1, 10 => 1],
+                RacesTable::HUMAN => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
+                        RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
+                        RacesTable::ENDURANCE => 0, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                ],
+                RacesTable::ELF => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 1,
+                        RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
+                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::GREEN => [
+                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 0,
+                        RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
+                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION =>
+                            false, RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::DARK => [
+                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
+                        RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
+                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => true
+                    ],
+                ],
+                RacesTable::DWARF => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::WOOD => [
+                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::MOUNTAIN => [
+                        RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
+                        RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                ],
+                RacesTable::HOBBIT => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                ],
+                RacesTable::KROLL => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
+                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RacesTable::WILD => [
+                        RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
+                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
+                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    ],
+                ],
+                RacesTable::ORC => [
+                    RacesTable::COMMON => [
+                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    ],
+                    RacesTable::SKURUT => [
+                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    ],
+                    RacesTable::GOBLIN => [
+                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 0,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    ],
+                ],
             ],
             $racesTable->getValues()
         );

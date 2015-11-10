@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
 
 class WoundsTableTest extends TestWithMockery
 {

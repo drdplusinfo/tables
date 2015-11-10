@@ -1,7 +1,6 @@
 <?php
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
-use DrdPlus\Properties\Base\Strength;
 use Granam\Strict\Object\StrictObject;
 
 /**
@@ -146,9 +145,7 @@ class BaseOfWoundsTable extends StrictObject
      */
     public function calculateBaseOfWounds($strength, $weaponBaseOfWounds)
     {
-        $strength = new Strength($strength);
-
-        return $this->getBonusesIntersection([$strength->getValue(), $weaponBaseOfWounds]);
+        return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
     }
 
     /**

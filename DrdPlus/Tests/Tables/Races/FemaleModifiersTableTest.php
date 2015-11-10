@@ -1,15 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Charisma;
-use DrdPlus\Properties\Base\Intelligence;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Properties\Base\Will;
-use DrdPlus\Tools\Tests\TestWithMockery;
-
-class FemaleModifiersTableTest extends TestWithMockery
+class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
 {
     private static $femaleModifiersTable;
 
@@ -29,12 +21,12 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(-1),
-                RacesTable::AGILITY => new Agility(0),
-                RacesTable::KNACK => new Knack(0),
-                RacesTable::WILL => new Will(0),
-                RacesTable::INTELLIGENCE => new Intelligence(0),
-                RacesTable::CHARISMA => new Charisma(+1),
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getHumanModifiers()
         );
@@ -47,12 +39,12 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(-1),
-                RacesTable::AGILITY => new Agility(0),
-                RacesTable::KNACK => new Knack(+1),
-                RacesTable::WILL => new Will(0),
-                RacesTable::INTELLIGENCE => new Intelligence(-1),
-                RacesTable::CHARISMA => new Charisma(+1),
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getElfModifiers()
         );
@@ -65,12 +57,12 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(0),
-                RacesTable::AGILITY => new Agility(0),
-                RacesTable::KNACK => new Knack(-1),
-                RacesTable::WILL => new Will(0),
-                RacesTable::INTELLIGENCE => new Intelligence(+1),
-                RacesTable::CHARISMA => new Charisma(0),
+                RacesTable::STRENGTH => 0,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => -1,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 0,
             ],
             $this->getFemaleModifiersTable()->getDwarfModifiers()
         );
@@ -83,12 +75,12 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(-1),
-                RacesTable::AGILITY => new Agility(1),
-                RacesTable::KNACK => new Knack(-1),
-                RacesTable::WILL => new Will(0),
-                RacesTable::INTELLIGENCE => new Intelligence(0),
-                RacesTable::CHARISMA => new Charisma(1),
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => -1,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getHobbitModifiers()
         );
@@ -101,12 +93,12 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(-1),
-                RacesTable::AGILITY => new Agility(1),
-                RacesTable::KNACK => new Knack(0),
-                RacesTable::WILL => new Will(-1),
-                RacesTable::INTELLIGENCE => new Intelligence(0),
-                RacesTable::CHARISMA => new Charisma(1),
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => -1,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getKrollModifiers()
         );
@@ -119,14 +111,70 @@ class FemaleModifiersTableTest extends TestWithMockery
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => new Strength(-1),
-                RacesTable::AGILITY => new Agility(0),
-                RacesTable::KNACK => new Knack(0),
-                RacesTable::WILL => new Will(1),
-                RacesTable::INTELLIGENCE => new Intelligence(0),
-                RacesTable::CHARISMA => new Charisma(0),
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 1,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => 0,
             ],
             $this->getFemaleModifiersTable()->getOrcModifiers()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_got_expected_values()
+    {
+        $this->assertEquals(
+            [
+                RacesTable::HUMAN => [
+                    RacesTable::STRENGTH => -1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
+                    RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 1,
+                ],
+                RacesTable::ELF => [
+                    RacesTable::STRENGTH => -1,
+                    RacesTable::AGILITY => 0,
+                    RacesTable::KNACK => 1,
+                    RacesTable::WILL => 0,
+                    RacesTable::INTELLIGENCE => -1,
+                    RacesTable::CHARISMA => 1,
+                ],
+                RacesTable::DWARF => [
+                    RacesTable::STRENGTH => 0,
+                    RacesTable::AGILITY => 0,
+                    RacesTable::KNACK => -1,
+                    RacesTable::WILL => 0,
+                    RacesTable::INTELLIGENCE => 1,
+                    RacesTable::CHARISMA => 0,
+                ],
+                RacesTable::HOBBIT => [
+                    RacesTable::STRENGTH => -1,
+                    RacesTable::AGILITY => 1,
+                    RacesTable::KNACK => -1,
+                    RacesTable::WILL => 0,
+                    RacesTable::INTELLIGENCE => 0,
+                    RacesTable::CHARISMA => 1,
+                ],
+                RacesTable::KROLL => [
+                    RacesTable::STRENGTH => -1,
+                    RacesTable::AGILITY => 1,
+                    RacesTable::KNACK => 0,
+                    RacesTable::WILL => -1,
+                    RacesTable::INTELLIGENCE => 0,
+                    RacesTable::CHARISMA => 1,
+                ],
+                RacesTable::ORC => [
+                    RacesTable::STRENGTH => -1,
+                    RacesTable::AGILITY => 0,
+                    RacesTable::KNACK => 0,
+                    RacesTable::WILL => 1,
+                    RacesTable::INTELLIGENCE => 0,
+                    RacesTable::CHARISMA => 0,
+                ],
+            ],
+            $this->getFemaleModifiersTable()->getValues()
         );
     }
 }

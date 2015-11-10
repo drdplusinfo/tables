@@ -1,14 +1,6 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Properties\AbstractIntegerProperty;
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Charisma;
-use DrdPlus\Properties\Base\Intelligence;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Properties\Base\Will;
-
 class FemaleModifiersTable extends AbstractTable
 {
     /**
@@ -25,14 +17,12 @@ class FemaleModifiersTable extends AbstractTable
     protected function getExpectedHorizontalHeader()
     {
         return [
-            [
-                RacesTable::STRENGTH,
-                RacesTable::AGILITY,
-                RacesTable::KNACK,
-                RacesTable::WILL,
-                RacesTable::INTELLIGENCE,
-                RacesTable::CHARISMA
-            ]
+            RacesTable::STRENGTH => self::INTEGER,
+            RacesTable::AGILITY => self::INTEGER,
+            RacesTable::KNACK => self::INTEGER,
+            RacesTable::WILL => self::INTEGER,
+            RacesTable::INTELLIGENCE => self::INTEGER,
+            RacesTable::CHARISMA => self::INTEGER,
         ];
     }
 
@@ -41,9 +31,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     protected function getExpectedVerticalHeader()
     {
-        return [
-            [RacesTable::RACE]
-        ];
+        return [RacesTable::RACE];
     }
 
     public function getHumanModifiers()
@@ -53,17 +41,18 @@ class FemaleModifiersTable extends AbstractTable
 
     /**
      * @param string $race
-     * @return array|AbstractIntegerProperty[]
+     *
+     * @return array|int[]
      */
     private function getRaceModifiers($race)
     {
         return [
-            RacesTable::STRENGTH => new Strength($this->getValue([$race], [RacesTable::STRENGTH])),
-            RacesTable::AGILITY => new Agility($this->getValue([$race], [RacesTable::AGILITY])),
-            RacesTable::KNACK => new Knack($this->getValue([$race], [RacesTable::KNACK])),
-            RacesTable::WILL => new Will($this->getValue([$race], [RacesTable::WILL])),
-            RacesTable::INTELLIGENCE => new Intelligence($this->getValue([$race], [RacesTable::INTELLIGENCE])),
-            RacesTable::CHARISMA => new Charisma($this->getValue([$race], [RacesTable::CHARISMA])),
+            RacesTable::STRENGTH => $this->getValue([$race], RacesTable::STRENGTH),
+            RacesTable::AGILITY => $this->getValue([$race], RacesTable::AGILITY),
+            RacesTable::KNACK => $this->getValue([$race], RacesTable::KNACK),
+            RacesTable::WILL => $this->getValue([$race], RacesTable::WILL),
+            RacesTable::INTELLIGENCE => $this->getValue([$race], RacesTable::INTELLIGENCE),
+            RacesTable::CHARISMA => $this->getValue([$race], RacesTable::CHARISMA),
         ];
     }
 

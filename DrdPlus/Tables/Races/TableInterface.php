@@ -5,10 +5,9 @@ interface TableInterface
 {
 
     /**
-     * @param array $verticalIndexes
-     * @param array $horizontalIndexes
-     *
-     * @return mixed
+     * @param array $rowIndexes
+     * @param $columnIndex
+     * @return int|float|bool
      */
-    public function getValue(array $verticalIndexes, array $horizontalIndexes);
+    public function getValue(array $rowIndexes, $columnIndex);
 }

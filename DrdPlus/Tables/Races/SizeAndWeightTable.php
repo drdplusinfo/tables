@@ -1,10 +1,6 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Properties\Body\HeightInCm;
-use DrdPlus\Properties\Body\Size;
-use DrdPlus\Properties\Body\WeightInKg;
-
 class SizeAndWeightTable extends AbstractTable
 {
     /**
@@ -25,11 +21,9 @@ class SizeAndWeightTable extends AbstractTable
     protected function getExpectedHorizontalHeader()
     {
         return [
-            [
-                self::HEIGHT_IN_CM,
-                self::WEIGHT_IN_KG,
-                self::SIZE,
-            ]
+            self::HEIGHT_IN_CM => self::FLOAT,
+            self::WEIGHT_IN_KG => self::FLOAT,
+            self::SIZE => self::INTEGER,
         ];
     }
 
@@ -39,10 +33,8 @@ class SizeAndWeightTable extends AbstractTable
     protected function getExpectedVerticalHeader()
     {
         return [
-            [
-                RacesTable::RACE,
-                RacesTable::SUBRACE
-            ]
+            RacesTable::RACE,
+            RacesTable::SUBRACE
         ];
     }
 
@@ -59,9 +51,9 @@ class SizeAndWeightTable extends AbstractTable
     private function getRaceModifiers($race, $subrace)
     {
         return [
-            self::HEIGHT_IN_CM => HeightInCm::getIt($this->getValue([$race, $subrace], [self::HEIGHT_IN_CM])),
-            self::WEIGHT_IN_KG => WeightInKg::getIt($this->getValue([$race, $subrace], [self::WEIGHT_IN_KG])),
-            self::SIZE => Size::getIt($this->getValue([$race, $subrace], [self::SIZE])),
+            self::HEIGHT_IN_CM => $this->getValue([$race, $subrace], self::HEIGHT_IN_CM),
+            self::WEIGHT_IN_KG => $this->getValue([$race, $subrace], self::WEIGHT_IN_KG),
+            self::SIZE => $this->getValue([$race, $subrace], self::SIZE),
         ];
     }
 
