@@ -1,4 +1,4 @@
-Race,Subrace,Strength,Agility,Knack,Will,Intelligence,Charisma,Endurance,Infravision,Native regeneration,Senses,Requires DM agreement
+Race,Subrace,Strength,Agility,Knack,Will,Intelligence,Charisma,Toughness,Infravision,Native regeneration,Senses,Requires DM agreement
 Human,Common,0,0,0,0,0,0,0,,,0,
 Human,Highlander,1,0,0,1,−1,−1,0,,,0,
 Elf,Common,−1,1,1,−2,1,1,-1,,,0,

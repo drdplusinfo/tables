@@ -19,7 +19,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 2,
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => -2,
-                RacesTable::ENDURANCE => 1,
+                RacesTable::TOUGHNESS => 1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => -1,
@@ -44,7 +44,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 1,
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => -1,
-                RacesTable::ENDURANCE => 1,
+                RacesTable::TOUGHNESS => 1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => -1,
@@ -69,7 +69,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 2,
                 RacesTable::INTELLIGENCE => -2,
                 RacesTable::CHARISMA => -2,
-                RacesTable::ENDURANCE => 1,
+                RacesTable::TOUGHNESS => 1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => -1,
@@ -94,7 +94,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => -2,
                 RacesTable::INTELLIGENCE => 1,
                 RacesTable::CHARISMA => 1,
-                RacesTable::ENDURANCE => -1,
+                RacesTable::TOUGHNESS => -1,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -119,7 +119,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 0,
                 RacesTable::INTELLIGENCE => 1,
                 RacesTable::CHARISMA => 0,
-                RacesTable::ENDURANCE => -1,
+                RacesTable::TOUGHNESS => -1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -144,7 +144,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => -1,
                 RacesTable::INTELLIGENCE => 1,
                 RacesTable::CHARISMA => 1,
-                RacesTable::ENDURANCE => -1,
+                RacesTable::TOUGHNESS => -1,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -169,7 +169,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 0,
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => 0,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -194,7 +194,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 1,
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => -1,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -219,7 +219,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 0,
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => 2,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 0,
@@ -244,7 +244,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 1,
                 RacesTable::INTELLIGENCE => -3,
                 RacesTable::CHARISMA => -1,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
                 RacesTable::SENSES => 0,
@@ -269,7 +269,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 2,
                 RacesTable::INTELLIGENCE => -3,
                 RacesTable::CHARISMA => -2,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
                 RacesTable::SENSES => 0,
@@ -294,7 +294,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => -1,
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => -2,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 1,
@@ -319,7 +319,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => -2,
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => -1,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 1,
@@ -344,7 +344,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WILL => 0,
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => -2,
-                RacesTable::ENDURANCE => 0,
+                RacesTable::TOUGHNESS => 0,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::SENSES => 1,
@@ -365,13 +365,13 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::HUMAN => [
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
-                        RacesTable::ENDURANCE => 0, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::TOUGHNESS => 0, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
@@ -379,38 +379,38 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 1,
                         RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::GREEN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 0,
                         RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION =>
+                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION =>
                             false, RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::DARK => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
-                        RacesTable::ENDURANCE => -1, RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
                 RacesTable::DWARF => [
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 1,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::WOOD => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 1,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::MOUNTAIN => [
                         RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 1,
+                        RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -418,7 +418,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::HOBBIT => [
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -426,13 +426,13 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::KROLL => [
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
-                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     RacesTable::WILD => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -440,19 +440,19 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::ORC => [
                     RacesTable::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                     RacesTable::SKURUT => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                     RacesTable::GOBLIN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::ENDURANCE => 0,
+                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -668,19 +668,19 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider enduranceOfRaces
+     * @dataProvider toughnessOfRaces
      *
      * @param string $race
      * @param string $subrace
-     * @param int $endurance
+     * @param int $toughness
      */
-    public function I_can_get_endurance_of_any_race($race, $subrace, $endurance)
+    public function I_can_get_toughness_of_any_race($race, $subrace, $toughness)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($endurance, $racesTable->getEndurance($race, $subrace));
+        $this->assertSame($toughness, $racesTable->getToughness($race, $subrace));
     }
 
-    public function enduranceOfRaces()
+    public function toughnessOfRaces()
     {
         return [
             [RacesTable::HUMAN, RacesTable::COMMON, 0],

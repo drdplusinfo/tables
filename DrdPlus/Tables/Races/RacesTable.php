@@ -19,7 +19,7 @@ class RacesTable extends AbstractTable
     const WILL = 'Will';
     const INTELLIGENCE = 'Intelligence';
     const CHARISMA = 'Charisma';
-    const ENDURANCE = 'Endurance';
+    const TOUGHNESS = 'Toughness';
     const INFRAVISION = 'Infravision';
     const NATIVE_REGENERATION = 'Native regeneration';
     const SENSES = 'Senses';
@@ -37,7 +37,7 @@ class RacesTable extends AbstractTable
             self::WILL => self::INTEGER,
             self::INTELLIGENCE => self::INTEGER,
             self::CHARISMA => self::INTEGER,
-            self::ENDURANCE => self::INTEGER,
+            self::TOUGHNESS => self::INTEGER,
             self::INFRAVISION => self::BOOLEAN,
             self::NATIVE_REGENERATION => self::BOOLEAN,
             self::SENSES => self::INTEGER,
@@ -243,9 +243,9 @@ class RacesTable extends AbstractTable
      *
      * @return int
      */
-    public function getEndurance($raceCode, $subraceCode)
+    public function getToughness($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::ENDURANCE);
+        return $this->getProperty($raceCode, $subraceCode, self::TOUGHNESS);
     }
 
     /**
