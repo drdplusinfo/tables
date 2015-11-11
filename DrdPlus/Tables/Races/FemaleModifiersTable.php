@@ -53,14 +53,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     private function getRaceModifiers($race)
     {
-        return [
-            RacesTable::STRENGTH => $this->getValue([$race], RacesTable::STRENGTH),
-            RacesTable::AGILITY => $this->getValue([$race], RacesTable::AGILITY),
-            RacesTable::KNACK => $this->getValue([$race], RacesTable::KNACK),
-            RacesTable::WILL => $this->getValue([$race], RacesTable::WILL),
-            RacesTable::INTELLIGENCE => $this->getValue([$race], RacesTable::INTELLIGENCE),
-            RacesTable::CHARISMA => $this->getValue([$race], RacesTable::CHARISMA),
-        ];
+        return $this->getRow([$race]);
     }
 
     public function getElfModifiers()
@@ -88,4 +81,74 @@ class FemaleModifiersTable extends AbstractTable
         return $this->getRaceModifiers(Orc::ORC);
     }
 
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getStrength($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::STRENGTH);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param $propertyName
+     *
+     * @return int
+     */
+    private function getProperty($raceCode, $propertyName)
+    {
+        return $this->getValue([$raceCode], $propertyName);
+    }
+
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getAgility($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::AGILITY);
+    }
+
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getKnack($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::KNACK);
+    }
+
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getWill($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::WILL);
+    }
+
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getIntelligence($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::INTELLIGENCE);
+    }
+
+    /**
+     * @param string $raceCode
+     *
+     * @return int
+     */
+    public function getCharisma($raceCode)
+    {
+        return $this->getProperty($raceCode, RacesTable::CHARISMA);
+    }
 }
