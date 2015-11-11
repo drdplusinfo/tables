@@ -1,6 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Races\Dwarfs\Dwarf;
+use DrdPlus\Races\Elfs\Elf;
+use DrdPlus\Races\Hobbits\Hobbit;
+use DrdPlus\Races\Humans\Human;
+use DrdPlus\Races\Krolls\Kroll;
+use DrdPlus\Races\Orcs\Orc;
+
 class FemaleModifiersTable extends AbstractTable
 {
     /**
@@ -36,7 +43,7 @@ class FemaleModifiersTable extends AbstractTable
 
     public function getHumanModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::HUMAN);
+        return $this->getRaceModifiers(Human::HUMAN);
     }
 
     /**
@@ -58,27 +65,27 @@ class FemaleModifiersTable extends AbstractTable
 
     public function getElfModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ELF);
+        return $this->getRaceModifiers(Elf::ELF);
     }
 
     public function getDwarfModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::DWARF);
+        return $this->getRaceModifiers(Dwarf::DWARF);
     }
 
     public function getHobbitModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::HOBBIT);
+        return $this->getRaceModifiers(Hobbit::HOBBIT);
     }
 
     public function getKrollModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::KROLL);
+        return $this->getRaceModifiers(Kroll::KROLL);
     }
 
     public function getOrcModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ORC);
+        return $this->getRaceModifiers(Orc::ORC);
     }
 
 }

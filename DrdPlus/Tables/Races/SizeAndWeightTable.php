@@ -1,6 +1,16 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Races\Dwarfs\Dwarf;
+use DrdPlus\Races\Elfs\Elf;
+use DrdPlus\Races\Hobbits\Hobbit;
+use DrdPlus\Races\Humans\Human;
+use DrdPlus\Races\Krolls\Kroll;
+use DrdPlus\Races\Orcs\CommonOrc;
+use DrdPlus\Races\Orcs\Goblin;
+use DrdPlus\Races\Orcs\Orc;
+use DrdPlus\Races\Orcs\Skurut;
+
 class SizeAndWeightTable extends AbstractTable
 {
     /**
@@ -45,7 +55,7 @@ class SizeAndWeightTable extends AbstractTable
 
     private function getHumanModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::HUMAN, '');
+        return $this->getRaceModifiers(Human::HUMAN, '');
     }
 
     private function getRaceModifiers($race, $subrace)
@@ -69,7 +79,7 @@ class SizeAndWeightTable extends AbstractTable
 
     private function getDwarfModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::DWARF, '');
+        return $this->getRaceModifiers(Dwarf::DWARF, '');
     }
 
     public function getWoodDwarfModifier()
@@ -89,7 +99,7 @@ class SizeAndWeightTable extends AbstractTable
 
     private function getElfModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ELF, '');
+        return $this->getRaceModifiers(Elf::ELF, '');
     }
 
     public function getGreenElfModifiers()
@@ -104,7 +114,7 @@ class SizeAndWeightTable extends AbstractTable
 
     public function getCommonHobbitModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::HOBBIT, '');
+        return $this->getRaceModifiers(Hobbit::HOBBIT, '');
     }
 
     public function getCommonKrollModifier()
@@ -114,7 +124,7 @@ class SizeAndWeightTable extends AbstractTable
 
     private function getKrollModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::KROLL, '');
+        return $this->getRaceModifiers(Kroll::KROLL, '');
     }
 
     public function getWildKrollModifier()
@@ -124,17 +134,17 @@ class SizeAndWeightTable extends AbstractTable
 
     public function getCommonOrcModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ORC, RacesTable::COMMON);
+        return $this->getRaceModifiers(Orc::ORC, CommonOrc::COMMON);
     }
 
     public function getGoblinModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ORC, RacesTable::GOBLIN);
+        return $this->getRaceModifiers(Orc::ORC, Goblin::GOBLIN);
     }
 
     public function getSkurutModifiers()
     {
-        return $this->getRaceModifiers(RacesTable::ORC, RacesTable::SKURUT);
+        return $this->getRaceModifiers(Orc::ORC, Skurut::SKURUT);
     }
 
 }

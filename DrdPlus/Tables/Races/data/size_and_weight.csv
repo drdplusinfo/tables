@@ -1,9 +1,9 @@
 Race,Subrace,Height in cm,Weight in kg,Size
-Human,,180,80,0
-Dwarf,,140,70,0
-Elf,,160,50,-1
-Hobbit,,110,40,-2
-Kroll,,220,120,3
-Orc,Common,160,60,-1
-Orc,Skurut,180,90,1
-Orc,Goblin,150,55,-1
+human,,180,80,0
+dwarf,,140,70,0
+elf,,160,50,-1
+hobbit,,110,40,-2
+kroll,,220,120,3
+orc,common,160,60,-1
+orc,skurut,180,90,1
+orc,goblin,150,55,-1

@@ -1,6 +1,27 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Races\Dwarfs\CommonDwarf;
+use DrdPlus\Races\Dwarfs\Dwarf;
+use DrdPlus\Races\Dwarfs\MountainDwarf;
+use DrdPlus\Races\Dwarfs\WoodDwarf;
+use DrdPlus\Races\Elfs\CommonElf;
+use DrdPlus\Races\Elfs\DarkElf;
+use DrdPlus\Races\Elfs\Elf;
+use DrdPlus\Races\Elfs\GreenElf;
+use DrdPlus\Races\Hobbits\CommonHobbit;
+use DrdPlus\Races\Hobbits\Hobbit;
+use DrdPlus\Races\Humans\CommonHuman;
+use DrdPlus\Races\Humans\Highlander;
+use DrdPlus\Races\Humans\Human;
+use DrdPlus\Races\Krolls\CommonKroll;
+use DrdPlus\Races\Krolls\Kroll;
+use DrdPlus\Races\Krolls\WildKroll;
+use DrdPlus\Races\Orcs\CommonOrc;
+use DrdPlus\Races\Orcs\Goblin;
+use DrdPlus\Races\Orcs\Orc;
+use DrdPlus\Races\Orcs\Skurut;
+
 class RacesTable extends AbstractTable
 {
 
@@ -58,106 +79,75 @@ class RacesTable extends AbstractTable
         ];
     }
 
-    const HUMAN = 'Human';
-    const COMMON = 'Common';
-
     public function getCommonHumanModifiers()
     {
-        return $this->getRow([self::HUMAN, self::COMMON]);
+        return $this->getRow([Human::HUMAN, CommonHuman::COMMON]);
     }
-
-    const HIGHLANDER = 'Highlander';
 
     public function getHighlanderModifiers()
     {
-        return $this->getRow([self::HUMAN, self::HIGHLANDER]);
+        return $this->getRow([Human::HUMAN, Highlander::HIGHLANDER]);
     }
-
-    const ELF = 'Elf';
 
     public function getCommonElfModifiers()
     {
-        return $this->getRow([self::ELF, self::COMMON]);
+        return $this->getRow([Elf::ELF, CommonElf::COMMON]);
     }
-
-    const DARK = 'Dark';
 
     public function getDarkElfModifiers()
     {
-        return $this->getRow([self::ELF, self::DARK]);
+        return $this->getRow([Elf::ELF, DarkElf::DARK]);
     }
-
-    const GREEN = 'Green';
 
     public function getGreenElfModifiers()
     {
-        return $this->getRow([self::ELF, self::GREEN]);
+        return $this->getRow([Elf::ELF, GreenElf::GREEN]);
     }
-
-    const DWARF = 'Dwarf';
 
     public function getCommonDwarfModifiers()
     {
-        return $this->getRow([self::DWARF, self::COMMON]);
+        return $this->getRow([Dwarf::DWARF, CommonDwarf::COMMON]);
     }
-
-    const MOUNTAIN = 'Mountain';
 
     public function getMountainDwarfModifiers()
     {
-        return $this->getRow([self::DWARF, self::MOUNTAIN]);
+        return $this->getRow([Dwarf::DWARF, MountainDwarf::MOUNTAIN]);
     }
-
-    const WOOD = 'Wood';
 
     public function getWoodDwarfModifiers()
     {
-        return $this->getRow([self::DWARF, self::WOOD]);
+        return $this->getRow([Dwarf::DWARF, WoodDwarf::WOOD]);
     }
-
-    const HOBBIT = 'Hobbit';
 
     public function getCommonHobbitModifiers()
     {
-        return $this->getRow([self::HOBBIT, self::COMMON]);
+        return $this->getRow([Hobbit::HOBBIT, CommonHobbit::COMMON]);
     }
-
-    const KROLL = 'Kroll';
 
     public function getCommonKrollModifiers()
     {
-        return $this->getRow([self::KROLL, self::COMMON]);
+        return $this->getRow([Kroll::KROLL, CommonKroll::COMMON]);
     }
-
-    const WILD = 'Wild';
 
     public function getWildKrollModifiers()
     {
-        return $this->getRow([self::KROLL, self::WILD]);
+        return $this->getRow([Kroll::KROLL, WildKroll::WILD]);
     }
-
-    const ORC = 'Orc';
 
     public function getCommonOrcModifiers()
     {
-        return $this->getRow([self::ORC, self::COMMON]);
+        return $this->getRow([Orc::ORC, CommonOrc::COMMON]);
     }
-
-    const GOBLIN = 'Goblin';
 
     public function getGoblinModifiers()
     {
-        return $this->getRow([self::ORC, self::GOBLIN]);
+        return $this->getRow([Orc::ORC, Goblin::GOBLIN]);
     }
-
-    const SKURUT = 'Skurut';
 
     public function getSkurutModifiers()
     {
-        return $this->getRow([self::ORC, self::SKURUT]);
+        return $this->getRow([Orc::ORC, Skurut::SKURUT]);
     }
-
-    // TODO missing tests for explicit property getters
 
     /**
      * @param string $raceCode

@@ -1,6 +1,27 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Races\Dwarfs\CommonDwarf;
+use DrdPlus\Races\Dwarfs\Dwarf;
+use DrdPlus\Races\Dwarfs\MountainDwarf;
+use DrdPlus\Races\Dwarfs\WoodDwarf;
+use DrdPlus\Races\Elfs\CommonElf;
+use DrdPlus\Races\Elfs\DarkElf;
+use DrdPlus\Races\Elfs\Elf;
+use DrdPlus\Races\Elfs\GreenElf;
+use DrdPlus\Races\Hobbits\CommonHobbit;
+use DrdPlus\Races\Hobbits\Hobbit;
+use DrdPlus\Races\Humans\CommonHuman;
+use DrdPlus\Races\Humans\Highlander;
+use DrdPlus\Races\Humans\Human;
+use DrdPlus\Races\Krolls\CommonKroll;
+use DrdPlus\Races\Krolls\Kroll;
+use DrdPlus\Races\Krolls\WildKroll;
+use DrdPlus\Races\Orcs\CommonOrc;
+use DrdPlus\Races\Orcs\Goblin;
+use DrdPlus\Races\Orcs\Orc;
+use DrdPlus\Races\Orcs\Skurut;
+
 class RacesTableTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -362,95 +383,95 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $racesTable = new RacesTable();
         $this->assertSame(
             [
-                RacesTable::HUMAN => [
-                    RacesTable::COMMON => [
+                Human::HUMAN => [
+                    CommonHuman::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
+                    Highlander::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
                         RacesTable::TOUGHNESS => 0, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
-                RacesTable::ELF => [
-                    RacesTable::COMMON => [
+                Elf::ELF => [
+                    CommonElf::COMMON => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 1,
                         RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
                         RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::GREEN => [
+                    GreenElf::GREEN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 0,
                         RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
                         RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION =>
                             false, RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::DARK => [
+                    DarkElf::DARK => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
                         RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
-                RacesTable::DWARF => [
-                    RacesTable::COMMON => [
+                Dwarf::DWARF => [
+                    CommonDwarf::COMMON => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::WOOD => [
+                    WoodDwarf::WOOD => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::MOUNTAIN => [
+                    MountainDwarf::MOUNTAIN => [
                         RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
-                RacesTable::HOBBIT => [
-                    RacesTable::COMMON => [
+                Hobbit::HOBBIT => [
+                    CommonHobbit::COMMON => [
                         RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
-                RacesTable::KROLL => [
-                    RacesTable::COMMON => [
+                Kroll::KROLL => [
+                    CommonKroll::COMMON => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
-                    RacesTable::WILD => [
+                    WildKroll::WILD => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
-                RacesTable::ORC => [
-                    RacesTable::COMMON => [
+                Orc::ORC => [
+                    CommonOrc::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
-                    RacesTable::SKURUT => [
+                    Skurut::SKURUT => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
-                    RacesTable::GOBLIN => [
+                    Goblin::GOBLIN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
@@ -479,20 +500,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function strengthOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 1],
-            [RacesTable::ELF, RacesTable::COMMON, -1],
-            [RacesTable::ELF, RacesTable::GREEN, -1],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, 1],
-            [RacesTable::DWARF, RacesTable::WOOD, 1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, 2],
-            [RacesTable::HOBBIT, RacesTable::COMMON, -3],
-            [RacesTable::KROLL, RacesTable::COMMON, 3],
-            [RacesTable::KROLL, RacesTable::WILD, 3],
-            [RacesTable::ORC, RacesTable::COMMON, 0],
-            [RacesTable::ORC, RacesTable::SKURUT, 1],
-            [RacesTable::ORC, RacesTable::GOBLIN, -1],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 1],
+            [Elf::ELF, CommonElf::COMMON, -1],
+            [Elf::ELF, GreenElf::GREEN, -1],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 2],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, -3],
+            [Kroll::KROLL, CommonKroll::COMMON, 3],
+            [Kroll::KROLL, WildKroll::WILD, 3],
+            [Orc::ORC, CommonOrc::COMMON, 0],
+            [Orc::ORC, Skurut::SKURUT, 1],
+            [Orc::ORC, Goblin::GOBLIN, -1],
         ];
     }
 
@@ -513,20 +534,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function agilityOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 0],
-            [RacesTable::ELF, RacesTable::COMMON, 1],
-            [RacesTable::ELF, RacesTable::GREEN, 1],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, -1],
-            [RacesTable::DWARF, RacesTable::WOOD, -1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, -1],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 1],
-            [RacesTable::KROLL, RacesTable::COMMON, -2],
-            [RacesTable::KROLL, RacesTable::WILD, -1],
-            [RacesTable::ORC, RacesTable::COMMON, 2],
-            [RacesTable::ORC, RacesTable::SKURUT, 1],
-            [RacesTable::ORC, RacesTable::GOBLIN, 2],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, 1],
+            [Elf::ELF, GreenElf::GREEN, 1],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 1],
+            [Kroll::KROLL, CommonKroll::COMMON, -2],
+            [Kroll::KROLL, WildKroll::WILD, -1],
+            [Orc::ORC, CommonOrc::COMMON, 2],
+            [Orc::ORC, Skurut::SKURUT, 1],
+            [Orc::ORC, Goblin::GOBLIN, 2],
         ];
     }
 
@@ -547,20 +568,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function knackOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 0],
-            [RacesTable::ELF, RacesTable::COMMON, 1],
-            [RacesTable::ELF, RacesTable::GREEN, 0],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, 0],
-            [RacesTable::DWARF, RacesTable::WOOD, 0],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, 0],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 1],
-            [RacesTable::KROLL, RacesTable::COMMON, -1],
-            [RacesTable::KROLL, RacesTable::WILD, -2],
-            [RacesTable::ORC, RacesTable::COMMON, 0],
-            [RacesTable::ORC, RacesTable::SKURUT, -1],
-            [RacesTable::ORC, RacesTable::GOBLIN, 1],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, 1],
+            [Elf::ELF, GreenElf::GREEN, 0],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 0],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 0],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 0],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 1],
+            [Kroll::KROLL, CommonKroll::COMMON, -1],
+            [Kroll::KROLL, WildKroll::WILD, -2],
+            [Orc::ORC, CommonOrc::COMMON, 0],
+            [Orc::ORC, Skurut::SKURUT, -1],
+            [Orc::ORC, Goblin::GOBLIN, 1],
         ];
     }
 
@@ -581,20 +602,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function willOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 1],
-            [RacesTable::ELF, RacesTable::COMMON, -2],
-            [RacesTable::ELF, RacesTable::GREEN, -1],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, 2],
-            [RacesTable::DWARF, RacesTable::WOOD, 1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, 2],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 0],
-            [RacesTable::KROLL, RacesTable::COMMON, 1],
-            [RacesTable::KROLL, RacesTable::WILD, 2],
-            [RacesTable::ORC, RacesTable::COMMON, -1],
-            [RacesTable::ORC, RacesTable::SKURUT, 0],
-            [RacesTable::ORC, RacesTable::GOBLIN, -2],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 1],
+            [Elf::ELF, CommonElf::COMMON, -2],
+            [Elf::ELF, GreenElf::GREEN, -1],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 2],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 2],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
+            [Kroll::KROLL, CommonKroll::COMMON, 1],
+            [Kroll::KROLL, WildKroll::WILD, 2],
+            [Orc::ORC, CommonOrc::COMMON, -1],
+            [Orc::ORC, Skurut::SKURUT, 0],
+            [Orc::ORC, Goblin::GOBLIN, -2],
         ];
     }
 
@@ -615,20 +636,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function intelligenceOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, -1],
-            [RacesTable::ELF, RacesTable::COMMON, 1],
-            [RacesTable::ELF, RacesTable::GREEN, 1],
-            [RacesTable::ELF, RacesTable::DARK, 1],
-            [RacesTable::DWARF, RacesTable::COMMON, -1],
-            [RacesTable::DWARF, RacesTable::WOOD, -1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, -2],
-            [RacesTable::HOBBIT, RacesTable::COMMON, -1],
-            [RacesTable::KROLL, RacesTable::COMMON, -3],
-            [RacesTable::KROLL, RacesTable::WILD, -3],
-            [RacesTable::ORC, RacesTable::COMMON, 0],
-            [RacesTable::ORC, RacesTable::SKURUT, 0],
-            [RacesTable::ORC, RacesTable::GOBLIN, 0],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, -1],
+            [Elf::ELF, CommonElf::COMMON, 1],
+            [Elf::ELF, GreenElf::GREEN, 1],
+            [Elf::ELF, DarkElf::DARK, 1],
+            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -2],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, -1],
+            [Kroll::KROLL, CommonKroll::COMMON, -3],
+            [Kroll::KROLL, WildKroll::WILD, -3],
+            [Orc::ORC, CommonOrc::COMMON, 0],
+            [Orc::ORC, Skurut::SKURUT, 0],
+            [Orc::ORC, Goblin::GOBLIN, 0],
         ];
     }
 
@@ -649,20 +670,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function charismaOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, -1],
-            [RacesTable::ELF, RacesTable::COMMON, 1],
-            [RacesTable::ELF, RacesTable::GREEN, 1],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, -2],
-            [RacesTable::DWARF, RacesTable::WOOD, -1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, -2],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 2],
-            [RacesTable::KROLL, RacesTable::COMMON, -1],
-            [RacesTable::KROLL, RacesTable::WILD, -2],
-            [RacesTable::ORC, RacesTable::COMMON, -2],
-            [RacesTable::ORC, RacesTable::SKURUT, -2],
-            [RacesTable::ORC, RacesTable::GOBLIN, -1],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, -1],
+            [Elf::ELF, CommonElf::COMMON, 1],
+            [Elf::ELF, GreenElf::GREEN, 1],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, -2],
+            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -2],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 2],
+            [Kroll::KROLL, CommonKroll::COMMON, -1],
+            [Kroll::KROLL, WildKroll::WILD, -2],
+            [Orc::ORC, CommonOrc::COMMON, -2],
+            [Orc::ORC, Skurut::SKURUT, -2],
+            [Orc::ORC, Goblin::GOBLIN, -1],
         ];
     }
 
@@ -683,20 +704,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function toughnessOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 0],
-            [RacesTable::ELF, RacesTable::COMMON, -1],
-            [RacesTable::ELF, RacesTable::GREEN, -1],
-            [RacesTable::ELF, RacesTable::DARK, -1],
-            [RacesTable::DWARF, RacesTable::COMMON, 1],
-            [RacesTable::DWARF, RacesTable::WOOD, 1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, 1],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 0],
-            [RacesTable::KROLL, RacesTable::COMMON, 0],
-            [RacesTable::KROLL, RacesTable::WILD, 0],
-            [RacesTable::ORC, RacesTable::COMMON, 0],
-            [RacesTable::ORC, RacesTable::SKURUT, 0],
-            [RacesTable::ORC, RacesTable::GOBLIN, 0],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, -1],
+            [Elf::ELF, GreenElf::GREEN, -1],
+            [Elf::ELF, DarkElf::DARK, -1],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 1],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
+            [Kroll::KROLL, CommonKroll::COMMON, 0],
+            [Kroll::KROLL, WildKroll::WILD, 0],
+            [Orc::ORC, CommonOrc::COMMON, 0],
+            [Orc::ORC, Skurut::SKURUT, 0],
+            [Orc::ORC, Goblin::GOBLIN, 0],
         ];
     }
 
@@ -717,20 +738,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function infravisionOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, false],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, false],
-            [RacesTable::ELF, RacesTable::COMMON, false],
-            [RacesTable::ELF, RacesTable::GREEN, false],
-            [RacesTable::ELF, RacesTable::DARK, true],
-            [RacesTable::DWARF, RacesTable::COMMON, true],
-            [RacesTable::DWARF, RacesTable::WOOD, true],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, true],
-            [RacesTable::HOBBIT, RacesTable::COMMON, false],
-            [RacesTable::KROLL, RacesTable::COMMON, false],
-            [RacesTable::KROLL, RacesTable::WILD, false],
-            [RacesTable::ORC, RacesTable::COMMON, true],
-            [RacesTable::ORC, RacesTable::SKURUT, true],
-            [RacesTable::ORC, RacesTable::GOBLIN, true],
+            [Human::HUMAN, CommonHuman::COMMON, false],
+            [Human::HUMAN, Highlander::HIGHLANDER, false],
+            [Elf::ELF, CommonElf::COMMON, false],
+            [Elf::ELF, GreenElf::GREEN, false],
+            [Elf::ELF, DarkElf::DARK, true],
+            [Dwarf::DWARF, CommonDwarf::COMMON, true],
+            [Dwarf::DWARF, WoodDwarf::WOOD, true],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, true],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
+            [Kroll::KROLL, CommonKroll::COMMON, false],
+            [Kroll::KROLL, WildKroll::WILD, false],
+            [Orc::ORC, CommonOrc::COMMON, true],
+            [Orc::ORC, Skurut::SKURUT, true],
+            [Orc::ORC, Goblin::GOBLIN, true],
         ];
     }
 
@@ -751,20 +772,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function nativeRegenerationOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, false],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, false],
-            [RacesTable::ELF, RacesTable::COMMON, false],
-            [RacesTable::ELF, RacesTable::GREEN, false],
-            [RacesTable::ELF, RacesTable::DARK, false],
-            [RacesTable::DWARF, RacesTable::COMMON, false],
-            [RacesTable::DWARF, RacesTable::WOOD, false],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, false],
-            [RacesTable::HOBBIT, RacesTable::COMMON, false],
-            [RacesTable::KROLL, RacesTable::COMMON, true],
-            [RacesTable::KROLL, RacesTable::WILD, true],
-            [RacesTable::ORC, RacesTable::COMMON, false],
-            [RacesTable::ORC, RacesTable::SKURUT, false],
-            [RacesTable::ORC, RacesTable::GOBLIN, false],
+            [Human::HUMAN, CommonHuman::COMMON, false],
+            [Human::HUMAN, Highlander::HIGHLANDER, false],
+            [Elf::ELF, CommonElf::COMMON, false],
+            [Elf::ELF, GreenElf::GREEN, false],
+            [Elf::ELF, DarkElf::DARK, false],
+            [Dwarf::DWARF, CommonDwarf::COMMON, false],
+            [Dwarf::DWARF, WoodDwarf::WOOD, false],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, false],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
+            [Kroll::KROLL, CommonKroll::COMMON, true],
+            [Kroll::KROLL, WildKroll::WILD, true],
+            [Orc::ORC, CommonOrc::COMMON, false],
+            [Orc::ORC, Skurut::SKURUT, false],
+            [Orc::ORC, Goblin::GOBLIN, false],
         ];
     }
 
@@ -785,20 +806,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function sensesOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, 0],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, 0],
-            [RacesTable::ELF, RacesTable::COMMON, 0],
-            [RacesTable::ELF, RacesTable::GREEN, 0],
-            [RacesTable::ELF, RacesTable::DARK, 0],
-            [RacesTable::DWARF, RacesTable::COMMON, -1],
-            [RacesTable::DWARF, RacesTable::WOOD, -1],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, -1],
-            [RacesTable::HOBBIT, RacesTable::COMMON, 0],
-            [RacesTable::KROLL, RacesTable::COMMON, 0],
-            [RacesTable::KROLL, RacesTable::WILD, 0],
-            [RacesTable::ORC, RacesTable::COMMON, 1],
-            [RacesTable::ORC, RacesTable::SKURUT, 1],
-            [RacesTable::ORC, RacesTable::GOBLIN, 1],
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, 0],
+            [Elf::ELF, GreenElf::GREEN, 0],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
+            [Kroll::KROLL, CommonKroll::COMMON, 0],
+            [Kroll::KROLL, WildKroll::WILD, 0],
+            [Orc::ORC, CommonOrc::COMMON, 1],
+            [Orc::ORC, Skurut::SKURUT, 1],
+            [Orc::ORC, Goblin::GOBLIN, 1],
         ];
     }
 
@@ -819,20 +840,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function requirementOfDmOfRaces()
     {
         return [
-            [RacesTable::HUMAN, RacesTable::COMMON, false],
-            [RacesTable::HUMAN, RacesTable::HIGHLANDER, false],
-            [RacesTable::ELF, RacesTable::COMMON, false],
-            [RacesTable::ELF, RacesTable::GREEN, false],
-            [RacesTable::ELF, RacesTable::DARK, true],
-            [RacesTable::DWARF, RacesTable::COMMON, false],
-            [RacesTable::DWARF, RacesTable::WOOD, false],
-            [RacesTable::DWARF, RacesTable::MOUNTAIN, false],
-            [RacesTable::HOBBIT, RacesTable::COMMON, false],
-            [RacesTable::KROLL, RacesTable::COMMON, false],
-            [RacesTable::KROLL, RacesTable::WILD, true],
-            [RacesTable::ORC, RacesTable::COMMON, true],
-            [RacesTable::ORC, RacesTable::SKURUT, true],
-            [RacesTable::ORC, RacesTable::GOBLIN, true],
+            [Human::HUMAN, CommonHuman::COMMON, false],
+            [Human::HUMAN, Highlander::HIGHLANDER, false],
+            [Elf::ELF, CommonElf::COMMON, false],
+            [Elf::ELF, GreenElf::GREEN, false],
+            [Elf::ELF, DarkElf::DARK, true],
+            [Dwarf::DWARF, CommonDwarf::COMMON, false],
+            [Dwarf::DWARF, WoodDwarf::WOOD, false],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, false],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
+            [Kroll::KROLL, CommonKroll::COMMON, false],
+            [Kroll::KROLL, WildKroll::WILD, true],
+            [Orc::ORC, CommonOrc::COMMON, true],
+            [Orc::ORC, Skurut::SKURUT, true],
+            [Orc::ORC, Goblin::GOBLIN, true],
         ];
     }
 }

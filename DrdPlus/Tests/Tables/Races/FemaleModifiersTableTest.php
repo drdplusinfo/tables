@@ -1,6 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Races\Dwarfs\Dwarf;
+use DrdPlus\Races\Elfs\Elf;
+use DrdPlus\Races\Hobbits\Hobbit;
+use DrdPlus\Races\Humans\Human;
+use DrdPlus\Races\Krolls\Kroll;
+use DrdPlus\Races\Orcs\Orc;
+
 class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
 {
     private static $femaleModifiersTable;
@@ -129,11 +136,11 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::HUMAN => [
+                Human::HUMAN => [
                     RacesTable::STRENGTH => -1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                     RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 1,
                 ],
-                RacesTable::ELF => [
+                Elf::ELF => [
                     RacesTable::STRENGTH => -1,
                     RacesTable::AGILITY => 0,
                     RacesTable::KNACK => 1,
@@ -141,7 +148,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     RacesTable::INTELLIGENCE => -1,
                     RacesTable::CHARISMA => 1,
                 ],
-                RacesTable::DWARF => [
+                Dwarf::DWARF => [
                     RacesTable::STRENGTH => 0,
                     RacesTable::AGILITY => 0,
                     RacesTable::KNACK => -1,
@@ -149,7 +156,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     RacesTable::INTELLIGENCE => 1,
                     RacesTable::CHARISMA => 0,
                 ],
-                RacesTable::HOBBIT => [
+                Hobbit::HOBBIT => [
                     RacesTable::STRENGTH => -1,
                     RacesTable::AGILITY => 1,
                     RacesTable::KNACK => -1,
@@ -157,7 +164,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     RacesTable::INTELLIGENCE => 0,
                     RacesTable::CHARISMA => 1,
                 ],
-                RacesTable::KROLL => [
+                Kroll::KROLL => [
                     RacesTable::STRENGTH => -1,
                     RacesTable::AGILITY => 1,
                     RacesTable::KNACK => 0,
@@ -165,7 +172,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     RacesTable::INTELLIGENCE => 0,
                     RacesTable::CHARISMA => 1,
                 ],
-                RacesTable::ORC => [
+                Orc::ORC => [
                     RacesTable::STRENGTH => -1,
                     RacesTable::AGILITY => 0,
                     RacesTable::KNACK => 0,
