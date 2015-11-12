@@ -44,9 +44,10 @@ class RacesTable extends AbstractTable
     const HEIGHT_IN_CM = 'Height in cm';
     const WEIGHT_IN_KG = 'Weight in kg';
     const SIZE = 'Size';
+    const SENSES = 'Senses';
+    const REMARKABLE_SENSE = 'Remarkable sense';
     const INFRAVISION = 'Infravision';
     const NATIVE_REGENERATION = 'Native regeneration';
-    const SENSES = 'Senses';
     const REQUIRES_DM_AGREEMENT = 'Requires DM agreement';
 
     /**
@@ -66,6 +67,7 @@ class RacesTable extends AbstractTable
             self::WEIGHT_IN_KG => self::FLOAT,
             self::SIZE => self::INTEGER,
             self::SENSES => self::INTEGER,
+            self::REMARKABLE_SENSE => self::STRING,
             self::INFRAVISION => self::BOOLEAN,
             self::NATIVE_REGENERATION => self::BOOLEAN,
             self::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
@@ -275,6 +277,17 @@ class RacesTable extends AbstractTable
     public function getSize($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, self::SIZE);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return string
+     */
+    public function getRemarkableSense($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::REMARKABLE_SENSE);
     }
 
     /**

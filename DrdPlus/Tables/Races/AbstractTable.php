@@ -11,7 +11,7 @@ abstract class AbstractTable implements TableInterface
     const INTEGER = 'integer';
     const FLOAT = 'float';
     const BOOLEAN = 'boolean';
-    const DEFAULT_TYPE = self::INTEGER;
+    const STRING = 'string';
 
     /** @var array */
     private $values;
@@ -200,6 +200,8 @@ abstract class AbstractTable implements TableInterface
                 return self::FLOAT;
             case self::INTEGER :
                 return self::INTEGER;
+            case self::STRING :
+                return self::STRING;
             default :
                 throw new Exceptions\UnknownScalarTypeForColumn(
                     'Unknown scalar type ' . ValueDescriber::describe($scalarType)
@@ -222,6 +224,8 @@ abstract class AbstractTable implements TableInterface
                 break;
             case self::FLOAT :
                 $value = ToFloat::toFloat($this->normalizeMinus($value));
+                break;
+            case self::STRING :
                 break;
         }
 

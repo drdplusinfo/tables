@@ -45,6 +45,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 80.0,
                 RacesTable::SIZE => 0,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => '',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -73,6 +74,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 80.0,
                 RacesTable::SIZE => 0,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => '',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -101,6 +103,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 70.0,
                 RacesTable::SIZE => 0,
                 RacesTable::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => 'touch',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -129,6 +132,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 70.0,
                 RacesTable::SIZE => 0,
                 RacesTable::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => 'touch',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -157,6 +161,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 70.0,
                 RacesTable::SIZE => 0,
                 RacesTable::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => 'touch',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -185,6 +190,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 50.0,
                 RacesTable::SIZE => -1,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'sight',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -213,6 +219,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 50.0,
                 RacesTable::SIZE => -1,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'sight',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
@@ -241,6 +248,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 50.0,
                 RacesTable::SIZE => -1,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'sight',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -269,6 +277,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 40.0,
                 RacesTable::SIZE => -2,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'taste',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -297,6 +306,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 120.0,
                 RacesTable::SIZE => 3,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'hearing',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
@@ -325,6 +335,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 120.0,
                 RacesTable::SIZE => 3,
                 RacesTable::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => 'hearing',
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
@@ -353,6 +364,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 60.0,
                 RacesTable::SIZE => -1,
                 RacesTable::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => 'smell',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
@@ -381,6 +393,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 90.0,
                 RacesTable::SIZE => 1,
                 RacesTable::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => 'smell',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
@@ -409,6 +422,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::WEIGHT_IN_KG => 55.0,
                 RacesTable::SIZE => -1,
                 RacesTable::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => 'smell',
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
@@ -430,7 +444,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -438,7 +452,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
                         RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -449,7 +463,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
                         RacesTable::TOUGHNESS => -1,
                         RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -458,7 +472,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
                         RacesTable::TOUGHNESS => -1,
                         RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -467,7 +481,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
                         RacesTable::TOUGHNESS => -1,
                         RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -477,7 +491,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1,
+                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -485,7 +499,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 1,
                         RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1,
+                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -493,7 +507,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
                         RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1,
+                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -503,7 +517,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 110.0, RacesTable::WEIGHT_IN_KG => 40.0, RacesTable::SIZE => -2,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'taste',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -513,7 +527,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'hearing',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -521,7 +535,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
-                        RacesTable::SENSES => 0,
+                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'hearing',
                         RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -531,7 +545,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 60.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 1,
+                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -539,7 +553,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 90.0, RacesTable::SIZE => 1,
-                        RacesTable::SENSES => 1,
+                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -547,7 +561,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
                         RacesTable::HEIGHT_IN_CM => 150.0, RacesTable::WEIGHT_IN_KG => 55.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 1,
+                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
                         RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -899,6 +913,74 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @dataProvider sensesOfRaces
+     *
+     * @param string $race
+     * @param string $subrace
+     * @param int $senses
+     */
+    public function I_can_get_senses_of_any_race($race, $subrace, $senses)
+    {
+        $racesTable = new RacesTable();
+        $this->assertSame($senses, $racesTable->getSenses($race, $subrace));
+    }
+
+    public function sensesOfRaces()
+    {
+        return [
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, 0],
+            [Elf::ELF, GreenElf::GREEN, 0],
+            [Elf::ELF, DarkElf::DARK, 0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
+            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
+            [Kroll::KROLL, CommonKroll::COMMON, 0],
+            [Kroll::KROLL, WildKroll::WILD, 0],
+            [Orc::ORC, CommonOrc::COMMON, 1],
+            [Orc::ORC, Skurut::SKURUT, 1],
+            [Orc::ORC, Goblin::GOBLIN, 1],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider remarkableSenseOfRaces
+     *
+     * @param string $race
+     * @param string $subrace
+     * @param string $remarkableSense
+     */
+    public function I_can_get_remarkable_sense_of_any_race($race, $subrace, $remarkableSense)
+    {
+        $racesTable = new RacesTable();
+        $this->assertSame($remarkableSense, $racesTable->getRemarkableSense($race, $subrace));
+    }
+
+    public function remarkableSenseOfRaces()
+    {
+        return [
+            [Human::HUMAN, CommonHuman::COMMON, ''],
+            [Human::HUMAN, Highlander::HIGHLANDER, ''],
+            [Elf::ELF, CommonElf::COMMON, 'sight'],
+            [Elf::ELF, GreenElf::GREEN, 'sight'],
+            [Elf::ELF, DarkElf::DARK, 'sight'],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 'touch'],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 'touch'],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 'touch'],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 'taste'],
+            [Kroll::KROLL, CommonKroll::COMMON, 'hearing'],
+            [Kroll::KROLL, WildKroll::WILD, 'hearing'],
+            [Orc::ORC, CommonOrc::COMMON, 'smell'],
+            [Orc::ORC, Skurut::SKURUT, 'smell'],
+            [Orc::ORC, Goblin::GOBLIN, 'smell'],
+        ];
+    }
+
+    /**
+     * @test
      * @dataProvider infravisionOfRaces
      *
      * @param string $race
@@ -962,40 +1044,6 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
             [Orc::ORC, CommonOrc::COMMON, false],
             [Orc::ORC, Skurut::SKURUT, false],
             [Orc::ORC, Goblin::GOBLIN, false],
-        ];
-    }
-
-    /**
-     * @test
-     * @dataProvider sensesOfRaces
-     *
-     * @param string $race
-     * @param string $subrace
-     * @param int $senses
-     */
-    public function I_can_get_senses_of_any_race($race, $subrace, $senses)
-    {
-        $racesTable = new RacesTable();
-        $this->assertSame($senses, $racesTable->getSenses($race, $subrace));
-    }
-
-    public function sensesOfRaces()
-    {
-        return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, 0],
-            [Elf::ELF, GreenElf::GREEN, 0],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
-            [Kroll::KROLL, CommonKroll::COMMON, 0],
-            [Kroll::KROLL, WildKroll::WILD, 0],
-            [Orc::ORC, CommonOrc::COMMON, 1],
-            [Orc::ORC, Skurut::SKURUT, 1],
-            [Orc::ORC, Goblin::GOBLIN, 1],
         ];
     }
 
