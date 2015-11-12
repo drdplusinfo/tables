@@ -244,7 +244,7 @@ class RacesTable extends AbstractTable
      *
      * @return bool
      */
-    public function getInfravision($raceCode, $subraceCode)
+    public function hasInfravision($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, self::INFRAVISION);
     }
@@ -255,7 +255,7 @@ class RacesTable extends AbstractTable
      *
      * @return bool
      */
-    public function getNativeRegeneration($raceCode, $subraceCode)
+    public function hasNativeRegeneration($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, self::NATIVE_REGENERATION);
     }

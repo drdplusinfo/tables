@@ -732,7 +732,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_infravision_of_any_race($race, $subrace, $infravision)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($infravision, $racesTable->getInfravision($race, $subrace));
+        $this->assertSame($infravision, $racesTable->hasInfravision($race, $subrace));
     }
 
     public function infravisionOfRaces()
@@ -766,7 +766,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_nativeRegeneration_of_any_race($race, $subrace, $nativeRegeneration)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($nativeRegeneration, $racesTable->getNativeRegeneration($race, $subrace));
+        $this->assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration($race, $subrace));
     }
 
     public function nativeRegenerationOfRaces()
