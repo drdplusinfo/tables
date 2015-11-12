@@ -28,156 +28,6 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function I_can_get_common_dwarf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getCommonDwarfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 2,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => -1,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_wood_dwarf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getWoodDwarfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 1,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => -1,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_mountain_dwarf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getMountainDwarfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => 2,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 2,
-                RacesTable::INTELLIGENCE => -2,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => -1,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_common_elf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getCommonElfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => -2,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 1,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 0,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_dark_elf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getDarkElfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => 0,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 0,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 0,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_green_elf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getGreenElfModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => -1,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 1,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 0,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
     public function I_can_get_common_human_modifiers()
     {
         $racesTable = new RacesTable();
@@ -191,9 +41,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => 0,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 180.0,
+                RacesTable::WEIGHT_IN_KG => 80.0,
+                RacesTable::SIZE => 0,
+                RacesTable::SENSES => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 0,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
@@ -216,9 +69,180 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => -1,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 180.0,
+                RacesTable::WEIGHT_IN_KG => 80.0,
+                RacesTable::SIZE => 0,
+                RacesTable::SENSES => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_common_dwarf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getCommonDwarfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 2,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => -2,
+                RacesTable::TOUGHNESS => 1,
+                RacesTable::HEIGHT_IN_CM => 140.0,
+                RacesTable::WEIGHT_IN_KG => 70.0,
+                RacesTable::SIZE => 0,
+                RacesTable::SENSES => -1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wood_dwarf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getWoodDwarfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => 1,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 1,
+                RacesTable::INTELLIGENCE => -1,
+                RacesTable::CHARISMA => -1,
+                RacesTable::TOUGHNESS => 1,
+                RacesTable::HEIGHT_IN_CM => 140.0,
+                RacesTable::WEIGHT_IN_KG => 70.0,
+                RacesTable::SIZE => 0,
+                RacesTable::SENSES => -1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_mountain_dwarf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getMountainDwarfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => 2,
+                RacesTable::AGILITY => -1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 2,
+                RacesTable::INTELLIGENCE => -2,
+                RacesTable::CHARISMA => -2,
+                RacesTable::TOUGHNESS => 1,
+                RacesTable::HEIGHT_IN_CM => 140.0,
+                RacesTable::WEIGHT_IN_KG => 70.0,
+                RacesTable::SIZE => 0,
+                RacesTable::SENSES => -1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_common_elf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getCommonElfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => -2,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 1,
+                RacesTable::TOUGHNESS => -1,
+                RacesTable::HEIGHT_IN_CM => 160.0,
+                RacesTable::WEIGHT_IN_KG => 50.0,
+                RacesTable::SIZE => -1,
                 RacesTable::SENSES => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => false
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_dark_elf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getDarkElfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => 0,
+                RacesTable::AGILITY => 0,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => 0,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 0,
+                RacesTable::TOUGHNESS => -1,
+                RacesTable::HEIGHT_IN_CM => 160.0,
+                RacesTable::WEIGHT_IN_KG => 50.0,
+                RacesTable::SIZE => -1,
+                RacesTable::SENSES => 0,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_green_elf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getGreenElfModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 1,
+                RacesTable::KNACK => 0,
+                RacesTable::WILL => -1,
+                RacesTable::INTELLIGENCE => 1,
+                RacesTable::CHARISMA => 1,
+                RacesTable::TOUGHNESS => -1,
+                RacesTable::HEIGHT_IN_CM => 160.0,
+                RacesTable::WEIGHT_IN_KG => 50.0,
+                RacesTable::SIZE => -1,
+                RacesTable::SENSES => 0,
+                RacesTable::INFRAVISION => false,
+                RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
@@ -241,9 +265,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => -1,
                 RacesTable::CHARISMA => 2,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 110.0,
+                RacesTable::WEIGHT_IN_KG => 40.0,
+                RacesTable::SIZE => -2,
+                RacesTable::SENSES => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 0,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
@@ -266,9 +293,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => -3,
                 RacesTable::CHARISMA => -1,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 220.0,
+                RacesTable::WEIGHT_IN_KG => 120.0,
+                RacesTable::SIZE => 3,
+                RacesTable::SENSES => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
-                RacesTable::SENSES => 0,
                 RacesTable::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
@@ -291,9 +321,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => -3,
                 RacesTable::CHARISMA => -2,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 220.0,
+                RacesTable::WEIGHT_IN_KG => 120.0,
+                RacesTable::SIZE => 3,
+                RacesTable::SENSES => 0,
                 RacesTable::INFRAVISION => false,
                 RacesTable::NATIVE_REGENERATION => true,
-                RacesTable::SENSES => 0,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
@@ -316,34 +349,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => -2,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 160.0,
+                RacesTable::WEIGHT_IN_KG => 60.0,
+                RacesTable::SIZE => -1,
+                RacesTable::SENSES => 1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 1,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_goblin_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getGoblinModifiers();
-        $this->assertEquals(
-            [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 2,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => -2,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::SENSES => 1,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
@@ -366,9 +377,40 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 RacesTable::INTELLIGENCE => 0,
                 RacesTable::CHARISMA => -2,
                 RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 180.0,
+                RacesTable::WEIGHT_IN_KG => 90.0,
+                RacesTable::SIZE => 1,
+                RacesTable::SENSES => 1,
                 RacesTable::INFRAVISION => true,
                 RacesTable::NATIVE_REGENERATION => false,
+                RacesTable::REQUIRES_DM_AGREEMENT => true
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_goblin_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getGoblinModifiers();
+        $this->assertEquals(
+            [
+                RacesTable::STRENGTH => -1,
+                RacesTable::AGILITY => 2,
+                RacesTable::KNACK => 1,
+                RacesTable::WILL => -2,
+                RacesTable::INTELLIGENCE => 0,
+                RacesTable::CHARISMA => -1,
+                RacesTable::TOUGHNESS => 0,
+                RacesTable::HEIGHT_IN_CM => 150.0,
+                RacesTable::WEIGHT_IN_KG => 55.0,
+                RacesTable::SIZE => -1,
                 RacesTable::SENSES => 1,
+                RacesTable::INFRAVISION => true,
+                RacesTable::NATIVE_REGENERATION => false,
                 RacesTable::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
@@ -387,52 +429,72 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     CommonHuman::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
+                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     Highlander::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
-                        RacesTable::TOUGHNESS => 0, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                        RacesTable::TOUGHNESS => 0,
+                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
                 Elf::ELF => [
                     CommonElf::COMMON => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 1,
                         RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                        RacesTable::TOUGHNESS => -1,
+                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     GreenElf::GREEN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 0,
                         RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION =>
-                            false, RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => false
+                        RacesTable::TOUGHNESS => -1,
+                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     DarkElf::DARK => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
                         RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
-                        RacesTable::TOUGHNESS => -1, RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::SENSES => 0, RacesTable::REQUIRES_DM_AGREEMENT => true
+                        RacesTable::TOUGHNESS => -1,
+                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
+                        RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
                 Dwarf::DWARF => [
                     CommonDwarf::COMMON => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
+                        RacesTable::SENSES => -1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     WoodDwarf::WOOD => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 1,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
+                        RacesTable::SENSES => -1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     MountainDwarf::MOUNTAIN => [
                         RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => -1,
+                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
+                        RacesTable::SENSES => -1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
@@ -440,7 +502,9 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     CommonHobbit::COMMON => [
                         RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 0,
+                        RacesTable::HEIGHT_IN_CM => 110.0, RacesTable::WEIGHT_IN_KG => 40.0, RacesTable::SIZE => -2,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
@@ -448,13 +512,17 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     CommonKroll::COMMON => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
+                        RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
                         RacesTable::REQUIRES_DM_AGREEMENT => false
                     ],
                     WildKroll::WILD => [
                         RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
                         RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true, RacesTable::SENSES => 0,
+                        RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
+                        RacesTable::SENSES => 0,
+                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
@@ -462,19 +530,25 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     CommonOrc::COMMON => [
                         RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 60.0, RacesTable::SIZE => -1,
+                        RacesTable::SENSES => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                     Skurut::SKURUT => [
                         RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 90.0, RacesTable::SIZE => 1,
+                        RacesTable::SENSES => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                     Goblin::GOBLIN => [
                         RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
                         RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false, RacesTable::SENSES => 1,
+                        RacesTable::HEIGHT_IN_CM => 150.0, RacesTable::WEIGHT_IN_KG => 55.0, RacesTable::SIZE => -1,
+                        RacesTable::SENSES => 1,
+                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
                         RacesTable::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
@@ -718,6 +792,108 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
             [Orc::ORC, CommonOrc::COMMON, 0],
             [Orc::ORC, Skurut::SKURUT, 0],
             [Orc::ORC, Goblin::GOBLIN, 0],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider heightOfRaces
+     *
+     * @param string $race
+     * @param string $subrace
+     * @param int $heightInCm
+     */
+    public function I_can_get_height_of_any_race($race, $subrace, $heightInCm)
+    {
+        $racesTable = new RacesTable();
+        $this->assertSame($heightInCm, $racesTable->getHeightInCm($race, $subrace));
+    }
+
+    public function heightOfRaces()
+    {
+        return [
+            [Human::HUMAN, CommonHuman::COMMON, 180.0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 180.0],
+            [Elf::ELF, CommonElf::COMMON, 160.0],
+            [Elf::ELF, GreenElf::GREEN, 160.0],
+            [Elf::ELF, DarkElf::DARK, 160.0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 140.0],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 140.0],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 140.0],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 110.0],
+            [Kroll::KROLL, CommonKroll::COMMON, 220.0],
+            [Kroll::KROLL, WildKroll::WILD, 220.0],
+            [Orc::ORC, CommonOrc::COMMON, 160.0],
+            [Orc::ORC, Skurut::SKURUT, 180.0],
+            [Orc::ORC, Goblin::GOBLIN, 150.0],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider weightOfRaces
+     *
+     * @param string $race
+     * @param string $subrace
+     * @param int $weightInKg
+     */
+    public function I_can_get_weight_of_any_race($race, $subrace, $weightInKg)
+    {
+        $racesTable = new RacesTable();
+        $this->assertSame($weightInKg, $racesTable->getWeightInKg($race, $subrace));
+    }
+
+    public function weightOfRaces()
+    {
+        return [
+            [Human::HUMAN, CommonHuman::COMMON, 80.0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 80.0],
+            [Elf::ELF, CommonElf::COMMON, 50.0],
+            [Elf::ELF, GreenElf::GREEN, 50.0],
+            [Elf::ELF, DarkElf::DARK, 50.0],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 70.0],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 70.0],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 70.0],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, 40.0],
+            [Kroll::KROLL, CommonKroll::COMMON, 120.0],
+            [Kroll::KROLL, WildKroll::WILD, 120.0],
+            [Orc::ORC, CommonOrc::COMMON, 60.0],
+            [Orc::ORC, Skurut::SKURUT, 90.0],
+            [Orc::ORC, Goblin::GOBLIN, 55.0],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider sizeOfRaces
+     *
+     * @param string $race
+     * @param string $subrace
+     * @param int $size
+     */
+    public function I_can_get_size_of_any_race($race, $subrace, $size)
+    {
+        $racesTable = new RacesTable();
+        $this->assertSame($size, $racesTable->getSize($race, $subrace));
+    }
+
+    public function sizeOfRaces()
+    {
+        return [
+            [Human::HUMAN, CommonHuman::COMMON, 0],
+            [Human::HUMAN, Highlander::HIGHLANDER, 0],
+            [Elf::ELF, CommonElf::COMMON, -1],
+            [Elf::ELF, GreenElf::GREEN, -1],
+            [Elf::ELF, DarkElf::DARK, -1],
+            [Dwarf::DWARF, CommonDwarf::COMMON, 0],
+            [Dwarf::DWARF, WoodDwarf::WOOD, 0],
+            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 0],
+            [Hobbit::HOBBIT, CommonHobbit::COMMON, -2],
+            [Kroll::KROLL, CommonKroll::COMMON, 3],
+            [Kroll::KROLL, WildKroll::WILD, 3],
+            [Orc::ORC, CommonOrc::COMMON, -1],
+            [Orc::ORC, Skurut::SKURUT, 1],
+            [Orc::ORC, Goblin::GOBLIN, -1],
         ];
     }
 

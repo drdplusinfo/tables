@@ -98,8 +98,8 @@ abstract class AbstractTable implements TableInterface
         }
         if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
             throw new Exceptions\DataAreCorrupted(
-                "Expected header with name '$expectedHeaderValue' on column index " . $columnIndex
-                . ', got ' . ValueDescriber::describe($rawData[$columnIndex])
+                "Expected header with name '$expectedHeaderValue' on first row and column with index " . $columnIndex
+                . ', got ' . ValueDescriber::describe($rawData[0][$columnIndex])
             );
         }
     }

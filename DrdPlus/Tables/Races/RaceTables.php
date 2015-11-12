@@ -13,10 +13,6 @@ class RaceTables extends StrictObject
      * @var RacesTable|null
      */
     private $racesTable;
-    /**
-     * @var SizeAndWeightTable|null
-     */
-    private $sizeAndWeightTable;
 
     /**
      * @return FemaleModifiersTable
@@ -40,17 +36,5 @@ class RaceTables extends StrictObject
         }
 
         return $this->racesTable = new RacesTable();
-    }
-
-    /**
-     * @return SizeAndWeightTable|null
-     */
-    public function getSizeAndWeightTable()
-    {
-        if (isset($this->sizeAndWeightTable)) {
-            return $this->sizeAndWeightTable;
-        }
-
-        return $this->sizeAndWeightTable = new SizeAndWeightTable();
     }
 }

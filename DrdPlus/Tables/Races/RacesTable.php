@@ -41,6 +41,9 @@ class RacesTable extends AbstractTable
     const INTELLIGENCE = 'Intelligence';
     const CHARISMA = 'Charisma';
     const TOUGHNESS = 'Toughness';
+    const HEIGHT_IN_CM = 'Height in cm';
+    const WEIGHT_IN_KG = 'Weight in kg';
+    const SIZE = 'Size';
     const INFRAVISION = 'Infravision';
     const NATIVE_REGENERATION = 'Native regeneration';
     const SENSES = 'Senses';
@@ -59,9 +62,12 @@ class RacesTable extends AbstractTable
             self::INTELLIGENCE => self::INTEGER,
             self::CHARISMA => self::INTEGER,
             self::TOUGHNESS => self::INTEGER,
+            self::HEIGHT_IN_CM => self::FLOAT,
+            self::WEIGHT_IN_KG => self::FLOAT,
+            self::SIZE => self::INTEGER,
+            self::SENSES => self::INTEGER,
             self::INFRAVISION => self::BOOLEAN,
             self::NATIVE_REGENERATION => self::BOOLEAN,
-            self::SENSES => self::INTEGER,
             self::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
         ];
     }
@@ -236,6 +242,39 @@ class RacesTable extends AbstractTable
     public function getToughness($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, self::TOUGHNESS);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return float
+     */
+    public function getHeightInCm($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::HEIGHT_IN_CM);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return float
+     */
+    public function getWeightInKg($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::WEIGHT_IN_KG);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getSize($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, self::SIZE);
     }
 
     /**
