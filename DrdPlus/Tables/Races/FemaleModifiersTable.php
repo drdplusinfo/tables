@@ -88,18 +88,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getStrength($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::STRENGTH);
-    }
-
-    /**
-     * @param string $raceCode
-     * @param $propertyName
-     *
-     * @return int
-     */
-    private function getProperty($raceCode, $propertyName)
-    {
-        return $this->getValue([$raceCode], $propertyName);
+        return $this->getValue([$raceCode], RacesTable::STRENGTH);
     }
 
     /**
@@ -109,7 +98,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getAgility($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::AGILITY);
+        return $this->getValue([$raceCode], RacesTable::AGILITY);
     }
 
     /**
@@ -119,7 +108,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getKnack($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::KNACK);
+        return $this->getValue([$raceCode], RacesTable::KNACK);
     }
 
     /**
@@ -129,7 +118,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getWill($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::WILL);
+        return $this->getValue([$raceCode], RacesTable::WILL);
     }
 
     /**
@@ -139,7 +128,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getIntelligence($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::INTELLIGENCE);
+        return $this->getValue([$raceCode], RacesTable::INTELLIGENCE);
     }
 
     /**
@@ -149,6 +138,6 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getCharisma($raceCode)
     {
-        return $this->getProperty($raceCode, RacesTable::CHARISMA);
+        return $this->getValue([$raceCode], RacesTable::CHARISMA);
     }
 }

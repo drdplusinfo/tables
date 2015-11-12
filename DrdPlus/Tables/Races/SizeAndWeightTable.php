@@ -147,4 +147,34 @@ class SizeAndWeightTable extends AbstractTable
         return $this->getRaceModifiers(Orc::ORC, Skurut::SKURUT);
     }
 
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getSize($raceCode, $subraceCode)
+    {
+        return $this->getValue([$raceCode, $this->pickSubrace($raceCode, $subraceCode)], self::SIZE);
+    }
+
+    private function pickSubrace($raceCode, $subraceCode)
+    {
+        if (in_array($raceCode, [Human::HUMAN, Dwarf::DWARF, Elf::ELF, Hobbit::HOBBIT, Kroll::KROLL])) {
+            return '';
+        }
+
+        return $subraceCode;
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getWeight($raceCode, $subraceCode)
+    {
+        return $this->getValue([$raceCode, $this->pickSubrace($raceCode, $subraceCode)], self::WEIGHT_IN_KG);
+    }
 }
