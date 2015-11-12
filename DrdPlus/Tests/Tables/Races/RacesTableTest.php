@@ -1,26 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Races\Dwarfs\CommonDwarf;
-use DrdPlus\Races\Dwarfs\Dwarf;
-use DrdPlus\Races\Dwarfs\MountainDwarf;
-use DrdPlus\Races\Dwarfs\WoodDwarf;
-use DrdPlus\Races\Elfs\CommonElf;
-use DrdPlus\Races\Elfs\DarkElf;
-use DrdPlus\Races\Elfs\Elf;
-use DrdPlus\Races\Elfs\GreenElf;
-use DrdPlus\Races\Hobbits\CommonHobbit;
-use DrdPlus\Races\Hobbits\Hobbit;
-use DrdPlus\Races\Humans\CommonHuman;
-use DrdPlus\Races\Humans\Highlander;
-use DrdPlus\Races\Humans\Human;
-use DrdPlus\Races\Krolls\CommonKroll;
-use DrdPlus\Races\Krolls\Kroll;
-use DrdPlus\Races\Krolls\WildKroll;
-use DrdPlus\Races\Orcs\CommonOrc;
-use DrdPlus\Races\Orcs\Goblin;
-use DrdPlus\Races\Orcs\Orc;
-use DrdPlus\Races\Orcs\Skurut;
+use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\RaceCodes;
 
 class RacesTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,21 +16,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonHumanModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 0,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => 0,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 180.0,
-                RacesTable::WEIGHT_IN_KG => 80.0,
-                RacesTable::SIZE => 0,
-                RacesTable::SENSES => 0,
+                PropertyCodes::STRENGTH => 0,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => 0,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 180.0,
+                PropertyCodes::WEIGHT_IN_KG => 80.0,
+                PropertyCodes::SIZE => 0,
+                PropertyCodes::SENSES => 0,
                 RacesTable::REMARKABLE_SENSE => '',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -63,21 +45,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getHighlanderModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 1,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 180.0,
-                RacesTable::WEIGHT_IN_KG => 80.0,
-                RacesTable::SIZE => 0,
-                RacesTable::SENSES => 0,
+                PropertyCodes::STRENGTH => 1,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 1,
+                PropertyCodes::INTELLIGENCE => -1,
+                PropertyCodes::CHARISMA => -1,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 180.0,
+                PropertyCodes::WEIGHT_IN_KG => 80.0,
+                PropertyCodes::SIZE => 0,
+                PropertyCodes::SENSES => 0,
                 RacesTable::REMARKABLE_SENSE => '',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -92,21 +74,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 2,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::HEIGHT_IN_CM => 140.0,
-                RacesTable::WEIGHT_IN_KG => 70.0,
-                RacesTable::SIZE => 0,
-                RacesTable::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => 'touch',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => 1,
+                PropertyCodes::AGILITY => -1,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 2,
+                PropertyCodes::INTELLIGENCE => -1,
+                PropertyCodes::CHARISMA => -2,
+                PropertyCodes::TOUGHNESS => 1,
+                PropertyCodes::HEIGHT_IN_CM => 140.0,
+                PropertyCodes::WEIGHT_IN_KG => 70.0,
+                PropertyCodes::SIZE => 0,
+                PropertyCodes::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -121,21 +103,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getWoodDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 1,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::HEIGHT_IN_CM => 140.0,
-                RacesTable::WEIGHT_IN_KG => 70.0,
-                RacesTable::SIZE => 0,
-                RacesTable::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => 'touch',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => 1,
+                PropertyCodes::AGILITY => -1,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 1,
+                PropertyCodes::INTELLIGENCE => -1,
+                PropertyCodes::CHARISMA => -1,
+                PropertyCodes::TOUGHNESS => 1,
+                PropertyCodes::HEIGHT_IN_CM => 140.0,
+                PropertyCodes::WEIGHT_IN_KG => 70.0,
+                PropertyCodes::SIZE => 0,
+                PropertyCodes::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -150,21 +132,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getMountainDwarfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 2,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 2,
-                RacesTable::INTELLIGENCE => -2,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 1,
-                RacesTable::HEIGHT_IN_CM => 140.0,
-                RacesTable::WEIGHT_IN_KG => 70.0,
-                RacesTable::SIZE => 0,
-                RacesTable::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => 'touch',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => 2,
+                PropertyCodes::AGILITY => -1,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 2,
+                PropertyCodes::INTELLIGENCE => -2,
+                PropertyCodes::CHARISMA => -2,
+                PropertyCodes::TOUGHNESS => 1,
+                PropertyCodes::HEIGHT_IN_CM => 140.0,
+                PropertyCodes::WEIGHT_IN_KG => 70.0,
+                PropertyCodes::SIZE => 0,
+                PropertyCodes::SENSES => -1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -179,21 +161,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => -2,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 1,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::HEIGHT_IN_CM => 160.0,
-                RacesTable::WEIGHT_IN_KG => 50.0,
-                RacesTable::SIZE => -1,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'sight',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => 1,
+                PropertyCodes::WILL => -2,
+                PropertyCodes::INTELLIGENCE => 1,
+                PropertyCodes::CHARISMA => 1,
+                PropertyCodes::TOUGHNESS => -1,
+                PropertyCodes::HEIGHT_IN_CM => 160.0,
+                PropertyCodes::WEIGHT_IN_KG => 50.0,
+                PropertyCodes::SIZE => -1,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -208,21 +190,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getDarkElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 0,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 0,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::HEIGHT_IN_CM => 160.0,
-                RacesTable::WEIGHT_IN_KG => 50.0,
-                RacesTable::SIZE => -1,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'sight',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
+                PropertyCodes::STRENGTH => 0,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 1,
+                PropertyCodes::CHARISMA => 0,
+                PropertyCodes::TOUGHNESS => -1,
+                PropertyCodes::HEIGHT_IN_CM => 160.0,
+                PropertyCodes::WEIGHT_IN_KG => 50.0,
+                PropertyCodes::SIZE => -1,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -237,21 +219,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getGreenElfModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => -1,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 1,
-                RacesTable::TOUGHNESS => -1,
-                RacesTable::HEIGHT_IN_CM => 160.0,
-                RacesTable::WEIGHT_IN_KG => 50.0,
-                RacesTable::SIZE => -1,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'sight',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => -1,
+                PropertyCodes::INTELLIGENCE => 1,
+                PropertyCodes::CHARISMA => 1,
+                PropertyCodes::TOUGHNESS => -1,
+                PropertyCodes::HEIGHT_IN_CM => 160.0,
+                PropertyCodes::WEIGHT_IN_KG => 50.0,
+                PropertyCodes::SIZE => -1,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -266,21 +248,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonHobbitModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -3,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => 2,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 110.0,
-                RacesTable::WEIGHT_IN_KG => 40.0,
-                RacesTable::SIZE => -2,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'taste',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => -3,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => 1,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => -1,
+                PropertyCodes::CHARISMA => 2,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 110.0,
+                PropertyCodes::WEIGHT_IN_KG => 40.0,
+                PropertyCodes::SIZE => -2,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::TASTE,
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -295,21 +277,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonKrollModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 3,
-                RacesTable::AGILITY => -2,
-                RacesTable::KNACK => -1,
-                RacesTable::WILL => 1,
-                RacesTable::INTELLIGENCE => -3,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 220.0,
-                RacesTable::WEIGHT_IN_KG => 120.0,
-                RacesTable::SIZE => 3,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'hearing',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => true,
-                RacesTable::REQUIRES_DM_AGREEMENT => false
+                PropertyCodes::STRENGTH => 3,
+                PropertyCodes::AGILITY => -2,
+                PropertyCodes::KNACK => -1,
+                PropertyCodes::WILL => 1,
+                PropertyCodes::INTELLIGENCE => -3,
+                PropertyCodes::CHARISMA => -1,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 220.0,
+                PropertyCodes::WEIGHT_IN_KG => 120.0,
+                PropertyCodes::SIZE => 3,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => true,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => false
             ],
             $modifiers
         );
@@ -324,21 +306,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getWildKrollModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 3,
-                RacesTable::AGILITY => -1,
-                RacesTable::KNACK => -2,
-                RacesTable::WILL => 2,
-                RacesTable::INTELLIGENCE => -3,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 220.0,
-                RacesTable::WEIGHT_IN_KG => 120.0,
-                RacesTable::SIZE => 3,
-                RacesTable::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => 'hearing',
-                RacesTable::INFRAVISION => false,
-                RacesTable::NATIVE_REGENERATION => true,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
+                PropertyCodes::STRENGTH => 3,
+                PropertyCodes::AGILITY => -1,
+                PropertyCodes::KNACK => -2,
+                PropertyCodes::WILL => 2,
+                PropertyCodes::INTELLIGENCE => -3,
+                PropertyCodes::CHARISMA => -2,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 220.0,
+                PropertyCodes::WEIGHT_IN_KG => 120.0,
+                PropertyCodes::SIZE => 3,
+                PropertyCodes::SENSES => 0,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                PropertyCodes::INFRAVISION => false,
+                PropertyCodes::NATIVE_REGENERATION => true,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -353,21 +335,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getCommonOrcModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 0,
-                RacesTable::AGILITY => 2,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => -1,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 160.0,
-                RacesTable::WEIGHT_IN_KG => 60.0,
-                RacesTable::SIZE => -1,
-                RacesTable::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => 'smell',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
+                PropertyCodes::STRENGTH => 0,
+                PropertyCodes::AGILITY => 2,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => -1,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => -2,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 160.0,
+                PropertyCodes::WEIGHT_IN_KG => 60.0,
+                PropertyCodes::SIZE => -1,
+                PropertyCodes::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -382,21 +364,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getSkurutModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => -1,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => -2,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 180.0,
-                RacesTable::WEIGHT_IN_KG => 90.0,
-                RacesTable::SIZE => 1,
-                RacesTable::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => 'smell',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
+                PropertyCodes::STRENGTH => 1,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => -1,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => -2,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 180.0,
+                PropertyCodes::WEIGHT_IN_KG => 90.0,
+                PropertyCodes::SIZE => 1,
+                PropertyCodes::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -411,21 +393,21 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $modifiers = $racesTable->getGoblinModifiers();
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 2,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => -2,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => -1,
-                RacesTable::TOUGHNESS => 0,
-                RacesTable::HEIGHT_IN_CM => 150.0,
-                RacesTable::WEIGHT_IN_KG => 55.0,
-                RacesTable::SIZE => -1,
-                RacesTable::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => 'smell',
-                RacesTable::INFRAVISION => true,
-                RacesTable::NATIVE_REGENERATION => false,
-                RacesTable::REQUIRES_DM_AGREEMENT => true
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 2,
+                PropertyCodes::KNACK => 1,
+                PropertyCodes::WILL => -2,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => -1,
+                PropertyCodes::TOUGHNESS => 0,
+                PropertyCodes::HEIGHT_IN_CM => 150.0,
+                PropertyCodes::WEIGHT_IN_KG => 55.0,
+                PropertyCodes::SIZE => -1,
+                PropertyCodes::SENSES => 1,
+                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::INFRAVISION => true,
+                PropertyCodes::NATIVE_REGENERATION => false,
+                PropertyCodes::REQUIRES_DM_AGREEMENT => true
             ],
             $modifiers
         );
@@ -439,131 +421,131 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $racesTable = new RacesTable();
         $this->assertSame(
             [
-                Human::HUMAN => [
-                    CommonHuman::COMMON => [
-                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 0, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                RaceCodes::HUMAN => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => 0, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 0,
+                        PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => 0, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 80.0, PropertyCodes::SIZE => 0,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    Highlander::HIGHLANDER => [RacesTable::STRENGTH => 1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
-                        RacesTable::WILL => 1, RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1,
-                        RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 80.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
-                    ],
-                ],
-                Elf::ELF => [
-                    CommonElf::COMMON => [
-                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 1,
-                        RacesTable::WILL => -2, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::TOUGHNESS => -1,
-                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
-                    ],
-                    GreenElf::GREEN => [
-                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 1, RacesTable::KNACK => 0,
-                        RacesTable::WILL => -1, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 1,
-                        RacesTable::TOUGHNESS => -1,
-                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
-                    ],
-                    DarkElf::DARK => [
-                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
-                        RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 1, RacesTable::CHARISMA => 0,
-                        RacesTable::TOUGHNESS => -1,
-                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 50.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'sight',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    RaceCodes::HIGHLANDER => [PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0,
+                        PropertyCodes::WILL => 1, PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -1,
+                        PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 80.0, PropertyCodes::SIZE => 0,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
-                Dwarf::DWARF => [
-                    CommonDwarf::COMMON => [
-                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
-                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                RaceCodes::ELF => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => 1,
+                        PropertyCodes::WILL => -2, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 1,
+                        PropertyCodes::TOUGHNESS => -1,
+                        PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    WoodDwarf::WOOD => [
-                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 1,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 1,
-                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    RaceCodes::GREEN => [
+                        PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => 0,
+                        PropertyCodes::WILL => -1, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 1,
+                        PropertyCodes::TOUGHNESS => -1,
+                        PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    MountainDwarf::MOUNTAIN => [
-                        RacesTable::STRENGTH => 2, RacesTable::AGILITY => -1, RacesTable::KNACK => 0, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -2, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 1,
-                        RacesTable::HEIGHT_IN_CM => 140.0, RacesTable::WEIGHT_IN_KG => 70.0, RacesTable::SIZE => 0,
-                        RacesTable::SENSES => -1, RacesTable::REMARKABLE_SENSE => 'touch',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
-                    ],
-                ],
-                Hobbit::HOBBIT => [
-                    CommonHobbit::COMMON => [
-                        RacesTable::STRENGTH => -3, RacesTable::AGILITY => 1, RacesTable::KNACK => 1, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => -1, RacesTable::CHARISMA => 2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 110.0, RacesTable::WEIGHT_IN_KG => 40.0, RacesTable::SIZE => -2,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'taste',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                    RaceCodes::DARK => [
+                        PropertyCodes::STRENGTH => 0, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0,
+                        PropertyCodes::WILL => 0, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 0,
+                        PropertyCodes::TOUGHNESS => -1,
+                        PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
-                Kroll::KROLL => [
-                    CommonKroll::COMMON => [
-                        RacesTable::STRENGTH => 3, RacesTable::AGILITY => -2, RacesTable::KNACK => -1, RacesTable::WILL => 1,
-                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'hearing',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
-                        RacesTable::REQUIRES_DM_AGREEMENT => false
+                RaceCodes::DWARF => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 2,
+                        PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 1,
+                        PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
+                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    WildKroll::WILD => [
-                        RacesTable::STRENGTH => 3, RacesTable::AGILITY => -1, RacesTable::KNACK => -2, RacesTable::WILL => 2,
-                        RacesTable::INTELLIGENCE => -3, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 220.0, RacesTable::WEIGHT_IN_KG => 120.0, RacesTable::SIZE => 3,
-                        RacesTable::SENSES => 0, RacesTable::REMARKABLE_SENSE => 'hearing',
-                        RacesTable::INFRAVISION => false, RacesTable::NATIVE_REGENERATION => true,
-                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    RaceCodes::WOOD => [
+                        PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 1,
+                        PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 1,
+                        PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
+                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
+                    ],
+                    RaceCodes::MOUNTAIN => [
+                        PropertyCodes::STRENGTH => 2, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 2,
+                        PropertyCodes::INTELLIGENCE => -2, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 1,
+                        PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
+                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
                 ],
-                Orc::ORC => [
-                    CommonOrc::COMMON => [
-                        RacesTable::STRENGTH => 0, RacesTable::AGILITY => 2, RacesTable::KNACK => 0, RacesTable::WILL => -1,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 160.0, RacesTable::WEIGHT_IN_KG => 60.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                RaceCodes::HOBBIT => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => -3, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => 1, PropertyCodes::WILL => 0,
+                        PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => 2, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 110.0, PropertyCodes::WEIGHT_IN_KG => 40.0, PropertyCodes::SIZE => -2,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::TASTE,
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    Skurut::SKURUT => [
-                        RacesTable::STRENGTH => 1, RacesTable::AGILITY => 1, RacesTable::KNACK => -1, RacesTable::WILL => 0,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -2, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 180.0, RacesTable::WEIGHT_IN_KG => 90.0, RacesTable::SIZE => 1,
-                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                ],
+                RaceCodes::KROLL => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => 3, PropertyCodes::AGILITY => -2, PropertyCodes::KNACK => -1, PropertyCodes::WILL => 1,
+                        PropertyCodes::INTELLIGENCE => -3, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 220.0, PropertyCodes::WEIGHT_IN_KG => 120.0, PropertyCodes::SIZE => 3,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => true,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
-                    Goblin::GOBLIN => [
-                        RacesTable::STRENGTH => -1, RacesTable::AGILITY => 2, RacesTable::KNACK => 1, RacesTable::WILL => -2,
-                        RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => -1, RacesTable::TOUGHNESS => 0,
-                        RacesTable::HEIGHT_IN_CM => 150.0, RacesTable::WEIGHT_IN_KG => 55.0, RacesTable::SIZE => -1,
-                        RacesTable::SENSES => 1, RacesTable::REMARKABLE_SENSE => 'smell',
-                        RacesTable::INFRAVISION => true, RacesTable::NATIVE_REGENERATION => false,
-                        RacesTable::REQUIRES_DM_AGREEMENT => true
+                    RaceCodes::WILD => [
+                        PropertyCodes::STRENGTH => 3, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => -2, PropertyCodes::WILL => 2,
+                        PropertyCodes::INTELLIGENCE => -3, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 220.0, PropertyCodes::WEIGHT_IN_KG => 120.0, PropertyCodes::SIZE => 3,
+                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                        PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => true,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => true
+                    ],
+                ],
+                RaceCodes::ORC => [
+                    RaceCodes::COMMON => [
+                        PropertyCodes::STRENGTH => 0, PropertyCodes::AGILITY => 2, PropertyCodes::KNACK => 0, PropertyCodes::WILL => -1,
+                        PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 60.0, PropertyCodes::SIZE => -1,
+                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => true
+                    ],
+                    RaceCodes::SKURUT => [
+                        PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => -1, PropertyCodes::WILL => 0,
+                        PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 90.0, PropertyCodes::SIZE => 1,
+                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => true
+                    ],
+                    RaceCodes::GOBLIN => [
+                        PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 2, PropertyCodes::KNACK => 1, PropertyCodes::WILL => -2,
+                        PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 0,
+                        PropertyCodes::HEIGHT_IN_CM => 150.0, PropertyCodes::WEIGHT_IN_KG => 55.0, PropertyCodes::SIZE => -1,
+                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
+                        PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
                 ],
             ],
@@ -588,20 +570,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function strengthOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 1],
-            [Elf::ELF, CommonElf::COMMON, -1],
-            [Elf::ELF, GreenElf::GREEN, -1],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 2],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, -3],
-            [Kroll::KROLL, CommonKroll::COMMON, 3],
-            [Kroll::KROLL, WildKroll::WILD, 3],
-            [Orc::ORC, CommonOrc::COMMON, 0],
-            [Orc::ORC, Skurut::SKURUT, 1],
-            [Orc::ORC, Goblin::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1],
+            [RaceCodes::ELF, RaceCodes::COMMON, -1],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -3],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 3],
+            [RaceCodes::KROLL, RaceCodes::WILD, 3],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
         ];
     }
 
@@ -622,20 +604,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function agilityOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, 1],
-            [Elf::ELF, GreenElf::GREEN, 1],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 1],
-            [Kroll::KROLL, CommonKroll::COMMON, -2],
-            [Kroll::KROLL, WildKroll::WILD, -1],
-            [Orc::ORC, CommonOrc::COMMON, 2],
-            [Orc::ORC, Skurut::SKURUT, 1],
-            [Orc::ORC, Goblin::GOBLIN, 2],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -2],
+            [RaceCodes::KROLL, RaceCodes::WILD, -1],
+            [RaceCodes::ORC, RaceCodes::COMMON, 2],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 2],
         ];
     }
 
@@ -656,20 +638,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function knackOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, 1],
-            [Elf::ELF, GreenElf::GREEN, 0],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 0],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 0],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 0],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 1],
-            [Kroll::KROLL, CommonKroll::COMMON, -1],
-            [Kroll::KROLL, WildKroll::WILD, -2],
-            [Orc::ORC, CommonOrc::COMMON, 0],
-            [Orc::ORC, Skurut::SKURUT, -1],
-            [Orc::ORC, Goblin::GOBLIN, 1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1],
+            [RaceCodes::ELF, RaceCodes::GREEN, 0],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -1],
+            [RaceCodes::KROLL, RaceCodes::WILD, -2],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, -1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 1],
         ];
     }
 
@@ -690,20 +672,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function willOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 1],
-            [Elf::ELF, CommonElf::COMMON, -2],
-            [Elf::ELF, GreenElf::GREEN, -1],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 2],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 2],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
-            [Kroll::KROLL, CommonKroll::COMMON, 1],
-            [Kroll::KROLL, WildKroll::WILD, 2],
-            [Orc::ORC, CommonOrc::COMMON, -1],
-            [Orc::ORC, Skurut::SKURUT, 0],
-            [Orc::ORC, Goblin::GOBLIN, -2],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1],
+            [RaceCodes::ELF, RaceCodes::COMMON, -2],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 2],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 1],
+            [RaceCodes::KROLL, RaceCodes::WILD, 2],
+            [RaceCodes::ORC, RaceCodes::COMMON, -1],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -2],
         ];
     }
 
@@ -724,20 +706,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function intelligenceOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, -1],
-            [Elf::ELF, CommonElf::COMMON, 1],
-            [Elf::ELF, GreenElf::GREEN, 1],
-            [Elf::ELF, DarkElf::DARK, 1],
-            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -2],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, -1],
-            [Kroll::KROLL, CommonKroll::COMMON, -3],
-            [Kroll::KROLL, WildKroll::WILD, -3],
-            [Orc::ORC, CommonOrc::COMMON, 0],
-            [Orc::ORC, Skurut::SKURUT, 0],
-            [Orc::ORC, Goblin::GOBLIN, 0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1],
+            [RaceCodes::ELF, RaceCodes::DARK, 1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -1],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -3],
+            [RaceCodes::KROLL, RaceCodes::WILD, -3],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 0],
         ];
     }
 
@@ -758,20 +740,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function charismaOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, -1],
-            [Elf::ELF, CommonElf::COMMON, 1],
-            [Elf::ELF, GreenElf::GREEN, 1],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, -2],
-            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -2],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 2],
-            [Kroll::KROLL, CommonKroll::COMMON, -1],
-            [Kroll::KROLL, WildKroll::WILD, -2],
-            [Orc::ORC, CommonOrc::COMMON, -2],
-            [Orc::ORC, Skurut::SKURUT, -2],
-            [Orc::ORC, Goblin::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -2],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 2],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -1],
+            [RaceCodes::KROLL, RaceCodes::WILD, -2],
+            [RaceCodes::ORC, RaceCodes::COMMON, -2],
+            [RaceCodes::ORC, RaceCodes::SKURUT, -2],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
         ];
     }
 
@@ -792,20 +774,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function toughnessOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, -1],
-            [Elf::ELF, GreenElf::GREEN, -1],
-            [Elf::ELF, DarkElf::DARK, -1],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 1],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
-            [Kroll::KROLL, CommonKroll::COMMON, 0],
-            [Kroll::KROLL, WildKroll::WILD, 0],
-            [Orc::ORC, CommonOrc::COMMON, 0],
-            [Orc::ORC, Skurut::SKURUT, 0],
-            [Orc::ORC, Goblin::GOBLIN, 0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, -1],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1],
+            [RaceCodes::ELF, RaceCodes::DARK, -1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 0],
         ];
     }
 
@@ -826,20 +808,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function heightOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 180.0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 180.0],
-            [Elf::ELF, CommonElf::COMMON, 160.0],
-            [Elf::ELF, GreenElf::GREEN, 160.0],
-            [Elf::ELF, DarkElf::DARK, 160.0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 140.0],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 140.0],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 140.0],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 110.0],
-            [Kroll::KROLL, CommonKroll::COMMON, 220.0],
-            [Kroll::KROLL, WildKroll::WILD, 220.0],
-            [Orc::ORC, CommonOrc::COMMON, 160.0],
-            [Orc::ORC, Skurut::SKURUT, 180.0],
-            [Orc::ORC, Goblin::GOBLIN, 150.0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 180.0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 180.0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 160.0],
+            [RaceCodes::ELF, RaceCodes::GREEN, 160.0],
+            [RaceCodes::ELF, RaceCodes::DARK, 160.0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 140.0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 140.0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 140.0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 110.0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 220.0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 220.0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 160.0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 180.0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 150.0],
         ];
     }
 
@@ -860,20 +842,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function weightOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 80.0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 80.0],
-            [Elf::ELF, CommonElf::COMMON, 50.0],
-            [Elf::ELF, GreenElf::GREEN, 50.0],
-            [Elf::ELF, DarkElf::DARK, 50.0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 70.0],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 70.0],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 70.0],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 40.0],
-            [Kroll::KROLL, CommonKroll::COMMON, 120.0],
-            [Kroll::KROLL, WildKroll::WILD, 120.0],
-            [Orc::ORC, CommonOrc::COMMON, 60.0],
-            [Orc::ORC, Skurut::SKURUT, 90.0],
-            [Orc::ORC, Goblin::GOBLIN, 55.0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 80.0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 80.0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 50.0],
+            [RaceCodes::ELF, RaceCodes::GREEN, 50.0],
+            [RaceCodes::ELF, RaceCodes::DARK, 50.0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 70.0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 70.0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 70.0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 40.0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 120.0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 120.0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 60.0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 90.0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 55.0],
         ];
     }
 
@@ -894,20 +876,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function sizeOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, -1],
-            [Elf::ELF, GreenElf::GREEN, -1],
-            [Elf::ELF, DarkElf::DARK, -1],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 0],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 0],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 0],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, -2],
-            [Kroll::KROLL, CommonKroll::COMMON, 3],
-            [Kroll::KROLL, WildKroll::WILD, 3],
-            [Orc::ORC, CommonOrc::COMMON, -1],
-            [Orc::ORC, Skurut::SKURUT, 1],
-            [Orc::ORC, Goblin::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, -1],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1],
+            [RaceCodes::ELF, RaceCodes::DARK, -1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -2],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 3],
+            [RaceCodes::KROLL, RaceCodes::WILD, 3],
+            [RaceCodes::ORC, RaceCodes::COMMON, -1],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
         ];
     }
 
@@ -928,20 +910,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function sensesOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, 0],
-            [Human::HUMAN, Highlander::HIGHLANDER, 0],
-            [Elf::ELF, CommonElf::COMMON, 0],
-            [Elf::ELF, GreenElf::GREEN, 0],
-            [Elf::ELF, DarkElf::DARK, 0],
-            [Dwarf::DWARF, CommonDwarf::COMMON, -1],
-            [Dwarf::DWARF, WoodDwarf::WOOD, -1],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, -1],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 0],
-            [Kroll::KROLL, CommonKroll::COMMON, 0],
-            [Kroll::KROLL, WildKroll::WILD, 0],
-            [Orc::ORC, CommonOrc::COMMON, 1],
-            [Orc::ORC, Skurut::SKURUT, 1],
-            [Orc::ORC, Goblin::GOBLIN, 1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 0],
+            [RaceCodes::ELF, RaceCodes::GREEN, 0],
+            [RaceCodes::ELF, RaceCodes::DARK, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 1],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 1],
         ];
     }
 
@@ -962,20 +944,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function remarkableSenseOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, ''],
-            [Human::HUMAN, Highlander::HIGHLANDER, ''],
-            [Elf::ELF, CommonElf::COMMON, 'sight'],
-            [Elf::ELF, GreenElf::GREEN, 'sight'],
-            [Elf::ELF, DarkElf::DARK, 'sight'],
-            [Dwarf::DWARF, CommonDwarf::COMMON, 'touch'],
-            [Dwarf::DWARF, WoodDwarf::WOOD, 'touch'],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, 'touch'],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, 'taste'],
-            [Kroll::KROLL, CommonKroll::COMMON, 'hearing'],
-            [Kroll::KROLL, WildKroll::WILD, 'hearing'],
-            [Orc::ORC, CommonOrc::COMMON, 'smell'],
-            [Orc::ORC, Skurut::SKURUT, 'smell'],
-            [Orc::ORC, Goblin::GOBLIN, 'smell'],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, ''],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, ''],
+            [RaceCodes::ELF, RaceCodes::COMMON, PropertyCodes::SIGHT],
+            [RaceCodes::ELF, RaceCodes::GREEN, PropertyCodes::SIGHT],
+            [RaceCodes::ELF, RaceCodes::DARK, PropertyCodes::SIGHT],
+            [RaceCodes::DWARF, RaceCodes::COMMON, PropertyCodes::TOUCH],
+            [RaceCodes::DWARF, RaceCodes::WOOD, PropertyCodes::TOUCH],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, PropertyCodes::TOUCH],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, PropertyCodes::TASTE],
+            [RaceCodes::KROLL, RaceCodes::COMMON, PropertyCodes::HEARING],
+            [RaceCodes::KROLL, RaceCodes::WILD, PropertyCodes::HEARING],
+            [RaceCodes::ORC, RaceCodes::COMMON, PropertyCodes::SMELL],
+            [RaceCodes::ORC, RaceCodes::SKURUT, PropertyCodes::SMELL],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, PropertyCodes::SMELL],
         ];
     }
 
@@ -996,20 +978,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function infravisionOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, false],
-            [Human::HUMAN, Highlander::HIGHLANDER, false],
-            [Elf::ELF, CommonElf::COMMON, false],
-            [Elf::ELF, GreenElf::GREEN, false],
-            [Elf::ELF, DarkElf::DARK, true],
-            [Dwarf::DWARF, CommonDwarf::COMMON, true],
-            [Dwarf::DWARF, WoodDwarf::WOOD, true],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, true],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
-            [Kroll::KROLL, CommonKroll::COMMON, false],
-            [Kroll::KROLL, WildKroll::WILD, false],
-            [Orc::ORC, CommonOrc::COMMON, true],
-            [Orc::ORC, Skurut::SKURUT, true],
-            [Orc::ORC, Goblin::GOBLIN, true],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, false],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, false],
+            [RaceCodes::ELF, RaceCodes::COMMON, false],
+            [RaceCodes::ELF, RaceCodes::GREEN, false],
+            [RaceCodes::ELF, RaceCodes::DARK, true],
+            [RaceCodes::DWARF, RaceCodes::COMMON, true],
+            [RaceCodes::DWARF, RaceCodes::WOOD, true],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, true],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, false],
+            [RaceCodes::KROLL, RaceCodes::COMMON, false],
+            [RaceCodes::KROLL, RaceCodes::WILD, false],
+            [RaceCodes::ORC, RaceCodes::COMMON, true],
+            [RaceCodes::ORC, RaceCodes::SKURUT, true],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, true],
         ];
     }
 
@@ -1030,20 +1012,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function nativeRegenerationOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, false],
-            [Human::HUMAN, Highlander::HIGHLANDER, false],
-            [Elf::ELF, CommonElf::COMMON, false],
-            [Elf::ELF, GreenElf::GREEN, false],
-            [Elf::ELF, DarkElf::DARK, false],
-            [Dwarf::DWARF, CommonDwarf::COMMON, false],
-            [Dwarf::DWARF, WoodDwarf::WOOD, false],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, false],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
-            [Kroll::KROLL, CommonKroll::COMMON, true],
-            [Kroll::KROLL, WildKroll::WILD, true],
-            [Orc::ORC, CommonOrc::COMMON, false],
-            [Orc::ORC, Skurut::SKURUT, false],
-            [Orc::ORC, Goblin::GOBLIN, false],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, false],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, false],
+            [RaceCodes::ELF, RaceCodes::COMMON, false],
+            [RaceCodes::ELF, RaceCodes::GREEN, false],
+            [RaceCodes::ELF, RaceCodes::DARK, false],
+            [RaceCodes::DWARF, RaceCodes::COMMON, false],
+            [RaceCodes::DWARF, RaceCodes::WOOD, false],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, false],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, false],
+            [RaceCodes::KROLL, RaceCodes::COMMON, true],
+            [RaceCodes::KROLL, RaceCodes::WILD, true],
+            [RaceCodes::ORC, RaceCodes::COMMON, false],
+            [RaceCodes::ORC, RaceCodes::SKURUT, false],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, false],
         ];
     }
 
@@ -1064,20 +1046,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function requirementOfDmOfRaces()
     {
         return [
-            [Human::HUMAN, CommonHuman::COMMON, false],
-            [Human::HUMAN, Highlander::HIGHLANDER, false],
-            [Elf::ELF, CommonElf::COMMON, false],
-            [Elf::ELF, GreenElf::GREEN, false],
-            [Elf::ELF, DarkElf::DARK, true],
-            [Dwarf::DWARF, CommonDwarf::COMMON, false],
-            [Dwarf::DWARF, WoodDwarf::WOOD, false],
-            [Dwarf::DWARF, MountainDwarf::MOUNTAIN, false],
-            [Hobbit::HOBBIT, CommonHobbit::COMMON, false],
-            [Kroll::KROLL, CommonKroll::COMMON, false],
-            [Kroll::KROLL, WildKroll::WILD, true],
-            [Orc::ORC, CommonOrc::COMMON, true],
-            [Orc::ORC, Skurut::SKURUT, true],
-            [Orc::ORC, Goblin::GOBLIN, true],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, false],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, false],
+            [RaceCodes::ELF, RaceCodes::COMMON, false],
+            [RaceCodes::ELF, RaceCodes::GREEN, false],
+            [RaceCodes::ELF, RaceCodes::DARK, true],
+            [RaceCodes::DWARF, RaceCodes::COMMON, false],
+            [RaceCodes::DWARF, RaceCodes::WOOD, false],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, false],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, false],
+            [RaceCodes::KROLL, RaceCodes::COMMON, false],
+            [RaceCodes::KROLL, RaceCodes::WILD, true],
+            [RaceCodes::ORC, RaceCodes::COMMON, true],
+            [RaceCodes::ORC, RaceCodes::SKURUT, true],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, true],
         ];
     }
 }

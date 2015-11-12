@@ -1,12 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Races\Dwarfs\Dwarf;
-use DrdPlus\Races\Elfs\Elf;
-use DrdPlus\Races\Hobbits\Hobbit;
-use DrdPlus\Races\Humans\Human;
-use DrdPlus\Races\Krolls\Kroll;
-use DrdPlus\Races\Orcs\Orc;
+use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\RaceCodes;
 
 class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -28,12 +24,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => 1,
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getHumanModifiers()
         );
@@ -46,12 +42,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 1,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => -1,
-                RacesTable::CHARISMA => 1,
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 1,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => -1,
+                PropertyCodes::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getElfModifiers()
         );
@@ -64,12 +60,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => 0,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => -1,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 1,
-                RacesTable::CHARISMA => 0,
+                PropertyCodes::STRENGTH => 0,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => -1,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 1,
+                PropertyCodes::CHARISMA => 0,
             ],
             $this->getFemaleModifiersTable()->getDwarfModifiers()
         );
@@ -82,12 +78,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => -1,
-                RacesTable::WILL => 0,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => 1,
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => -1,
+                PropertyCodes::WILL => 0,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getHobbitModifiers()
         );
@@ -100,12 +96,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 1,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => -1,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => 1,
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 1,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => -1,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => 1,
             ],
             $this->getFemaleModifiersTable()->getKrollModifiers()
         );
@@ -118,12 +114,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                RacesTable::STRENGTH => -1,
-                RacesTable::AGILITY => 0,
-                RacesTable::KNACK => 0,
-                RacesTable::WILL => 1,
-                RacesTable::INTELLIGENCE => 0,
-                RacesTable::CHARISMA => 0,
+                PropertyCodes::STRENGTH => -1,
+                PropertyCodes::AGILITY => 0,
+                PropertyCodes::KNACK => 0,
+                PropertyCodes::WILL => 1,
+                PropertyCodes::INTELLIGENCE => 0,
+                PropertyCodes::CHARISMA => 0,
             ],
             $this->getFemaleModifiersTable()->getOrcModifiers()
         );
@@ -136,49 +132,49 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             [
-                Human::HUMAN => [
-                    RacesTable::STRENGTH => -1, RacesTable::AGILITY => 0, RacesTable::KNACK => 0,
-                    RacesTable::WILL => 0, RacesTable::INTELLIGENCE => 0, RacesTable::CHARISMA => 1,
+                RaceCodes::HUMAN => [
+                    PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0,
+                    PropertyCodes::WILL => 0, PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => 1,
                 ],
-                Elf::ELF => [
-                    RacesTable::STRENGTH => -1,
-                    RacesTable::AGILITY => 0,
-                    RacesTable::KNACK => 1,
-                    RacesTable::WILL => 0,
-                    RacesTable::INTELLIGENCE => -1,
-                    RacesTable::CHARISMA => 1,
+                RaceCodes::ELF => [
+                    PropertyCodes::STRENGTH => -1,
+                    PropertyCodes::AGILITY => 0,
+                    PropertyCodes::KNACK => 1,
+                    PropertyCodes::WILL => 0,
+                    PropertyCodes::INTELLIGENCE => -1,
+                    PropertyCodes::CHARISMA => 1,
                 ],
-                Dwarf::DWARF => [
-                    RacesTable::STRENGTH => 0,
-                    RacesTable::AGILITY => 0,
-                    RacesTable::KNACK => -1,
-                    RacesTable::WILL => 0,
-                    RacesTable::INTELLIGENCE => 1,
-                    RacesTable::CHARISMA => 0,
+                RaceCodes::DWARF => [
+                    PropertyCodes::STRENGTH => 0,
+                    PropertyCodes::AGILITY => 0,
+                    PropertyCodes::KNACK => -1,
+                    PropertyCodes::WILL => 0,
+                    PropertyCodes::INTELLIGENCE => 1,
+                    PropertyCodes::CHARISMA => 0,
                 ],
-                Hobbit::HOBBIT => [
-                    RacesTable::STRENGTH => -1,
-                    RacesTable::AGILITY => 1,
-                    RacesTable::KNACK => -1,
-                    RacesTable::WILL => 0,
-                    RacesTable::INTELLIGENCE => 0,
-                    RacesTable::CHARISMA => 1,
+                RaceCodes::HOBBIT => [
+                    PropertyCodes::STRENGTH => -1,
+                    PropertyCodes::AGILITY => 1,
+                    PropertyCodes::KNACK => -1,
+                    PropertyCodes::WILL => 0,
+                    PropertyCodes::INTELLIGENCE => 0,
+                    PropertyCodes::CHARISMA => 1,
                 ],
-                Kroll::KROLL => [
-                    RacesTable::STRENGTH => -1,
-                    RacesTable::AGILITY => 1,
-                    RacesTable::KNACK => 0,
-                    RacesTable::WILL => -1,
-                    RacesTable::INTELLIGENCE => 0,
-                    RacesTable::CHARISMA => 1,
+                RaceCodes::KROLL => [
+                    PropertyCodes::STRENGTH => -1,
+                    PropertyCodes::AGILITY => 1,
+                    PropertyCodes::KNACK => 0,
+                    PropertyCodes::WILL => -1,
+                    PropertyCodes::INTELLIGENCE => 0,
+                    PropertyCodes::CHARISMA => 1,
                 ],
-                Orc::ORC => [
-                    RacesTable::STRENGTH => -1,
-                    RacesTable::AGILITY => 0,
-                    RacesTable::KNACK => 0,
-                    RacesTable::WILL => 1,
-                    RacesTable::INTELLIGENCE => 0,
-                    RacesTable::CHARISMA => 0,
+                RaceCodes::ORC => [
+                    PropertyCodes::STRENGTH => -1,
+                    PropertyCodes::AGILITY => 0,
+                    PropertyCodes::KNACK => 0,
+                    PropertyCodes::WILL => 1,
+                    PropertyCodes::INTELLIGENCE => 0,
+                    PropertyCodes::CHARISMA => 0,
                 ],
             ],
             $this->getFemaleModifiersTable()->getValues()
@@ -202,12 +198,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToStrength()
     {
         return [
-            [Human::HUMAN, -1],
-            [Elf::ELF, -1],
-            [Dwarf::DWARF, 0],
-            [Hobbit::HOBBIT, -1],
-            [Kroll::KROLL, -1],
-            [Orc::ORC, -1],
+            [RaceCodes::HUMAN, -1],
+            [RaceCodes::ELF, -1],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, -1],
+            [RaceCodes::KROLL, -1],
+            [RaceCodes::ORC, -1],
         ];
     }
 
@@ -229,15 +225,15 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToAgility()
     {
         return [
-            [Human::HUMAN, 0],
-            [Elf::ELF, 0],
-            [Dwarf::DWARF, 0],
-            [Hobbit::HOBBIT, 1],
-            [Kroll::KROLL, 1],
-            [Orc::ORC, 0],
+            [RaceCodes::HUMAN, 0],
+            [RaceCodes::ELF, 0],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, 1],
+            [RaceCodes::KROLL, 1],
+            [RaceCodes::ORC, 0],
         ];
     }
-    
+
     /**
      * @test
      * @dataProvider raceToKnack
@@ -256,14 +252,15 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToKnack()
     {
         return [
-            [Human::HUMAN, 0],
-            [Elf::ELF, 1],
-            [Dwarf::DWARF, -1],
-            [Hobbit::HOBBIT, -1],
-            [Kroll::KROLL, 0],
-            [Orc::ORC, 0],
+            [RaceCodes::HUMAN, 0],
+            [RaceCodes::ELF, 1],
+            [RaceCodes::DWARF, -1],
+            [RaceCodes::HOBBIT, -1],
+            [RaceCodes::KROLL, 0],
+            [RaceCodes::ORC, 0],
         ];
     }
+
     /**
      * @test
      * @dataProvider raceToWill
@@ -282,14 +279,15 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToWill()
     {
         return [
-            [Human::HUMAN, 0],
-            [Elf::ELF, 0],
-            [Dwarf::DWARF, 0],
-            [Hobbit::HOBBIT, 0],
-            [Kroll::KROLL, -1],
-            [Orc::ORC, 1],
+            [RaceCodes::HUMAN, 0],
+            [RaceCodes::ELF, 0],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, 0],
+            [RaceCodes::KROLL, -1],
+            [RaceCodes::ORC, 1],
         ];
     }
+
     /**
      * @test
      * @dataProvider raceToIntelligence
@@ -308,12 +306,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToIntelligence()
     {
         return [
-            [Human::HUMAN, 0],
-            [Elf::ELF, -1],
-            [Dwarf::DWARF, 1],
-            [Hobbit::HOBBIT, 0],
-            [Kroll::KROLL, 0],
-            [Orc::ORC, 0],
+            [RaceCodes::HUMAN, 0],
+            [RaceCodes::ELF, -1],
+            [RaceCodes::DWARF, 1],
+            [RaceCodes::HOBBIT, 0],
+            [RaceCodes::KROLL, 0],
+            [RaceCodes::ORC, 0],
         ];
     }
 
@@ -335,12 +333,12 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function raceToCharisma()
     {
         return [
-            [Human::HUMAN, 1],
-            [Elf::ELF, 1],
-            [Dwarf::DWARF, 0],
-            [Hobbit::HOBBIT, 1],
-            [Kroll::KROLL, 1],
-            [Orc::ORC, 0],
+            [RaceCodes::HUMAN, 1],
+            [RaceCodes::ELF, 1],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, 1],
+            [RaceCodes::KROLL, 1],
+            [RaceCodes::ORC, 0],
         ];
     }
 }

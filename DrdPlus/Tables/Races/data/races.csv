@@ -1,4 +1,4 @@
-Race,Subrace,Strength,Agility,Knack,Will,Intelligence,Charisma,Toughness,Height in cm,Weight in kg,Size,Senses,Remarkable sense,Infravision,Native regeneration,Requires DM agreement
+race,subrace,strength,agility,knack,will,intelligence,charisma,toughness,height_in_cm,weight_in_kg,size,senses,remarkable_sense,infravision,native_regeneration,requires_dm_agreement
 human,common,0,0,0,0,0,0,0,180,80,0,0,,,,
 human,highlander,1,0,0,1,−1,−1,0,180,80,0,0,,,,
 elf,common,−1,1,1,−2,1,1,-1,160,50,-1,0,sight,,,

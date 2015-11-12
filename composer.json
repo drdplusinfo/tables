@@ -12,9 +12,9 @@
     "granam/float": "dev-master",
     "granam/integer": "dev-master",
     "granam/number": "dev-master",
-    "drd/dice-roll": "dev-master",
     "granam/boolean": "dev-master",
-    "drd-plus/races": "dev-master"
+    "drd/dice-roll": "dev-master",
+    "drd-plus/codes": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",

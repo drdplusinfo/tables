@@ -1,12 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Races\Dwarfs\Dwarf;
-use DrdPlus\Races\Elfs\Elf;
-use DrdPlus\Races\Hobbits\Hobbit;
-use DrdPlus\Races\Humans\Human;
-use DrdPlus\Races\Krolls\Kroll;
-use DrdPlus\Races\Orcs\Orc;
+use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\RaceCodes;
 
 class FemaleModifiersTable extends AbstractTable
 {
@@ -24,12 +20,12 @@ class FemaleModifiersTable extends AbstractTable
     protected function getExpectedColumnsHeader()
     {
         return [
-            RacesTable::STRENGTH => self::INTEGER,
-            RacesTable::AGILITY => self::INTEGER,
-            RacesTable::KNACK => self::INTEGER,
-            RacesTable::WILL => self::INTEGER,
-            RacesTable::INTELLIGENCE => self::INTEGER,
-            RacesTable::CHARISMA => self::INTEGER,
+            PropertyCodes::STRENGTH => self::INTEGER,
+            PropertyCodes::AGILITY => self::INTEGER,
+            PropertyCodes::KNACK => self::INTEGER,
+            PropertyCodes::WILL => self::INTEGER,
+            PropertyCodes::INTELLIGENCE => self::INTEGER,
+            PropertyCodes::CHARISMA => self::INTEGER,
         ];
     }
 
@@ -43,7 +39,7 @@ class FemaleModifiersTable extends AbstractTable
 
     public function getHumanModifiers()
     {
-        return $this->getRaceModifiers(Human::HUMAN);
+        return $this->getRaceModifiers(RaceCodes::HUMAN);
     }
 
     /**
@@ -58,27 +54,27 @@ class FemaleModifiersTable extends AbstractTable
 
     public function getElfModifiers()
     {
-        return $this->getRaceModifiers(Elf::ELF);
+        return $this->getRaceModifiers(RaceCodes::ELF);
     }
 
     public function getDwarfModifiers()
     {
-        return $this->getRaceModifiers(Dwarf::DWARF);
+        return $this->getRaceModifiers(RaceCodes::DWARF);
     }
 
     public function getHobbitModifiers()
     {
-        return $this->getRaceModifiers(Hobbit::HOBBIT);
+        return $this->getRaceModifiers(RaceCodes::HOBBIT);
     }
 
     public function getKrollModifiers()
     {
-        return $this->getRaceModifiers(Kroll::KROLL);
+        return $this->getRaceModifiers(RaceCodes::KROLL);
     }
 
     public function getOrcModifiers()
     {
-        return $this->getRaceModifiers(Orc::ORC);
+        return $this->getRaceModifiers(RaceCodes::ORC);
     }
 
     /**
@@ -88,7 +84,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getStrength($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::STRENGTH);
+        return $this->getValue([$raceCode], PropertyCodes::STRENGTH);
     }
 
     /**
@@ -98,7 +94,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getAgility($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::AGILITY);
+        return $this->getValue([$raceCode], PropertyCodes::AGILITY);
     }
 
     /**
@@ -108,7 +104,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getKnack($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::KNACK);
+        return $this->getValue([$raceCode], PropertyCodes::KNACK);
     }
 
     /**
@@ -118,7 +114,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getWill($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::WILL);
+        return $this->getValue([$raceCode], PropertyCodes::WILL);
     }
 
     /**
@@ -128,7 +124,7 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getIntelligence($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::INTELLIGENCE);
+        return $this->getValue([$raceCode], PropertyCodes::INTELLIGENCE);
     }
 
     /**
@@ -138,6 +134,6 @@ class FemaleModifiersTable extends AbstractTable
      */
     public function getCharisma($raceCode)
     {
-        return $this->getValue([$raceCode], RacesTable::CHARISMA);
+        return $this->getValue([$raceCode], PropertyCodes::CHARISMA);
     }
 }

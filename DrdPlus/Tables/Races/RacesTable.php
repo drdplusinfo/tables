@@ -1,26 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Races\Dwarfs\CommonDwarf;
-use DrdPlus\Races\Dwarfs\Dwarf;
-use DrdPlus\Races\Dwarfs\MountainDwarf;
-use DrdPlus\Races\Dwarfs\WoodDwarf;
-use DrdPlus\Races\Elfs\CommonElf;
-use DrdPlus\Races\Elfs\DarkElf;
-use DrdPlus\Races\Elfs\Elf;
-use DrdPlus\Races\Elfs\GreenElf;
-use DrdPlus\Races\Hobbits\CommonHobbit;
-use DrdPlus\Races\Hobbits\Hobbit;
-use DrdPlus\Races\Humans\CommonHuman;
-use DrdPlus\Races\Humans\Highlander;
-use DrdPlus\Races\Humans\Human;
-use DrdPlus\Races\Krolls\CommonKroll;
-use DrdPlus\Races\Krolls\Kroll;
-use DrdPlus\Races\Krolls\WildKroll;
-use DrdPlus\Races\Orcs\CommonOrc;
-use DrdPlus\Races\Orcs\Goblin;
-use DrdPlus\Races\Orcs\Orc;
-use DrdPlus\Races\Orcs\Skurut;
+use DrdPlus\Codes\PropertyCodes;
+use DrdPlus\Codes\RaceCodes;
 
 class RacesTable extends AbstractTable
 {
@@ -33,22 +15,7 @@ class RacesTable extends AbstractTable
         return __DIR__ . '/data/races.csv';
     }
 
-    const SUBRACE = 'Subrace';
-    const STRENGTH = 'Strength';
-    const AGILITY = 'Agility';
-    const KNACK = 'Knack';
-    const WILL = 'Will';
-    const INTELLIGENCE = 'Intelligence';
-    const CHARISMA = 'Charisma';
-    const TOUGHNESS = 'Toughness';
-    const HEIGHT_IN_CM = 'Height in cm';
-    const WEIGHT_IN_KG = 'Weight in kg';
-    const SIZE = 'Size';
-    const SENSES = 'Senses';
-    const REMARKABLE_SENSE = 'Remarkable sense';
-    const INFRAVISION = 'Infravision';
-    const NATIVE_REGENERATION = 'Native regeneration';
-    const REQUIRES_DM_AGREEMENT = 'Requires DM agreement';
+    const REMARKABLE_SENSE = 'remarkable_sense';
 
     /**
      * @return array|string
@@ -56,25 +23,26 @@ class RacesTable extends AbstractTable
     protected function getExpectedColumnsHeader()
     {
         return [
-            self::STRENGTH => self::INTEGER,
-            self::AGILITY => self::INTEGER,
-            self::KNACK => self::INTEGER,
-            self::WILL => self::INTEGER,
-            self::INTELLIGENCE => self::INTEGER,
-            self::CHARISMA => self::INTEGER,
-            self::TOUGHNESS => self::INTEGER,
-            self::HEIGHT_IN_CM => self::FLOAT,
-            self::WEIGHT_IN_KG => self::FLOAT,
-            self::SIZE => self::INTEGER,
-            self::SENSES => self::INTEGER,
+            PropertyCodes::STRENGTH => self::INTEGER,
+            PropertyCodes::AGILITY => self::INTEGER,
+            PropertyCodes::KNACK => self::INTEGER,
+            PropertyCodes::WILL => self::INTEGER,
+            PropertyCodes::INTELLIGENCE => self::INTEGER,
+            PropertyCodes::CHARISMA => self::INTEGER,
+            PropertyCodes::TOUGHNESS => self::INTEGER,
+            PropertyCodes::HEIGHT_IN_CM => self::FLOAT,
+            PropertyCodes::WEIGHT_IN_KG => self::FLOAT,
+            PropertyCodes::SIZE => self::INTEGER,
+            PropertyCodes::SENSES => self::INTEGER,
             self::REMARKABLE_SENSE => self::STRING,
-            self::INFRAVISION => self::BOOLEAN,
-            self::NATIVE_REGENERATION => self::BOOLEAN,
-            self::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
+            PropertyCodes::INFRAVISION => self::BOOLEAN,
+            PropertyCodes::NATIVE_REGENERATION => self::BOOLEAN,
+            PropertyCodes::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
         ];
     }
 
-    const RACE = 'Race';
+    const RACE = 'race';
+    const SUBRACE = 'subrace';
 
     /**
      * @return array
@@ -89,72 +57,72 @@ class RacesTable extends AbstractTable
 
     public function getCommonHumanModifiers()
     {
-        return $this->getRow([Human::HUMAN, CommonHuman::COMMON]);
+        return $this->getRow([RaceCodes::HUMAN, RaceCodes::COMMON]);
     }
 
     public function getHighlanderModifiers()
     {
-        return $this->getRow([Human::HUMAN, Highlander::HIGHLANDER]);
+        return $this->getRow([RaceCodes::HUMAN, RaceCodes::HIGHLANDER]);
     }
 
     public function getCommonElfModifiers()
     {
-        return $this->getRow([Elf::ELF, CommonElf::COMMON]);
+        return $this->getRow([RaceCodes::ELF, RaceCodes::COMMON]);
     }
 
     public function getDarkElfModifiers()
     {
-        return $this->getRow([Elf::ELF, DarkElf::DARK]);
+        return $this->getRow([RaceCodes::ELF, RaceCodes::DARK]);
     }
 
     public function getGreenElfModifiers()
     {
-        return $this->getRow([Elf::ELF, GreenElf::GREEN]);
+        return $this->getRow([RaceCodes::ELF, RaceCodes::GREEN]);
     }
 
     public function getCommonDwarfModifiers()
     {
-        return $this->getRow([Dwarf::DWARF, CommonDwarf::COMMON]);
+        return $this->getRow([RaceCodes::DWARF, RaceCodes::COMMON]);
     }
 
     public function getMountainDwarfModifiers()
     {
-        return $this->getRow([Dwarf::DWARF, MountainDwarf::MOUNTAIN]);
+        return $this->getRow([RaceCodes::DWARF, RaceCodes::MOUNTAIN]);
     }
 
     public function getWoodDwarfModifiers()
     {
-        return $this->getRow([Dwarf::DWARF, WoodDwarf::WOOD]);
+        return $this->getRow([RaceCodes::DWARF, RaceCodes::WOOD]);
     }
 
     public function getCommonHobbitModifiers()
     {
-        return $this->getRow([Hobbit::HOBBIT, CommonHobbit::COMMON]);
+        return $this->getRow([RaceCodes::HOBBIT, RaceCodes::COMMON]);
     }
 
     public function getCommonKrollModifiers()
     {
-        return $this->getRow([Kroll::KROLL, CommonKroll::COMMON]);
+        return $this->getRow([RaceCodes::KROLL, RaceCodes::COMMON]);
     }
 
     public function getWildKrollModifiers()
     {
-        return $this->getRow([Kroll::KROLL, WildKroll::WILD]);
+        return $this->getRow([RaceCodes::KROLL, RaceCodes::WILD]);
     }
 
     public function getCommonOrcModifiers()
     {
-        return $this->getRow([Orc::ORC, CommonOrc::COMMON]);
+        return $this->getRow([RaceCodes::ORC, RaceCodes::COMMON]);
     }
 
     public function getGoblinModifiers()
     {
-        return $this->getRow([Orc::ORC, Goblin::GOBLIN]);
+        return $this->getRow([RaceCodes::ORC, RaceCodes::GOBLIN]);
     }
 
     public function getSkurutModifiers()
     {
-        return $this->getRow([Orc::ORC, Skurut::SKURUT]);
+        return $this->getRow([RaceCodes::ORC, RaceCodes::SKURUT]);
     }
 
     /**
@@ -165,7 +133,7 @@ class RacesTable extends AbstractTable
      */
     public function getStrength($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::STRENGTH);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::STRENGTH);
     }
 
     /**
@@ -188,7 +156,7 @@ class RacesTable extends AbstractTable
      */
     public function getAgility($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::AGILITY);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::AGILITY);
     }
 
     /**
@@ -199,7 +167,7 @@ class RacesTable extends AbstractTable
      */
     public function getKnack($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::KNACK);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::KNACK);
     }
 
     /**
@@ -210,7 +178,7 @@ class RacesTable extends AbstractTable
      */
     public function getWill($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::WILL);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WILL);
     }
 
     /**
@@ -221,7 +189,7 @@ class RacesTable extends AbstractTable
      */
     public function getIntelligence($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::INTELLIGENCE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INTELLIGENCE);
     }
 
     /**
@@ -232,7 +200,7 @@ class RacesTable extends AbstractTable
      */
     public function getCharisma($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::CHARISMA);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::CHARISMA);
     }
 
     /**
@@ -243,7 +211,7 @@ class RacesTable extends AbstractTable
      */
     public function getToughness($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::TOUGHNESS);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::TOUGHNESS);
     }
 
     /**
@@ -254,7 +222,7 @@ class RacesTable extends AbstractTable
      */
     public function getHeightInCm($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::HEIGHT_IN_CM);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::HEIGHT_IN_CM);
     }
 
     /**
@@ -265,7 +233,7 @@ class RacesTable extends AbstractTable
      */
     public function getWeightInKg($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::WEIGHT_IN_KG);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WEIGHT_IN_KG);
     }
 
     /**
@@ -276,7 +244,7 @@ class RacesTable extends AbstractTable
      */
     public function getSize($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::SIZE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::SIZE);
     }
 
     /**
@@ -298,7 +266,7 @@ class RacesTable extends AbstractTable
      */
     public function hasInfravision($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::INFRAVISION);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INFRAVISION);
     }
 
     /**
@@ -309,7 +277,7 @@ class RacesTable extends AbstractTable
      */
     public function hasNativeRegeneration($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::NATIVE_REGENERATION);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::NATIVE_REGENERATION);
     }
 
     /**
@@ -320,7 +288,7 @@ class RacesTable extends AbstractTable
      */
     public function getSenses($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::SENSES);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::SENSES);
     }
 
     /**
@@ -331,6 +299,6 @@ class RacesTable extends AbstractTable
      */
     public function requiresDmAgreement($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::REQUIRES_DM_AGREEMENT);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::REQUIRES_DM_AGREEMENT);
     }
 }
