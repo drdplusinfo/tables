@@ -27,7 +27,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 80.0,
                 PropertyCodes::SIZE => 0,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => '',
+                PropertyCodes::REMARKABLE_SENSE => '',
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -56,7 +56,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 80.0,
                 PropertyCodes::SIZE => 0,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => '',
+                PropertyCodes::REMARKABLE_SENSE => '',
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -85,7 +85,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 70.0,
                 PropertyCodes::SIZE => 0,
                 PropertyCodes::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -114,7 +114,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 70.0,
                 PropertyCodes::SIZE => 0,
                 PropertyCodes::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -143,7 +143,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 70.0,
                 PropertyCodes::SIZE => 0,
                 PropertyCodes::SENSES => -1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -172,7 +172,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 50.0,
                 PropertyCodes::SIZE => -1,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -201,7 +201,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 50.0,
                 PropertyCodes::SIZE => -1,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => true
@@ -230,7 +230,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 50.0,
                 PropertyCodes::SIZE => -1,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -259,7 +259,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 40.0,
                 PropertyCodes::SIZE => -2,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::TASTE,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TASTE,
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -288,7 +288,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 120.0,
                 PropertyCodes::SIZE => 3,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::HEARING,
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => true,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => false
@@ -317,7 +317,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 120.0,
                 PropertyCodes::SIZE => 3,
                 PropertyCodes::SENSES => 0,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::HEARING,
                 PropertyCodes::INFRAVISION => false,
                 PropertyCodes::NATIVE_REGENERATION => true,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => true
@@ -346,7 +346,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 60.0,
                 PropertyCodes::SIZE => -1,
                 PropertyCodes::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => true
@@ -375,7 +375,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 90.0,
                 PropertyCodes::SIZE => 1,
                 PropertyCodes::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => true
@@ -404,7 +404,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WEIGHT_IN_KG => 55.0,
                 PropertyCodes::SIZE => -1,
                 PropertyCodes::SENSES => 1,
-                RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                 PropertyCodes::INFRAVISION => true,
                 PropertyCodes::NATIVE_REGENERATION => false,
                 PropertyCodes::REQUIRES_DM_AGREEMENT => true
@@ -426,7 +426,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 0, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 0,
                         PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => 0, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 80.0, PropertyCodes::SIZE => 0,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => '',
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -434,7 +434,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::WILL => 1, PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -1,
                         PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 80.0, PropertyCodes::SIZE => 0,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => '',
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => '',
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -445,7 +445,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::WILL => -2, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 1,
                         PropertyCodes::TOUGHNESS => -1,
                         PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -454,7 +454,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::WILL => -1, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 1,
                         PropertyCodes::TOUGHNESS => -1,
                         PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -463,7 +463,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::WILL => 0, PropertyCodes::INTELLIGENCE => 1, PropertyCodes::CHARISMA => 0,
                         PropertyCodes::TOUGHNESS => -1,
                         PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 50.0, PropertyCodes::SIZE => -1,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::SIGHT,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SIGHT,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -473,7 +473,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 2,
                         PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 1,
                         PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
-                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::SENSES => -1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -481,7 +481,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 1,
                         PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 1,
                         PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
-                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::SENSES => -1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -489,7 +489,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 2, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => 0, PropertyCodes::WILL => 2,
                         PropertyCodes::INTELLIGENCE => -2, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 1,
                         PropertyCodes::HEIGHT_IN_CM => 140.0, PropertyCodes::WEIGHT_IN_KG => 70.0, PropertyCodes::SIZE => 0,
-                        PropertyCodes::SENSES => -1, RacesTable::REMARKABLE_SENSE => PropertyCodes::TOUCH,
+                        PropertyCodes::SENSES => -1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TOUCH,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -499,7 +499,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => -3, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => 1, PropertyCodes::WILL => 0,
                         PropertyCodes::INTELLIGENCE => -1, PropertyCodes::CHARISMA => 2, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 110.0, PropertyCodes::WEIGHT_IN_KG => 40.0, PropertyCodes::SIZE => -2,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::TASTE,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::TASTE,
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -509,7 +509,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 3, PropertyCodes::AGILITY => -2, PropertyCodes::KNACK => -1, PropertyCodes::WILL => 1,
                         PropertyCodes::INTELLIGENCE => -3, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 220.0, PropertyCodes::WEIGHT_IN_KG => 120.0, PropertyCodes::SIZE => 3,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::HEARING,
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => true,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => false
                     ],
@@ -517,7 +517,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 3, PropertyCodes::AGILITY => -1, PropertyCodes::KNACK => -2, PropertyCodes::WILL => 2,
                         PropertyCodes::INTELLIGENCE => -3, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 220.0, PropertyCodes::WEIGHT_IN_KG => 120.0, PropertyCodes::SIZE => 3,
-                        PropertyCodes::SENSES => 0, RacesTable::REMARKABLE_SENSE => PropertyCodes::HEARING,
+                        PropertyCodes::SENSES => 0, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::HEARING,
                         PropertyCodes::INFRAVISION => false, PropertyCodes::NATIVE_REGENERATION => true,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -527,7 +527,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 0, PropertyCodes::AGILITY => 2, PropertyCodes::KNACK => 0, PropertyCodes::WILL => -1,
                         PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 160.0, PropertyCodes::WEIGHT_IN_KG => 60.0, PropertyCodes::SIZE => -1,
-                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::SENSES => 1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -535,7 +535,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => 1, PropertyCodes::AGILITY => 1, PropertyCodes::KNACK => -1, PropertyCodes::WILL => 0,
                         PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -2, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 180.0, PropertyCodes::WEIGHT_IN_KG => 90.0, PropertyCodes::SIZE => 1,
-                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::SENSES => 1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],
@@ -543,7 +543,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                         PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 2, PropertyCodes::KNACK => 1, PropertyCodes::WILL => -2,
                         PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => -1, PropertyCodes::TOUGHNESS => 0,
                         PropertyCodes::HEIGHT_IN_CM => 150.0, PropertyCodes::WEIGHT_IN_KG => 55.0, PropertyCodes::SIZE => -1,
-                        PropertyCodes::SENSES => 1, RacesTable::REMARKABLE_SENSE => PropertyCodes::SMELL,
+                        PropertyCodes::SENSES => 1, PropertyCodes::REMARKABLE_SENSE => PropertyCodes::SMELL,
                         PropertyCodes::INFRAVISION => true, PropertyCodes::NATIVE_REGENERATION => false,
                         PropertyCodes::REQUIRES_DM_AGREEMENT => true
                     ],

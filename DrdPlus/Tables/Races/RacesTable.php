@@ -34,7 +34,7 @@ class RacesTable extends AbstractTable
             PropertyCodes::WEIGHT_IN_KG => self::FLOAT,
             PropertyCodes::SIZE => self::INTEGER,
             PropertyCodes::SENSES => self::INTEGER,
-            self::REMARKABLE_SENSE => self::STRING,
+            PropertyCodes::REMARKABLE_SENSE => self::STRING,
             PropertyCodes::INFRAVISION => self::BOOLEAN,
             PropertyCodes::NATIVE_REGENERATION => self::BOOLEAN,
             PropertyCodes::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
@@ -255,7 +255,7 @@ class RacesTable extends AbstractTable
      */
     public function getRemarkableSense($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, self::REMARKABLE_SENSE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::REMARKABLE_SENSE);
     }
 
     /**
