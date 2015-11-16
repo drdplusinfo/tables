@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements;
+namespace DrdPlus\Tables;
 
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
@@ -7,19 +7,20 @@ use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
-use DrdPlus\Tables\Measurements\MeasurementTables;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Races\FemaleModifiersTable;
+use DrdPlus\Tables\Races\RacesTable;
 
-class MeasurementTablesTest extends \PHPUnit_Framework_TestCase
+class TablesTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function I_can_get_any_table()
     {
-        $factory = new MeasurementTables();
+        $factory = new Tables();
 
         $this->assertInstanceOf(AmountTable::class, $amountTable = $factory->getAmountTable());
         $this->assertSame($amountTable, $factory->getAmountTable());
@@ -36,7 +37,7 @@ class MeasurementTablesTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $factory->getFatigueTable());
         $this->assertSame($fatigueTable, $factory->getFatigueTable());
 
-        $this->assertInstanceOf(SpeedTable::class, $speedTable =$factory->getSpeedTable());
+        $this->assertInstanceOf(SpeedTable::class, $speedTable = $factory->getSpeedTable());
         $this->assertSame($speedTable, $factory->getSpeedTable());
 
         $this->assertInstanceOf(TimeTable::class, $timeTable = $factory->getTimeTable());
@@ -47,5 +48,11 @@ class MeasurementTablesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(WoundsTable::class, $woundsTable = $factory->getWoundsTable());
         $this->assertSame($woundsTable, $factory->getWoundsTable());
+
+        $this->assertInstanceOf(RacesTable::class, $raceTables = $factory->getRacesTable());
+        $this->assertSame($raceTables, $factory->getRacesTable());
+
+        $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $factory->getFemaleModifiersTable());
+        $this->assertSame($femaleModifiers, $factory->getFemaleModifiersTable());
     }
 }
