@@ -144,7 +144,7 @@ class FemaleModifiersTable extends AbstractTable
      *
      * @return int
      */
-    public function getWeight($raceCode)
+    public function getWeightSimpleBonus($raceCode)
     {
         return $this->getValue([$raceCode], PropertyCodes::WEIGHT);
     }

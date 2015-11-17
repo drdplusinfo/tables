@@ -376,13 +376,13 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      * @param string $raceCode
      * @param int $charisma
      */
-    public function I_can_get_female_weight_of_any_race($raceCode, $charisma)
+    public function I_can_get_female_weight_simple_bonus_of_any_race($raceCode, $charisma)
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($charisma, $table->getWeight($raceCode));
+        $this->assertSame($charisma, $table->getWeightSimpleBonus($raceCode));
         // weight modifier has to be same as strength modifier
-        $this->assertSame($table->getStrength($raceCode), $table->getWeight($raceCode));
+        $this->assertSame($table->getStrength($raceCode), $table->getWeightSimpleBonus($raceCode));
     }
 
 
