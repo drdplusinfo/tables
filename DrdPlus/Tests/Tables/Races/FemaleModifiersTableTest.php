@@ -30,6 +30,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => 0,
                 PropertyCodes::INTELLIGENCE => 0,
                 PropertyCodes::CHARISMA => 1,
+                PropertyCodes::WEIGHT => -1,
+                PropertyCodes::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getHumanModifiers()
         );
@@ -48,6 +50,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => 0,
                 PropertyCodes::INTELLIGENCE => -1,
                 PropertyCodes::CHARISMA => 1,
+                PropertyCodes::WEIGHT => -1,
+                PropertyCodes::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getElfModifiers()
         );
@@ -66,6 +70,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => 0,
                 PropertyCodes::INTELLIGENCE => 1,
                 PropertyCodes::CHARISMA => 0,
+                PropertyCodes::WEIGHT => 0,
+                PropertyCodes::SIZE => 0,
             ],
             $this->getFemaleModifiersTable()->getDwarfModifiers()
         );
@@ -84,6 +90,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => 0,
                 PropertyCodes::INTELLIGENCE => 0,
                 PropertyCodes::CHARISMA => 1,
+                PropertyCodes::WEIGHT => -1,
+                PropertyCodes::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getHobbitModifiers()
         );
@@ -102,6 +110,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => -1,
                 PropertyCodes::INTELLIGENCE => 0,
                 PropertyCodes::CHARISMA => 1,
+                PropertyCodes::WEIGHT => -1,
+                PropertyCodes::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getKrollModifiers()
         );
@@ -120,6 +130,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::WILL => 1,
                 PropertyCodes::INTELLIGENCE => 0,
                 PropertyCodes::CHARISMA => 0,
+                PropertyCodes::WEIGHT => -1,
+                PropertyCodes::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getOrcModifiers()
         );
@@ -133,8 +145,14 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             [
                 RaceCodes::HUMAN => [
-                    PropertyCodes::STRENGTH => -1, PropertyCodes::AGILITY => 0, PropertyCodes::KNACK => 0,
-                    PropertyCodes::WILL => 0, PropertyCodes::INTELLIGENCE => 0, PropertyCodes::CHARISMA => 1,
+                    PropertyCodes::STRENGTH => -1,
+                    PropertyCodes::AGILITY => 0,
+                    PropertyCodes::KNACK => 0,
+                    PropertyCodes::WILL => 0,
+                    PropertyCodes::INTELLIGENCE => 0,
+                    PropertyCodes::CHARISMA => 1,
+                    PropertyCodes::WEIGHT => -1,
+                    PropertyCodes::SIZE => -1,
                 ],
                 RaceCodes::ELF => [
                     PropertyCodes::STRENGTH => -1,
@@ -143,6 +161,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::WILL => 0,
                     PropertyCodes::INTELLIGENCE => -1,
                     PropertyCodes::CHARISMA => 1,
+                    PropertyCodes::WEIGHT => -1,
+                    PropertyCodes::SIZE => -1,
                 ],
                 RaceCodes::DWARF => [
                     PropertyCodes::STRENGTH => 0,
@@ -151,6 +171,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::WILL => 0,
                     PropertyCodes::INTELLIGENCE => 1,
                     PropertyCodes::CHARISMA => 0,
+                    PropertyCodes::WEIGHT => 0,
+                    PropertyCodes::SIZE => 0,
                 ],
                 RaceCodes::HOBBIT => [
                     PropertyCodes::STRENGTH => -1,
@@ -159,6 +181,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::WILL => 0,
                     PropertyCodes::INTELLIGENCE => 0,
                     PropertyCodes::CHARISMA => 1,
+                    PropertyCodes::WEIGHT => -1,
+                    PropertyCodes::SIZE => -1,
                 ],
                 RaceCodes::KROLL => [
                     PropertyCodes::STRENGTH => -1,
@@ -167,6 +191,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::WILL => -1,
                     PropertyCodes::INTELLIGENCE => 0,
                     PropertyCodes::CHARISMA => 1,
+                    PropertyCodes::WEIGHT => -1,
+                    PropertyCodes::SIZE => -1,
                 ],
                 RaceCodes::ORC => [
                     PropertyCodes::STRENGTH => -1,
@@ -175,6 +201,8 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::WILL => 1,
                     PropertyCodes::INTELLIGENCE => 0,
                     PropertyCodes::CHARISMA => 0,
+                    PropertyCodes::WEIGHT => -1,
+                    PropertyCodes::SIZE => -1,
                 ],
             ],
             $this->getFemaleModifiersTable()->getValues()
@@ -339,6 +367,63 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
             [RaceCodes::HOBBIT, 1],
             [RaceCodes::KROLL, 1],
             [RaceCodes::ORC, 0],
+        ];
+    }
+    /**
+     * @test
+     * @dataProvider raceToWeight
+     *
+     * @param string $raceCode
+     * @param int $charisma
+     */
+    public function I_can_get_female_weight_of_any_race($raceCode, $charisma)
+    {
+        $table = new FemaleModifiersTable();
+
+        $this->assertSame($charisma, $table->getWeight($raceCode));
+        // weight modifier has to be same as strength modifier
+        $this->assertSame($table->getStrength($raceCode), $table->getWeight($raceCode));
+    }
+
+
+    public function raceToWeight()
+    {
+        return [
+            [RaceCodes::HUMAN, -1],
+            [RaceCodes::ELF, -1],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, -1],
+            [RaceCodes::KROLL, -1],
+            [RaceCodes::ORC, -1],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider raceToSize
+     *
+     * @param string $raceCode
+     * @param int $size
+     */
+    public function I_can_get_female_size_of_any_race($raceCode, $size)
+    {
+        $table = new FemaleModifiersTable();
+
+        $this->assertSame($size, $table->getSize($raceCode));
+        // size modifier has to be same as strength modifier
+        $this->assertSame($table->getStrength($raceCode), $table->getSize($raceCode));
+    }
+
+
+    public function raceToSize()
+    {
+        return [
+            [RaceCodes::HUMAN, -1],
+            [RaceCodes::ELF, -1],
+            [RaceCodes::DWARF, 0],
+            [RaceCodes::HOBBIT, -1],
+            [RaceCodes::KROLL, -1],
+            [RaceCodes::ORC, -1],
         ];
     }
 }

@@ -26,6 +26,8 @@ class FemaleModifiersTable extends AbstractTable
             PropertyCodes::WILL => self::INTEGER,
             PropertyCodes::INTELLIGENCE => self::INTEGER,
             PropertyCodes::CHARISMA => self::INTEGER,
+            PropertyCodes::WEIGHT => self::INTEGER,
+            PropertyCodes::SIZE => self::INTEGER,
         ];
     }
 
@@ -135,5 +137,25 @@ class FemaleModifiersTable extends AbstractTable
     public function getCharisma($raceCode)
     {
         return $this->getValue([$raceCode], PropertyCodes::CHARISMA);
+    }
+
+    /**
+     * @param $raceCode
+     *
+     * @return int
+     */
+    public function getWeight($raceCode)
+    {
+        return $this->getValue([$raceCode], PropertyCodes::WEIGHT);
+    }
+
+    /**
+     * @param $raceCode
+     *
+     * @return int
+     */
+    public function getSize($raceCode)
+    {
+        return $this->getValue([$raceCode], PropertyCodes::SIZE);
     }
 }

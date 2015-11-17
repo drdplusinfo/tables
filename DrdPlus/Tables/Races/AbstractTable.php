@@ -91,9 +91,9 @@ abstract class AbstractTable implements TableInterface
 
     private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
     {
-        if (!isset($rawData[$columnIndex])) {
+        if (!isset($rawData[0][$columnIndex])) {
             throw new Exceptions\DataAreCorrupted(
-                'Missing cell with header with column index ' . $columnIndex
+                "Missing header cell[$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
             );
         }
         if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
