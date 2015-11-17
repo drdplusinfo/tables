@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Measurements\Distance;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
+use Granam\Integer\IntegerObject;
 
 /**
  * PPH page 162, top
@@ -55,6 +56,15 @@ class DistanceTable extends AbstractFileTable
     protected function createBonus($bonusValue)
     {
         return new DistanceBonus($bonusValue, $this);
+    }
+
+    /**
+     * @param IntegerObject $size
+     * @return DistanceBonus
+     */
+    public function sizeToDistanceBonus(IntegerObject $size)
+    {
+        return $this->createBonus($size->getValue() + 12);
     }
 
 }

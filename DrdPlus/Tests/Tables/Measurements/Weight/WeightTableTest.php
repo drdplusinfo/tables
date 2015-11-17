@@ -5,6 +5,7 @@ use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use Granam\Integer\IntegerObject;
 
 class WeightTableTest extends TestWithMockery
 {
@@ -84,5 +85,15 @@ class WeightTableTest extends TestWithMockery
     {
         $weightTable = new WeightTable();
         $weightTable->toBonus(new Weight(9001, Weight::KG, $weightTable))->getValue();
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_convert_simplified_weight_bonus_to_bonus()
+    {
+        $weightTable = new WeightTable();
+        $bonus = $weightTable->simplifiedBonusToBonus(new IntegerObject($value = 123));
+        $this->assertSame($value + 12, $bonus->getValue());
     }
 }

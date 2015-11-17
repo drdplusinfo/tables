@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Measurements\Weight;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
+use Granam\Integer\IntegerObject;
 
 /**
  * PPH page 164, bottom
@@ -54,6 +55,15 @@ class WeightTable extends AbstractFileTable
     protected function convertToMeasurement($value, $unit)
     {
         return new Weight($value, Weight::KG, $this);
+    }
+
+    /**
+     * @param IntegerObject $simplifiedBonus
+     * @return WeightBonus
+     */
+    public function simplifiedBonusToBonus(IntegerObject $simplifiedBonus)
+    {
+        return $this->createBonus($simplifiedBonus->getValue() + 12);
     }
 
 }

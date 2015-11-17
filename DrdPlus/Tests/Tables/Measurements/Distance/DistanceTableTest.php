@@ -5,6 +5,7 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use Granam\Integer\IntegerObject;
 
 class DistanceTableTest extends TestWithMockery
 {
@@ -100,5 +101,15 @@ class DistanceTableTest extends TestWithMockery
         $distanceTable = new DistanceTable();
         $distance = new Distance(901, Distance::KM, $distanceTable);
         $distance->getBonus();
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_convert_size_to_bonus()
+    {
+        $weightTable = new DistanceTable();
+        $bonus = $weightTable->sizeToDistanceBonus(new IntegerObject($value = 123));
+        $this->assertSame($value + 12, $bonus->getValue());
     }
 }
