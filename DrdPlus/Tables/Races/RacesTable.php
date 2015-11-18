@@ -3,6 +3,9 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use DrdPlus\Tables\Measurements\Weight\WeightBonus;
+use DrdPlus\Tables\Measurements\Weight\WeightTable;
 
 class RacesTable extends AbstractTable
 {
@@ -131,9 +134,21 @@ class RacesTable extends AbstractTable
      *
      * @return int
      */
-    public function getStrength($raceCode, $subraceCode)
+    public function getMaleStrength($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::STRENGTH);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     *
+     * @return int
+     */
+    public function getFemaleStrength($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleStrength($raceCode, $subraceCode) + $femaleModifiersTable->getStrength($raceCode);
     }
 
     /**
@@ -154,7 +169,7 @@ class RacesTable extends AbstractTable
      *
      * @return int
      */
-    public function getAgility($raceCode, $subraceCode)
+    public function getMaleAgility($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::AGILITY);
     }
@@ -162,10 +177,22 @@ class RacesTable extends AbstractTable
     /**
      * @param string $raceCode
      * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
      */
-    public function getKnack($raceCode, $subraceCode)
+    public function getFemaleAgility($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleAgility($raceCode, $subraceCode) + $femaleModifiersTable->getAgility($raceCode);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getMaleKnack($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::KNACK);
     }
@@ -173,10 +200,22 @@ class RacesTable extends AbstractTable
     /**
      * @param string $raceCode
      * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
      */
-    public function getWill($raceCode, $subraceCode)
+    public function getFemaleKnack($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleKnack($raceCode, $subraceCode) + $femaleModifiersTable->getKnack($raceCode);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getMaleWill($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WILL);
     }
@@ -184,12 +223,13 @@ class RacesTable extends AbstractTable
     /**
      * @param string $raceCode
      * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
      */
-    public function getIntelligence($raceCode, $subraceCode)
+    public function getFemaleWill($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INTELLIGENCE);
+        return $this->getMaleWill($raceCode, $subraceCode) + $femaleModifiersTable->getWill($raceCode);
     }
 
     /**
@@ -198,9 +238,44 @@ class RacesTable extends AbstractTable
      *
      * @return int
      */
-    public function getCharisma($raceCode, $subraceCode)
+    public function getMaleIntelligence($raceCode, $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INTELLIGENCE);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     *
+     * @return int
+     */
+    public function getFemaleIntelligence($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleIntelligence($raceCode, $subraceCode) + $femaleModifiersTable->getIntelligence($raceCode);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     *
+     * @return int
+     */
+    public function getMaleCharisma($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::CHARISMA);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     *
+     * @return int
+     */
+    public function getFemaleCharisma($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleCharisma($raceCode, $subraceCode) + $femaleModifiersTable->getCharisma($raceCode);
     }
 
     /**
@@ -231,9 +306,33 @@ class RacesTable extends AbstractTable
      *
      * @return float
      */
-    public function getWeightInKg($raceCode, $subraceCode)
+    public function getMaleWeightInKg($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WEIGHT_IN_KG);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param WeightTable $weightTable
+     *
+     * @return float
+     */
+    public function getFemaleWeightInKg(
+        $raceCode,
+        $subraceCode,
+        FemaleModifiersTable $femaleModifiersTable,
+        WeightTable $weightTable
+    )
+    {
+        $maleWeightValue = $this->getMaleWeightInKg($raceCode, $subraceCode);
+        $maleWeightBonus = $weightTable->toBonus(new Weight($maleWeightValue, Weight::KG, $weightTable));
+        $femaleWeightBonusModifier = $femaleModifiersTable->getWeightBonus($raceCode);
+        $femaleWeightBonusValue = $maleWeightBonus->getValue() + $femaleWeightBonusModifier;
+        $femaleWeightBonus = new WeightBonus($femaleWeightBonusValue, $weightTable);
+
+        return $femaleWeightBonus->getWeight()->getValue();
     }
 
     /**
@@ -242,9 +341,21 @@ class RacesTable extends AbstractTable
      *
      * @return int
      */
-    public function getSize($raceCode, $subraceCode)
+    public function getMaleSize($raceCode, $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCodes::SIZE);
+    }
+
+    /**
+     * @param string $raceCode
+     * @param string $subraceCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     *
+     * @return int
+     */
+    public function getFemaleSize($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
     }
 
     /**

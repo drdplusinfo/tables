@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
+use DrdPlus\Tables\Measurements\Weight\WeightTable;
 
 class RacesTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -559,31 +560,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $strength
+     * @param int $maleStrength
+     * @param int $femaleStrength
      */
-    public function I_can_get_strength_of_any_race($race, $subrace, $strength)
+    public function I_can_get_strength_of_any_race($race, $subrace, $maleStrength, $femaleStrength)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($strength, $racesTable->getStrength($race, $subrace));
+        $this->assertSame($maleStrength, $racesTable->getMaleStrength($race, $subrace));
+        $this->assertSame($femaleStrength, $racesTable->getFemaleStrength($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function strengthOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1],
-            [RaceCodes::ELF, RaceCodes::COMMON, -1],
-            [RaceCodes::ELF, RaceCodes::GREEN, -1],
-            [RaceCodes::ELF, RaceCodes::DARK, 0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, 1],
-            [RaceCodes::DWARF, RaceCodes::WOOD, 1],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, -3],
-            [RaceCodes::KROLL, RaceCodes::COMMON, 3],
-            [RaceCodes::KROLL, RaceCodes::WILD, 3],
-            [RaceCodes::ORC, RaceCodes::COMMON, 0],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, -1],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, -1, -2],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1, -2],
+            [RaceCodes::ELF, RaceCodes::DARK, 0, -1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 1, 1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 1, 1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2, 2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -3, -4],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 3, 2],
+            [RaceCodes::KROLL, RaceCodes::WILD, 3, 2],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0, -1],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1, -2],
         ];
     }
 
@@ -593,31 +596,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $agility
+     * @param int $maleAgility
+     * @param int $femaleAgility
      */
-    public function I_can_get_agility_of_any_race($race, $subrace, $agility)
+    public function I_can_get_agility_of_any_race($race, $subrace, $maleAgility, $femaleAgility)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($agility, $racesTable->getAgility($race, $subrace));
+        $this->assertSame($maleAgility, $racesTable->getMaleAgility($race, $subrace));
+        $this->assertSame($femaleAgility, $racesTable->getFemaleAgility($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function agilityOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
-            [RaceCodes::ELF, RaceCodes::COMMON, 1],
-            [RaceCodes::ELF, RaceCodes::GREEN, 1],
-            [RaceCodes::ELF, RaceCodes::DARK, 0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, -1],
-            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -1],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1],
-            [RaceCodes::KROLL, RaceCodes::COMMON, -2],
-            [RaceCodes::KROLL, RaceCodes::WILD, -1],
-            [RaceCodes::ORC, RaceCodes::COMMON, 2],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, 2],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1, 1],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1, 1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -1, -1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -1, -1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1, 2],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -2, -1],
+            [RaceCodes::KROLL, RaceCodes::WILD, -1, 0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 2, 2],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 2, 2],
         ];
     }
 
@@ -627,31 +632,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $knack
+     * @param int $maleKnack
+     * @param int $femaleKnack
      */
-    public function I_can_get_knack_of_any_race($race, $subrace, $knack)
+    public function I_can_get_knack_of_any_race($race, $subrace, $maleKnack, $femaleKnack)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($knack, $racesTable->getKnack($race, $subrace));
+        $this->assertSame($maleKnack, $racesTable->getMaleKnack($race, $subrace));
+        $this->assertSame($femaleKnack, $racesTable->getFemaleKnack($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function knackOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
-            [RaceCodes::ELF, RaceCodes::COMMON, 1],
-            [RaceCodes::ELF, RaceCodes::GREEN, 0],
-            [RaceCodes::ELF, RaceCodes::DARK, 0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, 0],
-            [RaceCodes::DWARF, RaceCodes::WOOD, 0],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1],
-            [RaceCodes::KROLL, RaceCodes::COMMON, -1],
-            [RaceCodes::KROLL, RaceCodes::WILD, -2],
-            [RaceCodes::ORC, RaceCodes::COMMON, 0],
-            [RaceCodes::ORC, RaceCodes::SKURUT, -1],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, 1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1, 2],
+            [RaceCodes::ELF, RaceCodes::GREEN, 0, 1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0, 1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 0, -1],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 0, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0, -1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 1, 0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -1, -1],
+            [RaceCodes::KROLL, RaceCodes::WILD, -2, -2],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, -1, -1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 1, 1],
         ];
     }
 
@@ -661,31 +668,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $will
+     * @param int $maleWill
+     * @param int $femaleWill
      */
-    public function I_can_get_will_of_any_race($race, $subrace, $will)
+    public function I_can_get_will_of_any_race($race, $subrace, $maleWill, $femaleWill)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($will, $racesTable->getWill($race, $subrace));
+        $this->assertSame($maleWill, $racesTable->getMaleWill($race, $subrace));
+        $this->assertSame($femaleWill, $racesTable->getFemaleWill($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function willOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1],
-            [RaceCodes::ELF, RaceCodes::COMMON, -2],
-            [RaceCodes::ELF, RaceCodes::GREEN, -1],
-            [RaceCodes::ELF, RaceCodes::DARK, 0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, 2],
-            [RaceCodes::DWARF, RaceCodes::WOOD, 1],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, 0],
-            [RaceCodes::KROLL, RaceCodes::COMMON, 1],
-            [RaceCodes::KROLL, RaceCodes::WILD, 2],
-            [RaceCodes::ORC, RaceCodes::COMMON, -1],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 0],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, -2],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1, 1],
+            [RaceCodes::ELF, RaceCodes::COMMON, -2, -2],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1, -1],
+            [RaceCodes::ELF, RaceCodes::DARK, 0, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 2, 2],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 1, 1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2, 2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 1, 0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 2, 1],
+            [RaceCodes::ORC, RaceCodes::COMMON, -1, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 0, 1],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -2, -1],
         ];
     }
 
@@ -695,31 +704,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $intelligence
+     * @param int $maleIntelligence
+     * @param int $femaleIntelligence
      */
-    public function I_can_get_intelligence_of_any_race($race, $subrace, $intelligence)
+    public function I_can_get_intelligence_of_any_race($race, $subrace, $maleIntelligence, $femaleIntelligence)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($intelligence, $racesTable->getIntelligence($race, $subrace));
+        $this->assertSame($maleIntelligence, $racesTable->getMaleIntelligence($race, $subrace));
+        $this->assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function intelligenceOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1],
-            [RaceCodes::ELF, RaceCodes::COMMON, 1],
-            [RaceCodes::ELF, RaceCodes::GREEN, 1],
-            [RaceCodes::ELF, RaceCodes::DARK, 1],
-            [RaceCodes::DWARF, RaceCodes::COMMON, -1],
-            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, -1],
-            [RaceCodes::KROLL, RaceCodes::COMMON, -3],
-            [RaceCodes::KROLL, RaceCodes::WILD, -3],
-            [RaceCodes::ORC, RaceCodes::COMMON, 0],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 0],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, 0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1, -1],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1, 0],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1, 0],
+            [RaceCodes::ELF, RaceCodes::DARK, 1, 0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -1, 0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1, 0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2, -1],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -1, -1],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -3, -3],
+            [RaceCodes::KROLL, RaceCodes::WILD, -3, -3],
+            [RaceCodes::ORC, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 0, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 0, 0],
         ];
     }
 
@@ -729,31 +740,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $charisma
+     * @param int $maleCharisma
+     * @param int $femaleCharisma
      */
-    public function I_can_get_charisma_of_any_race($race, $subrace, $charisma)
+    public function I_can_get_charisma_of_any_race($race, $subrace, $maleCharisma, $femaleCharisma)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($charisma, $racesTable->getCharisma($race, $subrace));
+        $this->assertSame($maleCharisma, $racesTable->getMaleCharisma($race, $subrace));
+        $this->assertSame($femaleCharisma, $racesTable->getFemaleCharisma($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function charismaOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1],
-            [RaceCodes::ELF, RaceCodes::COMMON, 1],
-            [RaceCodes::ELF, RaceCodes::GREEN, 1],
-            [RaceCodes::ELF, RaceCodes::DARK, 0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, -2],
-            [RaceCodes::DWARF, RaceCodes::WOOD, -1],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, 2],
-            [RaceCodes::KROLL, RaceCodes::COMMON, -1],
-            [RaceCodes::KROLL, RaceCodes::WILD, -2],
-            [RaceCodes::ORC, RaceCodes::COMMON, -2],
-            [RaceCodes::ORC, RaceCodes::SKURUT, -2],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 1],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, -1, 0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 1, 2],
+            [RaceCodes::ELF, RaceCodes::GREEN, 1, 2],
+            [RaceCodes::ELF, RaceCodes::DARK, 0, 1],
+            [RaceCodes::DWARF, RaceCodes::COMMON, -2, -2],
+            [RaceCodes::DWARF, RaceCodes::WOOD, -1, -1],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, -2, -2],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 2, 3],
+            [RaceCodes::KROLL, RaceCodes::COMMON, -1, 0],
+            [RaceCodes::KROLL, RaceCodes::WILD, -2, -1],
+            [RaceCodes::ORC, RaceCodes::COMMON, -2, -2],
+            [RaceCodes::ORC, RaceCodes::SKURUT, -2, -2],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1, -1],
         ];
     }
 
@@ -831,31 +844,36 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $weightInKg
+     * @param int $maleWeightInKg
+     * @param int $femaleWeightInKg
      */
-    public function I_can_get_weight_of_any_race($race, $subrace, $weightInKg)
+    public function I_can_get_weight_of_any_race($race, $subrace, $maleWeightInKg, $femaleWeightInKg)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($weightInKg, $racesTable->getWeightInKg($race, $subrace));
+        $this->assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg($race, $subrace));
+        $this->assertSame(
+            $femaleWeightInKg,
+            $racesTable->getFemaleWeightInKg($race, $subrace, new FemaleModifiersTable(), new WeightTable())
+        );
     }
 
     public function weightOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 80.0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 80.0],
-            [RaceCodes::ELF, RaceCodes::COMMON, 50.0],
-            [RaceCodes::ELF, RaceCodes::GREEN, 50.0],
-            [RaceCodes::ELF, RaceCodes::DARK, 50.0],
-            [RaceCodes::DWARF, RaceCodes::COMMON, 70.0],
-            [RaceCodes::DWARF, RaceCodes::WOOD, 70.0],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 70.0],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, 40.0],
-            [RaceCodes::KROLL, RaceCodes::COMMON, 120.0],
-            [RaceCodes::KROLL, RaceCodes::WILD, 120.0],
-            [RaceCodes::ORC, RaceCodes::COMMON, 60.0],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 90.0],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, 55.0],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 80.0, 70.0],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 80.0, 70.0],
+            [RaceCodes::ELF, RaceCodes::COMMON, 50.0, 45.0],
+            [RaceCodes::ELF, RaceCodes::GREEN, 50.0, 45.0],
+            [RaceCodes::ELF, RaceCodes::DARK, 50.0, 45.0],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 70.0, 70.0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 70.0, 70.0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 70.0, 70.0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, 40.0, 36.0],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 120.0, 110.0],
+            [RaceCodes::KROLL, RaceCodes::WILD, 120.0, 110.0],
+            [RaceCodes::ORC, RaceCodes::COMMON, 60.0, 56.0],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 90.0, 80.0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, 55.0, 50.0],
         ];
     }
 
@@ -865,31 +883,33 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
      *
      * @param string $race
      * @param string $subrace
-     * @param int $size
+     * @param int $maleSize
+     * @param int $femaleSize
      */
-    public function I_can_get_size_of_any_race($race, $subrace, $size)
+    public function I_can_get_size_of_any_race($race, $subrace, $maleSize, $femaleSize)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($size, $racesTable->getSize($race, $subrace));
+        $this->assertSame($maleSize, $racesTable->getMaleSize($race, $subrace));
+        $this->assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function sizeOfRaces()
     {
         return [
-            [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
-            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0],
-            [RaceCodes::ELF, RaceCodes::COMMON, -1],
-            [RaceCodes::ELF, RaceCodes::GREEN, -1],
-            [RaceCodes::ELF, RaceCodes::DARK, -1],
-            [RaceCodes::DWARF, RaceCodes::COMMON, 0],
-            [RaceCodes::DWARF, RaceCodes::WOOD, 0],
-            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0],
-            [RaceCodes::HOBBIT, RaceCodes::COMMON, -2],
-            [RaceCodes::KROLL, RaceCodes::COMMON, 3],
-            [RaceCodes::KROLL, RaceCodes::WILD, 3],
-            [RaceCodes::ORC, RaceCodes::COMMON, -1],
-            [RaceCodes::ORC, RaceCodes::SKURUT, 1],
-            [RaceCodes::ORC, RaceCodes::GOBLIN, -1],
+            [RaceCodes::HUMAN, RaceCodes::COMMON, 0, -1],
+            [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 0, -1],
+            [RaceCodes::ELF, RaceCodes::COMMON, -1, -2],
+            [RaceCodes::ELF, RaceCodes::GREEN, -1, -2],
+            [RaceCodes::ELF, RaceCodes::DARK, -1, -2],
+            [RaceCodes::DWARF, RaceCodes::COMMON, 0, 0],
+            [RaceCodes::DWARF, RaceCodes::WOOD, 0, 0],
+            [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 0, 0],
+            [RaceCodes::HOBBIT, RaceCodes::COMMON, -2, -3],
+            [RaceCodes::KROLL, RaceCodes::COMMON, 3, 2],
+            [RaceCodes::KROLL, RaceCodes::WILD, 3, 2],
+            [RaceCodes::ORC, RaceCodes::COMMON, -1, -2],
+            [RaceCodes::ORC, RaceCodes::SKURUT, 1, 0],
+            [RaceCodes::ORC, RaceCodes::GOBLIN, -1, -2],
         ];
     }
 

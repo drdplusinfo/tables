@@ -380,9 +380,9 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($charisma, $table->getWeightSimpleBonus($raceCode));
+        $this->assertSame($charisma, $table->getWeightBonus($raceCode));
         // weight modifier has to be same as strength modifier
-        $this->assertSame($table->getStrength($raceCode), $table->getWeightSimpleBonus($raceCode));
+        $this->assertSame($table->getStrength($raceCode), $table->getWeightBonus($raceCode));
     }
 
 
