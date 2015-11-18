@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Measurements\Weight;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use Granam\Integer\IntegerObject;
+use Granam\Integer\Tools\ToInteger;
 
 /**
  * PPH page 164, bottom
@@ -58,12 +58,12 @@ class WeightTable extends AbstractFileTable
     }
 
     /**
-     * @param IntegerObject $simplifiedBonus
+     * @param int $simplifiedBonus
      * @return WeightBonus
      */
-    public function simplifiedBonusToBonus(IntegerObject $simplifiedBonus)
+    public function simplifiedBonusToBonus($simplifiedBonus)
     {
-        return $this->createBonus($simplifiedBonus->getValue() + 12);
+        return $this->createBonus(ToInteger::toInteger($simplifiedBonus) + 12);
     }
 
 }
