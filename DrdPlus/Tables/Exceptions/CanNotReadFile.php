@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Professions\Exceptions;
+namespace DrdPlus\Tables\Exceptions;
 
 class CanNotReadFile extends \RuntimeException implements Runtime
 {

@@ -1,11 +1,11 @@
 <?php
-namespace DrdPlus\Tables\Professions;
+namespace DrdPlus\Tables;
 
+use Granam\Strict\Object\StrictObject;
 use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Tools\ValueDescriber;
-use Granam\Strict\Object\StrictObject;
 
 abstract class AbstractFileTable extends StrictObject
 {
@@ -21,7 +21,7 @@ abstract class AbstractFileTable extends StrictObject
     private $normalizedExpectedColumnHeader;
 
     /** @return array */
-    protected function getValues()
+    public function getValues()
     {
         if (!isset($this->values)) {
             $this->loadData();

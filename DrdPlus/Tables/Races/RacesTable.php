@@ -3,11 +3,12 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
+use DrdPlus\Tables\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 
-class RacesTable extends AbstractTable
+class RacesTable extends AbstractFileTable
 {
 
     /**

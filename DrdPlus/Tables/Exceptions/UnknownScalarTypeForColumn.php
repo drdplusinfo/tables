@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Professions\Exceptions;
+namespace DrdPlus\Tables\Exceptions;
 
 class UnknownScalarTypeForColumn extends \LogicException implements Logic
 {

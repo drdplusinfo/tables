@@ -1,13 +1,13 @@
 <?php
-namespace DrdPlus\Tests\Tables\Races;
+namespace DrdPlus\Tests\Tables;
 
-use DrdPlus\Tables\Races\AbstractTable;
+use DrdPlus\Tables\AbstractFileTable;
 
-class AbstractTableTest extends \PHPUnit_Framework_TestCase
+class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\CanNotReadFile
+     * @expectedException \DrdPlus\Tables\Exceptions\CanNotReadFile
      */
     public function I_am_stopped_if_datafile_has_not_been_read()
     {
@@ -17,7 +17,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\NoDataFetched
+     * @expectedException \DrdPlus\Tables\Exceptions\NoDataFetched
      */
     public function I_am_stopped_if_datafile_is_empty()
     {
@@ -27,7 +27,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_row_is_missing()
     {
@@ -37,7 +37,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_column_is_missing()
     {
@@ -47,7 +47,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_value_is_invalid()
     {
@@ -57,7 +57,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownScalarTypeForColumn
+     * @expectedException \DrdPlus\Tables\Exceptions\UnknownScalarTypeForColumn
      */
     public function I_can_not_use_table_with_unknown_column_type()
     {
@@ -67,7 +67,7 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 }
 
 /** inner */
-class TableWithWrongFileReference extends AbstractTable
+class TableWithWrongFileReference extends AbstractFileTable
 {
 
     protected function getDataFileName()

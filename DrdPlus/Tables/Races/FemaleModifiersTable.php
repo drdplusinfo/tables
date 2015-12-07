@@ -3,8 +3,9 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
+use DrdPlus\Tables\AbstractFileTable;
 
-class FemaleModifiersTable extends AbstractTable
+class FemaleModifiersTable extends AbstractFileTable
 {
     /**
      * @return string
