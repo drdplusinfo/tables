@@ -57,26 +57,6 @@ class AbstractTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\RequiredDataNotFound
-     */
-    public function I_can_not_require_invalid_vertical_coordinates()
-    {
-        $table = new TableWithPublicHeaders();
-        $table->getValue(['invalid'], null);
-    }
-
-    /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\RequiredDataNotFound
-     */
-    public function I_can_not_require_invalid_horizontal_coordinates()
-    {
-        $table = new TableWithPublicHeaders();
-        $table->getValue(['baz'], 'invalid');
-    }
-
-    /**
-     * @test
      * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownScalarTypeForColumn
      */
     public function I_can_not_use_table_with_unknown_column_type()

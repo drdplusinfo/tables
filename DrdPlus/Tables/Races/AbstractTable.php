@@ -5,8 +5,9 @@ use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Strict\Object\StrictObject;
 
-abstract class AbstractTable implements TableInterface
+abstract class AbstractTable extends StrictObject
 {
     const INTEGER = 'integer';
     const FLOAT = 'float';
@@ -291,7 +292,7 @@ abstract class AbstractTable implements TableInterface
      *
      * @return int|float|bool
      */
-    public function getValue(array $rowIndexes, $columnIndex)
+    protected function getValue(array $rowIndexes, $columnIndex)
     {
         $row = $this->getRow($rowIndexes);
 
