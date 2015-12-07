@@ -5,7 +5,7 @@ use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
- * @method TimeBonus toBonus(Time $time)
+ * PPH, page 161
  */
 class TimeTable extends AbstractFileTable
 {
@@ -33,6 +33,15 @@ class TimeTable extends AbstractFileTable
     public function toTime(TimeBonus $timeBonus, $wantedUnit = null)
     {
         return $this->toMeasurement($timeBonus, $wantedUnit);
+    }
+
+    /**
+     * @param Time $time
+     * @return TimeBonus
+     */
+    public function toBonus(Time $time)
+    {
+        return $this->measurementToBonus($time);
     }
 
     /**

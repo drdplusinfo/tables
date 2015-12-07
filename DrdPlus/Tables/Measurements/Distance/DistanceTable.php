@@ -7,8 +7,6 @@ use Granam\Integer\IntegerObject;
 
 /**
  * PPH page 162, top
- *
- * @method DistanceBOnus toBonus(Distance $distance)
  */
 class DistanceTable extends AbstractFileTable
 {
@@ -35,6 +33,15 @@ class DistanceTable extends AbstractFileTable
     public function toDistance(DistanceBonus $distanceBonus)
     {
         return $this->toMeasurement($distanceBonus);
+    }
+
+    /**
+     * @param Distance $distance
+     * @return DistanceBonus
+     */
+    public function toBonus(Distance $distance)
+    {
+        return $this->measurementToBonus($distance);
     }
 
     /**

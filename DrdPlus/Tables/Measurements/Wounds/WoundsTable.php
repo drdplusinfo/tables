@@ -2,14 +2,11 @@
 namespace DrdPlus\Tables\Measurements\Wounds;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
-use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
  * PPH page 165, top
- *
- * @method WoundsBonus toBonus(MeasurementWithBonusInterface $measurement)
  */
 class WoundsTable extends AbstractFileTable
 {
@@ -36,6 +33,15 @@ class WoundsTable extends AbstractFileTable
     public function toWounds(WoundsBonus $bonus)
     {
         return $this->toMeasurement($bonus);
+    }
+
+    /**
+     * @param Wounds $wounds
+     * @return WoundsBonus
+     */
+    public function toBonus(Wounds $wounds)
+    {
+        return $this->measurementToBonus($wounds);
     }
 
     /**

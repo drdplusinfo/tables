@@ -7,7 +7,6 @@ use Granam\Integer\Tools\ToInteger;
 
 /**
  * PPH page 164, bottom
- * @method WeightBonus toBonus(Weight $weight)
  */
 class WeightTable extends AbstractFileTable
 {
@@ -34,6 +33,11 @@ class WeightTable extends AbstractFileTable
     public function toWeight(WeightBonus $weightBonus)
     {
         return $this->toMeasurement($weightBonus, Weight::KG);
+    }
+
+    public function toBonus(Weight $weight)
+    {
+        return $this->measurementToBonus($weight);
     }
 
     /**

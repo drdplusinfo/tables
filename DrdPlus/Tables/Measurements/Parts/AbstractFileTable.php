@@ -247,7 +247,7 @@ abstract class AbstractFileTable extends AbstractTable
      *
      * @return AbstractBonus
      */
-    public function toBonus(MeasurementWithBonusInterface $measurement)
+    protected function measurementToBonus(MeasurementWithBonusInterface $measurement)
     {
         return $this->createBonus($this->determineBonus($measurement));
     }

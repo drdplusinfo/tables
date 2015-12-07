@@ -7,8 +7,6 @@ use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
  * PPH page 164, top
- *
- * @method AmountBonus toBonus(Amount $amount)
  */
 class AmountTable extends AbstractFileTable
 {
@@ -35,6 +33,15 @@ class AmountTable extends AbstractFileTable
     public function toAmount(AmountBonus $bonus)
     {
         return $this->toMeasurement($bonus);
+    }
+
+    /**
+     * @param Amount $amount
+     * @return AmountBonus
+     */
+    public function toBonus(Amount $amount)
+    {
+        return $this->measurementToBonus($amount);
     }
 
     /**

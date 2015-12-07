@@ -6,8 +6,6 @@ use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
  * PPH page 163
- *
- * @method SpeedBonus toBonus(Speed $speed)
  */
 class SpeedTable extends AbstractFileTable
 {
@@ -45,6 +43,15 @@ class SpeedTable extends AbstractFileTable
     public function toSpeed(SpeedBonus $bonus, $wantedUnit = null)
     {
         return $this->toMeasurement($bonus, $wantedUnit);
+    }
+
+    /**
+     * @param Speed $speed
+     * @return SpeedBonus
+     */
+    public function toBonus(Speed $speed)
+    {
+        return $this->measurementToBonus($speed);
     }
 
     /**
