@@ -62,13 +62,13 @@ abstract class AbstractFileTable extends AbstractTable
      */
     private function fetchData()
     {
-        $rawData = $this->fetchFromFile($this->getDataFileName());
+        $rawData = $this->fetchDataFromFile($this->getDataFileName());
         $indexed = $this->indexData($rawData);
 
         return $indexed;
     }
 
-    private function fetchFromFile($dataSourceFile)
+    private function fetchDataFromFile($dataSourceFile)
     {
         $resource = fopen($dataSourceFile, 'r');
         if (!$resource) {

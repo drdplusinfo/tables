@@ -64,6 +64,26 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
         $table = new TableWithUnknownColumnScalarType();
         $table->getValues();
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Exceptions\RequiredRowDataNotFound
+     */
+    public function I_can_not_get_row_by_invalid_index()
+    {
+        $table = new TableWithPublicHeaders();
+        $table->getRow(['non-existing index']);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Exceptions\RequiredValueNotFound
+     */
+    public function I_can_not_get_value_by_invalid_indexes()
+    {
+        $table = new TableWithPublicHeaders();
+        $table->getValue(['baz'], 'non-existing column index');
+    }
 }
 
 /** inner */
@@ -188,12 +208,12 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    public function getExpectedRowsHeader()
     {
         return ['foo'];
     }
 
-    protected function getExpectedColumnsHeader()
+    public function getExpectedColumnsHeader()
     {
         return ['bar' => self::INTEGER];
     }

@@ -312,8 +312,8 @@ abstract class AbstractFileTable extends StrictObject
         $row = null;
         foreach ($rowIndexes as $rowIndex) {
             if (!isset($values[$rowIndex])) {
-                throw new Exceptions\RequiredDataNotFound(
-                    'Has not found data by index ' . ValueDescriber::describe($rowIndex)
+                throw new Exceptions\RequiredRowDataNotFound(
+                    'Has not found row by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
             $values = &$values[$rowIndex];
@@ -329,7 +329,7 @@ abstract class AbstractFileTable extends StrictObject
     private function getValueInRow(array $row, $columnIndex)
     {
         if (!isset($row[$columnIndex])) {
-            throw new Exceptions\RequiredDataNotFound(
+            throw new Exceptions\RequiredValueNotFound(
                 'Has not found value in row by index ' . ValueDescriber::describe($columnIndex)
             );
         }
