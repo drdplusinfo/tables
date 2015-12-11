@@ -10,6 +10,7 @@ use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Professions\BackgroundSkillsTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 
@@ -54,5 +55,8 @@ class TablesTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $factory->getFemaleModifiersTable());
         $this->assertSame($femaleModifiers, $factory->getFemaleModifiersTable());
+
+        $this->assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $factory->getBackgroundSkillsTable());
+        $this->assertSame($backgroundSkills, $factory->getBackgroundSkillsTable());
     }
 }

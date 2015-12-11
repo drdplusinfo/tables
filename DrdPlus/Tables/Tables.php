@@ -10,6 +10,7 @@ use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Professions\BackgroundSkillsTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 use Granam\Strict\Object\StrictObject;
@@ -148,5 +149,17 @@ class Tables extends StrictObject
         }
 
         return $this->tables[RacesTable::class];
+    }
+
+    /**
+     * @return BackgroundSkillsTable
+     */
+    public function getBackgroundSkillsTable()
+    {
+        if (!isset($this->tables[BackgroundSkillsTable::class])) {
+            $this->tables[BackgroundSkillsTable::class] = new BackgroundSkillsTable();
+        }
+
+        return $this->tables[BackgroundSkillsTable::class];
     }
 }
