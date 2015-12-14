@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
@@ -889,8 +890,13 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_size_of_any_race($race, $subrace, $maleSize, $femaleSize)
     {
         $racesTable = new RacesTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
+
         $this->assertSame($maleSize, $racesTable->getMaleSize($race, $subrace));
-        $this->assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, new FemaleModifiersTable()));
+        $this->assertSame($maleSize, $racesTable->getSize($race, $subrace, GenderCodes::MALE, $femaleModifiersTable));
+
+        $this->assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, $femaleModifiersTable));
+        $this->assertSame($femaleSize, $racesTable->getSize($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable));
     }
 
     public function sizeOfRaces()
@@ -911,6 +917,16 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
             [RaceCodes::ORC, RaceCodes::SKURUT, 1, 0],
             [RaceCodes::ORC, RaceCodes::GOBLIN, -1, -2],
         ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     */
+    public function I_can_not_get_size_for_unknown_gender()
+    {
+        $racesTable = new RacesTable();
+        $racesTable->getSize(RaceCodes::HUMAN, RaceCodes::COMMON, 'unknown gender', new FemaleModifiersTable());
     }
 
     /**

@@ -1,12 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
+use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
 use DrdPlus\Tables\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
+use Granam\Scalar\Tools\ValueDescriber;
 
 class RacesTable extends AbstractFileTable
 {
@@ -357,6 +359,21 @@ class RacesTable extends AbstractFileTable
     public function getFemaleSize($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
+    }
+
+    public function getSize($raceCode, $subraceCode, $genderCode, FemaleModifiersTable $femaleModifiersTable)
+    {
+        switch ($genderCode) {
+            case GenderCodes::MALE :
+                return $this->getMaleSize($raceCode, $subraceCode);
+            case GenderCodes::FEMALE :
+                return $this->getFemaleSize($raceCode, $subraceCode, $femaleModifiersTable);
+            default :
+                throw new Exceptions\UnknownGender(
+                    'Expected one of ' . GenderCodes::MALE . ' or ' . GenderCodes::FEMALE
+                    . ', got ' . ValueDescriber::describe($genderCode)
+                );
+        }
     }
 
     /**
