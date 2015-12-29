@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Time;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use DrdPlus\Tools\Tests\TestWithMockery;
 
 class TimeTableTest extends TestWithMockery
 {

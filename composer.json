@@ -18,8 +18,9 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",
-    "mockery/mockery": ">=0.9",
-    "granam/exception-hierarchy": "dev-master"
+    "mockery/mockery": "dev-master",
+    "granam/exception-hierarchy": "dev-master",
+    "drd-plus/tools": "dev-master"
   },
   "minimum-stability": "dev",
   "prefer-stable": true

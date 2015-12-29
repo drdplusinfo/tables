@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
-use DrdPlus\Tests\Tables\Measurements\TestWithMockery;
+use DrdPlus\Tools\Tests\TestWithMockery;
 use Granam\Integer\IntegerInterface;
 
 class AbstractBonusTest extends TestWithMockery
