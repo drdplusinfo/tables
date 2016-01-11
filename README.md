@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jaroslavtyc/drd-plus-tables.svg?branch=master)](https://travis-ci.org/jaroslavtyc/drd-plus-tables)
+
 Table is optional. Measurement is what made it real.
 
 Bonus, if has sense, is expressed by an entity.
