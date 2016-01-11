@@ -5,7 +5,7 @@ use DrdPlus\Tables\Measurements\Fatigue\Fatigue;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueBonus;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 class FatigueTableTest extends TestWithMockery
 {

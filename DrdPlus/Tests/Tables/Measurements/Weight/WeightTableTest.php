@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Weight;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 class WeightTableTest extends TestWithMockery
 {

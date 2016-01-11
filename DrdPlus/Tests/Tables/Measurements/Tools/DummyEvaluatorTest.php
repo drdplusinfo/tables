@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 class DummyEvaluatorTest extends TestWithMockery
 {

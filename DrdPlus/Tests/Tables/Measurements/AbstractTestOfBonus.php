@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\BonusInterface;
 use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfBonus extends TestWithMockery
 {

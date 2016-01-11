@@ -5,7 +5,7 @@ use DrdPlus\Tables\Measurements\MeasurementInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
-use DrdPlus\Tools\Tests\TestWithMockery;
+use DrdPlus\Tests\Tools\TestWithMockery;
 
 class AbstractFileTableTest extends TestWithMockery
 {
