@@ -15,7 +15,7 @@ use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 use Granam\Strict\Object\StrictObject;
 
-class Tables extends StrictObject
+class Tables extends StrictObject implements \IteratorAggregate
 {
     private $tables = [];
 
@@ -162,4 +162,23 @@ class Tables extends StrictObject
 
         return $this->tables[BackgroundSkillsTable::class];
     }
+
+    public function getIterator()
+    {
+        return new \ArrayObject([
+            $this->getAmountTable(),
+            $this->getBackgroundSkillsTable(),
+            $this->getBaseOfWoundsTable(),
+            $this->getDistanceTable(),
+            $this->getExperiencesTable(),
+            $this->getFatigueTable(),
+            $this->getFemaleModifiersTable(),
+            $this->getRacesTable(),
+            $this->getSpeedTable(),
+            $this->getTimeTable(),
+            $this->getWeightTable(),
+            $this->getWoundsTable(),
+        ]);
+    }
+
 }

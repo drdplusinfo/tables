@@ -21,42 +21,91 @@ class TablesTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_any_table()
     {
-        $factory = new Tables();
+        $tables = new Tables();
 
-        $this->assertInstanceOf(AmountTable::class, $amountTable = $factory->getAmountTable());
-        $this->assertSame($amountTable, $factory->getAmountTable());
+        $this->assertInstanceOf(AmountTable::class, $amountTable = $tables->getAmountTable());
+        $this->assertSame($amountTable, $tables->getAmountTable());
 
-        $this->assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $factory->getBaseOfWoundsTable());
-        $this->assertSame($baseOfWoundsTable, $factory->getBaseOfWoundsTable());
+        $this->assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $tables->getBaseOfWoundsTable());
+        $this->assertSame($baseOfWoundsTable, $tables->getBaseOfWoundsTable());
 
-        $this->assertInstanceOf(DistanceTable::class, $distanceTable = $factory->getDistanceTable());
-        $this->assertSame($distanceTable, $factory->getDistanceTable());
+        $this->assertInstanceOf(DistanceTable::class, $distanceTable = $tables->getDistanceTable());
+        $this->assertSame($distanceTable, $tables->getDistanceTable());
 
-        $this->assertInstanceOf(ExperiencesTable::class, $experiencesTable = $factory->getExperiencesTable());
-        $this->assertSame($experiencesTable, $factory->getExperiencesTable());
+        $this->assertInstanceOf(ExperiencesTable::class, $experiencesTable = $tables->getExperiencesTable());
+        $this->assertSame($experiencesTable, $tables->getExperiencesTable());
 
-        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $factory->getFatigueTable());
-        $this->assertSame($fatigueTable, $factory->getFatigueTable());
+        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $tables->getFatigueTable());
+        $this->assertSame($fatigueTable, $tables->getFatigueTable());
 
-        $this->assertInstanceOf(SpeedTable::class, $speedTable = $factory->getSpeedTable());
-        $this->assertSame($speedTable, $factory->getSpeedTable());
+        $this->assertInstanceOf(SpeedTable::class, $speedTable = $tables->getSpeedTable());
+        $this->assertSame($speedTable, $tables->getSpeedTable());
 
-        $this->assertInstanceOf(TimeTable::class, $timeTable = $factory->getTimeTable());
-        $this->assertSame($timeTable, $factory->getTimeTable());
+        $this->assertInstanceOf(TimeTable::class, $timeTable = $tables->getTimeTable());
+        $this->assertSame($timeTable, $tables->getTimeTable());
 
-        $this->assertInstanceOf(WeightTable::class, $weightTable = $factory->getWeightTable());
-        $this->assertSame($weightTable, $factory->getWeightTable());
+        $this->assertInstanceOf(WeightTable::class, $weightTable = $tables->getWeightTable());
+        $this->assertSame($weightTable, $tables->getWeightTable());
 
-        $this->assertInstanceOf(WoundsTable::class, $woundsTable = $factory->getWoundsTable());
-        $this->assertSame($woundsTable, $factory->getWoundsTable());
+        $this->assertInstanceOf(WoundsTable::class, $woundsTable = $tables->getWoundsTable());
+        $this->assertSame($woundsTable, $tables->getWoundsTable());
 
-        $this->assertInstanceOf(RacesTable::class, $raceTables = $factory->getRacesTable());
-        $this->assertSame($raceTables, $factory->getRacesTable());
+        $this->assertInstanceOf(RacesTable::class, $raceTables = $tables->getRacesTable());
+        $this->assertSame($raceTables, $tables->getRacesTable());
 
-        $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $factory->getFemaleModifiersTable());
-        $this->assertSame($femaleModifiers, $factory->getFemaleModifiersTable());
+        $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $tables->getFemaleModifiersTable());
+        $this->assertSame($femaleModifiers, $tables->getFemaleModifiersTable());
 
-        $this->assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $factory->getBackgroundSkillsTable());
-        $this->assertSame($backgroundSkills, $factory->getBackgroundSkillsTable());
+        $this->assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $tables->getBackgroundSkillsTable());
+        $this->assertSame($backgroundSkills, $tables->getBackgroundSkillsTable());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_iterate_through_tables()
+    {
+        $tables = new Tables();
+        $fetchedTableClasses = [];
+        foreach ($tables as $table) {
+            $fetchedTableClasses[] = get_class($table);
+        }
+        $expectedTableClasses = $this->getExpectedTableClasses();
+        $this->assertSameSize($expectedTableClasses, $fetchedTableClasses);
+
+        sort($expectedTableClasses);
+        sort($fetchedTableClasses);
+        $this->assertEquals($expectedTableClasses, $fetchedTableClasses);
+    }
+
+    private function getExpectedTableClasses()
+    {
+        $tablesReflection = new \ReflectionClass(Tables::class);
+        $rootDir = dirname($tablesReflection->getFileName());
+        $rootNamespace = $tablesReflection->getNamespaceName();
+
+        return $this->scanForTables($rootDir, $rootNamespace);
+    }
+
+    private function scanForTables($rootDir, $rootNamespace)
+    {
+        $tableClasses = [];
+        foreach (scandir($rootDir) as $fileOrDir) {
+            $fullPath = $rootDir . DIRECTORY_SEPARATOR . $fileOrDir;
+            if ($fileOrDir !== '.' && $fileOrDir !== '..') {
+                if (is_dir($fullPath)) {
+                    $tableClasses = array_merge($tableClasses, $this->scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir));
+                } else if (is_file($fullPath)) {
+                    if (preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
+                        $tableReflection = new \ReflectionClass($rootNamespace . '\\' . $matches['tableBasename']);
+                        if (!$tableReflection->isAbstract()) {
+                            $tableClasses[] = $tableReflection->getName();
+                        }
+                    }
+                }
+            }
+        }
+
+        return $tableClasses;
     }
 }
