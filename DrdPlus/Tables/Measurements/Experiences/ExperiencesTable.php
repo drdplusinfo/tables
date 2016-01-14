@@ -20,6 +20,11 @@ class ExperiencesTable extends AbstractTable
         $this->woundsTable = $woundsTable;
     }
 
+    public function getValues()
+    {
+        return $this->woundsTable->getValues();
+    }
+
     /**
      * @param Experiences $experiences
      *

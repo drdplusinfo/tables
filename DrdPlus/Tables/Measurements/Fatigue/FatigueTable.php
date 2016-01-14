@@ -22,6 +22,11 @@ class FatigueTable extends AbstractTable
         $this->woundsTable = $woundsTable;
     }
 
+    public function getValues()
+    {
+        return $this->woundsTable->getValues();
+    }
+
     /**
      * @param Fatigue $fatigue
      *

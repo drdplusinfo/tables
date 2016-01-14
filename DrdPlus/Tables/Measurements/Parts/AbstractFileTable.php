@@ -21,7 +21,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @var string[][]
      */
-    private $data;
+    private $values;
     /**
      * @var EvaluatorInterface
      */
@@ -30,7 +30,7 @@ abstract class AbstractFileTable extends AbstractTable
     public function __construct(EvaluatorInterface $evaluator)
     {
         $this->evaluator = $evaluator;
-        $this->data = $this->fetchData();
+        $this->values = $this->fetchData();
     }
 
     /**
@@ -181,16 +181,16 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $this->checkBonus($bonus);
         $bonusValue = $bonus->getValue();
-        if (is_null($wantedUnit) && isset($this->data[$bonusValue])) {
-            $wantedUnit = key($this->data[$bonusValue]);
+        if (is_null($wantedUnit) && isset($this->values[$bonusValue])) {
+            $wantedUnit = key($this->values[$bonusValue]);
         } else {
             $this->checkUnit($wantedUnit);
         }
 
-        if (!isset($this->data[$bonusValue][$wantedUnit])) {
+        if (!isset($this->values[$bonusValue][$wantedUnit])) {
             throw new Exceptions\MissingDataForBonus("Missing data for bonus $bonus with unit $wantedUnit");
         }
-        $rawValue = $this->data[$bonusValue][$wantedUnit];
+        $rawValue = $this->values[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
         $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
 
@@ -199,7 +199,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function checkBonus(AbstractBonus $bonus)
     {
-        if (!isset($this->data[$bonus->getValue()])) {
+        if (!isset($this->values[$bonus->getValue()])) {
             throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
         }
     }
@@ -273,7 +273,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $searchedValue = ToFloat::toFloat($searchedValue);
         $closest = ['lower' => [], 'higher' => []];
-        foreach ($this->getData() as $bonus => $relatedValues) {
+        foreach ($this->getValues() as $bonus => $relatedValues) {
             if (!isset($relatedValues[$searchedUnit])) { // current row doesn't have required unit
                 continue;
             }
@@ -356,10 +356,10 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /**
-     * @return \string[]
+     * @return \string[][]
      */
-    protected function getData()
+    public function getValues()
     {
-        return $this->data;
+        return $this->values;
     }
 }

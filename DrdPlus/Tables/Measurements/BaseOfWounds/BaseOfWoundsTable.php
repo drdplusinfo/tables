@@ -1,14 +1,19 @@
 <?php
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
+use DrdPlus\Tables\Table;
 use Granam\Strict\Object\StrictObject;
 
 /**
  * Base of wounds is special table, without standard interface
  */
-class BaseOfWoundsTable extends StrictObject
+class BaseOfWoundsTable extends StrictObject implements Table
 {
 
+    /**
+     * @var array|string[][]
+     */
+    private $values;
     /**
      * @var array
      */
@@ -24,10 +29,10 @@ class BaseOfWoundsTable extends StrictObject
 
     public function __construct()
     {
-        $data = $this->loadData();
-        $this->axisX = $this->collectAxisX($data);
-        $this->axisY = $this->collectAxisY($data);
-        $this->bonuses = $this->collectBonuses($data);
+        $this->values = $this->loadData();
+        $this->axisX = $this->collectAxisX($this->values);
+        $this->axisY = $this->collectAxisY($this->values);
+        $this->bonuses = $this->collectBonuses($this->values);
     }
 
     private function loadData()
@@ -85,6 +90,11 @@ class BaseOfWoundsTable extends StrictObject
         }
 
         return $rankedBonuses; // indexed as row index => column index => bonus
+    }
+
+    public function getValues()
+    {
+        return $this->values;
     }
 
     public function sumBonuses(array $bonuses)

@@ -7,7 +7,7 @@ use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Tools\ValueDescriber;
 
-abstract class AbstractFileTable extends StrictObject
+abstract class AbstractFileTable extends StrictObject implements Table
 {
     const INTEGER = 'integer';
     const FLOAT = 'float';
@@ -20,7 +20,7 @@ abstract class AbstractFileTable extends StrictObject
     /** @var array */
     private $normalizedExpectedColumnHeader;
 
-    /** @return array */
+    /** @return array|string[][] */
     public function getValues()
     {
         if (!isset($this->values)) {
