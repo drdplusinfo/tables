@@ -97,6 +97,16 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $this->values;
     }
 
+    public function getRowsHeader()
+    {
+        return [];
+    }
+
+    public function getColumnsHeader()
+    {
+        return [];
+    }
+
     public function sumBonuses(array $bonuses)
     {
         while (!is_null($firstBonus = array_shift($bonuses)) && !is_null($secondBonus = array_shift($bonuses))) {

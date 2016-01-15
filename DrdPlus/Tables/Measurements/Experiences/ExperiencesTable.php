@@ -25,6 +25,16 @@ class ExperiencesTable extends AbstractTable
         return $this->woundsTable->getValues();
     }
 
+    public function getRowsHeader()
+    {
+        return $this->woundsTable->getRowsHeader();
+    }
+
+    public function getColumnsHeader()
+    {
+        return $this->woundsTable->getColumnsHeader();
+    }
+
     /**
      * @param Experiences $experiences
      *

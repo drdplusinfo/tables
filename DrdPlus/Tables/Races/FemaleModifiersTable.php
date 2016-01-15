@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
-use DrdPlus\Tables\AbstractFileTable;
+use DrdPlus\Tables\Parts\AbstractFileTable;
 
 class FemaleModifiersTable extends AbstractFileTable
 {

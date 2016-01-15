@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tests\Tables;
 
-use DrdPlus\Tables\AbstractFileTable;
+use DrdPlus\Tables\Parts\AbstractFileTable;
 
 class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\CanNotReadFile
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\CanNotReadFile
      */
     public function I_am_stopped_if_datafile_has_not_been_read()
     {
@@ -17,7 +17,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\NoDataFetched
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\NoDataFetched
      */
     public function I_am_stopped_if_datafile_is_empty()
     {
@@ -27,7 +27,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_row_is_missing()
     {
@@ -37,7 +37,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_column_is_missing()
     {
@@ -47,7 +47,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\DataAreCorrupted
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\DataAreCorrupted
      */
     public function I_am_stopped_if_header_value_is_invalid()
     {
@@ -57,7 +57,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\UnknownScalarTypeForColumn
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\UnknownScalarTypeForColumn
      */
     public function I_can_not_use_table_with_unknown_column_type()
     {
@@ -67,7 +67,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\RequiredRowDataNotFound
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function I_can_not_get_row_by_invalid_index()
     {
@@ -77,7 +77,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Exceptions\RequiredValueNotFound
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\RequiredValueNotFound
      */
     public function I_can_not_get_value_by_invalid_indexes()
     {

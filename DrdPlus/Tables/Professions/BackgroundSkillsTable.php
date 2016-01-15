@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCodes;
 use DrdPlus\Codes\SkillCodes;
-use DrdPlus\Tables\AbstractFileTable;
+use DrdPlus\Tables\Parts\AbstractFileTable;
 
 /** see PPH page 39, bottom */
 class BackgroundSkillsTable extends AbstractFileTable

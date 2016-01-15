@@ -33,10 +33,20 @@ abstract class AbstractFileTable extends AbstractTable
         $this->values = $this->fetchData();
     }
 
+    public function getRowsHeader()
+    {
+        return [];
+    }
+
+    public function getColumnsHeader()
+    {
+        return $this->getExpectedColumnsHeader();
+    }
+
     /**
      * @return \string[]
      */
-    abstract protected function getExpectedDataHeader();
+    abstract protected function getExpectedColumnsHeader();
 
     /**
      * @return string
@@ -91,7 +101,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function indexData(array $data)
     {
-        $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
+        $expectedHeader = array_merge(['bonus'], $this->getExpectedColumnsHeader());
         if (!isset($data[0]) || $data[0] !== $expectedHeader) {
             throw new DataFromFileAreCorrupted(
                 'Data file is corrupted. Expected header with ' . implode(',', $expectedHeader)
@@ -206,9 +216,9 @@ abstract class AbstractFileTable extends AbstractTable
 
     protected function checkUnit($unit)
     {
-        if (!in_array($unit, $this->getExpectedDataHeader())) {
+        if (!in_array($unit, $this->getExpectedColumnsHeader())) {
             throw new UnknownUnit(
-                "Expected unit " . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
+                "Expected unit " . implode(',', $this->getExpectedColumnsHeader()) . ", got $unit"
             );
         }
     }

@@ -20,7 +20,7 @@ class AmountTable extends AbstractFileTable
         return __DIR__ . '/data/amount.csv';
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedColumnsHeader()
     {
         return [Amount::AMOUNT];
     }

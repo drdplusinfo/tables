@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Exceptions;
+namespace DrdPlus\Tables\Parts\Exceptions;
 
 class DataAreCorrupted extends \RuntimeException implements Runtime
 {

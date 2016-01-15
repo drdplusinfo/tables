@@ -1,6 +1,7 @@
 <?php
-namespace DrdPlus\Tables;
+namespace DrdPlus\Tables\Parts;
 
+use DrdPlus\Tables\Table;
 use Granam\Strict\Object\StrictObject;
 use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
@@ -20,6 +21,16 @@ abstract class AbstractFileTable extends StrictObject implements Table
     /** @var array */
     private $normalizedExpectedColumnHeader;
 
+    /**
+     * @var array
+     */
+    private $rowsHeader;
+
+    /**
+     * @var array
+     */
+    private $columnsHeader;
+
     /** @return array|string[][] */
     public function getValues()
     {
@@ -28,6 +39,22 @@ abstract class AbstractFileTable extends StrictObject implements Table
         }
 
         return $this->values;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRowsHeader()
+    {
+        return $this->rowsHeader;
+    }
+
+    /**
+     * @return array
+     */
+    public function getColumnsHeader()
+    {
+        return $this->columnsHeader;
     }
 
     /** @return array */
@@ -63,47 +90,35 @@ abstract class AbstractFileTable extends StrictObject implements Table
 
     private function mapValues(array $rawData)
     {
-        $rowsHeader = $this->parseRowsHeader($rawData);
+        $this->rowsHeader = $this->parseRowsHeader($rawData);
         $valuesWithoutRowsHeader = $this->cutOffRowsHeader($rawData);
 
-        $columnsHeader = $this->parseColumnsHeader($valuesWithoutRowsHeader);
+        $this->columnsHeader = $this->parseColumnsHeader($valuesWithoutRowsHeader);
         $valuesWithoutHeader = $this->cutOffColumnsHeader($valuesWithoutRowsHeader);
 
         $formattedValues = $this->formatValues($valuesWithoutHeader);
 
-        $indexed = $this->indexData($formattedValues, $rowsHeader, $columnsHeader);
+        $indexed = $this->indexData($formattedValues, $this->rowsHeader, $this->columnsHeader);
 
         return $indexed;
     }
 
-    private function parseRowsHeaderNames(array $rawData)
+    private function cutOffRowsHeader(array $values)
     {
-        $rowsHeaderNames = [];
-        foreach ($this->getExpectedRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
-            $this->checkHeaderValue($rawData, $expectedColumnIndex, $expectedHeaderValue);
-            $rowsHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
+        $columnIndexes = array_keys($this->getExpectedRowsHeader());
+        foreach (array_keys($values) as $rowIndex) {
+            foreach ($columnIndexes as $columnIndex) {
+                unset($values[$rowIndex][$columnIndex]);
+            }
+            // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
+            $values[$rowIndex] = array_merge($values[$rowIndex]);
         }
 
-        return $rowsHeaderNames;
+        return $values; // pure values without header
     }
 
     /** @return string[] */
     abstract protected function getExpectedRowsHeader();
-
-    private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
-    {
-        if (!isset($rawData[0][$columnIndex])) {
-            throw new Exceptions\DataAreCorrupted(
-                "Missing header cell[$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
-            );
-        }
-        if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
-            throw new Exceptions\DataAreCorrupted(
-                "Expected header with name '$expectedHeaderValue' on first row and column with index " . $columnIndex
-                . ', got ' . ValueDescriber::describe($rawData[0][$columnIndex])
-            );
-        }
-    }
 
     private function parseRowsHeader(array $data)
     {
@@ -127,18 +142,30 @@ abstract class AbstractFileTable extends StrictObject implements Table
         return $rowsHeaderValues;
     }
 
-    private function cutOffRowsHeader(array $values)
+    private function parseRowsHeaderNames(array $rawData)
     {
-        $columnIndexes = array_keys($this->getExpectedRowsHeader());
-        foreach (array_keys($values) as $rowIndex) {
-            foreach ($columnIndexes as $columnIndex) {
-                unset($values[$rowIndex][$columnIndex]);
-            }
-            // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
-            $values[$rowIndex] = array_merge($values[$rowIndex]);
+        $rowsHeaderNames = [];
+        foreach ($this->getExpectedRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
+            $this->checkHeaderValue($rawData, $expectedColumnIndex, $expectedHeaderValue);
+            $rowsHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
         }
 
-        return $values; // pure values without header
+        return $rowsHeaderNames;
+    }
+
+    private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
+    {
+        if (!isset($rawData[0][$columnIndex])) {
+            throw new Exceptions\DataAreCorrupted(
+                "Missing header cell[$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
+            );
+        }
+        if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
+            throw new Exceptions\DataAreCorrupted(
+                "Expected header with name '$expectedHeaderValue' on first row and column with index " . $columnIndex
+                . ', got ' . ValueDescriber::describe($rawData[0][$columnIndex])
+            );
+        }
     }
 
     private function parseColumnsHeader(array $data)
