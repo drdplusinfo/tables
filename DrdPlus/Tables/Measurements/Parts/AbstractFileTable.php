@@ -35,7 +35,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     public function getRowsHeader()
     {
-        return [];
+        return ['bonus'];
     }
 
     public function getColumnsHeader()

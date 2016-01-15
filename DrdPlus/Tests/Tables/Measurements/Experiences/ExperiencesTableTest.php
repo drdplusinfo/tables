@@ -12,6 +12,17 @@ class ExperiencesTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_get_headers_same_as_from_wounds_table()
+    {
+        $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
+
+        $this->assertEquals($woundsTable->getColumnsHeader(), $experiencesTable->getColumnsHeader());
+        $this->assertEquals($woundsTable->getRowsHeader(), $experiencesTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_convert_experiences_to_level()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());

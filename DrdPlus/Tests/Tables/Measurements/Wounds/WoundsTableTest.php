@@ -12,6 +12,17 @@ class WoundsTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_get_headers()
+    {
+        $woundsTable = new WoundsTable();
+
+        $this->assertEquals(['wounds'], $woundsTable->getColumnsHeader());
+        $this->assertEquals(['bonus'], $woundsTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_convert_bonus_to_wounds()
     {
         $woundsTable = new WoundsTable();

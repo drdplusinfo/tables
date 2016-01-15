@@ -8,12 +8,22 @@ use DrdPlus\Tests\Tools\TestWithMockery;
 
 class TimeTableTest extends TestWithMockery
 {
+    /**
+     * @test
+     */
+    public function I_can_get_headers()
+    {
+        $timeTable = new TimeTable();
+
+        $this->assertEquals(['round', 'minute', 'hour', 'day', 'month', 'year'], $timeTable->getColumnsHeader());
+        $this->assertEquals(['bonus'], $timeTable->getRowsHeader());
+    }
 
     /**
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_rounds_cause_exception()
+    public function I_can_not_convert_too_low_bonus()
     {
         $timeTable = new TimeTable();
         $timeTable->toTime(new TimeBonus(-1, $timeTable))->getRounds();

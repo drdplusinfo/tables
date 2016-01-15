@@ -20,6 +20,17 @@ class FatigueTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_get_headers_same_as_from_wounds_table()
+    {
+        $experiencesTable = new FatigueTable($this->woundsTable);
+
+        $this->assertEquals($this->woundsTable->getColumnsHeader(), $experiencesTable->getColumnsHeader());
+        $this->assertEquals($this->woundsTable->getRowsHeader(), $experiencesTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
     public function can_convert_bonus_to_fatigue()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);

@@ -12,7 +12,17 @@ class WeightTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_bonus_to_kg()
+    public function I_can_get_headers()
+    {
+        $weightTable = new WeightTable();
+        $this->assertSame(['kg'], $weightTable->getColumnsHeader());
+        $this->assertSame(['bonus'], $weightTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_convert_bonus_to_kg()
     {
         $weightTable = new WeightTable();
         $this->assertSame(
@@ -56,7 +66,7 @@ class WeightTableTest extends TestWithMockery
     {
         $weightTable = new WeightTable();
         $this->assertSame(-40, $weightTable->toBonus(new Weight(0.1, Weight::KG, $weightTable))->getValue());
-        
+
         $this->assertSame(0, $weightTable->toBonus(new Weight(10, Weight::KG, $weightTable))->getValue());
 
         $this->assertSame(20, $weightTable->toBonus(new Weight(104, Weight::KG, $weightTable))->getValue()); // 20 is the closest bonus

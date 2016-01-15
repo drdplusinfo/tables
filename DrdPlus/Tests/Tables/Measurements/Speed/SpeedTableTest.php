@@ -8,11 +8,21 @@ use DrdPlus\Tests\Tools\TestWithMockery;
 
 class SpeedTableTest extends TestWithMockery
 {
+    /**
+     * @test
+     */
+    public function I_can_get_headers()
+    {
+        $speedTable = new SpeedTable();
+
+        $this->assertEquals(['m/round', 'km/h'], $speedTable->getColumnsHeader());
+        $this->assertEquals(['bonus'], $speedTable->getRowsHeader());
+    }
 
     /**
      * @test
      */
-    public function can_convert_bonus_to_speed()
+    public function I_can_convert_bonus_to_speed()
     {
         $speedTable = new SpeedTable();
         $this->assertSame(0.1, $speedTable->toSpeed(new SpeedBonus(-20, $speedTable))->getMetersPerRound());

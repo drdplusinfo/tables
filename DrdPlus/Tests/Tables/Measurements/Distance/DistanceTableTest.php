@@ -13,6 +13,17 @@ class DistanceTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_get_headers()
+    {
+        $distanceTable = new DistanceTable();
+
+        $this->assertEquals(['m','km','light_year'], $distanceTable->getColumnsHeader());
+        $this->assertEquals(['bonus'], $distanceTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_convert_bonus_to_distance_and_back()
     {
         $distanceTable = new DistanceTable();

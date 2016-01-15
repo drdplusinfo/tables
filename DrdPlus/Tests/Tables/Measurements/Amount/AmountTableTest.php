@@ -12,7 +12,17 @@ class AmountTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_bonus_to_amount()
+    public function I_can_get_headers()
+    {
+        $amountTable = new AmountTable();
+        $this->assertEquals(['amount'], $amountTable->getColumnsHeader());
+        $this->assertEquals(['bonus'], $amountTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_convert_bonus_to_amount()
     {
         $amountTable = new AmountTable();
         $maxAttempts = 10000;

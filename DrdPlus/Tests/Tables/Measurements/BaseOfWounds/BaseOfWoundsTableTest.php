@@ -10,6 +10,17 @@ class BaseOfWoundsTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_get_empty_arrays_as_headers()
+    {
+        $baseOfWoundsTable = new BaseOfWoundsTable();
+
+        $this->assertEquals([], $baseOfWoundsTable->getColumnsHeader());
+        $this->assertEquals([], $baseOfWoundsTable->getRowsHeader());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_calculate_base_of_wounds()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
