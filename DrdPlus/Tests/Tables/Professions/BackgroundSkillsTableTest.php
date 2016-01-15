@@ -6,6 +6,27 @@ use DrdPlus\Codes\SkillCodes;
 
 class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @test
+     */
+    public function I_can_get_headers()
+    {
+        $backgroundSkillsTable = new BackgroundSkillsTable();
+        $this->assertEquals(
+            [
+                'fighter physical', 'fighter psychical', 'fighter combined',
+                'thief physical', 'thief psychical', 'thief combined',
+                'ranger physical', 'ranger psychical', 'ranger combined',
+                'wizard physical', 'wizard psychical', 'wizard combined',
+                'theurgist physical', 'theurgist psychical', 'theurgist combined',
+                'priest physical', 'priest psychical', 'priest combined',
+            ],
+            $backgroundSkillsTable->getColumnsHeader()
+        );
+        $this->assertEquals(['points'], $backgroundSkillsTable->getRowsHeader());
+    }
+
     /**
      * @test
      * @dataProvider provideSkillPointToProfession
@@ -58,15 +79,15 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
     }
 
     private $expectedSkillPoints = [
-        [2, 0, 1, 0, 3, 0, 0, 1, 2, 0, 2, 1, 2, 0, 1, 1, 1, 1],
-        [3, 0, 1, 1, 3, 0, 0, 2, 2, 0, 3, 1, 2, 0, 2, 2, 1, 1],
-        [4, 0, 1, 1, 4, 0, 1, 2, 2, 0, 4, 1, 3, 0, 2, 2, 1, 2],
-        [4, 1, 2, 2, 4, 1, 1, 3, 3, 1, 4, 2, 3, 1, 3, 3, 2, 2],
-        [5, 1, 3, 2, 5, 2, 2, 3, 4, 1, 5, 3, 4, 1, 4, 4, 2, 3],
-        [6, 2, 3, 3, 6, 2, 2, 4, 5, 2, 6, 3, 5, 1, 5, 5, 2, 4],
-        [8, 2, 4, 4, 7, 3, 3, 5, 6, 2, 8, 4, 6, 2, 6, 6, 3, 5],
-        [10, 3, 5, 5, 9, 4, 4, 7, 7, 3, 10, 5, 8, 3, 7, 8, 4, 6],
-        [12, 4, 6, 6, 11, 5, 5, 9, 8, 4, 12, 6, 10, 4, 8, 9, 6, 7]
+        [2, 0, 1, 1, 1, 1, 2, 0, 1, 0, 3, 0, 0, 2, 1, 0, 1, 2,],
+        [3, 0, 1, 2, 1, 1, 2, 0, 2, 1, 3, 0, 0, 3, 1, 0, 2, 2,],
+        [4, 0, 1, 2, 1, 2, 3, 0, 2, 1, 4, 0, 0, 4, 1, 1, 2, 2,],
+        [4, 1, 2, 3, 2, 2, 3, 1, 3, 2, 4, 1, 1, 4, 2, 1, 3, 3,],
+        [5, 1, 3, 4, 2, 3, 4, 1, 4, 2, 5, 2, 1, 5, 3, 2, 3, 4,],
+        [6, 2, 3, 5, 2, 4, 5, 1, 5, 3, 6, 2, 2, 6, 3, 2, 4, 5,],
+        [8, 2, 4, 6, 3, 5, 6, 2, 6, 4, 7, 3, 2, 8, 4, 3, 5, 6,],
+        [10, 3, 5, 8, 4, 6, 8, 3, 7, 5, 9, 4, 3, 10, 5, 4, 7, 7,],
+        [12, 4, 6, 9, 6, 7, 10, 4, 8, 6, 11, 5, 4, 12, 6, 5, 9, 8,]
     ];
 
     private function getExpectedSkillPoints($rowIndex, $columnIndex)
