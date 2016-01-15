@@ -18,7 +18,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|string
      */
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [
             PropertyCodes::STRENGTH => self::INTEGER,

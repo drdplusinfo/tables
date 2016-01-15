@@ -24,11 +24,6 @@ abstract class AbstractFileTable extends StrictObject implements Table
     /**
      * @var array
      */
-    private $rowsHeader;
-
-    /**
-     * @var array
-     */
     private $columnsHeader;
 
     /** @return array|string[][] */
@@ -46,7 +41,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
      */
     public function getRowsHeader()
     {
-        return $this->rowsHeader;
+        return $this->getExpectedRowsHeader();
     }
 
     /**
@@ -54,6 +49,10 @@ abstract class AbstractFileTable extends StrictObject implements Table
      */
     public function getColumnsHeader()
     {
+        if (!isset($this->columnsHeader)) {
+            $this->loadData();
+        }
+
         return $this->columnsHeader;
     }
 
@@ -90,7 +89,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
 
     private function mapValues(array $rawData)
     {
-        $this->rowsHeader = $this->parseRowsHeader($rawData);
+        $rowsHeader = $this->parseRowsHeader($rawData);
         $valuesWithoutRowsHeader = $this->cutOffRowsHeader($rawData);
 
         $this->columnsHeader = $this->parseColumnsHeader($valuesWithoutRowsHeader);
@@ -98,7 +97,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
 
         $formattedValues = $this->formatValues($valuesWithoutHeader);
 
-        $indexed = $this->indexData($formattedValues, $this->rowsHeader, $this->columnsHeader);
+        $indexed = $this->indexData($formattedValues, $rowsHeader, $this->columnsHeader);
 
         return $indexed;
     }
@@ -208,7 +207,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
         if (!isset($this->normalizedExpectedColumnHeader)) {
             $this->normalizedExpectedColumnHeader = [];
             $columnIndex = 0;
-            foreach ($this->getExpectedColumnsHeader() as $headerName => $columnScalarType) {
+            foreach ($this->getExpectedDataHeader() as $headerName => $columnScalarType) {
                 $this->normalizedExpectedColumnHeader[$columnIndex++] = [
                     'value' => $headerName,
                     'type' => $this->normalizeScalarType($columnScalarType),
@@ -238,7 +237,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
     }
 
     /** @return string[] */
-    abstract protected function getExpectedColumnsHeader();
+    abstract protected function getExpectedDataHeader();
 
     private function parseValue($value, $columnIndex)
     {

@@ -20,7 +20,7 @@ class WeightTable extends AbstractFileTable
         return __DIR__ . '/data/weight.csv';
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [Weight::KG];
     }

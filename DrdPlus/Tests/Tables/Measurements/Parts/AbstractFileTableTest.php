@@ -223,7 +223,7 @@ class TestOfAbstractTable extends AbstractFileTable
     /**
      * @return \string[]
      */
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return $this->dataHeader;
     }

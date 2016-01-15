@@ -12,6 +12,41 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function I_can_get_headers()
+    {
+        $racesTable = new RacesTable();
+        $this->assertEquals(
+            [
+                RacesTable::RACE,
+                RacesTable::SUBRACE
+            ],
+            $racesTable->getRowsHeader()
+        );
+        $this->assertEquals(
+            [
+                PropertyCodes::STRENGTH,
+                PropertyCodes::AGILITY,
+                PropertyCodes::KNACK,
+                PropertyCodes::WILL,
+                PropertyCodes::INTELLIGENCE,
+                PropertyCodes::CHARISMA,
+                PropertyCodes::TOUGHNESS,
+                PropertyCodes::HEIGHT_IN_CM,
+                PropertyCodes::WEIGHT_IN_KG,
+                PropertyCodes::SIZE,
+                PropertyCodes::SENSES,
+                PropertyCodes::REMARKABLE_SENSE,
+                PropertyCodes::INFRAVISION,
+                PropertyCodes::NATIVE_REGENERATION,
+                PropertyCodes::REQUIRES_DM_AGREEMENT
+            ],
+            $racesTable->getColumnsHeader()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function I_can_get_common_human_modifiers()
     {
         $racesTable = new RacesTable();

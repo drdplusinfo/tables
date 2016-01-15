@@ -12,7 +12,7 @@ class BackgroundSkillsTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         $professionsWithSkillTypes = [];
         foreach (ProfessionCodes::getProfessionCodes() as $professionCode) {

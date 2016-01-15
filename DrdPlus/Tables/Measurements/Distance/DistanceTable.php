@@ -20,7 +20,7 @@ class DistanceTable extends AbstractFileTable
         return __DIR__ . '/data/distance.csv';
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
     }

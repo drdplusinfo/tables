@@ -100,7 +100,7 @@ class TableWithWrongFileReference extends AbstractFileTable
         return [];
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [];
     }
@@ -151,7 +151,7 @@ class TableWithMissingHeaderRow extends TableWithEmptyFilename
         return [999 => ['foo']];
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [];
     }
@@ -172,7 +172,7 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
         return [999 => 'foo'];
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [];
     }
@@ -193,7 +193,7 @@ class TableWithUnexpectedHeaderValue extends TableWithEmptyFilename
         return ['expected header'];
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [];
     }
@@ -213,7 +213,7 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
         return ['foo'];
     }
 
-    public function getExpectedColumnsHeader()
+    public function getExpectedDataHeader()
     {
         return ['bar' => self::INTEGER];
     }
@@ -233,7 +233,7 @@ class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
         return ['foo'];
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return ['bar' => 'unknown type'];
     }

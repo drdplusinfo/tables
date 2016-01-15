@@ -20,7 +20,7 @@ class WoundsTable extends AbstractFileTable
         return __DIR__ . '/data/wounds.csv';
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [Wounds::WOUNDS];
     }

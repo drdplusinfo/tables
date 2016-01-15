@@ -19,7 +19,7 @@ class SpeedTable extends AbstractFileTable
         return __DIR__ . '/data/speed.csv';
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [Speed::M_PER_ROUND, Speed::KM_PER_HOUR];
     }

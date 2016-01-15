@@ -19,7 +19,7 @@ class TimeTable extends AbstractFileTable
         return __DIR__ . '/data/time.csv';
     }
 
-    protected function getExpectedColumnsHeader()
+    protected function getExpectedDataHeader()
     {
         return [Time::ROUND, Time::MINUTE, Time::HOUR, Time::DAY, Time::MONTH, Time::YEAR];
     }
