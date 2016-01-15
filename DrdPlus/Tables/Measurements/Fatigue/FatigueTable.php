@@ -29,7 +29,7 @@ class FatigueTable extends AbstractTable
 
     public function getRowsHeader()
     {
-        return $this->woundsTable->getValues();
+        return $this->woundsTable->getRowsHeader();
     }
 
     public function getColumnsHeader()
