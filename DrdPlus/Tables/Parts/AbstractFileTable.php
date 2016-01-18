@@ -45,7 +45,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
     }
 
     /**
-     * @return array
+     * @return array|string[][]|string[][][]
      */
     public function getColumnsHeader()
     {

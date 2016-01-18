@@ -8,6 +8,50 @@ use DrdPlus\Tables\Parts\AbstractFileTable;
 /** see PPH page 39, bottom */
 class BackgroundSkillsTable extends AbstractFileTable
 {
+    /**
+     * @var array
+     */
+    private $originalColumnsHeader;
+
+    /**
+     * @return array|string[][][]
+     */
+    public function getColumnsHeader()
+    {
+        if (!isset($this->originalColumnsHeader)) {
+            $simplifiedColumnsHeader = parent::getColumnsHeader();
+            $this->originalColumnsHeader = $this->getRebuiltOriginalColumnsHeader($simplifiedColumnsHeader);
+        }
+
+        return $this->originalColumnsHeader;
+    }
+
+    private function getRebuiltOriginalColumnsHeader(array $simplifiedColumnsHeader)
+    {
+        $originalColumnsHeader = [];
+        $professionsPattern = implode(
+            '|',
+            array_map(
+                function ($professionName) {
+                    return preg_quote($professionName);
+                },
+                ProfessionCodes::getProfessionCodes()
+            )
+        );
+
+        foreach ($simplifiedColumnsHeader as $simplifiedColumnName) {
+            $originalColumnHeader = ['', ''];
+            if (preg_match('~(?<profession>' . $professionsPattern . ')\s+(?<skillType>\w+)~', $simplifiedColumnName, $matches)) {
+                $originalColumnHeader[0] = $matches['profession'];
+                $originalColumnHeader[1] = $matches['skillType'];
+            } else {
+                $originalColumnHeader[1] = $simplifiedColumnName;
+            }
+            $originalColumnsHeader[] = $originalColumnHeader;
+        }
+
+        return $originalColumnsHeader;
+    }
 
     /**
      * @return array

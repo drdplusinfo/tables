@@ -15,12 +15,12 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
         $backgroundSkillsTable = new BackgroundSkillsTable();
         $this->assertEquals(
             [
-                'fighter physical', 'fighter psychical', 'fighter combined',
-                'thief physical', 'thief psychical', 'thief combined',
-                'ranger physical', 'ranger psychical', 'ranger combined',
-                'wizard physical', 'wizard psychical', 'wizard combined',
-                'theurgist physical', 'theurgist psychical', 'theurgist combined',
-                'priest physical', 'priest psychical', 'priest combined',
+                ['fighter', 'physical'], ['fighter', 'psychical'], ['fighter', 'combined'],
+                ['thief', 'physical'], ['thief', 'psychical'], ['thief', 'combined'],
+                ['ranger', 'physical'], ['ranger', 'psychical'], ['ranger', 'combined'],
+                ['wizard', 'physical'], ['wizard', 'psychical'], ['wizard', 'combined'],
+                ['theurgist', 'physical'], ['theurgist', 'psychical'], ['theurgist', 'combined'],
+                ['priest', 'physical'], ['priest', 'psychical'], ['priest', 'combined'],
             ],
             $backgroundSkillsTable->getColumnsHeader()
         );
