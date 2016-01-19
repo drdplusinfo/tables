@@ -26,7 +26,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
      */
     private $columnsHeader;
 
-    /** @return array|string[][] */
+    /** @return array|string[][]|string[][][] */
     public function getIndexedValues()
     {
         if (!isset($this->values)) {
