@@ -8,7 +8,7 @@ interface Table
      *
      * @return array|\ArrayAccess|string[][]
      */
-    public function getValues();
+    public function getIndexedValues();
 
     /**
      * @return array|\ArrayAccess|string[]|string[][]

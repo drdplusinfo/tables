@@ -27,7 +27,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
     private $columnsHeader;
 
     /** @return array|string[][] */
-    public function getValues()
+    public function getIndexedValues()
     {
         if (!isset($this->values)) {
             $this->loadData();
@@ -334,7 +334,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
      */
     public function getRow(array $rowIndexes)
     {
-        $values = $this->getValues();
+        $values = $this->getIndexedValues();
         $row = null;
         foreach ($rowIndexes as $rowIndex) {
             if (!isset($values[$rowIndex])) {

@@ -283,7 +283,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $searchedValue = ToFloat::toFloat($searchedValue);
         $closest = ['lower' => [], 'higher' => []];
-        foreach ($this->getValues() as $bonus => $relatedValues) {
+        foreach ($this->getIndexedValues() as $bonus => $relatedValues) {
             if (!isset($relatedValues[$searchedUnit])) { // current row doesn't have required unit
                 continue;
             }
@@ -368,7 +368,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @return \string[][]
      */
-    public function getValues()
+    public function getIndexedValues()
     {
         return $this->values;
     }

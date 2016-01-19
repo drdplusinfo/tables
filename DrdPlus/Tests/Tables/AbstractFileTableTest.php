@@ -12,7 +12,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_am_stopped_if_datafile_has_not_been_read()
     {
         $table = new TableWithWrongFileReference();
-        @$table->getValues();
+        @$table->getIndexedValues();
     }
 
     /**
@@ -22,7 +22,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_am_stopped_if_datafile_is_empty()
     {
         $table = new TableWithEmptyFilename();
-        $table->getValues();
+        $table->getIndexedValues();
     }
 
     /**
@@ -32,7 +32,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_am_stopped_if_header_row_is_missing()
     {
         $table = new TableWithMissingHeaderRow();
-        $table->getValues();
+        $table->getIndexedValues();
     }
 
     /**
@@ -42,7 +42,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_am_stopped_if_header_column_is_missing()
     {
         $table = new TableWithMissingHeaderColumn();
-        $table->getValues();
+        $table->getIndexedValues();
     }
 
     /**
@@ -52,7 +52,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_am_stopped_if_header_value_is_invalid()
     {
         $table = new TableWithUnexpectedHeaderValue();
-        $table->getValues();
+        $table->getIndexedValues();
     }
 
     /**
@@ -62,7 +62,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_not_use_table_with_unknown_column_type()
     {
         $table = new TableWithUnknownColumnScalarType();
-        $table->getValues();
+        $table->getIndexedValues();
     }
 
     /**

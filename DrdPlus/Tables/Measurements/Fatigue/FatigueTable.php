@@ -22,9 +22,9 @@ class FatigueTable extends AbstractTable
         $this->woundsTable = $woundsTable;
     }
 
-    public function getValues()
+    public function getIndexedValues()
     {
-        return $this->woundsTable->getValues();
+        return $this->woundsTable->getIndexedValues();
     }
 
     public function getRowsHeader()

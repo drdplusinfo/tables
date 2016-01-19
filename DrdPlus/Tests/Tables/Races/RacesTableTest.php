@@ -586,7 +586,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-            $racesTable->getValues()
+            $racesTable->getIndexedValues()
         );
     }
 

@@ -92,7 +92,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $rankedBonuses; // indexed as row index => column index => bonus
     }
 
-    public function getValues()
+    public function getIndexedValues()
     {
         return $this->values;
     }

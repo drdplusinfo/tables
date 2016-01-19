@@ -217,7 +217,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
                     PropertyCodes::SIZE => -1,
                 ],
             ],
-            $this->getFemaleModifiersTable()->getValues()
+            $this->getFemaleModifiersTable()->getIndexedValues()
         );
     }
 
