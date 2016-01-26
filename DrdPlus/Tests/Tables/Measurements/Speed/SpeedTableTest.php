@@ -15,8 +15,7 @@ class SpeedTableTest extends TestWithMockery
     {
         $speedTable = new SpeedTable();
 
-        $this->assertEquals(['m/round', 'km/h'], $speedTable->getColumnsHeader());
-        $this->assertEquals(['bonus'], $speedTable->getRowsHeader());
+        $this->assertEquals([['bonus', 'm/round', 'km/h']], $speedTable->getHeader());
     }
 
     /**

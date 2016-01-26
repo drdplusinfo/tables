@@ -105,6 +105,11 @@ class TableWithWrongFileReference extends AbstractFileTable
         return [];
     }
 
+    public function getHeader()
+    {
+        return [];
+    }
+
 }
 
 class TableWithEmptyFilename extends TableWithWrongFileReference

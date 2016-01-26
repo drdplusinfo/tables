@@ -15,8 +15,7 @@ class WeightTableTest extends TestWithMockery
     public function I_can_get_headers()
     {
         $weightTable = new WeightTable();
-        $this->assertSame(['kg'], $weightTable->getColumnsHeader());
-        $this->assertSame(['bonus'], $weightTable->getRowsHeader());
+        $this->assertSame([['bonus', 'kg']], $weightTable->getHeader());
     }
 
     /**

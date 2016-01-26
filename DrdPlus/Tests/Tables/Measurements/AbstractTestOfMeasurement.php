@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\MeasurementInterface;
-use DrdPlus\Tables\Measurements\Parts\AbstractTable;
+use DrdPlus\Tables\Parts\AbstractTable;
 use DrdPlus\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfMeasurement extends TestWithMockery

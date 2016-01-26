@@ -97,12 +97,12 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $this->values;
     }
 
-    public function getRowsHeader()
+    public function getValues()
     {
-        return [];
+        return $this->values;
     }
 
-    public function getColumnsHeader()
+    public function getHeader()
     {
         return [];
     }

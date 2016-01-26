@@ -12,10 +12,9 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_headers()
     {
         $this->assertEquals(
-            ['strength', 'agility', 'knack', 'will', 'intelligence', 'charisma', 'weight', 'size'],
-            $this->getFemaleModifiersTable()->getColumnsHeader()
+            [['race', 'strength', 'agility', 'knack', 'will', 'intelligence', 'charisma', 'weight', 'size']],
+            $this->getFemaleModifiersTable()->getHeader()
         );
-        $this->assertEquals(['race'], $this->getFemaleModifiersTable()->getRowsHeader());
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Fatigue;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractTable;
+use DrdPlus\Tables\Parts\AbstractTable;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
@@ -27,12 +27,12 @@ class FatigueTable extends AbstractTable
         return $this->woundsTable->getIndexedValues();
     }
 
-    public function getRowsHeader()
+    protected function getRowsHeader()
     {
         return $this->woundsTable->getRowsHeader();
     }
 
-    public function getColumnsHeader()
+    protected function getColumnsHeader()
     {
         return $this->woundsTable->getColumnsHeader();
     }

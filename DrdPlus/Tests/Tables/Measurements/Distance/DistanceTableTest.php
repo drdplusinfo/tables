@@ -17,8 +17,7 @@ class DistanceTableTest extends TestWithMockery
     {
         $distanceTable = new DistanceTable();
 
-        $this->assertEquals(['m','km','light_year'], $distanceTable->getColumnsHeader());
-        $this->assertEquals(['bonus'], $distanceTable->getRowsHeader());
+        $this->assertEquals([['bonus', 'm','km','light_year']], $distanceTable->getHeader());
     }
 
     /**

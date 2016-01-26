@@ -16,8 +16,7 @@ class ExperiencesTableTest extends TestWithMockery
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
 
-        $this->assertEquals($woundsTable->getColumnsHeader(), $experiencesTable->getColumnsHeader());
-        $this->assertEquals($woundsTable->getRowsHeader(), $experiencesTable->getRowsHeader());
+        $this->assertEquals($woundsTable->getHeader(), $experiencesTable->getHeader());
     }
 
     /**

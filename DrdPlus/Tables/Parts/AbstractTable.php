@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Measurements\Parts;
+namespace DrdPlus\Tables\Parts;
 
 use DrdPlus\Tables\Table;
 use Granam\Strict\Object\StrictObject;
@@ -15,39 +15,12 @@ abstract class AbstractTable extends StrictObject implements Table
     public function getValues()
     {
         if (!isset($this->valuesInFlatStructure)) {
-            $this->valuesInFlatStructure = $this->toFlatStructure($this->getIndexedValues());
+            $this->valuesInFlatStructure = $this->toFlatStructure(
+                $this->getIndexedValues(), true // keys to values
+            );
         }
 
         return $this->valuesInFlatStructure;
-    }
-
-    private function toFlatStructure(array $values)
-    {
-        $inFlatStructure = [];
-        foreach ($values as $value) {
-            $row = $this->toRow($value);
-            $inFlatStructure[] = $row;
-        }
-
-        return $inFlatStructure;
-    }
-
-    private function toRow($values)
-    {
-        if (!is_array($values)) {
-            return [$values];
-        }
-        $row = [];
-        foreach ($values as $value) {
-            if (is_array($value)) {
-                $value = $this->toRow($value);
-                $row = array_merge($row, $value); // flatting the structure
-            } else {
-                $row [] = $value;
-            }
-        }
-
-        return $row;
     }
 
     public function getHeader()
@@ -63,24 +36,56 @@ abstract class AbstractTable extends StrictObject implements Table
     {
         $rowsHeader = $this->toFlatStructure($this->getRowsHeader());
         $columnsHeader = $this->toFlatStructure($this->getColumnsHeader());
-        $maxRowsCount = max(count($rowsHeader), max($columnsHeader));
-        $rowsHeaderIndexShift = count($rowsHeader) - $maxRowsCount;
-        $columnsHeaderIndexShift = count($columnsHeader) - $maxRowsCount;
+        $rowsHeaderRowCount = count(current($rowsHeader));
+        $columnsHeaderRowCount = count(current($columnsHeader));
+        $maxRowsCount = max($rowsHeaderRowCount, $columnsHeaderRowCount);
+        $rowsHeaderIndexShift = $rowsHeaderRowCount - $maxRowsCount;
+        $columnsHeaderIndexShift = $columnsHeaderRowCount - $maxRowsCount;
         $header = [];
         for ($rowIndex = 0; $rowIndex < $maxRowsCount; $rowIndex++) {
             $headerRow = [];
-            $rowsHeaderIndex = $rowIndex + $rowsHeaderIndexShift;
-            if (isset($rowsHeader[$rowsHeaderIndex])) {
-                $headerRow = array_merge($headerRow, $rowsHeader[$rowsHeaderIndex]);
+            $rowsHeaderRowIndex = $rowIndex + $rowsHeaderIndexShift;
+            if ($rowsHeaderRowIndex >= 0) {
+                foreach ($rowsHeader as $columnsHeaderColumn) {
+                    $headerRow[] = $columnsHeaderColumn[$rowsHeaderRowIndex];
+                }
+            } else {
+                $headerRow[] = '';
             }
-            $columnsHeaderIndex = $rowIndex + $columnsHeaderIndexShift;
-            if (isset($columnsHeader[$columnsHeaderIndex])) {
-                $headerRow = array_merge($headerRow, $columnsHeader[$rowsHeaderIndex]);
+            $columnsHeaderRowIndex = $rowIndex + $columnsHeaderIndexShift;
+            if ($columnsHeaderRowIndex >= 0) {
+                foreach ($columnsHeader as $columnsHeaderColumn) {
+                    $headerRow[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
+                }
+            } else {
+                $headerRow[] = '';
             }
             $header[] = $headerRow;
         }
 
         return $header;
+    }
+
+    private function toFlatStructure(array $values, $convertTopKeysToValues = false)
+    {
+        $inFlatStructure = [];
+        foreach ($values as $key => $wrappedValues) {
+            if (!is_array($wrappedValues)) {
+                $rows = [[$wrappedValues]];
+            } elseif (!is_array(current($wrappedValues))) {
+                $rows = [array_values($wrappedValues)];
+            } else {
+                $rows = $this->toFlatStructure($wrappedValues, $convertTopKeysToValues);
+            }
+            if ($convertTopKeysToValues) {
+                foreach ($rows as &$row) {
+                    array_unshift($row, $key);
+                }
+            }
+            $inFlatStructure = array_merge($inFlatStructure, $rows);
+        }
+
+        return $inFlatStructure;
     }
 
     /**

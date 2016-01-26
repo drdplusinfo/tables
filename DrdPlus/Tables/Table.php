@@ -11,12 +11,16 @@ interface Table
     public function getIndexedValues();
 
     /**
-     * @return array|\ArrayAccess|string[]|string[][]
+     * Same values but in simplified structure of two-level array only.
+     *
+     * @return array|\ArrayAccess|string[][]
      */
-    public function getRowsHeader();
+    public function getValues();
 
     /**
-     * @return array|\ArrayAccess|string[][]|string[][][]
+     * Simplified structure of header names in two-level array.
+     *
+     * @return array|\ArrayAccess|string[][]
      */
-    public function getColumnsHeader();
+    public function getHeader();
 }

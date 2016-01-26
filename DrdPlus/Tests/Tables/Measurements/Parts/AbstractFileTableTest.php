@@ -220,6 +220,16 @@ class TestOfAbstractTable extends AbstractFileTable
         parent::__construct($evaluator);
     }
 
+    public function getValues()
+    {
+        return [];
+    }
+
+    public function getHeader()
+    {
+        return [];
+    }
+
     /**
      * @return \string[]
      */

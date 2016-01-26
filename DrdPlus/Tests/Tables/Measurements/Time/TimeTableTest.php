@@ -15,8 +15,10 @@ class TimeTableTest extends TestWithMockery
     {
         $timeTable = new TimeTable();
 
-        $this->assertEquals(['round', 'minute', 'hour', 'day', 'month', 'year'], $timeTable->getColumnsHeader());
-        $this->assertEquals(['bonus'], $timeTable->getRowsHeader());
+        $this->assertEquals(
+            [['bonus', 'round', 'minute', 'hour', 'day', 'month', 'year']],
+            $timeTable->getHeader()
+        );
     }
 
     /**

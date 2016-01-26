@@ -10,6 +10,7 @@ use DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty;
 use DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
+use DrdPlus\Tables\Parts\AbstractTable;
 use Granam\Float\Tools\ToFloat;
 
 /**
@@ -21,7 +22,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @var string[][]
      */
-    private $values;
+    private $indexedValues;
     /**
      * @var EvaluatorInterface
      */
@@ -30,15 +31,29 @@ abstract class AbstractFileTable extends AbstractTable
     public function __construct(EvaluatorInterface $evaluator)
     {
         $this->evaluator = $evaluator;
-        $this->values = $this->fetchData();
+        $this->loadData();
     }
 
-    public function getRowsHeader()
+    /**
+     * @return \string[][]
+     */
+    public function getIndexedValues()
     {
-        return ['bonus'];
+        if (!isset($this->indexedValues)) {
+            $this->loadData();
+        }
+
+        return $this->indexedValues;
     }
 
-    public function getColumnsHeader()
+    protected function getRowsHeader()
+    {
+        return [
+            ['bonus']
+        ];
+    }
+
+    protected function getColumnsHeader()
     {
         return $this->getExpectedDataHeader();
     }
@@ -70,12 +85,12 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @return array
      */
-    private function fetchData()
+    private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
         $indexed = $this->indexData($rawData);
 
-        return $indexed;
+        $this->indexedValues = $indexed;
     }
 
     private function fetchDataFromFile($dataSourceFile)
@@ -191,16 +206,16 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $this->checkBonus($bonus);
         $bonusValue = $bonus->getValue();
-        if (is_null($wantedUnit) && isset($this->values[$bonusValue])) {
-            $wantedUnit = key($this->values[$bonusValue]);
+        if (is_null($wantedUnit) && isset($this->indexedValues[$bonusValue])) {
+            $wantedUnit = key($this->indexedValues[$bonusValue]);
         } else {
             $this->checkUnit($wantedUnit);
         }
 
-        if (!isset($this->values[$bonusValue][$wantedUnit])) {
+        if (!isset($this->indexedValues[$bonusValue][$wantedUnit])) {
             throw new Exceptions\MissingDataForBonus("Missing data for bonus $bonus with unit $wantedUnit");
         }
-        $rawValue = $this->values[$bonusValue][$wantedUnit];
+        $rawValue = $this->indexedValues[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
         $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
 
@@ -209,7 +224,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function checkBonus(AbstractBonus $bonus)
     {
-        if (!isset($this->values[$bonus->getValue()])) {
+        if (!isset($this->indexedValues[$bonus->getValue()])) {
             throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
         }
     }
@@ -365,11 +380,4 @@ abstract class AbstractFileTable extends AbstractTable
         return false; // differences are equal
     }
 
-    /**
-     * @return \string[][]
-     */
-    public function getIndexedValues()
-    {
-        return $this->values;
-    }
 }

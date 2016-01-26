@@ -16,14 +16,9 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $this->assertEquals(
-            [
+            [[
                 RacesTable::RACE,
-                RacesTable::SUBRACE
-            ],
-            $racesTable->getRowsHeader()
-        );
-        $this->assertEquals(
-            [
+                RacesTable::SUBRACE,
                 PropertyCodes::STRENGTH,
                 PropertyCodes::AGILITY,
                 PropertyCodes::KNACK,
@@ -39,8 +34,35 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
                 PropertyCodes::INFRAVISION,
                 PropertyCodes::NATIVE_REGENERATION,
                 PropertyCodes::REQUIRES_DM_AGREEMENT
+            ]],
+            $racesTable->getHeader()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_values_in_simple_structure()
+    {
+        $racesTable = new RacesTable();
+        $this->assertEquals(
+            [
+                [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0, 0, 0, 0, 0, 0, 180.0, 80.0, 0, 0, '', false, false, false],
+                [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1, 0, 0, 1, -1, -1, 0, 180.0, 80.0, 0, 0, '', false, false, false],
+                [RaceCodes::ELF, RaceCodes::COMMON, -1, 1, 1, -2, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCodes::SIGHT, false, false, false],
+                [RaceCodes::ELF, RaceCodes::GREEN, -1, 1, 0, -1, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCodes::SIGHT, false, false, false],
+                [RaceCodes::ELF, RaceCodes::DARK, 0, 0, 0, 0, 1, 0, -1, 160.0, 50.0, -1, 0, PropertyCodes::SIGHT, true, false, true],
+                [RaceCodes::DWARF, RaceCodes::COMMON, 1, -1, 0, 2, -1, -2, 1, 140.0, 70.0, 0, -1, PropertyCodes::TOUCH, true, false, false],
+                [RaceCodes::DWARF, RaceCodes::WOOD, 1, -1, 0, 1, -1, -1, 1, 140.0, 70.0, 0, -1, PropertyCodes::TOUCH, true, false, false],
+                [RaceCodes::DWARF, RaceCodes::MOUNTAIN, 2, -1, 0, 2, -2, -2, 1, 140.0, 70.0, 0, -1, PropertyCodes::TOUCH, true, false, false],
+                [RaceCodes::HOBBIT, RaceCodes::COMMON, -3, 1, 1, 0, -1, 2, 0, 110.0, 40.0, -2, 0, PropertyCodes::TASTE, false, false, false],
+                [RaceCodes::KROLL, RaceCodes::COMMON, 3, -2, -1, 1, -3, -1, 0, 220.0, 120.0, 3, 0, PropertyCodes::HEARING, false, true, false],
+                [RaceCodes::KROLL, RaceCodes::WILD, 3, -1, -2, 2, -3, -2, 0, 220.0, 120.0, 3, 0, PropertyCodes::HEARING, false, true, true],
+                [RaceCodes::ORC, RaceCodes::COMMON, 0, 2, 0, -1, 0, -2, 0, 160.0, 60.0, -1, 1, PropertyCodes::SMELL, true, false, true],
+                [RaceCodes::ORC, RaceCodes::SKURUT, 1, 1, -1, 0, 0, -2, 0, 180.0, 90.0, 1, 1, PropertyCodes::SMELL, true, false, true],
+                [RaceCodes::ORC, RaceCodes::GOBLIN, -1, 2, 1, -2, 0, -1, 0, 150.0, 55.0, -1, 1, PropertyCodes::SMELL, true, false, true],
             ],
-            $racesTable->getColumnsHeader()
+            $racesTable->getValues()
         );
     }
 

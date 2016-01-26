@@ -16,7 +16,7 @@ class BackgroundSkillsTable extends AbstractFileTable
     /**
      * @return array|string[][][]
      */
-    public function getColumnsHeader()
+    protected function getColumnsHeader()
     {
         if (!isset($this->originalColumnsHeader)) {
             $simplifiedColumnsHeader = parent::getColumnsHeader();

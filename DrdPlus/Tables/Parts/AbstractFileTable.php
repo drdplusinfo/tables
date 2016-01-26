@@ -1,14 +1,12 @@
 <?php
 namespace DrdPlus\Tables\Parts;
 
-use DrdPlus\Tables\Table;
-use Granam\Strict\Object\StrictObject;
 use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Scalar\Tools\ValueDescriber;
 
-abstract class AbstractFileTable extends StrictObject implements Table
+abstract class AbstractFileTable extends AbstractTable
 {
     const INTEGER = 'integer';
     const FLOAT = 'float';
@@ -16,30 +14,30 @@ abstract class AbstractFileTable extends StrictObject implements Table
     const STRING = 'string';
 
     /** @var array */
-    private $values;
+    private $indexedValues;
 
     /** @var array */
     private $normalizedExpectedColumnHeader;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $columnsHeader;
 
-    /** @return array|string[][]|string[][][] */
+    /**
+     * @return array|string[][]|string[][][]
+     */
     public function getIndexedValues()
     {
-        if (!isset($this->values)) {
+        if (!isset($this->indexedValues)) {
             $this->loadData();
         }
 
-        return $this->values;
+        return $this->indexedValues;
     }
 
     /**
      * @return array
      */
-    public function getRowsHeader()
+    protected function getRowsHeader()
     {
         return $this->getExpectedRowsHeader();
     }
@@ -47,7 +45,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
     /**
      * @return array|string[][]|string[][][]
      */
-    public function getColumnsHeader()
+    protected function getColumnsHeader()
     {
         if (!isset($this->columnsHeader)) {
             $this->loadData();
@@ -60,7 +58,7 @@ abstract class AbstractFileTable extends StrictObject implements Table
     private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
-        $this->values = $this->mapValues($rawData);
+        $this->indexedValues = $this->mapValues($rawData);
     }
 
     /** @return string */
@@ -90,13 +88,10 @@ abstract class AbstractFileTable extends StrictObject implements Table
     private function mapValues(array $rawData)
     {
         $rowsHeader = $this->parseRowsHeader($rawData);
-        $valuesWithoutRowsHeader = $this->cutOffRowsHeader($rawData);
-
-        $this->columnsHeader = $this->parseColumnsHeader($valuesWithoutRowsHeader);
-        $valuesWithoutHeader = $this->cutOffColumnsHeader($valuesWithoutRowsHeader);
-
+        $this->columnsHeader = $this->parseColumnsHeader($rawData);
+        $valuesWithoutColumnsHeader = $this->cutOffColumnsHeader($rawData);
+        $valuesWithoutHeader = $this->cutOffRowsHeader($valuesWithoutColumnsHeader);
         $formattedValues = $this->formatValues($valuesWithoutHeader);
-
         $indexed = $this->indexData($formattedValues, $rowsHeader, $this->columnsHeader);
 
         return $indexed;
@@ -167,13 +162,15 @@ abstract class AbstractFileTable extends StrictObject implements Table
         }
     }
 
-    private function parseColumnsHeader(array $data)
+    private function parseColumnsHeader(array $rawData)
     {
         $columnsHeaderValues = [];
         $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
+        $indexShift = count($this->getExpectedRowsHeader());
         foreach (array_keys($expectedHeaderRow) as $dataColumnIndex) {
             $expectedHeaderValue = $expectedHeaderRow[$dataColumnIndex]['value'];
-            $this->checkHeaderValue($data, $dataColumnIndex, $expectedHeaderValue);
+            $rawDataColumnIndex = $dataColumnIndex + $indexShift;
+            $this->checkHeaderValue($rawData, $rawDataColumnIndex, $expectedHeaderValue);
             $columnsHeaderValues[$dataColumnIndex] = $expectedHeaderValue;
         }
 

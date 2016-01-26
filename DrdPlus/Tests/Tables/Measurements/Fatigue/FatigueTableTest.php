@@ -24,8 +24,7 @@ class FatigueTableTest extends TestWithMockery
     {
         $experiencesTable = new FatigueTable($this->woundsTable);
 
-        $this->assertEquals($this->woundsTable->getColumnsHeader(), $experiencesTable->getColumnsHeader());
-        $this->assertEquals($this->woundsTable->getRowsHeader(), $experiencesTable->getRowsHeader());
+        $this->assertEquals($this->woundsTable->getHeader(), $experiencesTable->getHeader());
     }
 
     /**

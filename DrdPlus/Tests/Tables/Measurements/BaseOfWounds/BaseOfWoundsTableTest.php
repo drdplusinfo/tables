@@ -14,8 +14,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertEquals([], $baseOfWoundsTable->getColumnsHeader());
-        $this->assertEquals([], $baseOfWoundsTable->getRowsHeader());
+        $this->assertEquals([], $baseOfWoundsTable->getHeader());
     }
 
     /**

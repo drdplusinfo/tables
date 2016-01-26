@@ -15,8 +15,7 @@ class AmountTableTest extends TestWithMockery
     public function I_can_get_headers()
     {
         $amountTable = new AmountTable();
-        $this->assertEquals(['amount'], $amountTable->getColumnsHeader());
-        $this->assertEquals(['bonus'], $amountTable->getRowsHeader());
+        $this->assertEquals([['bonus', 'amount']], $amountTable->getHeader());
     }
 
     /**
