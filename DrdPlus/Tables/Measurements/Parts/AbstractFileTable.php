@@ -87,7 +87,7 @@ abstract class AbstractFileTable extends AbstractTable
     private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
-        $indexed = $this->indexData($rawData);
+        $indexed = $this->normalizeAndIndex($rawData);
 
         $this->indexedValues = $indexed;
     }
@@ -113,7 +113,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $data;
     }
 
-    private function indexData(array $data)
+    private function normalizeAndIndex(array $data)
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
         if (!isset($data[0]) || $data[0] !== $expectedHeader) {

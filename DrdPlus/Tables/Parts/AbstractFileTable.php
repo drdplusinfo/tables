@@ -58,7 +58,7 @@ abstract class AbstractFileTable extends AbstractTable
     private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
-        $this->indexedValues = $this->mapValues($rawData);
+        $this->indexedValues = $this->normalizeAndIndex($rawData);
     }
 
     /** @return string */
@@ -85,14 +85,14 @@ abstract class AbstractFileTable extends AbstractTable
         return $data;
     }
 
-    private function mapValues(array $rawData)
+    private function normalizeAndIndex(array $rawData)
     {
         $rowsHeader = $this->parseRowsHeader($rawData);
         $this->columnsHeader = $this->parseColumnsHeader($rawData);
         $valuesWithoutColumnsHeader = $this->cutOffColumnsHeader($rawData);
         $valuesWithoutHeader = $this->cutOffRowsHeader($valuesWithoutColumnsHeader);
         $formattedValues = $this->formatValues($valuesWithoutHeader);
-        $indexed = $this->indexData($formattedValues, $rowsHeader, $this->columnsHeader);
+        $indexed = $this->indexValues($formattedValues, $rowsHeader, $this->columnsHeader);
 
         return $indexed;
     }
@@ -167,11 +167,11 @@ abstract class AbstractFileTable extends AbstractTable
         $columnsHeaderValues = [];
         $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
         $indexShift = count($this->getExpectedRowsHeader());
-        foreach (array_keys($expectedHeaderRow) as $dataColumnIndex) {
-            $expectedHeaderValue = $expectedHeaderRow[$dataColumnIndex]['value'];
-            $rawDataColumnIndex = $dataColumnIndex + $indexShift;
+        foreach (array_keys($expectedHeaderRow) as $expectedColumnIndex) {
+            $expectedHeaderValue = $expectedHeaderRow[$expectedColumnIndex]['value'];
+            $rawDataColumnIndex = $expectedColumnIndex + $indexShift;
             $this->checkHeaderValue($rawData, $rawDataColumnIndex, $expectedHeaderValue);
-            $columnsHeaderValues[$dataColumnIndex] = $expectedHeaderValue;
+            $columnsHeaderValues[$expectedColumnIndex] = $expectedHeaderValue;
         }
 
         return $columnsHeaderValues;
@@ -268,7 +268,7 @@ abstract class AbstractFileTable extends AbstractTable
         return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
     }
 
-    private function indexData(array $values, array $rowsHeader, array $columnsHeader)
+    private function indexValues(array $values, array $rowsHeader, array $columnsHeader)
     {
         $indexedRows = $this->indexByRowsHeader($values, $rowsHeader);
         $indexed = $this->indexByColumnsHeader($indexedRows, $columnsHeader);
