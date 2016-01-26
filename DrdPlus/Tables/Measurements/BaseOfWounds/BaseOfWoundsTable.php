@@ -44,7 +44,9 @@ class BaseOfWoundsTable extends StrictObject implements Table
                 function ($value) {
                     $number = str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
 
-                    return intval($number);
+                    return is_numeric($number)
+                        ? intval($number)
+                        : $number;
                 },
                 $row
             );

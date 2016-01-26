@@ -5,6 +5,7 @@ use DrdPlus\Tables\Measurements\MeasurementInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
+use DrdPlus\Tables\Parts\AbstractTable;
 use DrdPlus\Tests\Tools\TestWithMockery;
 
 class AbstractFileTableTest extends TestWithMockery
@@ -32,7 +33,8 @@ class AbstractFileTableTest extends TestWithMockery
         $originalErrorReporting = error_reporting();
         try {
             error_reporting($originalErrorReporting ^ E_WARNING);
-            TestOfAbstractTable::getIt('non-existing-file');
+            $table = TestOfAbstractTable::getIt('non-existing-file');
+            $table->getIndexedValues();
         } catch (\Exception $exception) {
             error_reporting($originalErrorReporting);
             $lastError = error_get_last();
@@ -47,7 +49,8 @@ class AbstractFileTableTest extends TestWithMockery
      */
     public function I_can_not_create_table_with_empty_source_file()
     {
-        TestOfAbstractTable::getIt($this->createTempFilename());
+        $table = TestOfAbstractTable::getIt($this->createTempFilename());
+        $table->getIndexedValues();
     }
 
     private function createTempFilename()
@@ -63,7 +66,8 @@ class AbstractFileTableTest extends TestWithMockery
     {
         $filename = $this->createTempFilename();
         file_put_contents($filename, 'bar');
-        TestOfAbstractTable::getIt($filename);
+        $table = TestOfAbstractTable::getIt($filename);
+        $table->getIndexedValues();
     }
 
     /**
@@ -74,7 +78,8 @@ class AbstractFileTableTest extends TestWithMockery
     {
         $filename = $this->createTempFilename();
         file_put_contents($filename, 'bonus');
-        TestOfAbstractTable::getIt($filename);
+        $table = TestOfAbstractTable::getIt($filename);
+        $table->getIndexedValues();
     }
 
     /**
@@ -115,7 +120,8 @@ class AbstractFileTableTest extends TestWithMockery
         $bonus = 123;
         $unit = 'bar';
         file_put_contents($filename, "bonus,$unit\n$bonus,1\n$bonus,2");
-        TestOfAbstractTable::getIt($filename, [$unit]);
+        $table = TestOfAbstractTable::getIt($filename, [$unit]);
+        $table->getIndexedValues();
     }
 
     /**
@@ -191,6 +197,21 @@ class AbstractFileTableTest extends TestWithMockery
     private function createSomeChance($referenceNumber)
     {
         return $referenceNumber * 2;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_simplified_header_with_more_row_header_rows_then_column_header()
+    {
+        $withLessColumnHeaderRowsThenRowHeader = new WithLessColumnHeaderRowsThenRowHeader();
+        $this->assertEquals(
+            [
+                ['foo', ''],
+                ['bar', 'baz'],
+            ],
+            $withLessColumnHeaderRowsThenRowHeader->getHeader()
+        );
     }
 
 }
@@ -287,4 +308,25 @@ class BonusForTestOfAbstractTable extends AbstractBonus
     {
         parent::__construct($value);
     }
+}
+
+class WithLessColumnHeaderRowsThenRowHeader extends AbstractTable
+{
+    protected function getRowsHeader()
+    {
+        return [
+            ['foo', 'bar']
+        ];
+    }
+
+    protected function getColumnsHeader()
+    {
+        return ['baz'];
+    }
+
+    public function getIndexedValues()
+    {
+        throw new \LogicException;
+    }
+
 }

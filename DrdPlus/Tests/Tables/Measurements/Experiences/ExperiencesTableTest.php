@@ -22,6 +22,17 @@ class ExperiencesTableTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_get_values_same_as_from_wounds_table()
+    {
+        $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
+
+        $this->assertEquals($woundsTable->getValues(), $experiencesTable->getValues());
+        $this->assertEquals($woundsTable->getIndexedValues(), $experiencesTable->getIndexedValues());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_convert_experiences_to_level()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());

@@ -29,7 +29,21 @@ class BackgroundSkillsTable extends AbstractFileTable
     private function getRebuiltOriginalColumnsHeader(array $simplifiedColumnsHeader)
     {
         $originalColumnsHeader = [];
-        $professionsPattern = implode(
+        $professionsPattern = $this->getProfessionsRegexpPattern();
+        foreach ($simplifiedColumnsHeader as $simplifiedColumnName) {
+            $originalColumnHeader = ['', ''];
+            preg_match('~(?<profession>' . $professionsPattern . ')\s+(?<skillType>\w+)~', $simplifiedColumnName, $matches);
+            $originalColumnHeader[0] = $matches['profession'];
+            $originalColumnHeader[1] = $matches['skillType'];
+            $originalColumnsHeader[] = $originalColumnHeader;
+        }
+
+        return $originalColumnsHeader;
+    }
+
+    private function getProfessionsRegexpPattern()
+    {
+        return implode(
             '|',
             array_map(
                 function ($professionName) {
@@ -38,19 +52,6 @@ class BackgroundSkillsTable extends AbstractFileTable
                 ProfessionCodes::getProfessionCodes()
             )
         );
-
-        foreach ($simplifiedColumnsHeader as $simplifiedColumnName) {
-            $originalColumnHeader = ['', ''];
-            if (preg_match('~(?<profession>' . $professionsPattern . ')\s+(?<skillType>\w+)~', $simplifiedColumnName, $matches)) {
-                $originalColumnHeader[0] = $matches['profession'];
-                $originalColumnHeader[1] = $matches['skillType'];
-            } else {
-                $originalColumnHeader[1] = $simplifiedColumnName;
-            }
-            $originalColumnsHeader[] = $originalColumnHeader;
-        }
-
-        return $originalColumnsHeader;
     }
 
     /**

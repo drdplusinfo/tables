@@ -31,7 +31,6 @@ abstract class AbstractFileTable extends AbstractTable
     public function __construct(EvaluatorInterface $evaluator)
     {
         $this->evaluator = $evaluator;
-        $this->loadData();
     }
 
     /**
@@ -206,16 +205,16 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $this->checkBonus($bonus);
         $bonusValue = $bonus->getValue();
-        if (is_null($wantedUnit) && isset($this->indexedValues[$bonusValue])) {
-            $wantedUnit = key($this->indexedValues[$bonusValue]);
+        if (is_null($wantedUnit) && isset($this->getIndexedValues()[$bonusValue])) {
+            $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
         } else {
             $this->checkUnit($wantedUnit);
         }
 
-        if (!isset($this->indexedValues[$bonusValue][$wantedUnit])) {
+        if (!isset($this->getIndexedValues()[$bonusValue][$wantedUnit])) {
             throw new Exceptions\MissingDataForBonus("Missing data for bonus $bonus with unit $wantedUnit");
         }
-        $rawValue = $this->indexedValues[$bonusValue][$wantedUnit];
+        $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
         $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
 
@@ -224,7 +223,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function checkBonus(AbstractBonus $bonus)
     {
-        if (!isset($this->indexedValues[$bonus->getValue()])) {
+        if (!isset($this->getIndexedValues()[$bonus->getValue()])) {
             throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
         }
     }

@@ -45,20 +45,20 @@ abstract class AbstractTable extends StrictObject implements Table
         for ($rowIndex = 0; $rowIndex < $maxRowsCount; $rowIndex++) {
             $headerRow = [];
             $rowsHeaderRowIndex = $rowIndex + $rowsHeaderIndexShift;
-            if ($rowsHeaderRowIndex >= 0) {
+            if ($rowsHeaderRowIndex < 0) { // not yet
+                $headerRow[] = '';
+            } else {
                 foreach ($rowsHeader as $columnsHeaderColumn) {
                     $headerRow[] = $columnsHeaderColumn[$rowsHeaderRowIndex];
                 }
-            } else {
-                $headerRow[] = '';
             }
             $columnsHeaderRowIndex = $rowIndex + $columnsHeaderIndexShift;
-            if ($columnsHeaderRowIndex >= 0) {
+            if ($columnsHeaderRowIndex < 0) { // not yet
+                $headerRow[] = '';
+            } else {
                 foreach ($columnsHeader as $columnsHeaderColumn) {
                     $headerRow[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
                 }
-            } else {
-                $headerRow[] = '';
             }
             $header[] = $headerRow;
         }
