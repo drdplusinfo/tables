@@ -305,6 +305,39 @@ class RacesTable extends AbstractFileTable
 
     /**
      * @param string $raceCode
+     * @param string $subRaceCode
+     * @param string $genderCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     * @param WeightTable $weightTable
+     * @return float
+     */
+    public function getWeightInKg(
+        $raceCode,
+        $subRaceCode,
+        $genderCode,
+        FemaleModifiersTable $femaleModifiersTable,
+        WeightTable $weightTable
+    )
+    {
+        switch ($genderCode) {
+            case GenderCodes::MALE :
+                return $this->getMaleWeightInKg($raceCode, $subRaceCode);
+            case GenderCodes::FEMALE :
+                return $this->getFemaleWeightInKg(
+                    $raceCode,
+                    $subRaceCode,
+                    $femaleModifiersTable,
+                    $weightTable
+                );
+            default :
+                throw new Exceptions\UnknownGender(
+                    'Unknown gender ' . ValueDescriber::describe($genderCode)
+                );
+        }
+    }
+
+    /**
+     * @param string $raceCode
      * @param string $subraceCode
      *
      * @return float

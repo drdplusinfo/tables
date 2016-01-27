@@ -909,9 +909,35 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $this->assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg($race, $subrace));
+        $femaleModifiersTable = new FemaleModifiersTable();
+        $weightTable = new WeightTable();
         $this->assertSame(
             $femaleWeightInKg,
-            $racesTable->getFemaleWeightInKg($race, $subrace, new FemaleModifiersTable(), new WeightTable())
+            $racesTable->getFemaleWeightInKg($race, $subrace, $femaleModifiersTable, $weightTable)
+        );
+        $this->assertSame(
+            $maleWeightInKg,
+            $racesTable->getWeightInKg($race, $subrace, GenderCodes::MALE, $femaleModifiersTable, $weightTable)
+        );
+        $this->assertSame(
+            $femaleWeightInKg,
+            $racesTable->getWeightInKg($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable, $weightTable)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     */
+    public function I_can_not_get_weight_of_unknown_gender()
+    {
+        $racesTable = new RacesTable();
+        $racesTable->getWeightInKg(
+            RaceCodes::HUMAN,
+            RaceCodes::COMMON,
+            'not from this universe',
+            new FemaleModifiersTable(),
+            new WeightTable()
         );
     }
 
