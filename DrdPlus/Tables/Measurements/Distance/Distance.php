@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Measurements\Distance;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementWithBonus;
 use Granam\Float\Tools\ToFloat;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 
 class Distance extends AbstractMeasurementWithBonus
 {

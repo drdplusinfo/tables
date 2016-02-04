@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Parts;
 use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 
 abstract class AbstractFileTable extends AbstractTable
 {

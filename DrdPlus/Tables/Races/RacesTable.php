@@ -8,7 +8,7 @@ use DrdPlus\Tables\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 
 class RacesTable extends AbstractFileTable
 {

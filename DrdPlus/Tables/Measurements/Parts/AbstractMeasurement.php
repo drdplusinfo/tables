@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Measurements\Parts;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\MeasurementInterface;
 use Granam\Float\Tools\ToFloat;
-use Granam\Scalar\Tools\ValueDescriber;
+use Granam\Tools\ValueDescriber;
 use Granam\Strict\Object\StrictObject;
 
 abstract class AbstractMeasurement extends StrictObject implements MeasurementInterface
