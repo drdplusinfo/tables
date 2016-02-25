@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Distance;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
-use DrdPlus\Tests\Tools\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;
 use Granam\Integer\IntegerObject;
 
 class DistanceTableTest extends TestWithMockery

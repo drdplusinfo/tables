@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Amount;
 use DrdPlus\Tables\Measurements\Amount\Amount;
 use DrdPlus\Tables\Measurements\Amount\AmountBonus;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
-use DrdPlus\Tests\Tools\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;
 
 class AmountTableTest extends TestWithMockery
 {

@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Speed;
 use DrdPlus\Tables\Measurements\Speed\Speed;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
-use DrdPlus\Tests\Tools\TestWithMockery;
+use Granam\Tests\Tools\TestWithMockery;
 
 class SpeedTableTest extends TestWithMockery
 {
