@@ -1,18 +1,18 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Tools;
 
-use Drd\DiceRoll\Templates\Rolls\Roll1d6;
+use Drd\DiceRoll\Templates\Rollers\Roller1d6;
 
 class DiceChanceEvaluator implements EvaluatorInterface
 {
     /**
-     * @var Roll1d6
+     * @var Roller1d6
      */
-    private $roll1d6;
+    private $roller1d6;
 
-    public function __construct(Roll1d6 $roll1d6)
+    public function __construct(Roller1d6 $roller1d6)
     {
-        $this->roll1d6 = $roll1d6;
+        $this->roller1d6 = $roller1d6;
     }
 
     /**
@@ -22,7 +22,7 @@ class DiceChanceEvaluator implements EvaluatorInterface
      */
     public function evaluate($maxRollToGetValue)
     {
-        if ($maxRollToGetValue <= $this->roll1d6->roll()) {
+        if ($maxRollToGetValue <= $this->roller1d6->roll()->getValue()) {
             return 1;
         }
 

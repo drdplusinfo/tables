@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Amount;
 
-use Drd\DiceRoll\Templates\Rolls\Roll1d6;
+use Drd\DiceRoll\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
@@ -12,7 +12,7 @@ class AmountTable extends AbstractFileTable
 {
     public function __construct()
     {
-        parent::__construct(new DiceChanceEvaluator(new Roll1d6()));
+        parent::__construct(new DiceChanceEvaluator(Roller1d6::getIt()));
     }
 
     protected function getDataFileName()
