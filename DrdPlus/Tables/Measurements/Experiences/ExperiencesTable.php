@@ -79,7 +79,7 @@ class ExperiencesTable extends AbstractTable
         $levelSum = 0;
         $remainingExperiences = $experiences->getValue();
         while ($remainingExperiences > 0 /* or conditioned break, see bellow */) {
-            $level = $this->toLevel(new Experiences($remainingExperiences, Experiences::EXPERIENCES, $this));
+            $level = $this->toLevel(new Experiences($remainingExperiences, $this, Experiences::EXPERIENCES));
             if ($level->getValue() > 0) {
                 $levelSum += $level->getValue();
                 $remainingExperiences -= $level->getExperiences()->getValue();
@@ -103,7 +103,7 @@ class ExperiencesTable extends AbstractTable
         );
         $experiencesValue = $wounds->getValue();
 
-        return new Experiences($experiencesValue, Experiences::EXPERIENCES, $this);
+        return new Experiences($experiencesValue, $this, Experiences::EXPERIENCES);
     }
 
     private function levelToBonusValue(Level $level)
@@ -128,7 +128,7 @@ class ExperiencesTable extends AbstractTable
             }
         }
 
-        return new Experiences($experiencesSum, Experiences::EXPERIENCES, $this);
+        return new Experiences($experiencesSum, $this, Experiences::EXPERIENCES);
     }
 
 }

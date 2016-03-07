@@ -36,7 +36,7 @@ class ExperiencesTableTest extends TestWithMockery
     public function I_can_convert_experiences_to_level()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $experiences = new Experiences($experiencesValue = 123, Experiences::EXPERIENCES, $experiencesTable);
+        $experiences = new Experiences($experiencesValue = 123, $experiencesTable, Experiences::EXPERIENCES);
 
         $level = $experiencesTable->toLevel($experiences);
         $this->assertInstanceOf(Level::class, $level);
@@ -87,7 +87,7 @@ class ExperiencesTableTest extends TestWithMockery
     public function I_can_convert_experiences_to_total_level()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $experiences = new Experiences($experiencesValue = 99, Experiences::EXPERIENCES, $experiencesTable);
+        $experiences = new Experiences($experiencesValue = 99, $experiencesTable, Experiences::EXPERIENCES);
 
         $level = $experiencesTable->toTotalLevel($experiences);
         $this->assertSame(14, $level->getValue());

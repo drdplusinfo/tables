@@ -17,7 +17,7 @@ class Experiences extends AbstractMeasurementWithBonus
      */
     private $experiencesTable;
 
-    public function __construct($value, $unit, ExperiencesTable $experiencesTable)
+    public function __construct($value, ExperiencesTable $experiencesTable, $unit = self::EXPERIENCES)
     {
         parent::__construct($value, $unit);
         $this->experiencesTable = $experiencesTable;

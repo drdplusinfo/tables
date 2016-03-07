@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\MeasurementInterface;
 use DrdPlus\Tables\Parts\AbstractTable;
+use DrdPlus\Tables\Table;
 use Granam\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfMeasurement extends TestWithMockery
@@ -33,6 +34,11 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
             return new $sutClass($amount, $unit);
         }
 
+        return $this->createSutWithTable($sutClass, $amount, $unit, $table);
+    }
+
+    protected function createSutWithTable($sutClass, $amount, $unit, Table $table)
+    {
         return new $sutClass($amount, $unit, $table);
     }
 

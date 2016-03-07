@@ -3,10 +3,17 @@ namespace DrdPlus\Tests\Tables\Measurements\Experiences;
 
 use DrdPlus\Tables\Measurements\Experiences\Experiences;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
+use DrdPlus\Tables\Table;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
 
 class ExperiencesTest extends AbstractTestOfMeasurement
 {
+
+    protected function createSutWithTable($sutClass, $amount, $unit, Table $table)
+    {
+        return new $sutClass($amount, $table, $unit);
+    }
+
     /**
      * @test
      */
@@ -14,8 +21,8 @@ class ExperiencesTest extends AbstractTestOfMeasurement
     {
         $experiences = new Experiences(
             $value = 456,
-            Experiences::EXPERIENCES,
-            $this->getExperiencesTable()
+            $this->getExperiencesTable(),
+            Experiences::EXPERIENCES
         );
         $this->assertSame($value, $experiences->getValue());
     }
@@ -35,8 +42,8 @@ class ExperiencesTest extends AbstractTestOfMeasurement
     {
         $experiences = new Experiences(
             $value = 111,
-            Experiences::EXPERIENCES,
-            $experiencesTable = $this->getExperiencesTable()
+            $experiencesTable = $this->getExperiencesTable(),
+            Experiences::EXPERIENCES
         );
         $experiencesTable->shouldReceive('toLevel')
             ->atLeast()->once()
@@ -52,8 +59,8 @@ class ExperiencesTest extends AbstractTestOfMeasurement
     {
         $experiences = new Experiences(
             $value = 123,
-            Experiences::EXPERIENCES,
-            $experiencesTable = $this->getExperiencesTable()
+            $experiencesTable = $this->getExperiencesTable(),
+            Experiences::EXPERIENCES
         );
         $experiencesTable->shouldReceive('toTotalLevel')
             ->atLeast()->once()
