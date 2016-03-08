@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
+use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
@@ -169,19 +170,12 @@ class AbstractFileTableTest extends TestWithMockery
         $bonusValues = [];
         $rows = [];
         foreach ($chances as $chance) {
-            $bonusValues[$chance] = $bonusValue = $this->createSomeBonus($chance);
+            $bonusValues[$chance] = $bonusValue = $this->createSomeBonusValue($chance);
             $rows[] = "$bonusValue,$chance/6";
         }
         file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
-        $table = TestOfAbstractTable::getIt($filename, [$unit], $evaluator = $this->mockery(EvaluatorInterface::class));
         $valuesToEvaluate = [];
-        $evaluator->shouldReceive('evaluate')
-            ->atLeast()->once()
-            ->andReturnUsing(function ($toEvaluate) use (&$valuesToEvaluate) {
-                $valuesToEvaluate[] = $toEvaluate;
-
-                return $toEvaluate;
-            });
+        $table = TestOfAbstractTable::getIt($filename, [$unit], $this->createOneToOneEvaluator($valuesToEvaluate));
         foreach ($bonusValues as $chance => $bonusValue) {
             $bonus = new BonusForTestOfAbstractTable($bonusValue);
             self::assertSame(
@@ -193,9 +187,23 @@ class AbstractFileTableTest extends TestWithMockery
         self::assertSame($chances, $valuesToEvaluate);
     }
 
-    private function createSomeBonus($referenceNumber)
+    private function createSomeBonusValue($referenceNumber)
     {
         return $referenceNumber + 3;
+    }
+
+    private function createOneToOneEvaluator(array &$valuesToEvaluate)
+    {
+        $evaluator = $this->mockery(EvaluatorInterface::class);
+        $evaluator->shouldReceive('evaluate')
+            ->atLeast()->once()
+            ->andReturnUsing(function ($toEvaluate) use (&$valuesToEvaluate) {
+                $valuesToEvaluate[] = $toEvaluate;
+
+                return $toEvaluate;
+            });
+
+        return $evaluator;
     }
 
     /**
@@ -211,6 +219,27 @@ class AbstractFileTableTest extends TestWithMockery
             ],
             $withLessColumnHeaderRowsThenRowHeader->getHeader()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_bonus_by_dice_chance_exact_match()
+    {
+        $filename = $this->createTempFilename();
+        $chances = range(0, 6);
+        $unit = 'bar';
+        $bonusValues = [];
+        $rows = [];
+        foreach ($chances as $chance) {
+            $bonusValues[$chance] = $bonusValue = $this->createSomeBonusValue($chance);
+            $rows[] = "$bonusValue,$chance/6";
+        }
+        file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
+        $table = TestOfAbstractTable::getIt($filename, [$unit]);
+        foreach ($bonusValues as $chance => $bonusValue) {
+            self::assertSame($bonusValue, $table->toBonus($unit, "$chance/6")->getValue());
+        }
     }
 
 }
@@ -296,6 +325,23 @@ class TestOfAbstractTable extends AbstractFileTable
     public function toMeasurement(AbstractBonus $bonus, $unit = null)
     {
         return parent::toMeasurement($bonus, $unit);
+    }
+
+    /**
+     * @param string $unit
+     * @param mixed $value
+     * @return AbstractBonus
+     */
+    public function toBonus($unit, $value)
+    {
+        /** @var \Mockery\MockInterface|MeasurementWithBonusInterface $measurement */
+        $measurement = \Mockery::mock(MeasurementWithBonusInterface::class);
+        $measurement->shouldReceive('getUnit')
+            ->andReturn($unit);
+        $measurement->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return parent::measurementToBonus($measurement);
     }
 
 }

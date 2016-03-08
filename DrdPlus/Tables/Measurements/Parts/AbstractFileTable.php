@@ -313,7 +313,7 @@ abstract class AbstractFileTable extends AbstractTable
             }
             if ($isItDiceRollChance || $this->isItDiceRollChance($relatedValue)) { // only exact value match can return dice chance
                 continue; // dice roll chance fractions are skipped (example '2/6')
-            } // TODO test exact dice roll chance match
+            }
             if ($searchedValue > $relatedValue) {
                 if (count($closest['lower']) === 0 || key($closest['lower']) < $relatedValue) {
                     $closest['lower'] = [$relatedValue => [$bonus]]; // new value to [bonus] pair
