@@ -1,7 +1,6 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
-use DrdPlus\Tables\Measurements\MeasurementInterface;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
@@ -165,12 +164,12 @@ class AbstractFileTableTest extends TestWithMockery
     public function My_chance_is_evaluated_properly()
     {
         $filename = $this->createTempFilename();
-        $bonusValues = range(1, 6);
+        $chances = range(0, 6);
         $unit = 'bar';
-        $chances = [];
+        $bonusValues = [];
         $rows = [];
-        foreach ($bonusValues as $bonusValue) {
-            $chances[] = $chance = $this->createSomeChance($bonusValue);
+        foreach ($chances as $chance) {
+            $bonusValues[$chance] = $bonusValue = $this->createSomeBonus($chance);
             $rows[] = "$bonusValue,$chance/6";
         }
         file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
@@ -178,25 +177,25 @@ class AbstractFileTableTest extends TestWithMockery
         $valuesToEvaluate = [];
         $evaluator->shouldReceive('evaluate')
             ->atLeast()->once()
-            ->andReturnUsing(function () use (&$valuesToEvaluate) {
-                $valuesToEvaluate[] = $toEvaluate = func_get_arg(0);
+            ->andReturnUsing(function ($toEvaluate) use (&$valuesToEvaluate) {
+                $valuesToEvaluate[] = $toEvaluate;
 
                 return $toEvaluate;
             });
-        foreach ($bonusValues as $bonusValue) {
+        foreach ($bonusValues as $chance => $bonusValue) {
             $bonus = new BonusForTestOfAbstractTable($bonusValue);
             self::assertSame(
             /** @see \DrdPlus\Tests\Tables\Measurements\TestOfAbstractTable::convertToMeasurement */
-                [$unit => $this->createSomeChance($bonusValue)],
+                [$unit => $chance],
                 $table->toMeasurement($bonus, $unit)
             );
         }
         self::assertSame($chances, $valuesToEvaluate);
     }
 
-    private function createSomeChance($referenceNumber)
+    private function createSomeBonus($referenceNumber)
     {
-        return $referenceNumber -1;
+        return $referenceNumber + 3;
     }
 
     /**
@@ -271,7 +270,7 @@ class TestOfAbstractTable extends AbstractFileTable
      * @param float $value
      * @param string $unit
      *
-     * @return MeasurementInterface
+     * @return array
      */
     protected function convertToMeasurement($value, $unit)
     {
@@ -289,10 +288,10 @@ class TestOfAbstractTable extends AbstractFileTable
     }
 
     /**
+     * Just making it public.
      * @param AbstractBonus $bonus
      * @param null $unit
-     *
-     * @return array
+     * @return array (differs from parent, @see \DrdPlus\Tests\Tables\Measurements\Parts\TestOfAbstractTable::convertToMeasurement for exact return value)
      */
     public function toMeasurement(AbstractBonus $bonus, $unit = null)
     {

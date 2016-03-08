@@ -192,7 +192,7 @@ abstract class AbstractFileTable extends AbstractTable
      */
     private function isItDiceRollChance($value)
     {
-        return preg_match('~^\d+/\d+$~', $value);
+        return preg_match('~^\d+/\d+$~', $value) > 0;
     }
 
     /**
@@ -240,7 +240,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @param $rawValue
      *
-     * @return int
+     * @return float|int
      */
     private function evaluate($rawValue)
     {
@@ -297,30 +297,33 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function findBonusMatchingTo($searchedValue, $searchedUnit)
     {
-        $searchedValue = ToFloat::toFloat($searchedValue);
+        $searchedValue = trim($searchedValue);
+        $isItDiceRollChance = $this->isItDiceRollChance($searchedValue);
+        if (!$isItDiceRollChance) {
+            $searchedValue = ToFloat::toFloat($searchedValue);
+        }
         $closest = ['lower' => [], 'higher' => []];
         foreach ($this->getIndexedValues() as $bonus => $relatedValues) {
-            if (!isset($relatedValues[$searchedUnit])) { // current row doesn't have required unit
+            if (!array_key_exists($searchedUnit, $relatedValues)) { // current row doesn't have required unit
                 continue;
             }
             $relatedValue = $relatedValues[$searchedUnit];
             if ($relatedValue === $searchedValue) {
-                return $bonus; // we found exact match
+                return $bonus; // we have found exact match
             }
-            if ($this->isItDiceRollChance($relatedValue)) { // only exact value match can return dice chance
+            if ($isItDiceRollChance || $this->isItDiceRollChance($relatedValue)) { // only exact value match can return dice chance
                 continue; // dice roll chance fractions are skipped (example '2/6')
-            }
+            } // TODO test exact dice roll chance match
             if ($searchedValue > $relatedValue) {
-                if (empty($closest['lower']) || key($closest['lower']) < $relatedValue) {
+                if (count($closest['lower']) === 0 || key($closest['lower']) < $relatedValue) {
                     $closest['lower'] = [$relatedValue => [$bonus]]; // new value to [bonus] pair
-                } else if (!empty($closest['lower']) && key($closest['lower']) === $relatedValue) {
+                } else if (count($closest['lower']) > 0 && key($closest['lower']) === $relatedValue) {
                     $closest['lower'][$relatedValue][] = $bonus; // adding bonus for same value
                 }
-            }
-            if ($searchedValue < $relatedValue) {
-                if (empty($closest['higher']) || key($closest['higher']) > $relatedValue) {
+            } else if ($searchedValue < $relatedValue) {
+                if (count($closest['higher']) === 0 || key($closest['higher']) > $relatedValue) {
                     $closest['higher'] = [$relatedValue => [$bonus]]; // new value to bonus pair
-                } else if (!empty($closest['higher']) && key($closest['higher']) === $relatedValue) {
+                } else if (count($closest['higher']) > 0 && key($closest['higher']) === $relatedValue) {
                     $closest['higher'][$relatedValue][] = $bonus; // adding bonus for same value
                 }
             }

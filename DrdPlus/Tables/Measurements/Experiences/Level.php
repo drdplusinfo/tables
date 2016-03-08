@@ -14,7 +14,6 @@ class Level extends AbstractBonus
      */
     private $experiencesTable;
 
-    // TODO 0 experience = level 1 ???
     public function __construct($value, ExperiencesTable $experiencesTable)
     {
         parent::__construct($value);
@@ -30,7 +29,8 @@ class Level extends AbstractBonus
     {
         if ($levelValue < static::MIN_LEVEL) {
             throw new Exceptions\MinLevelUnderflow(
-                'Level has to be at least ' . self::MIN_LEVEL . ', got ' . $levelValue);
+                'Level has to be at least ' . self::MIN_LEVEL . ', got ' . $levelValue
+            );
         }
         if ($levelValue > static::MAX_LEVEL) {
             throw new Exceptions\MaxLevelOverflow(
