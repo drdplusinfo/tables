@@ -13,7 +13,7 @@ class AbstractBonusTest extends TestWithMockery
     public function I_can_create_bonus()
     {
         $bonus = new DeAbstractedBonus($value = 123);
-        $this->assertSame($value, $bonus->getValue());
+        self::assertSame($value, $bonus->getValue());
     }
 
     /**
@@ -22,7 +22,7 @@ class AbstractBonusTest extends TestWithMockery
     public function I_can_create_bonus_from_float_without_decimal()
     {
         $bonus = new DeAbstractedBonus($value = 123.0);
-        $this->assertSame(intval($value), $bonus->getValue());
+        self::assertSame((int)$value, $bonus->getValue());
     }
 
     /**
@@ -40,7 +40,7 @@ class AbstractBonusTest extends TestWithMockery
     public function I_can_use_bonus_as_an_integer_object()
     {
         $bonus = new DeAbstractedBonus($value = 123456);
-        $this->assertInstanceOf(IntegerInterface::class, $bonus);
+        self::assertInstanceOf(IntegerInterface::class, $bonus);
     }
 
 }

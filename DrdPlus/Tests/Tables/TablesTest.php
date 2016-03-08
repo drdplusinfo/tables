@@ -23,41 +23,41 @@ class TablesTest extends \PHPUnit_Framework_TestCase
     {
         $tables = new Tables();
 
-        $this->assertInstanceOf(AmountTable::class, $amountTable = $tables->getAmountTable());
-        $this->assertSame($amountTable, $tables->getAmountTable());
+        self::assertInstanceOf(AmountTable::class, $amountTable = $tables->getAmountTable());
+        self::assertSame($amountTable, $tables->getAmountTable());
 
-        $this->assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $tables->getBaseOfWoundsTable());
-        $this->assertSame($baseOfWoundsTable, $tables->getBaseOfWoundsTable());
+        self::assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $tables->getBaseOfWoundsTable());
+        self::assertSame($baseOfWoundsTable, $tables->getBaseOfWoundsTable());
 
-        $this->assertInstanceOf(DistanceTable::class, $distanceTable = $tables->getDistanceTable());
-        $this->assertSame($distanceTable, $tables->getDistanceTable());
+        self::assertInstanceOf(DistanceTable::class, $distanceTable = $tables->getDistanceTable());
+        self::assertSame($distanceTable, $tables->getDistanceTable());
 
-        $this->assertInstanceOf(ExperiencesTable::class, $experiencesTable = $tables->getExperiencesTable());
-        $this->assertSame($experiencesTable, $tables->getExperiencesTable());
+        self::assertInstanceOf(ExperiencesTable::class, $experiencesTable = $tables->getExperiencesTable());
+        self::assertSame($experiencesTable, $tables->getExperiencesTable());
 
-        $this->assertInstanceOf(FatigueTable::class, $fatigueTable = $tables->getFatigueTable());
-        $this->assertSame($fatigueTable, $tables->getFatigueTable());
+        self::assertInstanceOf(FatigueTable::class, $fatigueTable = $tables->getFatigueTable());
+        self::assertSame($fatigueTable, $tables->getFatigueTable());
 
-        $this->assertInstanceOf(SpeedTable::class, $speedTable = $tables->getSpeedTable());
-        $this->assertSame($speedTable, $tables->getSpeedTable());
+        self::assertInstanceOf(SpeedTable::class, $speedTable = $tables->getSpeedTable());
+        self::assertSame($speedTable, $tables->getSpeedTable());
 
-        $this->assertInstanceOf(TimeTable::class, $timeTable = $tables->getTimeTable());
-        $this->assertSame($timeTable, $tables->getTimeTable());
+        self::assertInstanceOf(TimeTable::class, $timeTable = $tables->getTimeTable());
+        self::assertSame($timeTable, $tables->getTimeTable());
 
-        $this->assertInstanceOf(WeightTable::class, $weightTable = $tables->getWeightTable());
-        $this->assertSame($weightTable, $tables->getWeightTable());
+        self::assertInstanceOf(WeightTable::class, $weightTable = $tables->getWeightTable());
+        self::assertSame($weightTable, $tables->getWeightTable());
 
-        $this->assertInstanceOf(WoundsTable::class, $woundsTable = $tables->getWoundsTable());
-        $this->assertSame($woundsTable, $tables->getWoundsTable());
+        self::assertInstanceOf(WoundsTable::class, $woundsTable = $tables->getWoundsTable());
+        self::assertSame($woundsTable, $tables->getWoundsTable());
 
-        $this->assertInstanceOf(RacesTable::class, $raceTables = $tables->getRacesTable());
-        $this->assertSame($raceTables, $tables->getRacesTable());
+        self::assertInstanceOf(RacesTable::class, $raceTables = $tables->getRacesTable());
+        self::assertSame($raceTables, $tables->getRacesTable());
 
-        $this->assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $tables->getFemaleModifiersTable());
-        $this->assertSame($femaleModifiers, $tables->getFemaleModifiersTable());
+        self::assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $tables->getFemaleModifiersTable());
+        self::assertSame($femaleModifiers, $tables->getFemaleModifiersTable());
 
-        $this->assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $tables->getBackgroundSkillsTable());
-        $this->assertSame($backgroundSkills, $tables->getBackgroundSkillsTable());
+        self::assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $tables->getBackgroundSkillsTable());
+        self::assertSame($backgroundSkills, $tables->getBackgroundSkillsTable());
     }
 
     /**
@@ -71,11 +71,11 @@ class TablesTest extends \PHPUnit_Framework_TestCase
             $fetchedTableClasses[] = get_class($table);
         }
         $expectedTableClasses = $this->getExpectedTableClasses();
-        $this->assertSameSize($expectedTableClasses, $fetchedTableClasses);
+        self::assertSameSize($expectedTableClasses, $fetchedTableClasses);
 
         sort($expectedTableClasses);
         sort($fetchedTableClasses);
-        $this->assertEquals($expectedTableClasses, $fetchedTableClasses);
+        self::assertEquals($expectedTableClasses, $fetchedTableClasses);
     }
 
     private function getExpectedTableClasses()

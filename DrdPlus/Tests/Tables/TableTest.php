@@ -10,11 +10,11 @@ class TableTest extends \PHPUnit_Framework_TestCase
      */
     public function All_tables_have_table_interface()
     {
-        $this->assertTrue(method_exists(Table::class, 'getIndexedValues'));
-        $this->assertTrue(method_exists(Table::class, 'getValues'));
-        $this->assertTrue(method_exists(Table::class, 'getHeader'));
+        self::assertTrue(method_exists(Table::class, 'getIndexedValues'));
+        self::assertTrue(method_exists(Table::class, 'getValues'));
+        self::assertTrue(method_exists(Table::class, 'getHeader'));
         foreach (self::getTableClasses() as $tableClass) {
-            $this->assertTrue(
+            self::assertTrue(
                 is_a($tableClass, Table::class, true),
                 "Table $tableClass does not implements " . Table::class . 'interface'
             );

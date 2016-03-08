@@ -17,7 +17,7 @@ class DistanceTableTest extends TestWithMockery
     {
         $distanceTable = new DistanceTable();
 
-        $this->assertEquals([['bonus', 'm','km','light_year']], $distanceTable->getHeader());
+        self::assertEquals([['bonus', 'm','km','light_year']], $distanceTable->getHeader());
     }
 
     /**
@@ -29,21 +29,21 @@ class DistanceTableTest extends TestWithMockery
 
         $bonus = new DistanceBonus(-40, $distanceTable);
         $distance = $distanceTable->toDistance($bonus);
-        $this->assertSame(0.01, $distance->getMeters());
-        $this->assertSame(0.00001, $distance->getKilometers());
-        $this->assertSame($bonus->getValue(), $distance->getBonus()->getValue());
+        self::assertSame(0.01, $distance->getMeters());
+        self::assertSame(0.00001, $distance->getKilometers());
+        self::assertSame($bonus->getValue(), $distance->getBonus()->getValue());
 
         $bonus = new DistanceBonus(0, $distanceTable);
         $distance = $distanceTable->toDistance($bonus);
-        $this->assertSame(1.0, $distance->getMeters());
-        $this->assertSame(0.001, $distance->getKilometers());
-        $this->assertSame($bonus->getValue(), $distance->getBonus()->getValue());
+        self::assertSame(1.0, $distance->getMeters());
+        self::assertSame(0.001, $distance->getKilometers());
+        self::assertSame($bonus->getValue(), $distance->getBonus()->getValue());
 
         $bonus = new DistanceBonus(119, $distanceTable);
         $distance = $distanceTable->toDistance($bonus);
-        $this->assertSame(900000.0, $distance->getMeters());
-        $this->assertSame(900.0, $distance->getKilometers());
-        $this->assertSame($bonus->getValue(), $distance->getBonus()->getValue());
+        self::assertSame(900000.0, $distance->getMeters());
+        self::assertSame(900.0, $distance->getKilometers());
+        self::assertSame($bonus->getValue(), $distance->getBonus()->getValue());
     }
 
     /**
@@ -75,20 +75,20 @@ class DistanceTableTest extends TestWithMockery
 
         // 0.01 matches more bonuses - the lowest is taken
         $distance = new Distance(0.01, Distance::M, $distanceTable);
-        $this->assertSame(-40, $distance->getBonus()->getValue());
+        self::assertSame(-40, $distance->getBonus()->getValue());
 
         $distance = new Distance(1, Distance::M, $distanceTable);
-        $this->assertSame(0, $distance->getBonus()->getValue());
+        self::assertSame(0, $distance->getBonus()->getValue());
 
         $distance = new Distance(104, Distance::M, $distanceTable);
-        $this->assertSame(40, $distance->getBonus()->getValue()); // 40 is the closest bonus
+        self::assertSame(40, $distance->getBonus()->getValue()); // 40 is the closest bonus
         $distance = new Distance(105, Distance::M, $distanceTable);
-        $this->assertSame(41, $distance->getBonus()->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
+        self::assertSame(41, $distance->getBonus()->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
         $distance = new Distance(106, Distance::M, $distanceTable);
-        $this->assertSame(41, $distance->getBonus()->getValue()); // 41 is the closest bonus (higher in this case)
+        self::assertSame(41, $distance->getBonus()->getValue()); // 41 is the closest bonus (higher in this case)
 
         $distance = new Distance(900, Distance::KM, $distanceTable);
-        $this->assertSame(119, $distance->getBonus()->getValue());
+        self::assertSame(119, $distance->getBonus()->getValue());
     }
 
     /**
@@ -120,6 +120,6 @@ class DistanceTableTest extends TestWithMockery
     {
         $weightTable = new DistanceTable();
         $bonus = $weightTable->sizeToDistanceBonus(new IntegerObject($value = 123));
-        $this->assertSame($value + 12, $bonus->getValue());
+        self::assertSame($value + 12, $bonus->getValue());
     }
 }

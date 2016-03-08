@@ -62,7 +62,7 @@ class WoundsTable extends AbstractFileTable
      */
     protected function convertToMeasurement($value, $unit)
     {
-        return new Wounds($value, $unit, $this);
+        return new Wounds($value, $this, $unit);
     }
 
 }

@@ -23,19 +23,19 @@ class PriceTest extends AbstractTestOfMeasurement
     public function I_can_convert_money_per_base()
     {
         $coppers = new Price($value = 123, Price::COPPER_COIN);
-        $this->assertSame((float)$value, $coppers->getCopperCoins());
-        $this->assertSame($value / 10, $coppers->getSilverCoins());
-        $this->assertSame($value / 100, $coppers->getGoldCoins());
+        self::assertSame((float)$value, $coppers->getCopperCoins());
+        self::assertSame($value / 10, $coppers->getSilverCoins());
+        self::assertSame($value / 100, $coppers->getGoldCoins());
 
         $silvers = new Price($value = 123, Price::SILVER_COIN);
-        $this->assertSame($value * 10.0, $silvers->getCopperCoins());
-        $this->assertSame((float)$value, $silvers->getSilverCoins());
-        $this->assertSame($value / 10, $silvers->getGoldCoins());
+        self::assertSame($value * 10.0, $silvers->getCopperCoins());
+        self::assertSame((float)$value, $silvers->getSilverCoins());
+        self::assertSame($value / 10, $silvers->getGoldCoins());
 
         $golds = new Price($value = 123, Price::GOLD_COIN);
-        $this->assertSame($value * 100.0, $golds->getCopperCoins());
-        $this->assertSame($value * 10.0, $golds->getSilverCoins());
-        $this->assertSame((float)$value, $golds->getGoldCoins());
+        self::assertSame($value * 100.0, $golds->getCopperCoins());
+        self::assertSame($value * 10.0, $golds->getSilverCoins());
+        self::assertSame((float)$value, $golds->getGoldCoins());
     }
 
     /**

@@ -14,7 +14,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertEquals([], $baseOfWoundsTable->getHeader());
+        self::assertEquals([], $baseOfWoundsTable->getHeader());
     }
 
     /**
@@ -23,11 +23,11 @@ class BaseOfWoundsTableTest extends TestWithMockery
     public function I_can_get_indexed_values_and_values_which_are_same()
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
-        $this->assertEquals(
+        self::assertEquals(
             $baseOfWoundsTable->getValues(),
             $baseOfWoundsTable->getIndexedValues()
         );
-        $this->assertEquals(
+        self::assertEquals(
             [
                 ['⊕', -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
                 [-5, -4, -3, -3, -2, -2, -1, 0, 0, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 15],
@@ -68,15 +68,15 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(-5, -5));
-        $this->assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(0, 0));
-        $this->assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(20, 20));
-        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(-5, 20));
-        $this->assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(20, -5));
-        $this->assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
-        $this->assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, -3, 10]));
+        self::assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(-5, -5));
+        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(0, 0));
+        self::assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(20, 20));
+        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(-5, 20));
+        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(20, -5));
+        self::assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
+        self::assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, -3, 10]));
         for ($bonus = -5; $bonus <= 20; $bonus++) {
-            $this->assertSame($bonus, $baseOfWoundsTable->getBonusesIntersection([$bonus]));
+            self::assertSame($bonus, $baseOfWoundsTable->getBonusesIntersection([$bonus]));
         }
     }
 
@@ -87,11 +87,11 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(null, $baseOfWoundsTable->sumBonuses([]));
-        $this->assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
-        $this->assertSame(5, $baseOfWoundsTable->sumBonuses([-5, -5, -5]));
-        $this->assertSame(14, $baseOfWoundsTable->sumBonuses([-5, 0, 10]));
-        $this->assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, -3, -2, -1, 0]));
+        self::assertSame(null, $baseOfWoundsTable->sumBonuses([]));
+        self::assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
+        self::assertSame(5, $baseOfWoundsTable->sumBonuses([-5, -5, -5]));
+        self::assertSame(14, $baseOfWoundsTable->sumBonuses([-5, 0, 10]));
+        self::assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, -3, -2, -1, 0]));
     }
 
     /**
@@ -101,7 +101,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(11, $baseOfWoundsTable->doubleBonus(5));
+        self::assertSame(11, $baseOfWoundsTable->doubleBonus(5));
     }
 
     /**
@@ -111,7 +111,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(-1, $baseOfWoundsTable->halfBonus(5));
+        self::assertSame(-1, $baseOfWoundsTable->halfBonus(5));
     }
 
     /**
@@ -121,7 +121,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(25, $baseOfWoundsTable->tenMultipleBonus(5));
+        self::assertSame(25, $baseOfWoundsTable->tenMultipleBonus(5));
     }
 
     /**
@@ -131,7 +131,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        $this->assertSame(-15, $baseOfWoundsTable->tenMinifyBonus(5));
+        self::assertSame(-15, $baseOfWoundsTable->tenMinifyBonus(5));
     }
 
 }

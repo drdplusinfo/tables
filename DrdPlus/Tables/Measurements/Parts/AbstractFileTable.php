@@ -161,7 +161,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function parseBonus($value)
     {
-        return intval($this->parseNumber($value));
+        return (int)$this->parseNumber($value);
     }
 
     private function parseNumber($value)
@@ -178,7 +178,7 @@ abstract class AbstractFileTable extends AbstractTable
         if ($value === '') {
             return $value;
         }
-        if ($this->isItDiceRollChanceNotation($value)) { // dice chance bonus, like 1/6
+        if ($this->isItDiceRollChance($value)) { // dice chance bonus, like 1/6
             return $value;
         }
 
@@ -190,7 +190,7 @@ abstract class AbstractFileTable extends AbstractTable
      *
      * @return int
      */
-    private function isItDiceRollChanceNotation($value)
+    private function isItDiceRollChance($value)
     {
         return preg_match('~^\d+/\d+$~', $value);
     }
@@ -230,7 +230,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     protected function checkUnit($unit)
     {
-        if (!in_array($unit, $this->getExpectedDataHeader())) {
+        if (!in_array($unit, $this->getExpectedDataHeader(), true)) {
             throw new UnknownUnit(
                 "Expected unit " . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
             );
@@ -259,11 +259,13 @@ abstract class AbstractFileTable extends AbstractTable
     private function parseMaxRollToGetValue($chance)
     {
         $chanceParts = explode('/', $chance);
-        if (!isset($chanceParts[1]) || intval($chanceParts[1]) !== 6) {
-            throw new UnexpectedChangeNotation("Expected only x/6 chance, got $chance");
+        if (!isset($chanceParts[0]) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
+            || (int)$chanceParts[1] !== 6
+        ) {
+            throw new UnexpectedChangeNotation("Expected only 0..6/6 chance, got $chance");
         }
 
-        return intval($chanceParts[0]);
+        return (int)$chanceParts[0];
     }
 
     /**
@@ -304,6 +306,9 @@ abstract class AbstractFileTable extends AbstractTable
             $relatedValue = $relatedValues[$searchedUnit];
             if ($relatedValue === $searchedValue) {
                 return $bonus; // we found exact match
+            }
+            if ($this->isItDiceRollChance($relatedValue)) { // only exact value match can return dice chance
+                continue; // dice roll chance fractions are skipped (example '2/6')
             }
             if ($searchedValue > $relatedValue) {
                 if (empty($closest['lower']) || key($closest['lower']) < $relatedValue) {

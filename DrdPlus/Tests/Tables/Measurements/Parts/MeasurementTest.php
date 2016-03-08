@@ -16,8 +16,8 @@ class MeasurementTest extends TestWithMockery
             $amount = 123,
             $unit = DeAbstractedMeasurement::POSSIBLE_UNIT
         );
-        $this->assertSame((float)$amount, $measurement->getValue());
-        $this->assertSame($unit, $measurement->getUnit());
+        self::assertSame((float)$amount, $measurement->getValue());
+        self::assertSame($unit, $measurement->getUnit());
     }
 
     /**
@@ -26,7 +26,7 @@ class MeasurementTest extends TestWithMockery
     public function I_can_get_measurement_value_by_to_string_conversion()
     {
         $measurement = new DeAbstractedMeasurement($value = 123, DeAbstractedMeasurement::POSSIBLE_UNIT);
-        $this->assertSame((string)$value, (string)$measurement);
+        self::assertSame((string)$value, (string)$measurement);
     }
 
     /**

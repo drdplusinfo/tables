@@ -15,7 +15,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_headers()
     {
         $racesTable = new RacesTable();
-        $this->assertEquals(
+        self::assertEquals(
             [[
                 RacesTable::RACE,
                 RacesTable::SUBRACE,
@@ -45,7 +45,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_values_in_simple_structure()
     {
         $racesTable = new RacesTable();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0, 0, 0, 0, 0, 0, 180.0, 80.0, 0, 0, '', false, false, false],
                 [RaceCodes::HUMAN, RaceCodes::HIGHLANDER, 1, 0, 0, 1, -1, -1, 0, 180.0, 80.0, 0, 0, '', false, false, false],
@@ -73,7 +73,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonHumanModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 0,
                 PropertyCodes::AGILITY => 0,
@@ -102,7 +102,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getHighlanderModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 1,
                 PropertyCodes::AGILITY => 0,
@@ -131,7 +131,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonDwarfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 1,
                 PropertyCodes::AGILITY => -1,
@@ -160,7 +160,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getWoodDwarfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 1,
                 PropertyCodes::AGILITY => -1,
@@ -189,7 +189,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getMountainDwarfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 2,
                 PropertyCodes::AGILITY => -1,
@@ -218,7 +218,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonElfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 1,
@@ -247,7 +247,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getDarkElfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 0,
                 PropertyCodes::AGILITY => 0,
@@ -276,7 +276,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getGreenElfModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 1,
@@ -305,7 +305,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonHobbitModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -3,
                 PropertyCodes::AGILITY => 1,
@@ -334,7 +334,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonKrollModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 3,
                 PropertyCodes::AGILITY => -2,
@@ -363,7 +363,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getWildKrollModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 3,
                 PropertyCodes::AGILITY => -1,
@@ -392,7 +392,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonOrcModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 0,
                 PropertyCodes::AGILITY => 2,
@@ -421,7 +421,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getSkurutModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 1,
                 PropertyCodes::AGILITY => 1,
@@ -450,7 +450,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getGoblinModifiers();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 2,
@@ -478,7 +478,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_got_expected_values()
     {
         $racesTable = new RacesTable();
-        $this->assertSame(
+        self::assertSame(
             [
                 RaceCodes::HUMAN => [
                     RaceCodes::COMMON => [
@@ -624,8 +624,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_strength_of_any_race($race, $subrace, $maleStrength, $femaleStrength)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleStrength, $racesTable->getMaleStrength($race, $subrace));
-        $this->assertSame($femaleStrength, $racesTable->getFemaleStrength($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleStrength, $racesTable->getMaleStrength($race, $subrace));
+        self::assertSame($femaleStrength, $racesTable->getFemaleStrength($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function strengthOfRaces()
@@ -660,8 +660,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_agility_of_any_race($race, $subrace, $maleAgility, $femaleAgility)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleAgility, $racesTable->getMaleAgility($race, $subrace));
-        $this->assertSame($femaleAgility, $racesTable->getFemaleAgility($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleAgility, $racesTable->getMaleAgility($race, $subrace));
+        self::assertSame($femaleAgility, $racesTable->getFemaleAgility($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function agilityOfRaces()
@@ -696,8 +696,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_knack_of_any_race($race, $subrace, $maleKnack, $femaleKnack)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleKnack, $racesTable->getMaleKnack($race, $subrace));
-        $this->assertSame($femaleKnack, $racesTable->getFemaleKnack($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleKnack, $racesTable->getMaleKnack($race, $subrace));
+        self::assertSame($femaleKnack, $racesTable->getFemaleKnack($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function knackOfRaces()
@@ -732,8 +732,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_will_of_any_race($race, $subrace, $maleWill, $femaleWill)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleWill, $racesTable->getMaleWill($race, $subrace));
-        $this->assertSame($femaleWill, $racesTable->getFemaleWill($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleWill, $racesTable->getMaleWill($race, $subrace));
+        self::assertSame($femaleWill, $racesTable->getFemaleWill($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function willOfRaces()
@@ -768,8 +768,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_intelligence_of_any_race($race, $subrace, $maleIntelligence, $femaleIntelligence)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleIntelligence, $racesTable->getMaleIntelligence($race, $subrace));
-        $this->assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleIntelligence, $racesTable->getMaleIntelligence($race, $subrace));
+        self::assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function intelligenceOfRaces()
@@ -804,8 +804,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_charisma_of_any_race($race, $subrace, $maleCharisma, $femaleCharisma)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleCharisma, $racesTable->getMaleCharisma($race, $subrace));
-        $this->assertSame($femaleCharisma, $racesTable->getFemaleCharisma($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleCharisma, $racesTable->getMaleCharisma($race, $subrace));
+        self::assertSame($femaleCharisma, $racesTable->getFemaleCharisma($race, $subrace, new FemaleModifiersTable()));
     }
 
     public function charismaOfRaces()
@@ -839,7 +839,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_toughness_of_any_race($race, $subrace, $toughness)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($toughness, $racesTable->getToughness($race, $subrace));
+        self::assertSame($toughness, $racesTable->getToughness($race, $subrace));
     }
 
     public function toughnessOfRaces()
@@ -873,7 +873,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_height_of_any_race($race, $subrace, $heightInCm)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($heightInCm, $racesTable->getHeightInCm($race, $subrace));
+        self::assertSame($heightInCm, $racesTable->getHeightInCm($race, $subrace));
     }
 
     public function heightOfRaces()
@@ -908,18 +908,18 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_weight_of_any_race($race, $subrace, $maleWeightInKg, $femaleWeightInKg)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg($race, $subrace));
+        self::assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg($race, $subrace));
         $femaleModifiersTable = new FemaleModifiersTable();
         $weightTable = new WeightTable();
-        $this->assertSame(
+        self::assertSame(
             $femaleWeightInKg,
             $racesTable->getFemaleWeightInKg($race, $subrace, $femaleModifiersTable, $weightTable)
         );
-        $this->assertSame(
+        self::assertSame(
             $maleWeightInKg,
             $racesTable->getWeightInKg($race, $subrace, GenderCodes::MALE, $femaleModifiersTable, $weightTable)
         );
-        $this->assertSame(
+        self::assertSame(
             $femaleWeightInKg,
             $racesTable->getWeightInKg($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable, $weightTable)
         );
@@ -975,11 +975,11 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         $racesTable = new RacesTable();
         $femaleModifiersTable = new FemaleModifiersTable();
 
-        $this->assertSame($maleSize, $racesTable->getMaleSize($race, $subrace));
-        $this->assertSame($maleSize, $racesTable->getSize($race, $subrace, GenderCodes::MALE, $femaleModifiersTable));
+        self::assertSame($maleSize, $racesTable->getMaleSize($race, $subrace));
+        self::assertSame($maleSize, $racesTable->getSize($race, $subrace, GenderCodes::MALE, $femaleModifiersTable));
 
-        $this->assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, $femaleModifiersTable));
-        $this->assertSame($femaleSize, $racesTable->getSize($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable));
+        self::assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, $femaleModifiersTable));
+        self::assertSame($femaleSize, $racesTable->getSize($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable));
     }
 
     public function sizeOfRaces()
@@ -1023,7 +1023,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_senses_of_any_race($race, $subrace, $senses)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($senses, $racesTable->getSenses($race, $subrace));
+        self::assertSame($senses, $racesTable->getSenses($race, $subrace));
     }
 
     public function sensesOfRaces()
@@ -1057,7 +1057,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_remarkable_sense_of_any_race($race, $subrace, $remarkableSense)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($remarkableSense, $racesTable->getRemarkableSense($race, $subrace));
+        self::assertSame($remarkableSense, $racesTable->getRemarkableSense($race, $subrace));
     }
 
     public function remarkableSenseOfRaces()
@@ -1091,7 +1091,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_infravision_of_any_race($race, $subrace, $infravision)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($infravision, $racesTable->hasInfravision($race, $subrace));
+        self::assertSame($infravision, $racesTable->hasInfravision($race, $subrace));
     }
 
     public function infravisionOfRaces()
@@ -1125,7 +1125,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_nativeRegeneration_of_any_race($race, $subrace, $nativeRegeneration)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration($race, $subrace));
+        self::assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration($race, $subrace));
     }
 
     public function nativeRegenerationOfRaces()
@@ -1159,7 +1159,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_detect_requirement_of_dm_agreement_of_any_race($race, $subrace, $requiredDmAgreement)
     {
         $racesTable = new RacesTable();
-        $this->assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement($race, $subrace));
+        self::assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement($race, $subrace));
     }
 
     public function requirementOfDmOfRaces()

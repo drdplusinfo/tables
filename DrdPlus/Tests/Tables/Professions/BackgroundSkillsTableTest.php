@@ -13,7 +13,7 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_headers()
     {
         $backgroundSkillsTable = new BackgroundSkillsTable();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 ['', 'fighter', 'fighter', 'fighter', 'thief', 'thief', 'thief', 'ranger', 'ranger', 'ranger', 'wizard', 'wizard', 'wizard', 'theurgist', 'theurgist', 'theurgist', 'priest', 'priest', 'priest'],
                 ['points', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined'],
@@ -39,15 +39,15 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new BackgroundSkillsTable();
         $skillPoints = $table->getSkillPoints($backgroundSkillPoints, $professionCode, $skillGroup);
-        $this->assertSame($expectedSkillPoints, $skillPoints);
+        self::assertSame($expectedSkillPoints, $skillPoints);
 
         $getGroupSkillPoints = 'get' . ucfirst($skillGroup) . 'SkillPoints';
         $groupSkillPoints = $table->$getGroupSkillPoints($backgroundSkillPoints, $professionCode);
-        $this->assertSame($expectedSkillPoints, $groupSkillPoints);
+        self::assertSame($expectedSkillPoints, $groupSkillPoints);
 
         $getProfessionGroupSkillPoints = 'get' . ucfirst($professionCode) . ucfirst($skillGroup) . 'SkillPoints';
         $professionGroupSkillPoints = $table->$getProfessionGroupSkillPoints($backgroundSkillPoints);
-        $this->assertSame($expectedSkillPoints, $professionGroupSkillPoints);
+        self::assertSame($expectedSkillPoints, $professionGroupSkillPoints);
     }
 
     public function provideSkillPointToProfession()

@@ -16,8 +16,8 @@ class LevelTest extends AbstractTestOfBonus
     public function I_can_create_bonus()
     {
         $sut = $this->createSut($value = 20);
-        $this->assertInstanceOf(BonusInterface::class, $sut);
-        $this->assertSame($value, $sut->getValue());
+        self::assertInstanceOf(BonusInterface::class, $sut);
+        self::assertSame($value, $sut->getValue());
     }
 
     protected function getTableInstance()
@@ -38,10 +38,10 @@ class LevelTest extends AbstractTestOfBonus
     /**
      * @test
      */
-    public function I_can_get_level()
+    public function I_can_get_level_value()
     {
         $level = new Level($levelValue = 20, $this->getExperiencesTable());
-        $this->assertSame($levelValue, $level->getValue());
+        self::assertSame($levelValue, $level->getValue());
     }
 
     protected function findTable()
@@ -62,34 +62,19 @@ class LevelTest extends AbstractTestOfBonus
      */
     public function I_can_get_experiences()
     {
-        $level = new Level(
-            $value = 11,
-            $experiencesTable = $this->getExperiencesTable()
-        );
+        $level = new Level(11, $experiencesTable = $this->getExperiencesTable());
         $experiencesTable->shouldReceive('toExperiences')
             ->atLeast()->once()
             ->with($level)
-            ->andReturn($experiencesValue = 222);
-        $this->assertSame($experiencesValue, $level->getExperiences());
-    }
+            ->andReturn($experiences = 'foo');
+        self::assertSame($experiences, $level->getExperiences());
 
-    /**
-     * @test
-     */
-    public function I_can_get_total_experiences()
-    {
-        $level = new Level(
-            $value = 10,
-            $experiencesTable = $this->getExperiencesTable()
-        );
+        $level = new Level(5, $experiencesTable = $this->getExperiencesTable());
         $experiencesTable->shouldReceive('toTotalExperiences')
             ->atLeast()->once()
-            ->with($level, true)
-            ->andReturn($totalExperiencesValue = 222);
-        $this->assertSame(
-            $totalExperiencesValue,
-            $level->getTotalExperiences(true /* for main profession */)
-        );
+            ->with($level)
+            ->andReturn($totalExperiences = 'bar');
+        self::assertSame($totalExperiences, $level->getTotalExperiences());
     }
 
     /**
@@ -101,4 +86,21 @@ class LevelTest extends AbstractTestOfBonus
         new Level(21, $this->getExperiencesTable());
     }
 
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Experiences\Exceptions\MinLevelUnderflow
+     */
+    public function I_cannot_create_negative_level()
+    {
+        new Level(-1, $this->getExperiencesTable());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_create_zero_level()
+    {
+        $zeroLevel = new Level(0, $this->getExperiencesTable());
+        self::assertSame(0, $zeroLevel->getValue());
+    }
 }

@@ -13,8 +13,8 @@ abstract class AbstractTestOfBonus extends TestWithMockery
     public function I_can_create_bonus()
     {
         $sut = $this->createSut($value = 123);
-        $this->assertInstanceOf(BonusInterface::class, $sut);
-        $this->assertSame($value, $sut->getValue());
+        self::assertInstanceOf(BonusInterface::class, $sut);
+        self::assertSame($value, $sut->getValue());
     }
 
     /**
@@ -43,9 +43,7 @@ abstract class AbstractTestOfBonus extends TestWithMockery
 
     protected function getTableClass()
     {
-        $tableClass = preg_replace('~Bonus$~', 'Table', $this->getBonusClass());
-
-        return $tableClass;
+        return preg_replace('~Bonus$~', 'Table', $this->getBonusClass());
     }
 
     /**
@@ -54,14 +52,14 @@ abstract class AbstractTestOfBonus extends TestWithMockery
     public function I_can_get_measurement_from_bonus()
     {
         $sut = $this->createSut($bonusValue = 12);
-        $this->assertSame($bonusValue, $sut->getValue());
+        self::assertSame($bonusValue, $sut->getValue());
         $getMeasurement = $this->getNameOfMeasurementGetter();
         $measurement = $sut->$getMeasurement();
         /** @var MeasurementWithBonusInterface $measurement */
-        $this->assertInstanceOf($this->getMeasurementClass(), $measurement);
-        $this->assertInstanceOf($this->getBonusClass(), $measurement->getBonus());
+        self::assertInstanceOf($this->getMeasurementClass(), $measurement);
+        self::assertInstanceOf($this->getBonusClass(), $measurement->getBonus());
         // the bonus-to-measurement-to-bonus can be lossy transformation
-        $this->assertTrue(
+        self::assertTrue(
             $measurement->getBonus()->getValue() === $bonusValue
             || $measurement->getBonus()->getValue() === $bonusValue - 1
             || $measurement->getBonus()->getValue() === $bonusValue + 1

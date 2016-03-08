@@ -16,7 +16,7 @@ class WoundsTableTest extends TestWithMockery
     {
         $woundsTable = new WoundsTable();
 
-        $this->assertEquals([['bonus', 'wounds']], $woundsTable->getHeader());
+        self::assertEquals([['bonus', 'wounds']], $woundsTable->getHeader());
     }
 
     /**
@@ -33,34 +33,34 @@ class WoundsTableTest extends TestWithMockery
                 break;
             }
         } while ($attempt++ < $maxAttempts);
-        $this->assertLessThan($maxAttempts, $attempt);
-        $this->assertSame(1, $zeroOrOne);
+        self::assertLessThan($maxAttempts, $attempt);
+        self::assertSame(1, $zeroOrOne);
 
         // for bonus -10 to -7 are the same wounds
-        $this->assertSame(1, $woundsTable->toWounds(new WoundsBonus(-10, $woundsTable))->getValue());
-        $this->assertSame(1, $woundsTable->toWounds(new WoundsBonus(-9, $woundsTable))->getValue());
-        $this->assertSame(1, $woundsTable->toWounds(new WoundsBonus(-8, $woundsTable))->getValue());
-        $this->assertSame(1, $woundsTable->toWounds(new WoundsBonus(-7, $woundsTable))->getValue());
+        self::assertSame(1, $woundsTable->toWounds(new WoundsBonus(-10, $woundsTable))->getValue());
+        self::assertSame(1, $woundsTable->toWounds(new WoundsBonus(-9, $woundsTable))->getValue());
+        self::assertSame(1, $woundsTable->toWounds(new WoundsBonus(-8, $woundsTable))->getValue());
+        self::assertSame(1, $woundsTable->toWounds(new WoundsBonus(-7, $woundsTable))->getValue());
 
-        $this->assertSame(3, $woundsTable->toWounds(new WoundsBonus(0, $woundsTable))->getValue());
-        $this->assertSame(28000, $woundsTable->toWounds(new WoundsBonus(79, $woundsTable))->getValue());
+        self::assertSame(3, $woundsTable->toWounds(new WoundsBonus(0, $woundsTable))->getValue());
+        self::assertSame(28000, $woundsTable->toWounds(new WoundsBonus(79, $woundsTable))->getValue());
     }
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\MissingDataForBonus
      */
-    public function too_low_bonus_to_wounds_cause_exception()
+    public function I_can_not_use_too_low_bonus()
     {
         $woundsTable = new WoundsTable();
-        $woundsTable->toWounds(new WoundsBonus(-21, $woundsTable));
+        $woundsTable->toWounds(new WoundsBonus(-22, $woundsTable));
     }
 
     /**
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_wounds_cause_exception()
+    public function I_can_use_too_high_bonus()
     {
         $woundsTable = new WoundsTable();
         $woundsTable->toWounds(new WoundsBonus(80, $woundsTable));
@@ -72,35 +72,45 @@ class WoundsTableTest extends TestWithMockery
     public function I_can_convert_wounds_to_bonus()
     {
         $woundsTable = new WoundsTable();
-        $this->assertSame(-10, $woundsTable->toBonus(new Wounds(1, Wounds::WOUNDS, $woundsTable))->getValue());
+        self::assertSame(-10, $woundsTable->toBonus(new Wounds(1, $woundsTable))->getValue());
 
         // there are more bonuses for wound 3, the lowest is taken
-        $this->assertSame(-2, $woundsTable->toBonus(new Wounds(3, Wounds::WOUNDS, $woundsTable))->getValue());
+        self::assertSame(-2, $woundsTable->toBonus(new Wounds(3, $woundsTable))->getValue());
 
-        $this->assertSame(30, $woundsTable->toBonus(new Wounds(104, Wounds::WOUNDS, $woundsTable))->getValue()); // 30 is the closest bonus
-        $this->assertSame(31, $woundsTable->toBonus(new Wounds(105, Wounds::WOUNDS, $woundsTable))->getValue()); // 30 and 31 are closest bonuses, 31 is taken because higher
-        $this->assertSame(31, $woundsTable->toBonus(new Wounds(106, Wounds::WOUNDS, $woundsTable))->getValue()); // 31 is the closest bonus (higher in this case)
+        self::assertSame(30, $woundsTable->toBonus(new Wounds(104, $woundsTable))->getValue()); // 30 is the closest bonus
+        self::assertSame(31, $woundsTable->toBonus(new Wounds(105, $woundsTable))->getValue()); // 30 and 31 are closest bonuses, 31 is taken because higher
+        self::assertSame(31, $woundsTable->toBonus(new Wounds(106, $woundsTable))->getValue()); // 31 is the closest bonus (higher in this case)
 
-        $this->assertSame(79, $woundsTable->toBonus(new Wounds(28000, Wounds::WOUNDS, $woundsTable))->getValue());
+        self::assertSame(79, $woundsTable->toBonus(new Wounds(28000, $woundsTable))->getValue());
     }
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_convert_zero_value_to_bonus()
     {
         $woundsTable = new WoundsTable();
-        $woundsTable->toBonus(new Wounds(0, Wounds::WOUNDS, $woundsTable));
+        $bonus = $woundsTable->toBonus(new Wounds(0, $woundsTable));
+        self::assertSame(-21, $bonus->getValue());
     }
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_negative_wounds_to_bonus()
     {
         $woundsTable = new WoundsTable();
-        $woundsTable->toBonus(new Wounds(28001, Wounds::WOUNDS, $woundsTable));
+        $woundsTable->toBonus(new Wounds(-1, $woundsTable));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
+     */
+    public function I_can_not_convert_too_high_value_to_bonus()
+    {
+        $woundsTable = new WoundsTable();
+        $woundsTable->toBonus(new Wounds(28001, $woundsTable));
     }
 }

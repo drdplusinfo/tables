@@ -36,8 +36,8 @@ class ExperiencesTable extends AbstractTable
     }
 
     /**
+     * Gives highest level possible, independently on any previous level.
      * @param Experiences $experiences
-     *
      * @return Level
      */
     public function toLevel(Experiences $experiences)
@@ -52,7 +52,7 @@ class ExperiencesTable extends AbstractTable
         $experiencesValue = $experiences->getValue();
         do {
             $woundsBonus = $this->woundsTable->toBonus(
-                new Wounds($experiencesValue--, Wounds::WOUNDS, $this->woundsTable)
+                new Wounds($experiencesValue--, $this->woundsTable, Wounds::WOUNDS)
             );
             /**
              * avoiding standard bonus round-up, which is unacceptable for experiences to level conversion;
@@ -66,44 +66,53 @@ class ExperiencesTable extends AbstractTable
     private function bonusToLevelValue(WoundsBonus $woundsBonus)
     {
         /** @see calculation on PPH page 44 top right */
-        return $woundsBonus->getValue() - 15;
+        $levelValue = $woundsBonus->getValue() - 15;
+        if ($levelValue >= 1) {
+            return $levelValue;
+        }
+
+        return 1;
     }
 
     /**
+     * Leveling sequentially from very first level up to highest possible until all experiences are spent.
      * @param Experiences $experiences
-     *
      * @return Level
      */
     public function toTotalLevel(Experiences $experiences)
     {
-        $levelSum = 0;
-        $remainingExperiences = $experiences->getValue();
-        while ($remainingExperiences > 0 /* or conditioned break, see bellow */) {
-            $level = $this->toLevel(new Experiences($remainingExperiences, $this, Experiences::EXPERIENCES));
-            if ($level->getValue() > 0) {
-                $levelSum += $level->getValue();
-                $remainingExperiences -= $level->getExperiences()->getValue();
-            } else {
-                break;
+        $currentExperiences = 0;
+        $usedExperiences = 0;
+        $maxLevelValue = 0;
+        while ($usedExperiences + $currentExperiences <= $experiences->getValue()) {
+            $level = $this->toLevel(new Experiences($currentExperiences, $this));
+            if ($maxLevelValue < $level->getValue()) {
+                $usedExperiences += $currentExperiences;
+                $maxLevelValue = $level->getValue();
             }
+            $currentExperiences++;
         }
 
-        return new Level($levelSum, $this);
+        return new Level($maxLevelValue, $this);
     }
 
     /**
+     * Casting level to experiences is mostly lossy conversion!
+     * Gives experiences needed from previous (current -1) to given level.
      * @param Level $level
-     *
      * @return Experiences
      */
     public function toExperiences(Level $level)
     {
-        $wounds = $this->woundsTable->toWounds(
-            new WoundsBonus($this->levelToBonusValue($level), $this->woundsTable)
-        );
-        $experiencesValue = $wounds->getValue();
+        if ($level->getValue() > 1) {
+            $woundsBonus = new WoundsBonus($this->levelToBonusValue($level), $this->woundsTable);
+            $wounds = $this->woundsTable->toWounds($woundsBonus);
+            $experiencesValue = $wounds->getValue();
+        } else {
+            $experiencesValue = 0; // including first level which is for free for main profession
+        }
 
-        return new Experiences($experiencesValue, $this, Experiences::EXPERIENCES);
+        return new Experiences($experiencesValue, $this);
     }
 
     private function levelToBonusValue(Level $level)
@@ -113,22 +122,22 @@ class ExperiencesTable extends AbstractTable
     }
 
     /**
+     * Casting level to experiences is mostly lossy conversion!
+     * Gives all experiences needed to achieve all levels sequentially up to given.
      * @param Level $level
-     * @param bool $isMainProfession
-     *
      * @return Experiences
      */
-    public function toTotalExperiences(Level $level, $isMainProfession)
+    public function toTotalExperiences(Level $level)
     {
         $experiencesSum = 0;
         for ($levelValueToCast = $level->getValue(); $levelValueToCast > 0; $levelValueToCast--) {
-            if ($levelValueToCast > 1 || !$isMainProfession) { // main profession has first level for free
+            if ($levelValueToCast > 1) { // main profession has first level for free
                 $currentLevel = new Level($levelValueToCast, $this);
                 $experiencesSum += $currentLevel->getExperiences()->getValue();
             }
         }
 
-        return new Experiences($experiencesSum, $this, Experiences::EXPERIENCES);
+        return new Experiences($experiencesSum, $this);
     }
 
 }

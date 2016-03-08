@@ -45,7 +45,7 @@ class FatigueTable extends AbstractTable
     public function toBonus(Fatigue $fatigue)
     {
         return new FatigueBonus(
-            $this->woundsTable->toBonus(new Wounds($fatigue->getValue(), Wounds::WOUNDS, $this->woundsTable))->getValue(),
+            $this->woundsTable->toBonus(new Wounds($fatigue->getValue(), $this->woundsTable, Wounds::WOUNDS))->getValue(),
             $this
         );
     }

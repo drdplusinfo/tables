@@ -22,11 +22,9 @@ class DiceChanceEvaluator implements EvaluatorInterface
      */
     public function evaluate($maxRollToGetValue)
     {
-        if ($maxRollToGetValue <= $this->roller1d6->roll()->getValue()) {
-            return 1;
-        }
-
-        return 0;
+        return $maxRollToGetValue <= $this->roller1d6->roll()->getValue()
+            ? 1
+            : 0;
     }
 
 }

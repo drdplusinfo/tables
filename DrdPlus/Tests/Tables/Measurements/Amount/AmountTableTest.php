@@ -15,7 +15,7 @@ class AmountTableTest extends TestWithMockery
     public function I_can_get_headers()
     {
         $amountTable = new AmountTable();
-        $this->assertEquals([['bonus', 'amount']], $amountTable->getHeader());
+        self::assertEquals([['bonus', 'amount']], $amountTable->getHeader());
     }
 
     /**
@@ -32,13 +32,13 @@ class AmountTableTest extends TestWithMockery
                 break;
             }
         } while ($attempt++ < $maxAttempts);
-        $this->assertLessThan($maxAttempts, $attempt);
-        $this->assertSame(1.0, $zeroOrOne->getValue());
-        $this->assertSame(
+        self::assertLessThan($maxAttempts, $attempt);
+        self::assertSame(1.0, $zeroOrOne->getValue());
+        self::assertSame(
             1.0,
             $amountTable->toAmount(new AmountBonus(0, $amountTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             90000.0,
             $amountTable->toAmount(new AmountBonus(99, $amountTable))->getValue()
         );
@@ -70,25 +70,25 @@ class AmountTableTest extends TestWithMockery
     public function can_convert_amount_to_bonus()
     {
         $amountTable = new AmountTable();
-        $this->assertSame(
+        self::assertSame(
             0,
             $amountTable->toBonus(new Amount(1, Amount::AMOUNT, $amountTable))->getValue()
         );
 
-        $this->assertSame(
+        self::assertSame(
             40,
             $amountTable->toBonus(new Amount(104, Amount::AMOUNT, $amountTable))->getValue()
         ); // 40 is the closest bonus (lower in this case)
-        $this->assertSame(
+        self::assertSame(
             41,
             $amountTable->toBonus(new Amount(105, Amount::AMOUNT, $amountTable))->getValue()
         ); // 40 and 41 are closest bonuses, 41 is taken because higher
-        $this->assertSame(
+        self::assertSame(
             41,
             $amountTable->toBonus(new Amount(106, Amount::AMOUNT, $amountTable))->getValue()
         ); // 41 is the closest bonus (higher in this case)
 
-        $this->assertSame(
+        self::assertSame(
             99,
             $amountTable->toBonus(new Amount(90000, Amount::AMOUNT, $amountTable))->getValue()
         );

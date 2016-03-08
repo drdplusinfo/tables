@@ -11,7 +11,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_headers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [['race', 'strength', 'agility', 'knack', 'will', 'intelligence', 'charisma', 'weight', 'size']],
             $this->getFemaleModifiersTable()->getHeader()
         );
@@ -22,7 +22,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_human_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 0,
@@ -53,7 +53,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_elf_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 0,
@@ -73,7 +73,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_dwarf_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => 0,
                 PropertyCodes::AGILITY => 0,
@@ -93,7 +93,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_hobbit_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 1,
@@ -113,7 +113,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_kroll_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 1,
@@ -133,7 +133,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_orc_female_modifiers()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 PropertyCodes::STRENGTH => -1,
                 PropertyCodes::AGILITY => 0,
@@ -153,7 +153,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_got_expected_values()
     {
-        $this->assertEquals(
+        self::assertEquals(
             [
                 RaceCodes::HUMAN => [
                     PropertyCodes::STRENGTH => -1,
@@ -231,7 +231,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($strength, $table->getStrength($raceCode));
+        self::assertSame($strength, $table->getStrength($raceCode));
     }
 
     public function raceToStrength()
@@ -257,7 +257,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($agility, $table->getAgility($raceCode));
+        self::assertSame($agility, $table->getAgility($raceCode));
     }
 
     public function raceToAgility()
@@ -283,7 +283,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($knack, $table->getKnack($raceCode));
+        self::assertSame($knack, $table->getKnack($raceCode));
     }
 
     public function raceToKnack()
@@ -309,7 +309,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($will, $table->getWill($raceCode));
+        self::assertSame($will, $table->getWill($raceCode));
     }
 
     public function raceToWill()
@@ -335,7 +335,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($intelligence, $table->getIntelligence($raceCode));
+        self::assertSame($intelligence, $table->getIntelligence($raceCode));
     }
 
     public function raceToIntelligence()
@@ -361,7 +361,7 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($charisma, $table->getCharisma($raceCode));
+        self::assertSame($charisma, $table->getCharisma($raceCode));
     }
 
     public function raceToCharisma()
@@ -387,9 +387,9 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($charisma, $table->getWeightBonus($raceCode));
+        self::assertSame($charisma, $table->getWeightBonus($raceCode));
         // weight modifier has to be same as strength modifier
-        $this->assertSame($table->getStrength($raceCode), $table->getWeightBonus($raceCode));
+        self::assertSame($table->getStrength($raceCode), $table->getWeightBonus($raceCode));
     }
 
     public function raceToWeight()
@@ -415,9 +415,9 @@ class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new FemaleModifiersTable();
 
-        $this->assertSame($size, $table->getSize($raceCode));
+        self::assertSame($size, $table->getSize($raceCode));
         // size modifier has to be same as strength modifier
-        $this->assertSame($table->getStrength($raceCode), $table->getSize($raceCode));
+        self::assertSame($table->getStrength($raceCode), $table->getSize($raceCode));
     }
 
     public function raceToSize()

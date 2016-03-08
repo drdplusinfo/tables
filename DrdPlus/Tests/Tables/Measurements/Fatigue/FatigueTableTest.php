@@ -24,7 +24,7 @@ class FatigueTableTest extends TestWithMockery
     {
         $experiencesTable = new FatigueTable($this->woundsTable);
 
-        $this->assertEquals($this->woundsTable->getHeader(), $experiencesTable->getHeader());
+        self::assertEquals($this->woundsTable->getHeader(), $experiencesTable->getHeader());
     }
 
     /**
@@ -34,8 +34,8 @@ class FatigueTableTest extends TestWithMockery
     {
         $experiencesTable = new FatigueTable($woundsTable = new WoundsTable());
 
-        $this->assertEquals($woundsTable->getValues(), $experiencesTable->getValues());
-        $this->assertEquals($woundsTable->getIndexedValues(), $experiencesTable->getIndexedValues());
+        self::assertEquals($woundsTable->getValues(), $experiencesTable->getValues());
+        self::assertEquals($woundsTable->getIndexedValues(), $experiencesTable->getIndexedValues());
     }
 
     /**
@@ -52,31 +52,31 @@ class FatigueTableTest extends TestWithMockery
                 break;
             }
         } while ($attempt++ < $maxAttempts);
-        $this->assertLessThan($maxAttempts, $attempt);
-        $this->assertSame(1, $zeroOrOne);
+        self::assertLessThan($maxAttempts, $attempt);
+        self::assertSame(1, $zeroOrOne);
 
         // for bonus -10 to -7 are the same fatigue
-        $this->assertSame(
+        self::assertSame(
             1,
             $fatigueTable->toFatigue(new FatigueBonus(-10, $fatigueTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             1,
             $fatigueTable->toFatigue(new FatigueBonus(-9, $fatigueTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             1,
             $fatigueTable->toFatigue(new FatigueBonus(-8, $fatigueTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             1,
             $fatigueTable->toFatigue(new FatigueBonus(-7, $fatigueTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             3,
             $fatigueTable->toFatigue(new FatigueBonus(0, $fatigueTable))->getValue()
         );
-        $this->assertSame(
+        self::assertSame(
             28000,
             $fatigueTable->toFatigue(new FatigueBonus(79, $fatigueTable))->getValue()
         );
@@ -89,7 +89,7 @@ class FatigueTableTest extends TestWithMockery
     public function too_low_bonus_to_fatigue_cause_exception()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
-        $fatigueTable->toFatigue(new FatigueBonus(-21, $fatigueTable));
+        $fatigueTable->toFatigue(new FatigueBonus(-22, $fatigueTable));
     }
 
     /**
@@ -108,31 +108,31 @@ class FatigueTableTest extends TestWithMockery
     public function can_convert_fatigue_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
-        $this->assertSame(
+        self::assertSame(
             -10,
             $fatigueTable->toBonus(new Fatigue(1, Fatigue::FATIGUE, $fatigueTable))->getValue()
         );
 
         // there are more bonuses for wound 3, the lowest is taken
-        $this->assertSame(
+        self::assertSame(
             -2,
             $fatigueTable->toBonus(new Fatigue(3, Fatigue::FATIGUE, $fatigueTable))->getValue()
         );
 
-        $this->assertSame(
+        self::assertSame(
             30,
             $fatigueTable->toBonus(new Fatigue(104, Fatigue::FATIGUE, $fatigueTable))->getValue()
         ); // 30 is the closest bonus
-        $this->assertSame(
+        self::assertSame(
             31,
             $fatigueTable->toBonus(new Fatigue(105, Fatigue::FATIGUE, $fatigueTable))->getValue()
         ); // 30 and 31 are closest bonuses, 31 is taken because higher
-        $this->assertSame(
+        self::assertSame(
             31,
             $fatigueTable->toBonus(new Fatigue(106, Fatigue::FATIGUE, $fatigueTable))->getValue()
         ); // 31 is the closest bonus (higher in this case)
 
-        $this->assertSame(
+        self::assertSame(
             79,
             $fatigueTable->toBonus(new Fatigue(28000, Fatigue::FATIGUE, $fatigueTable))->getValue()
         );
@@ -140,17 +140,17 @@ class FatigueTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_not_use_negative_fatigue_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
-        $fatigueTable->toBonus(new Fatigue(0, Fatigue::FATIGUE, $fatigueTable));
+        $fatigueTable->toBonus(new Fatigue(-1, Fatigue::FATIGUE, $fatigueTable));
     }
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
     public function too_high_value_to_bonus_cause_exception()
     {

@@ -24,7 +24,7 @@ class ExperiencesTest extends AbstractTestOfMeasurement
             $this->getExperiencesTable(),
             Experiences::EXPERIENCES
         );
-        $this->assertSame($value, $experiences->getValue());
+        self::assertSame($value, $experiences->getValue());
     }
 
     /**
@@ -49,7 +49,7 @@ class ExperiencesTest extends AbstractTestOfMeasurement
             ->atLeast()->once()
             ->with($experiences)
             ->andReturn($level = 222);
-        $this->assertSame($level, $experiences->getLevel());
+        self::assertSame($level, $experiences->getLevel());
     }
 
     /**
@@ -66,7 +66,7 @@ class ExperiencesTest extends AbstractTestOfMeasurement
             ->atLeast()->once()
             ->with($experiences)
             ->andReturn($level = 456);
-        $this->assertSame($level, $experiences->getTotalLevel());
+        self::assertSame($level, $experiences->getTotalLevel());
     }
 
 }

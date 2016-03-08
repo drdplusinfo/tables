@@ -15,8 +15,8 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     public function I_can_get_value_and_unit()
     {
         $measurement = $this->createSut($amount = 123);
-        $this->assertEquals($amount, $measurement->getValue());
-        $this->assertSame($this->getDefaultUnit(), $measurement->getUnit());
+        self::assertEquals($amount, $measurement->getValue());
+        self::assertSame($this->getDefaultUnit(), $measurement->getUnit());
     }
 
     /**
@@ -26,7 +26,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
      */
     protected function createSut($amount)
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         $unit = $this->getDefaultUnit();
         $table = $this->findTable();
 
@@ -58,14 +58,14 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     protected function getConstantAbsoluteName()
     {
         $constantBaseName = $this->getConstantBaseName();
-        $class = $this->getSutClass();
+        $class = self::getSutClass();
 
         return "$class::$constantBaseName";
     }
 
     protected function getConstantBaseName()
     {
-        $classBaseName = $this->parseClassBaseName($this->getSutClass());
+        $classBaseName = $this->parseClassBaseName(self::getSutClass());
         $underscored = ltrim(preg_replace('~([A-Z])~', '_$1', $classBaseName), '_');
         $constantBaseName = strtoupper($underscored);
 
@@ -108,7 +108,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
      */
     protected function getTableClass()
     {
-        $measurementClass = $this->getSutClass();
+        $measurementClass = self::getSutClass();
         $tableClass = "{$measurementClass}Table";
 
         if (!class_exists($tableClass)) {

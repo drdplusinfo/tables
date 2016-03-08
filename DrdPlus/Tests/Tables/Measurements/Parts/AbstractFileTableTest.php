@@ -38,7 +38,7 @@ class AbstractFileTableTest extends TestWithMockery
         } catch (\Exception $exception) {
             error_reporting($originalErrorReporting);
             $lastError = error_get_last();
-            $this->assertSame(E_WARNING, $lastError['type']);
+            self::assertSame(E_WARNING, $lastError['type']);
             throw $exception;
         }
     }
@@ -149,14 +149,14 @@ class AbstractFileTableTest extends TestWithMockery
             new BonusForTestOfAbstractTable($bonusValue2),
             null /* auto-select unit*/
         );
-        $this->assertSame(2.0, current($measurementFromSecondRow));
-        $this->assertSame($unit1, key($measurementFromSecondRow));
+        self::assertSame(2.0, current($measurementFromSecondRow));
+        self::assertSame($unit1, key($measurementFromSecondRow));
         $measurementFromThirdRow = $table->toMeasurement(
             new BonusForTestOfAbstractTable($bonusValue3),
             null /* auto-select unit*/
         );
-        $this->assertSame(30.0, current($measurementFromThirdRow));
-        $this->assertSame($unit2, key($measurementFromThirdRow));
+        self::assertSame(30.0, current($measurementFromThirdRow));
+        self::assertSame($unit2, key($measurementFromThirdRow));
     }
 
     /**
@@ -185,18 +185,18 @@ class AbstractFileTableTest extends TestWithMockery
             });
         foreach ($bonusValues as $bonusValue) {
             $bonus = new BonusForTestOfAbstractTable($bonusValue);
-            $this->assertSame(
+            self::assertSame(
             /** @see \DrdPlus\Tests\Tables\Measurements\TestOfAbstractTable::convertToMeasurement */
                 [$unit => $this->createSomeChance($bonusValue)],
                 $table->toMeasurement($bonus, $unit)
             );
         }
-        $this->assertSame($chances, $valuesToEvaluate);
+        self::assertSame($chances, $valuesToEvaluate);
     }
 
     private function createSomeChance($referenceNumber)
     {
-        return $referenceNumber * 2;
+        return $referenceNumber -1;
     }
 
     /**
@@ -205,7 +205,7 @@ class AbstractFileTableTest extends TestWithMockery
     public function I_can_get_simplified_header_with_more_row_header_rows_then_column_header()
     {
         $withLessColumnHeaderRowsThenRowHeader = new WithLessColumnHeaderRowsThenRowHeader();
-        $this->assertEquals(
+        self::assertEquals(
             [
                 ['foo', ''],
                 ['bar', 'baz'],

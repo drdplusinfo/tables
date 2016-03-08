@@ -12,22 +12,22 @@ class ExperiencesTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_headers_same_as_from_wounds_table()
+    public function I_get_headers_same_as_from_wounds_table()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
 
-        $this->assertEquals($woundsTable->getHeader(), $experiencesTable->getHeader());
+        self::assertEquals($woundsTable->getHeader(), $experiencesTable->getHeader());
     }
 
     /**
      * @test
      */
-    public function I_can_get_values_same_as_from_wounds_table()
+    public function I_get_values_same_as_from_wounds_table()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
 
-        $this->assertEquals($woundsTable->getValues(), $experiencesTable->getValues());
-        $this->assertEquals($woundsTable->getIndexedValues(), $experiencesTable->getIndexedValues());
+        self::assertEquals($woundsTable->getValues(), $experiencesTable->getValues());
+        self::assertEquals($woundsTable->getIndexedValues(), $experiencesTable->getIndexedValues());
     }
 
     /**
@@ -36,11 +36,16 @@ class ExperiencesTableTest extends TestWithMockery
     public function I_can_convert_experiences_to_level()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $experiences = new Experiences($experiencesValue = 123, $experiencesTable, Experiences::EXPERIENCES);
 
-        $level = $experiencesTable->toLevel($experiences);
-        $this->assertInstanceOf(Level::class, $level);
-        $this->assertSame(17, $level->getValue());
+        $experiencesToLevel = new Experiences(123, $experiencesTable);
+        $level = $experiencesTable->toLevel($experiencesToLevel);
+        self::assertInstanceOf(Level::class, $level);
+        self::assertSame(17, $level->getValue());
+
+        $experiencesToTotalLevel = new Experiences(123, $experiencesTable);
+        $totalLevel = $experiencesTable->toTotalLevel($experiencesToTotalLevel);
+        self::assertInstanceOf(Level::class, $level);
+        self::assertSame(5, $totalLevel->getValue());
     }
 
     /**
@@ -49,47 +54,71 @@ class ExperiencesTableTest extends TestWithMockery
     public function I_can_convert_level_to_experiences()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $level = new Level($levelValue = 11, $experiencesTable);
+        $level = new Level(11, $experiencesTable);
 
-        $this->assertSame(63, $experiencesTable->toExperiences($level)->getValue());
+        self::assertSame(63, $experiencesTable->toExperiences($level)->getValue());
+        self::assertSame(397, $experiencesTable->toTotalExperiences($level)->getValue());
     }
 
     /**
      * @test
      */
-    public function I_can_convert_level_to_total_experiences()
+    public function I_can_convert_first_level_to_experiences()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $firstLevel = new Level($levelValue = 1, $experiencesTable);
-        $this->assertSame(
-            0,
-            $experiencesTable->toTotalExperiences($firstLevel, true /* main profession */)->getValue()
-        );
-        $this->assertSame(
-            20,
-            $experiencesTable->toTotalExperiences($firstLevel, false /* collateral profession */)->getValue()
-        );
+        $firstLevel = new Level(1, $experiencesTable);
+        self::assertSame(0, $experiencesTable->toExperiences($firstLevel)->getValue());
+        self::assertSame(0, $experiencesTable->toTotalExperiences($firstLevel)->getValue());
+    }
 
+    /**
+     * @test
+     */
+    public function I_can_convert_max_level_to_experiences()
+    {
+        $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
         $lastLevel = new Level($levelValue = 20, $experiencesTable);
-        $this->assertSame(
-            1447,
-            $experiencesTable->toTotalExperiences($lastLevel, true /* main profession */)->getValue()
-        );
-        $this->assertSame(
-            1467,
-            $experiencesTable->toTotalExperiences($lastLevel, false /* collateral profession */)->getValue()
-        );
+        self::assertSame(180, $experiencesTable->toExperiences($lastLevel)->getValue());
+        self::assertSame(1447, $experiencesTable->toTotalExperiences($lastLevel)->getValue());
     }
 
     /**
      * @test
      */
-    public function I_can_convert_experiences_to_total_level()
+    public function I_can_convert_zero_experiences_to_first_level()
     {
-        $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
-        $experiences = new Experiences($experiencesValue = 99, $experiencesTable, Experiences::EXPERIENCES);
+        $experiencesTable = new ExperiencesTable(new WoundsTable());
+        $zeroExperiences = new Experiences($experiencesValue = 0, $experiencesTable);
 
-        $level = $experiencesTable->toTotalLevel($experiences);
-        $this->assertSame(14, $level->getValue());
+        $levelOfMainProfession = $experiencesTable->toLevel($zeroExperiences);
+        self::assertSame(1, $levelOfMainProfession->getValue());
+        $totalLevelOfMainProfession = $experiencesTable->toTotalLevel($zeroExperiences);
+        self::assertSame(1, $totalLevelOfMainProfession->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_create_first_level_from_max_experiences_for_it_but_get_zero_back()
+    {
+        $experiencesTable = new ExperiencesTable(new WoundsTable());
+        $experiencesForFirstLevel = new Experiences($experiencesValue = 21, $experiencesTable);
+
+        $levelOfMainProfession = $experiencesTable->toTotalLevel($experiencesForFirstLevel);
+        self::assertSame(1, $levelOfMainProfession->getValue());
+        self::assertSame(0, $levelOfMainProfession->getExperiences()->getValue());
+        self::assertSame(0, $levelOfMainProfession->getTotalExperiences()->getValue());
+
+        $minimalExperiencesForSecondLevel = new Experiences(
+            $experiencesValue + 2, // need 22 experiences for second level
+            $experiencesTable
+        );
+        $shouldBeSecondLevel = $minimalExperiencesForSecondLevel->getLevel();
+        self::assertSame(2, $shouldBeSecondLevel->getValue());
+        self::assertSame(
+            $experiencesValue + 1, // lossy conversion, needed 22 XP for second level but got 21 back
+            $shouldBeSecondLevel->getExperiences()->getValue()
+        );
+        self::assertSame($experiencesValue + 1, $shouldBeSecondLevel->getTotalExperiences()->getValue());
     }
 }

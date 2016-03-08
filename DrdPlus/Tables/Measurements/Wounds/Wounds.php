@@ -13,7 +13,7 @@ class Wounds extends AbstractMeasurementWithBonus
      */
     private $woundsTable;
 
-    public function __construct($value, $unit, WoundsTable $woundsTable)
+    public function __construct($value, WoundsTable $woundsTable, $unit = Wounds::WOUNDS)
     {
         $this->woundsTable = $woundsTable;
         parent::__construct($value, $unit);
