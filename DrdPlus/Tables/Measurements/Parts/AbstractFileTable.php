@@ -166,10 +166,11 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function parseNumber($value)
     {
-        $dashReplaced = str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
-        $commaToDot = str_replace(',', '.', $dashReplaced);
-
-        return $commaToDot;
+        return str_replace(
+            ['−' /* from ASCII 226 */, ','], // unified minus sign and float format (decimal delimiter)
+            ['-' /* to ASCII 45 */, '.'],
+            $value
+        );
     }
 
     private function parseValue($value)
@@ -216,9 +217,8 @@ abstract class AbstractFileTable extends AbstractTable
         }
         $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
-        $measurement = $this->convertToMeasurement($wantedValue, $wantedUnit);
 
-        return $measurement;
+        return $this->convertToMeasurement($wantedValue, $wantedUnit);
     }
 
     private function checkBonus(AbstractBonus $bonus)
@@ -285,24 +285,19 @@ abstract class AbstractFileTable extends AbstractTable
      */
     private function determineBonus(MeasurementWithBonusInterface $measurement)
     {
-        $searchedUnit = $measurement->getUnit();
-        $searchedValue = $measurement->getValue();
-        $finds = $this->findBonusMatchingTo($searchedValue, $searchedUnit);
+        $finds = $this->findBonusMatchingTo($measurement);
         if (is_int($finds)) {
             return $finds; // we found the bonus by value exact match
         }
 
-        return $this->getBonusClosestTo($searchedValue, $finds['lower'], $finds['higher']);
+        return $this->getBonusClosestTo($measurement->getValue(), $finds['lower'], $finds['higher']);
     }
 
-    private function findBonusMatchingTo($searchedValue, $searchedUnit)
+    private function findBonusMatchingTo(MeasurementWithBonusInterface $measurement)
     {
-        $searchedValue = trim($searchedValue);
-        $isItDiceRollChance = $this->isItDiceRollChance($searchedValue);
-        if (!$isItDiceRollChance) {
-            $searchedValue = ToFloat::toFloat($searchedValue);
-        }
-        $closest = ['lower' => [], 'higher' => []];
+        $searchedValue = ToFloat::toFloat($measurement->getValue());
+        $searchedUnit = $measurement->getUnit();
+        $closest = ['lower' => [], 'higher' => []]; // value to bonuses
         foreach ($this->getIndexedValues() as $bonus => $relatedValues) {
             if (!array_key_exists($searchedUnit, $relatedValues)) { // current row doesn't have required unit
                 continue;
@@ -311,26 +306,29 @@ abstract class AbstractFileTable extends AbstractTable
             if ($relatedValue === $searchedValue) {
                 return $bonus; // we have found exact match
             }
-            if ($isItDiceRollChance || $this->isItDiceRollChance($relatedValue)) { // only exact value match can return dice chance
+            if ($this->isItDiceRollChance($relatedValue)) {
                 continue; // dice roll chance fractions are skipped (example '2/6')
             }
+            $stringRelatedValue = "$relatedValue"; // because PHP is silently converting float to int
             if ($searchedValue > $relatedValue) {
-                if (count($closest['lower']) === 0 || key($closest['lower']) < $relatedValue) {
-                    $closest['lower'] = [$relatedValue => [$bonus]]; // new value to [bonus] pair
-                } else if (count($closest['lower']) > 0 && key($closest['lower']) === $relatedValue) {
-                    $closest['lower'][$relatedValue][] = $bonus; // adding bonus for same value
+                if (count($closest['lower']) === 0 || key($closest['lower']) < $stringRelatedValue) {
+                    $closest['lower'] = [$stringRelatedValue => [$bonus]]; // new value to [bonus] pair
+                } else if (count($closest['lower']) > 0 && key($closest['lower']) === $stringRelatedValue) {
+                    $closest['lower'][$stringRelatedValue][] = $bonus; // adding bonus for same value
                 }
             } else if ($searchedValue < $relatedValue) {
-                if (count($closest['higher']) === 0 || key($closest['higher']) > $relatedValue) {
-                    $closest['higher'] = [$relatedValue => [$bonus]]; // new value to bonus pair
-                } else if (count($closest['higher']) > 0 && key($closest['higher']) === $relatedValue) {
-                    $closest['higher'][$relatedValue][] = $bonus; // adding bonus for same value
+                if (count($closest['higher']) === 0 || key($closest['higher']) > $stringRelatedValue) {
+                    $closest['higher'] = [$stringRelatedValue => [$bonus]]; // new value to bonus pair
+                } else if (count($closest['higher']) > 0 && key($closest['higher']) === $stringRelatedValue) {
+                    $closest['higher'][$stringRelatedValue][] = $bonus; // adding bonus for same value
                 }
             }
         }
 
         if (count($closest['lower']) === 0 || count($closest['higher']) === 0) {
-            throw new Exceptions\RequestedDataOutOfTableRange("Value $searchedValue($searchedUnit) is out of table values.");
+            throw new Exceptions\RequestedDataOutOfTableRange(
+                "Value $searchedValue (unit '$searchedUnit') is out of table values."
+            );
         }
 
         return $closest;
@@ -348,7 +346,7 @@ abstract class AbstractFileTable extends AbstractTable
         $searchedValue = ToFloat::toFloat($searchedValue);
         $closerValue = $this->getCloserValue($searchedValue, key($closestLower), key($closestHigher));
         if ($closerValue !== false) {
-            if (isset($closestLower[$closerValue])) {
+            if (array_key_exists($closerValue, $closestLower)) {
                 $bonuses = $closestLower[$closerValue];
             } else {
                 $bonuses = $closestHigher[$closerValue];

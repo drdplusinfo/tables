@@ -126,6 +126,58 @@ class AbstractFileTableTest extends TestWithMockery
 
     /**
      * @test
+     * @see PPH page 73, right column, first block
+     */
+    public function I_can_use_same_value_for_more_bonuses_and_get_lowest_bonus_by_closest_value()
+    {
+        $filename = $this->createTempFilename();
+        $unit = 'bar';
+        $lowerValue = 123;
+        $higherValue = 321;
+        $expectedValues = [
+            456 => [$unit => (float)$lowerValue],
+            567 => [$unit => (float)$lowerValue],
+            678 => [$unit => (float)$higherValue],
+            789 => [$unit => (float)$higherValue],
+        ];
+        $rows = ["bonus,$unit"];
+        foreach ($expectedValues as $bonus => $expectedValue) {
+            $rows[] = "$bonus," . $expectedValue[$unit]; // lower or higher value
+        }
+        file_put_contents($filename, implode("\n", $rows));
+        $table = TestOfAbstractTable::getIt($filename, [$unit]);
+        self::assertEquals($expectedValues, $table->getIndexedValues());
+        $middleValue = 234;
+        self::assertGreaterThan($lowerValue, $middleValue);
+        self::assertLessThan($higherValue, $middleValue);
+
+        $bonus = $table->toBonus($unit, $middleValue);
+
+        self::assertLessThan(
+            $middleValue - $lowerValue,
+            $higherValue - $middleValue,
+            'Expected middle value to be closer to the higher than lower value'
+        );
+        $closerValue = (float)$higherValue;
+        $bonusesOfClosestValue = array_filter(array_map(
+            function ($bonus, array $value) use ($closerValue) {
+                if (current($value) === $closerValue) {
+                    return $bonus; // this bonus will be used for choose of lowest
+                }
+
+                return false; // will be filtered out, see wrapping array_filter
+            },
+            array_keys($expectedValues), $expectedValues
+        ));
+
+        self::assertSame(
+            min($bonusesOfClosestValue), // the lowest bonus ('first' in words of PPH)
+            $bonus->getValue()
+        );
+    }
+
+    /**
+     * @test
      */
     public function I_can_get_measurement_with_auto_chosen_unit_by_bonus()
     {
@@ -162,7 +214,7 @@ class AbstractFileTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function My_chance_is_evaluated_properly()
+    public function I_got_chance_evaluated_properly()
     {
         $filename = $this->createTempFilename();
         $chances = range(0, 6);
@@ -189,7 +241,7 @@ class AbstractFileTableTest extends TestWithMockery
 
     private function createSomeBonusValue($referenceNumber)
     {
-        return $referenceNumber + 3;
+        return $referenceNumber + 3; // just a simple linear value shift
     }
 
     private function createOneToOneEvaluator(array &$valuesToEvaluate)
@@ -222,23 +274,31 @@ class AbstractFileTableTest extends TestWithMockery
     }
 
     /**
+     * Every value is used as a float - even measurement giving string as its value can not help.
      * @test
      */
-    public function I_can_get_bonus_by_dice_chance_exact_match()
+    public function I_can_not_get_bonus_by_dice_chance_exact_match()
     {
         $filename = $this->createTempFilename();
         $chances = range(0, 6);
         $unit = 'bar';
-        $bonusValues = [];
         $rows = [];
         foreach ($chances as $chance) {
-            $bonusValues[$chance] = $bonusValue = $this->createSomeBonusValue($chance);
+            $bonusValue = $this->createSomeBonusValue($chance);
             $rows[] = "$bonusValue,$chance/6";
         }
         file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
         $table = TestOfAbstractTable::getIt($filename, [$unit]);
-        foreach ($bonusValues as $chance => $bonusValue) {
-            self::assertSame($bonusValue, $table->toBonus($unit, "$chance/6")->getValue());
+        foreach ($chances as $chance) {
+            try {
+                $table->toBonus($unit, "$chance/6");
+                throw new \LogicException('Previous row should throw an exception');
+            } catch (\Exception $exception) {
+                self::assertInstanceOf(
+                    \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange::class,
+                    $exception
+                );
+            }
         }
     }
 
