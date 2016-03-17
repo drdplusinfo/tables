@@ -2,12 +2,12 @@
 namespace DrdPlus\Tables\Measurements\Parts;
 
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
-use DrdPlus\Tables\Measurements\MeasurementInterface;
+use DrdPlus\Tables\Measurements\Measurement;
 use Granam\Float\Tools\ToFloat;
 use Granam\Tools\ValueDescriber;
 use Granam\Strict\Object\StrictObject;
 
-abstract class AbstractMeasurement extends StrictObject implements MeasurementInterface
+abstract class AbstractMeasurement extends StrictObject implements Measurement
 {
 
     /**
@@ -43,7 +43,7 @@ abstract class AbstractMeasurement extends StrictObject implements MeasurementIn
 
     protected function checkUnit($unit)
     {
-        if (!in_array($unit, $this->getPossibleUnits())) {
+        if (!in_array($unit, $this->getPossibleUnits(), true)) {
             throw new UnknownUnit('Unknown unit ' . ValueDescriber::describe($unit));
         }
     }

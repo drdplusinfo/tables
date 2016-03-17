@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\BonusInterface;
-use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use Granam\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfBonus extends TestWithMockery
@@ -55,7 +55,7 @@ abstract class AbstractTestOfBonus extends TestWithMockery
         self::assertSame($bonusValue, $sut->getValue());
         $getMeasurement = $this->getNameOfMeasurementGetter();
         $measurement = $sut->$getMeasurement();
-        /** @var MeasurementWithBonusInterface $measurement */
+        /** @var MeasurementWithBonus $measurement */
         self::assertInstanceOf($this->getMeasurementClass(), $measurement);
         self::assertInstanceOf($this->getBonusClass(), $measurement->getBonus());
         // the bonus-to-measurement-to-bonus can be lossy transformation

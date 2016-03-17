@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements;
 
-use DrdPlus\Tables\Measurements\MeasurementInterface;
+use DrdPlus\Tables\Measurements\Measurement;
 use DrdPlus\Tables\Parts\AbstractTable;
 use DrdPlus\Tables\Table;
 use Granam\Tests\Tools\TestWithMockery;
@@ -22,7 +22,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     /**
      * @param int $amount
      *
-     * @return MeasurementInterface
+     * @return Measurement
      */
     protected function createSut($amount)
     {
@@ -43,7 +43,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     }
 
     /**
-     * @return string|MeasurementInterface
+     * @return string|Measurement
      */
     protected static function getSutClass()
     {
@@ -67,9 +67,8 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     {
         $classBaseName = $this->parseClassBaseName(self::getSutClass());
         $underscored = ltrim(preg_replace('~([A-Z])~', '_$1', $classBaseName), '_');
-        $constantBaseName = strtoupper($underscored);
 
-        return $constantBaseName;
+        return strtoupper($underscored);
     }
 
     /**

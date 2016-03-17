@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Parts;
 
-use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 
 abstract class AbstractMeasurementWithBonus extends AbstractMeasurement
-    implements MeasurementWithBonusInterface
+    implements MeasurementWithBonus
 {
 
 }

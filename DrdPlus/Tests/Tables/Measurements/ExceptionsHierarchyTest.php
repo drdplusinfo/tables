@@ -1,20 +1,20 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements;
 
-use DrdPlus\Tables\Measurements\MeasurementInterface;
-use Granam\Exceptions\Tests\Tools\AbstractTestOfExceptionsHierarchy;
+use DrdPlus\Tables\Table;
+use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractTestOfExceptionsHierarchy
+class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     protected function getTestedNamespace()
     {
-        $measurementReflection = new \ReflectionClass(MeasurementInterface::class);
-
-        return $measurementReflection->getNamespaceName();
+        return str_replace('\Tests', '', __NAMESPACE__);
     }
 
     protected function getRootNamespace()
     {
-        return $this->getTestedNamespace();
+        $measurementReflection = new \ReflectionClass(Table::class);
+
+        return $measurementReflection->getNamespaceName();
     }
 }

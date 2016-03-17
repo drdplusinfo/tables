@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Parts;
 
-use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired;
 use DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted;
 use DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile;
@@ -77,7 +77,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @param float $value
      * @param string $unit
      *
-     * @return MeasurementWithBonusInterface
+     * @return MeasurementWithBonus
      */
     abstract protected function convertToMeasurement($value, $unit);
 
@@ -200,7 +200,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @param AbstractBonus $bonus
      * @param string $wantedUnit
      *
-     * @return MeasurementWithBonusInterface
+     * @return MeasurementWithBonus
      */
     protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
     {
@@ -269,21 +269,21 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /**
-     * @param MeasurementWithBonusInterface $measurement
+     * @param MeasurementWithBonus $measurement
      *
      * @return AbstractBonus
      */
-    protected function measurementToBonus(MeasurementWithBonusInterface $measurement)
+    protected function measurementToBonus(MeasurementWithBonus $measurement)
     {
         return $this->createBonus($this->determineBonus($measurement));
     }
 
     /**
-     * @param MeasurementWithBonusInterface $measurement
+     * @param MeasurementWithBonus $measurement
      *
      * @return int
      */
-    private function determineBonus(MeasurementWithBonusInterface $measurement)
+    private function determineBonus(MeasurementWithBonus $measurement)
     {
         $finds = $this->findBonusMatchingTo($measurement);
         if (is_int($finds)) {
@@ -293,7 +293,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $this->getBonusClosestTo($measurement->getValue(), $finds['lower'], $finds['higher']);
     }
 
-    private function findBonusMatchingTo(MeasurementWithBonusInterface $measurement)
+    private function findBonusMatchingTo(MeasurementWithBonus $measurement)
     {
         $searchedValue = ToFloat::toFloat($measurement->getValue());
         $searchedUnit = $measurement->getUnit();

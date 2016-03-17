@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 
-interface MeasurementWithBonusInterface extends MeasurementInterface
+interface MeasurementWithBonus extends Measurement
 {
     /**
      * @return AbstractBonus

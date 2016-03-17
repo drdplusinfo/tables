@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Measurements;
 
 use Granam\Number\NumberInterface;
 
-interface MeasurementInterface extends NumberInterface
+interface Measurement extends NumberInterface
 {
 
     /**

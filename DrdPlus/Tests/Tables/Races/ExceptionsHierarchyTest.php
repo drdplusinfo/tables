@@ -1,21 +1,21 @@
 <?php
 namespace DrdPlus\Tests\Tables\Races;
 
-use DrdPlus\Tables\Races\RacesTable;
-use Granam\Exceptions\Tests\Tools\AbstractTestOfExceptionsHierarchy;
+use DrdPlus\Tables\Table;
+use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractTestOfExceptionsHierarchy
+class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     protected function getTestedNamespace()
     {
-        $reflection = new \ReflectionClass(RacesTable::class);
-
-        return $reflection->getNamespaceName();
+        return str_replace('\Tests', '', __NAMESPACE__);
     }
 
     protected function getRootNamespace()
     {
-        return $this->getTestedNamespace();
+        $reflection = new \ReflectionClass(Table::class);
+
+        return $reflection->getNamespaceName();
     }
 
 }

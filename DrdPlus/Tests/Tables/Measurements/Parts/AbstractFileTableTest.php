@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
-use DrdPlus\Tables\Measurements\MeasurementWithBonusInterface;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
@@ -394,8 +394,8 @@ class TestOfAbstractTable extends AbstractFileTable
      */
     public function toBonus($unit, $value)
     {
-        /** @var \Mockery\MockInterface|MeasurementWithBonusInterface $measurement */
-        $measurement = \Mockery::mock(MeasurementWithBonusInterface::class);
+        /** @var \Mockery\MockInterface|MeasurementWithBonus $measurement */
+        $measurement = \Mockery::mock(MeasurementWithBonus::class);
         $measurement->shouldReceive('getUnit')
             ->andReturn($unit);
         $measurement->shouldReceive('getValue')

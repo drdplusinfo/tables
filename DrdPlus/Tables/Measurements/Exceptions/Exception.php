@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Exceptions;
 
-interface Exception
+interface Exception extends \DrdPlus\Tables\Exceptions\Exception
 {
 
 }
