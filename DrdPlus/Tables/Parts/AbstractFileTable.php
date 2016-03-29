@@ -190,7 +190,7 @@ abstract class AbstractFileTable extends AbstractTable
             function (array $row) {
                 return array_map(
                     function ($value, $columnIndex) {
-                        return $this->parseValue($value, $columnIndex);
+                        return $this->parseRowValue($value, $columnIndex);
                     },
                     $row, array_keys($row)
                 );
@@ -201,7 +201,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function getNormalizedExpectedColumnsHeader()
     {
-        if (!isset($this->normalizedExpectedColumnHeader)) {
+        if ($this->normalizedExpectedColumnHeader === null) {
             $this->normalizedExpectedColumnHeader = [];
             $columnIndex = 0;
             foreach ($this->getExpectedDataHeader() as $headerName => $columnScalarType) {
@@ -236,24 +236,19 @@ abstract class AbstractFileTable extends AbstractTable
     /** @return string[] */
     abstract protected function getExpectedDataHeader();
 
-    private function parseValue($value, $columnIndex)
+    private function parseRowValue($value, $columnIndex)
     {
         $value = trim($value);
         switch ($columnType = $this->getColumnType($columnIndex)) {
             case self::BOOLEAN :
-                $value = ToBoolean::toBoolean($value);
-                break;
+                return ToBoolean::toBoolean($value);
             case self::INTEGER :
-                $value = ToInteger::toInteger($this->normalizeMinus($value));
-                break;
+                return ToInteger::toInteger($this->normalizeMinus($value));
             case self::FLOAT :
-                $value = ToFloat::toFloat($this->normalizeMinus($value));
-                break;
-            case self::STRING :
-                break;
+                return ToFloat::toFloat($this->normalizeMinus($value));
+            default : // string
+                return (string)$value;
         }
-
-        return $value;
     }
 
     private function getColumnType($columnIndex)
@@ -271,9 +266,8 @@ abstract class AbstractFileTable extends AbstractTable
     private function indexValues(array $values, array $rowsHeader, array $columnsHeader)
     {
         $indexedRows = $this->indexByRowsHeader($values, $rowsHeader);
-        $indexed = $this->indexByColumnsHeader($indexedRows, $columnsHeader);
 
-        return $indexed;
+        return $this->indexByColumnsHeader($indexedRows, $columnsHeader);
     }
 
     private function indexByRowsHeader(array $toIndex, array $rowKeys)
@@ -319,9 +313,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $row = $this->getRow($rowIndexes);
 
-        $value = $this->getValueInRow($row, $columnIndex);
-
-        return $value;
+        return $this->getValueInRow($row, $columnIndex);
     }
 
     /**

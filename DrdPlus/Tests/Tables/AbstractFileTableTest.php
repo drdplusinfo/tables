@@ -208,7 +208,7 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
 {
     protected function getDataFileName()
     {
-        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
+        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 123]));
 
         return $this->dataFileName;
     }

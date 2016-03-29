@@ -272,36 +272,6 @@ class AbstractFileTableTest extends TestWithMockery
             $withLessColumnHeaderRowsThenRowHeader->getHeader()
         );
     }
-
-    /**
-     * Every value is used as a float - even measurement giving string as its value can not help.
-     * @test
-     */
-    public function I_can_not_get_bonus_by_dice_chance_exact_match()
-    {
-        $filename = $this->createTempFilename();
-        $chances = range(0, 6);
-        $unit = 'bar';
-        $rows = [];
-        foreach ($chances as $chance) {
-            $bonusValue = $this->createSomeBonusValue($chance);
-            $rows[] = "$bonusValue,$chance/6";
-        }
-        file_put_contents($filename, "bonus,$unit\n" . implode("\n", $rows));
-        $table = TestOfAbstractTable::getIt($filename, [$unit]);
-        foreach ($chances as $chance) {
-            try {
-                $table->toBonus($unit, "$chance/6");
-                throw new \LogicException('Previous row should throw an exception');
-            } catch (\Exception $exception) {
-                self::assertInstanceOf(
-                    \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange::class,
-                    $exception
-                );
-            }
-        }
-    }
-
 }
 
 /** inner */
