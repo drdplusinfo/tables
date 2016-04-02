@@ -34,7 +34,7 @@ class Level extends AbstractBonus
         }
         if ($levelValue > static::MAX_LEVEL) {
             throw new Exceptions\MaxLevelOverflow(
-                'Level can not be greater than ' . self::MAX_LEVEL . ', got' . $levelValue
+                'Level can not be greater than ' . self::MAX_LEVEL . ', got ' . $levelValue
             );
         }
     }
