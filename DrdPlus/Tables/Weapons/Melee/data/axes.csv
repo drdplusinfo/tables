@@ -1,0 +1,5 @@
+weapon,required strength,length,offensiveness,wounds,type,cover,weight
+light axe,3,1,3,3,cut,2,1
+axe,6,2,3,5,cut,2,2
+war axe,9,3,3,7,cut,3,2.5
+two handed axe,12,3,4,10,cut,3,3

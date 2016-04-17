@@ -1,0 +1,9 @@
+weapon,required strength,offensiveness,wounds,type,range,weight
+basic arrow,,0,0,stab,0,0.05
+long range arrow,,0,-1,stab,2,0.1
+war arrow,,0,2,stab,-2,0.05
+piercing arrow,,0,-1,stab,0,0.05
+hollow arrow,,0,-1,stab,0,0.05
+cripling arrow,,-1,-2,stab,-1,0.05
+flame arrow,,-3,-3,crush,-2,0.05
+silver arrow,,0,0,stab,0,0.05

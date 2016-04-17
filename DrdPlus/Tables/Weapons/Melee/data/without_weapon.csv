@@ -1,0 +1,5 @@
+weapon,required strength,length,offensiveness,wounds,type,cover,weight
+hand,,0,0,-2,crush,0,
+hobnailed glove,,0,0,0,crush,0,
+leg,,-1,-1,1,crush,0,
+hobnailed boot,,-2,-2,4,crush,0,
