@@ -27,7 +27,7 @@ abstract class AbstractFileTable extends AbstractTable
      */
     public function getIndexedValues()
     {
-        if (!isset($this->indexedValues)) {
+        if ($this->indexedValues === null) {
             $this->loadData();
         }
 
@@ -47,7 +47,7 @@ abstract class AbstractFileTable extends AbstractTable
      */
     protected function getColumnsHeader()
     {
-        if (!isset($this->columnsHeader)) {
+        if ($this->columnsHeader === null) {
             $this->loadData();
         }
 
@@ -73,7 +73,7 @@ abstract class AbstractFileTable extends AbstractTable
         $data = [];
         do {
             $row = fgetcsv($resource);
-            if (count($row) > 0 && $row !== false) { // otherwise skip empty row
+            if ($row !== false && count($row) > 0) { // otherwise skip empty row
                 $data[] = $row;
             }
         } while (is_array($row));
@@ -100,12 +100,13 @@ abstract class AbstractFileTable extends AbstractTable
     private function cutOffRowsHeader(array $values)
     {
         $columnIndexes = array_keys($this->getExpectedRowsHeader());
-        foreach (array_keys($values) as $rowIndex) {
+        $rowIndexes = array_keys($values);
+        foreach ($rowIndexes as $rowIndex) {
             foreach ($columnIndexes as $columnIndex) {
                 unset($values[$rowIndex][$columnIndex]);
             }
-            // fixing number-indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
-            $values[$rowIndex] = array_merge($values[$rowIndex]);
+            // fixing sequence of number indexes ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
+            $values[$rowIndex] = array_values($values[$rowIndex]);
         }
 
         return $values; // pure values without header
@@ -167,7 +168,8 @@ abstract class AbstractFileTable extends AbstractTable
         $columnsHeaderValues = [];
         $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
         $indexShift = count($this->getExpectedRowsHeader());
-        foreach (array_keys($expectedHeaderRow) as $expectedColumnIndex) {
+        $expectedColumnIndexes = array_keys($expectedHeaderRow);
+        foreach ($expectedColumnIndexes as $expectedColumnIndex) {
             $expectedHeaderValue = $expectedHeaderRow[$expectedColumnIndex]['value'];
             $rawDataColumnIndex = $expectedColumnIndex + $indexShift;
             $this->checkHeaderValue($rawData, $rawDataColumnIndex, $expectedHeaderValue);
@@ -181,7 +183,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         unset($rawData[0]);
 
-        return array_merge($rawData); // fixing row numeric indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
+        return array_values($rawData); // fixing row numeric indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
     }
 
     private function formatValues(array $data)
@@ -320,11 +322,11 @@ abstract class AbstractFileTable extends AbstractTable
      * @param array $rowIndexes
      *
      * @return array|mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getRow(array $rowIndexes)
     {
         $values = $this->getIndexedValues();
-        $row = null;
         foreach ($rowIndexes as $rowIndex) {
             if (!isset($values[$rowIndex])) {
                 throw new Exceptions\RequiredRowDataNotFound(
@@ -333,17 +335,16 @@ abstract class AbstractFileTable extends AbstractTable
             }
             $values = &$values[$rowIndex];
             if (!is_array(current($values))) { // flat array found
-                $row = $values;
-                break;
+                return $values;
             }
         }
 
-        return $row;
+        return null;
     }
 
     private function getValueInRow(array $row, $columnIndex)
     {
-        if (!isset($row[$columnIndex])) {
+        if (!array_key_exists($columnIndex, $row)) {
             throw new Exceptions\RequiredValueNotFound(
                 'Has not found value in row by index ' . ValueDescriber::describe($columnIndex)
             );
