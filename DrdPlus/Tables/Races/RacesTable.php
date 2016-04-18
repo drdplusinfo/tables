@@ -21,8 +21,6 @@ class RacesTable extends AbstractFileTable
         return __DIR__ . '/data/races.csv';
     }
 
-    const REMARKABLE_SENSE = 'remarkable_sense';
-
     /**
      * @return array|string
      */

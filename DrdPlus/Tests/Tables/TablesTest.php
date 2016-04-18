@@ -71,10 +71,15 @@ class TablesTest extends \PHPUnit_Framework_TestCase
             $fetchedTableClasses[] = get_class($table);
         }
         $expectedTableClasses = $this->getExpectedTableClasses();
-        self::assertSameSize($expectedTableClasses, $fetchedTableClasses);
-
         sort($expectedTableClasses);
         sort($fetchedTableClasses);
+        
+        self::assertSameSize(
+            $expectedTableClasses,
+            $fetchedTableClasses,
+            'Tables factory should give ' . implode(',', array_diff($expectedTableClasses, $fetchedTableClasses))
+            . ' on iterating'
+        );
         self::assertEquals($expectedTableClasses, $fetchedTableClasses);
     }
 
@@ -94,7 +99,9 @@ class TablesTest extends \PHPUnit_Framework_TestCase
             $fullPath = $rootDir . DIRECTORY_SEPARATOR . $fileOrDir;
             if ($fileOrDir !== '.' && $fileOrDir !== '..') {
                 if (is_dir($fullPath)) {
-                    $tableClasses = array_merge($tableClasses, $this->scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir));
+                    foreach ($this->scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir) as $foundTable) {
+                        $tableClasses[] = $foundTable;
+                    }
                 } else if (is_file($fullPath)) {
                     if (preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
                         $tableReflection = new \ReflectionClass($rootNamespace . '\\' . $matches['tableBasename']);
