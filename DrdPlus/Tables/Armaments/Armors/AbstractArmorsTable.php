@@ -4,17 +4,8 @@ namespace DrdPlus\Tables\Armaments\Armors;
 use DrdPlus\Tables\Parts\AbstractFileTable;
 use Granam\Tools\ValueDescriber;
 
-class ArmorsTable extends AbstractFileTable
+abstract class AbstractArmorsTable extends AbstractFileTable
 {
-    protected function getDataFileName()
-    {
-        return __DIR__ . '/data/armors.csv';
-    }
-
-    protected function getExpectedRowsHeader()
-    {
-        return ['armor'];
-    }
 
     const REQUIRED_STRENGTH_HEADER = 'required_strength';
     const RESTRICTION_HEADER = 'restriction';
@@ -87,5 +78,4 @@ class ArmorsTable extends AbstractFileTable
     {
         return $this->getValueFor($armorCode, self::WEIGHT_HEADER);
     }
-
 }

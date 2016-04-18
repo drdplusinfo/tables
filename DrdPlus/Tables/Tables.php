@@ -1,7 +1,8 @@
 <?php
 namespace DrdPlus\Tables;
 
-use DrdPlus\Tables\Armaments\Armors\ArmorsTable;
+use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
+use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -165,15 +166,27 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ArmorsTable
+     * @return BodyArmorsTable
      */
     public function getArmorsTable()
     {
-        if (!array_key_exists(ArmorsTable::class, $this->tables)) {
-            $this->tables[ArmorsTable::class] = new ArmorsTable();
+        if (!array_key_exists(BodyArmorsTable::class, $this->tables)) {
+            $this->tables[BodyArmorsTable::class] = new BodyArmorsTable();
         }
 
-        return $this->tables[ArmorsTable::class];
+        return $this->tables[BodyArmorsTable::class];
+    }
+
+    /**
+     * @return HelmsTable
+     */
+    public function getHelmetsTable()
+    {
+        if (!array_key_exists(HelmsTable::class, $this->tables)) {
+            $this->tables[HelmsTable::class] = new HelmsTable();
+        }
+
+        return $this->tables[HelmsTable::class];
     }
 
     public function getIterator()
@@ -192,6 +205,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getWeightTable(),
             $this->getWoundsTable(),
             $this->getArmorsTable(),
+            $this->getHelmetsTable(),
         ]);
     }
 

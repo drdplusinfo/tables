@@ -1,4 +1,4 @@
-armor,required_strength,restriction,protection,weight
+body_armor,required_strength,restriction,protection,weight
 without_armor,,,0,
 padded_armor,-2,,2,4
 leather_armor,1,,3,6
