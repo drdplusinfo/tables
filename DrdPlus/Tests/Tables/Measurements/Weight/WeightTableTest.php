@@ -4,9 +4,10 @@ namespace DrdPlus\Tests\Tables\Measurements\Weight;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class WeightTableTest extends TestWithMockery
+class WeightTableTest extends TestWithMockery implements MeasurementTableTest
 {
 
     /**
@@ -21,7 +22,7 @@ class WeightTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_kg()
+    public function I_can_convert_bonus_to_value()
     {
         $weightTable = new WeightTable();
         self::assertSame(
@@ -42,7 +43,7 @@ class WeightTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_kg_cause_exception()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $weightTable = new WeightTable();
         $weightTable->toWeight(new WeightBonus(-41, $weightTable));
@@ -52,7 +53,7 @@ class WeightTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_kg_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $weightTable = new WeightTable();
         $weightTable->toWeight(new WeightBonus(60, $weightTable));
@@ -61,7 +62,7 @@ class WeightTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_kg_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $weightTable = new WeightTable();
         self::assertSame(-40, $weightTable->toBonus(new Weight(0.1, Weight::KG, $weightTable))->getValue());
@@ -79,7 +80,7 @@ class WeightTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $weightTable = new WeightTable();
         $weightTable->toBonus(new Weight(0.09, Weight::KG, $weightTable));
@@ -89,7 +90,7 @@ class WeightTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $weightTable = new WeightTable();
         $weightTable->toBonus(new Weight(9001, Weight::KG, $weightTable))->getValue();

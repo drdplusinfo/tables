@@ -4,10 +4,11 @@ namespace DrdPlus\Tests\Tables\Measurements\Distance;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 use Granam\Integer\IntegerObject;
 
-class DistanceTableTest extends TestWithMockery
+class DistanceTableTest extends TestWithMockery implements MeasurementTableTest
 {
 
     /**
@@ -23,7 +24,7 @@ class DistanceTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_distance_and_back()
+    public function I_can_convert_bonus_to_value()
     {
         $distanceTable = new DistanceTable();
 
@@ -50,7 +51,7 @@ class DistanceTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_distance_cause_exception()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $distanceTable = new DistanceTable();
         $distanceTable->toDistance(new DistanceBonus(-41, $distanceTable));
@@ -60,7 +61,7 @@ class DistanceTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_distance_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $distanceTable = new DistanceTable();
         $distanceTable->toDistance(new DistanceBonus(120, $distanceTable));
@@ -69,7 +70,7 @@ class DistanceTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_distance_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $distanceTable = new DistanceTable();
 
@@ -106,7 +107,7 @@ class DistanceTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $distanceTable = new DistanceTable();
         $distance = new Distance(901, Distance::KM, $distanceTable);

@@ -87,7 +87,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertSame(null, $baseOfWoundsTable->sumBonuses([]));
+        self::assertNull($baseOfWoundsTable->sumBonuses([]));
         self::assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
         self::assertSame(5, $baseOfWoundsTable->sumBonuses([-5, -5, -5]));
         self::assertSame(14, $baseOfWoundsTable->sumBonuses([-5, 0, 10]));

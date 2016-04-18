@@ -4,9 +4,10 @@ namespace DrdPlus\Tests\Tables\Measurements\Amount;
 use DrdPlus\Tables\Measurements\Amount\Amount;
 use DrdPlus\Tables\Measurements\Amount\AmountBonus;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class AmountTableTest extends TestWithMockery
+class AmountTableTest extends TestWithMockery implements MeasurementTableTest
 {
 
     /**
@@ -21,7 +22,7 @@ class AmountTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_amount()
+    public function I_can_convert_bonus_to_value()
     {
         $amountTable = new AmountTable();
         $maxAttempts = 10000;
@@ -48,7 +49,7 @@ class AmountTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_amount_cause_exception()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $amountTable = new AmountTable();
         $amountTable->toAmount(new AmountBonus(-21, $amountTable));
@@ -58,7 +59,7 @@ class AmountTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_amount_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $amountTable = new AmountTable();
         $amountTable->toAmount(new AmountBonus(100, $amountTable));
@@ -67,7 +68,7 @@ class AmountTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_amount_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $amountTable = new AmountTable();
         self::assertSame(
@@ -98,7 +99,7 @@ class AmountTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $amountTable = new AmountTable();
         $amountTable->toBonus(new Amount(0, Amount::AMOUNT, $amountTable));
@@ -108,7 +109,7 @@ class AmountTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $amountTable = new AmountTable();
         $amountTable->toBonus(new Amount(90001, Amount::AMOUNT, $amountTable));

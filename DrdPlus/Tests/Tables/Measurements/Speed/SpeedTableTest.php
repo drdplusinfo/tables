@@ -4,9 +4,10 @@ namespace DrdPlus\Tests\Tables\Measurements\Speed;
 use DrdPlus\Tables\Measurements\Speed\Speed;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class SpeedTableTest extends TestWithMockery
+class SpeedTableTest extends TestWithMockery implements MeasurementTableTest
 {
     /**
      * @test
@@ -21,7 +22,7 @@ class SpeedTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_speed()
+    public function I_can_convert_bonus_to_value()
     {
         $speedTable = new SpeedTable();
         self::assertSame(0.1, $speedTable->toSpeed(new SpeedBonus(-20, $speedTable))->getMetersPerRound());
@@ -42,7 +43,7 @@ class SpeedTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_speed_cause_exception()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $speedTable = new SpeedTable();
         $speedTable->toSpeed(new SpeedBonus(-21, $speedTable))->getMetersPerRound();
@@ -50,18 +51,8 @@ class SpeedTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_speed_cause_exception()
-    {
-        $speedTable = new SpeedTable();
-        $speedTable->toSpeed(new SpeedBonus(100, $speedTable))->getMetersPerRound();
-    }
-
-    /**
-     * @test
-     */
-    public function can_convert_speed_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $speedTable = new SpeedTable();
         self::assertSame(-20, $speedTable->toBonus(new Speed(0.1, Speed::M_PER_ROUND, $speedTable))->getValue());
@@ -86,7 +77,17 @@ class SpeedTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
+    {
+        $speedTable = new SpeedTable();
+        $speedTable->toSpeed(new SpeedBonus(100, $speedTable))->getMetersPerRound();
+    }
+
+    /**
+     * @test
+     * @expectedException \OutOfRangeException
+     */
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $speedTable = new SpeedTable();
         $speedTable->toBonus(new Speed(0.09, Speed::M_PER_ROUND, $speedTable));
@@ -96,7 +97,7 @@ class SpeedTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $speedTable = new SpeedTable();
         $speedTable->toBonus(new Speed(32001, Speed::KM_PER_HOUR, $speedTable));

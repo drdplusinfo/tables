@@ -5,9 +5,10 @@ use DrdPlus\Tables\Measurements\Fatigue\Fatigue;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueBonus;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class FatigueTableTest extends TestWithMockery
+class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
 {
     /** @var  WoundsTable */
     private $woundsTable;
@@ -20,7 +21,12 @@ class FatigueTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_headers_same_as_from_wounds_table()
+    public function I_can_get_headers()
+    {
+        $this->I_can_get_headers_same_as_from_wounds_table();
+    }
+
+    private function I_can_get_headers_same_as_from_wounds_table()
     {
         $experiencesTable = new FatigueTable($this->woundsTable);
 
@@ -41,7 +47,7 @@ class FatigueTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_bonus_to_fatigue()
+    public function I_can_convert_bonus_to_value()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $attempt = 1;
@@ -86,7 +92,7 @@ class FatigueTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_bonus_to_fatigue_cause_exception()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toFatigue(new FatigueBonus(-22, $fatigueTable));
@@ -96,7 +102,7 @@ class FatigueTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_fatigue_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toFatigue(new FatigueBonus(80, $fatigueTable));
@@ -105,7 +111,7 @@ class FatigueTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_fatigue_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         self::assertSame(
@@ -142,7 +148,7 @@ class FatigueTableTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
-    public function I_can_not_use_negative_fatigue_bonus()
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toBonus(new Fatigue(-1, Fatigue::FATIGUE, $fatigueTable));
@@ -152,7 +158,7 @@ class FatigueTableTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toBonus(new Fatigue(28001, Fatigue::FATIGUE, $fatigueTable));

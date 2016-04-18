@@ -4,9 +4,10 @@ namespace DrdPlus\Tests\Tables\Measurements\Time;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class TimeTableTest extends TestWithMockery
+class TimeTableTest extends TestWithMockery implements MeasurementTableTest
 {
     /**
      * @test
@@ -25,7 +26,7 @@ class TimeTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_low_bonus()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $timeTable = new TimeTable();
         $timeTable->toTime(new TimeBonus(-1, $timeTable))->getRounds();
@@ -35,7 +36,7 @@ class TimeTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_bonus_to_rounds_cause_exception()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $timeTable = new TimeTable();
         $timeTable->toTime(new TimeBonus(40, $timeTable))->getRounds();
@@ -44,7 +45,7 @@ class TimeTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function can_convert_time_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $timeTable = new TimeTable();
 
@@ -62,7 +63,7 @@ class TimeTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_time()
+    public function I_can_convert_bonus_to_value()
     {
         $timeTable = new TimeTable();
 
@@ -85,7 +86,7 @@ class TimeTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_low_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $timeTable = new TimeTable();
         $timeTable->toBonus(new Time(0, Time::ROUND, $timeTable))->getValue();
@@ -95,7 +96,7 @@ class TimeTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function too_high_value_to_bonus_cause_exception()
+    public function I_can_not_convert_too_high_value_to_bonus()
     {
         $timeTable = new TimeTable();
         $timeTable->toBonus(new Time(91, Time::ROUND, $timeTable))->getValue();

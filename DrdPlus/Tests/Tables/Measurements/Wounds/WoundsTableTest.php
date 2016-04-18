@@ -4,9 +4,10 @@ namespace DrdPlus\Tests\Tables\Measurements\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
-class WoundsTableTest extends TestWithMockery
+class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
 {
 
     /**
@@ -22,7 +23,7 @@ class WoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_wounds()
+    public function I_can_convert_bonus_to_value()
     {
         $woundsTable = new WoundsTable();
         $attempt = 1;
@@ -50,7 +51,7 @@ class WoundsTableTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\MissingDataForBonus
      */
-    public function I_can_not_use_too_low_bonus()
+    public function I_can_not_use_too_low_bonus_to_value()
     {
         $woundsTable = new WoundsTable();
         $woundsTable->toWounds(new WoundsBonus(-22, $woundsTable));
@@ -60,7 +61,7 @@ class WoundsTableTest extends TestWithMockery
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_use_too_high_bonus()
+    public function I_can_not_convert_too_high_bonus_to_value()
     {
         $woundsTable = new WoundsTable();
         $woundsTable->toWounds(new WoundsBonus(80, $woundsTable));
@@ -69,7 +70,7 @@ class WoundsTableTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_convert_wounds_to_bonus()
+    public function I_can_convert_value_to_bonus()
     {
         $woundsTable = new WoundsTable();
         self::assertSame(-10, $woundsTable->toBonus(new Wounds(1, $woundsTable))->getValue());
@@ -98,7 +99,7 @@ class WoundsTableTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
      */
-    public function I_can_not_convert_negative_wounds_to_bonus()
+    public function I_can_not_convert_too_low_value_to_bonus()
     {
         $woundsTable = new WoundsTable();
         $woundsTable->toBonus(new Wounds(-1, $woundsTable));
