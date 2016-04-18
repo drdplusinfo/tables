@@ -21,7 +21,7 @@ class ArmorsTable extends AbstractFileTable
             'required strength' => self::INTEGER,
             'restriction' => self::INTEGER,
             'protection' => self::INTEGER,
-            'weigh' => self::INTEGER,
+            'weight' => self::INTEGER,
         ];
     }
 

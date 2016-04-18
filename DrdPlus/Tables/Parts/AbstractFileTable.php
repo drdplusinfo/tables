@@ -243,13 +243,13 @@ abstract class AbstractFileTable extends AbstractTable
         $value = trim($value);
         switch ($columnType = $this->getColumnType($columnIndex)) {
             case self::BOOLEAN :
-                return ToBoolean::toBoolean($value);
+                return ToBoolean::toBoolean($value, false /* not strict */);
             case self::INTEGER :
-                return ToInteger::toInteger($this->normalizeMinus($value));
+                return $value === '' ? null : ToInteger::toInteger($this->normalizeMinus($value));
             case self::FLOAT :
-                return ToFloat::toFloat($this->normalizeMinus($value));
+                return $value === '' ? null : ToFloat::toFloat($this->normalizeMinus($value));
             default : // string
-                return (string)$value;
+                return $value;
         }
     }
 
