@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Weight;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\Tools\ToInteger;
 
 /**
  * PPH page 164, bottom
  */
-class WeightTable extends AbstractFileTable
+class WeightTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {

@@ -16,7 +16,7 @@ use Granam\Float\Tools\ToFloat;
 /**
  * Note: every file-table can create Bonus as well as Measurement
  */
-abstract class AbstractFileTable extends AbstractTable
+abstract class AbstractMeasurementFileTable extends AbstractTable
 {
 
     /**
@@ -38,7 +38,7 @@ abstract class AbstractFileTable extends AbstractTable
      */
     public function getIndexedValues()
     {
-        if (!isset($this->indexedValues)) {
+        if ($this->indexedValues === null) {
             $this->loadData();
         }
 
@@ -101,7 +101,7 @@ abstract class AbstractFileTable extends AbstractTable
         $data = [];
         do {
             $row = fgetcsv($resource);
-            if (count($row) > 0 && $row !== false) { // otherwise skipp empty row
+            if ($row !== false && count($row)) { // otherwise skipp empty row
                 $data[] = $row;
             }
         } while (is_array($row));
@@ -116,7 +116,7 @@ abstract class AbstractFileTable extends AbstractTable
     private function normalizeAndIndex(array $data)
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
-        if (!isset($data[0]) || $data[0] !== $expectedHeader) {
+        if (!array_key_exists(0, $data) || $data[0] !== $expectedHeader) {
             throw new DataFromFileAreCorrupted(
                 'Data file is corrupted. Expected header with ' . implode(',', $expectedHeader)
             );
@@ -124,9 +124,9 @@ abstract class AbstractFileTable extends AbstractTable
         $indexed = [];
         unset($data[0]); // removing human header
         foreach ($data as $row) {
-            if (!empty($row)) {
+            if (count($row) > 0) {
                 $formattedRow = $this->formatRow($row, $expectedHeader);
-                if (isset($indexed[key($formattedRow)])) {
+                if (array_key_exists(key($formattedRow), $indexed)) {
                     throw new BonusAlreadyPaired(
                         'Bonus ' . key($formattedRow) . ' is already paired with value(s) ' . implode(',', $indexed[key($formattedRow)])
                         . ', got ' . implode(',', current($formattedRow))
@@ -136,7 +136,9 @@ abstract class AbstractFileTable extends AbstractTable
             }
         }
         if (count($indexed) === 0) {
-            throw new DataRowsAreMissingInFile("Data file is empty. Expected at least single row with values (header excluded)");
+            throw new DataRowsAreMissingInFile(
+                'Data file is empty. Expected at least single row with values (header excluded)'
+            );
         }
 
         return $indexed;
@@ -346,10 +348,10 @@ abstract class AbstractFileTable extends AbstractTable
         $searchedValue = ToFloat::toFloat($searchedValue);
         $closerValue = $this->getCloserValue($searchedValue, key($closestLower), key($closestHigher));
         if ($closerValue !== false) {
-            if (array_key_exists($closerValue, $closestLower)) {
-                $bonuses = $closestLower[$closerValue];
+            if (array_key_exists("$closerValue", $closestLower)) {
+                $bonuses = $closestLower["$closerValue"];
             } else {
-                $bonuses = $closestHigher[$closerValue];
+                $bonuses = $closestHigher["$closerValue"];
             }
 
             // matched single table-value, maybe with more bonuses, the lowest bonus should be taken
@@ -371,6 +373,12 @@ abstract class AbstractFileTable extends AbstractTable
         }
     }
 
+    /**
+     * @param $toValue
+     * @param $firstValue
+     * @param $secondValue
+     * @return bool|int|float|string
+     */
     private function getCloserValue($toValue, $firstValue, $secondValue)
     {
         $firstDifference = $toValue - $firstValue;

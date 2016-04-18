@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
  * PPH, page 161
  */
-class TimeTable extends AbstractFileTable
+class TimeTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {

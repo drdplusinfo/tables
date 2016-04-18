@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
  * PPH page 163
  */
-class SpeedTable extends AbstractFileTable
+class SpeedTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {

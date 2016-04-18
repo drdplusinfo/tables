@@ -3,12 +3,12 @@ namespace DrdPlus\Tests\Tables\Measurements\Parts;
 
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
 use DrdPlus\Tables\Parts\AbstractTable;
 use Granam\Tests\Tools\TestWithMockery;
 
-class AbstractFileTableTest extends TestWithMockery
+class AbstractMeasurementFileTableTest extends TestWithMockery
 {
 
     /**
@@ -275,7 +275,7 @@ class AbstractFileTableTest extends TestWithMockery
 }
 
 /** inner */
-class TestOfAbstractTable extends AbstractFileTable
+class TestOfAbstractTable extends AbstractMeasurementFileTable
 {
     /**
      * @var string

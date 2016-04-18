@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\IntegerObject;
 
 /**
  * PPH page 162, top
  */
-class DistanceTable extends AbstractFileTable
+class DistanceTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {

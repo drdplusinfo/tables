@@ -2,13 +2,13 @@
 namespace DrdPlus\Tables\Measurements\Wounds;
 
 use Drd\DiceRoll\Templates\Rollers\Roller1d6;
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
  * PPH page 165, top
  */
-class WoundsTable extends AbstractFileTable
+class WoundsTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {

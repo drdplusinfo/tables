@@ -2,13 +2,13 @@
 namespace DrdPlus\Tables\Measurements\Amount;
 
 use Drd\DiceRoll\Templates\Rollers\Roller1d6;
-use DrdPlus\Tables\Measurements\Parts\AbstractFileTable;
+use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
  * PPH page 164, top
  */
-class AmountTable extends AbstractFileTable
+class AmountTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {
