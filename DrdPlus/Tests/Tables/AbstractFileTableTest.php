@@ -67,6 +67,16 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException \DrdPlus\Tables\Parts\Exceptions\NoRowRequested
+     */
+    public function I_can_not_request_row_without_providing_indexes()
+    {
+        $table = new TableWithPublicHeaders();
+        $table->getRow([]);
+    }
+
+    /**
+     * @test
      * @expectedException \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function I_can_not_get_row_by_invalid_index()

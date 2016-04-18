@@ -245,9 +245,9 @@ abstract class AbstractFileTable extends AbstractTable
             case self::BOOLEAN :
                 return ToBoolean::toBoolean($value, false /* not strict */);
             case self::INTEGER :
-                return $value === '' ? null : ToInteger::toInteger($this->normalizeMinus($value));
+                return $value === '' ? false : ToInteger::toInteger($this->normalizeMinus($value));
             case self::FLOAT :
-                return $value === '' ? null : ToFloat::toFloat($this->normalizeMinus($value));
+                return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
             default : // string
                 return $value;
         }
@@ -308,8 +308,9 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @param array $rowIndexes
      * @param string $columnIndex
-     *
-     * @return int|float|bool
+     * @return int|float|string|bool
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredValueNotFound
      */
     public function getValue(array $rowIndexes, $columnIndex)
     {
@@ -322,26 +323,36 @@ abstract class AbstractFileTable extends AbstractTable
      * @param array $rowIndexes
      *
      * @return array|mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getRow(array $rowIndexes)
     {
+        if (count($rowIndexes) === 0) {
+            throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
+        }
         $values = $this->getIndexedValues();
         foreach ($rowIndexes as $rowIndex) {
             if (!isset($values[$rowIndex])) {
                 throw new Exceptions\RequiredRowDataNotFound(
-                    'Has not found row by index ' . ValueDescriber::describe($rowIndex)
+                    'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
             $values = &$values[$rowIndex];
             if (!is_array(current($values))) { // flat array found
-                return $values;
+                break;
             }
         }
 
-        return null;
+        return $values;
     }
 
+    /**
+     * @param array $row
+     * @param $columnIndex
+     * @return int|float|string|bool
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredValueNotFound
+     */
     private function getValueInRow(array $row, $columnIndex)
     {
         if (!array_key_exists($columnIndex, $row)) {

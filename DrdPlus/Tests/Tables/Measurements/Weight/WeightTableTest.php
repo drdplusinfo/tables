@@ -13,7 +13,7 @@ class WeightTableTest extends TestWithMockery implements MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $weightTable = new WeightTable();
         self::assertSame([['bonus', 'kg']], $weightTable->getHeader());

@@ -1,9 +1,9 @@
-armor,required strength,restriction,protection,weight
-without armor,,,0,
-padded armor,-2,,2,4
-leather armor,1,,3,6
-hobnailed armor,3,,4,8
+armor,required_strength,restriction,protection,weight
+without_armor,,,0,
+padded_armor,-2,,2,4
+leather_armor,1,,3,6
+hobnailed_armor,3,,4,8
 chainmail,5,-1,6,15
-scale armor,7,-2,7,20
-plate armor,10,-3,9,30
-full plate armor,12,-4,10,35
+scale_armor,7,-2,7,20
+plate_armor,10,-3,9,30
+full_plate_armor,12,-4,10,35

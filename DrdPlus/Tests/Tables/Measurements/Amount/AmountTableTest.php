@@ -13,7 +13,7 @@ class AmountTableTest extends TestWithMockery implements MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $amountTable = new AmountTable();
         self::assertEquals([['bonus', 'amount']], $amountTable->getHeader());

@@ -14,7 +14,7 @@ class DistanceTableTest extends TestWithMockery implements MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $distanceTable = new DistanceTable();
 

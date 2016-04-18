@@ -5,14 +5,15 @@ use DrdPlus\Codes\GenderCodes;
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
+use DrdPlus\Tests\Tables\TableTest;
 
-class RacesTableTest extends \PHPUnit_Framework_TestCase
+class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
 
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $racesTable = new RacesTable();
         self::assertEquals(
@@ -614,7 +615,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider strengthOfRaces
+     * @dataProvider provideStrengthOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -628,7 +629,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleStrength, $racesTable->getFemaleStrength($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function strengthOfRaces()
+    public function provideStrengthOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, -1],
@@ -650,7 +651,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider agilityOfRaces
+     * @dataProvider provideAgilityOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -664,7 +665,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleAgility, $racesTable->getFemaleAgility($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function agilityOfRaces()
+    public function provideAgilityOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
@@ -686,7 +687,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider knackOfRaces
+     * @dataProvider provideKnackOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -700,7 +701,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleKnack, $racesTable->getFemaleKnack($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function knackOfRaces()
+    public function provideKnackOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
@@ -722,7 +723,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider willOfRaces
+     * @dataProvider provideWillOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -736,7 +737,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleWill, $racesTable->getFemaleWill($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function willOfRaces()
+    public function provideWillOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
@@ -758,7 +759,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider intelligenceOfRaces
+     * @dataProvider provideIntelligenceOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -772,7 +773,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function intelligenceOfRaces()
+    public function provideIntelligenceOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 0],
@@ -794,7 +795,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider charismaOfRaces
+     * @dataProvider provideCharismaOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -808,7 +809,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleCharisma, $racesTable->getFemaleCharisma($race, $subrace, new FemaleModifiersTable()));
     }
 
-    public function charismaOfRaces()
+    public function provideCharismaOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, 1],
@@ -830,7 +831,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider toughnessOfRaces
+     * @dataProvider provideToughnessOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -842,7 +843,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($toughness, $racesTable->getToughness($race, $subrace));
     }
 
-    public function toughnessOfRaces()
+    public function provideToughnessOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
@@ -864,7 +865,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider heightOfRaces
+     * @dataProvider provideHeightOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -876,7 +877,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($heightInCm, $racesTable->getHeightInCm($race, $subrace));
     }
 
-    public function heightOfRaces()
+    public function provideHeightOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 180.0],
@@ -898,7 +899,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider weightOfRaces
+     * @dataProvider provideWeightOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -941,7 +942,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function weightOfRaces()
+    public function provideWeightOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 80.0, 70.0],
@@ -963,7 +964,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider sizeOfRaces
+     * @dataProvider provideSizeOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -982,7 +983,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($femaleSize, $racesTable->getSize($race, $subrace, GenderCodes::FEMALE, $femaleModifiersTable));
     }
 
-    public function sizeOfRaces()
+    public function provideSizeOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0, -1],
@@ -1014,7 +1015,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider sensesOfRaces
+     * @dataProvider provideSensesOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -1026,7 +1027,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($senses, $racesTable->getSenses($race, $subrace));
     }
 
-    public function sensesOfRaces()
+    public function provideSensesOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, 0],
@@ -1048,7 +1049,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider remarkableSenseOfRaces
+     * @dataProvider provideRemarkableSenseOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -1060,7 +1061,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($remarkableSense, $racesTable->getRemarkableSense($race, $subrace));
     }
 
-    public function remarkableSenseOfRaces()
+    public function provideRemarkableSenseOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, ''],
@@ -1082,7 +1083,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider infravisionOfRaces
+     * @dataProvider provideInfravisionOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -1094,7 +1095,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($infravision, $racesTable->hasInfravision($race, $subrace));
     }
 
-    public function infravisionOfRaces()
+    public function provideInfravisionOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, false],
@@ -1116,7 +1117,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider nativeRegenerationOfRaces
+     * @dataProvider provideNativeRegenerationOfRace
      *
      * @param string $race
      * @param string $subrace
@@ -1128,7 +1129,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration($race, $subrace));
     }
 
-    public function nativeRegenerationOfRaces()
+    public function provideNativeRegenerationOfRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, false],
@@ -1150,7 +1151,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider requirementOfDmOfRaces
+     * @dataProvider provideRequirementOfDmForRace
      *
      * @param string $race
      * @param string $subrace
@@ -1162,7 +1163,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement($race, $subrace));
     }
 
-    public function requirementOfDmOfRaces()
+    public function provideRequirementOfDmForRace()
     {
         return [
             [RaceCodes::HUMAN, RaceCodes::COMMON, false],

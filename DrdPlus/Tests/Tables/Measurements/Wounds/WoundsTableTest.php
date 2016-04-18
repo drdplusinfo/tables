@@ -13,7 +13,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $woundsTable = new WoundsTable();
 

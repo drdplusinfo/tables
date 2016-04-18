@@ -152,7 +152,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $indexedRow = [$bonus => []];
         foreach ($indexedValues as $index => $value) {
             $value = $this->parseValue($value);
-            if ($value === '') { // skipping empty value
+            if ($value === false) { // skipping empty value
                 continue;
             }
             $indexedRow[$bonus][$index] = $value;
@@ -179,7 +179,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     {
         $value = trim($value);
         if ($value === '') {
-            return $value;
+            return false;
         }
         if ($this->isItDiceRollChance($value)) { // dice chance bonus, like 1/6
             return $value;

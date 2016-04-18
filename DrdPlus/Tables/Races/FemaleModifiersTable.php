@@ -47,8 +47,8 @@ class FemaleModifiersTable extends AbstractFileTable
 
     /**
      * @param string $race
-     *
      * @return array|int[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     private function getRaceModifiers($race)
     {

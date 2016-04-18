@@ -59,71 +59,127 @@ class RacesTable extends AbstractFileTable
         ];
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonHumanModifiers()
     {
         return $this->getRow([RaceCodes::HUMAN, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getHighlanderModifiers()
     {
         return $this->getRow([RaceCodes::HUMAN, RaceCodes::HIGHLANDER]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonElfModifiers()
     {
         return $this->getRow([RaceCodes::ELF, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getDarkElfModifiers()
     {
         return $this->getRow([RaceCodes::ELF, RaceCodes::DARK]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getGreenElfModifiers()
     {
         return $this->getRow([RaceCodes::ELF, RaceCodes::GREEN]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonDwarfModifiers()
     {
         return $this->getRow([RaceCodes::DWARF, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getMountainDwarfModifiers()
     {
         return $this->getRow([RaceCodes::DWARF, RaceCodes::MOUNTAIN]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getWoodDwarfModifiers()
     {
         return $this->getRow([RaceCodes::DWARF, RaceCodes::WOOD]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonHobbitModifiers()
     {
         return $this->getRow([RaceCodes::HOBBIT, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonKrollModifiers()
     {
         return $this->getRow([RaceCodes::KROLL, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getWildKrollModifiers()
     {
         return $this->getRow([RaceCodes::KROLL, RaceCodes::WILD]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getCommonOrcModifiers()
     {
         return $this->getRow([RaceCodes::ORC, RaceCodes::COMMON]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getGoblinModifiers()
     {
         return $this->getRow([RaceCodes::ORC, RaceCodes::GOBLIN]);
     }
 
+    /**
+     * @return array|\mixed[]
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     */
     public function getSkurutModifiers()
     {
         return $this->getRow([RaceCodes::ORC, RaceCodes::SKURUT]);
@@ -134,6 +190,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleStrength($raceCode, $subraceCode)
     {
@@ -146,6 +203,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleStrength($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -158,6 +216,7 @@ class RacesTable extends AbstractFileTable
      * @param $propertyName
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     private function getProperty($raceCode, $subraceCode, $propertyName)
     {
@@ -169,6 +228,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleAgility($raceCode, $subraceCode)
     {
@@ -181,6 +241,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleAgility($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -192,6 +253,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleKnack($raceCode, $subraceCode)
     {
@@ -204,6 +266,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleKnack($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -215,6 +278,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleWill($raceCode, $subraceCode)
     {
@@ -227,6 +291,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleWill($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -238,6 +303,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleIntelligence($raceCode, $subraceCode)
     {
@@ -250,6 +316,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleIntelligence($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -261,6 +328,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleCharisma($raceCode, $subraceCode)
     {
@@ -273,6 +341,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleCharisma($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -284,6 +353,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getToughness($raceCode, $subraceCode)
     {
@@ -295,6 +365,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return float
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getHeightInCm($raceCode, $subraceCode)
     {
@@ -308,6 +379,8 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @param WeightTable $weightTable
      * @return float
+     * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getWeightInKg(
         $raceCode,
@@ -339,6 +412,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return float
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleWeightInKg($raceCode, $subraceCode)
     {
@@ -352,6 +426,7 @@ class RacesTable extends AbstractFileTable
      * @param WeightTable $weightTable
      *
      * @return float
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleWeightInKg(
         $raceCode,
@@ -374,6 +449,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getMaleSize($raceCode, $subraceCode)
     {
@@ -386,6 +462,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getFemaleSize($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
@@ -412,6 +489,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return string
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getRemarkableSense($raceCode, $subraceCode)
     {
@@ -423,6 +501,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return bool
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function hasInfravision($raceCode, $subraceCode)
     {
@@ -434,6 +513,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return bool
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function hasNativeRegeneration($raceCode, $subraceCode)
     {
@@ -445,6 +525,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return int
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function getSenses($raceCode, $subraceCode)
     {
@@ -456,6 +537,7 @@ class RacesTable extends AbstractFileTable
      * @param string $subraceCode
      *
      * @return bool
+     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
      */
     public function requiresDmAgreement($raceCode, $subraceCode)
     {

@@ -21,7 +21,7 @@ class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $this->I_can_get_headers_same_as_from_wounds_table();
     }
