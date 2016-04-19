@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\ShieldCodes;
+use DrdPlus\Codes\WoundTypeCodes;
 use DrdPlus\Tests\Tables\TableTest;
 
 class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
@@ -46,7 +47,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
             [ShieldCodes::BUCKLER, ShieldsTable::RESTRICTION_HEADER, -1],
             [ShieldCodes::BUCKLER, ShieldsTable::OFFENSIVENESS_HEADER, 0],
             [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_HEADER, 0],
-            [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_TYPE_HEADER, 'crush'],
+            [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
             [ShieldCodes::BUCKLER, ShieldsTable::COVER_HEADER, 2],
             [ShieldCodes::BUCKLER, ShieldsTable::WEIGHT_HEADER, 0.8],
         ];
