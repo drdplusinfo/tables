@@ -1,4 +1,4 @@
-weapon,required strength,offensiveness,wounds,type,range,weight
+weapon,required strength,offensiveness,wounds,wounds_type,range,weight
 minicrosbow,-3,-1,1,stab,19,1
 light crossbow,6,3,5,stab,36,1.5
 army crossbow,9,3,7,stab,40,2

@@ -1,4 +1,4 @@
-weapon,required strength,length,offensiveness,wounds,type,cover,weight
+weapon,required strength,length,offensiveness,wounds,wounds_type,cover,weight
 machete,2,1,2,2,cut,2,1
 light saber,3,2,3,1,cut,3,1.2
 bowie knife,3,1,2,3,cut,3,1.2

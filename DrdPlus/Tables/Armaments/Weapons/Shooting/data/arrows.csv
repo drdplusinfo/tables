@@ -1,4 +1,4 @@
-projectile,required strength,offensiveness,wounds,type,range,weight
+projectile,required strength,offensiveness,wounds,wounds_type,range,weight
 basic arrow,,0,0,stab,0,0.05
 long range arrow,,0,-1,stab,2,0.1
 war arrow,,0,2,stab,-2,0.05

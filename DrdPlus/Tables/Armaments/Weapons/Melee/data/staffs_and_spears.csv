@@ -1,4 +1,4 @@
-weapon,required strength,length,offensiveness,wounds,type,cover,weight
+weapon,required strength,length,offensiveness,wounds,wounds_type,cover,weight
 light spear,1,3,3,2,stab,4,1
 shortened staff,-4,3,1,-1,crush,4,0.3
 light staff,-1,4,2,0,crush,4,0.5

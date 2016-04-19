@@ -1,4 +1,4 @@
-weapon,required strength,offensiveness,wounds,type,range,weight
+weapon,required strength,offensiveness,wounds,wounds_type,range,weight
 rock,-2,2,-2,crush,20,0.3
 throwing dagger,0,0,1,stab,14,0.2
 light throwing axe,2,1,2,cut,12,0.7

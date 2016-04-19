@@ -21,7 +21,7 @@ class ShieldsTable extends AbstractFileTable
     const RESTRICTION_HEADER = 'restriction';
     const OFFENSIVENESS_HEADER = 'offensiveness';
     const WOUNDS_HEADER = 'wounds';
-    const WOUNDS_TYPE_HEADER = 'type';
+    const WOUNDS_TYPE_HEADER = 'wounds_type';
     const COVER_HEADER = 'cover';
     const WEIGHT_HEADER = 'weight';
 
@@ -103,6 +103,26 @@ class ShieldsTable extends AbstractFileTable
     public function getWoundsTypeOf($shieldCode)
     {
         return $this->getValueOf($shieldCode, self::WOUNDS_TYPE_HEADER);
+    }
+
+    /**
+     * @param $shieldCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     */
+    public function getCoverOf($shieldCode)
+    {
+        return $this->getValueOf($shieldCode, self::COVER_HEADER);
+    }
+
+    /**
+     * @param $shieldCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     */
+    public function getWeightOf($shieldCode)
+    {
+        return $this->getValueOf($shieldCode, self::WEIGHT_HEADER);
     }
 
 }

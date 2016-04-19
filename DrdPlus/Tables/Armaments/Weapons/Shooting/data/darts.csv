@@ -1,4 +1,4 @@
-projectile,required strength,offensiveness,wounds,type,range,weight
+projectile,required strength,offensiveness,wounds,wounds_type,range,weight
 basic dart,,0,0,stab,0,0.05
 war dart,,0,2,stab,-2,0.1
 piercing dart,,0,-1,stab,0,0.05
