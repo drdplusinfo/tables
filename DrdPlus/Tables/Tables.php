@@ -5,6 +5,7 @@ use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -204,6 +205,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ArmorSanctionsTable::class];
     }
 
+    /**
+     * @return ShieldsTable
+     */
+    public function getShieldsTable()
+    {
+        if (!array_key_exists(ShieldsTable::class, $this->tables)) {
+            $this->tables[ShieldsTable::class] = new ShieldsTable();
+        }
+
+        return $this->tables[ShieldsTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -222,6 +235,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getBodyArmorsTable(),
             $this->getHelmsTable(),
             $this->getArmorSanctionsTable(),
+            $this->getShieldsTable(),
         ]);
     }
 
