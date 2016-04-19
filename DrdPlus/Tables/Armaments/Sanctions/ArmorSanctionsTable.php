@@ -43,6 +43,7 @@ class ArmorSanctionsTable extends AbstractFileTable
             return $this->getRow([0]); // very first row with no sanction
         }
         $missingStrength = ToInteger::toInteger($missingStrength);
+        $row = [];
         foreach ($this->getIndexedValues() as $row) {
             if (
                 ($row[self::MINIMAL_MISSING_STRENGTH_HEADER] === false
@@ -52,11 +53,11 @@ class ArmorSanctionsTable extends AbstractFileTable
                     || $row[self::MAXIMAL_MISSING_STRENGTH_HEADER] >= $missingStrength
                 )
             ) {
-                return $row;
+                break;
             }
         }
 
-        return [];
+        return $row;
     }
 
 }
