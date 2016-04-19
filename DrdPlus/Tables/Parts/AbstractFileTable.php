@@ -118,6 +118,9 @@ abstract class AbstractFileTable extends AbstractTable
     private function parseRowsHeader(array $data)
     {
         $rowsHeaderNamesRow = $this->parseRowsHeaderNames($data);
+        if (count($rowsHeaderNamesRow) === 0) {
+            return [];
+        }
         $rowsHeaderValues = []; // rows header values to data row index
         foreach ($data as $rowIndex => $dataRow) {
             if ($rowIndex === 0) {
@@ -148,9 +151,9 @@ abstract class AbstractFileTable extends AbstractTable
         return $rowsHeaderNames;
     }
 
-    private function checkHeaderValue($rawData, $columnIndex, $expectedHeaderValue)
+    private function checkHeaderValue(array $rawData, $columnIndex, $expectedHeaderValue)
     {
-        if (!isset($rawData[0][$columnIndex])) {
+        if (!array_key_exists(0, $rawData) || !array_key_exists($columnIndex, $rawData[0])) {
             throw new Exceptions\DataAreCorrupted(
                 "Missing header cell[$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
             );
@@ -274,6 +277,9 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function indexByRowsHeader(array $toIndex, array $rowKeys)
     {
+        if (count($rowKeys) === 0) {
+            return $toIndex;
+        }
         $indexed = [];
         foreach ($rowKeys as $keyPart => $keyPartsOrRowIndex) {
             if (is_int($keyPartsOrRowIndex)) { // last string key pointing to row index

@@ -51,7 +51,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_am_stopped_if_header_value_is_invalid()
     {
-        $table = new TableWithUnexpectedHeaderValue();
+        $table = new TableWithUnexpectedDataHeaderValue();
         $table->getIndexedValues();
     }
 
@@ -93,6 +93,16 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
     {
         $table = new TableWithPublicHeaders();
         $table->getValue(['baz'], 'non-existing column index');
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_use_table_without_rows_header()
+    {
+        $table = new TableWithEmptyRowsHeader();
+        self::assertSame([], $table->getHeader());
+        self::assertSame([['foo' => 'baz', 'bar' => 'qux']], $table->getIndexedValues());
     }
 }
 
@@ -193,7 +203,7 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
     }
 }
 
-class TableWithUnexpectedHeaderValue extends TableWithEmptyFilename
+class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFilename
 {
 
     protected function getDataFileName()
@@ -251,5 +261,25 @@ class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
     protected function getExpectedDataHeader()
     {
         return ['bar' => 'unknown type'];
+    }
+}
+
+class TableWithEmptyRowsHeader extends TableWithEmptyFilename
+{
+    protected function getDataFileName()
+    {
+        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
+
+        return $this->dataFileName;
+    }
+
+    protected function getExpectedRowsHeader()
+    {
+        return [];
+    }
+
+    protected function getExpectedDataHeader()
+    {
+        return ['foo' => self::STRING, 'bar' => self::STRING];
     }
 }

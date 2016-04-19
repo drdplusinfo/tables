@@ -14,7 +14,7 @@ abstract class AbstractTable extends StrictObject implements Table
 
     public function getValues()
     {
-        if (!isset($this->valuesInFlatStructure)) {
+        if ($this->valuesInFlatStructure === null) {
             $this->valuesInFlatStructure = $this->toFlatStructure(
                 $this->getIndexedValues(), true // keys to values
             );
@@ -25,7 +25,7 @@ abstract class AbstractTable extends StrictObject implements Table
 
     public function getHeader()
     {
-        if (!isset($this->headerInFlatStructure)) {
+        if ($this->headerInFlatStructure === null) {
             $this->headerInFlatStructure = $this->createHeader();
         }
 
@@ -81,6 +81,7 @@ abstract class AbstractTable extends StrictObject implements Table
                 foreach ($rows as &$row) {
                     array_unshift($row, $key);
                 }
+                unset($row);
             }
             $inFlatStructure = array_merge($inFlatStructure, $rows);
         }
