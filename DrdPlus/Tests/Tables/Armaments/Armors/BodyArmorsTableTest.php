@@ -29,10 +29,10 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
             [ArmorCodes::HOBNAILED_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 4],
             [ArmorCodes::HOBNAILED_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 8.0],
 
-            [ArmorCodes::CHAINMAIL, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 5],
-            [ArmorCodes::CHAINMAIL, AbstractArmorsTable::RESTRICTION_HEADER, -1],
-            [ArmorCodes::CHAINMAIL, AbstractArmorsTable::PROTECTION_HEADER, 6],
-            [ArmorCodes::CHAINMAIL, AbstractArmorsTable::WEIGHT_HEADER, 15.0],
+            [ArmorCodes::CHAINMAIL_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 5],
+            [ArmorCodes::CHAINMAIL_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -1],
+            [ArmorCodes::CHAINMAIL_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 6],
+            [ArmorCodes::CHAINMAIL_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 15.0],
 
             [ArmorCodes::SCALE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 7],
             [ArmorCodes::SCALE_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -2],
