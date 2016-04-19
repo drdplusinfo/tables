@@ -50,6 +50,38 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
             [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
             [ShieldCodes::BUCKLER, ShieldsTable::COVER_HEADER, 2],
             [ShieldCodes::BUCKLER, ShieldsTable::WEIGHT_HEADER, 0.8],
+
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 1],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::RESTRICTION_HEADER, -2],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WOUNDS_HEADER, 1],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::COVER_HEADER, 4],
+            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WEIGHT_HEADER, 1.5],
+
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 5],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::RESTRICTION_HEADER, -3],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WOUNDS_HEADER, 2],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::COVER_HEADER, 5],
+            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WEIGHT_HEADER, 2.5],
+
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 9],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::RESTRICTION_HEADER, -4],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WOUNDS_HEADER, 3],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::COVER_HEADER, 6],
+            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WEIGHT_HEADER, 4.0],
+
+            [ShieldCodes::PAVISE, ShieldsTable::REQUIRED_STRENGTH_HEADER, 13],
+            [ShieldCodes::PAVISE, ShieldsTable::RESTRICTION_HEADER, -5],
+            [ShieldCodes::PAVISE, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCodes::PAVISE, ShieldsTable::WOUNDS_HEADER, 4],
+            [ShieldCodes::PAVISE, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
+            [ShieldCodes::PAVISE, ShieldsTable::COVER_HEADER, 7],
+            [ShieldCodes::PAVISE, ShieldsTable::WEIGHT_HEADER, 6.0],
         ];
     }
 
