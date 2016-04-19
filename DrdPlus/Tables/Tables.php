@@ -7,6 +7,7 @@ use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -230,6 +231,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AxesTable::class];
     }
 
+    /**
+     * @return AxesTable
+     */
+    public function getKnifesAndDaggersTable()
+    {
+        if (!array_key_exists(KnifesAndDaggersTable::class, $this->tables)) {
+            $this->tables[KnifesAndDaggersTable::class] = new KnifesAndDaggersTable();
+        }
+
+        return $this->tables[KnifesAndDaggersTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -250,6 +263,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getArmorSanctionsTable(),
             $this->getShieldsTable(),
             $this->getAxesTable(),
+            $this->getKnifesAndDaggersTable(),
         ]);
     }
 
