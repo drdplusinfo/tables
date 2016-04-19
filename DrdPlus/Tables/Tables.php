@@ -3,6 +3,7 @@ namespace DrdPlus\Tables;
 
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
+use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
@@ -21,6 +22,7 @@ use Granam\Strict\Object\StrictObject;
 class Tables extends StrictObject implements \IteratorAggregate
 {
     private $tables = [];
+    private $armourer;
 
     /**
      * @return AmountTable
@@ -169,7 +171,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @return BodyArmorsTable
      */
-    public function getArmorsTable()
+    public function getBodyArmorsTable()
     {
         if (!array_key_exists(BodyArmorsTable::class, $this->tables)) {
             $this->tables[BodyArmorsTable::class] = new BodyArmorsTable();
@@ -181,7 +183,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @return HelmsTable
      */
-    public function getHelmetsTable()
+    public function getHelmsTable()
     {
         if (!array_key_exists(HelmsTable::class, $this->tables)) {
             $this->tables[HelmsTable::class] = new HelmsTable();
@@ -217,10 +219,26 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getTimeTable(),
             $this->getWeightTable(),
             $this->getWoundsTable(),
-            $this->getArmorsTable(),
-            $this->getHelmetsTable(),
+            $this->getBodyArmorsTable(),
+            $this->getHelmsTable(),
             $this->getArmorSanctionsTable(),
         ]);
+    }
+
+    /**
+     * @return Armourer
+     */
+    public function getArmourer()
+    {
+        if ($this->armourer === null) {
+            $this->armourer = new Armourer(
+                $this->getArmorSanctionsTable(),
+                $this->getBodyArmorsTable(),
+                $this->getHelmsTable()
+            );
+        }
+
+        return $this->armourer;
     }
 
 }

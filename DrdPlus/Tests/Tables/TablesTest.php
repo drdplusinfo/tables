@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables;
 
+use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -114,5 +115,15 @@ class TablesTest extends \PHPUnit_Framework_TestCase
         }
 
         return $tableClasses;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_armourer()
+    {
+        $tables = new Tables();
+        self::assertInstanceOf(Armourer::class, $armourer = $tables->getArmourer());
+        self::assertSame($armourer, $tables->getArmourer(), 'Expected the same instance of ' . Armourer::class);
     }
 }
