@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Races\Exceptions;
 
-class DataAreCorrupted extends \DrdPlus\Tables\Parts\Exceptions\DataAreCorrupted implements Runtime
+class DataAreCorrupted extends \DrdPlus\Tables\Partials\Exceptions\DataAreCorrupted implements Runtime
 {
 
 }

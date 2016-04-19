@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Weight;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\Tools\ToInteger;
 

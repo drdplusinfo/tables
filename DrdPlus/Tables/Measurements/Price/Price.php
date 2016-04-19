@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Price;
 
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurement;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 
 class Price extends AbstractMeasurement
 {

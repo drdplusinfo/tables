@@ -146,7 +146,7 @@ class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_low_value_to_bonus()
     {
@@ -156,7 +156,7 @@ class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_high_value_to_bonus()
     {

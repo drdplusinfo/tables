@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Wounds;
 
 use Drd\DiceRoll\Templates\Rollers\Roller1d6;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**

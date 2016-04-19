@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Weight;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Weight extends AbstractMeasurementWithBonus
 {

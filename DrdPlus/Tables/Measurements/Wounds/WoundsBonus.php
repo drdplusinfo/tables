@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Wounds;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class WoundsBonus extends AbstractBonus
 {

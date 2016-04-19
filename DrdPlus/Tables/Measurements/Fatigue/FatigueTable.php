@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Fatigue;
 
-use DrdPlus\Tables\Parts\AbstractTable;
+use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;

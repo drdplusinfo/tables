@@ -1,17 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Partials\UnwieldyParameters;
-use DrdPlus\Tables\Parts\AbstractFileTable;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
+use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractArmorsTable extends AbstractFileTable implements UnwieldyParameters
+abstract class AbstractArmorsTable extends AbstractFileTable implements UnwieldyParametersInterface
 {
 
-    const REQUIRED_STRENGTH_HEADER = 'required_strength';
-    const RESTRICTION_HEADER = 'restriction';
     const PROTECTION_HEADER = 'protection';
-    const WEIGHT_HEADER = 'weight';
 
     protected function getExpectedDataHeader()
     {
@@ -43,7 +40,7 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
     {
         try {
             return $this->getValue([$armorCode], $valueName);
-        } catch (\DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound $exception) {
+        } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound $exception) {
             throw new Exceptions\UnknownArmorCode(
                 'Unknown armor code ' . ValueDescriber::describe($armorCode)
             );

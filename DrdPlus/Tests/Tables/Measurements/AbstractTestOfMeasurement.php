@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\Measurement;
-use DrdPlus\Tables\Parts\AbstractTable;
+use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Table;
 use Granam\Tests\Tools\TestWithMockery;
 

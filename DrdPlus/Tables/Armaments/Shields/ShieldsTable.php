@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Tables\Armaments\Partials\UnwieldyParameters;
-use DrdPlus\Tables\Armaments\Partials\WeaponParameters;
-use DrdPlus\Tables\Parts\AbstractFileTable;
-use DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Armaments\Partials\CoveringWeaponParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
+use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractFileTable implements UnwieldyParameters, WeaponParameters
+class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterface, CoveringWeaponParametersInterface
 {
     protected function getDataFileName()
     {
@@ -18,14 +18,6 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParameters, Weap
     {
         return ['shield'];
     }
-
-    const REQUIRED_STRENGTH_HEADER = 'required_strength';
-    const RESTRICTION_HEADER = 'restriction';
-    const OFFENSIVENESS_HEADER = 'offensiveness';
-    const WOUNDS_HEADER = 'wounds';
-    const WOUNDS_TYPE_HEADER = 'wounds_type';
-    const COVER_HEADER = 'cover';
-    const WEIGHT_HEADER = 'weight';
 
     protected function getExpectedDataHeader()
     {

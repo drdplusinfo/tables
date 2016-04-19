@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class SpeedBonus extends AbstractBonus
 {

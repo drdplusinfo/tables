@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurement;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 use Granam\Integer\Tools\ToInteger;
 
 class Time extends AbstractMeasurement implements MeasurementWithBonus

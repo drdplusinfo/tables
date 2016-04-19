@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Distance;
 
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Float\Tools\ToFloat;
 use Granam\Tools\ValueDescriber;
 

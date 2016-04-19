@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class TimeBonus extends AbstractBonus
 {

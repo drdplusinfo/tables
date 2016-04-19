@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Wounds;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Integer\Tools\ToInteger;
 
 class Wounds extends AbstractMeasurementWithBonus

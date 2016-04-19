@@ -1,11 +1,11 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements\Parts;
+namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurementFileTable;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
-use DrdPlus\Tables\Parts\AbstractTable;
+use DrdPlus\Tables\Partials\AbstractTable;
 use Granam\Tests\Tools\TestWithMockery;
 
 class AbstractMeasurementFileTableTest extends TestWithMockery
@@ -350,7 +350,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
      * Just making it public.
      * @param AbstractBonus $bonus
      * @param null $unit
-     * @return array (differs from parent, @see \DrdPlus\Tests\Tables\Measurements\Parts\TestOfAbstractTable::convertToMeasurement for exact return value)
+     * @return array (differs from parent, @see \DrdPlus\Tests\Tables\Measurements\Partials\TestOfAbstractTable::convertToMeasurement for exact return value)
      */
     public function toMeasurement(AbstractBonus $bonus, $unit = null)
     {

@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements\Parts;
+namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use Granam\Tests\Tools\TestWithMockery;
 use Granam\Integer\IntegerInterface;
 
@@ -27,7 +27,7 @@ class AbstractBonusTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\BonusRequiresInteger
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function I_cannot_create_bonus_from_number_with_decimal()
     {

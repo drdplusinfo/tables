@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Races;
 
 use DrdPlus\Codes\PropertyCodes;
 use DrdPlus\Codes\RaceCodes;
-use DrdPlus\Tables\Parts\AbstractFileTable;
+use DrdPlus\Tables\Partials\AbstractFileTable;
 
 class FemaleModifiersTable extends AbstractFileTable
 {
@@ -48,7 +48,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @param string $race
      * @return array|int[]
-     * @throws \DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
      */
     private function getRaceModifiers($race)
     {

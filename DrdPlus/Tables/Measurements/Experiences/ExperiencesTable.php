@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Experiences;
 
-use DrdPlus\Tables\Parts\AbstractTable;
+use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
@@ -56,7 +56,7 @@ class ExperiencesTable extends AbstractTable
             );
             /**
              * avoiding standard bonus round-up, which is unacceptable for experiences to level conversion;
-             * @see \DrdPlus\Tables\Measurements\Parts\AbstractFileTable::determineBonus
+             * @see \DrdPlus\Tables\Measurements\Partials\AbstractFileTable::determineBonus
              */
         } while ($woundsBonus->getWounds()->getValue() > $experiences->getValue());
 

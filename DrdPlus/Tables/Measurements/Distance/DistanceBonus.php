@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class DistanceBonus extends AbstractBonus
 {

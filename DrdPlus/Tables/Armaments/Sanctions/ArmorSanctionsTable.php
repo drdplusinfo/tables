@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Sanctions;
 
-use DrdPlus\Tables\Parts\AbstractFileTable;
+use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;
 
 class ArmorSanctionsTable extends AbstractFileTable

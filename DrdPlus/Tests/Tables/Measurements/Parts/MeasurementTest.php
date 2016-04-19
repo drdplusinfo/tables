@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements\Parts;
+namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
-use DrdPlus\Tables\Measurements\Parts\AbstractMeasurement;
+use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 use Granam\Tests\Tools\TestWithMockery;
 
 class MeasurementTest extends TestWithMockery

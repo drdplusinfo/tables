@@ -49,7 +49,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\MissingDataForBonus
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\MissingDataForBonus
      */
     public function I_can_not_use_too_low_bonus_to_value()
     {
@@ -97,7 +97,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_low_value_to_bonus()
     {
@@ -107,7 +107,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Parts\Exceptions\RequestedDataOutOfTableRange
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_high_value_to_bonus()
     {

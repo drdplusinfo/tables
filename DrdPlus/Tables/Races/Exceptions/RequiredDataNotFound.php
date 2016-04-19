@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Races\Exceptions;
 
-class RequiredDataNotFound extends \DrdPlus\Tables\Parts\Exceptions\RequiredDataNotFound implements Logic
+class RequiredDataNotFound extends \DrdPlus\Tables\Partials\Exceptions\RequiredDataNotFound implements Logic
 {
 
 }
