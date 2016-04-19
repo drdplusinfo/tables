@@ -1,11 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
+use DrdPlus\Tables\Armaments\Partials\UnwieldyParameters;
+use DrdPlus\Tables\Armaments\Partials\WeaponParameters;
 use DrdPlus\Tables\Parts\AbstractFileTable;
 use DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractFileTable
+class ShieldsTable extends AbstractFileTable implements UnwieldyParameters, WeaponParameters
 {
     protected function getDataFileName()
     {

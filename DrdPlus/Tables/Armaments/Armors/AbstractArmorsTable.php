@@ -1,10 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Tables\Armaments\Partials\UnwieldyParameters;
 use DrdPlus\Tables\Parts\AbstractFileTable;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractArmorsTable extends AbstractFileTable
+abstract class AbstractArmorsTable extends AbstractFileTable implements UnwieldyParameters
 {
 
     const REQUIRED_STRENGTH_HEADER = 'required_strength';
