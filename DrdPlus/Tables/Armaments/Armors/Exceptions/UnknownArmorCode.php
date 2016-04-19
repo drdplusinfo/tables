@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors\Exceptions;
 
-class UnknownArmorCode extends \InvalidArgumentException implements Logic
+use DrdPlus\Tables\Parts\Exceptions\RequiredRowDataNotFound;
+
+class UnknownArmorCode extends RequiredRowDataNotFound implements Logic
 {
 
 }
