@@ -4,44 +4,12 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCodes;
 use DrdPlus\Codes\WoundTypeCodes;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
-class AxesTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class AxesTableTest extends AbstractMeleeWeaponsTableTest
 {
-    /**
-     * @test
-     */
-    public function I_can_get_header()
-    {
-        $axesTable = new AxesTable();
-        self::assertSame(
-            [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
-            $axesTable->getHeader()
-        );
-    }
 
-    /**
-     * @test
-     * @dataProvider provideAxeAndValue
-     * @param string $axeCode
-     * @param string $valueName
-     * @param mixed $expectedValue
-     */
-    public function I_can_get_values_for_every_axe($axeCode, $valueName, $expectedValue)
-    {
-        $axesTable = new AxesTable();
-        $value = $axesTable->getValue([$axeCode], $valueName);
-        self::assertSame($expectedValue, $value);
-        $getValueNameOf = 'get' . implode(array_map(
-                function ($namePart) {
-                    return ucfirst($namePart);
-                },
-                explode('_', $valueName)
-            )) . 'Of';
-        self::assertSame($value, $axesTable->$getValueNameOf($axeCode));
-    }
-
-    public function provideAxeAndValue()
+    public function provideWeaponAndNameWithValue()
     {
         return [
             [WeaponCodes::LIGHT_AXE, AxesTable::REQUIRED_STRENGTH_HEADER, 3],
