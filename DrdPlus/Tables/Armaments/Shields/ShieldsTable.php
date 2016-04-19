@@ -18,10 +18,10 @@ class ShieldsTable extends AbstractFileTable
     }
 
     const REQUIRED_STRENGTH_HEADER = 'required_strength';
-    const RESTRICTION_HEADER = 'restriction_header';
+    const RESTRICTION_HEADER = 'restriction';
     const OFFENSIVENESS_HEADER = 'offensiveness';
     const WOUNDS_HEADER = 'wounds';
-    const WOUNDS_TYPE_HEADER = 'wounds_type';
+    const WOUNDS_TYPE_HEADER = 'type';
     const COVER_HEADER = 'cover';
     const WEIGHT_HEADER = 'weight';
 
