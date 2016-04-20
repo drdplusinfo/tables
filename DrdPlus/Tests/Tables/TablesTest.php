@@ -2,18 +2,6 @@
 namespace DrdPlus\Tables;
 
 use DrdPlus\Tables\Armaments\Armourer;
-use DrdPlus\Tables\Measurements\Amount\AmountTable;
-use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
-use DrdPlus\Tables\Measurements\Distance\DistanceTable;
-use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
-use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
-use DrdPlus\Tables\Measurements\Speed\SpeedTable;
-use DrdPlus\Tables\Measurements\Time\TimeTable;
-use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tables\Professions\BackgroundSkillsTable;
-use DrdPlus\Tables\Races\FemaleModifiersTable;
-use DrdPlus\Tables\Races\RacesTable;
 
 class TablesTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,42 +11,13 @@ class TablesTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_any_table()
     {
         $tables = new Tables();
-
-        self::assertInstanceOf(AmountTable::class, $amountTable = $tables->getAmountTable());
-        self::assertSame($amountTable, $tables->getAmountTable());
-
-        self::assertInstanceOf(BaseOfWoundsTable::class, $baseOfWoundsTable = $tables->getBaseOfWoundsTable());
-        self::assertSame($baseOfWoundsTable, $tables->getBaseOfWoundsTable());
-
-        self::assertInstanceOf(DistanceTable::class, $distanceTable = $tables->getDistanceTable());
-        self::assertSame($distanceTable, $tables->getDistanceTable());
-
-        self::assertInstanceOf(ExperiencesTable::class, $experiencesTable = $tables->getExperiencesTable());
-        self::assertSame($experiencesTable, $tables->getExperiencesTable());
-
-        self::assertInstanceOf(FatigueTable::class, $fatigueTable = $tables->getFatigueTable());
-        self::assertSame($fatigueTable, $tables->getFatigueTable());
-
-        self::assertInstanceOf(SpeedTable::class, $speedTable = $tables->getSpeedTable());
-        self::assertSame($speedTable, $tables->getSpeedTable());
-
-        self::assertInstanceOf(TimeTable::class, $timeTable = $tables->getTimeTable());
-        self::assertSame($timeTable, $tables->getTimeTable());
-
-        self::assertInstanceOf(WeightTable::class, $weightTable = $tables->getWeightTable());
-        self::assertSame($weightTable, $tables->getWeightTable());
-
-        self::assertInstanceOf(WoundsTable::class, $woundsTable = $tables->getWoundsTable());
-        self::assertSame($woundsTable, $tables->getWoundsTable());
-
-        self::assertInstanceOf(RacesTable::class, $raceTables = $tables->getRacesTable());
-        self::assertSame($raceTables, $tables->getRacesTable());
-
-        self::assertInstanceOf(FemaleModifiersTable::class, $femaleModifiers = $tables->getFemaleModifiersTable());
-        self::assertSame($femaleModifiers, $tables->getFemaleModifiersTable());
-
-        self::assertInstanceOf(BackgroundSkillsTable::class, $backgroundSkills = $tables->getBackgroundSkillsTable());
-        self::assertSame($backgroundSkills, $tables->getBackgroundSkillsTable());
+        foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
+            $baseName = preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);
+            $getTable = "get{$baseName}";
+            self::assertTrue(is_callable([$tables, $getTable]), 'Tables are missing getter for ' . $baseName);
+            $table = $tables->$getTable();
+            self::assertInstanceOf($expectedTableClass, $table);
+        }
     }
 
     /**
