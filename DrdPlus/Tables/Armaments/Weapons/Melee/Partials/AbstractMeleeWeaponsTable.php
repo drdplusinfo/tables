@@ -2,7 +2,9 @@
 namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponParametersInterface;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
 abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements MeleeWeaponParametersInterface
@@ -28,7 +30,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getOffensivenessOf($weaponCode)
     {
@@ -39,14 +41,14 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
      * @param string $weaponCode
      * @param string $valueName
      * @return float|int|string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     private function getValueOf($weaponCode, $valueName)
     {
         try {
             return $this->getValue([$weaponCode], $valueName);
-        } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound $exception) {
-            throw new Exceptions\UnknownWeaponCode(
+        } catch (RequiredRowDataNotFound $exception) {
+            throw new UnknownMeleeWeaponCode(
                 'Unknown weapon code ' . ValueDescriber::describe($weaponCode)
             );
         }
@@ -55,7 +57,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getWoundsOf($weaponCode)
     {
@@ -65,7 +67,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getWoundsTypeOf($weaponCode)
     {
@@ -75,7 +77,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getRequiredStrengthOf($weaponCode)
     {
@@ -85,7 +87,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getLengthOf($weaponCode)
     {
@@ -95,7 +97,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getCoverOf($weaponCode)
     {
@@ -105,7 +107,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Me
     /**
      * @param string $weaponCode
      * @return float
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      */
     public function getWeightOf($weaponCode)
     {

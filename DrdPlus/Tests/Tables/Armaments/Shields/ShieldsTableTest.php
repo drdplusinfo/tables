@@ -31,13 +31,20 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
         $shieldsTable = new ShieldsTable();
         $value = $shieldsTable->getValue([$shieldCode], $valueName);
         self::assertSame($expectedValue, $value);
-        $getValueNameOf = 'get' . implode(array_map(
+        $getValueNameOf = $this->assembleValueGetter($valueName);
+        self::assertSame($value, $shieldsTable->$getValueNameOf($shieldCode));
+    }
+
+    private function assembleValueGetter($valueName)
+    {
+        return 'get' . implode(
+            array_map(
                 function ($namePart) {
                     return ucfirst($namePart);
                 },
                 explode('_', $valueName)
-            )) . 'Of';
-        self::assertSame($value, $shieldsTable->$getValueNameOf($shieldCode));
+            )
+        ) . 'Of';
     }
 
     public function provideShieldAndValue()
@@ -82,6 +89,32 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
             [ShieldCodes::PAVISE, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
             [ShieldCodes::PAVISE, ShieldsTable::COVER_HEADER, 7],
             [ShieldCodes::PAVISE, ShieldsTable::WEIGHT_HEADER, 6.0],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideValueName
+     * @param string $valueName
+     * @expectedException \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @expectedExceptionMessageRegExp ~protector_of_masses~
+     */
+    public function I_can_not_get_value_of_unknown_shield($valueName)
+    {
+        $getValueNameOf = $this->assembleValueGetter($valueName);
+        (new ShieldsTable())->$getValueNameOf('protector_of_masses');
+    }
+
+    public function provideValueName()
+    {
+        return [
+            [ShieldsTable::REQUIRED_STRENGTH_HEADER],
+            [ShieldsTable::RESTRICTION_HEADER],
+            [ShieldsTable::OFFENSIVENESS_HEADER],
+            [ShieldsTable::WOUNDS_HEADER],
+            [ShieldsTable::WOUNDS_TYPE_HEADER],
+            [ShieldsTable::COVER_HEADER],
+            [ShieldsTable::WEIGHT_HEADER],
         ];
     }
 

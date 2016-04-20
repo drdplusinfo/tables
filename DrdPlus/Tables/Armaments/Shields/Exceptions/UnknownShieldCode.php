@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields\Exceptions;
 
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmamentCode;
 
-class UnknownShieldCode extends RequiredRowDataNotFound implements Logic
+class UnknownShieldCode extends UnknownArmamentCode implements Logic
 {
 
 }
