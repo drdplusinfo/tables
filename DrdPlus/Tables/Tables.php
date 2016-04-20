@@ -10,6 +10,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -269,6 +270,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MorningstarsAndMorgensternsTable::class];
     }
 
+    /**
+     * @return SabersAndBowieKnifesTable
+     */
+    public function getSabersAndBowieKnifesTable()
+    {
+        if (!array_key_exists(SabersAndBowieKnifesTable::class, $this->tables)) {
+            $this->tables[SabersAndBowieKnifesTable::class] = new SabersAndBowieKnifesTable();
+        }
+
+        return $this->tables[SabersAndBowieKnifesTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -292,6 +305,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
             $this->getMorningStarsAndMorgensternsTable(),
+            $this->getSabersAndBowieKnifesTable(),
         ]);
     }
 
