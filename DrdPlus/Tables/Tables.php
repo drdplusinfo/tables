@@ -13,6 +13,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
@@ -321,6 +322,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[VoulgesAndTridentsTable::class];
     }
 
+    /**
+     * @return UnarmedTable
+     */
+    public function getUnarmedTable()
+    {
+        if (!array_key_exists(UnarmedTable::class, $this->tables)) {
+            $this->tables[UnarmedTable::class] = new UnarmedTable();
+        }
+
+        return $this->tables[UnarmedTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -348,6 +361,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getStaffsAndSpearsTable(),
             $this->getSwordsTable(),
             $this->getVoulgesAndTridentsTable(),
+            $this->getUnarmedTable(),
         ]);
     }
 
