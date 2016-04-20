@@ -9,6 +9,7 @@ use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -256,6 +257,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MacesAndClubsTable::class];
     }
 
+    /**
+     * @return MorningstarsAndMorgensternsTable
+     */
+    public function getMorningStarsAndMorgensternsTable()
+    {
+        if (!array_key_exists(MorningstarsAndMorgensternsTable::class, $this->tables)) {
+            $this->tables[MorningstarsAndMorgensternsTable::class] = new MorningstarsAndMorgensternsTable();
+        }
+
+        return $this->tables[MorningstarsAndMorgensternsTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -278,6 +291,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getAxesTable(),
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
+            $this->getMorningStarsAndMorgensternsTable(),
         ]);
     }
 
