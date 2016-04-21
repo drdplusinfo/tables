@@ -21,6 +21,7 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
+use DrdPlus\Tables\Healing\HealingBonusByActivityTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -412,6 +413,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ThrowingWeaponsTable::class];
     }
 
+    /**
+     * @return HealingBonusByActivityTable
+     */
+    public function getHealingBonusByActivityTable()
+    {
+        if (!array_key_exists(HealingBonusByActivityTable::class, $this->tables)) {
+            $this->tables[HealingBonusByActivityTable::class] = new HealingBonusByActivityTable();
+        }
+
+        return $this->tables[HealingBonusByActivityTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -446,6 +459,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCrossbowsTable(),
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
+            $this->getHealingBonusByActivityTable(),
         ]);
     }
 
