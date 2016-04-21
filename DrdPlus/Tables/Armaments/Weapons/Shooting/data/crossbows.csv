@@ -1,5 +1,5 @@
-weapon,required strength,offensiveness,wounds,wounds_type,range,weight
-minicrosbow,-3,-1,1,stab,19,1
-light crossbow,6,3,5,stab,36,1.5
-army crossbow,9,3,7,stab,40,2
-heavy crossbow,11,2,10,stab,38,3
+weapon,required_strength,offensiveness,wounds,wounds_type,range,weight
+minicrossbow,-3,-1,1,stab,19,1
+light_crossbow,6,3,5,stab,36,1.5
+military_crossbow,9,3,7,stab,40,2
+heavy_crossbow,11,2,10,stab,38,3

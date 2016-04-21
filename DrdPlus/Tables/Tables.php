@@ -15,6 +15,12 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\ArrowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\BowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -334,6 +340,78 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[UnarmedTable::class];
     }
 
+    /**
+     * @return ArrowsTable
+     */
+    public function getArrowsTable()
+    {
+        if (!array_key_exists(ArrowsTable::class, $this->tables)) {
+            $this->tables[ArrowsTable::class] = new ArrowsTable();
+        }
+
+        return $this->tables[ArrowsTable::class];
+    }
+
+    /**
+     * @return BowsTable
+     */
+    public function getBowsTable()
+    {
+        if (!array_key_exists(BowsTable::class, $this->tables)) {
+            $this->tables[BowsTable::class] = new BowsTable();
+        }
+
+        return $this->tables[BowsTable::class];
+    }
+
+    /**
+     * @return DartsTable
+     */
+    public function getDartsTable()
+    {
+        if (!array_key_exists(DartsTable::class, $this->tables)) {
+            $this->tables[DartsTable::class] = new DartsTable();
+        }
+
+        return $this->tables[DartsTable::class];
+    }
+
+    /**
+     * @return CrossbowsTable
+     */
+    public function getCrossbowsTable()
+    {
+        if (!array_key_exists(CrossbowsTable::class, $this->tables)) {
+            $this->tables[CrossbowsTable::class] = new CrossbowsTable();
+        }
+
+        return $this->tables[CrossbowsTable::class];
+    }
+
+    /**
+     * @return SlingStonesTable
+     */
+    public function getSlingStonesTable()
+    {
+        if (!array_key_exists(SlingStonesTable::class, $this->tables)) {
+            $this->tables[SlingStonesTable::class] = new SlingStonesTable();
+        }
+
+        return $this->tables[SlingStonesTable::class];
+    }
+
+    /**
+     * @return ThrowingWeaponsTable
+     */
+    public function getThrowingWeaponsTable()
+    {
+        if (!array_key_exists(ThrowingWeaponsTable::class, $this->tables)) {
+            $this->tables[ThrowingWeaponsTable::class] = new ThrowingWeaponsTable();
+        }
+
+        return $this->tables[ThrowingWeaponsTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -362,6 +440,12 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getSwordsTable(),
             $this->getVoulgesAndTridentsTable(),
             $this->getUnarmedTable(),
+            $this->getArrowsTable(),
+            $this->getBowsTable(),
+            $this->getDartsTable(),
+            $this->getCrossbowsTable(),
+            $this->getSlingStonesTable(),
+            $this->getThrowingWeaponsTable(),
         ]);
     }
 

@@ -1,9 +1,9 @@
-weapon,required strength,offensiveness,wounds,wounds_type,range,weight
+weapon,required_strength,offensiveness,wounds,wounds_type,range,weight
 rock,-2,2,-2,crush,20,0.3
-throwing dagger,0,0,1,stab,14,0.2
-light throwing axe,2,1,2,cut,12,0.7
-war throwing axe,2,1,5,cut,10,1
-throwing hammer,5,2,7,crush,9,1.5
+throwing_dagger,0,0,1,stab,14,0.2
+light_throwing_axe,2,1,2,cut,12,0.7
+war_throwing_axe,2,1,5,cut,10,1
+throwing_hammer,5,2,7,crush,9,1.5
 shuriken,-1,0,1,cut,14,0.1
 spear,3,2,3,stab,20,1.2
 javelin,2,2,2,stab,22,1

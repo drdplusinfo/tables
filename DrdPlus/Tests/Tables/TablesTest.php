@@ -17,6 +17,8 @@ class TablesTest extends \PHPUnit_Framework_TestCase
             self::assertTrue(method_exists($tables, $getTable), 'Tables are missing getter for ' . $baseName);
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);
+            $getterReflection = new \ReflectionMethod($tables, $getTable);
+            self::assertContains("@return $baseName", $getterReflection->getDocComment());
         }
     }
 
@@ -33,7 +35,7 @@ class TablesTest extends \PHPUnit_Framework_TestCase
         $expectedTableClasses = $this->getExpectedTableClasses();
         sort($expectedTableClasses);
         sort($fetchedTableClasses);
-        
+
         self::assertSameSize(
             $expectedTableClasses,
             $fetchedTableClasses,
