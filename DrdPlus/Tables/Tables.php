@@ -21,7 +21,8 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
-use DrdPlus\Tables\Healing\HealingBonusByActivityTable;
+use DrdPlus\Tables\Healing\HealingBonusForActivityTable;
+use DrdPlus\Tables\Healing\HealingBonusForConditionsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -414,15 +415,27 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return HealingBonusByActivityTable
+     * @return HealingBonusForActivityTable
      */
-    public function getHealingBonusByActivityTable()
+    public function getHealingBonusForActivityTable()
     {
-        if (!array_key_exists(HealingBonusByActivityTable::class, $this->tables)) {
-            $this->tables[HealingBonusByActivityTable::class] = new HealingBonusByActivityTable();
+        if (!array_key_exists(HealingBonusForActivityTable::class, $this->tables)) {
+            $this->tables[HealingBonusForActivityTable::class] = new HealingBonusForActivityTable();
         }
 
-        return $this->tables[HealingBonusByActivityTable::class];
+        return $this->tables[HealingBonusForActivityTable::class];
+    }
+
+    /**
+     * @return HealingBonusForConditionsTable
+     */
+    public function getHealingBonusForConditionsTable()
+    {
+        if (!array_key_exists(HealingBonusForConditionsTable::class, $this->tables)) {
+            $this->tables[HealingBonusForConditionsTable::class] = new HealingBonusForConditionsTable();
+        }
+
+        return $this->tables[HealingBonusForConditionsTable::class];
     }
 
     public function getIterator()
@@ -459,7 +472,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCrossbowsTable(),
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
-            $this->getHealingBonusByActivityTable(),
+            $this->getHealingBonusForActivityTable(),
+            $this->getHealingBonusForConditionsTable(),
         ]);
     }
 
