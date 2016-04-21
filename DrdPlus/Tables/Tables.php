@@ -19,6 +19,7 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\ShootingWeaponAfflictionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
 use DrdPlus\Tables\Healing\HealingBonusForActivityTable;
@@ -438,6 +439,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[HealingBonusForConditionsTable::class];
     }
 
+    /**
+     * @return ShootingWeaponAfflictionsTable
+     */
+    public function getShootingWeaponAfflictionsTable()
+    {
+        if (!array_key_exists(ShootingWeaponAfflictionsTable::class, $this->tables)) {
+            $this->tables[ShootingWeaponAfflictionsTable::class] = new ShootingWeaponAfflictionsTable();
+        }
+
+        return $this->tables[ShootingWeaponAfflictionsTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -474,6 +487,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getThrowingWeaponsTable(),
             $this->getHealingBonusForActivityTable(),
             $this->getHealingBonusForConditionsTable(),
+            $this->getShootingWeaponAfflictionsTable(),
         ]);
     }
 
