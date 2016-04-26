@@ -77,7 +77,7 @@ class SpeedTableTest extends TestWithMockery implements MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_to_value()
+    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
         $speedTable = new SpeedTable();
         $speedTable->toSpeed(new SpeedBonus(100, $speedTable))->getMetersPerRound();

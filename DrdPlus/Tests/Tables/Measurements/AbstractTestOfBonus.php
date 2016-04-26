@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements;
 
-use DrdPlus\Tables\Measurements\BonusInterface;
+use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -13,14 +13,14 @@ abstract class AbstractTestOfBonus extends TestWithMockery
     public function I_can_create_bonus()
     {
         $sut = $this->createSut($value = 123);
-        self::assertInstanceOf(BonusInterface::class, $sut);
+        self::assertInstanceOf(Bonus::class, $sut);
         self::assertSame($value, $sut->getValue());
     }
 
     /**
      * @param $value
      *
-     * @return BonusInterface
+     * @return Bonus
      */
     protected function createSut($value)
     {

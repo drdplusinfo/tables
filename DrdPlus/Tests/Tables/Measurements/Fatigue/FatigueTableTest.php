@@ -102,7 +102,7 @@ class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_to_value()
+    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toFatigue(new FatigueBonus(80, $fatigueTable));

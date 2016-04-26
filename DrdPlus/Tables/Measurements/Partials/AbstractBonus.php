@@ -1,11 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Partials;
 
-use DrdPlus\Tables\Measurements\BonusInterface;
+use DrdPlus\Tables\Measurements\Bonus;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 
-abstract class AbstractBonus extends StrictObject implements BonusInterface
+abstract class AbstractBonus extends StrictObject implements Bonus
 {
     /**
      * @var int

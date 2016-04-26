@@ -23,6 +23,9 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     /**
      * @param float $value
      * @param string $unit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     protected function __construct($value, $unit)
     {
@@ -33,14 +36,19 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
 
     /**
      * @param mixed $value
-     *
      * @return number
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
     protected function normalizeValue($value)
     {
         return ToFloat::toFloat($value);
     }
 
+    /**
+     * @param string $unit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     */
     protected function checkUnit($unit)
     {
         if (!in_array($unit, $this->getPossibleUnits(), true)) {

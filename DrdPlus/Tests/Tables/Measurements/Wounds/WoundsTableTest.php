@@ -61,7 +61,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_to_value()
+    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
         $woundsTable = new WoundsTable();
         $woundsTable->toWounds(new WoundsBonus(80, $woundsTable));

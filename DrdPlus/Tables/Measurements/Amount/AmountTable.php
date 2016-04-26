@@ -52,7 +52,7 @@ class AmountTable extends AbstractMeasurementFileTable
      */
     protected function convertToMeasurement($value, $unit)
     {
-        $this->checkUnit($unit);
+        $this->checkUnitExistence($unit);
 
         return new Amount($value, Amount::AMOUNT, $this);
     }

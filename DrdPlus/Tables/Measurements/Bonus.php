@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Measurements;
 
 use Granam\Integer\IntegerInterface;
 
-interface BonusInterface extends IntegerInterface
+interface Bonus extends IntegerInterface
 {
 
 }

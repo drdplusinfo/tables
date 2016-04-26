@@ -27,12 +27,24 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param TimeBonus $timeBonus
      * @param string|null $wantedUnit
-     *
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     public function toTime(TimeBonus $timeBonus, $wantedUnit = null)
     {
         return $this->toMeasurement($timeBonus, $wantedUnit);
+    }
+
+    /**
+     * @param TimeBonus $timeBonus
+     * @param null $wantedUnit
+     * @return true
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     */
+    public function hasTimeFor(TimeBonus $timeBonus, $wantedUnit = null)
+    {
+        return $this->hasValueByBonusAndUnit($timeBonus, $wantedUnit);
     }
 
     /**

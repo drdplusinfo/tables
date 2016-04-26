@@ -34,17 +34,27 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @return \string[][]
+     * @return string[][]
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     public function getIndexedValues()
     {
         if ($this->indexedValues === null) {
-            $this->loadData();
+            try {
+                $this->loadData();
+            } catch (\DrdPlus\Tables\Measurements\Exceptions\Exception $loadingException) {
+                throw new Exceptions\LoadingDataFailed(
+                    $loadingException->getMessage(), $loadingException->getCode(), $loadingException
+                );
+            }
         }
 
         return $this->indexedValues;
     }
 
+    /**
+     * @return array|string[][]
+     */
     protected function getRowsHeader()
     {
         return [
@@ -83,6 +93,11 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @return array
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile
      */
     private function loadData()
     {
@@ -92,6 +107,12 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $this->indexedValues = $indexed;
     }
 
+    /**
+     * @param $dataSourceFile
+     * @return array
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty
+     */
     private function fetchDataFromFile($dataSourceFile)
     {
         $resource = fopen($dataSourceFile, 'r');
@@ -113,6 +134,13 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $data;
     }
 
+    /**
+     * @param array $data
+     * @return array
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile
+     */
     private function normalizeAndIndex(array $data)
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
@@ -144,6 +172,12 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $indexed;
     }
 
+    /**
+     * @param array|string[] $row
+     * @param array|string[] $expectedHeader
+     * @return array|string[]
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted
+     */
     private function formatRow(array $row, array $expectedHeader)
     {
         $indexedValues = array_combine($expectedHeader, $row);
@@ -151,7 +185,13 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         unset($indexedValues['bonus']); // left values only
         $indexedRow = [$bonus => []];
         foreach ($indexedValues as $index => $value) {
-            $value = $this->parseValue($value);
+            try {
+                $value = $this->parseValue($value);
+            } catch (\Granam\Float\Tools\Exceptions\Exception $conversionException) {
+                throw new DataFromFileAreCorrupted(
+                    $conversionException->getMessage(), $conversionException->getCode(), $conversionException
+                );
+            }
             if ($value === false) { // skipping empty value
                 continue;
             }
@@ -161,11 +201,19 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $indexedRow;
     }
 
+    /**
+     * @param $value
+     * @return int
+     */
     private function parseBonus($value)
     {
         return (int)$this->parseNumber($value);
     }
 
+    /**
+     * @param $value
+     * @return string
+     */
     private function parseNumber($value)
     {
         return str_replace(
@@ -175,6 +223,12 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         );
     }
 
+    /**
+     * @param $value
+     * @return bool|float|string
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
     private function parseValue($value)
     {
         $value = trim($value);
@@ -200,49 +254,91 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @param AbstractBonus $bonus
-     * @param string $wantedUnit
-     *
+     * @param string|null $wantedUnit
      * @return MeasurementWithBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
     {
-        $this->checkBonus($bonus);
+        $this->checkBonusExistence($bonus);
         $bonusValue = $bonus->getValue();
-        if (is_null($wantedUnit) && isset($this->getIndexedValues()[$bonusValue])) {
-            $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
-        } else {
-            $this->checkUnit($wantedUnit);
-        }
+        $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
 
-        if (!isset($this->getIndexedValues()[$bonusValue][$wantedUnit])) {
-            throw new Exceptions\MissingDataForBonus("Missing data for bonus $bonus with unit $wantedUnit");
-        }
+        $this->checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit);
+
         $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
 
         return $this->convertToMeasurement($wantedValue, $wantedUnit);
     }
 
-    private function checkBonus(AbstractBonus $bonus)
+    private function checkBonusExistence(AbstractBonus $bonus)
     {
-        if (!isset($this->getIndexedValues()[$bonus->getValue()])) {
+        if (!array_key_exists($bonus->getValue(), $this->getIndexedValues())) {
             throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
         }
     }
 
-    protected function checkUnit($unit)
+    private function determineUnit($wantedUnit, $bonusValue)
+    {
+        if ($wantedUnit === null && array_key_exists($bonusValue, $this->getIndexedValues())) {
+            $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
+        } else {
+            $this->checkUnitExistence($wantedUnit);
+        }
+
+        return $wantedUnit;
+    }
+
+    protected function checkUnitExistence($unit)
     {
         if (!in_array($unit, $this->getExpectedDataHeader(), true)) {
             throw new UnknownUnit(
-                "Expected unit " . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
+                'Expected one of units ' . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
+            );
+        }
+    }
+
+    private function checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit)
+    {
+        if (!$this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit)) {
+            throw new Exceptions\MissingDataForBonus(
+                "Missing data for bonus $bonusValue with unit $wantedUnit"
             );
         }
     }
 
     /**
+     * @param $bonusValue
+     * @param $wantedUnit
+     * @return bool
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     */
+    private function hasValueByBonusValueAndUnit($bonusValue, $wantedUnit)
+    {
+        return
+            array_key_exists($bonusValue, $this->getIndexedValues())
+            && array_key_exists($wantedUnit, $this->getIndexedValues()[$bonusValue]);
+    }
+
+    /**
+     * @param AbstractBonus $bonus
+     * @param string|null $wantedUnit
+     * @return true
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     */
+    protected function hasValueByBonusAndUnit(AbstractBonus $bonus, $wantedUnit = null)
+    {
+        $wantedUnit = $this->determineUnit($wantedUnit, $bonus->getValue());
+
+        return $this->hasValueByBonusValueAndUnit($bonus->getValue(), $wantedUnit);
+    }
+
+    /**
      * @param $rawValue
-     *
      * @return float|int
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
      */
     private function evaluate($rawValue)
     {
@@ -255,19 +351,28 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @param string $chance
-     *
      * @return int
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
      */
     private function parseMaxRollToGetValue($chance)
     {
         $chanceParts = explode('/', $chance);
-        if (!isset($chanceParts[0]) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
+        if (!array_key_exists(0, $chanceParts) || !array_key_exists(1, $chanceParts) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
             || (int)$chanceParts[1] !== 6
         ) {
             throw new UnexpectedChangeNotation("Expected only 0..6/6 chance, got $chance");
         }
 
         return (int)$chanceParts[0];
+    }
+
+    protected function hasMeasurementFor(AbstractBonus $bonus, $wantedUnit = null)
+    {
+        $this->checkBonusExistence($bonus);
+        $bonusValue = $bonus->getValue();
+        $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
+
+        $this->checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit);
     }
 
     /**
@@ -287,7 +392,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function determineBonus(MeasurementWithBonus $measurement)
     {
-        $finds = $this->findBonusMatchingTo($measurement);
+        $finds = $this->getBonusMatchingOrClosestTo($measurement);
         if (is_int($finds)) {
             return $finds; // we found the bonus by value exact match
         }
@@ -295,7 +400,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $this->getBonusClosestTo($measurement->getValue(), $finds['lower'], $finds['higher']);
     }
 
-    private function findBonusMatchingTo(MeasurementWithBonus $measurement)
+    private function getBonusMatchingOrClosestTo(MeasurementWithBonus $measurement)
     {
         $searchedValue = ToFloat::toFloat($measurement->getValue());
         $searchedUnit = $measurement->getUnit();

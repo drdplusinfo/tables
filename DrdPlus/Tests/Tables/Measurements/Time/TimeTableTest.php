@@ -34,9 +34,9 @@ class TimeTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
-    public function I_can_not_convert_too_high_bonus_to_value()
+    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
         $timeTable = new TimeTable();
         $timeTable->toTime(new TimeBonus(40, $timeTable))->getRounds();

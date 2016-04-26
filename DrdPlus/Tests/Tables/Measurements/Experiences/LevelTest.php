@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Experiences;
 
-use DrdPlus\Tables\Measurements\BonusInterface;
+use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\Experiences\Experiences;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Experiences\Level;
@@ -16,7 +16,7 @@ class LevelTest extends AbstractTestOfBonus
     public function I_can_create_bonus()
     {
         $sut = $this->createSut($value = 20);
-        self::assertInstanceOf(BonusInterface::class, $sut);
+        self::assertInstanceOf(Bonus::class, $sut);
         self::assertSame($value, $sut->getValue());
     }
 

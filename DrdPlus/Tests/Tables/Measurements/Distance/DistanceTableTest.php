@@ -61,7 +61,7 @@ class DistanceTableTest extends TestWithMockery implements MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_to_value()
+    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
         $distanceTable = new DistanceTable();
         $distanceTable->toDistance(new DistanceBonus(120, $distanceTable));

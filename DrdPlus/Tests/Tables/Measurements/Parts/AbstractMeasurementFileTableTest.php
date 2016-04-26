@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Partials;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
+use DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
 use DrdPlus\Tables\Partials\AbstractTable;
 use Granam\Tests\Tools\TestWithMockery;
@@ -35,11 +36,11 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
             error_reporting($originalErrorReporting ^ E_WARNING);
             $table = TestOfAbstractTable::getIt('non-existing-file');
             $table->getIndexedValues();
-        } catch (\Exception $exception) {
+        } catch (LoadingDataFailed $loadingDataFailed) {
             error_reporting($originalErrorReporting);
             $lastError = error_get_last();
             self::assertSame(E_WARNING, $lastError['type']);
-            throw $exception;
+            throw $loadingDataFailed->getPrevious();
         }
     }
 
@@ -50,7 +51,11 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
     public function I_can_not_create_table_with_empty_source_file()
     {
         $table = TestOfAbstractTable::getIt($this->createTempFilename());
-        $table->getIndexedValues();
+        try {
+            $table->getIndexedValues();
+        } catch (LoadingDataFailed $loadingDataFailed) {
+            throw $loadingDataFailed->getPrevious();
+        }
     }
 
     private function createTempFilename()
@@ -67,7 +72,11 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
         $filename = $this->createTempFilename();
         file_put_contents($filename, 'bar');
         $table = TestOfAbstractTable::getIt($filename);
-        $table->getIndexedValues();
+        try {
+            $table->getIndexedValues();
+        } catch (LoadingDataFailed $loadingDataFailed) {
+            throw $loadingDataFailed->getPrevious();
+        }
     }
 
     /**
@@ -79,7 +88,11 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
         $filename = $this->createTempFilename();
         file_put_contents($filename, 'bonus');
         $table = TestOfAbstractTable::getIt($filename);
-        $table->getIndexedValues();
+        try {
+            $table->getIndexedValues();
+        } catch (LoadingDataFailed $loadingDataFailed) {
+            throw $loadingDataFailed->getPrevious();
+        }
     }
 
     /**
@@ -121,7 +134,11 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
         $unit = 'bar';
         file_put_contents($filename, "bonus,$unit\n$bonus,1\n$bonus,2");
         $table = TestOfAbstractTable::getIt($filename, [$unit]);
-        $table->getIndexedValues();
+        try {
+            $table->getIndexedValues();
+        } catch (LoadingDataFailed $loadingDataFailed) {
+            throw $loadingDataFailed->getPrevious();
+        }
     }
 
     /**
