@@ -30,6 +30,7 @@ use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
+use DrdPlus\Tables\Measurements\Time\BonusAdjustmentByTimeTable;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
@@ -125,6 +126,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
 
         return $this->tables[TimeTable::class];
+    }
+
+    /**
+     * @return BonusAdjustmentByTimeTable
+     */
+    public function getBonusAdjustmentByTimeTable()
+    {
+        if (!array_key_exists(BonusAdjustmentByTimeTable::class, $this->tables)) {
+            $this->tables[BonusAdjustmentByTimeTable::class] = new BonusAdjustmentByTimeTable($this->getTimeTable());
+        }
+
+        return $this->tables[BonusAdjustmentByTimeTable::class];
     }
 
     /**
@@ -464,6 +477,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getRacesTable(),
             $this->getSpeedTable(),
             $this->getTimeTable(),
+            $this->getBonusAdjustmentByTimeTable(),
             $this->getWeightTable(),
             $this->getWoundsTable(),
             $this->getBodyArmorsTable(),
