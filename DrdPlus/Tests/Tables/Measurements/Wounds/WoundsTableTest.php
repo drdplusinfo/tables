@@ -49,7 +49,7 @@ class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\MissingDataForBonus
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     public function I_can_not_use_too_low_bonus_to_value()
     {

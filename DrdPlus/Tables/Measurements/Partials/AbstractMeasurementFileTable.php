@@ -261,8 +261,8 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
     {
-        $this->checkBonusExistence($bonus);
         $bonusValue = $bonus->getValue();
+        $this->checkBonusExistence($bonusValue);
         $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
 
         $this->checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit);
@@ -273,16 +273,22 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $this->convertToMeasurement($wantedValue, $wantedUnit);
     }
 
-    private function checkBonusExistence(AbstractBonus $bonus)
+    private function checkBonusExistence($bonusValue)
     {
-        if (!array_key_exists($bonus->getValue(), $this->getIndexedValues())) {
-            throw new Exceptions\MissingDataForBonus("Value to bonus $bonus is not defined.");
+        if (!array_key_exists($bonusValue, $this->getIndexedValues())) {
+            throw new Exceptions\UnknownBonus("Value to bonus {$bonusValue} is not defined.");
         }
     }
 
+    /**
+     * @param string|null $wantedUnit
+     * @param int $bonusValue
+     * @return mixed
+     */
     private function determineUnit($wantedUnit, $bonusValue)
     {
-        if ($wantedUnit === null && array_key_exists($bonusValue, $this->getIndexedValues())) {
+        if ($wantedUnit === null) {
+            $this->checkBonusExistence($bonusValue);
             $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
         } else {
             $this->checkUnitExistence($wantedUnit);
@@ -303,7 +309,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     private function checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit)
     {
         if (!$this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit)) {
-            throw new Exceptions\MissingDataForBonus(
+            throw new Exceptions\UnknownBonus(
                 "Missing data for bonus $bonusValue with unit $wantedUnit"
             );
         }
@@ -320,19 +326,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return
             array_key_exists($bonusValue, $this->getIndexedValues())
             && array_key_exists($wantedUnit, $this->getIndexedValues()[$bonusValue]);
-    }
-
-    /**
-     * @param AbstractBonus $bonus
-     * @param string|null $wantedUnit
-     * @return true
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
-     */
-    protected function hasValueByBonusAndUnit(AbstractBonus $bonus, $wantedUnit = null)
-    {
-        $wantedUnit = $this->determineUnit($wantedUnit, $bonus->getValue());
-
-        return $this->hasValueByBonusValueAndUnit($bonus->getValue(), $wantedUnit);
     }
 
     /**
@@ -366,13 +359,17 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return (int)$chanceParts[0];
     }
 
+    /**
+     * @param AbstractBonus $bonus
+     * @param string|null $wantedUnit
+     * @return bool
+     */
     protected function hasMeasurementFor(AbstractBonus $bonus, $wantedUnit = null)
     {
-        $this->checkBonusExistence($bonus);
         $bonusValue = $bonus->getValue();
         $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
 
-        $this->checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit);
+        return $this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit);
     }
 
     /**

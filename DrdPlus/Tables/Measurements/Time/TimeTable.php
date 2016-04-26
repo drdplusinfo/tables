@@ -44,7 +44,7 @@ class TimeTable extends AbstractMeasurementFileTable
      */
     public function hasTimeFor(TimeBonus $timeBonus, $wantedUnit = null)
     {
-        return $this->hasValueByBonusAndUnit($timeBonus, $wantedUnit);
+        return $this->hasMeasurementFor($timeBonus, $wantedUnit);
     }
 
     /**
