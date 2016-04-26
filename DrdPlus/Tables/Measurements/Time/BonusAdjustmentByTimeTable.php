@@ -57,7 +57,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
             || ($inDays !== null && $inDays->getValue() < 1)
         ) {
             throw new Exceptions\NotApplicableOnShorterThanDay(
-                'Only at east one day of activity can be adjusted by change of hours of such activity, got '
+                'Only at least one day of activity can be adjusted by change of hours of such activity, got '
                 . $originalActivityTime->getValue() . ' ' . $originalActivityTime->getUnit() . '(s)'
             );
         }

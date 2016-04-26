@@ -123,6 +123,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 
     /**
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
     public function getMinutes()
     {
@@ -139,6 +140,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 
     /**
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
     public function getHours()
     {
@@ -155,6 +157,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 
     /**
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
     public function getDays()
     {
@@ -171,6 +174,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 
     /**
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
     public function getMonths()
     {
@@ -187,6 +191,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 
     /**
      * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
     public function getYears()
     {

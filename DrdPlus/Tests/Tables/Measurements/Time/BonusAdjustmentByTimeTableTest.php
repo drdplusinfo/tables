@@ -51,14 +51,46 @@ class BonusAdjustmentByTimeTableTest extends TestWithMockery implements TableTes
             [new Time(1, Time::DAY, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::DAY, $timeTable) /* expected duration */],
             [new Time(5, Time::DAY, $timeTable), 12 /* hour of activity per day */, new Time(5, Time::DAY, $timeTable) /* expected duration */],
             [new Time(100, Time::DAY, $timeTable), 24 /* hour of activity per day */, new Time(50, Time::DAY, $timeTable) /* expected duration */],
-            
+
             [new Time(1, Time::MONTH, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
             [new Time(2, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(2.5, Time::MONTH, $timeTable) /* expected duration */],
             [new Time(5, Time::MONTH, $timeTable), 5 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
             [new Time(12, Time::MONTH, $timeTable), 2 /* hour of activity per day */, new Time(6.3, Time::YEAR, $timeTable) /* expected duration */],
-            
+            [new Time(120, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
+
             [new Time(1, Time::YEAR, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
             [new Time(10, Time::YEAR, $timeTable), 20 /* hour of activity per day */, new Time(80, Time::MONTH, $timeTable) /* expected duration */],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\NotApplicableOnShorterThanDay
+     * @expectedExceptionMessageRegExp ~at least one day~
+     */
+    public function I_can_not_adjust_less_than_a_day()
+    {
+        $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
+        $bonusAdjustmentByTimeTable->adjustBy(new Time(0.9, Time::DAY, new TimeTable()), 15);
+    }
+
+    /**
+     * @test
+     * @dataProvider provideNonSenseHours
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment
+     * @param int $nonSenseHours
+     */
+    public function I_can_not_adjust_by_non_sense_hours_of_daily_activity($nonSenseHours)
+    {
+        $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
+        $bonusAdjustmentByTimeTable->adjustBy(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours);
+    }
+
+    public function provideNonSenseHours()
+    {
+        return [
+            [0],
+            [25],
         ];
     }
 }
