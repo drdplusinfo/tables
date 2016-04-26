@@ -41,6 +41,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     }
 
     /**
+     * Warning! Only activity with unlimited maximal time can get bonus by slowing down, other activities can get only malus by speeding up.
      * @param Time $originalActivityTime
      * @param int $hoursPerDay
      * @return Time
