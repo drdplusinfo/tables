@@ -29,7 +29,7 @@ class BonusAdjustmentByTimeTableTest extends TestWithMockery implements TableTes
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
         $originalActivityTimeBonusValue = $originalActivityTime->getBonus()->getValue();
-        $adjustedTime = $bonusAdjustmentByTimeTable->adjustBy($originalActivityTime, $hoursPerDay);
+        $adjustedTime = $bonusAdjustmentByTimeTable->adjustBy($originalActivityTime, $hoursPerDay, true /* unlimited duration */);
         self::assertSame(
             $originalActivityTimeBonusValue,
             $originalActivityTime->getBonus()->getValue(),
@@ -83,7 +83,7 @@ class BonusAdjustmentByTimeTableTest extends TestWithMockery implements TableTes
     public function I_can_not_adjust_by_non_sense_hours_of_daily_activity($nonSenseHours)
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustBy(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours);
+        $bonusAdjustmentByTimeTable->adjustBy(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours, true);
     }
 
     public function provideNonSenseHours()
@@ -92,5 +92,29 @@ class BonusAdjustmentByTimeTableTest extends TestWithMockery implements TableTes
             [0],
             [25],
         ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotProlongActivityPerDayWithLimitedTime
+     */
+    public function I_can_hasten_but_not_prolong_activity_with_limited_time()
+    {
+        $timeTable = new TimeTable();
+        $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable($timeTable);
+        $original = new Time(10, Time::DAY, $timeTable);
+        try {
+            $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 10);
+            self::assertGreaterThan($original->getValue(), $lessTimePerDay->getValue());
+
+            $same = $bonusAdjustmentByTimeTable->adjustBy($original, 12);
+            self::assertSame($original->getValue(), $same->getValue());
+
+            $moreTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 20, true /* unlimited */);
+            self::assertLessThan($original->getValue(), $moreTimePerDay->getValue());
+        } catch (\Exception $exception) {
+            self::fail('No exceptions has been expected so far: ' . $exception->getTraceAsString());
+        }
+        $bonusAdjustmentByTimeTable->adjustBy($original, 13);
     }
 }
