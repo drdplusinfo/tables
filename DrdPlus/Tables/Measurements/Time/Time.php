@@ -16,6 +16,8 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     const MONTH = 'month';
     const YEAR = 'year';
 
+    const HOURS_PER_DAY = 12.0;
+
     /**
      * @var TimeTable
      */

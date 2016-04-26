@@ -132,6 +132,7 @@ class TimeTest extends AbstractTestOfMeasurement
             [100, Time::YEAR],
         ];
     }
+
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToMonthsConversion
@@ -185,5 +186,13 @@ class TimeTest extends AbstractTestOfMeasurement
             [1, Time::ROUND],
             [12, Time::MINUTE],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_hours_per_day_as_constant()
+    {
+        self::assertSame((new Time(1, Time::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
     }
 }
