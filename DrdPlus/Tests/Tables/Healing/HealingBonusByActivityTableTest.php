@@ -2,17 +2,17 @@
 namespace DrdPlus\Tests\Tables\Healing;
 
 use DrdPlus\Codes\ActivityDifficultyTypeCodes;
-use DrdPlus\Tables\Healing\HealingBonusForActivityTable;
+use DrdPlus\Tables\Healing\HealingByActivityTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-class HealingBonusForActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $healingBonusByPersonActionsTable = new HealingBonusForActivityTable();
+        $healingBonusByPersonActionsTable = new HealingByActivityTable();
         self::assertSame([['situation', 'bonus']], $healingBonusByPersonActionsTable->getHeader());
     }
 
@@ -24,8 +24,8 @@ class HealingBonusForActivityTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_healing_bonus_for_every_activity($expectedBonus, $activityName)
     {
-        $healingBonusByPersonActionsTable = new HealingBonusForActivityTable();
-        self::assertSame($expectedBonus, $healingBonusByPersonActionsTable->getHealingBonusForActivity($activityName));
+        $healingBonusByPersonActionsTable = new HealingByActivityTable();
+        self::assertSame($expectedBonus, $healingBonusByPersonActionsTable->getHealingBonusByActivity($activityName));
     }
 
     public function provideBonusWithActivityName()
@@ -47,7 +47,7 @@ class HealingBonusForActivityTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_not_get_healing_bonus_for_unknown_activity()
     {
-        (new HealingBonusForActivityTable())->getHealingBonusForActivity('swimming_with_dolphins');
+        (new HealingByActivityTable())->getHealingBonusByActivity('swimming_with_dolphins');
     }
 
 }

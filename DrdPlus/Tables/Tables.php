@@ -22,8 +22,8 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ShootingWeaponAfflictionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
-use DrdPlus\Tables\Healing\HealingBonusForActivityTable;
-use DrdPlus\Tables\Healing\HealingBonusForConditionsTable;
+use DrdPlus\Tables\Healing\HealingByActivityTable;
+use DrdPlus\Tables\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -429,27 +429,27 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return HealingBonusForActivityTable
+     * @return HealingByActivityTable
      */
-    public function getHealingBonusForActivityTable()
+    public function getHealingByActivityTable()
     {
-        if (!array_key_exists(HealingBonusForActivityTable::class, $this->tables)) {
-            $this->tables[HealingBonusForActivityTable::class] = new HealingBonusForActivityTable();
+        if (!array_key_exists(HealingByActivityTable::class, $this->tables)) {
+            $this->tables[HealingByActivityTable::class] = new HealingByActivityTable();
         }
 
-        return $this->tables[HealingBonusForActivityTable::class];
+        return $this->tables[HealingByActivityTable::class];
     }
 
     /**
-     * @return HealingBonusForConditionsTable
+     * @return HealingByConditionsTable
      */
-    public function getHealingBonusForConditionsTable()
+    public function getHealingByConditionsTable()
     {
-        if (!array_key_exists(HealingBonusForConditionsTable::class, $this->tables)) {
-            $this->tables[HealingBonusForConditionsTable::class] = new HealingBonusForConditionsTable();
+        if (!array_key_exists(HealingByConditionsTable::class, $this->tables)) {
+            $this->tables[HealingByConditionsTable::class] = new HealingByConditionsTable();
         }
 
-        return $this->tables[HealingBonusForConditionsTable::class];
+        return $this->tables[HealingByConditionsTable::class];
     }
 
     /**
@@ -499,8 +499,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCrossbowsTable(),
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
-            $this->getHealingBonusForActivityTable(),
-            $this->getHealingBonusForConditionsTable(),
+            $this->getHealingByActivityTable(),
+            $this->getHealingByConditionsTable(),
             $this->getShootingWeaponAfflictionsTable(),
         ]);
     }

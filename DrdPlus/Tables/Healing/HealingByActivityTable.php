@@ -1,11 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Healing;
 
-class HealingBonusForActivityTable extends AbstractHealingBonusForTable
+class HealingByActivityTable extends AbstractHealingByTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/healing_bonus_for_activity.csv';
+        return __DIR__ . '/data/healing_by_activity.csv';
     }
 
     protected function getExpectedDataHeader()
@@ -19,7 +19,7 @@ class HealingBonusForActivityTable extends AbstractHealingBonusForTable
      * @throws \DrdPlus\Tables\Healing\Exceptions\UnknownInfluenceOnHealingCode
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
      */
-    public function getHealingBonusForActivity($activityCode)
+    public function getHealingBonusByActivity($activityCode)
     {
         return $this->getHealingBonusBy($activityCode);
     }

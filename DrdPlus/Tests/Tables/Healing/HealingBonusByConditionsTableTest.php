@@ -2,17 +2,17 @@
 namespace DrdPlus\Tests\Tables\Healing;
 
 use DrdPlus\Codes\EnvironmentConditionsTypeCodesTable;
-use DrdPlus\Tables\Healing\HealingBonusForConditionsTable;
+use DrdPlus\Tables\Healing\HealingByConditionsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-class HealingBonusForConditionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class HealingByConditionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $healingBonusForConditionsTable = new HealingBonusForConditionsTable();
+        $healingBonusForConditionsTable = new HealingByConditionsTable();
         self::assertSame([['situation', 'bonus']], $healingBonusForConditionsTable->getHeader());
     }
 
@@ -24,8 +24,8 @@ class HealingBonusForConditionsTableTest extends \PHPUnit_Framework_TestCase imp
      */
     public function I_can_get_bonus_for_every_conditions($expectedBonus, $conditionsCode)
     {
-        $healingBonusForConditionsTable = new HealingBonusForConditionsTable();
-        self::assertSame($expectedBonus, $healingBonusForConditionsTable->getHealingBonusForConditions($conditionsCode));
+        $healingBonusForConditionsTable = new HealingByConditionsTable();
+        self::assertSame($expectedBonus, $healingBonusForConditionsTable->getHealingBonusByConditions($conditionsCode));
     }
 
     public function provideBonusWithConditionsCode()

@@ -5,7 +5,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractHealingBonusForTable extends AbstractFileTable
+abstract class AbstractHealingByTable extends AbstractFileTable
 {
     protected function getExpectedRowsHeader()
     {
