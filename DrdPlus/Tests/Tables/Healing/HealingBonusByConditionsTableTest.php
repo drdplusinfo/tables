@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Healing;
 
-use DrdPlus\Codes\EnvironmentConditionsTypeCodesTable;
+use DrdPlus\Codes\EnvironmentConditionsTypeCodes;
 use DrdPlus\Tables\Healing\HealingByConditionsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
@@ -31,10 +31,10 @@ class HealingByConditionsTableTest extends \PHPUnit_Framework_TestCase implement
     public function provideBonusWithConditionsCode()
     {
         return [
-            [[-6], EnvironmentConditionsTypeCodesTable::FOUL_CONDITIONS],
-            [[-5, -3], EnvironmentConditionsTypeCodesTable::BAD_CONDITIONS],
-            [[-2, -1], EnvironmentConditionsTypeCodesTable::IMPAIRED_CONDITIONS],
-            [[0], EnvironmentConditionsTypeCodesTable::GOOD_CONDITIONS],
+            [[-6], EnvironmentConditionsTypeCodes::FOUL_CONDITIONS],
+            [[-5, -3], EnvironmentConditionsTypeCodes::BAD_CONDITIONS],
+            [[-2, -1], EnvironmentConditionsTypeCodes::IMPAIRED_CONDITIONS],
+            [[0], EnvironmentConditionsTypeCodes::GOOD_CONDITIONS],
         ];
     }
 }
