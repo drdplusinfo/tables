@@ -24,6 +24,7 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
+use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -464,6 +465,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ShootingWeaponAfflictionsTable::class];
     }
 
+    /**
+     * @return MovementTypesTable
+     */
+    public function getMovementTypesTable()
+    {
+        if (!array_key_exists(MovementTypesTable::class, $this->tables)) {
+            $this->tables[MovementTypesTable::class] = new MovementTypesTable();
+        }
+
+        return $this->tables[MovementTypesTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -502,6 +515,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),
             $this->getShootingWeaponAfflictionsTable(),
+            $this->getMovementTypesTable(),
         ]);
     }
 
