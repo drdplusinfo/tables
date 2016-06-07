@@ -108,6 +108,6 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     {
         $movementTypesTable = new MovementTypesTable();
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $movementTypesTable->getMovementBonus('sneaking');
+        $movementTypesTable->getPeriodOfPointOfFatigue('sneaking');
     }
 }
