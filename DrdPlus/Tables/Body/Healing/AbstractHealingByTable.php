@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Healing;
+namespace DrdPlus\Tables\Body\Healing;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
@@ -15,7 +15,7 @@ abstract class AbstractHealingByTable extends AbstractFileTable
     /**
      * @param string $activityName
      * @return int
-     * @throws \DrdPlus\Tables\Healing\Exceptions\UnknownInfluenceOnHealingCode
+     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownInfluenceOnHealingCode
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
      */
     protected function getHealingBonusBy($activityName)

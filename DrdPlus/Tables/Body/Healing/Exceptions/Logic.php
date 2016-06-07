@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Healing\Exceptions;
+namespace DrdPlus\Tables\Body\Healing\Exceptions;
 
 interface Logic extends Exception, \DrdPlus\Tables\Exceptions\Logic
 {

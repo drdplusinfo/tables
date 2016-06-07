@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Healing;
+namespace DrdPlus\Tables\Body\Healing;
 
 class HealingByActivityTable extends AbstractHealingByTable
 {
@@ -16,7 +16,7 @@ class HealingByActivityTable extends AbstractHealingByTable
     /**
      * @param string $activityCode
      * @return int
-     * @throws \DrdPlus\Tables\Healing\Exceptions\UnknownInfluenceOnHealingCode
+     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownInfluenceOnHealingCode
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
      */
     public function getHealingBonusByActivity($activityCode)

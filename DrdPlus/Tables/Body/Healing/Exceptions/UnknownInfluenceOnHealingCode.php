@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Healing\Exceptions;
+namespace DrdPlus\Tables\Body\Healing\Exceptions;
 
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 

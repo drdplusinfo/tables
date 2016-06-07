@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Healing;
+namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Codes\ActivityDifficultyTypeCodes;
-use DrdPlus\Tables\Healing\HealingByActivityTable;
+use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tests\Tables\TableTest;
 
 class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTest
@@ -42,7 +42,7 @@ class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements 
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Healing\Exceptions\UnknownInfluenceOnHealingCode
+     * @expectedException \DrdPlus\Tables\Body\Healing\Exceptions\UnknownInfluenceOnHealingCode
      * @expectedExceptionMessageRegExp ~swimming_with_dolphins~
      */
     public function I_can_not_get_healing_bonus_for_unknown_activity()

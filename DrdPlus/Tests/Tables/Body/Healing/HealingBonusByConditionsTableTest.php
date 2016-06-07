@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Healing;
+namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Codes\EnvironmentConditionsTypeCodes;
-use DrdPlus\Tables\Healing\HealingByConditionsTable;
+use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
 class HealingByConditionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
