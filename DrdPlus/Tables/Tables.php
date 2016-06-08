@@ -471,7 +471,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getMovementTypesTable()
     {
         if (!array_key_exists(MovementTypesTable::class, $this->tables)) {
-            $this->tables[MovementTypesTable::class] = new MovementTypesTable();
+            $this->tables[MovementTypesTable::class] = new MovementTypesTable($this->getSpeedTable());
         }
 
         return $this->tables[MovementTypesTable::class];
