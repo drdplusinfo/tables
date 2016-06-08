@@ -14,10 +14,15 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      * @var SpeedTable
      */
     private $speedTable;
+    /**
+     * @var TimeTable
+     */
+    private $timeTable;
 
     protected function setUp()
     {
         $this->speedTable = new SpeedTable();
+        $this->timeTable = new TimeTable();
     }
 
     /**
@@ -84,7 +89,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         self::assertEquals($expectedBonus, $movementTypesTable->getSpeedBonus($type));
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodOfPointOfFatigue($type));
+        self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type));
     }
 
     public function provideTypeAndExpectedBonusAndPeriod()
@@ -106,7 +111,6 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     public function I_can_get_speed_bonus_on_walk_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable);
-
         self::assertEquals(new SpeedBonus(23, $this->speedTable), $movementTypesTable->getSpeedBonusOnWalk());
     }
 
@@ -116,7 +120,6 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     public function I_can_get_speed_bonus_on_rush_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable);
-
         self::assertEquals(new SpeedBonus(26, $this->speedTable), $movementTypesTable->getSpeedBonusOnRush());
     }
 
@@ -126,7 +129,6 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     public function I_can_get_speed_bonus_on_run_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable);
-
         self::assertEquals(new SpeedBonus(32, $this->speedTable), $movementTypesTable->getSpeedBonusOnRun());
     }
 
@@ -136,8 +138,43 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     public function I_can_get_speed_bonus_on_sprint_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable);
-
         self::assertEquals(new SpeedBonus(36, $this->speedTable), $movementTypesTable->getSpeedBonusOnSprint());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_period_for_point_fatigue_on_walk_by_simple_getter()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        self::assertEquals(new Time(1, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_period_for_point_fatigue_on_rush_by_simple_getter()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        self::assertEquals(new Time(0.5, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_period_for_point_fatigue_on_run_by_simple_getter()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        self::assertEquals(new Time(5, Time::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_period_for_point_fatigue_on_sprint_by_simple_getter()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        self::assertEquals(new Time(2, Time::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint());
     }
 
     /**
@@ -161,6 +198,6 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $movementTypesTable->getPeriodOfPointOfFatigue('sneaking');
+        $movementTypesTable->getPeriodForPointOfFatigue('sneaking');
     }
 }

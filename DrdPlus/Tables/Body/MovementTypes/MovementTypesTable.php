@@ -104,10 +104,10 @@ class MovementTypesTable extends AbstractFileTable
 
     /**T
      * @param string $movementType
-     * @return int
+     * @return Time
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getPeriodOfPointOfFatigue($movementType)
+    public function getPeriodForPointOfFatigue($movementType)
     {
         try {
             $timeTable = new TimeTable();
@@ -130,6 +130,42 @@ class MovementTypesTable extends AbstractFileTable
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
             );
         }
+    }
+
+    /**
+     * @return Time
+     */
+    public function getPeriodForPointOfFatigueOnWalk()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::WALK);
+    }
+
+    /**
+     * @return Time
+     */
+    public function getPeriodForPointOfFatigueOnRush()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::RUSH);
+    }
+
+    /**
+     * @return Time
+     */
+    public function getPeriodForPointOfFatigueOnRun()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::RUN);
+    }
+
+    /**
+     * @return Time
+     */
+    public function getPeriodForPointOfFatigueOnSprint()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::SPRINT);
     }
 
 }
