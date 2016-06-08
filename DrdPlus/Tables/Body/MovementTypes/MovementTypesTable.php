@@ -1,6 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes;
 
+use DrdPlus\Codes\MovementTypeCodes;
+use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
+use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
@@ -9,6 +12,16 @@ use Granam\Tools\ValueDescriber;
 
 class MovementTypesTable extends AbstractFileTable
 {
+    /**
+     * @var SpeedTable
+     */
+    private $speedTable;
+
+    public function __construct(SpeedTable $speedTable)
+    {
+        $this->speedTable = $speedTable;
+    }
+
     protected function getDataFileName()
     {
         return __DIR__ . '/data/movement_types.csv';
@@ -38,19 +51,55 @@ class MovementTypesTable extends AbstractFileTable
 
     /**
      * @param string $movementType
-     * @return int
+     * @return SpeedBonus
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getMovementBonus($movementType)
+    public function getSpeedBonus($movementType)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getValue([$movementType], 'bonus_to_half_of_speed');
+            return new SpeedBonus($this->getValue([$movementType], 'bonus_to_half_of_speed'), $this->speedTable);
         } catch (RequiredRowDataNotFound $exception) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
             );
         }
+    }
+
+    /**
+     * @return SpeedBonus
+     */
+    public function getSpeedBonusOnWalk()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(MovementTypeCodes::WALK);
+    }
+
+    /**
+     * @return SpeedBonus
+     */
+    public function getSpeedBonusOnRush()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(MovementTypeCodes::RUSH);
+    }
+
+    /**
+     * @return SpeedBonus
+     */
+    public function getSpeedBonusOnRun()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(MovementTypeCodes::RUN);
+    }
+
+    /**
+     * @return SpeedBonus
+     */
+    public function getSpeedBonusOnSprint()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(MovementTypeCodes::SPRINT);
     }
 
     /**T
