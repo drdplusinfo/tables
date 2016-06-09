@@ -143,6 +143,18 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
 
     /**
      * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     */
+    public function I_am_stopped_if_bonus_contains_non_numeric_value()
+    {
+        $filename = $this->createTempFilename();
+        file_put_contents($filename, "bonus,foo\nSonOfSun,123456");
+        $table = TestOfAbstractTable::getIt($filename, ['foo']);
+        $table->getIndexedValues();
+    }
+
+    /**
+     * @test
      * @see PPH page 73, right column, first block
      */
     public function I_can_use_same_value_for_more_bonuses_and_get_lowest_bonus_by_closest_value()

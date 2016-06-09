@@ -12,6 +12,7 @@ use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
 use DrdPlus\Tables\Partials\AbstractTable;
 use Granam\Float\Tools\ToFloat;
+use Granam\Integer\Tools\ToInteger;
 
 /**
  * Note: every file-table can create Bonus as well as Measurement
@@ -181,21 +182,21 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     private function formatRow(array $row, array $expectedHeader)
     {
         $indexedValues = array_combine($expectedHeader, $row);
-        $bonus = $this->parseBonus($indexedValues['bonus']);
-        unset($indexedValues['bonus']); // left values only
-        $indexedRow = [$bonus => []];
-        foreach ($indexedValues as $index => $value) {
-            try {
+        try {
+            $bonus = $this->parseBonus($indexedValues['bonus']);
+            unset($indexedValues['bonus']); // left values only
+            $indexedRow = [$bonus => []];
+            foreach ($indexedValues as $index => $value) {
                 $value = $this->parseValue($value);
-            } catch (\Granam\Float\Tools\Exceptions\Exception $conversionException) {
-                throw new DataFromFileAreCorrupted(
-                    $conversionException->getMessage(), $conversionException->getCode(), $conversionException
-                );
+                if ($value === false) { // skipping empty value
+                    continue;
+                }
+                $indexedRow[$bonus][$index] = $value;
             }
-            if ($value === false) { // skipping empty value
-                continue;
-            }
-            $indexedRow[$bonus][$index] = $value;
+        } catch (\Granam\Number\Tools\Exceptions\Exception $conversionException) {
+            throw new DataFromFileAreCorrupted(
+                $conversionException->getMessage(), $conversionException->getCode(), $conversionException
+            );
         }
 
         return $indexedRow;
@@ -204,10 +205,12 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @param $value
      * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     private function parseBonus($value)
     {
-        return (int)$this->parseNumber($value);
+        return ToInteger::toInteger($this->parseNumber($value));
     }
 
     /**
@@ -264,9 +267,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $bonusValue = $bonus->getValue();
         $this->checkBonusExistence($bonusValue);
         $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
-
-        $this->checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit);
-
         $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
 
@@ -284,6 +284,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param string|null $wantedUnit
      * @param int $bonusValue
      * @return mixed
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     private function determineUnit($wantedUnit, $bonusValue)
     {
@@ -302,15 +303,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         if (!in_array($unit, $this->getExpectedDataHeader(), true)) {
             throw new UnknownUnit(
                 'Expected one of units ' . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
-            );
-        }
-    }
-
-    private function checkValueByBonusAndUnitExistence($bonusValue, $wantedUnit)
-    {
-        if (!$this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit)) {
-            throw new Exceptions\UnknownBonus(
-                "Missing data for bonus $bonusValue with unit $wantedUnit"
             );
         }
     }
