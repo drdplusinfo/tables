@@ -28,7 +28,7 @@ class TimeTable extends AbstractMeasurementFileTable
      * @param TimeBonus $timeBonus
      * @param string|null $wantedUnit
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     public function toTime(TimeBonus $timeBonus, $wantedUnit = null)

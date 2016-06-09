@@ -23,10 +23,10 @@ class TimeBonus extends AbstractBonus
     /**
      * @param string|null $wantedUnit
      * @return Time|null
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
      */
     public function findTime($wantedUnit = null)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->timeTable->hasTimeFor($this, $wantedUnit)
             ? $this->timeTable->toTime($this, $wantedUnit)
             : null;
@@ -35,8 +35,7 @@ class TimeBonus extends AbstractBonus
     /**
      * @param string|null $wantedUnit
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertBonusToTime
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
     public function getTime($wantedUnit = null)
     {
@@ -44,7 +43,7 @@ class TimeBonus extends AbstractBonus
         if ($time !== null) {
             return $time;
         }
-        throw new Exceptions\CanNotConvertBonusToTime(
+        throw new Exceptions\CanNotConvertThatBonusToTime(
             'Can not convert time bonus ' . $this->getValue() . ' into time with unit '
             . ($wantedUnit !== null ? $wantedUnit : '"any possible"')
         );

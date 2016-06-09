@@ -19,7 +19,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
         return ['shield'];
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::REQUIRED_STRENGTH_HEADER => self::INTEGER,

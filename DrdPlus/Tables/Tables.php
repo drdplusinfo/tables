@@ -25,6 +25,7 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
+use DrdPlus\Tables\Environments\TerrainImpassibilityTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -471,10 +472,22 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getMovementTypesTable()
     {
         if (!array_key_exists(MovementTypesTable::class, $this->tables)) {
-            $this->tables[MovementTypesTable::class] = new MovementTypesTable($this->getSpeedTable());
+            $this->tables[MovementTypesTable::class] = new MovementTypesTable($this->getSpeedTable(), $this->getTimeTable());
         }
 
         return $this->tables[MovementTypesTable::class];
+    }
+
+    /**
+     * @return TerrainImpassibilityTable
+     */
+    public function getTerrainImpassibilityTable()
+    {
+        if (!array_key_exists(TerrainImpassibilityTable::class, $this->tables)) {
+            $this->tables[TerrainImpassibilityTable::class] = new TerrainImpassibilityTable();
+        }
+
+        return $this->tables[TerrainImpassibilityTable::class];
     }
 
     public function getIterator()
@@ -516,6 +529,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getHealingByConditionsTable(),
             $this->getShootingWeaponAfflictionsTable(),
             $this->getMovementTypesTable(),
+            $this->getTerrainImpassibilityTable(),
         ]);
     }
 

@@ -30,10 +30,10 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_header()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertSame(
             [
-                ['movement_type', 'bonus_to_half_of_speed', 'hours_per_point_of_fatigue', 'minutes_per_point_of_fatigue', 'rounds_per_point_of_fatigue']
+                ['movement_type', 'bonus_to_movement_speed', 'hours_per_point_of_fatigue', 'minutes_per_point_of_fatigue', 'rounds_per_point_of_fatigue']
             ],
             $movementTypesTable->getHeader()
         );
@@ -44,29 +44,29 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_values()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertSame(
             [
                 'walk' => [
-                    'bonus_to_half_of_speed' => 23,
+                    'bonus_to_movement_speed' => 23,
                     'hours_per_point_of_fatigue' => 1.0,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => false,
                 ],
                 'rush' => [
-                    'bonus_to_half_of_speed' => 26,
+                    'bonus_to_movement_speed' => 26,
                     'hours_per_point_of_fatigue' => 0.5,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => false,
                 ],
                 'run' => [
-                    'bonus_to_half_of_speed' => 32,
+                    'bonus_to_movement_speed' => 32,
                     'hours_per_point_of_fatigue' => false,
                     'minutes_per_point_of_fatigue' => 5.0,
                     'rounds_per_point_of_fatigue' => false,
                 ],
                 'sprint' => [
-                    'bonus_to_half_of_speed' => 36,
+                    'bonus_to_movement_speed' => 36,
                     'hours_per_point_of_fatigue' => false,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => 2.0,
@@ -85,7 +85,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_bonus_and_time_per_point_of_fatigue($type, $expectedBonus, Time $expectedPeriod)
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         self::assertEquals($expectedBonus, $movementTypesTable->getSpeedBonus($type));
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -110,7 +110,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_speed_bonus_on_walk_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new SpeedBonus(23, $this->speedTable), $movementTypesTable->getSpeedBonusOnWalk());
     }
 
@@ -119,7 +119,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_speed_bonus_on_rush_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new SpeedBonus(26, $this->speedTable), $movementTypesTable->getSpeedBonusOnRush());
     }
 
@@ -128,7 +128,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_speed_bonus_on_run_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new SpeedBonus(32, $this->speedTable), $movementTypesTable->getSpeedBonusOnRun());
     }
 
@@ -137,7 +137,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_speed_bonus_on_sprint_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new SpeedBonus(36, $this->speedTable), $movementTypesTable->getSpeedBonusOnSprint());
     }
 
@@ -146,7 +146,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_period_for_point_fatigue_on_walk_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new Time(1, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk());
     }
 
@@ -155,7 +155,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_period_for_point_fatigue_on_rush_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new Time(0.5, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush());
     }
 
@@ -164,7 +164,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_period_for_point_fatigue_on_run_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new Time(5, Time::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun());
     }
 
@@ -173,7 +173,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_get_period_for_point_fatigue_on_sprint_by_simple_getter()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertEquals(new Time(2, Time::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint());
     }
 
@@ -184,7 +184,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_not_get_movement_bonus_for_unknown_type()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $movementTypesTable->getSpeedBonus('moonwalk');
     }
@@ -196,7 +196,7 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
      */
     public function I_can_not_get_period_of_fatigue_for_unknown_type()
     {
-        $movementTypesTable = new MovementTypesTable($this->speedTable);
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $movementTypesTable->getPeriodForPointOfFatigue('sneaking');
     }

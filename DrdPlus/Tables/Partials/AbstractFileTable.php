@@ -210,7 +210,7 @@ abstract class AbstractFileTable extends AbstractTable
         if ($this->normalizedExpectedColumnHeader === null) {
             $this->normalizedExpectedColumnHeader = [];
             $columnIndex = 0;
-            foreach ($this->getExpectedDataHeader() as $headerName => $columnScalarType) {
+            foreach ($this->getExpectedDataHeaderNamesToTypes() as $headerName => $columnScalarType) {
                 $this->normalizedExpectedColumnHeader[$columnIndex++] = [
                     'value' => $headerName,
                     'type' => $this->normalizeScalarType($columnScalarType),
@@ -242,7 +242,7 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /** @return string[] */
-    abstract protected function getExpectedDataHeader();
+    abstract protected function getExpectedDataHeaderNamesToTypes();
 
     private function parseRowValue($value, $columnIndex)
     {
@@ -395,7 +395,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         if (!array_key_exists($columnIndex, $row)) {
             throw new Exceptions\RequiredValueNotFound(
-                'Has not found value in row by index ' . ValueDescriber::describe($columnIndex)
+                'Column of name ' . ValueDescriber::describe($columnIndex) . ' does not exist'
             );
         }
 

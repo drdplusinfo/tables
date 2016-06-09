@@ -10,7 +10,7 @@ class TimeBonusTest extends AbstractTestOfBonus
 {
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertBonusToTime
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
     public function I_can_not_get_time_in_unsupported_bonus_to_unit_conversion()
     {

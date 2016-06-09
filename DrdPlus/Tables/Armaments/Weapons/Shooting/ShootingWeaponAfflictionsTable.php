@@ -16,7 +16,7 @@ class ShootingWeaponAfflictionsTable extends AbstractFileTable
         return ['missing_strength'];
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             'fight_number/loading' => self::SLASH_ARRAY_OF_INTEGERS,

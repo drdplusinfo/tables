@@ -7,7 +7,7 @@ use DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted;
 use DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile;
 use DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead;
 use DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty;
-use DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation;
+use DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
 use DrdPlus\Tables\Partials\AbstractTable;
@@ -256,7 +256,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param AbstractBonus $bonus
      * @param string|null $wantedUnit
      * @return MeasurementWithBonus
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
@@ -331,7 +331,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @param $rawValue
      * @return float|int
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      */
     private function evaluate($rawValue)
     {
@@ -345,7 +345,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @param string $chance
      * @return int
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      */
     private function parseMaxRollToGetValue($chance)
     {
@@ -353,7 +353,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         if (!array_key_exists(0, $chanceParts) || !array_key_exists(1, $chanceParts) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
             || (int)$chanceParts[1] !== 6
         ) {
-            throw new UnexpectedChangeNotation("Expected only 0..6/6 chance, got $chance");
+            throw new UnexpectedChanceNotation("Expected only 0..6/6 chance, got $chance");
         }
 
         return (int)$chanceParts[0];

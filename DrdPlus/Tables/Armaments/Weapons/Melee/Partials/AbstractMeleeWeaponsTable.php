@@ -16,7 +16,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
 
     const LENGTH_HEADER = 'length';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::REQUIRED_STRENGTH_HEADER => self::INTEGER,

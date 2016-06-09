@@ -10,9 +10,9 @@ class BowsTable extends AbstractShootingArmamentsTable
         return __DIR__ . '/data/bows.csv';
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
-        $expectedDataHeader = parent::getExpectedDataHeader();
+        $expectedDataHeader = parent::getExpectedDataHeaderNamesToTypes();
         // overloading for special format of melee fight and max applicable strength
         $expectedDataHeader[self::REQUIRED_STRENGTH_HEADER] = self::SLASH_ARRAY_OF_INTEGERS;
 

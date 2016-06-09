@@ -8,7 +8,7 @@ class HealingByActivityTable extends AbstractHealingByTable
         return __DIR__ . '/data/healing_by_activity.csv';
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return ['bonus' => self::INTEGER];
     }

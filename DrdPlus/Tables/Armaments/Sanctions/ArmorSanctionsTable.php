@@ -22,7 +22,7 @@ class ArmorSanctionsTable extends AbstractFileTable
     const AGILITY_SANCTION_HEADER = 'agility_sanction';
     const CAN_MOVE_HEADER = 'can_move';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::MINIMAL_MISSING_STRENGTH_HEADER => self::INTEGER,

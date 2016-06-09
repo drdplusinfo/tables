@@ -42,6 +42,7 @@ class SpeedTable extends AbstractMeasurementFileTable
      */
     public function toSpeed(SpeedBonus $bonus, $wantedUnit = null)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus, $wantedUnit);
     }
 

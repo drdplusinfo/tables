@@ -11,7 +11,7 @@ abstract class AbstractShootingArmamentsTable extends AbstractFileTable implemen
 {
     const RANGE_HEADER = 'range';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::REQUIRED_STRENGTH_HEADER => self::INTEGER,

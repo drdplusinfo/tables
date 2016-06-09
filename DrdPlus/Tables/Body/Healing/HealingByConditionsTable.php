@@ -8,7 +8,7 @@ class HealingByConditionsTable extends AbstractHealingByTable
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return ['bonus' => self::SLASH_ARRAY_OF_INTEGERS];
     }

@@ -14,7 +14,8 @@
     "granam/number": "dev-master",
     "granam/boolean": "dev-master",
     "drd/dice-roll": "dev-master",
-    "drd-plus/codes": "dev-master"
+    "drd-plus/codes": "dev-master",
+    "drd-plus/properties": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4",

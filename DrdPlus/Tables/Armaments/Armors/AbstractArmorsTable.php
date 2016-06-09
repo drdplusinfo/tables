@@ -10,7 +10,7 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
 
     const PROTECTION_HEADER = 'protection';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::REQUIRED_STRENGTH_HEADER => self::INTEGER,

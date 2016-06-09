@@ -110,7 +110,7 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChangeNotation
+     * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      */
     public function I_can_not_convert_bonus_to_invalid_value_change()
     {

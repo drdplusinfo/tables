@@ -1,4 +1,4 @@
-movement_type,bonus_to_half_of_speed,hours_per_point_of_fatigue,minutes_per_point_of_fatigue,rounds_per_point_of_fatigue
+movement_type,bonus_to_movement_speed,hours_per_point_of_fatigue,minutes_per_point_of_fatigue,rounds_per_point_of_fatigue
 walk,23,1,,
 rush,26,0.5,,
 run,32,,5,

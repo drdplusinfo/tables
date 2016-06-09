@@ -2,9 +2,11 @@
 namespace DrdPlus\Tables\Body\MovementTypes;
 
 use DrdPlus\Codes\MovementTypeCodes;
+use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
+use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
@@ -16,10 +18,15 @@ class MovementTypesTable extends AbstractFileTable
      * @var SpeedTable
      */
     private $speedTable;
+    /**
+     * @var TimeTable
+     */
+    private $timeTable;
 
-    public function __construct(SpeedTable $speedTable)
+    public function __construct(SpeedTable $speedTable, TimeTable $timeTable)
     {
         $this->speedTable = $speedTable;
+        $this->timeTable = $timeTable;
     }
 
     protected function getDataFileName()
@@ -34,15 +41,15 @@ class MovementTypesTable extends AbstractFileTable
         ];
     }
 
-    const BONUS_TO_HALF_OF_SPEED = 'bonus_to_half_of_speed';
+    const BONUS_TO_MOVEMENT_SPEED = 'bonus_to_movement_speed';
     const HOURS_PER_POINT_OF_FATIGUE = 'hours_per_point_of_fatigue';
     const MINUTES_PER_POINT_OF_FATIGUE = 'minutes_per_point_of_fatigue';
     const ROUNDS_PER_POINT_OF_FATIGUE = 'rounds_per_point_of_fatigue';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::BONUS_TO_HALF_OF_SPEED => self::INTEGER,
+            self::BONUS_TO_MOVEMENT_SPEED => self::INTEGER,
             self::HOURS_PER_POINT_OF_FATIGUE => self::FLOAT,
             self::MINUTES_PER_POINT_OF_FATIGUE => self::FLOAT,
             self::ROUNDS_PER_POINT_OF_FATIGUE => self::FLOAT,
@@ -58,7 +65,7 @@ class MovementTypesTable extends AbstractFileTable
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return new SpeedBonus($this->getValue([$movementType], 'bonus_to_half_of_speed'), $this->speedTable);
+            return new SpeedBonus($this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED), $this->speedTable);
         } catch (RequiredRowDataNotFound $exception) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
@@ -166,6 +173,30 @@ class MovementTypesTable extends AbstractFileTable
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(MovementTypeCodes::SPRINT);
+    }
+
+    /**
+     * @param Endurance $endurance
+     * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
+     */
+    public function getMaximumTimeToSprint(Endurance $endurance)
+    {
+        $timeBonus = new TimeBonus($endurance->getValue(), $this->timeTable);
+
+        return $timeBonus->getTime();
+    }
+
+    /**
+     * @param Endurance $endurance
+     * @return Time
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
+     */
+    public function getRequiredTimeToWalkAfterFullSprint(Endurance $endurance)
+    {
+        $timeBonus = new TimeBonus($endurance->getValue() + 20, $this->timeTable);
+
+        return $timeBonus->getTime();
     }
 
 }

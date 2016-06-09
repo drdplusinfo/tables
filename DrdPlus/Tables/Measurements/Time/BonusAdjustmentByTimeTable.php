@@ -33,7 +33,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
 
     const ADJUSTMENT_HEADER = 'adjustment';
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::ADJUSTMENT_HEADER => self::INTEGER
