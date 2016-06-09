@@ -1,14 +1,17 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\MovementTypes;
 
+use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
+use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\Tests\Tools\TestWithMockery;
 
-class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class MovementTypesTableTest extends TestWithMockery implements TableTest
 {
     /**
      * @var SpeedTable
@@ -199,5 +202,40 @@ class MovementTypesTableTest extends \PHPUnit_Framework_TestCase implements Tabl
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $movementTypesTable->getPeriodForPointOfFatigue('sneaking');
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_maximum_time_of_sprint()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
+        $timeBonus = $movementTypesTable->getMaximumTimeBonusToSprint($this->createEndurance(123));
+        self::assertInstanceOf(TimeBonus::class, $timeBonus);
+        self::assertSame(123, $timeBonus->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_required_time_of_walk_after_maximum_sprint()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
+        $timeBonus = $movementTypesTable->getRequiredTimeBonusToWalkAfterFullSprint($this->createEndurance(456));
+        self::assertInstanceOf(TimeBonus::class, $timeBonus);
+        self::assertSame(476, $timeBonus->getValue());
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|Endurance
+     */
+    private function createEndurance($value)
+    {
+        $endurance = $this->mockery(Endurance::class);
+        $endurance->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $endurance;
     }
 }

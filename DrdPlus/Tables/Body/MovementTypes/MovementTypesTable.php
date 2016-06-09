@@ -177,26 +177,22 @@ class MovementTypesTable extends AbstractFileTable
 
     /**
      * @param Endurance $endurance
-     * @return Time
+     * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getMaximumTimeToSprint(Endurance $endurance)
+    public function getMaximumTimeBonusToSprint(Endurance $endurance)
     {
-        $timeBonus = new TimeBonus($endurance->getValue(), $this->timeTable);
-
-        return $timeBonus->getTime();
+        return new TimeBonus($endurance->getValue(), $this->timeTable);
     }
 
     /**
      * @param Endurance $endurance
-     * @return Time
+     * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getRequiredTimeToWalkAfterFullSprint(Endurance $endurance)
+    public function getRequiredTimeBonusToWalkAfterFullSprint(Endurance $endurance)
     {
-        $timeBonus = new TimeBonus($endurance->getValue() + 20, $this->timeTable);
-
-        return $timeBonus->getTime();
+        return new TimeBonus($endurance->getValue() + 20, $this->timeTable);
     }
 
 }
