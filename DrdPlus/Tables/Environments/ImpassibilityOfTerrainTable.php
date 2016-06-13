@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Environments;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
-class TerrainImpassibilityTable extends AbstractFileTable
+class ImpassibilityOfTerrainTable extends AbstractFileTable
 {
     /**
      * @return string

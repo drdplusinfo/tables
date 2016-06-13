@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
-use DrdPlus\Tables\Environments\TerrainImpassibilityTable;
+use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-class TerrainImpassibilityTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class ImpassibilityOfTerrainTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
     /**
      * @test
@@ -13,7 +13,7 @@ class TerrainImpassibilityTableTest extends \PHPUnit_Framework_TestCase implemen
     {
         self::assertSame(
             [['terrain', 'impassibility_of_terrain_from', 'impassibility_of_terrain_to']],
-            (new TerrainImpassibilityTable())->getHeader()
+            (new ImpassibilityOfTerrainTable())->getHeader()
         );
     }
 
@@ -33,7 +33,7 @@ class TerrainImpassibilityTableTest extends \PHPUnit_Framework_TestCase implemen
                 'desert' => ['impassibility_of_terrain_from' => -5, 'impassibility_of_terrain_to' => -20],
                 'icy_plains' => ['impassibility_of_terrain_from' => -5, 'impassibility_of_terrain_to' => -20],
             ],
-            (new TerrainImpassibilityTable())->getIndexedValues()
+            (new ImpassibilityOfTerrainTable())->getIndexedValues()
         );
     }
 
