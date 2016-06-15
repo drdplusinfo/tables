@@ -165,4 +165,24 @@ class ImpassibilityOfTerrainTableTest extends \PHPUnit_Framework_TestCase implem
         );
         self::assertSame(-7 /* round((-12 - -6) * (100 / 9)) */, $jungleSixthBonus->getValue());
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
+     * @expectedExceptionMessageRegExp ~seabed~
+     */
+    public function I_can_not_get_values_for_unknown_terrain()
+    {
+        (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain('seabed');
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
+     * @expectedExceptionMessageRegExp ~array~
+     */
+    public function I_can_not_get_values_for_incorrectly_formatted_terrain()
+    {
+        (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain(['forrest']);
+    }
 }

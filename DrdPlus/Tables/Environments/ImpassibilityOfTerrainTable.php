@@ -96,7 +96,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
             throw new Exceptions\UnknownTerrainCode('Unknown terrain code ' . ValueDescriber::describe($terrainCode));
         } catch (WrongParameterType $wrongParameterType) {
             throw new Exceptions\InvalidTerrainCodeFormat(
-                'Unexpected format of a terrain code ' . ValueDescriber::describe($terrainCode)
+                'Unexpected format of a terrain code: ' . ValueDescriber::describe($terrainCode)
             );
         }
     }
