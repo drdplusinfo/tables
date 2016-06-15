@@ -481,7 +481,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @return ImpassibilityOfTerrainTable
      */
-    public function getTerrainImpassibilityTable()
+    public function getImpassibilityOfTerrainTable()
     {
         if (!array_key_exists(ImpassibilityOfTerrainTable::class, $this->tables)) {
             $this->tables[ImpassibilityOfTerrainTable::class] = new ImpassibilityOfTerrainTable();
@@ -529,7 +529,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getHealingByConditionsTable(),
             $this->getShootingWeaponAfflictionsTable(),
             $this->getMovementTypesTable(),
-            $this->getTerrainImpassibilityTable(),
+            $this->getImpassibilityOfTerrainTable(),
         ]);
     }
 

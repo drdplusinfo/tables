@@ -28,8 +28,10 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_rate()
     {
-        $difficultyPercents = new DifficultyPercents(99);
-        self::assertSame(0.99, $difficultyPercents->getRate());
+        self::assertSame(0.99, (new DifficultyPercents(99))->getRate());
+        self::assertSame(0.42, (new DifficultyPercents(42))->getRate());
+        self::assertSame(0.0, (new DifficultyPercents(0))->getRate());
+        self::assertSame(1.0, (new DifficultyPercents(100))->getRate());
     }
 
     /**

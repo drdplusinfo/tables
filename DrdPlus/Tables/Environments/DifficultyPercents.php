@@ -48,7 +48,7 @@ class DifficultyPercents extends StrictObject implements IntegerInterface
      */
     public function getRate()
     {
-        return $this->getValue() / 100;
+        return (float)$this->getValue() / 100;
     }
 
     /**

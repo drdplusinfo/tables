@@ -5,6 +5,7 @@ use Granam\Boolean\Tools\ToBoolean;
 use Granam\Float\Tools\ToFloat;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
+use Granam\Scalar\Tools\ToString;
 
 abstract class AbstractFileTable extends AbstractTable
 {
@@ -14,7 +15,7 @@ abstract class AbstractFileTable extends AbstractTable
     const STRING = 'string';
     const SLASH_ARRAY_OF_INTEGERS = 'slash_array_of_integers';
 
-    /** @var array */
+    /** @var array|string[][]|string[][][] */
     private $indexedValues;
 
     /** @var array */
@@ -363,6 +364,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function getRow(array $rowIndexes)
     {
@@ -371,12 +373,12 @@ abstract class AbstractFileTable extends AbstractTable
         }
         $values = $this->getIndexedValues();
         foreach ($rowIndexes as $rowIndex) {
-            if (!isset($values[$rowIndex])) {
+            if (!array_key_exists(ToString::toString($rowIndex), $values)) {
                 throw new Exceptions\RequiredRowDataNotFound(
                     'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
-            $values = &$values[$rowIndex];
+            $values = $values[$rowIndex];
             if (!is_array(current($values))) { // flat array found
                 break;
             }
