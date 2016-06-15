@@ -1,16 +1,16 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
-use DrdPlus\Tables\Environments\DifficultyPercents;
+use DrdPlus\Tables\Environments\TerrainDifficultyPercents;
 
-class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
+class TerrainDifficultyPercentsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
     public function I_can_use_it()
     {
-        $difficultyPercents = new DifficultyPercents(12);
+        $difficultyPercents = new TerrainDifficultyPercents(12);
         self::assertSame(12, $difficultyPercents->getValue());
     }
 
@@ -19,7 +19,7 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_turn_it_into_percents_string()
     {
-        $difficultyPercents = new DifficultyPercents(56);
+        $difficultyPercents = new TerrainDifficultyPercents(56);
         self::assertSame('56 %', (string)$difficultyPercents);
     }
 
@@ -28,10 +28,10 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_rate()
     {
-        self::assertSame(0.99, (new DifficultyPercents(99))->getRate());
-        self::assertSame(0.42, (new DifficultyPercents(42))->getRate());
-        self::assertSame(0.0, (new DifficultyPercents(0))->getRate());
-        self::assertSame(1.0, (new DifficultyPercents(100))->getRate());
+        self::assertSame(0.99, (new TerrainDifficultyPercents(99))->getRate());
+        self::assertSame(0.42, (new TerrainDifficultyPercents(42))->getRate());
+        self::assertSame(0.0, (new TerrainDifficultyPercents(0))->getRate());
+        self::assertSame(1.0, (new TerrainDifficultyPercents(100))->getRate());
     }
 
     /**
@@ -41,7 +41,7 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_not_create_it_from_non_integer()
     {
-        new DifficultyPercents('half of quarter');
+        new TerrainDifficultyPercents('half of quarter');
     }
 
     /**
@@ -52,11 +52,11 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
     public function I_can_not_create_more_than_hundred_of_percents()
     {
         try {
-            new DifficultyPercents(100);
+            new TerrainDifficultyPercents(100);
         } catch (\Exception $exception) {
             self::fail('No exception expected so far: ' . $exception->getTraceAsString());
         }
-        new DifficultyPercents(101);
+        new TerrainDifficultyPercents(101);
     }
 
     /**
@@ -67,10 +67,10 @@ class DifficultyPercentsTest extends \PHPUnit_Framework_TestCase
     public function I_can_not_create_negative_percents()
     {
         try {
-            new DifficultyPercents(0);
+            new TerrainDifficultyPercents(0);
         } catch (\Exception $exception) {
             self::fail('No exception expected so far: ' . $exception->getTraceAsString());
         }
-        new DifficultyPercents(-1);
+        new TerrainDifficultyPercents(-1);
     }
 }

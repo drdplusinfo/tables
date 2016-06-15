@@ -7,7 +7,7 @@ use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 use \Granam\Integer\Tools\Exceptions\Exception as ToIntegerException;
 
-class DifficultyPercents extends StrictObject implements IntegerInterface
+class TerrainDifficultyPercents extends StrictObject implements IntegerInterface
 {
     /**
      * @var int

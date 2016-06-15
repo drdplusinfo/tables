@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
-use DrdPlus\Tables\Environments\DifficultyPercents;
+use DrdPlus\Tables\Environments\TerrainDifficultyPercents;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
@@ -92,7 +92,7 @@ class ImpassibilityOfTerrainTableTest extends \PHPUnit_Framework_TestCase implem
         $speedMalusOnTerrain = (new ImpassibilityOfTerrainTable())->getSpeedMalusOnTerrain(
             $terrainCode,
             new SpeedTable(),
-            new DifficultyPercents($difficultyInPercents)
+            new TerrainDifficultyPercents($difficultyInPercents)
         );
         self::assertInstanceOf(SpeedBonus::class, $speedMalusOnTerrain);
         self::assertSame($expectedMalus, $speedMalusOnTerrain->getValue());
@@ -155,13 +155,13 @@ class ImpassibilityOfTerrainTableTest extends \PHPUnit_Framework_TestCase implem
         $jungleAlmostSixthBonus = $impassibilityOfTerrainTable->getSpeedMalusOnTerrain(
             'jungle',
             $speedTable,
-            new DifficultyPercents(8)
+            new TerrainDifficultyPercents(8)
         );
         self::assertSame(-6, $jungleAlmostSixthBonus->getValue());
         $jungleSixthBonus = $impassibilityOfTerrainTable->getSpeedMalusOnTerrain(
             'jungle',
             $speedTable,
-            new DifficultyPercents(9)
+            new TerrainDifficultyPercents(9)
         );
         self::assertSame(-7 /* round((-12 - -6) * (100 / 9)) */, $jungleSixthBonus->getValue());
     }

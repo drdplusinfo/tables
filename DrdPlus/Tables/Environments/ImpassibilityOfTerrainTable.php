@@ -46,7 +46,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     /**
      * @param $terrainCode
      * @param SpeedTable $speedTable
-     * @param DifficultyPercents $difficultyPercents
+     * @param TerrainDifficultyPercents $difficultyPercents
      * @return SpeedBonus
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
      * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
@@ -54,7 +54,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     public function getSpeedMalusOnTerrain(
         $terrainCode,
         SpeedTable $speedTable,
-        DifficultyPercents $difficultyPercents
+        TerrainDifficultyPercents $difficultyPercents
     )
     {
         // value is zero or negative, so bonus is de facto malus
@@ -63,14 +63,14 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
 
     /**
      * @param $terrainCode
-     * @param DifficultyPercents $difficultyPercents
+     * @param TerrainDifficultyPercents $difficultyPercents
      * @return int
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
      * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
      */
     private function getSpeedMalusValueForTerrain(
         $terrainCode,
-        DifficultyPercents $difficultyPercents
+        TerrainDifficultyPercents $difficultyPercents
     )
     {
         // value is zero or negative, so bonus is de facto malus
