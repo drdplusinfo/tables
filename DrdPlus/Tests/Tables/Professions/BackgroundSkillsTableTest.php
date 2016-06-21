@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Professions;
 
-use DrdPlus\Codes\ProfessionCodes;
-use DrdPlus\Codes\SkillCodes;
+use DrdPlus\Codes\ProfessionCode;
+use DrdPlus\Codes\SkillTypeCode;
 
 class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,12 +56,12 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
         $rowIndex = 0;
         for ($backgroundSkillPoint = 0; $backgroundSkillPoint <= 8; $backgroundSkillPoint++) {
             $columnIndex = 0;
-            foreach (ProfessionCodes::getProfessionCodes() as $professionCode) {
-                foreach (SkillCodes::getSkillTypes() as $type) {
+            foreach (ProfessionCode::getProfessionCodes() as $professionCode) {
+                foreach (SkillTypeCode::getSkillTypeCodes() as $skillTypeCode) {
                     $combinations[] = [
                         $backgroundSkillPoint,
                         $professionCode,
-                        $type,
+                        $skillTypeCode,
                         $this->getExpectedSkillPoints($rowIndex, $columnIndex)
                     ];
                     $columnIndex++;

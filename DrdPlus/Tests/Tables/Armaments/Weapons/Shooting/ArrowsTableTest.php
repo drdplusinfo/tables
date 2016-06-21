@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Codes\WeaponCodes;
-use DrdPlus\Codes\WoundTypeCodes;
+use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTableTest;
 
@@ -16,61 +16,61 @@ class ArrowsTableTest extends AbstractShootingArmamentsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCodes::BASIC_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
+            [WeaponCode::BASIC_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 2],
-            [WeaponCodes::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 2],
+            [WeaponCode::LONG_RANGE_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 2],
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
-            [WeaponCodes::WAR_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.1],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 2],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
+            [WeaponCode::WAR_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.1],
 
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCodes::PIERCING_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
+            [WeaponCode::PIERCING_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCodes::HOLLOW_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
+            [WeaponCode::HOLLOW_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, -1],
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -2],
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -1],
-            [WeaponCodes::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, -1],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -2],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -1],
+            [WeaponCode::CRIPPLING_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, -3],
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -3],
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
-            [WeaponCodes::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, -3],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, -3],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
+            [WeaponCode::INCENDIARY_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
 
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::STAB],
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCodes::SILVER_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
+            [WeaponCode::SILVER_ARROW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
         ];
     }
 

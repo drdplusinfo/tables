@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes;
 
-use DrdPlus\Codes\MovementTypeCodes;
+use DrdPlus\Codes\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
@@ -79,7 +79,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnWalk()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCodes::WALK);
+        return $this->getSpeedBonus(MovementTypeCode::WALK);
     }
 
     /**
@@ -88,7 +88,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnRush()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCodes::RUSH);
+        return $this->getSpeedBonus(MovementTypeCode::RUSH);
     }
 
     /**
@@ -97,7 +97,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnRun()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCodes::RUN);
+        return $this->getSpeedBonus(MovementTypeCode::RUN);
     }
 
     /**
@@ -106,7 +106,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnSprint()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCodes::SPRINT);
+        return $this->getSpeedBonus(MovementTypeCode::SPRINT);
     }
 
     /**T
@@ -145,7 +145,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnWalk()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::WALK);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::WALK);
     }
 
     /**
@@ -154,7 +154,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnRush()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::RUSH);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUSH);
     }
 
     /**
@@ -163,7 +163,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnRun()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::RUN);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUN);
     }
 
     /**
@@ -172,7 +172,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnSprint()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCodes::SPRINT);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::SPRINT);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
-use DrdPlus\Codes\ActivityDifficultyTypeCodes;
+use DrdPlus\Codes\ActivityDifficultyTypeCode;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tests\Tables\TableTest;
 
@@ -31,12 +31,12 @@ class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements 
     public function provideBonusWithActivityName()
     {
         return [
-            [0, ActivityDifficultyTypeCodes::SLEEPING_OR_REST_IN_BED],
-            [-2, ActivityDifficultyTypeCodes::LOUNGING_AND_RESTING],
-            [-4, ActivityDifficultyTypeCodes::LIGHT_ACTIVITY],
-            [-6, ActivityDifficultyTypeCodes::NORMAL_ACTIVITY],
-            [-8, ActivityDifficultyTypeCodes::TOILSOME_ACTIVITY],
-            [-10, ActivityDifficultyTypeCodes::VERY_HARD_ACTIVITY]
+            [0, ActivityDifficultyTypeCode::SLEEPING_OR_REST_IN_BED],
+            [-2, ActivityDifficultyTypeCode::LOUNGING_AND_RESTING],
+            [-4, ActivityDifficultyTypeCode::LIGHT_ACTIVITY],
+            [-6, ActivityDifficultyTypeCode::NORMAL_ACTIVITY],
+            [-8, ActivityDifficultyTypeCode::TOILSOME_ACTIVITY],
+            [-10, ActivityDifficultyTypeCode::VERY_HARD_ACTIVITY]
         ];
     }
 

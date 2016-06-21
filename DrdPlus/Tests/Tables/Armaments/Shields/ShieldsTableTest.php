@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Codes\ShieldCodes;
-use DrdPlus\Codes\WoundTypeCodes;
+use DrdPlus\Codes\ShieldCode;
+use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tests\Tables\TableTest;
 
 class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
@@ -50,45 +50,45 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
     public function provideShieldAndValue()
     {
         return [
-            [ShieldCodes::BUCKLER, ShieldsTable::REQUIRED_STRENGTH_HEADER, -3],
-            [ShieldCodes::BUCKLER, ShieldsTable::RESTRICTION_HEADER, -1],
-            [ShieldCodes::BUCKLER, ShieldsTable::OFFENSIVENESS_HEADER, 0],
-            [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_HEADER, 0],
-            [ShieldCodes::BUCKLER, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [ShieldCodes::BUCKLER, ShieldsTable::COVER_HEADER, 2],
-            [ShieldCodes::BUCKLER, ShieldsTable::WEIGHT_HEADER, 0.8],
+            [ShieldCode::BUCKLER, ShieldsTable::REQUIRED_STRENGTH_HEADER, -3],
+            [ShieldCode::BUCKLER, ShieldsTable::RESTRICTION_HEADER, -1],
+            [ShieldCode::BUCKLER, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCode::BUCKLER, ShieldsTable::WOUNDS_HEADER, 0],
+            [ShieldCode::BUCKLER, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [ShieldCode::BUCKLER, ShieldsTable::COVER_HEADER, 2],
+            [ShieldCode::BUCKLER, ShieldsTable::WEIGHT_HEADER, 0.8],
 
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 1],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::RESTRICTION_HEADER, -2],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WOUNDS_HEADER, 1],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::COVER_HEADER, 4],
-            [ShieldCodes::SMALL_SHIELD, ShieldsTable::WEIGHT_HEADER, 1.5],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 1],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::RESTRICTION_HEADER, -2],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS_HEADER, 1],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::COVER_HEADER, 4],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::WEIGHT_HEADER, 1.5],
 
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 5],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::RESTRICTION_HEADER, -3],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WOUNDS_HEADER, 2],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::COVER_HEADER, 5],
-            [ShieldCodes::MEDIUM_SHIELD, ShieldsTable::WEIGHT_HEADER, 2.5],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 5],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::RESTRICTION_HEADER, -3],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS_HEADER, 2],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::COVER_HEADER, 5],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WEIGHT_HEADER, 2.5],
 
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 9],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::RESTRICTION_HEADER, -4],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WOUNDS_HEADER, 3],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::COVER_HEADER, 6],
-            [ShieldCodes::HEAVY_SHIELD, ShieldsTable::WEIGHT_HEADER, 4.0],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::REQUIRED_STRENGTH_HEADER, 9],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::RESTRICTION_HEADER, -4],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS_HEADER, 3],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::COVER_HEADER, 6],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::WEIGHT_HEADER, 4.0],
 
-            [ShieldCodes::PAVISE, ShieldsTable::REQUIRED_STRENGTH_HEADER, 13],
-            [ShieldCodes::PAVISE, ShieldsTable::RESTRICTION_HEADER, -5],
-            [ShieldCodes::PAVISE, ShieldsTable::OFFENSIVENESS_HEADER, 0],
-            [ShieldCodes::PAVISE, ShieldsTable::WOUNDS_HEADER, 4],
-            [ShieldCodes::PAVISE, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCodes::CRUSH],
-            [ShieldCodes::PAVISE, ShieldsTable::COVER_HEADER, 7],
-            [ShieldCodes::PAVISE, ShieldsTable::WEIGHT_HEADER, 6.0],
+            [ShieldCode::PAVISE, ShieldsTable::REQUIRED_STRENGTH_HEADER, 13],
+            [ShieldCode::PAVISE, ShieldsTable::RESTRICTION_HEADER, -5],
+            [ShieldCode::PAVISE, ShieldsTable::OFFENSIVENESS_HEADER, 0],
+            [ShieldCode::PAVISE, ShieldsTable::WOUNDS_HEADER, 4],
+            [ShieldCode::PAVISE, ShieldsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
+            [ShieldCode::PAVISE, ShieldsTable::COVER_HEADER, 7],
+            [ShieldCode::PAVISE, ShieldsTable::WEIGHT_HEADER, 6.0],
         ];
     }
 

@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Races;
 
-use DrdPlus\Codes\GenderCodes;
-use DrdPlus\Codes\PropertyCodes;
-use DrdPlus\Codes\RaceCodes;
+use DrdPlus\Codes\GenderCode;
+use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
@@ -27,21 +27,21 @@ class RacesTable extends AbstractFileTable
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            PropertyCodes::STRENGTH => self::INTEGER,
-            PropertyCodes::AGILITY => self::INTEGER,
-            PropertyCodes::KNACK => self::INTEGER,
-            PropertyCodes::WILL => self::INTEGER,
-            PropertyCodes::INTELLIGENCE => self::INTEGER,
-            PropertyCodes::CHARISMA => self::INTEGER,
-            PropertyCodes::TOUGHNESS => self::INTEGER,
-            PropertyCodes::HEIGHT_IN_CM => self::FLOAT,
-            PropertyCodes::WEIGHT_IN_KG => self::FLOAT,
-            PropertyCodes::SIZE => self::INTEGER,
-            PropertyCodes::SENSES => self::INTEGER,
-            PropertyCodes::REMARKABLE_SENSE => self::STRING,
-            PropertyCodes::INFRAVISION => self::BOOLEAN,
-            PropertyCodes::NATIVE_REGENERATION => self::BOOLEAN,
-            PropertyCodes::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
+            PropertyCode::STRENGTH => self::INTEGER,
+            PropertyCode::AGILITY => self::INTEGER,
+            PropertyCode::KNACK => self::INTEGER,
+            PropertyCode::WILL => self::INTEGER,
+            PropertyCode::INTELLIGENCE => self::INTEGER,
+            PropertyCode::CHARISMA => self::INTEGER,
+            PropertyCode::TOUGHNESS => self::INTEGER,
+            PropertyCode::HEIGHT_IN_CM => self::FLOAT,
+            PropertyCode::WEIGHT_IN_KG => self::FLOAT,
+            PropertyCode::SIZE => self::INTEGER,
+            PropertyCode::SENSES => self::INTEGER,
+            PropertyCode::REMARKABLE_SENSE => self::STRING,
+            PropertyCode::INFRAVISION => self::BOOLEAN,
+            PropertyCode::NATIVE_REGENERATION => self::BOOLEAN,
+            PropertyCode::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
         ];
     }
 
@@ -65,7 +65,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonHumanModifiers()
     {
-        return $this->getRow([RaceCodes::HUMAN, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::HUMAN, RaceCode::COMMON]);
     }
 
     /**
@@ -74,7 +74,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getHighlanderModifiers()
     {
-        return $this->getRow([RaceCodes::HUMAN, RaceCodes::HIGHLANDER]);
+        return $this->getRow([RaceCode::HUMAN, RaceCode::HIGHLANDER]);
     }
 
     /**
@@ -83,7 +83,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonElfModifiers()
     {
-        return $this->getRow([RaceCodes::ELF, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::ELF, RaceCode::COMMON]);
     }
 
     /**
@@ -92,7 +92,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getDarkElfModifiers()
     {
-        return $this->getRow([RaceCodes::ELF, RaceCodes::DARK]);
+        return $this->getRow([RaceCode::ELF, RaceCode::DARK]);
     }
 
     /**
@@ -101,7 +101,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getGreenElfModifiers()
     {
-        return $this->getRow([RaceCodes::ELF, RaceCodes::GREEN]);
+        return $this->getRow([RaceCode::ELF, RaceCode::GREEN]);
     }
 
     /**
@@ -110,7 +110,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonDwarfModifiers()
     {
-        return $this->getRow([RaceCodes::DWARF, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::DWARF, RaceCode::COMMON]);
     }
 
     /**
@@ -119,7 +119,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMountainDwarfModifiers()
     {
-        return $this->getRow([RaceCodes::DWARF, RaceCodes::MOUNTAIN]);
+        return $this->getRow([RaceCode::DWARF, RaceCode::MOUNTAIN]);
     }
 
     /**
@@ -128,7 +128,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getWoodDwarfModifiers()
     {
-        return $this->getRow([RaceCodes::DWARF, RaceCodes::WOOD]);
+        return $this->getRow([RaceCode::DWARF, RaceCode::WOOD]);
     }
 
     /**
@@ -137,7 +137,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonHobbitModifiers()
     {
-        return $this->getRow([RaceCodes::HOBBIT, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::HOBBIT, RaceCode::COMMON]);
     }
 
     /**
@@ -146,7 +146,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonKrollModifiers()
     {
-        return $this->getRow([RaceCodes::KROLL, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::KROLL, RaceCode::COMMON]);
     }
 
     /**
@@ -155,7 +155,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getWildKrollModifiers()
     {
-        return $this->getRow([RaceCodes::KROLL, RaceCodes::WILD]);
+        return $this->getRow([RaceCode::KROLL, RaceCode::WILD]);
     }
 
     /**
@@ -164,7 +164,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonOrcModifiers()
     {
-        return $this->getRow([RaceCodes::ORC, RaceCodes::COMMON]);
+        return $this->getRow([RaceCode::ORC, RaceCode::COMMON]);
     }
 
     /**
@@ -173,7 +173,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getGoblinModifiers()
     {
-        return $this->getRow([RaceCodes::ORC, RaceCodes::GOBLIN]);
+        return $this->getRow([RaceCode::ORC, RaceCode::GOBLIN]);
     }
 
     /**
@@ -182,7 +182,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getSkurutModifiers()
     {
-        return $this->getRow([RaceCodes::ORC, RaceCodes::SKURUT]);
+        return $this->getRow([RaceCode::ORC, RaceCode::SKURUT]);
     }
 
     /**
@@ -194,7 +194,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleStrength($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::STRENGTH);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::STRENGTH);
     }
 
     /**
@@ -232,7 +232,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleAgility($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::AGILITY);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGILITY);
     }
 
     /**
@@ -257,7 +257,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleKnack($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::KNACK);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::KNACK);
     }
 
     /**
@@ -282,7 +282,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleWill($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WILL);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::WILL);
     }
 
     /**
@@ -307,7 +307,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleIntelligence($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INTELLIGENCE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::INTELLIGENCE);
     }
 
     /**
@@ -332,7 +332,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleCharisma($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::CHARISMA);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::CHARISMA);
     }
 
     /**
@@ -357,7 +357,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getToughness($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::TOUGHNESS);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::TOUGHNESS);
     }
 
     /**
@@ -369,7 +369,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getHeightInCm($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::HEIGHT_IN_CM);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::HEIGHT_IN_CM);
     }
 
     /**
@@ -391,9 +391,9 @@ class RacesTable extends AbstractFileTable
     )
     {
         switch ($genderCode) {
-            case GenderCodes::MALE :
+            case GenderCode::MALE :
                 return $this->getMaleWeightInKg($raceCode, $subRaceCode);
-            case GenderCodes::FEMALE :
+            case GenderCode::FEMALE :
                 return $this->getFemaleWeightInKg(
                     $raceCode,
                     $subRaceCode,
@@ -416,7 +416,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleWeightInKg($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::WEIGHT_IN_KG);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::WEIGHT_IN_KG);
     }
 
     /**
@@ -453,7 +453,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleSize($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::SIZE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::SIZE);
     }
 
     /**
@@ -472,13 +472,13 @@ class RacesTable extends AbstractFileTable
     public function getSize($raceCode, $subraceCode, $genderCode, FemaleModifiersTable $femaleModifiersTable)
     {
         switch ($genderCode) {
-            case GenderCodes::MALE :
+            case GenderCode::MALE :
                 return $this->getMaleSize($raceCode, $subraceCode);
-            case GenderCodes::FEMALE :
+            case GenderCode::FEMALE :
                 return $this->getFemaleSize($raceCode, $subraceCode, $femaleModifiersTable);
             default :
                 throw new Exceptions\UnknownGender(
-                    'Expected one of ' . GenderCodes::MALE . ' or ' . GenderCodes::FEMALE
+                    'Expected one of ' . GenderCode::MALE . ' or ' . GenderCode::FEMALE
                     . ', got ' . ValueDescriber::describe($genderCode)
                 );
         }
@@ -493,7 +493,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getRemarkableSense($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::REMARKABLE_SENSE);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::REMARKABLE_SENSE);
     }
 
     /**
@@ -505,7 +505,7 @@ class RacesTable extends AbstractFileTable
      */
     public function hasInfravision($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::INFRAVISION);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::INFRAVISION);
     }
 
     /**
@@ -517,7 +517,7 @@ class RacesTable extends AbstractFileTable
      */
     public function hasNativeRegeneration($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::NATIVE_REGENERATION);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::NATIVE_REGENERATION);
     }
 
     /**
@@ -529,7 +529,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getSenses($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::SENSES);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::SENSES);
     }
 
     /**
@@ -541,6 +541,6 @@ class RacesTable extends AbstractFileTable
      */
     public function requiresDmAgreement($raceCode, $subraceCode)
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCodes::REQUIRES_DM_AGREEMENT);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
     }
 }
