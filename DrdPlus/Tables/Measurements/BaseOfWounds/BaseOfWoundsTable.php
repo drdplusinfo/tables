@@ -59,9 +59,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
     {
         $axisX = $data[0]; // first row
         unset($axisX[0]); // removing blank first value ("⊕")
-        $bonusToColumnRank = $this->transpose($axisX);
 
-        return $bonusToColumnRank; // rank (index) starts by number 1
+        return $this->transpose($axisX); // rank (index) starts by number 1
     }
 
     private function transpose(array $data)
@@ -77,9 +76,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         }
         unset ($axisY[0]); // removing blank first value ("⊕")
 
-        $bonusToRowRank = $this->transpose($axisY);
-
-        return $bonusToRowRank; // rank (index) starts by number 1
+        return $this->transpose($axisY); // rank (index) starts by number 1
     }
 
     private function collectBonuses(array $data)
