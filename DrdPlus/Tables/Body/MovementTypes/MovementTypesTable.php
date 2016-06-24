@@ -109,15 +109,15 @@ class MovementTypesTable extends AbstractFileTable
         return $this->getSpeedBonus(MovementTypeCode::SPRINT);
     }
 
-    /**T
+    /**
      * @param string $movementType
-     * @return Time
+     * @param TimeTable $timeTable
+     * @return Time|false
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getPeriodForPointOfFatigue($movementType)
+    public function getPeriodForPointOfFatigue($movementType, TimeTable $timeTable)
     {
         try {
-            $timeTable = new TimeTable();
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $hours = $this->getValue([$movementType], self::HOURS_PER_POINT_OF_FATIGUE);
             if ($hours !== false) {
@@ -130,8 +130,11 @@ class MovementTypesTable extends AbstractFileTable
             }
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $rounds = $this->getValue([$movementType], self::ROUNDS_PER_POINT_OF_FATIGUE);
+            if ($rounds !== false) {
+                return new Time($rounds, Time::ROUND, $timeTable);
+            }
 
-            return new Time($rounds, Time::ROUND, $timeTable);
+            return false;
         } catch (RequiredRowDataNotFound $exception) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
@@ -140,39 +143,43 @@ class MovementTypesTable extends AbstractFileTable
     }
 
     /**
+     * @param TimeTable $timeTable
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnWalk()
+    public function getPeriodForPointOfFatigueOnWalk(TimeTable $timeTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::WALK);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::WALK, $timeTable);
     }
 
     /**
+     * @param TimeTable $timeTable
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnRush()
+    public function getPeriodForPointOfFatigueOnRush(TimeTable $timeTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUSH);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUSH, $timeTable);
     }
 
     /**
+     * @param TimeTable $timeTable
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnRun()
+    public function getPeriodForPointOfFatigueOnRun(TimeTable $timeTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUN);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUN, $timeTable);
     }
 
     /**
+     * @param TimeTable $timeTable
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnSprint()
+    public function getPeriodForPointOfFatigueOnSprint(TimeTable $timeTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::SPRINT);
+        return $this->getPeriodForPointOfFatigue(MovementTypeCode::SPRINT, $timeTable);
     }
 
     /**
