@@ -1,8 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Weight;
 
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
+use DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
+use DrdPlus\Tools\Calculations\SumAndRound;
 use Granam\Integer\Tools\ToInteger;
 
 /**
@@ -42,8 +45,8 @@ class WeightTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     *
      * @return WeightBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     protected function createBonus($bonusValue)
     {
@@ -64,10 +67,34 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @param int $simplifiedBonus
      * @return WeightBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
-    public function simplifiedBonusToBonus($simplifiedBonus)
+    public function getBonusFromSimplifiedBonus($simplifiedBonus)
     {
-        return $this->createBonus(ToInteger::toInteger($simplifiedBonus) + 12);
+        try {
+            return $this->createBonus(ToInteger::toInteger($simplifiedBonus) + 12);
+        } catch (\Granam\Integer\Tools\Exceptions\WrongParameterType $exception) {
+            throw new BonusRequiresInteger($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param Strength $strength
+     * @param Weight $cargoWeight
+     * @return MalusFromLoad
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     * @throws \DrdPlus\Tables\Measurements\Weight\Exceptions\MalusFromLoadCanNotBePositive
+     */
+    public function getMalusFromLoad(Strength $strength, Weight $cargoWeight)
+    {
+        $requiredStrength = $cargoWeight->getBonus()->getValue();
+        $missingStrength = $requiredStrength - $strength->getValue();
+        $malusValue = min( // negative number or zero
+            -SumAndRound::half($missingStrength), // see PPH page 113, right column
+            0
+        );
+
+        return new MalusFromLoad($malusValue);
     }
 
 }

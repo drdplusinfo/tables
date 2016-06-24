@@ -5,6 +5,7 @@ use DrdPlus\Tables\Measurements\Bonus;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 
+/** @noinspection SingletonFactoryPatternViolationInspection */
 abstract class AbstractBonus extends StrictObject implements Bonus
 {
     /**
@@ -14,13 +15,14 @@ abstract class AbstractBonus extends StrictObject implements Bonus
 
     /**
      * @param int $value
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     protected function __construct($value)
     {
         try {
             $this->value = ToInteger::toInteger($value);
         } catch (\Granam\Integer\Tools\Exceptions\WrongParameterType $exception) {
-            throw new Exceptions\BonusRequiresInteger($exception->getMessage(), $exception->getCode(), $exception);
+            throw new Exceptions\BonusRequiresInteger($exception->getMessage());
         }
     }
 

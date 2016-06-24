@@ -1,6 +1,8 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Weight;
 
+use DrdPlus\Properties\Base\Strength;
+use DrdPlus\Tables\Measurements\Weight\MalusFromLoad;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
@@ -102,7 +104,71 @@ class WeightTableTest extends TestWithMockery implements MeasurementTableTest
     public function I_can_convert_simplified_weight_bonus_to_bonus()
     {
         $weightTable = new WeightTable();
-        $bonus = $weightTable->simplifiedBonusToBonus($value = 123);
+        $bonus = $weightTable->getBonusFromSimplifiedBonus($value = 123);
         self::assertSame($value + 12, $bonus->getValue());
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     * @expectedExceptionMessageRegExp ~tiny~
+     */
+    public function I_can_not_convert_non_number_as_simplified_weight_bonus_to_bonus()
+    {
+        $weightTable = new WeightTable();
+        $weightTable->getBonusFromSimplifiedBonus('tiny');
+    }
+
+    /**
+     * @test
+     * @dataProvider provideStrengthCargoWeightBonusAndExpectedMalus
+     * @param int $strength
+     * @param int $weightBonus
+     * @param int $expectedMalus
+     */
+    public function I_can_get_malus_from_load_for_missing_strength($strength, $weightBonus, $expectedMalus)
+    {
+        $w = new WeightTable();
+        $malusFromLoad = $w->getMalusFromLoad($this->createStrength($strength), $this->createWeight($weightBonus));
+        self::assertInstanceOf(MalusFromLoad::class, $malusFromLoad);
+        self::assertSame($expectedMalus, $malusFromLoad->getValue());
+    }
+
+    public function provideStrengthCargoWeightBonusAndExpectedMalus()
+    {
+        return [
+            [1, 2, -1],
+            [0, 0, 0],
+            [10, 10, 0],
+            [-5, 12, -9],
+        ];
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|Strength
+     */
+    private function createStrength($value)
+    {
+        $strength = $this->mockery(Strength::class);
+        $strength->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $strength;
+    }
+
+    /**
+     * @param int $bonusValue
+     * @return Weight
+     */
+    private function createWeight($bonusValue)
+    {
+        $weight = $this->mockery(Weight::class);
+        $weight->shouldReceive('getBonus')
+            ->andReturn($weightBonus = $this->mockery(WeightBonus::class));
+        $weightBonus->shouldReceive('getValue')
+            ->andReturn($bonusValue);
+
+        return $weight;
     }
 }
