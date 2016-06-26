@@ -350,6 +350,8 @@ abstract class AbstractFileTable extends AbstractTable
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function getValue(array $rowIndexes, $columnIndex)
     {
@@ -359,20 +361,20 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /**
-     * @param array $rowIndexes
+     * @param array $singleRowIndexes
      *
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRow(array $rowIndexes)
+    public function getRow(array $singleRowIndexes)
     {
-        if (count($rowIndexes) === 0) {
+        if (count($singleRowIndexes) === 0) {
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }
         $values = $this->getIndexedValues();
-        foreach ($rowIndexes as $rowIndex) {
+        foreach ($singleRowIndexes as $rowIndex) {
             if (!array_key_exists(ToString::toString($rowIndex), $values)) {
                 throw new Exceptions\RequiredRowDataNotFound(
                     'Row has not been found by index ' . ValueDescriber::describe($rowIndex)

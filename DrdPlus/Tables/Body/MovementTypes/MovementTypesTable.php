@@ -137,7 +137,7 @@ class MovementTypesTable extends AbstractFileTable
             return false;
         } catch (RequiredRowDataNotFound $exception) {
             throw new Exceptions\UnknownMovementType(
-                'Given movement type is not known ' . ValueDescriber::describe($movementType)
+                'Given movement type ' . ValueDescriber::describe($movementType) . ' is not known'
             );
         }
     }

@@ -22,6 +22,7 @@ use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ShootingWeaponAfflictionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
+use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
@@ -43,7 +44,13 @@ use Granam\Strict\Object\StrictObject;
 
 class Tables extends StrictObject implements \IteratorAggregate
 {
+    /**
+     * @var array|Table[]
+     */
     private $tables = [];
+    /**
+     * @var Armourer
+     */
     private $armourer;
 
     /**
@@ -490,6 +497,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ImpassibilityOfTerrainTable::class];
     }
 
+    /**
+     * @return FatigueByLoadTable
+     */
+    public function getFatigueByLoadTable()
+    {
+        if (!array_key_exists(FatigueByLoadTable::class, $this->tables)) {
+            $this->tables[FatigueByLoadTable::class] = new FatigueByLoadTable();
+        }
+
+        return $this->tables[FatigueByLoadTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -530,6 +549,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getShootingWeaponAfflictionsTable(),
             $this->getMovementTypesTable(),
             $this->getImpassibilityOfTerrainTable(),
+            $this->getFatigueByLoadTable(),
         ]);
     }
 
