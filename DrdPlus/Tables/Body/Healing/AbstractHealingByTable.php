@@ -15,7 +15,7 @@ abstract class AbstractHealingByTable extends AbstractFileTable
     /**
      * @param string $activityName
      * @return int
-     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownInfluenceOnHealingCode
+     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
      */
     protected function getHealingBonusBy($activityName)
@@ -23,7 +23,7 @@ abstract class AbstractHealingByTable extends AbstractFileTable
         try {
             return $this->getValue([$activityName], 'bonus');
         } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
-            throw new Exceptions\UnknownInfluenceOnHealingCode(
+            throw new Exceptions\UnknownCodeOfHealingInfluence(
                 'Unknown influence on healing code ' . ValueDescriber::describe($activityName)
             );
         }

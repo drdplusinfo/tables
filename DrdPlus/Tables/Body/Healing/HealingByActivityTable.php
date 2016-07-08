@@ -16,7 +16,7 @@ class HealingByActivityTable extends AbstractHealingByTable
     /**
      * @param string $activityCode
      * @return int
-     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownInfluenceOnHealingCode
+     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
      */
     public function getHealingBonusByActivity($activityCode)
