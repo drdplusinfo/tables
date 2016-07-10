@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
-use DrdPlus\Codes\EnvironmentConditionsTypeCode;
+use DrdPlus\Codes\EnvironmentConditionsCode;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\Healing\HealingConditionsPercents;
 use DrdPlus\Tests\Tables\TableTest;
@@ -43,13 +43,14 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTest
     public function provideBonusWithConditionsCode()
     {
         return [
-            [0, -6, EnvironmentConditionsTypeCode::FOUL_CONDITIONS /* -6, -12 */],
-            [100, -12, EnvironmentConditionsTypeCode::FOUL_CONDITIONS /* -6, -12 */],
-            [33, -4, EnvironmentConditionsTypeCode::BAD_CONDITIONS /* -5, -3 */],
-            [49, -1, EnvironmentConditionsTypeCode::IMPAIRED_CONDITIONS /* -2, -1 */],
-            [50, -2, EnvironmentConditionsTypeCode::IMPAIRED_CONDITIONS /* -2, -1 */],
-            [0, 0, EnvironmentConditionsTypeCode::GOOD_CONDITIONS],
-            [100, 0, EnvironmentConditionsTypeCode::GOOD_CONDITIONS],
+            [0, -6, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
+            [100, -12, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
+            [180, -17, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
+            [33, -4, EnvironmentConditionsCode::BAD_CONDITIONS /* -5, -3 */],
+            [49, -1, EnvironmentConditionsCode::IMPAIRED_CONDITIONS /* -2, -1 */],
+            [50, -2, EnvironmentConditionsCode::IMPAIRED_CONDITIONS /* -2, -1 */],
+            [0, 0, EnvironmentConditionsCode::GOOD_CONDITIONS],
+            [100, 0, EnvironmentConditionsCode::GOOD_CONDITIONS],
         ];
     }
 
@@ -66,5 +67,28 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTest
             ->andReturn($percents / 100);
 
         return $healingConditionsPercents;
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Body\Healing\Exceptions\UnexpectedHealingConditionsPercents
+     * @expectedExceptionMessageRegExp ~101~
+     */
+    public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
+    {
+        (new HealingByConditionsTable())->getHealingBonusByConditions(
+            EnvironmentConditionsCode::IMPAIRED_CONDITIONS,
+            new HealingConditionsPercents(101)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
+     * @expectedExceptionMessageRegExp ~frozen~
+     */
+    public function I_can_not_get_bonus_for_unknown_condition()
+    {
+        (new HealingByConditionsTable())->getHealingBonusByConditions('frozen', $this->createHealingConditionsPercents(0));
     }
 }

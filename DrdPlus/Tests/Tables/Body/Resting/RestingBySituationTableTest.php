@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Resting;
 
+use DrdPlus\Codes\RestConditionsCode;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Body\Resting\RestingSituationPercents;
 use DrdPlus\Tests\Tables\TableTest;
@@ -28,12 +29,12 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTest
         $restingBySituationTable = new RestingBySituationTable();
         self::assertSame(
             [
-                'half_time_of_rest_or_sleep' => ['bonus_from' => -6, 'bonus_to' => -6, 'can_be_more' => false],
-                'quarter_time_of_rest_or_sleep' => ['bonus_from' => -12, 'bonus_to' => -12, 'can_be_more' => false],
-                'foul_conditions' => ['bonus_from' => -12, 'bonus_to' => -6, 'can_be_more' => true],
-                'bad_conditions' => ['bonus_from' => -5, 'bonus_to' => -3, 'can_be_more' => false],
-                'impaired_conditions' => ['bonus_from' => -2, 'bonus_to' => -1, 'can_be_more' => false],
-                'good_conditions' => ['bonus_from' => 0, 'bonus_to' => 0, 'can_be_more' => false],
+                RestConditionsCode::HALF_TIME_OF_REST_OR_SLEEP => ['bonus_from' => -6, 'bonus_to' => -6, 'can_be_more' => false],
+                RestConditionsCode::QUARTER_TIME_OF_REST_OR_SLEEP => ['bonus_from' => -12, 'bonus_to' => -12, 'can_be_more' => false],
+                RestConditionsCode::FOUL_CONDITIONS => ['bonus_from' => -12, 'bonus_to' => -6, 'can_be_more' => true],
+                RestConditionsCode::BAD_CONDITIONS => ['bonus_from' => -5, 'bonus_to' => -3, 'can_be_more' => false],
+                RestConditionsCode::IMPAIRED_CONDITIONS => ['bonus_from' => -2, 'bonus_to' => -1, 'can_be_more' => false],
+                RestConditionsCode::GOOD_CONDITIONS => ['bonus_from' => 0, 'bonus_to' => 0, 'can_be_more' => false],
             ],
             $restingBySituationTable->getIndexedValues()
         );
@@ -61,15 +62,18 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTest
     public function provideSituationAndExpectedBonus()
     {
         return [
-            ['half_time_of_rest_or_sleep', 100, -6],
-            ['half_time_of_rest_or_sleep', 0, -6],
-            ['foul_conditions', 0, -6],
-            ['foul_conditions', 100, -12],
-            ['foul_conditions', 150, -15],
-            ['bad_conditions', 0, -3],
-            ['bad_conditions', 50, -4],
-            ['bad_conditions', 80, -5],
-            ['good_conditions', 12, 0],
+            [RestConditionsCode::HALF_TIME_OF_REST_OR_SLEEP, 100, -6],
+            [RestConditionsCode::HALF_TIME_OF_REST_OR_SLEEP, 0, -6],
+            [RestConditionsCode::QUARTER_TIME_OF_REST_OR_SLEEP, 50, -12],
+            [RestConditionsCode::FOUL_CONDITIONS, 0, -6],
+            [RestConditionsCode::FOUL_CONDITIONS, 100, -12],
+            [RestConditionsCode::FOUL_CONDITIONS, 150, -15],
+            [RestConditionsCode::BAD_CONDITIONS, 0, -3],
+            [RestConditionsCode::BAD_CONDITIONS, 50, -4],
+            [RestConditionsCode::BAD_CONDITIONS, 80, -5],
+            [RestConditionsCode::IMPAIRED_CONDITIONS, 0, -1],
+            [RestConditionsCode::IMPAIRED_CONDITIONS, 50, -2],
+            [RestConditionsCode::GOOD_CONDITIONS, 12, 0],
         ];
     }
 
@@ -86,5 +90,28 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTest
             ->andReturn($percents / 100);
 
         return $healingConditionsPercents;
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Body\Resting\Exceptions\UnexpectedRestingSituationPercents
+     * @expectedExceptionMessageRegExp ~101~
+     */
+    public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
+    {
+        (new RestingBySituationTable())->getRestingBonusBySituation(
+            RestConditionsCode::IMPAIRED_CONDITIONS,
+            new RestingSituationPercents(101)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Body\Resting\Exceptions\UnknownCodeOfRestingInfluence
+     * @expectedExceptionMessageRegExp ~arrested~
+     */
+    public function I_can_not_get_bonus_for_unknown_situation()
+    {
+        (new RestingBySituationTable())->getRestingBonusBySituation('arrested', $this->createRestingSituationPercents(0));
     }
 }
