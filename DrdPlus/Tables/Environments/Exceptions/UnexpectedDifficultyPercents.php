@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Environments\Exceptions;
 
-class UnexpectedDifficultyPercents extends \LogicException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
+
+class UnexpectedDifficultyPercents extends UnexpectedPercents implements Logic
 {
 
 }

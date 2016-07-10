@@ -1,26 +1,42 @@
 <?php
 namespace DrdPlus\Tables\Body\Healing;
 
-class HealingByConditionsTable extends AbstractHealingByTable
+use DrdPlus\Tables\Partials\AbstractFileTableWithPercents;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
+use Granam\Tools\ValueDescriber;
+
+class HealingByConditionsTable extends AbstractFileTableWithPercents
 {
     protected function getDataFileName()
     {
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedRowsHeader()
     {
-        return ['bonus' => self::SLASH_ARRAY_OF_INTEGERS];
+        return ['situation'];
     }
 
     /**
      * @param string $conditionsCode
+     * @param HealingConditionsPercents $healingConditionsPercents
      * @return int
      * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnexpectedHealingConditionsPercents
      */
-    public function getHealingBonusByConditions($conditionsCode)
+    public function getHealingBonusByConditions($conditionsCode, HealingConditionsPercents $healingConditionsPercents)
     {
-        return $this->getHealingBonusBy($conditionsCode);
+        try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->getBonusBy($conditionsCode, $healingConditionsPercents);
+        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+            throw new Exceptions\UnknownCodeOfHealingInfluence(
+                'Unknown influence on healing code ' . ValueDescriber::describe($conditionsCode)
+            );
+        } catch (UnexpectedPercents $unexpectedPercents) {
+            throw new Exceptions\UnexpectedHealingConditionsPercents($unexpectedPercents->getMessage());
+        }
     }
+
 }

@@ -1,7 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Body\Healing;
 
-class HealingByActivityTable extends AbstractHealingByTable
+use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use Granam\Tools\ValueDescriber;
+
+class HealingByActivityTable extends AbstractFileTable
 {
     protected function getDataFileName()
     {
@@ -13,6 +17,11 @@ class HealingByActivityTable extends AbstractHealingByTable
         return ['bonus' => self::INTEGER];
     }
 
+    protected function getExpectedRowsHeader()
+    {
+        return ['situation'];
+    }
+
     /**
      * @param string $activityCode
      * @return int
@@ -21,7 +30,13 @@ class HealingByActivityTable extends AbstractHealingByTable
      */
     public function getHealingBonusByActivity($activityCode)
     {
-        return $this->getHealingBonusBy($activityCode);
+        try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->getValue([$activityCode], 'bonus');
+        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+            throw new Exceptions\UnknownCodeOfHealingInfluence(
+                'Unknown influence on healing code ' . ValueDescriber::describe($activityCode)
+            );
+        }
     }
-
 }

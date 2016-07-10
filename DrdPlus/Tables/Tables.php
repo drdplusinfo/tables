@@ -26,6 +26,7 @@ use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
+use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
@@ -509,6 +510,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[FatigueByLoadTable::class];
     }
 
+    /**
+     * @return RestingBySituationTable
+     */
+    public function getRestingBySituationTable()
+    {
+        if (!array_key_exists(RestingBySituationTable::class, $this->tables)) {
+            $this->tables[RestingBySituationTable::class] = new RestingBySituationTable();
+        }
+
+        return $this->tables[RestingBySituationTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -550,6 +563,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getMovementTypesTable(),
             $this->getImpassibilityOfTerrainTable(),
             $this->getFatigueByLoadTable(),
+            $this->getRestingBySituationTable(),
         ]);
     }
 
