@@ -66,7 +66,7 @@ class MovementTypesTable extends AbstractFileTable
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return new SpeedBonus($this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED), $this->speedTable);
-        } catch (RequiredRowDataNotFound $exception) {
+        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
             );
