@@ -99,9 +99,9 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
         self::assertEquals($expectedBonus, $movementTypesTable->getSpeedBonus($type));
         if ($expectedPeriod instanceof Time) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type, new TimeTable()));
+            self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type));
         } else {
-            self::assertSame($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type, new TimeTable()));
+            self::assertSame($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type));
         }
     }
 
@@ -161,7 +161,7 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     public function I_can_get_period_for_point_fatigue_on_walk_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(1, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk(new TimeTable()));
+        self::assertEquals(new Time(1, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk());
     }
 
     /**
@@ -170,7 +170,7 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     public function I_can_get_period_for_point_fatigue_on_rush_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(0.5, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush(new TimeTable()));
+        self::assertEquals(new Time(0.5, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush());
     }
 
     /**
@@ -179,7 +179,7 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     public function I_can_get_period_for_point_fatigue_on_run_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(5, Time::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun(new TimeTable()));
+        self::assertEquals(new Time(5, Time::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun());
     }
 
     /**
@@ -188,7 +188,7 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     public function I_can_get_period_for_point_fatigue_on_sprint_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(2, Time::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint(new TimeTable()));
+        self::assertEquals(new Time(2, Time::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint());
     }
 
     /**
@@ -212,7 +212,7 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $movementTypesTable->getPeriodForPointOfFatigue('sneaking', new TimeTable());
+        $movementTypesTable->getPeriodForPointOfFatigue('sneaking');
     }
 
     /**
