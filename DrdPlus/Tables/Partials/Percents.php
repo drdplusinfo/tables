@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Partials;
 
-use Granam\Integer\IntegerInterface;
+use Granam\Integer\PositiveInteger;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 use \Granam\Integer\Tools\Exceptions\Exception as ToIntegerException;
 
-abstract class Percents extends StrictObject implements IntegerInterface
+abstract class Percents extends StrictObject implements PositiveInteger
 {
     /**
      * @var int
