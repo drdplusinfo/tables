@@ -9,7 +9,7 @@ class TerrainDifficultyPercentsTest extends PercentsTest
 
     public function I_can_create_more_than_hundred_of_percents()
     {
-        // intentionally empty
+        // intentionally empty, because I can not
     }
 
     /**

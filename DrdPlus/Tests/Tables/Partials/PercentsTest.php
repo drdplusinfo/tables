@@ -55,13 +55,12 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function I_can_create_more_than_hundred_of_percents()
-    {
-        $sutClass = $this->getSutClass();
-        /** @var Percents $percents */
-        $percents = new $sutClass(101);
-        self::assertSame(101, $percents->getValue());
-    }
+    abstract public function I_can_create_more_than_hundred_of_percents();
+
+    /**
+     * @test
+     */
+    abstract public function I_can_not_create_more_than_hundred_of_percents();
 
     /**
      * @test

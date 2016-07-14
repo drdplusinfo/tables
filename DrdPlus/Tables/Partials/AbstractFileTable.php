@@ -345,7 +345,7 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /**
-     * @param array $rowIndexes
+     * @param array|string[] $rowIndexes
      * @param string $columnIndex
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
