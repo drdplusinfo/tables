@@ -28,6 +28,10 @@ use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
+use DrdPlus\Tables\Equipment\Riding\RidesTable;
+use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
+use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
+use DrdPlus\Tables\Equipment\Riding\WoundsOnFallFromHorseTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -522,6 +526,58 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RestingBySituationTable::class];
     }
 
+    /**
+     * @return RidesTable
+     */
+    public function getRidesTable()
+    {
+        if (!array_key_exists(RidesTable::class, $this->tables)) {
+            $this->tables[RidesTable::class] = new RidesTable();
+        }
+
+        return $this->tables[RidesTable::class];
+    }
+
+    /**
+     * @return RidingAnimalMovementTypesTable
+     */
+    public function getRidingAnimalMovementTypesTable()
+    {
+        if (!array_key_exists(RidingAnimalMovementTypesTable::class, $this->tables)) {
+            $this->tables[RidingAnimalMovementTypesTable::class] = new RidingAnimalMovementTypesTable(
+                $this->getSpeedTable(),
+                $this->getTimeTable(),
+                $this->getMovementTypesTable()
+            );
+        }
+
+        return $this->tables[RidingAnimalMovementTypesTable::class];
+    }
+
+    /**
+     * @return RidingAnimalsTable
+     */
+    public function getRidingAnimalsTable()
+    {
+        if (!array_key_exists(RidingAnimalsTable::class, $this->tables)) {
+            $this->tables[RidingAnimalsTable::class] = new RidingAnimalsTable();
+        }
+
+        return $this->tables[RidingAnimalsTable::class];
+    }
+
+    /**
+     * @return WoundsOnFallFromHorseTable
+     */
+    public function getWoundsOnFallFromHorseTable()
+    {
+        if (!array_key_exists(WoundsOnFallFromHorseTable::class, $this->tables)) {
+            $this->tables[WoundsOnFallFromHorseTable::class] = new WoundsOnFallFromHorseTable();
+        }
+
+        return $this->tables[WoundsOnFallFromHorseTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -564,6 +620,10 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getImpassibilityOfTerrainTable(),
             $this->getFatigueByLoadTable(),
             $this->getRestingBySituationTable(),
+            $this->getRidesTable(),
+            $this->getRidingAnimalMovementTypesTable(),
+            $this->getRidingAnimalsTable(),
+            $this->getWoundsOnFallFromHorseTable()
         ]);
     }
 
