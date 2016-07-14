@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\MovementTypes;
 
+use DrdPlus\Codes\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
@@ -50,31 +51,31 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         self::assertSame(
             [
-                'none' => [
+                MovementTypeCode::WAITING => [
                     'bonus_to_movement_speed' => 0,
                     'hours_per_point_of_fatigue' => false,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => false,
                 ],
-                'walk' => [
+                MovementTypeCode::WALK => [
                     'bonus_to_movement_speed' => 23,
                     'hours_per_point_of_fatigue' => 1.0,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => false,
                 ],
-                'rush' => [
+                MovementTypeCode::RUSH => [
                     'bonus_to_movement_speed' => 26,
                     'hours_per_point_of_fatigue' => 0.5,
                     'minutes_per_point_of_fatigue' => false,
                     'rounds_per_point_of_fatigue' => false,
                 ],
-                'run' => [
+                MovementTypeCode::RUN => [
                     'bonus_to_movement_speed' => 32,
                     'hours_per_point_of_fatigue' => false,
                     'minutes_per_point_of_fatigue' => 5.0,
                     'rounds_per_point_of_fatigue' => false,
                 ],
-                'sprint' => [
+                MovementTypeCode::SPRINT => [
                     'bonus_to_movement_speed' => 36,
                     'hours_per_point_of_fatigue' => false,
                     'minutes_per_point_of_fatigue' => false,
@@ -111,11 +112,11 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
         $speedTable = new SpeedTable();
 
         return [
-            ['none', new SpeedBonus(0, $speedTable), false],
-            ['walk', new SpeedBonus(23, $speedTable), new Time(1, Time::HOUR, $timeTable)],
-            ['rush', new SpeedBonus(26, $speedTable), new Time(0.5, Time::HOUR, $timeTable)],
-            ['run', new SpeedBonus(32, $speedTable), new Time(5, Time::MINUTE, $timeTable)],
-            ['sprint', new SpeedBonus(36, $speedTable), new Time(2, Time::ROUND, $timeTable)],
+            [MovementTypeCode::WAITING, new SpeedBonus(0, $speedTable), false],
+            [MovementTypeCode::WALK, new SpeedBonus(23, $speedTable), new Time(1, Time::HOUR, $timeTable)],
+            [MovementTypeCode::RUSH, new SpeedBonus(26, $speedTable), new Time(0.5, Time::HOUR, $timeTable)],
+            [MovementTypeCode::RUN, new SpeedBonus(32, $speedTable), new Time(5, Time::MINUTE, $timeTable)],
+            [MovementTypeCode::SPRINT, new SpeedBonus(36, $speedTable), new Time(2, Time::ROUND, $timeTable)],
         ];
     }
 

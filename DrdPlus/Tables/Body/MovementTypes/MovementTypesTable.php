@@ -56,6 +56,12 @@ class MovementTypesTable extends AbstractFileTable
         ];
     }
 
+    const WAITING = MovementTypeCode::WAITING;
+    const WALK = MovementTypeCode::WALK;
+    const RUSH = MovementTypeCode::RUSH;
+    const RUN = MovementTypeCode::RUN;
+    const SPRINT = MovementTypeCode::SPRINT;
+
     /**
      * @param string $movementType
      * @return SpeedBonus
@@ -65,7 +71,10 @@ class MovementTypesTable extends AbstractFileTable
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return new SpeedBonus($this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED), $this->speedTable);
+            return new SpeedBonus(
+                $this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED),
+                $this->speedTable
+            );
         } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
@@ -76,10 +85,19 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
+    public function getSpeedBonusOnWaiting()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(self::WAITING);
+    }
+
+    /**
+     * @return SpeedBonus
+     */
     public function getSpeedBonusOnWalk()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCode::WALK);
+        return $this->getSpeedBonus(self::WALK);
     }
 
     /**
@@ -88,7 +106,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnRush()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCode::RUSH);
+        return $this->getSpeedBonus(self::RUSH);
     }
 
     /**
@@ -97,7 +115,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnRun()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCode::RUN);
+        return $this->getSpeedBonus(self::RUN);
     }
 
     /**
@@ -106,7 +124,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getSpeedBonusOnSprint()
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getSpeedBonus(MovementTypeCode::SPRINT);
+        return $this->getSpeedBonus(self::SPRINT);
     }
 
     /**
