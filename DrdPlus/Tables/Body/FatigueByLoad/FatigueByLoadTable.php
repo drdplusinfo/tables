@@ -3,7 +3,6 @@ namespace DrdPlus\Tables\Body\FatigueByLoad;
 
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Time\Time;
-use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;
 
@@ -37,18 +36,17 @@ class FatigueByLoadTable extends AbstractFileTable
      * @param int $missingStrength
      * @param AthleticsInterface $athletics
      * @param MovementTypesTable $movementTypesTable
-     * @param TimeTable $timeTable
      * @return Time|false Gives false if there is no fatigue from current load at all
      * @throws \DrdPlus\Tables\Body\FatigueByLoad\Exceptions\OverloadedAndCanNotMove
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getPeriodForPointOfFatigue($missingStrength, AthleticsInterface $athletics, MovementTypesTable $movementTypesTable, TimeTable $timeTable)
+    public function getPeriodForPointOfFatigue($missingStrength, AthleticsInterface $athletics, MovementTypesTable $movementTypesTable)
     {
         $desiredRow = $this->getRowFittingToMissingStrength($missingStrength, $athletics);
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $movementTypesTable->getPeriodForPointOfFatigue($desiredRow[self::WEARIES_LIKE], $timeTable);
+        return $movementTypesTable->getPeriodForPointOfFatigue($desiredRow[self::WEARIES_LIKE]);
     }
 
     /**

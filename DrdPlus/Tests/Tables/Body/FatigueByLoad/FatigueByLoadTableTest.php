@@ -88,8 +88,7 @@ class FatigueByLoadTableTest extends TestWithMockery implements TableTest
         $periodForPointOfFatigue = $fatigueByLoadTable->getPeriodForPointOfFatigue(
             $missingStrength,
             $this->createAthletic($athletics),
-            new MovementTypesTable(new SpeedTable(), new TimeTable()),
-            new TimeTable()
+            new MovementTypesTable(new SpeedTable(), new TimeTable())
         );
         if ($expectedPeriodForPointOfFatigue === null) {
             self::assertFalse($periodForPointOfFatigue);
@@ -140,8 +139,7 @@ class FatigueByLoadTableTest extends TestWithMockery implements TableTest
         (new FatigueByLoadTable())->getPeriodForPointOfFatigue(
             24,
             $this->createAthletic(2),
-            new MovementTypesTable(new SpeedTable(), new TimeTable()),
-            new TimeTable()
+            new MovementTypesTable(new SpeedTable(), new TimeTable())
         );
     }
 }
