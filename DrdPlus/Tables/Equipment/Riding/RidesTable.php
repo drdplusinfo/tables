@@ -45,8 +45,7 @@ class RidesTable extends AbstractFileTable
             $this->getValue([$ridingAnimalMovementCode->getValue()], self::RIDE)
             + ($jumping
                 ? $this->getValue([RidingAnimalMovementCode::JUMPING], self::RIDE)
-                : 0
-            )
+                : 0)
         );
     }
 

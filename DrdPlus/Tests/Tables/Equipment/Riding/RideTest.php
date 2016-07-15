@@ -14,5 +14,16 @@ class RideTest extends \PHPUnit_Framework_TestCase
         $ride = new Ride(123);
         self::assertSame(123, $ride->getValue());
         self::assertInstanceOf(IntegerInterface::class, $ride);
+        self::assertSame('123', (string)$ride);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Equipment\Riding\Exceptions\InvalidRideValue
+     * @expectedExceptionMessageRegExp ~devil-like~
+     */
+    public function I_can_not_create_ride_with_non_integer()
+    {
+        new Ride('devil-like');
     }
 }

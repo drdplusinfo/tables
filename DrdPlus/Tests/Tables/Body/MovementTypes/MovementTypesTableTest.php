@@ -123,6 +123,15 @@ class MovementTypesTableTest extends TestWithMockery implements TableTest
     /**
      * @test
      */
+    public function I_can_get_speed_bonus_on_waiting_by_simple_getter()
+    {
+        $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
+        self::assertEquals(new SpeedBonus(0, $this->speedTable), $movementTypesTable->getSpeedBonusOnWaiting());
+    }
+
+    /**
+     * @test
+     */
     public function I_can_get_speed_bonus_on_walk_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
