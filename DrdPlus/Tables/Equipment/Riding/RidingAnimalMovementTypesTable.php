@@ -76,7 +76,15 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
     const TROT = RidingAnimalMovementCode::TROT;
     const CANTER = RidingAnimalMovementCode::CANTER;
     const GALLOP = RidingAnimalMovementCode::GALLOP;
-    const JUMPING = RidingAnimalMovementCode::JUMPING;
+
+    /**
+     * @return SpeedBonus
+     */
+    public function getSpeedBonusWhenStill()
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(self::STILL));
+    }
 
     /**
      * @return SpeedBonus
