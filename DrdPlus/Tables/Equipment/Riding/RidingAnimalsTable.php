@@ -76,39 +76,32 @@ class RidingAnimalsTable extends AbstractFileTable
 
     /**
      * @param RidingAnimalCode $ridingAnimalCode
-     * @param Ride $ride
      * @param bool $jumpingAndDangerousMoves
      * @return int
      */
-    public function getDefianceOfDomesticatedFor(
-        RidingAnimalCode $ridingAnimalCode,
-        Ride $ride,
-        $jumpingAndDangerousMoves
-    )
+    public function getDefianceOfDomesticated(
+        RidingAnimalCode $ridingAnimalCode, $jumpingAndDangerousMoves)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return
             $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::DEFIANCE)
-            + $ride->getValue()
             + ($jumpingAndDangerousMoves ? 2 : 0);
     }
 
     /**
      * @param RidingAnimalCode $ridingAnimalCode
      * @param DefianceOfWildPercents $defianceOfWildPercents
-     * @param Ride $ride
      * @param bool $jumpingAndDangerousMoves
      * @return int
      */
-    public function getDefianceOfWildFor(
+    public function getDefianceOfWild(
         RidingAnimalCode $ridingAnimalCode,
         DefianceOfWildPercents $defianceOfWildPercents,
-        Ride $ride,
         $jumpingAndDangerousMoves
     )
     {
-        $defianceOfDomesticated = $this->getDefianceOfDomesticatedFor($ridingAnimalCode, $ride, $jumpingAndDangerousMoves);
-        $additionForWild = 10 + SumAndRound::round($defianceOfWildPercents->getRate() * 2);
+        $defianceOfDomesticated = $this->getDefianceOfDomesticated($ridingAnimalCode, $jumpingAndDangerousMoves);
+        $additionForWild = SumAndRound::round(10 + (2 * $defianceOfWildPercents->getRate())); // 10..12
 
         return $defianceOfDomesticated + $additionForWild;
     }

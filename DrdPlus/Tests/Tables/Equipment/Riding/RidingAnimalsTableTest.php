@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Equipment\Riding;
 
 use DrdPlus\Codes\RidingAnimalCode;
 use DrdPlus\Codes\RidingAnimalPropertyCode;
+use DrdPlus\Tables\Equipment\Riding\DefianceOfWildPercents;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Tests\Tools\TestWithMockery;
@@ -135,8 +136,105 @@ class RidingAnimalsTableTest extends TestWithMockery implements TableTest
                     RidingAnimalPropertyCode::DEFIANCE => 12,
                 ],
             ],
-            $givenValues= (new RidingAnimalsTable())->getIndexedValues()
+            $givenValues = (new RidingAnimalsTable())->getIndexedValues()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_speed()
+    {
+        self::assertSame(-2, (new RidingAnimalsTable())->getSpeed(RidingAnimalCode::getIt(RidingAnimalCode::BULL)));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_endurance()
+    {
+        self::assertSame(4, (new RidingAnimalsTable())->getEndurance(RidingAnimalCode::getIt(RidingAnimalCode::COW)));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_maximal_load()
+    {
+        self::assertSame(11, (new RidingAnimalsTable())->getMaximalLoad(RidingAnimalCode::getIt(RidingAnimalCode::HINNY)));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_maximal_load_in_kg()
+    {
+        self::assertSame(110, (new RidingAnimalsTable())->getMaximalLoadInKg(RidingAnimalCode::getIt(RidingAnimalCode::PONY)));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_defiance_of_domesticated()
+    {
+        self::assertSame(
+            5,
+            (new RidingAnimalsTable())->getDefianceOfDomesticated(
+                RidingAnimalCode::getIt(RidingAnimalCode::YAK),
+                false
+            )
+        );
+        self::assertSame(
+            7,
+            (new RidingAnimalsTable())->getDefianceOfDomesticated(
+                RidingAnimalCode::getIt(RidingAnimalCode::YAK),
+                true
+            )
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_defiance_of_wild()
+    {
+        self::assertSame(
+            19,
+            (new RidingAnimalsTable())->getDefianceOfWild(
+                RidingAnimalCode::getIt(RidingAnimalCode::BULL),
+                $this->createDefianceOfWildPercents(100),
+                false
+            )
+        );
+        self::assertSame(
+            18,
+            (new RidingAnimalsTable())->getDefianceOfWild(
+                RidingAnimalCode::getIt(RidingAnimalCode::BULL),
+                $this->createDefianceOfWildPercents(25),
+                false
+            )
+        );
+        self::assertSame(
+            17,
+            (new RidingAnimalsTable())->getDefianceOfWild(
+                RidingAnimalCode::getIt(RidingAnimalCode::BULL),
+                $this->createDefianceOfWildPercents(24),
+                false
+            )
+        );
+    }
+
+    /**
+     * @param $percents
+     * @return \Mockery\MockInterface|DefianceOfWildPercents
+     */
+    private function createDefianceOfWildPercents($percents)
+    {
+        $defianceOfWildPercents = $this->mockery(DefianceOfWildPercents::class);
+        $defianceOfWildPercents->shouldReceive('getRate')
+            ->andReturn($percents / 100);
+
+        return $defianceOfWildPercents;
     }
 
 }
