@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
@@ -84,6 +85,18 @@ class MacesAndClubsTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::HEAVY_SLEDGEHAMMER, AbstractMeleeWeaponsTable::COVER_HEADER, 2],
             [WeaponCode::HEAVY_SLEDGEHAMMER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 5.0],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $macesAndClubsTable = new MacesAndClubsTable();
+        foreach (WeaponCode::getMaceAndClubCodes() as $maceAndClubCode) {
+            $row = $macesAndClubsTable->getRow([$maceAndClubCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

@@ -95,4 +95,9 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @test
+     */
+    abstract public function I_can_get_every_weapon_by_weapon_codes_library();
+
 }

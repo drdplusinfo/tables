@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
 class SwordsTableTest extends AbstractMeleeWeaponsTableTest
@@ -68,6 +69,18 @@ class SwordsTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::TWO_HANDED_SWORD, AbstractMeleeWeaponsTable::COVER_HEADER, 4],
             [WeaponCode::TWO_HANDED_SWORD, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 4.0],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $swordsTable = new SwordsTable();
+        foreach (WeaponCode::getSwordCodes() as $swordCode) {
+            $row = $swordsTable->getRow([$swordCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

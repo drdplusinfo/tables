@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
 class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
@@ -67,6 +68,18 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::HEAVY_HALBERD, AbstractMeleeWeaponsTable::COVER_HEADER, 3],
             [WeaponCode::HEAVY_HALBERD, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 6.0],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $voulgesAndTridentsTable = new VoulgesAndTridentsTable();
+        foreach (WeaponCode::getVoulgeAndTridentCodes() as $voulgeAndTridentCode) {
+            $row = $voulgesAndTridentsTable->getRow([$voulgeAndTridentCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

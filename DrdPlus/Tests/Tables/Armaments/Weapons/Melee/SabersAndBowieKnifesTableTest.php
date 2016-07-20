@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
 class SabersAndBowieKnifesTableTest extends AbstractMeleeWeaponsTableTest
@@ -51,6 +52,18 @@ class SabersAndBowieKnifesTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::COVER_HEADER, 4],
             [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 2.0],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $sabersAndBowieKnifesTable = new SabersAndBowieKnifesTable();
+        foreach (WeaponCode::getSaberAndBowieKnifeCodes() as $saberAndBowieKnifeCode) {
+            $row = $sabersAndBowieKnifesTable->getRow([$saberAndBowieKnifeCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

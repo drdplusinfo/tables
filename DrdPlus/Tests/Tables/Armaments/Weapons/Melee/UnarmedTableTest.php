@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
 class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
@@ -43,6 +44,18 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::COVER_HEADER, 0],
             [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::WEIGHT_HEADER, false],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $unarmedTable = new UnarmedTable();
+        foreach (WeaponCode::getUnarmedCodes() as $unarmedCode) {
+            $row = $unarmedTable->getRow([$unarmedCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
@@ -44,6 +45,18 @@ class AxesTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::TWO_HANDED_AXE, AbstractMeleeWeaponsTable::COVER_HEADER, 3],
             [WeaponCode::TWO_HANDED_AXE, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 3.0],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $axesTable = new AxesTable();
+        foreach (WeaponCode::getAxeCodes() as $axeCode) {
+            $row = $axesTable->getRow([$axeCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

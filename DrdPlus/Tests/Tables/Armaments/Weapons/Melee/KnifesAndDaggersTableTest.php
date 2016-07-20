@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
@@ -51,6 +52,18 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::LONG_DAGGER, AbstractMeleeWeaponsTable::COVER_HEADER, 2],
             [WeaponCode::LONG_DAGGER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 0.3],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $knifesAndDaggersTable = new KnifesAndDaggersTable();
+        foreach (WeaponCode::getKnifeAndDaggerCodes() as $knifeAndDaggerCode) {
+            $row = $knifesAndDaggersTable->getRow([$knifeAndDaggerCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }

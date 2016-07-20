@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
 class StaffsAndSpearsTableTest extends AbstractMeleeWeaponsTableTest
@@ -83,6 +84,18 @@ class StaffsAndSpearsTableTest extends AbstractMeleeWeaponsTableTest
             [WeaponCode::METAL_STAFF, AbstractMeleeWeaponsTable::COVER_HEADER, 4],
             [WeaponCode::METAL_STAFF, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 2.5],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_every_weapon_by_weapon_codes_library()
+    {
+        $staffsAndSpearsTable = new StaffsAndSpearsTable();
+        foreach (WeaponCode::getStaffAndSpearCodes() as $staffAndSpearCode) {
+            $row = $staffsAndSpearsTable->getRow([$staffAndSpearCode]);
+            self::assertNotEmpty($row);
+        }
     }
 
 }
