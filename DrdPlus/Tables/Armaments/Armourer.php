@@ -205,7 +205,7 @@ class Armourer extends StrictObject
      */
     public function getSanctionValuesForShootingWeapon(ShootingWeaponCode $shootingWeaponCode, $strength)
     {
-        return $this->tables->getMeleeWeaponSanctionsTable()->getSanctionsForMissingStrength(
+        return $this->tables->getShootingWeaponSanctionsTable()->getSanctionsForMissingStrength(
             $this->getMissingStrengthForShootingWeapon($shootingWeaponCode, $strength)
         );
     }
