@@ -10,6 +10,8 @@ use Granam\Scalar\Tools\ToString;
 abstract class AbstractFileTable extends AbstractTable
 {
     const INTEGER = 'integer';
+    const POSITIVE_INTEGER = 'positive_integer';
+    const NEGATIVE_INTEGER = 'negative_integer';
     const FLOAT = 'float';
     const BOOLEAN = 'boolean';
     const STRING = 'string';
@@ -56,7 +58,6 @@ abstract class AbstractFileTable extends AbstractTable
         return $this->columnsHeader;
     }
 
-    /** @return array */
     private function loadData()
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
@@ -231,6 +232,10 @@ abstract class AbstractFileTable extends AbstractTable
                 return self::FLOAT;
             case self::INTEGER :
                 return self::INTEGER;
+            case self::POSITIVE_INTEGER :
+                return self::POSITIVE_INTEGER;
+            case self::NEGATIVE_INTEGER :
+                return self::NEGATIVE_INTEGER;
             case self::STRING :
                 return self::STRING;
             case self::SLASH_ARRAY_OF_INTEGERS :
@@ -265,6 +270,10 @@ abstract class AbstractFileTable extends AbstractTable
                 return ToBoolean::toBoolean($value, false /* not strict */);
             case self::INTEGER :
                 return $value === '' ? false : ToInteger::toInteger($this->normalizeMinus($value));
+            case self::POSITIVE_INTEGER :
+                return $value === '' ? false : ToInteger::toPositiveInteger($this->normalizeMinus($value));
+            case self::NEGATIVE_INTEGER :
+                return $value === '' ? false : ToInteger::toNegativeInteger($this->normalizeMinus($value));
             case self::FLOAT :
                 return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
             case self::SLASH_ARRAY_OF_INTEGERS :

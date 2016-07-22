@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
 
-class BowsTable extends AbstractShootingArmamentsTable
+class BowsTable extends ShootingWeaponsTable
 {
     protected function getDataFileName()
     {
@@ -14,7 +14,7 @@ class BowsTable extends AbstractShootingArmamentsTable
     {
         $expectedDataHeader = parent::getExpectedDataHeaderNamesToTypes();
         // overloading for special format of melee fight and max applicable strength
-        $expectedDataHeader[self::REQUIRED_STRENGTH_HEADER] = self::SLASH_ARRAY_OF_INTEGERS;
+        $expectedDataHeader[self::REQUIRED_STRENGTH] = self::SLASH_ARRAY_OF_INTEGERS;
 
         return $expectedDataHeader;
     }

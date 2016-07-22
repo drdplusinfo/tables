@@ -22,13 +22,13 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::REQUIRED_STRENGTH_HEADER => self::INTEGER,
-            self::RESTRICTION_HEADER => self::INTEGER,
-            self::OFFENSIVENESS_HEADER => self::INTEGER,
-            self::WOUNDS_HEADER => self::INTEGER,
-            self::WOUNDS_TYPE_HEADER => self::STRING,
-            self::COVER_HEADER => self::INTEGER,
-            self::WEIGHT_HEADER => self::FLOAT,
+            self::REQUIRED_STRENGTH => self::INTEGER,
+            self::RESTRICTION => self::INTEGER,
+            self::OFFENSIVENESS => self::INTEGER,
+            self::WOUNDS => self::INTEGER,
+            self::WOUNDS_TYPE => self::STRING,
+            self::COVER => self::INTEGER,
+            self::WEIGHT => self::FLOAT,
         ];
     }
 
@@ -39,7 +39,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getRequiredStrengthOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::REQUIRED_STRENGTH_HEADER);
+        return $this->getValueOf($shieldCode, self::REQUIRED_STRENGTH);
     }
 
     /**
@@ -66,7 +66,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getRestrictionOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::RESTRICTION_HEADER);
+        return $this->getValueOf($shieldCode, self::RESTRICTION);
     }
 
     /**
@@ -76,7 +76,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getOffensivenessOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::OFFENSIVENESS_HEADER);
+        return $this->getValueOf($shieldCode, self::OFFENSIVENESS);
     }
 
     /**
@@ -86,7 +86,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getWoundsOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::WOUNDS_HEADER);
+        return $this->getValueOf($shieldCode, self::WOUNDS);
     }
 
     /**
@@ -96,7 +96,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getWoundsTypeOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::WOUNDS_TYPE_HEADER);
+        return $this->getValueOf($shieldCode, self::WOUNDS_TYPE);
     }
 
     /**
@@ -106,7 +106,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getCoverOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::COVER_HEADER);
+        return $this->getValueOf($shieldCode, self::COVER);
     }
 
     /**
@@ -116,7 +116,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      */
     public function getWeightOf($shieldCode)
     {
-        return $this->getValueOf($shieldCode, self::WEIGHT_HEADER);
+        return $this->getValueOf($shieldCode, self::WEIGHT);
     }
 
 }

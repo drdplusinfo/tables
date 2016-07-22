@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
@@ -12,37 +12,37 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
     public function provideWeaponAndNameWithValue()
     {
         return [
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::LENGTH_HEADER, 0],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::WOUNDS_HEADER, -2],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::COVER_HEADER, 0],
-            [WeaponCode::HAND, AbstractMeleeWeaponsTable::WEIGHT_HEADER, false],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::LENGTH, 0],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::OFFENSIVENESS, 0],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::WOUNDS, -2],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::COVER, 0],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::WEIGHT, false],
 
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::LENGTH_HEADER, 0],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 0],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::COVER_HEADER, 0],
-            [WeaponCode::HOBNAILED_GLOVE, AbstractMeleeWeaponsTable::WEIGHT_HEADER, false],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::LENGTH, 0],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::OFFENSIVENESS, 0],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WOUNDS, 0],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::COVER, 0],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WEIGHT, false],
 
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::LENGTH_HEADER, 0],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, -1],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 1],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::COVER_HEADER, 0],
-            [WeaponCode::LEG, AbstractMeleeWeaponsTable::WEIGHT_HEADER, false],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::LENGTH, 0],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::OFFENSIVENESS, -1],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::WOUNDS, 1],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::COVER, 0],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::WEIGHT, false],
 
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::LENGTH_HEADER, 0],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, -2],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 4],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::COVER_HEADER, 0],
-            [WeaponCode::HOBNAILED_BOOT, AbstractMeleeWeaponsTable::WEIGHT_HEADER, false],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::LENGTH, 0],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::OFFENSIVENESS, -2],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WOUNDS, 4],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::COVER, 0],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WEIGHT, false],
         ];
     }
 
@@ -52,7 +52,7 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $unarmedTable = new UnarmedTable();
-        foreach (WeaponCode::getUnarmedCodes() as $unarmedCode) {
+        foreach (MeleeWeaponCode::getUnarmedCodes() as $unarmedCode) {
             $row = $unarmedTable->getRow([$unarmedCode]);
             self::assertNotEmpty($row);
         }

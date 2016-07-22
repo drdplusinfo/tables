@@ -1,31 +1,31 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\CoveringWeaponParametersInterface;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
-use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements CoveringWeaponParametersInterface
+abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements CoveringWeaponParametersInterface
 {
     protected function getExpectedRowsHeader()
     {
         return ['weapon'];
     }
 
-    const LENGTH_HEADER = 'length';
+    const LENGTH = 'length';
 
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::REQUIRED_STRENGTH_HEADER => self::INTEGER,
-            self::LENGTH_HEADER => self::INTEGER,
-            self::OFFENSIVENESS_HEADER => self::INTEGER,
-            self::WOUNDS_HEADER => self::INTEGER,
-            self::WOUNDS_TYPE_HEADER => self::STRING,
-            self::COVER_HEADER => self::INTEGER,
-            self::WEIGHT_HEADER => self::FLOAT,
+            self::REQUIRED_STRENGTH => self::INTEGER,
+            self::LENGTH => self::INTEGER,
+            self::OFFENSIVENESS => self::INTEGER,
+            self::WOUNDS => self::INTEGER,
+            self::WOUNDS_TYPE => self::STRING,
+            self::COVER => self::INTEGER,
+            self::WEIGHT => self::FLOAT,
         ];
     }
 
@@ -36,7 +36,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getOffensivenessOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::OFFENSIVENESS_HEADER);
+        return $this->getValueOf($weaponCode, self::OFFENSIVENESS);
     }
 
     /**
@@ -63,7 +63,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getWoundsOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::WOUNDS_HEADER);
+        return $this->getValueOf($weaponCode, self::WOUNDS);
     }
 
     /**
@@ -73,7 +73,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getWoundsTypeOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::WOUNDS_TYPE_HEADER);
+        return $this->getValueOf($weaponCode, self::WOUNDS_TYPE);
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getRequiredStrengthOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::REQUIRED_STRENGTH_HEADER);
+        return $this->getValueOf($weaponCode, self::REQUIRED_STRENGTH);
     }
 
     /**
@@ -93,7 +93,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getLengthOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::LENGTH_HEADER);
+        return $this->getValueOf($weaponCode, self::LENGTH);
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getCoverOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::COVER_HEADER);
+        return $this->getValueOf($weaponCode, self::COVER);
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class AbstractMeleeWeaponsTable extends AbstractFileTable implements Co
      */
     public function getWeightOf($weaponCode)
     {
-        return $this->getValueOf($weaponCode, self::WEIGHT_HEADER);
+        return $this->getValueOf($weaponCode, self::WEIGHT);
     }
 
 }

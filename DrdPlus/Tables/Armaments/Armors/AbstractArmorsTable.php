@@ -1,22 +1,22 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
-use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractArmorsTable extends AbstractFileTable implements UnwieldyParametersInterface
+abstract class AbstractArmorsTable extends AbstractArmamentsTable implements UnwieldyParametersInterface
 {
 
-    const PROTECTION_HEADER = 'protection';
+    const PROTECTION = 'protection';
 
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::REQUIRED_STRENGTH_HEADER => self::INTEGER,
-            self::RESTRICTION_HEADER => self::INTEGER,
-            self::PROTECTION_HEADER => self::INTEGER,
-            self::WEIGHT_HEADER => self::FLOAT,
+            self::REQUIRED_STRENGTH => self::INTEGER,
+            self::RESTRICTION => self::INTEGER,
+            self::PROTECTION => self::INTEGER,
+            self::WEIGHT => self::FLOAT,
         ];
     }
 
@@ -27,7 +27,7 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
      */
     public function getRequiredStrengthOf($armorCode)
     {
-        return $this->getValueFor($armorCode, self::REQUIRED_STRENGTH_HEADER);
+        return $this->getValueFor($armorCode, self::REQUIRED_STRENGTH);
     }
 
     /**
@@ -54,7 +54,7 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
      */
     public function getRestrictionOf($armorCode)
     {
-        return $this->getValueFor($armorCode, self::RESTRICTION_HEADER);
+        return $this->getValueFor($armorCode, self::RESTRICTION);
     }
 
     /**
@@ -64,7 +64,7 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
      */
     public function getProtectionOf($armorCode)
     {
-        return $this->getValueFor($armorCode, self::PROTECTION_HEADER);
+        return $this->getValueFor($armorCode, self::PROTECTION);
     }
 
     /**
@@ -74,6 +74,6 @@ abstract class AbstractArmorsTable extends AbstractFileTable implements Unwieldy
      */
     public function getWeightOf($armorCode)
     {
-        return $this->getValueFor($armorCode, self::WEIGHT_HEADER);
+        return $this->getValueFor($armorCode, self::WEIGHT);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 
-class KnifesAndDaggersTable extends AbstractMeleeWeaponsTable
+class KnifesAndDaggersTable extends MeleeWeaponsTable
 {
     protected function getDataFileName()
     {

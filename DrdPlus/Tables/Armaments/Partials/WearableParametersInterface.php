@@ -3,15 +3,15 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 interface WearableParametersInterface
 {
-    const REQUIRED_STRENGTH_HEADER = 'required_strength';
+    const REQUIRED_STRENGTH = 'required_strength';
 
     /**
      * @param string $itemCode
-     * @return false|int
+     * @return int
      */
     public function getRequiredStrengthOf($itemCode);
 
-    const WEIGHT_HEADER = 'weight';
+    const WEIGHT = 'weight';
 
     /**
      * @param string $itemCode

@@ -1,12 +1,12 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\ShootingWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTableTest;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTableTest;
 
-class DartsTableTest extends AbstractShootingArmamentsTableTest
+class DartsTableTest extends ShootingWeaponsTableTest
 {
     protected function getRowHeaderValue()
     {
@@ -16,40 +16,40 @@ class DartsTableTest extends AbstractShootingArmamentsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCode::BASIC_DART, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::WOUNDS, 0],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::RANGE, 0],
+            [ShootingWeaponCode::BASIC_DART, ShootingWeaponsTable::WEIGHT, 0.05],
 
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::WOUNDS_HEADER, 2],
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
-            [WeaponCode::WAR_DART, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.1],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::WOUNDS, 2],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::RANGE, -2],
+            [ShootingWeaponCode::WAR_DART, ShootingWeaponsTable::WEIGHT, 0.1],
 
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCode::PIERCING_DART, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::WOUNDS, -1],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::RANGE, 0],
+            [ShootingWeaponCode::PIERCING_DART, ShootingWeaponsTable::WEIGHT, 0.05],
 
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::WOUNDS_HEADER, -1],
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCode::HOLLOW_DART, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::WOUNDS, -1],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::RANGE, 0],
+            [ShootingWeaponCode::HOLLOW_DART, ShootingWeaponsTable::WEIGHT, 0.05],
 
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCode::SILVER_DART, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.05],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::WOUNDS, 0],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::RANGE, 0],
+            [ShootingWeaponCode::SILVER_DART, ShootingWeaponsTable::WEIGHT, 0.05],
         ];
     }
 

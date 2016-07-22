@@ -1,10 +1,13 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments;
 
+use DrdPlus\Codes\BodyArmorCode;
+use DrdPlus\Codes\HelmCode;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
+use DrdPlus\Tables\Tables;
 use Granam\Tests\Tools\TestWithMockery;
 
 class ArmourerTest extends TestWithMockery
@@ -12,7 +15,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideArmorWithBodySizeAndStrength
-     * @param int|bool $requiredStrength
+     * @param int $requiredStrength
      * @param int $bodySize
      * @param int $strength
      * @param mixed $expectedMissingStrength
@@ -24,26 +27,25 @@ class ArmourerTest extends TestWithMockery
         $expectedMissingStrength
     )
     {
-        $armourer = new Armourer(
-            $armorSanctionsTable = $this->createArmorSanctionsTable(),
-            $bodyArmorsTable = $this->createBodyArmorsTable(),
-            $this->createHelmsTable()
-        );
+        $armourer = new Armourer($tables = $this->createTables());
+        $tables->shouldReceive('getBodyArmorsTable')
+            ->andReturn($bodyArmorsTable = $this->createBodyArmorsTable());
+        $armorCode = 'foo';
         $bodyArmorsTable->shouldReceive('getRequiredStrengthOf')
-            ->with($armorCode = 'foo')
+            ->with($armorCode)
             ->andReturn($requiredStrength);
-
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForBodyArmor($armorCode, $bodySize, $strength)
+            $armourer->getMissingStrengthForBodyArmor($this->createBodyArmorCode($armorCode), $bodySize, $strength)
         );
-
-        $armorSanctionsTable->shouldReceive('getSanctionValuesForMissingStrength')
+        $tables->shouldReceive('getArmorSanctionsTable')
+            ->andReturn($armorSanctionsTable = $this->createArmorSanctionsTable());
+        $armorSanctionsTable->shouldReceive('getSanctionsForMissingStrength')
             ->with($expectedMissingStrength)
-            ->andReturn($sanctionValues = ['bar']);
+            ->andReturn('bar');
         self::assertSame(
-            $sanctionValues,
-            $armourer->getSanctionValuesForBodyArmor($armorCode, $bodySize, $strength)
+            'bar',
+            $armourer->getSanctionValuesForBodyArmor($this->createBodyArmorCode($armorCode), $bodySize, $strength)
         );
     }
 
@@ -51,16 +53,29 @@ class ArmourerTest extends TestWithMockery
     {
         return [
             [123, 11, 65, 69],
-            [false, 33, 88, 0], // no required strength results into zero missing strength
+            [0, 33, 88, 0], // no required strength results into zero missing strength
         ];
     }
 
     /**
-     * @return \Mockery\MockInterface|ArmorSanctionsTable
+     * @return \Mockery\MockInterface|Tables
      */
-    private function createArmorSanctionsTable()
+    private function createTables()
     {
-        return $this->mockery(ArmorSanctionsTable::class);
+        return $this->mockery(Tables::class);
+    }
+
+    /**
+     * @param string $value
+     * @return \Mockery\MockInterface|BodyArmorCode
+     */
+    private function createBodyArmorCode($value)
+    {
+        $bodyArmorCode = $this->mockery(BodyArmorCode::class);
+        $bodyArmorCode->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $bodyArmorCode;
     }
 
     /**
@@ -69,6 +84,14 @@ class ArmourerTest extends TestWithMockery
     private function createBodyArmorsTable()
     {
         return $this->mockery(BodyArmorsTable::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface|ArmorSanctionsTable
+     */
+    private function createArmorSanctionsTable()
+    {
+        return $this->mockery(ArmorSanctionsTable::class);
     }
 
     /**
@@ -94,27 +117,39 @@ class ArmourerTest extends TestWithMockery
         $expectedMissingStrength
     )
     {
-        $armourer = new Armourer(
-            $armorSanctionsTable = $this->createArmorSanctionsTable(),
-            $this->createBodyArmorsTable(),
-            $helmsTable = $this->createHelmsTable()
-        );
+        $armourer = new Armourer($tables = $this->createTables());
+        $tables->shouldReceive('getHelmsTable')
+            ->andReturn($helmsTable = $this->createHelmsTable());
+        $armorCode = 'foo';
         $helmsTable->shouldReceive('getRequiredStrengthOf')
-            ->with($helmsCode = 'foo')
+            ->with($armorCode)
             ->andReturn($requiredStrength);
-
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForHelm($helmsCode, $bodySize, $strength)
+            $armourer->getMissingStrengthForHelm($this->createHelmCode($armorCode), $bodySize, $strength)
         );
-
-        $armorSanctionsTable->shouldReceive('getSanctionValuesForMissingStrength')
+        $tables->shouldReceive('getArmorSanctionsTable')
+            ->andReturn($armorSanctionsTable = $this->createArmorSanctionsTable());
+        $armorSanctionsTable->shouldReceive('getSanctionsForMissingStrength')
             ->with($expectedMissingStrength)
-            ->andReturn($sanctionValues = ['bar']);
+            ->andReturn('bar');
         self::assertSame(
-            $sanctionValues,
-            $armourer->getSanctionValuesForHelm($helmsCode, $bodySize, $strength)
+            'bar',
+            $armourer->getSanctionValuesForHelm($this->createHelmCode($armorCode), $bodySize, $strength)
         );
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|HelmCode
+     */
+    private function createHelmCode($value)
+    {
+        $helmCode = $this->mockery(HelmCode::class);
+        $helmCode->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $helmCode;
     }
 
 }

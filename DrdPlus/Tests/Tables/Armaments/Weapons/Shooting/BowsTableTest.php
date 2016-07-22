@@ -1,12 +1,12 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\ShootingWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTableTest;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTableTest;
 
-class BowsTableTest extends AbstractShootingArmamentsTableTest
+class BowsTableTest extends ShootingWeaponsTableTest
 {
     protected function getRowHeaderValue()
     {
@@ -16,40 +16,40 @@ class BowsTableTest extends AbstractShootingArmamentsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, [-1, 3]],
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 2],
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 1],
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::RANGE_HEADER, 24],
-            [WeaponCode::SHORT_BOW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 1.0],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::REQUIRED_STRENGTH, [-1, 3]],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::OFFENSIVENESS, 2],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::WOUNDS, 1],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::RANGE, 24],
+            [ShootingWeaponCode::SHORT_BOW, ShootingWeaponsTable::WEIGHT, 1.0],
 
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, [5, 7]],
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 3],
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 4],
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::RANGE_HEADER, 27],
-            [WeaponCode::LONG_BOW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 1.2],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::REQUIRED_STRENGTH, [5, 7]],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::OFFENSIVENESS, 3],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::WOUNDS, 4],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::RANGE, 27],
+            [ShootingWeaponCode::LONG_BOW, ShootingWeaponsTable::WEIGHT, 1.2],
 
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, [1, 6]],
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 3],
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 2],
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::RANGE_HEADER, 26],
-            [WeaponCode::SHORT_COMPOSITE_BOW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 1.0],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::REQUIRED_STRENGTH, [1, 6]],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::OFFENSIVENESS, 3],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::WOUNDS, 2],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::RANGE, 26],
+            [ShootingWeaponCode::SHORT_COMPOSITE_BOW, ShootingWeaponsTable::WEIGHT, 1.0],
 
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, [5, 9]],
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 4],
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 5],
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::RANGE_HEADER, 29],
-            [WeaponCode::LONG_COMPOSITE_BOW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 1.5],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::REQUIRED_STRENGTH, [5, 9]],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::OFFENSIVENESS, 4],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::WOUNDS, 5],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::RANGE, 29],
+            [ShootingWeaponCode::LONG_COMPOSITE_BOW, ShootingWeaponsTable::WEIGHT, 1.5],
 
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, [7, 12]],
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 5],
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::WOUNDS_HEADER, 6],
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::STAB],
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::RANGE_HEADER, 31],
-            [WeaponCode::POWER_BOW, AbstractShootingArmamentsTable::WEIGHT_HEADER, 2.0],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::REQUIRED_STRENGTH, [7, 12]],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::OFFENSIVENESS, 5],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::WOUNDS, 6],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::RANGE, 31],
+            [ShootingWeaponCode::POWER_BOW, ShootingWeaponsTable::WEIGHT, 2.0],
         ];
     }
 

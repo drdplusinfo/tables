@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions;
+namespace DrdPlus\Tables\Armaments\Sanctions\Exceptions;
 
 class CanNotUseWeaponBecauseOfMissingStrength extends \InvalidArgumentException implements Logic
 {

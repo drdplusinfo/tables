@@ -1,12 +1,12 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\ShootingWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTableTest;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTableTest;
 
-class SlingStonesTableTest extends AbstractShootingArmamentsTableTest
+class SlingStonesTableTest extends ShootingWeaponsTableTest
 {
     protected function getRowHeaderValue()
     {
@@ -16,19 +16,19 @@ class SlingStonesTableTest extends AbstractShootingArmamentsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::WOUNDS_HEADER, 0],
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::RANGE_HEADER, 0],
-            [WeaponCode::SLING_STONE_LIGHT, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.1],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::WOUNDS, 0],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::RANGE, 0],
+            [ShootingWeaponCode::SLING_STONE_LIGHT, ShootingWeaponsTable::WEIGHT, 0.1],
 
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::REQUIRED_STRENGTH_HEADER, false],
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::OFFENSIVENESS_HEADER, 0],
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::WOUNDS_HEADER, 2],
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CRUSH],
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::RANGE_HEADER, -2],
-            [WeaponCode::SLING_STONE_HEAVIER, AbstractShootingArmamentsTable::WEIGHT_HEADER, 0.2],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::REQUIRED_STRENGTH, false],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::OFFENSIVENESS, 0],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::WOUNDS, 2],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::RANGE, -2],
+            [ShootingWeaponCode::SLING_STONE_HEAVIER, ShootingWeaponsTable::WEIGHT, 0.2],
         ];
     }
 

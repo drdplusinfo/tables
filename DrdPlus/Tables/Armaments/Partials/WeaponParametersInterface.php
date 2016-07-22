@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 interface WeaponParametersInterface extends WearableParametersInterface
 {
-    const OFFENSIVENESS_HEADER = 'offensiveness';
+    const OFFENSIVENESS = 'offensiveness';
 
     /**
      * @param string $weaponCode
@@ -11,7 +11,7 @@ interface WeaponParametersInterface extends WearableParametersInterface
      */
     public function getOffensivenessOf($weaponCode);
 
-    const WOUNDS_HEADER = 'wounds';
+    const WOUNDS = 'wounds';
 
     /**
      * @param string $weaponCode
@@ -19,7 +19,7 @@ interface WeaponParametersInterface extends WearableParametersInterface
      */
     public function getWoundsOf($weaponCode);
 
-    const WOUNDS_TYPE_HEADER = 'wounds_type';
+    const WOUNDS_TYPE = 'wounds_type';
 
     /**
      * @param string $weaponCode

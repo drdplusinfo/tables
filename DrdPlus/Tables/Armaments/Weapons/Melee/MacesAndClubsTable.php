@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 
-class MacesAndClubsTable extends AbstractMeleeWeaponsTable
+class MacesAndClubsTable extends MeleeWeaponsTable
 {
     protected function getDataFileName()
     {

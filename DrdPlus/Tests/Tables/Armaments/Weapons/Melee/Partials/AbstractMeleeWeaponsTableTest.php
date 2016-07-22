@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 
-use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
 abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
@@ -12,7 +12,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_header()
     {
         $sutClass = $this->getSutClass();
-        /** @var AbstractMeleeWeaponsTable $meleeWeaponsTable */
+        /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         self::assertSame(
             [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
@@ -21,7 +21,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return string|AbstractMeleeWeaponsTable
+     * @return string|MeleeWeaponsTable
      */
     protected function getSutClass()
     {
@@ -38,7 +38,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
     public function I_can_get_values_for_every_weapon($meleeWeaponCode, $valueName, $expectedValue)
     {
         $sutClass = $this->getSutClass();
-        /** @var AbstractMeleeWeaponsTable $meleeWeaponsTable */
+        /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
 
         $value = $meleeWeaponsTable->getValue([$meleeWeaponCode], $valueName);
@@ -77,7 +77,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $sutClass = $this->getSutClass();
-        /** @var AbstractMeleeWeaponsTable $meleeWeaponsTable */
+        /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         $meleeWeaponsTable->$getValueNameOf('skull_crasher');
     }
@@ -85,13 +85,13 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
     public function provideValueName()
     {
         return [
-            [AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER],
-            [AbstractMeleeWeaponsTable::LENGTH_HEADER],
-            [AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER],
-            [AbstractMeleeWeaponsTable::WOUNDS_HEADER],
-            [AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER],
-            [AbstractMeleeWeaponsTable::COVER_HEADER],
-            [AbstractMeleeWeaponsTable::WEIGHT_HEADER],
+            [MeleeWeaponsTable::REQUIRED_STRENGTH],
+            [MeleeWeaponsTable::LENGTH],
+            [MeleeWeaponsTable::OFFENSIVENESS],
+            [MeleeWeaponsTable::WOUNDS],
+            [MeleeWeaponsTable::WOUNDS_TYPE],
+            [MeleeWeaponsTable::COVER],
+            [MeleeWeaponsTable::WEIGHT],
         ];
     }
 

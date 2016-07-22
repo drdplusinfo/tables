@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 interface UnwieldyParametersInterface extends WearableParametersInterface
 {
-    const RESTRICTION_HEADER = 'restriction';
+    const RESTRICTION = 'restriction';
 
     /**
      * @param string $coverCode

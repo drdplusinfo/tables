@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Codes\ArmorCode;
+use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 
 class BodyArmorsTableTest extends AbstractArmorsTableTest
@@ -9,45 +9,45 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     public function provideArmorAndValue()
     {
         return [
-            [ArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, false],
-            [ArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, false],
-            [ArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 0],
-            [ArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, false],
+            [BodyArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, false],
+            [BodyArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::PROTECTION, 0],
+            [BodyArmorCode::WITHOUT_ARMOR, AbstractArmorsTable::WEIGHT, false],
 
-            [ArmorCode::PADDED_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, -2],
-            [ArmorCode::PADDED_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, false],
-            [ArmorCode::PADDED_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 2],
-            [ArmorCode::PADDED_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 4.0],
+            [BodyArmorCode::PADDED_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, -2],
+            [BodyArmorCode::PADDED_ARMOR, AbstractArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::PADDED_ARMOR, AbstractArmorsTable::PROTECTION, 2],
+            [BodyArmorCode::PADDED_ARMOR, AbstractArmorsTable::WEIGHT, 4.0],
 
-            [ArmorCode::LEATHER_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 1],
-            [ArmorCode::LEATHER_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, false],
-            [ArmorCode::LEATHER_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 3],
-            [ArmorCode::LEATHER_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 6.0],
+            [BodyArmorCode::LEATHER_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 1],
+            [BodyArmorCode::LEATHER_ARMOR, AbstractArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::LEATHER_ARMOR, AbstractArmorsTable::PROTECTION, 3],
+            [BodyArmorCode::LEATHER_ARMOR, AbstractArmorsTable::WEIGHT, 6.0],
 
-            [ArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 3],
-            [ArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, false],
-            [ArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 4],
-            [ArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 8.0],
+            [BodyArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 3],
+            [BodyArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::PROTECTION, 4],
+            [BodyArmorCode::HOBNAILED_ARMOR, AbstractArmorsTable::WEIGHT, 8.0],
 
-            [ArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 5],
-            [ArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -1],
-            [ArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 6],
-            [ArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 15.0],
+            [BodyArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 5],
+            [BodyArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::RESTRICTION, -1],
+            [BodyArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::PROTECTION, 6],
+            [BodyArmorCode::CHAINMAIL_ARMOR, AbstractArmorsTable::WEIGHT, 15.0],
 
-            [ArmorCode::SCALE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 7],
-            [ArmorCode::SCALE_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -2],
-            [ArmorCode::SCALE_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 7],
-            [ArmorCode::SCALE_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 20.0],
+            [BodyArmorCode::SCALE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 7],
+            [BodyArmorCode::SCALE_ARMOR, AbstractArmorsTable::RESTRICTION, -2],
+            [BodyArmorCode::SCALE_ARMOR, AbstractArmorsTable::PROTECTION, 7],
+            [BodyArmorCode::SCALE_ARMOR, AbstractArmorsTable::WEIGHT, 20.0],
 
-            [ArmorCode::PLATE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 10],
-            [ArmorCode::PLATE_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -3],
-            [ArmorCode::PLATE_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 9],
-            [ArmorCode::PLATE_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 30.0],
+            [BodyArmorCode::PLATE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 10],
+            [BodyArmorCode::PLATE_ARMOR, AbstractArmorsTable::RESTRICTION, -3],
+            [BodyArmorCode::PLATE_ARMOR, AbstractArmorsTable::PROTECTION, 9],
+            [BodyArmorCode::PLATE_ARMOR, AbstractArmorsTable::WEIGHT, 30.0],
 
-            [ArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH_HEADER, 12],
-            [ArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::RESTRICTION_HEADER, -4],
-            [ArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::PROTECTION_HEADER, 10],
-            [ArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::WEIGHT_HEADER, 35.0],
+            [BodyArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::REQUIRED_STRENGTH, 12],
+            [BodyArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::RESTRICTION, -4],
+            [BodyArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::PROTECTION, 10],
+            [BodyArmorCode::FULL_PLATE_ARMOR, AbstractArmorsTable::WEIGHT, 35.0],
         ];
     }
 }

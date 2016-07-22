@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Codes\WeaponCode;
+use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
 
@@ -12,45 +12,45 @@ class SabersAndBowieKnifesTableTest extends AbstractMeleeWeaponsTableTest
     public function provideWeaponAndNameWithValue()
     {
         return [
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, 2],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::LENGTH_HEADER, 1],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 2],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 2],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CUT],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::COVER_HEADER, 2],
-            [WeaponCode::MACHETE, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 1.0],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::REQUIRED_STRENGTH, 2],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::LENGTH, 1],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::OFFENSIVENESS, 2],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::WOUNDS, 2],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::COVER, 2],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::WEIGHT, 1.0],
 
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, 3],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::LENGTH_HEADER, 2],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 3],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 1],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CUT],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::COVER_HEADER, 3],
-            [WeaponCode::LIGHT_SABER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 1.2],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::LENGTH, 2],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::OFFENSIVENESS, 3],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::WOUNDS, 1],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::COVER, 3],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::WEIGHT, 1.2],
 
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, 3],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::LENGTH_HEADER, 1],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 2],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 3],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CUT],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::COVER_HEADER, 3],
-            [WeaponCode::BOWIE_KNIFE, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 1.2],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::LENGTH, 1],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::OFFENSIVENESS, 2],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::WOUNDS, 3],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::COVER, 3],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::WEIGHT, 1.2],
 
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, 6],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::LENGTH_HEADER, 2],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 4],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 4],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CUT],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::COVER_HEADER, 3],
-            [WeaponCode::SABER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 1.5],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::LENGTH, 2],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::OFFENSIVENESS, 4],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::WOUNDS, 4],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::COVER, 3],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::WEIGHT, 1.5],
 
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::REQUIRED_STRENGTH_HEADER, 9],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::LENGTH_HEADER, 2],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::OFFENSIVENESS_HEADER, 4],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::WOUNDS_HEADER, 6],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::WOUNDS_TYPE_HEADER, WoundTypeCode::CUT],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::COVER_HEADER, 4],
-            [WeaponCode::HEAVY_SABER, AbstractMeleeWeaponsTable::WEIGHT_HEADER, 2.0],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 9],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::LENGTH, 2],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::OFFENSIVENESS, 4],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::WOUNDS, 6],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::COVER, 4],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::WEIGHT, 2.0],
         ];
     }
 
@@ -60,7 +60,7 @@ class SabersAndBowieKnifesTableTest extends AbstractMeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $sabersAndBowieKnifesTable = new SabersAndBowieKnifesTable();
-        foreach (WeaponCode::getSaberAndBowieKnifeCodes() as $saberAndBowieKnifeCode) {
+        foreach (MeleeWeaponCode::getSaberAndBowieKnifeCodes() as $saberAndBowieKnifeCode) {
             $row = $sabersAndBowieKnifesTable->getRow([$saberAndBowieKnifeCode]);
             self::assertNotEmpty($row);
         }

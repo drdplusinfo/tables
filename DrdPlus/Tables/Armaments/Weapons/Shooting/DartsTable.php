@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Shooting;
 
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\AbstractShootingArmamentsTable;
+use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
 
-class DartsTable extends AbstractShootingArmamentsTable
+class DartsTable extends ShootingWeaponsTable
 {
     protected function getDataFileName()
     {

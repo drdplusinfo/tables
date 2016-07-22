@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 interface CoveringWeaponParametersInterface extends WeaponParametersInterface
 {
-    const COVER_HEADER = 'cover';
+    const COVER = 'cover';
 
     /**
      * @param string $weaponCode
