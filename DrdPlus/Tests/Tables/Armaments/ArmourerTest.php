@@ -241,6 +241,8 @@ class ArmourerTest extends TestWithMockery
         $code = $this->mockery(MeleeWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
+        $code->shouldReceive('__toString')
+            ->andReturn((string)$value);
         foreach ($this->getMeleeWeaponGroups() as $weaponGroup) {
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
@@ -258,6 +260,26 @@ class ArmourerTest extends TestWithMockery
             'axe', 'knifeOrDagger', 'maceOrClub', 'morningStarOrMorgenstern',
             'saberOrBowieKnife', 'staffOrSpear', 'sword', 'unarmed', 'voulgeOrTrident'
         ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @expectedExceptionMessageRegExp ~foo~
+     */
+    public function I_can_not_get_strength_sanction_for_unknown_melee_weapon()
+    {
+        (new Armourer($this->createTables()))->getMissingStrengthForMeleeWeapon($this->createMeleeWeaponCode('foo', 'sharpLanguage'), 0);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @expectedExceptionMessageRegExp ~foo~
+     */
+    public function I_can_not_get_sanctions_for_unknown_melee_weapon()
+    {
+        (new Armourer($this->createTables()))->getSanctionValuesForMeleeWeapon($this->createMeleeWeaponCode('foo', 'sharpLanguage'), 0);
     }
 
     /**
@@ -339,6 +361,8 @@ class ArmourerTest extends TestWithMockery
         $code = $this->mockery(ShootingWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
+        $code->shouldReceive('__toString')
+            ->andReturn((string)$value);
         foreach ($this->getShootingWeaponGroups() as $weaponGroup) {
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
@@ -350,6 +374,26 @@ class ArmourerTest extends TestWithMockery
     private function getShootingWeaponGroups()
     {
         return ['arrow', 'bow', 'dart', 'crossbow', 'slingStone'];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @expectedExceptionMessageRegExp ~foo~
+     */
+    public function I_can_not_get_strength_sanction_for_unknown_shooting_weapon()
+    {
+        (new Armourer($this->createTables()))->getMissingStrengthForShootingWeapon($this->createShootingWeaponCode('foo', 'spit'), 0);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @expectedExceptionMessageRegExp ~foo~
+     */
+    public function I_can_not_get_sanctions_for_unknown_shooting_weapon()
+    {
+        (new Armourer($this->createTables()))->getSanctionValuesForShootingWeapon($this->createShootingWeaponCode('foo', 'spit'), 0);
     }
 
 }

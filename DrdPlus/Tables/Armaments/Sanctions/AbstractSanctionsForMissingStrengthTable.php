@@ -9,7 +9,7 @@ abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTabl
     const MISSING_STRENGTH = 'missing_strength';
 
     /**
-     * @param bool $missingStrength
+     * @param int $missingStrength
      * @return array|mixed[];
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
