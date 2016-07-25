@@ -26,6 +26,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
+            self::SKILL_RANK => self::POSITIVE_INTEGER,
             self::FIGHT_NUMBER => self::NEGATIVE_INTEGER,
             self::ATTACK_NUMBER => self::NEGATIVE_INTEGER,
             self::COVER => self::NEGATIVE_INTEGER,

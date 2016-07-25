@@ -94,11 +94,13 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function cutOffRowsHeader(array $values)
     {
-        $columnIndexes = array_keys($this->getRowsHeader());
+        $rowHeadersUsedAsColumnHeaderAsWell = $this->getRowHeadersUsedAsColumnHeaderAsWell();
         $rowIndexes = array_keys($values);
         foreach ($rowIndexes as $rowIndex) {
-            foreach ($columnIndexes as $columnIndex) {
-                unset($values[$rowIndex][$columnIndex]);
+            foreach ($this->getRowsHeader() as $columnIndexOfRowHeader => $rowHeaderName) {
+                if (!in_array($rowHeaderName, $rowHeadersUsedAsColumnHeaderAsWell, true)) {
+                    unset($values[$rowIndex][$columnIndexOfRowHeader]);
+                }
             }
             // fixing sequence of number indexes ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
             $values[$rowIndex] = array_values($values[$rowIndex]);
@@ -161,17 +163,33 @@ abstract class AbstractFileTable extends AbstractTable
     private function parseColumnsHeader(array $rawData)
     {
         $columnsHeaderValues = [];
-        $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
-        $indexShift = count($this->getRowsHeader());
-        $expectedColumnIndexes = array_keys($expectedHeaderRow);
+        $expectedColumnsHeader = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
+        // only header-column-only will be skipped, therefore row headers acting as column headers will be involved
+        $indexShift = count($this->getRowsHeader()) - count($this->getRowHeadersUsedAsColumnHeaderAsWell());
+        $expectedColumnIndexes = array_keys($expectedColumnsHeader);
         foreach ($expectedColumnIndexes as $expectedColumnIndex) {
-            $expectedHeaderValue = $expectedHeaderRow[$expectedColumnIndex]['value'];
+            $expectedHeaderValue = $expectedColumnsHeader[$expectedColumnIndex]['value'];
             $rawDataColumnIndex = $expectedColumnIndex + $indexShift;
             $this->checkHeaderValue($rawData, $rawDataColumnIndex, $expectedHeaderValue);
             $columnsHeaderValues[$expectedColumnIndex] = $expectedHeaderValue;
         }
 
         return $columnsHeaderValues;
+    }
+
+    private function getRowHeadersUsedAsColumnHeaderAsWell()
+    {
+        $rowHeadersUsedAsColumnHeaderAsWell = [];
+        foreach ($this->getRowsHeader() as $rowHeader) {
+            foreach ($this->getNormalizedExpectedColumnsHeader() as $expectedColumnIndex) {
+                if ($expectedColumnIndex['value'] === $rowHeader) {
+                    $rowHeadersUsedAsColumnHeaderAsWell[] = $rowHeader;
+                    break;
+                }
+            }
+        }
+
+        return $rowHeadersUsedAsColumnHeaderAsWell;
     }
 
     private function cutOffColumnsHeader(array $rawData)
@@ -196,6 +214,9 @@ abstract class AbstractFileTable extends AbstractTable
         );
     }
 
+    /**
+     * @return array
+     */
     private function getNormalizedExpectedColumnsHeader()
     {
         if ($this->normalizedExpectedColumnHeader === null) {

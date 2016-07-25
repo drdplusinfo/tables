@@ -26,24 +26,28 @@ class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTest
         self::assertSame(
             [
                 '0' => [
+                    'skill_rank' => 0,
                     'fight_number' => -3,
                     'attack_number' => -3,
                     'cover' => -2,
                     'base_of_wounds' => -1,
                 ],
                 '1' => [
+                    'skill_rank' => 1,
                     'fight_number' => -2,
                     'attack_number' => -2,
                     'cover' => -1,
                     'base_of_wounds' => -1,
                 ],
                 '2' => [
+                    'skill_rank' => 2,
                     'fight_number' => -1,
                     'attack_number' => -1,
                     'cover' => -1,
                     'base_of_wounds' => 0,
                 ],
                 '3' => [
+                    'skill_rank' => 3,
                     'fight_number' => 0,
                     'attack_number' => 0,
                     'cover' => 0,
@@ -61,6 +65,7 @@ class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTest
     {
         self::assertSame(
             [
+                'skill_rank' => 2,
                 'fight_number' => -1,
                 'attack_number' => -1,
                 'cover' => -1,
