@@ -30,6 +30,127 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
 
     /**
      * @test
+     */
+    public function I_can_get_values()
+    {
+        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        self::assertSame(
+            [
+                0 => [
+                    'missing_strength' => 0,
+                    'fight_number' => 0,
+                    'loading' => 0,
+                    'attack_number' => 0,
+                    'encounter_range' => 0,
+                    'base_of_wounds' => 0,
+                    'can_use_weapon' => true
+                ],
+                1 => [
+                    'missing_strength' => 1,
+                    'fight_number' => -1,
+                    'loading' => 1,
+                    'attack_number' => 0,
+                    'encounter_range' => 0,
+                    'base_of_wounds' => 0,
+                    'can_use_weapon' => true
+                ],
+                2 => [
+                    'missing_strength' => 2,
+                    'fight_number' => -2,
+                    'loading' => 1,
+                    'attack_number' => -1,
+                    'encounter_range' => 0,
+                    'base_of_wounds' => 0,
+                    'can_use_weapon' => true
+                ],
+                3 => [
+                    'missing_strength' => 3,
+                    'fight_number' => -3,
+                    'loading' => 1,
+                    'attack_number' => -1,
+                    'encounter_range' => -1,
+                    'base_of_wounds' => 0,
+                    'can_use_weapon' => true
+                ],
+                4 => [
+                    'missing_strength' => 4,
+                    'fight_number' => -4,
+                    'loading' => 1,
+                    'attack_number' => -2,
+                    'encounter_range' => -1,
+                    'base_of_wounds' => -1,
+                    'can_use_weapon' => true
+                ],
+                5 => [
+                    'missing_strength' => 5,
+                    'fight_number' => -5,
+                    'loading' => 1,
+                    'attack_number' => -2,
+                    'encounter_range' => -2,
+                    'base_of_wounds' => -1,
+                    'can_use_weapon' => true
+                ],
+                6 => [
+                    'missing_strength' => 6,
+                    'fight_number' => -6,
+                    'loading' => 1,
+                    'attack_number' => -3,
+                    'encounter_range' => -2,
+                    'base_of_wounds' => -2,
+                    'can_use_weapon' => true
+                ],
+                7 => [
+                    'missing_strength' => 7,
+                    'fight_number' => -1,
+                    'loading' => 2,
+                    'attack_number' => -3,
+                    'encounter_range' => -3,
+                    'base_of_wounds' => -2,
+                    'can_use_weapon' => true
+                ],
+                8 => [
+                    'missing_strength' => 8,
+                    'fight_number' => -2,
+                    'loading' => 2,
+                    'attack_number' => -4,
+                    'encounter_range' => -3,
+                    'base_of_wounds' => -3,
+                    'can_use_weapon' => true
+                ],
+                9 => [
+                    'missing_strength' => 9,
+                    'fight_number' => -3,
+                    'loading' => 2,
+                    'attack_number' => -4,
+                    'encounter_range' => -4,
+                    'base_of_wounds' => -3,
+                    'can_use_weapon' => true
+                ],
+                10 => [
+                    'missing_strength' => 10,
+                    'fight_number' => -4,
+                    'loading' => 2,
+                    'attack_number' => -5,
+                    'encounter_range' => -4,
+                    'base_of_wounds' => -4,
+                    'can_use_weapon' => true
+                ],
+                11 => [
+                    'missing_strength' => 11,
+                    'fight_number' => false,
+                    'loading' => false,
+                    'attack_number' => false,
+                    'encounter_range' => false,
+                    'base_of_wounds' => false,
+                    'can_use_weapon' => false
+                ],
+            ],
+            $shootingWeaponSanctionsTable->getIndexedValues()
+        );
+    }
+
+    /**
+     * @test
      * @dataProvider provideMissingStrengthAndUsableResult
      * @param int $missingStrength
      * @param bool $canUse

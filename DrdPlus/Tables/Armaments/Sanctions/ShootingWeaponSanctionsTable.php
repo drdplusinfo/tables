@@ -10,7 +10,7 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
 
     protected function getRowsHeader()
     {
-        return [];
+        return [self::MISSING_STRENGTH];
     }
 
     const FIGHT_NUMBER = 'fight_number';
@@ -36,9 +36,12 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
     /**
      * @param int $missingStrength
      * @return bool
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function canUseWeapon($missingStrength)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
             $missingStrength,
             self::CAN_USE_WEAPON,
@@ -50,6 +53,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param int $missingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getFightNumberSanction($missingStrength)
     {
@@ -62,6 +67,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param bool $guardMaximumMissingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
@@ -78,6 +85,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param int $missingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getLoadingSanction($missingStrength)
     {
@@ -88,6 +97,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param int $missingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getAttackNumberSanction($missingStrength)
     {
@@ -98,6 +109,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param int $missingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getEncounterRangeSanction($missingStrength)
     {
@@ -108,6 +121,8 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
      * @param int $missingStrength
      * @return int
      * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getBaseOfWoundsSanction($missingStrength)
     {

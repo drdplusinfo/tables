@@ -60,7 +60,9 @@ abstract class AbstractTable extends StrictObject implements Table
                     $headerRow[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
                 }
             }
-            $header[] = array_unique($headerRow); // because row header can be used also as column header and we want it just once
+            $header[] = array_merge( // to make integer indexes continual
+                array_unique($headerRow) // because row header can be used also as column header and we want it just once
+            );
         }
 
         return $header;
