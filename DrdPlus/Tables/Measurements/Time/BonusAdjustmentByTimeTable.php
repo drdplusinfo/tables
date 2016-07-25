@@ -26,7 +26,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
         return __DIR__ . '/data/bonus_adjustment_by_time.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['hours_of_activity_per_day'];
     }

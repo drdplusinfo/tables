@@ -39,14 +39,6 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /**
-     * @return array
-     */
-    protected function getRowsHeader()
-    {
-        return $this->getExpectedRowsHeader();
-    }
-
-    /**
      * @return array|string[][]|string[][][]
      */
     protected function getColumnsHeader()
@@ -102,7 +94,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function cutOffRowsHeader(array $values)
     {
-        $columnIndexes = array_keys($this->getExpectedRowsHeader());
+        $columnIndexes = array_keys($this->getRowsHeader());
         $rowIndexes = array_keys($values);
         foreach ($rowIndexes as $rowIndex) {
             foreach ($columnIndexes as $columnIndex) {
@@ -114,9 +106,6 @@ abstract class AbstractFileTable extends AbstractTable
 
         return $values; // pure values without header
     }
-
-    /** @return string[] */
-    abstract protected function getExpectedRowsHeader();
 
     private function parseRowsHeader(array $data)
     {
@@ -146,7 +135,7 @@ abstract class AbstractFileTable extends AbstractTable
     private function parseRowsHeaderNames(array $rawData)
     {
         $rowsHeaderNames = [];
-        foreach ($this->getExpectedRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
+        foreach ($this->getRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
             $this->checkHeaderValue($rawData, $expectedColumnIndex, $expectedHeaderValue);
             $rowsHeaderNames[$expectedColumnIndex] = $expectedHeaderValue;
         }
@@ -173,7 +162,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $columnsHeaderValues = [];
         $expectedHeaderRow = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
-        $indexShift = count($this->getExpectedRowsHeader());
+        $indexShift = count($this->getRowsHeader());
         $expectedColumnIndexes = array_keys($expectedHeaderRow);
         foreach ($expectedColumnIndexes as $expectedColumnIndex) {
             $expectedHeaderValue = $expectedHeaderRow[$expectedColumnIndex]['value'];

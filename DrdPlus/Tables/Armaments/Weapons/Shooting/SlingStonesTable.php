@@ -10,7 +10,7 @@ class SlingStonesTable extends ShootingWeaponsTable
         return __DIR__ . '/data/sling_stones.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['projectile'];
     }

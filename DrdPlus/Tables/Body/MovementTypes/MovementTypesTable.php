@@ -34,7 +34,7 @@ class MovementTypesTable extends AbstractFileTable
         return __DIR__ . '/data/movement_types.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [
             'movement_type'

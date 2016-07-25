@@ -14,7 +14,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
         return __DIR__ . '/data/shields.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['shield'];
     }

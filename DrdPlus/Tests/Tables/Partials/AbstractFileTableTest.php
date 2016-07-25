@@ -115,7 +115,7 @@ class TableWithWrongFileReference extends AbstractFileTable
         return 'non existing filename';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [];
     }
@@ -171,7 +171,7 @@ class TableWithMissingHeaderRow extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [999 => ['foo']];
     }
@@ -192,7 +192,7 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [999 => 'foo'];
     }
@@ -213,7 +213,7 @@ class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['expected header'];
     }
@@ -233,7 +233,7 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    public function getExpectedRowsHeader()
+    public function getRowsHeader()
     {
         return ['foo'];
     }
@@ -253,7 +253,7 @@ class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['foo'];
     }
@@ -273,7 +273,7 @@ class TableWithEmptyRowsHeader extends TableWithEmptyFilename
         return $this->dataFileName;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [];
     }

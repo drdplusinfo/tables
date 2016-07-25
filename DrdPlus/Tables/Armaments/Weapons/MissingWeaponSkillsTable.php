@@ -13,7 +13,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
 
     const SKILL_RANK = 'skill_rank';
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [self::SKILL_RANK];
     }

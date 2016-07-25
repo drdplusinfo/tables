@@ -8,7 +8,7 @@ class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTa
         return __DIR__ . '/data/shooting_weapon_sanctions.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [];
     }

@@ -10,7 +10,7 @@ class ArrowsTable extends ShootingWeaponsTable
         return __DIR__ . '/data/arrows.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['projectile'];
     }

@@ -42,7 +42,7 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
         return __DIR__ . '/data/riding_animal_movement_types.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['movement_type'];
     }

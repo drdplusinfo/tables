@@ -24,7 +24,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [self::TERRAIN];
     }

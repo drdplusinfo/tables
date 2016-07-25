@@ -10,7 +10,7 @@ class DartsTable extends ShootingWeaponsTable
         return __DIR__ . '/data/darts.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['projectile'];
     }

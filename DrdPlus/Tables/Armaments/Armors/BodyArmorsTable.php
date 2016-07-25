@@ -8,7 +8,7 @@ class BodyArmorsTable extends AbstractArmorsTable
         return __DIR__ . '/data/body_armors.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['body_armor'];
     }

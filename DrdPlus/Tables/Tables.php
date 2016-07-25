@@ -17,6 +17,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
+use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
@@ -273,6 +274,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
 
         return $this->tables[ShootingWeaponSanctionsTable::class];
+    }
+
+    /**
+     * @return MissingWeaponSkillsTable
+     */
+    public function getMissingWeaponSkillsTable()
+    {
+        if (!array_key_exists(MissingWeaponSkillsTable::class, $this->tables)) {
+            $this->tables[MissingWeaponSkillsTable::class] = new MissingWeaponSkillsTable();
+        }
+
+        return $this->tables[MissingWeaponSkillsTable::class];
     }
 
     /**
@@ -628,6 +641,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getThrowingWeaponsTable(),
             $this->getMeleeWeaponSanctionsTable(),
             $this->getShootingWeaponSanctionsTable(),
+            $this->getMissingWeaponSkillsTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),
             $this->getMovementTypesTable(),

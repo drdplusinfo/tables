@@ -8,7 +8,7 @@ class HelmsTable extends AbstractArmorsTable
         return __DIR__ . '/data/helms.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['helm'];
     }

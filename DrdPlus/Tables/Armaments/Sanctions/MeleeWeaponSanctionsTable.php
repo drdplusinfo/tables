@@ -8,7 +8,7 @@ class MeleeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
         return __DIR__ . '/data/melee_weapon_sanctions.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [];
     }

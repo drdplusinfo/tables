@@ -17,7 +17,7 @@ class HealingByActivityTable extends AbstractFileTable
         return ['bonus' => self::INTEGER];
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['situation'];
     }

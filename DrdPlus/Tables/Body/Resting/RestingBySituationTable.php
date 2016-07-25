@@ -13,7 +13,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
         return __DIR__ . '/data/resting_by_situation.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['situation'];
     }

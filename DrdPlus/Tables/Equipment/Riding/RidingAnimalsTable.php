@@ -18,7 +18,7 @@ class RidingAnimalsTable extends AbstractFileTable
 
     const ANIMAL = 'animal';
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [self::ANIMAL];
     }

@@ -19,7 +19,7 @@ class BowsTable extends ShootingWeaponsTable
         return $expectedDataHeader;
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['weapon'];
     }

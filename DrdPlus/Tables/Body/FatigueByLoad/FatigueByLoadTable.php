@@ -16,7 +16,7 @@ class FatigueByLoadTable extends AbstractFileTable
         return __DIR__ . '/data/fatigue_by_load.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['missing_strength_up_to'];
     }

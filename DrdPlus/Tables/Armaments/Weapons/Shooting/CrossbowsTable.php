@@ -10,7 +10,7 @@ class CrossbowsTable extends ShootingWeaponsTable
         return __DIR__ . '/data/crossbows.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['weapon'];
     }

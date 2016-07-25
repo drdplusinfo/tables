@@ -35,7 +35,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return [RacesTable::RACE];
     }

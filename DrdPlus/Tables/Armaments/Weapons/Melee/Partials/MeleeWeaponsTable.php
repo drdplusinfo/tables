@@ -9,7 +9,7 @@ use Granam\Tools\ValueDescriber;
 
 abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements CoveringWeaponParametersInterface
 {
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['weapon'];
     }

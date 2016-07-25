@@ -13,7 +13,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
 
-    protected function getExpectedRowsHeader()
+    protected function getRowsHeader()
     {
         return ['situation'];
     }
