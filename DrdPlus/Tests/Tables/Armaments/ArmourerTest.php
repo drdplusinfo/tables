@@ -4,15 +4,15 @@ namespace DrdPlus\Tests\Tables\Armaments;
 use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
 use DrdPlus\Codes\MeleeWeaponCode;
-use DrdPlus\Codes\ShootingWeaponCode;
+use DrdPlus\Codes\RangeWeaponCode;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\ShootingWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
 use DrdPlus\Tables\Tables;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -284,13 +284,13 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
-     * @dataProvider provideStrengthAndShootingWeaponGroup
+     * @dataProvider provideStrengthAndRangeWeaponGroup
      * @param int $requiredStrength
      * @param int $strength
      * @param mixed $expectedMissingStrength
      * @param string $weaponGroup
      */
-    public function I_can_get_missing_strength_and_sanction_values_for_shooting_weapon(
+    public function I_can_get_missing_strength_and_sanction_values_for_range_weapon(
         $requiredStrength,
         $strength,
         $expectedMissingStrength,
@@ -300,27 +300,27 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $weaponsTableBaseName = $weaponGroup . 'sTable';
         $tables->shouldReceive('get' . ucfirst($weaponsTableBaseName))
-            ->andReturn($shootingWeaponTable = $this->createShootingWeaponTable());
+            ->andReturn($rangeWeaponTable = $this->createRangeWeaponTable());
         $weaponCode = ' foo';
-        $shootingWeaponTable->shouldReceive('getRequiredStrengthOf')
+        $rangeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($weaponCode)
             ->andReturn($requiredStrength);
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForShootingWeapon($this->createShootingWeaponCode($weaponCode, $weaponGroup), $strength)
+            $armourer->getMissingStrengthForRangeWeapon($this->createRangeWeaponCode($weaponCode, $weaponGroup), $strength)
         );
-        $tables->shouldReceive('getShootingWeaponSanctionsTable')
-            ->andReturn($shootingWeaponSanctionsTable = $this->createShootingWeaponSanctionsTable());
-        $shootingWeaponSanctionsTable->shouldReceive('getSanctionsForMissingStrength')
+        $tables->shouldReceive('getRangeWeaponSanctionsTable')
+            ->andReturn($rangeWeaponSanctionsTable = $this->createRangeWeaponSanctionsTable());
+        $rangeWeaponSanctionsTable->shouldReceive('getSanctionsForMissingStrength')
             ->with($expectedMissingStrength)
             ->andReturn('bar');
         self::assertSame(
             'bar',
-            $armourer->getSanctionValuesForShootingWeapon($this->createShootingWeaponCode($weaponCode, $weaponGroup), $strength)
+            $armourer->getSanctionValuesForRangeWeapon($this->createRangeWeaponCode($weaponCode, $weaponGroup), $strength)
         );
     }
 
-    public function provideStrengthAndShootingWeaponGroup()
+    public function provideStrengthAndRangeWeaponGroup()
     {
         return [
             [123, 456, 0, 'arrow'],
@@ -336,34 +336,34 @@ class ArmourerTest extends TestWithMockery
     }
 
     /**
-     * @return \Mockery\MockInterface|ShootingWeaponsTable
+     * @return \Mockery\MockInterface|RangeWeaponsTable
      */
-    private function createShootingWeaponTable()
+    private function createRangeWeaponTable()
     {
-        return $this->mockery(ShootingWeaponsTable::class);
+        return $this->mockery(RangeWeaponsTable::class);
     }
 
     /**
-     * @return \Mockery\MockInterface|ShootingWeaponSanctionsTable
+     * @return \Mockery\MockInterface|RangeWeaponSanctionsTable
      */
-    private function createShootingWeaponSanctionsTable()
+    private function createRangeWeaponSanctionsTable()
     {
-        return $this->mockery(ShootingWeaponSanctionsTable::class);
+        return $this->mockery(RangeWeaponSanctionsTable::class);
     }
 
     /**
      * @param $value
      * @param string $matchingWeaponGroup
-     * @return \Mockery\MockInterface|ShootingWeaponCode
+     * @return \Mockery\MockInterface|RangeWeaponCode
      */
-    private function createShootingWeaponCode($value, $matchingWeaponGroup)
+    private function createRangeWeaponCode($value, $matchingWeaponGroup)
     {
-        $code = $this->mockery(ShootingWeaponCode::class);
+        $code = $this->mockery(RangeWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
-        foreach ($this->getShootingWeaponGroups() as $weaponGroup) {
+        foreach ($this->getRangeWeaponGroups() as $weaponGroup) {
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
@@ -371,29 +371,29 @@ class ArmourerTest extends TestWithMockery
         return $code;
     }
 
-    private function getShootingWeaponGroups()
+    private function getRangeWeaponGroups()
     {
         return ['arrow', 'bow', 'dart', 'crossbow', 'slingStone'];
     }
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @expectedExceptionMessageRegExp ~foo~
      */
-    public function I_can_not_get_strength_sanction_for_unknown_shooting_weapon()
+    public function I_can_not_get_strength_sanction_for_unknown_range_weapon()
     {
-        (new Armourer($this->createTables()))->getMissingStrengthForShootingWeapon($this->createShootingWeaponCode('foo', 'spit'), 0);
+        (new Armourer($this->createTables()))->getMissingStrengthForRangeWeapon($this->createRangeWeaponCode('foo', 'spit'), 0);
     }
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @expectedExceptionMessageRegExp ~foo~
      */
-    public function I_can_not_get_sanctions_for_unknown_shooting_weapon()
+    public function I_can_not_get_sanctions_for_unknown_range_weapon()
     {
-        (new Armourer($this->createTables()))->getSanctionValuesForShootingWeapon($this->createShootingWeaponCode('foo', 'spit'), 0);
+        (new Armourer($this->createTables()))->getSanctionValuesForRangeWeapon($this->createRangeWeaponCode('foo', 'spit'), 0);
     }
 
 }

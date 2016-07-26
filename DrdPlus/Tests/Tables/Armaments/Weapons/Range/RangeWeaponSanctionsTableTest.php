@@ -1,17 +1,17 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting;
+namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
-use DrdPlus\Tables\Armaments\Sanctions\ShootingWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame(
             [
                 [
@@ -33,7 +33,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_values()
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame(
             [
                 0 => [
@@ -157,7 +157,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_properly_detect_if_can_use_a_shooting_weapon($missingStrength, $canUse)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($canUse, $shootingWeaponSanctionsTable->canUseWeapon($missingStrength));
     }
 
@@ -183,7 +183,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_fight_number_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getFightNumberSanction($missingStrength));
     }
 
@@ -211,7 +211,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_loading_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getLoadingSanction($missingStrength));
     }
 
@@ -239,7 +239,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_attack_number_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getAttackNumberSanction($missingStrength));
     }
 
@@ -267,7 +267,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_encounter_range_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getEncounterRangeSanction($missingStrength));
     }
 
@@ -295,7 +295,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_base_of_wounds_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getBaseOfWoundsSanction($missingStrength));
     }
 
@@ -323,7 +323,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
     public function I_get_always_zero_for_every_sanction_if_no_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(0));
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(-1));
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(-10));
@@ -349,7 +349,7 @@ class ShootingWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase imple
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
-        $shootingWeaponSanctionsTable = new ShootingWeaponSanctionsTable();
+        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         $shootingWeaponSanctionsTable->$sanctionGetter(11);
     }
 

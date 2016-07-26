@@ -6,7 +6,7 @@ use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\ShootingWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
@@ -18,12 +18,12 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
 use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\ArrowsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\BowsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\CrossbowsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\DartsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\SlingStonesTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\ThrowingWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\ArrowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\CrossbowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\DartsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\SlingStonesTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
@@ -265,15 +265,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ShootingWeaponSanctionsTable
+     * @return RangeWeaponSanctionsTable
      */
-    public function getShootingWeaponSanctionsTable()
+    public function getRangeWeaponSanctionsTable()
     {
-        if (!array_key_exists(ShootingWeaponSanctionsTable::class, $this->tables)) {
-            $this->tables[ShootingWeaponSanctionsTable::class] = new ShootingWeaponSanctionsTable();
+        if (!array_key_exists(RangeWeaponSanctionsTable::class, $this->tables)) {
+            $this->tables[RangeWeaponSanctionsTable::class] = new RangeWeaponSanctionsTable();
         }
 
-        return $this->tables[ShootingWeaponSanctionsTable::class];
+        return $this->tables[RangeWeaponSanctionsTable::class];
     }
 
     /**
@@ -640,7 +640,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
             $this->getMeleeWeaponSanctionsTable(),
-            $this->getShootingWeaponSanctionsTable(),
+            $this->getRangeWeaponSanctionsTable(),
             $this->getMissingWeaponSkillsTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),

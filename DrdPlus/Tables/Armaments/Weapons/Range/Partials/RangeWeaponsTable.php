@@ -1,13 +1,13 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Shooting\Partials;
+namespace DrdPlus\Tables\Armaments\Weapons\Range\Partials;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponParametersInterface;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode;
+use DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements WeaponParametersInterface
+abstract class RangeWeaponsTable extends AbstractArmamentsTable implements WeaponParametersInterface
 {
     const RANGE = 'range';
 
@@ -26,7 +26,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getOffensivenessOf($weaponCode)
     {
@@ -37,14 +37,14 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
      * @param string $weaponCode
      * @param string $valueName
      * @return float|int|string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     private function getValueOf($weaponCode, $valueName)
     {
         try {
             return $this->getValue([$weaponCode], $valueName);
         } catch (RequiredRowDataNotFound $exception) {
-            throw new UnknownShootingWeaponCode(
+            throw new UnknownRangeWeaponCode(
                 'Unknown shooting armament code ' . ValueDescriber::describe($weaponCode)
             );
         }
@@ -53,7 +53,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getWoundsOf($weaponCode)
     {
@@ -63,7 +63,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getWoundsTypeOf($weaponCode)
     {
@@ -73,7 +73,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getRequiredStrengthOf($weaponCode)
     {
@@ -83,7 +83,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getRangeOf($weaponCode)
     {
@@ -93,7 +93,7 @@ abstract class ShootingWeaponsTable extends AbstractArmamentsTable implements We
     /**
      * @param string $weaponCode
      * @return float
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
     public function getWeightOf($weaponCode)
     {

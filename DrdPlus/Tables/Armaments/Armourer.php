@@ -6,13 +6,13 @@ use DrdPlus\Codes\ArmorCode;
 use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
 use DrdPlus\Codes\MeleeWeaponCode;
-use DrdPlus\Codes\ShootingWeaponCode;
+use DrdPlus\Codes\RangeWeaponCode;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode;
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
@@ -217,44 +217,44 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param ShootingWeaponCode $shootingWeaponCode
+     * @param RangeWeaponCode $shootingWeaponCode
      * @param int $strength
      * @return array|\mixed[]
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionValuesForShootingWeapon(ShootingWeaponCode $shootingWeaponCode, $strength)
+    public function getSanctionValuesForRangeWeapon(RangeWeaponCode $shootingWeaponCode, $strength)
     {
-        $missingStrength = $this->getMissingStrengthForShootingWeapon($shootingWeaponCode, $strength);
+        $missingStrength = $this->getMissingStrengthForRangeWeapon($shootingWeaponCode, $strength);
 
-        return $this->tables->getShootingWeaponSanctionsTable()->getSanctionsForMissingStrength($missingStrength);
+        return $this->tables->getRangeWeaponSanctionsTable()->getSanctionsForMissingStrength($missingStrength);
     }
 
     /**
-     * @param ShootingWeaponCode $shootingWeaponCode
+     * @param RangeWeaponCode $rangeWeaponCode
      * @param int $strength
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getMissingStrengthForShootingWeapon(ShootingWeaponCode $shootingWeaponCode, $strength)
+    public function getMissingStrengthForRangeWeapon(RangeWeaponCode $rangeWeaponCode, $strength)
     {
         return $this->getMissingStrengthForArmament(
-            $this->getTableByShootingWeaponCode($shootingWeaponCode),
-            $shootingWeaponCode,
+            $this->getTableByRangeWeaponCode($rangeWeaponCode),
+            $rangeWeaponCode,
             $strength,
             true // it is final value, negative means zero
         );
     }
 
     /**
-     * @param ShootingWeaponCode $shootingWeaponCode
-     * @return ShootingWeaponsTable
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @param RangeWeaponCode $shootingWeaponCode
+     * @return RangeWeaponsTable
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
-    private function getTableByShootingWeaponCode(ShootingWeaponCode $shootingWeaponCode)
+    private function getTableByRangeWeaponCode(RangeWeaponCode $shootingWeaponCode)
     {
         if ($shootingWeaponCode->isArrow()) {
             return $this->tables->getArrowsTable();
@@ -271,7 +271,7 @@ class Armourer extends StrictObject
         if ($shootingWeaponCode->isSlingStone()) {
             return $this->tables->getSlingStonesTable();
         }
-        throw new UnknownShootingWeaponCode(
+        throw new UnknownRangeWeaponCode(
             "Given shooting weapon of code {$shootingWeaponCode} does not belongs to any known type"
         );
     }

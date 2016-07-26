@@ -1,11 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Sanctions;
 
-class ShootingWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
+class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/shooting_weapon_sanctions.csv';
+        return __DIR__ . '/data/range_weapon_sanctions.csv';
     }
 
     protected function getRowsHeader()

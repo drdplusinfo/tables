@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Weapons\Shooting\Partials;
+namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials;
 
-use DrdPlus\Tables\Armaments\Weapons\Shooting\Partials\ShootingWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+abstract class RangeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
 {
     /**
      * @test
@@ -12,7 +12,7 @@ abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase impl
     public function I_can_get_header()
     {
         $sutClass = $this->getSutClass();
-        /** @var ShootingWeaponsTable $shootingArmamentsTable */
+        /** @var RangeWeaponsTable $shootingArmamentsTable */
         $shootingArmamentsTable = new $sutClass();
         self::assertSame(
             [[$this->getRowHeaderValue(), 'required_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'weight']],
@@ -26,7 +26,7 @@ abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase impl
     abstract protected function getRowHeaderValue();
 
     /**
-     * @return string|ShootingWeaponsTable
+     * @return string|RangeWeaponsTable
      */
     protected function getSutClass()
     {
@@ -43,7 +43,7 @@ abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase impl
     public function I_can_get_values_for_every_armament($shootingArmamentCode, $valueName, $expectedValue)
     {
         $sutClass = $this->getSutClass();
-        /** @var ShootingWeaponsTable $shootingArmamentsTable */
+        /** @var RangeWeaponsTable $shootingArmamentsTable */
         $shootingArmamentsTable = new $sutClass();
 
         $value = $shootingArmamentsTable->getValue([$shootingArmamentCode], $valueName);
@@ -74,14 +74,14 @@ abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase impl
      * @test
      * @dataProvider provideValueName
      * @param string $valueName
-     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Shooting\Exceptions\UnknownShootingWeaponCode
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $sutClass = $this->getSutClass();
-        /** @var ShootingWeaponsTable $shootingArmamentsTable */
+        /** @var RangeWeaponsTable $shootingArmamentsTable */
         $shootingArmamentsTable = new $sutClass();
         $shootingArmamentsTable->$getValueNameOf('skull_crasher');
     }
@@ -89,12 +89,12 @@ abstract class ShootingWeaponsTableTest extends \PHPUnit_Framework_TestCase impl
     public function provideValueName()
     {
         return [
-            [ShootingWeaponsTable::REQUIRED_STRENGTH],
-            [ShootingWeaponsTable::OFFENSIVENESS],
-            [ShootingWeaponsTable::WOUNDS],
-            [ShootingWeaponsTable::WOUNDS_TYPE],
-            [ShootingWeaponsTable::RANGE],
-            [ShootingWeaponsTable::WEIGHT],
+            [RangeWeaponsTable::REQUIRED_STRENGTH],
+            [RangeWeaponsTable::OFFENSIVENESS],
+            [RangeWeaponsTable::WOUNDS],
+            [RangeWeaponsTable::WOUNDS_TYPE],
+            [RangeWeaponsTable::RANGE],
+            [RangeWeaponsTable::WEIGHT],
         ];
     }
 
