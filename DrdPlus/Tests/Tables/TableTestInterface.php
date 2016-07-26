@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables;
 
-interface TableTest
+interface TableTestInterface
 {
     /**
      * @test

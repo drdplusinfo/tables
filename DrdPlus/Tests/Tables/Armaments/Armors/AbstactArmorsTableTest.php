@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -18,6 +18,31 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
             [[$this->getRowHeaderName(), 'required_strength', 'restriction', 'protection', 'weight']],
             $armorsTable->getHeader()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        $sutClass = $this->getSutClass();
+        /** @var AbstractArmorsTable $armorsTable */
+        $armorsTable = new $sutClass();
+        self::assertSame($this->assembleIndexedValues($this->provideArmorAndValue()), $armorsTable->getIndexedValues());
+    }
+
+    private function assembleIndexedValues(array $values)
+    {
+        $indexedValues = [];
+        foreach ($values as $row) {
+            list($armor, $parameterName, $parameterValue) = $row;
+            if (!array_key_exists($armor, $indexedValues)) {
+                $indexedValues[$armor] = [];
+            }
+            $indexedValues[$armor][$parameterName] = $parameterValue;
+        }
+
+        return $indexedValues;
     }
 
     /**

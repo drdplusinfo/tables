@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements;
 
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-interface MeasurementTableTest extends TableTest
+interface MeasurementTableTest extends TableTestInterface
 {
     public function I_can_convert_bonus_to_value();
 

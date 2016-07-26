@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables;
 use DrdPlus\Tables\Table;
 use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class TablesExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     protected function getTestedNamespace()
     {

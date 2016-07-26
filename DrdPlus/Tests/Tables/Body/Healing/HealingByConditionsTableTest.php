@@ -4,10 +4,10 @@ namespace DrdPlus\Tests\Tables\Body\Healing;
 use DrdPlus\Codes\EnvironmentConditionsCode;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\Healing\HealingConditionsPercents;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class HealingByConditionsTableTest extends TestWithMockery implements TableTest
+class HealingByConditionsTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -67,6 +67,20 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTest
             ->andReturn($percents / 100);
 
         return $healingConditionsPercents;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_higher_bonus_than_hundred_percents_if_conditions_allow_it()
+    {
+        self::assertSame(
+            -18,
+            (new HealingByConditionsTable())->getHealingBonusByConditions(
+                EnvironmentConditionsCode::FOUL_CONDITIONS,
+                new HealingConditionsPercents(200)
+            )
+        );
     }
 
     /**

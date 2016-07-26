@@ -5,9 +5,9 @@ use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
 
     /**

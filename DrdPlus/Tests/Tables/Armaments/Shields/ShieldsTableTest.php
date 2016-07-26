@@ -3,9 +3,9 @@ namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\ShieldCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -17,6 +17,31 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
             [['shield', 'required_strength', 'restriction', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
             $shieldsTable->getHeader()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        self::assertSame(
+            $this->assembleIndexedValues($this->provideShieldAndValue()),
+            (new ShieldsTable())->getIndexedValues()
+        );
+    }
+
+    private function assembleIndexedValues(array $values)
+    {
+        $indexedValues = [];
+        foreach ($values as $row) {
+            list($shield, $parameterName, $parameterValue) = $row;
+            if (!array_key_exists($shield, $indexedValues)) {
+                $indexedValues[$shield] = [];
+            }
+            $indexedValues[$shield][$parameterName] = $parameterValue;
+        }
+
+        return $indexedValues;
     }
 
     /**

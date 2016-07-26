@@ -12,6 +12,9 @@ abstract class AbstractTable extends StrictObject implements Table
     /** @var array|string[][] */
     private $headerInFlatStructure;
 
+    /**
+     * @return array|\string[][]
+     */
     public function getValues()
     {
         if ($this->valuesInFlatStructure === null) {

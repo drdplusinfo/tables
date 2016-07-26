@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials;
 
 use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-abstract class RangeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+abstract class RangeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -18,6 +18,34 @@ abstract class RangeWeaponsTableTest extends \PHPUnit_Framework_TestCase impleme
             [[$this->getRowHeaderValue(), 'required_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'weight']],
             $shootingArmamentsTable->getHeader()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        $sutClass = $this->getSutClass();
+        /** @var RangeWeaponsTable $armorsTable */
+        $armorsTable = new $sutClass();
+        self::assertSame(
+            $this->assembleIndexedValues($this->provideArmamentAndNameWithValue()),
+            $armorsTable->getIndexedValues()
+        );
+    }
+
+    private function assembleIndexedValues(array $values)
+    {
+        $indexedValues = [];
+        foreach ($values as $row) {
+            list($weapon, $parameterName, $parameterValue) = $row;
+            if (!array_key_exists($weapon, $indexedValues)) {
+                $indexedValues[$weapon] = [];
+            }
+            $indexedValues[$weapon][$parameterName] = $parameterValue;
+        }
+
+        return $indexedValues;
     }
 
     /**

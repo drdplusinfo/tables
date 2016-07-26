@@ -18,7 +18,7 @@ class DistanceTableTest extends TestWithMockery implements MeasurementTableTest
     {
         $distanceTable = new DistanceTable();
 
-        self::assertEquals([['bonus', 'm','km','light_year']], $distanceTable->getHeader());
+        self::assertEquals([['bonus', 'm', 'km', 'light_year']], $distanceTable->getHeader());
     }
 
     /**

@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Codes\ActivityDifficultyTypeCode;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -14,6 +14,29 @@ class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements 
     {
         $healingBonusByPersonActionsTable = new HealingByActivityTable();
         self::assertSame([['situation', 'bonus']], $healingBonusByPersonActionsTable->getHeader());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        $healingByActivityTable = new HealingByActivityTable();
+        self::assertSame(
+            $this->assembleIndexedValues($this->provideBonusWithActivityName()),
+            $healingByActivityTable->getIndexedValues()
+        );
+    }
+
+    private function assembleIndexedValues(array $values)
+    {
+        $indexedValues = [];
+        foreach ($values as $row) {
+            list($bonus, $situation) = $row;
+            $indexedValues[$situation] = ['bonus' => $bonus];
+        }
+
+        return $indexedValues;
     }
 
     /**

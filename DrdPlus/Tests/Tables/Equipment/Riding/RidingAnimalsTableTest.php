@@ -5,10 +5,10 @@ use DrdPlus\Codes\RidingAnimalCode;
 use DrdPlus\Codes\RidingAnimalPropertyCode;
 use DrdPlus\Tables\Equipment\Riding\DefianceOfWildPercents;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class RidingAnimalsTableTest extends TestWithMockery implements TableTest
+class RidingAnimalsTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -33,7 +33,7 @@ class RidingAnimalsTableTest extends TestWithMockery implements TableTest
     /**
      * @test
      */
-    public function I_can_get_values()
+    public function I_can_get_all_values()
     {
         self::assertSame(
             $expectedValues = [

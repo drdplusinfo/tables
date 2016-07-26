@@ -9,10 +9,10 @@ use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class RidingAnimalMovementTypesTableTest extends TestWithMockery implements TableTest
+class RidingAnimalMovementTypesTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -34,7 +34,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
     /**
      * @test
      */
-    public function I_can_get_values()
+    public function I_can_get_all_values()
     {
         self::assertSame(
             [

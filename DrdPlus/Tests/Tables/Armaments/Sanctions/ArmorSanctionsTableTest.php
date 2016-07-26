@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Sanctions;
 
 use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -15,6 +15,54 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
         self::assertSame(
             [['missing_strength', 'description', 'agility_sanction', 'can_move']],
             $armorSanctionsTable->getHeader()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        self::assertSame(
+            [
+                0 => [
+                    'missing_strength' => 0,
+                    'description' => 'light',
+                    'agility_sanction' => 0,
+                    'can_move' => true
+                ],
+                3 => [
+                    'missing_strength' => 3,
+                    'description' => 'medium',
+                    'agility_sanction' => -2,
+                    'can_move' => true
+                ],
+                6 => [
+                    'missing_strength' => 6,
+                    'description' => 'heavy',
+                    'agility_sanction' => -4,
+                    'can_move' => true
+                ],
+                8 => [
+                    'missing_strength' => 8,
+                    'description' => 'very_heavy',
+                    'agility_sanction' => -8,
+                    'can_move' => true
+                ],
+                10 => [
+                    'missing_strength' => 10,
+                    'description' => 'extreme',
+                    'agility_sanction' => -12,
+                    'can_move' => true
+                ],
+                11 => [
+                    'missing_strength' => 11,
+                    'description' => 'unbearable',
+                    'agility_sanction' => false,
+                    'can_move' => false
+                ],
+            ],
+            (new ArmorSanctionsTable())->getIndexedValues()
         );
     }
 
@@ -75,7 +123,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
                 $missingStrength,
                 [
                     ArmorSanctionsTable::MISSING_STRENGTH => 8,
-                    ArmorSanctionsTable::DESCRIPTION => 'very heavy',
+                    ArmorSanctionsTable::DESCRIPTION => 'very_heavy',
                     ArmorSanctionsTable::AGILITY_SANCTION => -8,
                     ArmorSanctionsTable::CAN_MOVE => true,
                 ]

@@ -5,10 +5,10 @@ use DrdPlus\Codes\RidingAnimalMovementCode;
 use DrdPlus\Tables\Equipment\Riding\WoundsOnFallFromHorseTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class WoundsOnFallFromHorseTableTest extends TestWithMockery implements TableTest
+class WoundsOnFallFromHorseTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -26,7 +26,7 @@ class WoundsOnFallFromHorseTableTest extends TestWithMockery implements TableTes
     /**
      * @test
      */
-    public function I_can_get_values()
+    public function I_can_get_all_values()
     {
         self::assertSame(
             [

@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -18,6 +18,34 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
             [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
             $meleeWeaponsTable->getHeader()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_all_values()
+    {
+        $sutClass = $this->getSutClass();
+        /** @var MeleeWeaponsTable $meleeWeaponsTable */
+        $meleeWeaponsTable = new $sutClass();
+        self::assertSame(
+            $this->assembleIndexedValues($this->provideWeaponAndNameWithValue()),
+            $meleeWeaponsTable->getIndexedValues()
+        );
+    }
+
+    private function assembleIndexedValues(array $values)
+    {
+        $indexedValues = [];
+        foreach ($values as $row) {
+            list($weapon, $parameterName, $parameterValue) = $row;
+            if (!array_key_exists($weapon, $indexedValues)) {
+                $indexedValues[$weapon] = [];
+            }
+            $indexedValues[$weapon][$parameterName] = $parameterValue;
+        }
+
+        return $indexedValues;
     }
 
     /**
@@ -64,7 +92,6 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
      * @return array|mixed[][]
      */
     abstract public function provideWeaponAndNameWithValue();
-
 
     /**
      * @test

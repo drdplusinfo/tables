@@ -4,10 +4,10 @@ namespace DrdPlus\Tests\Tables\Body\Resting;
 use DrdPlus\Codes\RestConditionsCode;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Body\Resting\RestingSituationPercents;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class RestingBySituationTableTest extends TestWithMockery implements TableTest
+class RestingBySituationTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -24,7 +24,7 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTest
     /**
      * @test
      */
-    public function I_can_get_values()
+    public function I_can_get_all_values()
     {
         $restingBySituationTable = new RestingBySituationTable();
         self::assertSame(

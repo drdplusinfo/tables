@@ -2,10 +2,10 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons;
 
 use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTest
+class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -21,7 +21,7 @@ class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTest
     /**
      * @test
      */
-    public function I_can_get_data()
+    public function I_can_get_all_values()
     {
         self::assertSame(
             [

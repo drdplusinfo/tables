@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
 use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 
-class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTest
+class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -31,7 +31,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
     /**
      * @test
      */
-    public function I_can_get_values()
+    public function I_can_get_all_values()
     {
         $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame(

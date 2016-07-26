@@ -7,11 +7,11 @@ use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
-use DrdPlus\Tests\Tables\TableTest;
+use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Integer\IntegerInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class FatigueByLoadTableTest extends TestWithMockery implements TableTest
+class FatigueByLoadTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
