@@ -43,25 +43,27 @@ abstract class AbstractTable extends StrictObject implements Table
         $columnsHeaderIndexShift = $columnsHeaderRowCount - $maxRowsCount;
         $header = [];
         for ($rowIndex = 0; $rowIndex < $maxRowsCount; $rowIndex++) {
-            $headerRow = [];
+            $headerRowFromRowsHeader = [];
             $rowsHeaderRowIndex = $rowIndex + $rowsHeaderIndexShift;
             if ($rowsHeaderRowIndex < 0) { // not yet
-                $headerRow[] = '';
+                $headerRowFromRowsHeader[] = '';
             } else {
                 foreach ($rowsHeader as $columnsHeaderColumn) {
-                    $headerRow[] = $columnsHeaderColumn[$rowsHeaderRowIndex];
+                    $headerRowFromRowsHeader[] = $columnsHeaderColumn[$rowsHeaderRowIndex];
                 }
             }
+            $headerRowFromColumnsHeader = [];
             $columnsHeaderRowIndex = $rowIndex + $columnsHeaderIndexShift;
             if ($columnsHeaderRowIndex < 0) { // not yet
-                $headerRow[] = '';
+                $headerRowFromColumnsHeader[] = '';
             } else {
                 foreach ($columnsHeader as $columnsHeaderColumn) {
-                    $headerRow[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
+                    $headerRowFromColumnsHeader[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
                 }
             }
-            $header[] = array_merge( // to make integer indexes continual
-                array_unique($headerRow) // because row header can be used also as column header and we want it just once
+            $header[] = array_merge(
+                $headerRowFromRowsHeader,
+                array_diff($headerRowFromColumnsHeader, $headerRowFromRowsHeader) // only those not already included by rows header
             );
         }
 
