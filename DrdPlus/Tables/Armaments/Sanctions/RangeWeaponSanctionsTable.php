@@ -8,11 +8,6 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
         return __DIR__ . '/data/range_weapon_sanctions.csv';
     }
 
-    protected function getRowsHeader()
-    {
-        return [self::MISSING_STRENGTH];
-    }
-
     const FIGHT_NUMBER = 'fight_number';
     const LOADING = 'loading';
     const ATTACK_NUMBER = 'attack_number';

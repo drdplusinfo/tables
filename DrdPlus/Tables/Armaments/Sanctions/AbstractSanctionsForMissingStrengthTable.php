@@ -8,6 +8,11 @@ abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTabl
 {
     const MISSING_STRENGTH = 'missing_strength';
 
+    protected function getRowsHeader()
+    {
+        return [self::MISSING_STRENGTH];
+    }
+
     /**
      * @param int $missingStrength
      * @return array|mixed[];

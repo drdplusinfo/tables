@@ -8,11 +8,6 @@ class MeleeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
         return __DIR__ . '/data/melee_weapon_sanctions.csv';
     }
 
-    protected function getRowsHeader()
-    {
-        return [];
-    }
-
     const FIGHT_NUMBER = 'fight_number';
     const ATTACK_NUMBER = 'attack_number';
     const DEFENSE_NUMBER = 'defense_number';

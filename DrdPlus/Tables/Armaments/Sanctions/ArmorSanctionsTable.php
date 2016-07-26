@@ -8,11 +8,6 @@ class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
         return __DIR__ . '/data/armor_sanctions.csv';
     }
 
-    protected function getRowsHeader()
-    {
-        return [];
-    }
-
     const DESCRIPTION = 'description';
     const AGILITY_SANCTION = 'agility_sanction';
     const CAN_MOVE = 'can_move';
