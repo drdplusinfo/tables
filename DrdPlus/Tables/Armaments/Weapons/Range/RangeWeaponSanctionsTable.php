@@ -1,5 +1,8 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Sanctions;
+namespace DrdPlus\Tables\Armaments\Weapons\Range;
+
+use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
 class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
 {
@@ -47,7 +50,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -61,15 +64,15 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
         if ($guardMaximumMissingStrength && !$this->canUseWeapon($missingStrength)) {
-            throw new Exceptions\CanNotUseWeaponBecauseOfMissingStrength(
-                "Too much missing strength {$missingStrength} to bear a shooting weapon"
+            throw new CanNotUseWeaponBecauseOfMissingStrength(
+                "Too much missing strength {$missingStrength} to bear that range weapon"
             );
         }
 
@@ -79,7 +82,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -91,7 +94,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -103,7 +106,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -115,7 +118,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */

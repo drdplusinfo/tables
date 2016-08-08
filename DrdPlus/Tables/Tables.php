@@ -1,16 +1,15 @@
 <?php
 namespace DrdPlus\Tables;
 
+use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
-use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
@@ -22,6 +21,7 @@ use DrdPlus\Tables\Armaments\Weapons\Range\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\DartsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;

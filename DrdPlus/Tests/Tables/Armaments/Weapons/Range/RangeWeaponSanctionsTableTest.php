@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
-use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
@@ -344,13 +344,13 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
      * @test
      * @dataProvider provideSanctionName
      * @param string $sanctionName
-     * @expectedException \DrdPlus\Tables\Armaments\Sanctions\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
-        $shootingWeaponSanctionsTable->$sanctionGetter(11);
+        $rangeWeaponSanctionsTable = new RangeWeaponSanctionsTable();
+        $rangeWeaponSanctionsTable->$sanctionGetter(11);
     }
 
 }

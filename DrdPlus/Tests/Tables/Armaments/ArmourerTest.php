@@ -5,14 +5,14 @@ use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
 use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
+use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
-use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
-use DrdPlus\Tables\Armaments\Sanctions\RangeWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Tables;
 use Granam\Tests\Tools\TestWithMockery;
 

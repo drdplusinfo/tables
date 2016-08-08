@@ -1,5 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Sanctions;
+namespace DrdPlus\Tables\Armaments\Armors;
+
+use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 
 class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
 {

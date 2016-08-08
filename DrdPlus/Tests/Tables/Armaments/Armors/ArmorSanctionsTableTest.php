@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Sanctions;
+namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Sanctions\ArmorSanctionsTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface

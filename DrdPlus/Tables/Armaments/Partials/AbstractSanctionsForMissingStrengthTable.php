@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Sanctions;
+namespace DrdPlus\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;

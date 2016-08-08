@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Sanctions;
+namespace DrdPlus\Tests\Tables\Armaments\Weapons;
 
-use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class MeleeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
@@ -186,5 +186,42 @@ class MeleeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
         }
 
         return $values;
+    }
+
+    /**
+     * @test
+     * @dataProvider provideSanctionName
+     * @param string $sanctionName
+     */
+    public function I_get_always_zero_for_every_sanction_if_no_missing_strength($sanctionName)
+    {
+        $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
+        $meleeWeaponSanctionsTable = new MeleeWeaponSanctionsTable();
+        self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(0));
+        self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(-1));
+        self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(-10));
+    }
+
+    public function provideSanctionName()
+    {
+        return [
+            ['fightNumber'],
+            ['attackNumber'],
+            ['defenseNumber'],
+            ['baseOfWounds'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideSanctionName
+     * @param string $sanctionName
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     */
+    public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
+    {
+        $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
+        $meleeWeaponSanctionsTable = new MeleeWeaponSanctionsTable();
+        $meleeWeaponSanctionsTable->$sanctionGetter(11);
     }
 }
