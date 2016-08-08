@@ -9,6 +9,7 @@ use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
+use DrdPlus\Tables\Armaments\Sanctions\MeleeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode;
@@ -148,7 +149,6 @@ class Armourer extends StrictObject
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param int $strength
      * @return array|\mixed[]
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -214,6 +214,66 @@ class Armourer extends StrictObject
         throw new UnknownMeleeWeaponCode(
             "Given melee weapon of code {$meleeWeaponCode} does not belongs to any known type"
         );
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getMeleeWeaponFightNumberMalus(MeleeWeaponCode $meleeWeaponCode, $strength)
+    {
+        return $this->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength)[MeleeWeaponSanctionsTable::FIGHT_NUMBER];
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getMeleeWeaponAttackNumberMalus(MeleeWeaponCode $meleeWeaponCode, $strength)
+    {
+        return $this->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength)[MeleeWeaponSanctionsTable::ATTACK_NUMBER];
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getMeleeWeaponDefenseNumberMalus(MeleeWeaponCode $meleeWeaponCode, $strength)
+    {
+        return $this->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength)[MeleeWeaponSanctionsTable::DEFENSE_NUMBER];
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getMeleeWeaponBaseOfWoundsMalus(MeleeWeaponCode $meleeWeaponCode, $strength)
+    {
+        return $this->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength)[MeleeWeaponSanctionsTable::BASE_OF_WOUNDS];
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function canUseMeleeWeapon(MeleeWeaponCode $meleeWeaponCode, $strength)
+    {
+        return $this->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength)[MeleeWeaponSanctionsTable::CAN_USE_WEAPON];
     }
 
     /**
