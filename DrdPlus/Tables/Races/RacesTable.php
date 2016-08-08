@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Races;
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
+use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
@@ -65,7 +66,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonHumanModifiers()
     {
-        return $this->getRow([RaceCode::HUMAN, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::HUMAN, SubRaceCode::COMMON]);
     }
 
     /**
@@ -74,7 +75,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getHighlanderModifiers()
     {
-        return $this->getRow([RaceCode::HUMAN, RaceCode::HIGHLANDER]);
+        return $this->getRow([RaceCode::HUMAN, SubRaceCode::HIGHLANDER]);
     }
 
     /**
@@ -83,7 +84,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonElfModifiers()
     {
-        return $this->getRow([RaceCode::ELF, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::ELF, SubRaceCode::COMMON]);
     }
 
     /**
@@ -92,7 +93,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getDarkElfModifiers()
     {
-        return $this->getRow([RaceCode::ELF, RaceCode::DARK]);
+        return $this->getRow([RaceCode::ELF, SubRaceCode::DARK]);
     }
 
     /**
@@ -101,7 +102,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getGreenElfModifiers()
     {
-        return $this->getRow([RaceCode::ELF, RaceCode::GREEN]);
+        return $this->getRow([RaceCode::ELF, SubRaceCode::GREEN]);
     }
 
     /**
@@ -110,7 +111,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonDwarfModifiers()
     {
-        return $this->getRow([RaceCode::DWARF, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::DWARF, SubRaceCode::COMMON]);
     }
 
     /**
@@ -119,7 +120,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMountainDwarfModifiers()
     {
-        return $this->getRow([RaceCode::DWARF, RaceCode::MOUNTAIN]);
+        return $this->getRow([RaceCode::DWARF, SubRaceCode::MOUNTAIN]);
     }
 
     /**
@@ -128,7 +129,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getWoodDwarfModifiers()
     {
-        return $this->getRow([RaceCode::DWARF, RaceCode::WOOD]);
+        return $this->getRow([RaceCode::DWARF, SubRaceCode::WOOD]);
     }
 
     /**
@@ -137,7 +138,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonHobbitModifiers()
     {
-        return $this->getRow([RaceCode::HOBBIT, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::HOBBIT, SubRaceCode::COMMON]);
     }
 
     /**
@@ -146,7 +147,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonKrollModifiers()
     {
-        return $this->getRow([RaceCode::KROLL, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::KROLL, SubRaceCode::COMMON]);
     }
 
     /**
@@ -155,7 +156,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getWildKrollModifiers()
     {
-        return $this->getRow([RaceCode::KROLL, RaceCode::WILD]);
+        return $this->getRow([RaceCode::KROLL, SubRaceCode::WILD]);
     }
 
     /**
@@ -164,7 +165,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getCommonOrcModifiers()
     {
-        return $this->getRow([RaceCode::ORC, RaceCode::COMMON]);
+        return $this->getRow([RaceCode::ORC, SubRaceCode::COMMON]);
     }
 
     /**
@@ -173,7 +174,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getGoblinModifiers()
     {
-        return $this->getRow([RaceCode::ORC, RaceCode::GOBLIN]);
+        return $this->getRow([RaceCode::ORC, SubRaceCode::GOBLIN]);
     }
 
     /**
@@ -182,7 +183,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getSkurutModifiers()
     {
-        return $this->getRow([RaceCode::ORC, RaceCode::SKURUT]);
+        return $this->getRow([RaceCode::ORC, SubRaceCode::SKURUT]);
     }
 
     /**

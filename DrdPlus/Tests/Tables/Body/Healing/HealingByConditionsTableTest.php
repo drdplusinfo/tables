@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
-use DrdPlus\Codes\EnvironmentConditionsCode;
+use DrdPlus\Codes\ConditionsAffectingHealingCode;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\Healing\HealingConditionsPercents;
 use DrdPlus\Tests\Tables\TableTestInterface;
@@ -43,14 +43,14 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTestI
     public function provideBonusWithConditionsCode()
     {
         return [
-            [0, -6, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
-            [100, -12, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
-            [180, -17, EnvironmentConditionsCode::FOUL_CONDITIONS /* -6, -12 */],
-            [33, -4, EnvironmentConditionsCode::BAD_CONDITIONS /* -5, -3 */],
-            [49, -1, EnvironmentConditionsCode::IMPAIRED_CONDITIONS /* -2, -1 */],
-            [50, -2, EnvironmentConditionsCode::IMPAIRED_CONDITIONS /* -2, -1 */],
-            [0, 0, EnvironmentConditionsCode::GOOD_CONDITIONS],
-            [100, 0, EnvironmentConditionsCode::GOOD_CONDITIONS],
+            [0, -6, ConditionsAffectingHealingCode::FOUL_CONDITIONS /* -6, -12 */],
+            [100, -12, ConditionsAffectingHealingCode::FOUL_CONDITIONS /* -6, -12 */],
+            [180, -17, ConditionsAffectingHealingCode::FOUL_CONDITIONS /* -6, -12 */],
+            [33, -4, ConditionsAffectingHealingCode::BAD_CONDITIONS /* -5, -3 */],
+            [49, -1, ConditionsAffectingHealingCode::IMPAIRED_CONDITIONS /* -2, -1 */],
+            [50, -2, ConditionsAffectingHealingCode::IMPAIRED_CONDITIONS /* -2, -1 */],
+            [0, 0, ConditionsAffectingHealingCode::GOOD_CONDITIONS],
+            [100, 0, ConditionsAffectingHealingCode::GOOD_CONDITIONS],
         ];
     }
 
@@ -77,7 +77,7 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTestI
         self::assertSame(
             -18,
             (new HealingByConditionsTable())->getHealingBonusByConditions(
-                EnvironmentConditionsCode::FOUL_CONDITIONS,
+                ConditionsAffectingHealingCode::FOUL_CONDITIONS,
                 new HealingConditionsPercents(200)
             )
         );
@@ -91,7 +91,7 @@ class HealingByConditionsTableTest extends TestWithMockery implements TableTestI
     public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
     {
         (new HealingByConditionsTable())->getHealingBonusByConditions(
-            EnvironmentConditionsCode::IMPAIRED_CONDITIONS,
+            ConditionsAffectingHealingCode::IMPAIRED_CONDITIONS,
             new HealingConditionsPercents(101)
         );
     }
