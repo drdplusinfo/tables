@@ -287,6 +287,20 @@ class Armourer extends StrictObject
     }
 
     /**
+     * @param RangeWeaponCode $rangeWeaponCode
+     * @param int $strength
+     * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function canUseRangeWeapon(RangeWeaponCode $rangeWeaponCode, $strength)
+    {
+        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $strength);
+
+        return $this->tables->getRangeWeaponSanctionsTable()->canUseWeapon($missingStrength);
+    }
+
+    /**
      * @param RangeWeaponCode $shootingWeaponCode
      * @param int $strength
      * @return array|\mixed[]

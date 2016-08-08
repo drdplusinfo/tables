@@ -352,6 +352,13 @@ class ArmourerTest extends TestWithMockery
             $armourer->getSanctionValuesForRangeWeapon($weaponCode, $strength)
         );
 
+        $rangeWeaponSanctionsTable->shouldReceive('canUseWeapon')
+            ->andReturn('bazbaz');
+        self::assertSame(
+            'bazbaz',
+            $armourer->canUseRangeWeapon($weaponCode, $strength)
+        );
+
         $rangeWeaponSanctionsTable->shouldReceive('getFightNumberSanction')
             ->andReturn('baz');
         self::assertSame(
