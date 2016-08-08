@@ -17,7 +17,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 [
                     'missing_strength',
                     'fight_number',
-                    'loading',
+                    'loading_in_rounds',
                     'attack_number',
                     'encounter_range',
                     'base_of_wounds',
@@ -39,7 +39,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 0 => [
                     'missing_strength' => 0,
                     'fight_number' => 0,
-                    'loading' => 0,
+                    'loading_in_rounds' => 0,
                     'attack_number' => 0,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
@@ -48,7 +48,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 1 => [
                     'missing_strength' => 1,
                     'fight_number' => -1,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => 0,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
@@ -57,7 +57,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 2 => [
                     'missing_strength' => 2,
                     'fight_number' => -2,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => -1,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
@@ -66,7 +66,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 3 => [
                     'missing_strength' => 3,
                     'fight_number' => -3,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => -1,
                     'encounter_range' => -1,
                     'base_of_wounds' => 0,
@@ -75,7 +75,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 4 => [
                     'missing_strength' => 4,
                     'fight_number' => -4,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => -2,
                     'encounter_range' => -1,
                     'base_of_wounds' => -1,
@@ -84,7 +84,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 5 => [
                     'missing_strength' => 5,
                     'fight_number' => -5,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => -2,
                     'encounter_range' => -2,
                     'base_of_wounds' => -1,
@@ -93,7 +93,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 6 => [
                     'missing_strength' => 6,
                     'fight_number' => -6,
-                    'loading' => 1,
+                    'loading_in_rounds' => 1,
                     'attack_number' => -3,
                     'encounter_range' => -2,
                     'base_of_wounds' => -2,
@@ -102,7 +102,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 7 => [
                     'missing_strength' => 7,
                     'fight_number' => -1,
-                    'loading' => 2,
+                    'loading_in_rounds' => 2,
                     'attack_number' => -3,
                     'encounter_range' => -3,
                     'base_of_wounds' => -2,
@@ -111,7 +111,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 8 => [
                     'missing_strength' => 8,
                     'fight_number' => -2,
-                    'loading' => 2,
+                    'loading_in_rounds' => 2,
                     'attack_number' => -4,
                     'encounter_range' => -3,
                     'base_of_wounds' => -3,
@@ -120,7 +120,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 9 => [
                     'missing_strength' => 9,
                     'fight_number' => -3,
-                    'loading' => 2,
+                    'loading_in_rounds' => 2,
                     'attack_number' => -4,
                     'encounter_range' => -4,
                     'base_of_wounds' => -3,
@@ -129,7 +129,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 10 => [
                     'missing_strength' => 10,
                     'fight_number' => -4,
-                    'loading' => 2,
+                    'loading_in_rounds' => 2,
                     'attack_number' => -5,
                     'encounter_range' => -4,
                     'base_of_wounds' => -4,
@@ -138,7 +138,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
                 11 => [
                     'missing_strength' => 11,
                     'fight_number' => false,
-                    'loading' => false,
+                    'loading_in_rounds' => false,
                     'attack_number' => false,
                     'encounter_range' => false,
                     'base_of_wounds' => false,
@@ -212,7 +212,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
     public function I_can_get_loading_sanction($missingStrength, $expectedSanction)
     {
         $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getLoadingSanction($missingStrength));
+        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getLoadingInRounds($missingStrength));
     }
 
     public function provideMissingStrengthAndLoadingSanction()
@@ -322,7 +322,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
      */
     public function I_get_always_zero_for_every_sanction_if_no_missing_strength($sanctionName)
     {
-        $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
+        $sanctionGetter = 'get' . ucfirst($sanctionName);
         $shootingWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(0));
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(-1));
@@ -332,11 +332,12 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
     public function provideSanctionName()
     {
         return [
-            ['fightNumber'],
-            ['loading'],
-            ['attackNumber'],
-            ['encounterRange'],
-            ['baseOfWounds'],
+            ['fightNumberSanction'],
+            ['loadingInRounds'],
+            ['loadingInRoundsSanction'],
+            ['attackNumberSanction'],
+            ['encounterRangeSanction'],
+            ['baseOfWoundsSanction'],
         ];
     }
 
@@ -348,7 +349,7 @@ class RangeWeaponSanctionsTableTest extends \PHPUnit_Framework_TestCase implemen
      */
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
-        $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
+        $sanctionGetter = 'get' . ucfirst($sanctionName);
         $rangeWeaponSanctionsTable = new RangeWeaponSanctionsTable();
         $rangeWeaponSanctionsTable->$sanctionGetter(11);
     }

@@ -12,7 +12,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     }
 
     const FIGHT_NUMBER = 'fight_number';
-    const LOADING = 'loading';
+    const LOADING_IN_ROUNDS = 'loading_in_rounds';
     const ATTACK_NUMBER = 'attack_number';
     const ENCOUNTER_RANGE = 'encounter_range';
     const BASE_OF_WOUNDS = 'base_of_wounds';
@@ -23,7 +23,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
         return [
             self::MISSING_STRENGTH => self::POSITIVE_INTEGER,
             self::FIGHT_NUMBER => self::NEGATIVE_INTEGER,
-            self::LOADING => self::POSITIVE_INTEGER,
+            self::LOADING_IN_ROUNDS => self::POSITIVE_INTEGER,
             self::ATTACK_NUMBER => self::NEGATIVE_INTEGER,
             self::ENCOUNTER_RANGE => self::NEGATIVE_INTEGER,
             self::BASE_OF_WOUNDS => self::NEGATIVE_INTEGER,
@@ -72,7 +72,7 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     {
         if ($guardMaximumMissingStrength && !$this->canUseWeapon($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
-                "Too much missing strength {$missingStrength} to bear that range weapon"
+                "Too much missing strength {$missingStrength} to use a range weapon"
             );
         }
 
@@ -86,9 +86,21 @@ class RangeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingSanction($missingStrength)
+    public function getLoadingInRounds($missingStrength)
     {
-        return $this->getSanctionOf($missingStrength, self::LOADING);
+        return $this->getSanctionOf($missingStrength, self::LOADING_IN_ROUNDS);
+    }
+
+    /**
+     * @param int $missingStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getLoadingInRoundsSanction($missingStrength)
+    {
+        return max($this->getLoadingInRounds($missingStrength) - 1, 0);
     }
 
     /**

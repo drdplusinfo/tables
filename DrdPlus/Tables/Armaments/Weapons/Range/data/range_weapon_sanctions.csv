@@ -1,4 +1,4 @@
-missing_strength,fight_number,loading,attack_number,encounter_range,base_of_wounds,can_use_weapon
+missing_strength,fight_number,loading_in_rounds,attack_number,encounter_range,base_of_wounds,can_use_weapon
 0,0,0,0,0,0,1
 1,-1,1,0,0,0,1
 2,-2,1,-1,0,0,1

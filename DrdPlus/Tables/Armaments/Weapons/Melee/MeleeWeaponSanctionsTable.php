@@ -54,7 +54,7 @@ class MeleeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     {
         if ($guardMaximumMissingStrength && !$this->canUseWeapon($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
-                "Too much missing strength {$missingStrength} to bear that melee weapon"
+                "Too much missing strength {$missingStrength} to use a melee weapon"
             );
         }
 
