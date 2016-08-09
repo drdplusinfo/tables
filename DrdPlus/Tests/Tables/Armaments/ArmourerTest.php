@@ -6,12 +6,15 @@ use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
 use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
+use DrdPlus\Codes\WeaponCode;
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsTable;
 use DrdPlus\Tables\Tables;
@@ -184,51 +187,51 @@ class ArmourerTest extends TestWithMockery
         $meleeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($weaponCodeValue)
             ->andReturn($requiredStrength);
-        $weaponCode = $this->createMeleeWeaponCode($weaponCodeValue, $weaponGroup);
+        $meleeWeaponCode = $this->createMeleeWeaponCode($weaponCodeValue, $weaponGroup);
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForMeleeWeapon($weaponCode, $strength)
+            $armourer->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $strength)
         );
         $tables->shouldReceive('getMeleeWeaponSanctionsTable')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
         $meleeWeaponSanctionsTable->shouldReceive('getSanctionsForMissingStrength')
             ->with($expectedMissingStrength)
             ->andReturn('bar');
-        self::assertSame('bar', $armourer->getSanctionValuesForMeleeWeapon($weaponCode, $strength));
+        self::assertSame('bar', $armourer->getSanctionValuesForMeleeWeapon($meleeWeaponCode, $strength));
 
         $meleeWeaponSanctionsTable->shouldReceive('getFightNumberSanction')
             ->andReturn('baz');
         self::assertSame(
             'baz',
-            $armourer->getMeleeWeaponFightNumberMalus($weaponCode, $strength)
+            $armourer->getMeleeWeaponFightNumberMalus($meleeWeaponCode, $strength)
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getAttackNumberSanction')
             ->andReturn('qux');
         self::assertSame(
             'qux',
-            $armourer->getMeleeWeaponAttackNumberMalus($weaponCode, $strength)
+            $armourer->getMeleeWeaponAttackNumberMalus($meleeWeaponCode, $strength)
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getDefenseNumberSanction')
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getMeleeWeaponDefenseNumberMalus($weaponCode, $strength)
+            $armourer->getMeleeWeaponDefenseNumberMalus($meleeWeaponCode, $strength)
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
             ->andReturn('foobaz');
         self::assertSame(
             'foobaz',
-            $armourer->getMeleeWeaponBaseOfWoundsMalus($weaponCode, $strength)
+            $armourer->getMeleeWeaponBaseOfWoundsMalus($meleeWeaponCode, $strength)
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('canUseWeapon')
             ->andReturn('fooqux');
         self::assertSame(
             'fooqux',
-            $armourer->canUseMeleeWeapon($weaponCode, $strength)
+            $armourer->canUseMeleeWeapon($meleeWeaponCode, $strength)
         );
     }
 
@@ -292,6 +295,52 @@ class ArmourerTest extends TestWithMockery
             'axe', 'knifeOrDagger', 'maceOrClub', 'morningStarOrMorgenstern',
             'saberOrBowieKnife', 'staffOrSpear', 'sword', 'unarmed', 'voulgeOrTrident'
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_find_out_if_can_use_both_melee_or_range_weapon_by_single_question()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+
+        $axe = $this->createMeleeWeaponCode('foo', 'axe');
+        $tables->shouldReceive('getAxesTable')
+            ->andReturn($axesTable = $this->mockery(AxesTable::class));
+        $axesTable->shouldReceive('getRequiredStrengthOf')
+            ->with('foo')
+            ->andReturn(1);
+        $tables->shouldReceive('getMeleeWeaponSanctionsTable')
+            ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
+        $meleeWeaponSanctionsTable->shouldReceive('canUseWeapon')
+            ->with(5)
+            ->andReturn('baz');
+        self::assertSame('baz', $armourer->canUseWeapon($axe, -4));
+
+        $bow = $this->createRangeWeaponCode('foo bar', 'bow');
+        $tables->shouldReceive('getBowsTable')
+            ->andReturn($bowsTable = $this->mockery(BowsTable::class));
+        $bowsTable->shouldReceive('getRequiredStrengthOf')
+            ->with('foo bar')
+            ->andReturn(4);
+        $tables->shouldReceive('getRangeWeaponSanctionsTable')
+            ->andReturn($rangeWeaponSanctionsTable = $this->createRangeWeaponSanctionsTable());
+        $rangeWeaponSanctionsTable->shouldReceive('canUseWeapon')
+            ->with(3)
+            ->andReturn('baz');
+        self::assertSame('baz', $armourer->canUseWeapon($bow, 1));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_use_unknown_weapon_code_for_usage_question()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        /** @var WeaponCode $weaponCode */
+        $weaponCode = $this->mockery(WeaponCode::class);
+        $armourer->canUseWeapon($weaponCode, 123);
     }
 
     /**
