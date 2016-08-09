@@ -118,6 +118,21 @@ class Armourer extends StrictObject
      * @param ArmorCode $armorCode
      * @param int $bodySize
      * @param int $currentStrength
+     * @return bool
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function canUseArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
+    {
+        $missingStrength = $this->getMissingStrengthForArmor($armorCode, $bodySize, $currentStrength);
+
+        return $this->tables->getArmorSanctionsTable()->canMove($missingStrength);
+    }
+
+    /**
+     * @param ArmorCode $armorCode
+     * @param int $bodySize
+     * @param int $currentStrength
      * @return int
      * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
