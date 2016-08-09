@@ -162,6 +162,27 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
+     */
+    public function I_can_find_out_if_can_use_armor()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        $tables->shouldReceive('getBodyArmorsTable')
+            ->andReturn($bodyArmorsTable = $this->createBodyArmorsTable());
+        $bodyArmorCodeValue = 'foo';
+        $bodyArmorsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($bodyArmorCodeValue)
+            ->andReturn(5);
+        $tables->shouldReceive('getArmorSanctionsTable')
+            ->andReturn($armorSanctionsTable = $this->createArmorSanctionsTable());
+        $armorSanctionsTable->shouldReceive('canMove')
+            ->with(3)
+            ->andReturn('bar');
+
+        self::assertSame('bar', $armourer->canUseArmor($this->createBodyArmorCode($bodyArmorCodeValue), 0, 2));
+    }
+
+    /**
+     * @test
      * @dataProvider provideStrengthAndMeleeWeaponGroup
      * @param int $requiredStrength
      * @param int $strength
