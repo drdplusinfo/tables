@@ -301,7 +301,7 @@ class Armourer extends StrictObject
      * Beware of spear, which can be both range and melee - if you want to use it as range, provide it as RangeWeaponCode,
      * otherwise as MeleeWeaponCode
      * @param WeaponCode $weaponCode
-     * @param $currentStrength
+     * @param int $currentStrength
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
