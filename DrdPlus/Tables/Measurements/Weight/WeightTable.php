@@ -81,20 +81,18 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @param Strength $strength
      * @param Weight $cargoWeight
-     * @return MalusFromLoad
+     * @return int negative number or zero
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
-     * @throws \DrdPlus\Tables\Measurements\Weight\Exceptions\MalusFromLoadCanNotBePositive
      */
     public function getMalusFromLoad(Strength $strength, Weight $cargoWeight)
     {
         $requiredStrength = $cargoWeight->getBonus()->getValue();
         $missingStrength = $requiredStrength - $strength->getValue();
-        $malusValue = min( // negative number or zero
+
+        return min( // negative number or zero
             -SumAndRound::half($missingStrength), // see PPH page 113, right column
             0
         );
-
-        return new MalusFromLoad($malusValue);
     }
 
 }

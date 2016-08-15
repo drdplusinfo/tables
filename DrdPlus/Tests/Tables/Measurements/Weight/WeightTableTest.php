@@ -2,7 +2,6 @@
 namespace DrdPlus\Tests\Tables\Measurements\Weight;
 
 use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Tables\Measurements\Weight\MalusFromLoad;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
@@ -128,10 +127,10 @@ class WeightTableTest extends TestWithMockery implements MeasurementTableTest
      */
     public function I_can_get_malus_from_load_for_missing_strength($strength, $weightBonus, $expectedMalus)
     {
-        $w = new WeightTable();
-        $malusFromLoad = $w->getMalusFromLoad($this->createStrength($strength), $this->createWeight($weightBonus));
-        self::assertInstanceOf(MalusFromLoad::class, $malusFromLoad);
-        self::assertSame($expectedMalus, $malusFromLoad->getValue());
+        self::assertSame(
+            $expectedMalus,
+            (new WeightTable())->getMalusFromLoad($this->createStrength($strength), $this->createWeight($weightBonus))
+        );
     }
 
     public function provideStrengthCargoWeightBonusAndExpectedMalus()
