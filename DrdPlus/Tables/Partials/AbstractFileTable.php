@@ -15,7 +15,6 @@ abstract class AbstractFileTable extends AbstractTable
     const FLOAT = 'float';
     const BOOLEAN = 'boolean';
     const STRING = 'string';
-    const SLASH_ARRAY_OF_INTEGERS = 'slash_array_of_integers';
 
     /** @var array|string[][]|string[][][] */
     private $indexedValues;
@@ -248,8 +247,6 @@ abstract class AbstractFileTable extends AbstractTable
                 return self::NEGATIVE_INTEGER;
             case self::STRING :
                 return self::STRING;
-            case self::SLASH_ARRAY_OF_INTEGERS :
-                return self::SLASH_ARRAY_OF_INTEGERS;
             default :
                 throw new Exceptions\UnknownScalarTypeForColumn(
                     'Unknown scalar type ' . ValueDescriber::describe($scalarType)
@@ -286,15 +283,6 @@ abstract class AbstractFileTable extends AbstractTable
                 return $value === '' ? false : ToInteger::toNegativeInteger($this->normalizeMinus($value));
             case self::FLOAT :
                 return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
-            case self::SLASH_ARRAY_OF_INTEGERS :
-                return $value === ''
-                    ? []
-                    : array_map(
-                        function ($fromArrayValue) {
-                            return $this->normalizeValueForType($fromArrayValue, self::INTEGER);
-                        },
-                        explode('/', $value)
-                    );
             default : // string
                 return $value;
         }
@@ -345,9 +333,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $indexed = [];
         foreach ($toIndex as $rowKeyOrColumnIndex => $rowOrFinalValue) {
-            if (!is_array($rowOrFinalValue)
-                || ($stepsToBottom === 0 && $this->isArrayColumnType($rowKeyOrColumnIndex))
-            ) {
+            if (!is_array($rowOrFinalValue)) {
                 $columnKey = $columnKeys[$rowKeyOrColumnIndex];
                 $indexed[$columnKey] = $rowOrFinalValue;
             } else {
@@ -356,11 +342,6 @@ abstract class AbstractFileTable extends AbstractTable
         }
 
         return $indexed;
-    }
-
-    private function isArrayColumnType($columnIndex)
-    {
-        return $this->getColumnType($columnIndex) === self::SLASH_ARRAY_OF_INTEGERS;
     }
 
     /**
