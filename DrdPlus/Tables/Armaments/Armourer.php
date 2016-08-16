@@ -210,8 +210,8 @@ class Armourer extends StrictObject
         if ($meleeWeaponCode->isMaceOrClub()) {
             return $this->tables->getMacesAndClubsTable();
         }
-        if ($meleeWeaponCode->isMorningStarOrMorgenstern()) {
-            return $this->tables->getMorningStarsAndMorgensternsTable();
+        if ($meleeWeaponCode->isMorningstarOrMorgenstern()) {
+            return $this->tables->getMorningstarsAndMorgensternsTable();
         }
         if ($meleeWeaponCode->isSaberOrBowieKnife()) {
             return $this->tables->getSabersAndBowieKnifesTable();
@@ -229,7 +229,7 @@ class Armourer extends StrictObject
             return $this->tables->getVoulgesAndTridentsTable();
         }
         throw new UnknownMeleeWeaponCode(
-            "Given melee weapon of code {$meleeWeaponCode} does not belongs to any known type"
+            "Given melee weapon of code '{$meleeWeaponCode}' does not belongs to any known type"
         );
     }
 
@@ -356,16 +356,16 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param RangeWeaponCode $shootingWeaponCode
+     * @param RangeWeaponCode $rangeWeaponCode
      * @param int $currentStrength
      * @return array|\mixed[]
      * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionValuesForRangeWeapon(RangeWeaponCode $shootingWeaponCode, $currentStrength)
+    public function getSanctionValuesForRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
     {
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($shootingWeaponCode, $currentStrength);
+        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
 
         return $this->tables->getRangeWeaponSanctionsTable()->getSanctionsForMissingStrength($missingStrength);
     }
@@ -389,29 +389,32 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param RangeWeaponCode $shootingWeaponCode
+     * @param RangeWeaponCode $rangeWeaponCode
      * @return RangeWeaponsTable
      * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
-    private function getTableByRangeWeaponCode(RangeWeaponCode $shootingWeaponCode)
+    private function getTableByRangeWeaponCode(RangeWeaponCode $rangeWeaponCode)
     {
-        if ($shootingWeaponCode->isArrow()) {
+        if ($rangeWeaponCode->isArrow()) {
             return $this->tables->getArrowsTable();
         }
-        if ($shootingWeaponCode->isBow()) {
+        if ($rangeWeaponCode->isBow()) {
             return $this->tables->getBowsTable();
         }
-        if ($shootingWeaponCode->isCrossbow()) {
+        if ($rangeWeaponCode->isCrossbow()) {
             return $this->tables->getCrossbowsTable();
         }
-        if ($shootingWeaponCode->isDart()) {
+        if ($rangeWeaponCode->isDart()) {
             return $this->tables->getDartsTable();
         }
-        if ($shootingWeaponCode->isSlingStone()) {
+        if ($rangeWeaponCode->isSlingStone()) {
             return $this->tables->getSlingStonesTable();
         }
+        if ($rangeWeaponCode->isThrowingWeapon()) {
+            return $this->tables->getThrowingWeaponsTable();
+        }
         throw new UnknownRangeWeaponCode(
-            "Given shooting weapon of code {$shootingWeaponCode} does not belongs to any known type"
+            "Given range weapon of code '{$rangeWeaponCode}' does not belongs to any known type"
         );
     }
 
@@ -509,5 +512,136 @@ class Armourer extends StrictObject
         $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
 
         return $this->tables->getRangeWeaponSanctionsTable()->getBaseOfWoundsSanction($missingStrength);
+    }
+
+    // WEAPON NUMBERS
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getRequiredStrengthFor(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getRequiredStrengthOf($weaponCode);
+        }
+        /* note: bow gives the minimal strength needed to be used without a malus, not the maximal applicable strength
+           which usable only for result damage */
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getRequiredStrengthOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     */
+    public function getLengthOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getLengthOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return 0;
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getOffensivenessOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getOffensivenessOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getOffensivenessOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getWoundsOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getWoundsOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getWoundsOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getWoundsTypeOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getWoundsTypeOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getWoundsTypeOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getCoverOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getCoverOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return 0;
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getWeightOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($weaponCode)->getWeightOf($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getWeightOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function getRangeOf(WeaponCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return 0;
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($weaponCode)->getRangeOf($weaponCode);
+        }
+        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
     }
 }

@@ -262,7 +262,7 @@ class ArmourerTest extends TestWithMockery
             [50, 10, 40, 'axe'],
             [-66, -65, 0, 'knifeOrDagger'],
             [-88, -200, 112, 'maceOrClub'],
-            [1, 2, 0, 'morningStarOrMorgenstern'],
+            [1, 2, 0, 'morningstarOrMorgenstern'],
             [2, 1, 1, 'saberOrBowieKnife'],
             [11, 13, 0, 'staffOrSpear'],
             [14, 10, 4, 'sword'],
@@ -313,7 +313,7 @@ class ArmourerTest extends TestWithMockery
     private function getMeleeWeaponGroups()
     {
         return [
-            'axe', 'knifeOrDagger', 'maceOrClub', 'morningStarOrMorgenstern',
+            'axe', 'knifeOrDagger', 'maceOrClub', 'morningstarOrMorgenstern',
             'saberOrBowieKnife', 'staffOrSpear', 'sword', 'unarmed', 'voulgeOrTrident'
         ];
     }
@@ -402,7 +402,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $weaponsTableBaseName = $weaponGroup . 'sTable';
         $tables->shouldReceive('get' . ucfirst($weaponsTableBaseName))
-            ->andReturn($rangeWeaponTable = $this->createRangeWeaponTable());
+            ->andReturn($rangeWeaponTable = $this->createRangeWeaponsTable());
         $weaponCodeValue = ' foo';
         $rangeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($weaponCodeValue)
@@ -490,7 +490,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @return \Mockery\MockInterface|RangeWeaponsTable
      */
-    private function createRangeWeaponTable()
+    private function createRangeWeaponsTable()
     {
         return $this->mockery(RangeWeaponsTable::class);
     }
@@ -525,7 +525,7 @@ class ArmourerTest extends TestWithMockery
 
     private function getRangeWeaponGroups()
     {
-        return ['arrow', 'bow', 'dart', 'crossbow', 'slingStone'];
+        return ['bow', 'arrow', 'crossbow', 'dart', 'throwingWeapon', 'slingStone'];
     }
 
     /**
@@ -546,6 +546,312 @@ class ArmourerTest extends TestWithMockery
     public function I_can_not_get_sanctions_for_unknown_range_weapon()
     {
         (new Armourer($this->createTables()))->getSanctionValuesForRangeWeapon($this->createRangeWeaponCode('foo', 'spit'), 0);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_required_strength_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getAxesTable')
+            ->andReturn($axesTable = $this->createMeleeWeaponTable());
+        $axe = $this->createMeleeWeaponCode('foo', 'axe');
+        $axesTable->shouldReceive('getRequiredStrengthOf')
+            ->with($axe)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getRequiredStrengthFor($axe));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_required_strength_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getBowsTable')
+            ->andReturn($bowsTable = $this->createRangeWeaponsTable());
+        $bow = $this->createRangeWeaponCode('foo', 'bow');
+        $bowsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($bow)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getRequiredStrengthFor($bow));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_required_strength_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getRequiredStrengthFor($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_length_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getKnifesAndDaggersTable')
+            ->andReturn($knifesAndDaggersTable = $this->createMeleeWeaponTable());
+        $knife = $this->createMeleeWeaponCode('foo', 'knifeOrDagger');
+        $knifesAndDaggersTable->shouldReceive('getLengthOf')
+            ->with($knife)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getLengthOf($knife));
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_always_zero_as_length_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getCrossbowsTable')
+            ->andReturn($crossbowsTable = $this->createRangeWeaponsTable());
+        $knife = $this->createRangeWeaponCode('foo', 'crossbows');
+        $crossbowsTable->shouldNotReceive('getLengthOf');
+        self::assertSame(0, (new Armourer($tables))->getLengthOf($knife));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_length_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getLengthOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_offensiveness_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getMacesAndClubsTable')
+            ->andReturn($macesAndClubsTable = $this->createMeleeWeaponTable());
+        $club = $this->createMeleeWeaponCode('foo', 'maceOrClub');
+        $macesAndClubsTable->shouldReceive('getOffensivenessOf')
+            ->with($club)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getOffensivenessOf($club));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_offensiveness_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getSlingStonesTable')
+            ->andReturn($slingStonesTable = $this->createRangeWeaponsTable());
+        $slingStone = $this->createRangeWeaponCode('foo', 'slingStone');
+        $slingStonesTable->shouldReceive('getOffensivenessOf')
+            ->with($slingStone)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getOffensivenessOf($slingStone));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_offensiveness_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getOffensivenessOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getMorningstarsAndMorgensternsTable')
+            ->andReturn($morningstarsAndMorgensternsTable = $this->createMeleeWeaponTable());
+        $morgenstern = $this->createMeleeWeaponCode('foo', 'morningstarOrMorgenstern');
+        $morningstarsAndMorgensternsTable->shouldReceive('getWoundsOf')
+            ->with($morgenstern)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsOf($morgenstern));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getThrowingWeaponsTable')
+            ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
+        $sling = $this->createRangeWeaponCode('foo', 'throwingWeapon');
+        $throwingWeaponsTable->shouldReceive('getWoundsOf')
+            ->with($sling)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsOf($sling));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_wounds_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getWoundsOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_type_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getStaffsAndSpearsTable')
+            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponTable());
+        $staff = $this->createMeleeWeaponCode('foo', 'staffOrSpear');
+        $staffsAndSpearsTable->shouldReceive('getWoundsTypeOf')
+            ->with($staff)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsTypeOf($staff));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_type_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getThrowingWeaponsTable')
+            ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
+        $shuriken = $this->createRangeWeaponCode('foo', 'throwingWeapon');
+        $throwingWeaponsTable->shouldReceive('getWoundsTypeOf')
+            ->with($shuriken)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsTypeOf($shuriken));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_wounds_type_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getWoundsTypeOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_cover_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getUnarmedTable')
+            ->andReturn($unarmedTable = $this->createMeleeWeaponTable());
+        $fist = $this->createMeleeWeaponCode('foo', 'unarmed');
+        $unarmedTable->shouldReceive('getCoverOf')
+            ->with($fist)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getCoverOf($fist));
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_always_zero_as_cover_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getDarts')
+            ->andReturn($dartsTable = $this->createRangeWeaponsTable());
+        $dart = $this->createRangeWeaponCode('foo', 'dart');
+        $dartsTable->shouldNotReceive('getCoverOf');
+        self::assertSame(0, (new Armourer($tables))->getCoverOf($dart));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_cover_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getCoverOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_weight_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getSwordsTable')
+            ->andReturn($swordsTable = $this->createMeleeWeaponTable());
+        $escalatorlibur = $this->createMeleeWeaponCode('foo', 'sword');
+        $swordsTable->shouldReceive('getWeightOf')
+            ->with($escalatorlibur)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWeightOf($escalatorlibur));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_weight_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getArrowsTable')
+            ->andReturn($arrowsTable = $this->createRangeWeaponsTable());
+        $arrow = $this->createRangeWeaponCode('foo', 'arrow');
+        $arrowsTable->shouldReceive('getWeightOf')
+            ->with($arrow)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWeightOf($arrow));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_weight_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getWeightOf($this->mockery(WeaponCode::class));
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_zero_as_range_of_melee_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getVoulgesAndTridentsTable')
+            ->andReturn($voulgesAndTridentsTable = $this->createMeleeWeaponTable());
+        $pitchfork = $this->createMeleeWeaponCode('foo', 'voulgeOrTrident');
+        $voulgesAndTridentsTable->shouldNotReceive('getRangeOf');
+        self::assertSame(0, (new Armourer($tables))->getRangeOf($pitchfork));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_range_of_range_weapons()
+    {
+        $tables = $this->createTables();
+        $tables->shouldReceive('getBowsTable')
+            ->andReturn($bowsTable = $this->createRangeWeaponsTable());
+        $bow = $this->createRangeWeaponCode('foo', 'bow');
+        $bowsTable->shouldReceive('getRangeOf')
+            ->with($bow)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getRangeOf($bow));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     */
+    public function I_can_not_get_range_for_unknown_weapon_code()
+    {
+        (new Armourer($this->createTables()))->getRangeOf($this->mockery(WeaponCode::class));
     }
 
 }

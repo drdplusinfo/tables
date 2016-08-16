@@ -8,7 +8,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTableTest;
 
 class DartsTableTest extends RangeWeaponsTableTest
 {
-    protected function getRowHeaderValue()
+    protected function getRowHeaderName()
     {
         return 'projectile';
     }

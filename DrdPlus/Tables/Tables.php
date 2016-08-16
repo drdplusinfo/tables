@@ -339,7 +339,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @return MorningstarsAndMorgensternsTable
      */
-    public function getMorningStarsAndMorgensternsTable()
+    public function getMorningstarsAndMorgensternsTable()
     {
         if (!array_key_exists(MorningstarsAndMorgensternsTable::class, $this->tables)) {
             $this->tables[MorningstarsAndMorgensternsTable::class] = new MorningstarsAndMorgensternsTable();
@@ -627,7 +627,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getAxesTable(),
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
-            $this->getMorningStarsAndMorgensternsTable(),
+            $this->getMorningstarsAndMorgensternsTable(),
             $this->getSabersAndBowieKnifesTable(),
             $this->getStaffsAndSpearsTable(),
             $this->getSwordsTable(),

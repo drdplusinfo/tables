@@ -39,7 +39,7 @@ abstract class RangeWeaponsTable extends AbstractArmamentsTable implements Weapo
      * @return float|int|string
      * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
      */
-    private function getValueOf($weaponCode, $valueName)
+    protected function getValueOf($weaponCode, $valueName)
     {
         try {
             return $this->getValue([$weaponCode], $valueName);

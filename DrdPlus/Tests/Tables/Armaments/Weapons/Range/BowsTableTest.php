@@ -3,12 +3,24 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
 use DrdPlus\Codes\RangeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTableTest;
 
 class BowsTableTest extends RangeWeaponsTableTest
 {
-    protected function getRowHeaderValue()
+    /**
+     * @test
+     */
+    public function I_can_get_header()
+    {
+        $bowsTable = new BowsTable();
+        self::assertSame(
+            [['weapon', 'required_strength', 'maximal_applicable_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'weight']],
+            $bowsTable->getHeader()
+        );
+    }
+
+    protected function getRowHeaderName()
     {
         return 'weapon';
     }
@@ -16,40 +28,45 @@ class BowsTableTest extends RangeWeaponsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::REQUIRED_STRENGTH, [-1, 3]],
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::OFFENSIVENESS, 2],
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::WOUNDS, 1],
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::RANGE, 24],
-            [RangeWeaponCode::SHORT_BOW, RangeWeaponsTable::WEIGHT, 1.0],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::REQUIRED_STRENGTH, -1],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 3],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::OFFENSIVENESS, 2],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::WOUNDS, 1],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::RANGE, 24],
+            [RangeWeaponCode::SHORT_BOW, BowsTable::WEIGHT, 1.0],
 
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::REQUIRED_STRENGTH, [5, 7]],
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::OFFENSIVENESS, 3],
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::WOUNDS, 4],
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::RANGE, 27],
-            [RangeWeaponCode::LONG_BOW, RangeWeaponsTable::WEIGHT, 1.2],
+            [RangeWeaponCode::LONG_BOW, BowsTable::REQUIRED_STRENGTH, 5],
+            [RangeWeaponCode::LONG_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 7],
+            [RangeWeaponCode::LONG_BOW, BowsTable::OFFENSIVENESS, 3],
+            [RangeWeaponCode::LONG_BOW, BowsTable::WOUNDS, 4],
+            [RangeWeaponCode::LONG_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::LONG_BOW, BowsTable::RANGE, 27],
+            [RangeWeaponCode::LONG_BOW, BowsTable::WEIGHT, 1.2],
 
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::REQUIRED_STRENGTH, [1, 6]],
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::OFFENSIVENESS, 3],
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::WOUNDS, 2],
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::RANGE, 26],
-            [RangeWeaponCode::SHORT_COMPOSITE_BOW, RangeWeaponsTable::WEIGHT, 1.0],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::REQUIRED_STRENGTH, 1],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 6],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::OFFENSIVENESS, 3],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WOUNDS, 2],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::RANGE, 26],
+            [RangeWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WEIGHT, 1.0],
 
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::REQUIRED_STRENGTH, [5, 9]],
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::OFFENSIVENESS, 4],
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::WOUNDS, 5],
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::RANGE, 29],
-            [RangeWeaponCode::LONG_COMPOSITE_BOW, RangeWeaponsTable::WEIGHT, 1.5],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::REQUIRED_STRENGTH, 5],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 9],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::OFFENSIVENESS, 4],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WOUNDS, 5],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::RANGE, 29],
+            [RangeWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WEIGHT, 1.5],
 
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::REQUIRED_STRENGTH, [7, 12]],
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::OFFENSIVENESS, 5],
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::WOUNDS, 6],
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::RANGE, 31],
-            [RangeWeaponCode::POWER_BOW, RangeWeaponsTable::WEIGHT, 2.0],
+            [RangeWeaponCode::POWER_BOW, BowsTable::REQUIRED_STRENGTH, 7],
+            [RangeWeaponCode::POWER_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 12],
+            [RangeWeaponCode::POWER_BOW, BowsTable::OFFENSIVENESS, 5],
+            [RangeWeaponCode::POWER_BOW, BowsTable::WOUNDS, 6],
+            [RangeWeaponCode::POWER_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::POWER_BOW, BowsTable::RANGE, 31],
+            [RangeWeaponCode::POWER_BOW, BowsTable::WEIGHT, 2.0],
         ];
     }
 

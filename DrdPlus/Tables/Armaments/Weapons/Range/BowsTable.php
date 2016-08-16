@@ -10,13 +10,28 @@ class BowsTable extends RangeWeaponsTable
         return __DIR__ . '/data/bows.csv';
     }
 
+    const MAXIMAL_APPLICABLE_STRENGTH = 'maximal_applicable_strength';
+
     protected function getExpectedDataHeaderNamesToTypes()
     {
-        $expectedDataHeader = parent::getExpectedDataHeaderNamesToTypes();
-        // overloading for special format of melee fight and max applicable strength
-        $expectedDataHeader[self::REQUIRED_STRENGTH] = self::SLASH_ARRAY_OF_INTEGERS;
+        return [
+            self::REQUIRED_STRENGTH => self::INTEGER,
+            self::MAXIMAL_APPLICABLE_STRENGTH => self::INTEGER,
+            self::OFFENSIVENESS => self::INTEGER,
+            self::WOUNDS => self::INTEGER,
+            self::WOUNDS_TYPE => self::STRING,
+            self::RANGE => self::INTEGER,
+            self::WEIGHT => self::FLOAT,
+        ];
+    }
 
-        return $expectedDataHeader;
+    /**
+     * @param string $weaponCode
+     * @return int
+     */
+    public function getMaximalApplicableStrengthOf($weaponCode)
+    {
+        return self::getValueOf($weaponCode, self::MAXIMAL_APPLICABLE_STRENGTH);
     }
 
     protected function getRowsHeader()
