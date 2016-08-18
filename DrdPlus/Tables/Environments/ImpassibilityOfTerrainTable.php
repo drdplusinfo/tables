@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Environments;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Tools\Calculations\SumAndRound;
 use Granam\Scalar\Tools\Exceptions\WrongParameterType;
 use Granam\Tools\ValueDescriber;
@@ -92,7 +92,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getRow([$terrainCode]);
-        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+        } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownTerrainCode('Unknown terrain code ' . ValueDescriber::describe($terrainCode));
         } catch (WrongParameterType $wrongParameterType) {
             throw new Exceptions\InvalidTerrainCodeFormat(

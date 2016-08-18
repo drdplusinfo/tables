@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
 
@@ -49,7 +49,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotProlongActivityPerDayWithLimitedTime
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\NotApplicableOnShorterThanDay
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -85,7 +85,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @param int $hoursPerDay
      * @return int
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -93,7 +93,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     {
         try {
             return $this->getValue([ToInteger::toInteger($hoursPerDay)], self::ADJUSTMENT_HEADER);
-        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+        } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment(
                 'Expected 1 to 24 hours of activity per day, got ' . ValueDescriber::describe($hoursPerDay)
                 . ' From what universe you came from?'

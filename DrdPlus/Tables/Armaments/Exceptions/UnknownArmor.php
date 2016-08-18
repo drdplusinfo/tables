@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Exceptions;
 
-class MissingBodySize
+class UnknownArmor extends UnknownArmament
 {
 
 }

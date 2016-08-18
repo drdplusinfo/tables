@@ -1,21 +1,20 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Melee;
+namespace DrdPlus\Tables\Armaments\Partials;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
-class MissingStrengthForMeleeWeaponSanctionsTable extends AbstractSanctionsForMissingStrengthTable
+abstract class MissingStrengthForMeleeArmamentSanctionsTable extends AbstractSanctionsForMissingStrengthTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_strength_for_melee_weapon_sanctions.csv';
+        return __DIR__ . '/data/missing_strength_for_melee_armament_sanctions.csv';
     }
 
     const FIGHT_NUMBER = 'fight_number';
     const ATTACK_NUMBER = 'attack_number';
     const DEFENSE_NUMBER = 'defense_number';
     const BASE_OF_WOUNDS = 'base_of_wounds';
-    const CAN_USE_WEAPON = 'can_use_weapon';
+    const CAN_USE_ARMAMENT = 'can_use_armament';
 
     protected function getExpectedDataHeaderNamesToTypes()
     {
@@ -25,7 +24,7 @@ class MissingStrengthForMeleeWeaponSanctionsTable extends AbstractSanctionsForMi
             self::ATTACK_NUMBER => self::NEGATIVE_INTEGER,
             self::DEFENSE_NUMBER => self::NEGATIVE_INTEGER,
             self::BASE_OF_WOUNDS => self::NEGATIVE_INTEGER,
-            self::CAN_USE_WEAPON => self::BOOLEAN,
+            self::CAN_USE_ARMAMENT => self::BOOLEAN,
         ];
     }
 
@@ -52,7 +51,7 @@ class MissingStrengthForMeleeWeaponSanctionsTable extends AbstractSanctionsForMi
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
-        if ($guardMaximumMissingStrength && !$this->canUseWeapon($missingStrength)) {
+        if ($guardMaximumMissingStrength && !$this->canUseArmament($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
                 "Too much missing strength {$missingStrength} to use a melee weapon"
             );
@@ -103,12 +102,12 @@ class MissingStrengthForMeleeWeaponSanctionsTable extends AbstractSanctionsForMi
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseWeapon($missingStrength)
+    protected function canUseArmament($missingStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
             $missingStrength,
-            self::CAN_USE_WEAPON,
+            self::CAN_USE_ARMAMENT,
             false /* do not check missing strength before value determination */
         );
     }

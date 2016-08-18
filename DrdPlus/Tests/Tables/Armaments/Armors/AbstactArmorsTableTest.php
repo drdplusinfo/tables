@@ -98,7 +98,7 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function I_can_not_get_value_for_unknown_armor()
     {

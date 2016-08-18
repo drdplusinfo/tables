@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials\Exceptions;
 
-class UnexpectedSkillRank
+class UnexpectedSkillRank extends \InvalidArgumentException implements Logic
 {
 
 }

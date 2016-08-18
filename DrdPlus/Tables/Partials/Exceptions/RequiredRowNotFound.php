@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Partials\Exceptions;
 
-class RequiredRowDataNotFound extends RequiredDataNotFound
+class RequiredRowNotFound extends RequiredDataNotFound
 {
 
 }

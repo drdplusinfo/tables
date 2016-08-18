@@ -1,13 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 
-class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
+class ArmorSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/armor_sanctions.csv';
+        return __DIR__ . '/data/missing_strength_for_armor_sanctions.csv';
     }
 
     const SANCTION_DESCRIPTION = 'sanction_description';
@@ -43,7 +44,7 @@ class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseArmorBecauseOfMissingStrength
+     * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -57,14 +58,14 @@ class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
      * @return int
-     * @throws Exceptions\CanNotUseArmorBecauseOfMissingStrength
+     * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
         if ($guardMaximumMissingStrength && !$this->canMove($missingStrength)) {
-            throw new Exceptions\CanNotUseArmorBecauseOfMissingStrength(
+            throw new CanNotUseArmorBecauseOfMissingStrength(
                 "Too much missing strength {$missingStrength} to bear an armor"
             );
         }
@@ -75,7 +76,7 @@ class ArmorSanctionsTable extends AbstractSanctionsForMissingStrengthTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws Exceptions\CanNotUseArmorBecauseOfMissingStrength
+     * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */

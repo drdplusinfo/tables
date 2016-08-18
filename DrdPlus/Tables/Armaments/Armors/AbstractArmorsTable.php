@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
 use Granam\Tools\ValueDescriber;
@@ -23,7 +24,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     /**
      * @param string $armorCode
      * @return int|false
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function getRequiredStrengthOf($armorCode)
     {
@@ -34,14 +35,14 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
      * @param string $armorCode
      * @param $valueName
      * @return bool|float|int|string
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     private function getValueFor($armorCode, $valueName)
     {
         try {
             return $this->getValue([$armorCode], $valueName);
-        } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound $exception) {
-            throw new Exceptions\UnknownArmorCode(
+        } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound $exception) {
+            throw new UnknownArmor(
                 'Unknown armor code ' . ValueDescriber::describe($armorCode)
             );
         }
@@ -50,7 +51,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     /**
      * @param string $armorCode
      * @return int|false
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function getRestrictionOf($armorCode)
     {
@@ -60,7 +61,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     /**
      * @param string $armorCode
      * @return int|false
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function getProtectionOf($armorCode)
     {
@@ -70,7 +71,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     /**
      * @param string $armorCode
      * @return int|false
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function getWeightOf($armorCode)
     {

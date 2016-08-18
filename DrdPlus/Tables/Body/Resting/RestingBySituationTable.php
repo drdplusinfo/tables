@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Body\Resting;
 
 use DrdPlus\Tables\Partials\AbstractFileTableWithPercents;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
@@ -30,7 +30,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getBonusBy($situationCode, $restingSituationPercents);
-        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+        } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownCodeOfRestingInfluence(
                 'Unknown influence on healing code ' . ValueDescriber::describe($situationCode)
             );

@@ -5,15 +5,21 @@ use DrdPlus\Codes\ArmamentCode;
 use DrdPlus\Codes\ArmorCode;
 use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
+use DrdPlus\Codes\MeleeArmamentCode;
 use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
+use DrdPlus\Codes\ShieldCode;
 use DrdPlus\Codes\WeaponCode;
-use DrdPlus\Tables\Armaments\Armors\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
-use DrdPlus\Tables\Armaments\Armors\Exceptions\UnknownArmorCode;
+use DrdPlus\Properties\Body\Size;
+use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
-use DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode;
-use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode;
 use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
@@ -34,47 +40,111 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param ArmorCode $armorCode
-     * @param int $bodySize
+     * Note: spear can be both range and melee, but required strength is for melee and range usages the same
+     * @param ArmamentCode $armamentCode
      * @param int $currentStrength
-     * @return array|\mixed[]
+     * @param Size $bodySize
+     * @return bool
+     * @throws UnknownArmament
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionValuesForArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
+    public function canUseArmament(ArmamentCode $armamentCode, $currentStrength, Size $bodySize)
     {
-        return $this->tables->getArmorSanctionsTable()->getSanctionsForMissingStrength(
-            $this->getMissingStrengthForArmor($armorCode, $bodySize, $currentStrength)
-        );
+        $missingStrength = $this->getMissingStrengthForArmament($armamentCode, $currentStrength, $bodySize);
+        if ($armamentCode instanceof MeleeWeaponCode) {
+            return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->canUseWeapon($missingStrength);
+        }
+        if ($armamentCode instanceof RangeWeaponCode) {
+            return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->canUseWeapon($missingStrength);
+        }
+        if ($armamentCode instanceof ShieldCode) {
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->canUseShield($missingStrength);
+        }
+        if ($armamentCode instanceof ArmorCode) {
+            return $this->tables->getArmorSanctionsByMissingStrengthTable()->canMove($missingStrength);
+        }
+
+        throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
+    }
+
+    /**
+     * @param ArmamentCode $armamentCode
+     * @param Size $bodySize
+     * @param int $currentStrength
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getMissingStrengthForArmament(ArmamentCode $armamentCode, $currentStrength, Size $bodySize)
+    {
+        if ($armamentCode instanceof MeleeWeaponCode) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->calculateMissingStrengthForArmament(
+                $this->getTableByMeleeWeaponCode($armamentCode),
+                $armamentCode,
+                $currentStrength
+            );
+        }
+        if ($armamentCode instanceof RangeWeaponCode) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->calculateMissingStrengthForArmament(
+                $this->getTableByRangeWeaponCode($armamentCode),
+                $armamentCode,
+                $currentStrength
+            );
+        }
+        if ($armamentCode instanceof ShieldCode) {
+            return $this->calculateMissingStrengthForArmament(
+                $this->tables->getShieldsTable(),
+                $armamentCode,
+                $currentStrength
+            );
+        }
+        if ($armamentCode instanceof ArmorCode) {
+            /** See PPH page 91, right column */
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->calculateMissingStrengthForArmament(
+                $this->getArmorsTableByArmorCode($armamentCode),
+                $armamentCode,
+                $currentStrength,
+                $bodySize->getValue()
+            );
+        }
+        throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
     }
 
     /**
      * See PPH page 91, right column
-     * @param ArmorCode $armorCode
-     * @param int $bodySize
+     * @param AbstractArmamentsTable $abstractArmamentsTable
+     * @param ArmamentCode $armamentCode
      * @param int $currentStrength
+     * @param int $size
      * @return int
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getMissingStrengthForArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
+    private function calculateMissingStrengthForArmament(
+        AbstractArmamentsTable $abstractArmamentsTable,
+        ArmamentCode $armamentCode,
+        $currentStrength,
+        $size = 0
+    )
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return max(
-            0,
-            $this->getMissingStrengthForArmament(
-                $this->getArmorsTableByArmorCode($armorCode),
-                $armorCode,
-                $currentStrength,
-                false // give as raw value, even negative
-            ) + ToInteger::toInteger($bodySize)
-        );
+        $requiredStrength = $abstractArmamentsTable->getRequiredStrengthOf($armamentCode);
+        $missingStrength = $requiredStrength + ToInteger::toInteger($size) - ToInteger::toInteger($currentStrength);
+        if ($missingStrength < 0) {
+            return 0;
+        }
+
+        return $missingStrength;
     }
 
     /**
      * @param ArmorCode $armorCode
      * @return Armors\BodyArmorsTable|Armors\HelmsTable
-     * @throws UnknownArmorCode
+     * @throws UnknownArmor
      */
     private function getArmorsTableByArmorCode(ArmorCode $armorCode)
     {
@@ -85,119 +155,62 @@ class Armourer extends StrictObject
             return $this->tables->getHelmsTable();
         }
 
-        throw new UnknownArmorCode();
-    }
-
-    /**
-     * See PPH page 91, right column
-     * @param AbstractArmamentsTable $abstractArmamentsTable
-     * @param ArmamentCode $armamentCode
-     * @param int $currentStrength
-     * @param bool $isFinalValue
-     * @return int
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    private function getMissingStrengthForArmament(
-        AbstractArmamentsTable $abstractArmamentsTable,
-        ArmamentCode $armamentCode,
-        $currentStrength,
-        $isFinalValue
-    )
-    {
-        $requiredStrength = $abstractArmamentsTable->getRequiredStrengthOf($armamentCode->getValue());
-        $missingStrength = $requiredStrength - ToInteger::toInteger($currentStrength);
-        if ($isFinalValue && $missingStrength < 0) {
-            return 0;
-        }
-
-        return $missingStrength;
+        throw new UnknownArmor();
     }
 
     /**
      * @param ArmorCode $armorCode
-     * @param int $bodySize
-     * @param int $currentStrength
-     * @return bool
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function canUseArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
-    {
-        $missingStrength = $this->getMissingStrengthForArmor($armorCode, $bodySize, $currentStrength);
-
-        return $this->tables->getArmorSanctionsTable()->canMove($missingStrength);
-    }
-
-    /**
-     * @param ArmorCode $armorCode
-     * @param int $bodySize
+     * @param Size $bodySize
      * @param int $currentStrength
      * @return int
      * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionDescriptionForArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
+    public function getSanctionDescriptionForArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
     {
-        $missingStrength = $this->getMissingStrengthForArmor($armorCode, $bodySize, $currentStrength);
+        $missingStrength = $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize);
 
-        return $this->tables->getArmorSanctionsTable()->getSanctionDescription($missingStrength);
+        return $this->tables->getArmorSanctionsByMissingStrengthTable()->getSanctionDescription($missingStrength);
     }
 
     /**
      * @param ArmorCode $armorCode
-     * @param int $bodySize
+     * @param Size $bodySize
      * @param int $currentStrength
      * @return int
      * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAgilityMalusForArmor(ArmorCode $armorCode, $bodySize, $currentStrength)
+    public function getAgilityMalusFromArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
     {
-        $missingStrength = $this->getMissingStrengthForArmor($armorCode, $bodySize, $currentStrength);
+        $missingStrength = $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize);
 
-        return $this->tables->getArmorSanctionsTable()->getAgilityMalus($missingStrength);
-    }
-
-    /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param int $currentStrength
-     * @return array|\mixed[]
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getSanctionValuesForMeleeWeapon(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
-
-        return $this->tables->getMeleeWeaponSanctionsTable()->getSanctionsForMissingStrength($missingStrength);
+        return $this->tables->getArmorSanctionsByMissingStrengthTable()->getAgilityMalus($missingStrength);
     }
 
     /**
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param int $currentStrength
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getMissingStrengthForMeleeWeapon(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
+    private function getMissingStrengthForMeleeWeapon(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
     {
-        return $this->getMissingStrengthForArmament(
+        return $this->calculateMissingStrengthForArmament(
             $this->getTableByMeleeWeaponCode($meleeWeaponCode),
             $meleeWeaponCode,
-            $currentStrength,
-            true // it is final value, negative means zero
+            $currentStrength
         );
     }
 
     /**
      * @param MeleeWeaponCode $meleeWeaponCode
      * @return MeleeWeaponsTable
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     private function getTableByMeleeWeaponCode(MeleeWeaponCode $meleeWeaponCode)
     {
@@ -228,164 +241,135 @@ class Armourer extends StrictObject
         if ($meleeWeaponCode->isVoulgeOrTrident()) {
             return $this->tables->getVoulgesAndTridentsTable();
         }
-        throw new UnknownMeleeWeaponCode(
+        throw new UnknownMeleeWeapon(
             "Given melee weapon of code '{$meleeWeaponCode}' does not belongs to any known type"
         );
     }
 
     /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getMeleeWeaponFightNumberMalus(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
-
-        return $this->tables->getMeleeWeaponSanctionsTable()->getFightNumberSanction($missingStrength);
-    }
-
-    /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getMeleeWeaponAttackNumberMalus(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
-
-        return $this->tables->getMeleeWeaponSanctionsTable()->getAttackNumberSanction($missingStrength);
-    }
-
-    /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
-     */
-    public function getMeleeWeaponDefenseNumberMalus(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
-
-        return $this->tables->getMeleeWeaponSanctionsTable()->getDefenseNumberSanction($missingStrength);
-    }
-
-    /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
-     */
-    public function getMeleeWeaponBaseOfWoundsMalus(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
-
-        return $this->tables->getMeleeWeaponSanctionsTable()->getBaseOfWoundsSanction($missingStrength);
-    }
-
-    /**
-     * Beware of spear, which can be both range and melee - if you want to use it as range, provide it as RangeWeaponCode,
-     * otherwise as MeleeWeaponCode
      * @param WeaponCode $weaponCode
      * @param int $currentStrength
-     * @return bool
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @return int
+     * @throws UnknownArmament
+     * @throws Exceptions\UnknownWeapon
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseWeapon(WeaponCode $weaponCode, $currentStrength)
+    public function getFightNumberMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
     {
+        $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
         if ($weaponCode instanceof MeleeWeaponCode) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $missingStrength = $this->getMissingStrengthForMeleeWeapon($weaponCode, $currentStrength);
-
-            return $this->tables->getMeleeWeaponSanctionsTable()->canUseWeapon($missingStrength);
+            return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getFightNumberSanction($missingStrength);
         }
         if ($weaponCode instanceof RangeWeaponCode) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $missingStrength = $this->getMissingStrengthForRangeWeapon($weaponCode, $currentStrength);
-
-            return $this->tables->getRangeWeaponSanctionsTable()->canUseWeapon($missingStrength);
+            return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getFightNumberSanction($missingStrength);
         }
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getFightNumberSanction($currentStrength);
+        }
+        throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
+    }
 
-        throw new UnknownWeaponCode("Given weapon code {$weaponCode} is unknown");
+    /**
+     * @param WeaponCode $weaponCode
+     * @param int $currentStrength
+     * @return int
+     * @throws UnknownWeapon
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getAttackNumberMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getMeleeWeaponAttackNumberMalus($weaponCode, $currentStrength);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getRangeWeaponAttackNumberMalus($weaponCode, $currentStrength);
+        }
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getAttackNumberSanction($currentStrength);
+        }
+        throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param int $currentStrength
      * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseMeleeWeapon(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
+    private function getMeleeWeaponAttackNumberMalus(MeleeWeaponCode $meleeWeaponCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $missingStrength = $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength);
 
-        return $this->tables->getMeleeWeaponSanctionsTable()->canUseWeapon($missingStrength);
+        return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction($missingStrength);
     }
 
     /**
      * @param RangeWeaponCode $rangeWeaponCode
      * @param int $currentStrength
      * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    private function getRangeWeaponAttackNumberMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
+        $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
 
-        return $this->tables->getRangeWeaponSanctionsTable()->canUseWeapon($missingStrength);
+        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction($missingStrength);
     }
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return array|\mixed[]
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getSanctionValuesForRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getSanctionsForMissingStrength($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
+     * @param MeleeArmamentCode $meleeArmamentCode
      * @param int $currentStrength
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     */
+    public function getDefenseNumberMalusOfMeleeArmament(MeleeArmamentCode $meleeArmamentCode, $currentStrength)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $missingStrength = $this->getMissingStrengthForArmament($meleeArmamentCode, $currentStrength, Size::getIt(0));
+        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
+            return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getDefenseNumberSanction($missingStrength);
+        }
+        if ($meleeArmamentCode instanceof ShieldCode) {
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getDefenseNumberSanction($missingStrength);
+        }
+        throw new Exceptions\UnknownMeleeArmament("Unknown type of melee armament '{$meleeArmamentCode}'");
+    }
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @param int $currentStrength
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
+     * @throws UnknownWeapon
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getMissingStrengthForRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    public function getBaseOfWoundsMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
     {
-        return $this->getMissingStrengthForArmament(
-            $this->getTableByRangeWeaponCode($rangeWeaponCode),
-            $rangeWeaponCode,
-            $currentStrength,
-            true // it is final value, negative means zero
-        );
+        $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getBaseOfWoundsSanction($missingStrength);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getBaseOfWoundsSanction($missingStrength);
+        }
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getBaseOfWoundsSanction($missingStrength);
+        }
+        throw new UnknownWeapon("Unknown type of weapon code{$weaponCode}");
     }
 
     /**
@@ -419,109 +403,11 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponFightNumberMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getFightNumberSanction($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponAttackNumberMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getAttackNumberSanction($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponLoadingInRounds(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getLoadingInRounds($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponLoadingInRoundsMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getLoadingInRoundsSanction($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponEncounterRangeMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getEncounterRangeSanction($missingStrength);
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param int $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function getRangeWeaponBaseOfWoundsMalus(RangeWeaponCode $rangeWeaponCode, $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForRangeWeapon($rangeWeaponCode, $currentStrength);
-
-        return $this->tables->getRangeWeaponSanctionsTable()->getBaseOfWoundsSanction($missingStrength);
-    }
-
-    // WEAPON NUMBERS
-
-    /**
      * @param WeaponCode $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon
      */
-    public function getRequiredStrengthFor(WeaponCode $weaponCode)
+    public function getRequiredStrengthForWeapon(WeaponCode $weaponCode)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->getTableByMeleeWeaponCode($weaponCode)->getRequiredStrengthOf($weaponCode);
@@ -531,30 +417,34 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof RangeWeaponCode) {
             return $this->getTableByRangeWeaponCode($weaponCode)->getRequiredStrengthOf($weaponCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getRequiredStrengthOf($weaponCode);
+        }
+        throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
-     * @param WeaponCode $weaponCode
+     * @param MeleeArmamentCode $meleeArmamentCode
      * @return int
+     * @throws Exceptions\UnknownMeleeArmament
      */
-    public function getLengthOf(WeaponCode $weaponCode)
+    public function getLengthOfMeleeArmament(MeleeArmamentCode $meleeArmamentCode)
     {
-        if ($weaponCode instanceof MeleeWeaponCode) {
-            return $this->getTableByMeleeWeaponCode($weaponCode)->getLengthOf($weaponCode);
+        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($meleeArmamentCode)->getLengthOf($meleeArmamentCode);
         }
-        if ($weaponCode instanceof RangeWeaponCode) {
+        if ($meleeArmamentCode instanceof ShieldCode) {
             return 0;
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        throw new Exceptions\UnknownMeleeArmament("Unknown type of weapon '{$meleeArmamentCode}'");
     }
 
     /**
      * @param WeaponCode $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws Exceptions\UnknownWeapon
      */
-    public function getOffensivenessOf(WeaponCode $weaponCode)
+    public function getOffensivenessOfWeapon(WeaponCode $weaponCode)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->getTableByMeleeWeaponCode($weaponCode)->getOffensivenessOf($weaponCode);
@@ -562,15 +452,18 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof RangeWeaponCode) {
             return $this->getTableByRangeWeaponCode($weaponCode)->getOffensivenessOf($weaponCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getOffensivenessOf($weaponCode);
+        }
+        throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
      * @param WeaponCode $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws Exceptions\UnknownWeapon
      */
-    public function getWoundsOf(WeaponCode $weaponCode)
+    public function getWoundsOfWeapon(WeaponCode $weaponCode)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->getTableByMeleeWeaponCode($weaponCode)->getWoundsOf($weaponCode);
@@ -578,15 +471,18 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof RangeWeaponCode) {
             return $this->getTableByRangeWeaponCode($weaponCode)->getWoundsOf($weaponCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getWoundsOf($weaponCode);
+        }
+        throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
      * @param WeaponCode $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon
      */
-    public function getWoundsTypeOf(WeaponCode $weaponCode)
+    public function getWoundsTypeOfWeapon(WeaponCode $weaponCode)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->getTableByMeleeWeaponCode($weaponCode)->getWoundsTypeOf($weaponCode);
@@ -594,47 +490,106 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof RangeWeaponCode) {
             return $this->getTableByRangeWeaponCode($weaponCode)->getWoundsTypeOf($weaponCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getWoundsTypeOf($weaponCode);
+        }
+        throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
-     * @param WeaponCode $weaponCode
+     * @param MeleeArmamentCode $meleeArmamentCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws UnknownMeleeWeapon
+     * @throws UnknownShield
+     * @throws UnknownMeleeArmament
      */
-    public function getCoverOf(WeaponCode $weaponCode)
+    public function getCoverOfMeleeArmament(MeleeArmamentCode $meleeArmamentCode)
     {
-        if ($weaponCode instanceof MeleeWeaponCode) {
-            return $this->getTableByMeleeWeaponCode($weaponCode)->getCoverOf($weaponCode);
+        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($meleeArmamentCode)->getCoverOf($meleeArmamentCode);
         }
-        if ($weaponCode instanceof RangeWeaponCode) {
-            return 0;
+        if ($meleeArmamentCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getCoverOf($meleeArmamentCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        throw new Exceptions\UnknownMeleeArmament("Unknown type of melee armament {$meleeArmamentCode}");
     }
 
     /**
-     * @param WeaponCode $weaponCode
+     * @param ArmamentCode $armamentCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws Exceptions\UnknownArmament
      */
-    public function getWeightOf(WeaponCode $weaponCode)
+    public function getWeightOfArmament(ArmamentCode $armamentCode)
     {
-        if ($weaponCode instanceof MeleeWeaponCode) {
-            return $this->getTableByMeleeWeaponCode($weaponCode)->getWeightOf($weaponCode);
+        if ($armamentCode instanceof MeleeWeaponCode) {
+            return $this->getTableByMeleeWeaponCode($armamentCode)->getWeightOf($armamentCode);
         }
-        if ($weaponCode instanceof RangeWeaponCode) {
-            return $this->getTableByRangeWeaponCode($weaponCode)->getWeightOf($weaponCode);
+        if ($armamentCode instanceof RangeWeaponCode) {
+            return $this->getTableByRangeWeaponCode($armamentCode)->getWeightOf($armamentCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        if ($armamentCode instanceof ShieldCode) {
+            return $this->tables->getShieldsTable()->getWeightOf($armamentCode);
+        }
+        if ($armamentCode instanceof ArmorCode) {
+            return $this->getArmorsTableByArmorCode($armamentCode)->getWeightOf($armamentCode);
+        }
+        throw new Exceptions\UnknownArmament("Unknown type of armament '{$armamentCode}'");
+    }
+
+    /**
+     * @param RangeWeaponCode $rangeWeaponCode
+     * @param int $currentStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getLoadingInRoundsOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
+
+        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getLoadingInRounds($missingStrength);
+    }
+
+    /**
+     * @param RangeWeaponCode $rangeWeaponCode
+     * @param int $currentStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getLoadingInRoundsMalusOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
+
+        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getLoadingInRoundsSanction($missingStrength);
+    }
+
+    /**
+     * @param RangeWeaponCode $rangeWeaponCode
+     * @param int $currentStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getEncounterRangeMalusOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
+
+        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getEncounterRangeSanction($missingStrength);
     }
 
     /**
      * @param WeaponCode $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\UnknownWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon
      */
-    public function getRangeOf(WeaponCode $weaponCode)
+    public function getRangeOfRangeWeapon(WeaponCode $weaponCode)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return 0;
@@ -642,6 +597,6 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof RangeWeaponCode) {
             return $this->getTableByRangeWeaponCode($weaponCode)->getRangeOf($weaponCode);
         }
-        throw new UnknownWeaponCode('Unknown type of weapon code ' . $weaponCode);
+        throw new UnknownWeapon('Unknown type of weapon code ' . $weaponCode);
     }
 }

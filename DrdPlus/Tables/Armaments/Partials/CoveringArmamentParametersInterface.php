@@ -1,13 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface CoveringWeaponParametersInterface extends WeaponParametersInterface
+interface CoveringArmamentParametersInterface extends WeaponParametersInterface
 {
     const COVER = 'cover';
 
     /**
-     * @param string $weaponCode
+     * @param string $armamentCode
      * @return int
      */
-    public function getCoverOf($weaponCode);
+    public function getCoverOf($armamentCode);
 }

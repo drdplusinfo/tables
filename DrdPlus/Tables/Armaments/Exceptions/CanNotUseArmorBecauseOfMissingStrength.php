@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Armors\Exceptions;
+namespace DrdPlus\Tables\Armaments\Exceptions;
 
 class CanNotUseArmorBecauseOfMissingStrength extends \LogicException implements Logic
 {

@@ -1,21 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons;
 
-use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTable;
 use Granam\Integer\Tools\ToInteger;
 
-class MissingWeaponSkillsTable extends AbstractFileTable
+class MissingWeaponSkillsTable extends AbstractMissingArmamentSkillsTable
 {
     protected function getDataFileName()
     {
         return __DIR__ . '/data/missing_weapon_skills.csv';
-    }
-
-    const SKILL_RANK = 'skill_rank';
-
-    protected function getRowsHeader()
-    {
-        return [self::SKILL_RANK];
     }
 
     const FIGHT_NUMBER = 'fight_number';
@@ -49,7 +42,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
      */
     public function getFightNumberForWeaponSkill($skillRank)
     {
-        return $this->getValue([ToInteger::toPositiveInteger($skillRank)], self::FIGHT_NUMBER);
+        return $this->getValueForSkillRank($skillRank, self::FIGHT_NUMBER);
     }
 
     /**
@@ -58,7 +51,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
      */
     public function getAttackNumberForWeaponSkill($skillRank)
     {
-        return $this->getValue([ToInteger::toPositiveInteger($skillRank)], self::ATTACK_NUMBER);
+        return $this->getValueForSkillRank($skillRank, self::ATTACK_NUMBER);
     }
 
     /**
@@ -67,7 +60,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
      */
     public function getCoverForWeaponSkill($skillRank)
     {
-        return $this->getValue([ToInteger::toPositiveInteger($skillRank)], self::COVER);
+        return $this->getValueForSkillRank($skillRank, self::COVER);
     }
 
     /**
@@ -76,7 +69,7 @@ class MissingWeaponSkillsTable extends AbstractFileTable
      */
     public function getBaseOfWoundsForWeaponSkill($skillRank)
     {
-        return $this->getValue([ToInteger::toPositiveInteger($skillRank)], self::BASE_OF_WOUNDS);
+        return $this->getValueForSkillRank($skillRank, self::BASE_OF_WOUNDS);
     }
 
 }

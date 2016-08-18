@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
@@ -11,7 +11,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
      */
     public function I_can_get_header()
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertSame(
             [['missing_strength', 'sanction_description', 'agility_sanction', 'can_move']],
             $armorSanctionsTable->getHeader()
@@ -62,7 +62,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
                     'can_move' => false
                 ],
             ],
-            (new ArmorSanctionsTable())->getIndexedValues()
+            (new ArmorSanctionsByMissingStrengthTable())->getIndexedValues()
         );
     }
 
@@ -74,7 +74,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
      */
     public function I_can_get_sanction_data_for_any_strength_missing($missingStrength, array $expectedValues)
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertSame(
             $expectedValues,
             $armorSanctionsTable->getSanctionsForMissingStrength($missingStrength),
@@ -89,10 +89,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 0,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'light',
-                    ArmorSanctionsTable::AGILITY_SANCTION => 0,
-                    ArmorSanctionsTable::CAN_MOVE => true,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 0,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'light',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => 0,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -100,10 +100,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 3,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'medium',
-                    ArmorSanctionsTable::AGILITY_SANCTION => -2,
-                    ArmorSanctionsTable::CAN_MOVE => true,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 3,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'medium',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -2,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -111,10 +111,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 6,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'heavy',
-                    ArmorSanctionsTable::AGILITY_SANCTION => -4,
-                    ArmorSanctionsTable::CAN_MOVE => true,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 6,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'heavy',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -4,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -122,10 +122,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 8,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'very_heavy',
-                    ArmorSanctionsTable::AGILITY_SANCTION => -8,
-                    ArmorSanctionsTable::CAN_MOVE => true,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 8,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'very_heavy',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -8,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -133,10 +133,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 10,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'extreme',
-                    ArmorSanctionsTable::AGILITY_SANCTION => -12,
-                    ArmorSanctionsTable::CAN_MOVE => true,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 10,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'extreme',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -12,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -144,10 +144,10 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsTable::MISSING_STRENGTH => 11,
-                    ArmorSanctionsTable::SANCTION_DESCRIPTION => 'unbearable',
-                    ArmorSanctionsTable::AGILITY_SANCTION => false,
-                    ArmorSanctionsTable::CAN_MOVE => false,
+                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 11,
+                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'unbearable',
+                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => false,
+                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => false,
                 ]
             ];
         }
@@ -160,7 +160,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
      */
     public function I_can_find_out_if_can_move()
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertTrue($armorSanctionsTable->canMove(-10));
         self::assertTrue($armorSanctionsTable->canMove(10));
         self::assertFalse($armorSanctionsTable->canMove(11));
@@ -172,7 +172,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
      */
     public function I_can_get_sanction_description()
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertSame('light', $armorSanctionsTable->getSanctionDescription(-10));
         self::assertSame('extreme', $armorSanctionsTable->getSanctionDescription(10));
         self::assertSame('unbearable', $armorSanctionsTable->getSanctionDescription(999));
@@ -183,7 +183,7 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
      */
     public function I_can_get_agility_malus()
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertSame(0, $armorSanctionsTable->getAgilityMalus(-10));
         self::assertSame(-8, $armorSanctionsTable->getAgilityMalus(7));
         self::assertSame(-8, $armorSanctionsTable->getAgilityMalus(8));
@@ -192,11 +192,11 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Armors\Exceptions\CanNotUseArmorBecauseOfMissingStrength
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      */
     public function I_can_not_get_agility_malus_if_unbearable()
     {
-        $armorSanctionsTable = new ArmorSanctionsTable();
+        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
         self::assertSame(0, $armorSanctionsTable->getAgilityMalus(11));
     }
 }

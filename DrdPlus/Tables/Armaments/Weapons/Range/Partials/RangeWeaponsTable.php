@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Range\Partials;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponParametersInterface;
 use DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 abstract class RangeWeaponsTable extends AbstractArmamentsTable implements WeaponParametersInterface
@@ -43,7 +43,7 @@ abstract class RangeWeaponsTable extends AbstractArmamentsTable implements Weapo
     {
         try {
             return $this->getValue([$weaponCode], $valueName);
-        } catch (RequiredRowDataNotFound $exception) {
+        } catch (RequiredRowNotFound $exception) {
             throw new UnknownRangeWeaponCode(
                 'Unknown shooting armament code ' . ValueDescriber::describe($weaponCode)
             );

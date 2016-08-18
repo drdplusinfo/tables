@@ -26,7 +26,7 @@ abstract class AbstractFileTableWithPercents extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     protected function getBonusBy($code, Percents $percents)
     {
@@ -58,7 +58,7 @@ abstract class AbstractFileTableWithPercents extends AbstractFileTable
      * @param string $bonusBorderType
      * @return mixed
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     private function getBonusBorder($code, $bonusBorderType)
     {

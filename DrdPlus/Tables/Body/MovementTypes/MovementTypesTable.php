@@ -9,7 +9,7 @@ use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 class MovementTypesTable extends AbstractFileTable
@@ -75,7 +75,7 @@ class MovementTypesTable extends AbstractFileTable
                 $this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED),
                 $this->speedTable
             );
-        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+        } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type is not known ' . ValueDescriber::describe($movementType)
             );
@@ -152,7 +152,7 @@ class MovementTypesTable extends AbstractFileTable
             }
 
             return false;
-        } catch (RequiredRowDataNotFound $exception) {
+        } catch (RequiredRowNotFound $exception) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type ' . ValueDescriber::describe($movementType) . ' is not known'
             );

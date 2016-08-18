@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Body\Healing;
 
 use DrdPlus\Tables\Partials\AbstractFileTableWithPercents;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
@@ -30,7 +30,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getBonusBy($conditionsCode, $healingConditionsPercents);
-        } catch (RequiredRowDataNotFound $requiredRowDataNotFound) {
+        } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownCodeOfHealingInfluence(
                 'Unknown influence on healing code ' . ValueDescriber::describe($conditionsCode)
             );

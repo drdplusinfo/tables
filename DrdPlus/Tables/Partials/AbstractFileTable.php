@@ -348,8 +348,8 @@ abstract class AbstractFileTable extends AbstractTable
      * @param array|string[] $rowIndexes
      * @param string $columnIndex
      * @return int|float|string|bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
@@ -365,7 +365,7 @@ abstract class AbstractFileTable extends AbstractTable
      *
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function getRow(array $singleRowIndexes)
@@ -376,7 +376,7 @@ abstract class AbstractFileTable extends AbstractTable
         $values = $this->getIndexedValues();
         foreach ($singleRowIndexes as $rowIndex) {
             if (!array_key_exists(ToString::toString($rowIndex), $values)) {
-                throw new Exceptions\RequiredRowDataNotFound(
+                throw new Exceptions\RequiredRowNotFound(
                     'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
@@ -393,12 +393,12 @@ abstract class AbstractFileTable extends AbstractTable
      * @param array $row
      * @param $columnIndex
      * @return int|float|string|bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     private function getValueInRow(array $row, $columnIndex)
     {
         if (!array_key_exists($columnIndex, $row)) {
-            throw new Exceptions\RequiredValueNotFound(
+            throw new Exceptions\RequiredColumnNotFound(
                 'Column of name ' . ValueDescriber::describe($columnIndex) . ' does not exist'
             );
         }

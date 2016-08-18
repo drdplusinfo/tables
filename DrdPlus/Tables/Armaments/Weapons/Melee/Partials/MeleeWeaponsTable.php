@@ -2,12 +2,12 @@
 namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\CoveringWeaponParametersInterface;
-use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Armaments\Partials\CoveringArmamentParametersInterface;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements CoveringWeaponParametersInterface
+abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements CoveringArmamentParametersInterface
 {
     protected function getRowsHeader()
     {
@@ -32,7 +32,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getOffensivenessOf($weaponCode)
     {
@@ -43,14 +43,14 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
      * @param string $weaponCode
      * @param string $valueName
      * @return float|int|string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     private function getValueOf($weaponCode, $valueName)
     {
         try {
             return $this->getValue([$weaponCode], $valueName);
-        } catch (RequiredRowDataNotFound $exception) {
-            throw new UnknownMeleeWeaponCode(
+        } catch (RequiredRowNotFound $exception) {
+            throw new UnknownMeleeWeapon(
                 'Unknown weapon code ' . ValueDescriber::describe($weaponCode)
             );
         }
@@ -59,7 +59,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getWoundsOf($weaponCode)
     {
@@ -69,7 +69,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return string
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getWoundsTypeOf($weaponCode)
     {
@@ -79,7 +79,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getRequiredStrengthOf($weaponCode)
     {
@@ -89,7 +89,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getLengthOf($weaponCode)
     {
@@ -99,7 +99,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getCoverOf($weaponCode)
     {
@@ -109,7 +109,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Cover
     /**
      * @param string $weaponCode
      * @return float
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeaponCode
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
      */
     public function getWeightOf($weaponCode)
     {

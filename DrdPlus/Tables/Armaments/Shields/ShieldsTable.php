@@ -1,13 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Tables\Armaments\Partials\CoveringWeaponParametersInterface;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
+use DrdPlus\Tables\Armaments\Partials\CoveringArmamentParametersInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
-use DrdPlus\Tables\Partials\AbstractFileTable;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterface, CoveringWeaponParametersInterface
+class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersInterface, CoveringArmamentParametersInterface
 {
     protected function getDataFileName()
     {
@@ -35,7 +36,7 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     /**
      * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getRequiredStrengthOf($shieldCode)
     {
@@ -46,23 +47,23 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
      * @param string $shieldCode
      * @param string $valueName
      * @return int|float|string
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     private function getValueOf($shieldCode, $valueName)
     {
         try {
             return $this->getValue([$shieldCode], $valueName);
-        } catch (RequiredRowDataNotFound $exception) {
-            throw new Exceptions\UnknownShieldCode(
+        } catch (RequiredRowNotFound $exception) {
+            throw new UnknownShield(
                 'Unknown shield code ' . ValueDescriber::describe($shieldCode)
             );
         }
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getRestrictionOf($shieldCode)
     {
@@ -70,9 +71,9 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getOffensivenessOf($shieldCode)
     {
@@ -80,9 +81,9 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getWoundsOf($shieldCode)
     {
@@ -90,9 +91,9 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getWoundsTypeOf($shieldCode)
     {
@@ -100,9 +101,9 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getCoverOf($shieldCode)
     {
@@ -110,9 +111,9 @@ class ShieldsTable extends AbstractFileTable implements UnwieldyParametersInterf
     }
 
     /**
-     * @param $shieldCode
+     * @param string $shieldCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getWeightOf($shieldCode)
     {

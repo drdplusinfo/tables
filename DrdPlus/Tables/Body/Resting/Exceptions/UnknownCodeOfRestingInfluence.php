@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Body\Resting\Exceptions;
 
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
-class UnknownCodeOfRestingInfluence extends RequiredRowDataNotFound implements Logic
+class UnknownCodeOfRestingInfluence extends RequiredRowNotFound implements Logic
 {
 
 }

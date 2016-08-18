@@ -77,7 +77,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Partials\Exceptions\RequiredRowDataNotFound
+     * @expectedException \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function I_can_not_get_row_by_invalid_index()
     {
@@ -87,7 +87,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Partials\Exceptions\RequiredValueNotFound
+     * @expectedException \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     public function I_can_not_get_value_by_invalid_indexes()
     {

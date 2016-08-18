@@ -75,6 +75,15 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
     public function provideShieldAndValue()
     {
         return [
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::REQUIRED_STRENGTH, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::RESTRICTION, 0],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::OFFENSIVENESS, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS_TYPE, ''],
+            // shield provides another cover per round, therefore without shield this fades
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::COVER, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WEIGHT, 0.0],
+
             [ShieldCode::BUCKLER, ShieldsTable::REQUIRED_STRENGTH, -3],
             [ShieldCode::BUCKLER, ShieldsTable::RESTRICTION, -1],
             [ShieldCode::BUCKLER, ShieldsTable::OFFENSIVENESS, 0],
@@ -121,7 +130,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
      * @test
      * @dataProvider provideValueName
      * @param string $valueName
-     * @expectedException \DrdPlus\Tables\Armaments\Shields\Exceptions\UnknownShieldCode
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      * @expectedExceptionMessageRegExp ~protector_of_masses~
      */
     public function I_can_not_get_value_of_unknown_shield($valueName)

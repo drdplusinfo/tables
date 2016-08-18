@@ -1,15 +1,18 @@
 <?php
 namespace DrdPlus\Tables;
 
-use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsTable;
+use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillsTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillsTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
@@ -21,7 +24,7 @@ use DrdPlus\Tables\Armaments\Weapons\Range\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\DartsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
@@ -241,39 +244,51 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ArmorSanctionsTable
+     * @return ArmorSanctionsByMissingStrengthTable
      */
-    public function getArmorSanctionsTable()
+    public function getArmorSanctionsByMissingStrengthTable()
     {
-        if (!array_key_exists(ArmorSanctionsTable::class, $this->tables)) {
-            $this->tables[ArmorSanctionsTable::class] = new ArmorSanctionsTable();
+        if (!array_key_exists(ArmorSanctionsByMissingStrengthTable::class, $this->tables)) {
+            $this->tables[ArmorSanctionsByMissingStrengthTable::class] = new ArmorSanctionsByMissingStrengthTable();
         }
 
-        return $this->tables[ArmorSanctionsTable::class];
+        return $this->tables[ArmorSanctionsByMissingStrengthTable::class];
     }
 
     /**
-     * @return MeleeWeaponSanctionsTable
+     * @return MissingArmorSkillsTable
      */
-    public function getMeleeWeaponSanctionsTable()
+    public function getMissingArmorSkillsTable()
     {
-        if (!array_key_exists(MeleeWeaponSanctionsTable::class, $this->tables)) {
-            $this->tables[MeleeWeaponSanctionsTable::class] = new MeleeWeaponSanctionsTable();
+        if (!array_key_exists(MissingArmorSkillsTable::class, $this->tables)) {
+            $this->tables[MissingArmorSkillsTable::class] = new MissingArmorSkillsTable();
         }
 
-        return $this->tables[MeleeWeaponSanctionsTable::class];
+        return $this->tables[MissingArmorSkillsTable::class];
     }
 
     /**
-     * @return RangeWeaponSanctionsTable
+     * @return MeleeWeaponSanctionsByMissingStrengthTable
      */
-    public function getRangeWeaponSanctionsTable()
+    public function getMeleeWeaponSanctionsByMissingStrengthTable()
     {
-        if (!array_key_exists(RangeWeaponSanctionsTable::class, $this->tables)) {
-            $this->tables[RangeWeaponSanctionsTable::class] = new RangeWeaponSanctionsTable();
+        if (!array_key_exists(MeleeWeaponSanctionsByMissingStrengthTable::class, $this->tables)) {
+            $this->tables[MeleeWeaponSanctionsByMissingStrengthTable::class] = new MeleeWeaponSanctionsByMissingStrengthTable();
         }
 
-        return $this->tables[RangeWeaponSanctionsTable::class];
+        return $this->tables[MeleeWeaponSanctionsByMissingStrengthTable::class];
+    }
+
+    /**
+     * @return RangeWeaponSanctionsByMissingStrengthTable
+     */
+    public function getRangeWeaponSanctionsByMissingStrengthTable()
+    {
+        if (!array_key_exists(RangeWeaponSanctionsByMissingStrengthTable::class, $this->tables)) {
+            $this->tables[RangeWeaponSanctionsByMissingStrengthTable::class] = new RangeWeaponSanctionsByMissingStrengthTable();
+        }
+
+        return $this->tables[RangeWeaponSanctionsByMissingStrengthTable::class];
     }
 
     /**
@@ -298,6 +313,30 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
 
         return $this->tables[ShieldsTable::class];
+    }
+
+    /**
+     * @return ShieldSanctionsByMissingStrengthTable
+     */
+    public function getShieldSanctionsByMissingStrengthTable()
+    {
+        if (!array_key_exists(ShieldSanctionsByMissingStrengthTable::class, $this->tables)) {
+            $this->tables[ShieldSanctionsByMissingStrengthTable::class] = new ShieldSanctionsByMissingStrengthTable();
+        }
+
+        return $this->tables[ShieldSanctionsByMissingStrengthTable::class];
+    }
+
+    /**
+     * @return MissingShieldSkillsTable
+     */
+    public function getMissingShieldSkillsTable()
+    {
+        if (!array_key_exists(MissingShieldSkillsTable::class, $this->tables)) {
+            $this->tables[MissingShieldSkillsTable::class] = new MissingShieldSkillsTable();
+        }
+
+        return $this->tables[MissingShieldSkillsTable::class];
     }
 
     /**
@@ -622,8 +661,10 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getWoundsTable(),
             $this->getBodyArmorsTable(),
             $this->getHelmsTable(),
-            $this->getArmorSanctionsTable(),
+            $this->getArmorSanctionsByMissingStrengthTable(),
+            $this->getMissingArmorSkillsTable(),
             $this->getShieldsTable(),
+            $this->getMissingShieldSkillsTable(),
             $this->getAxesTable(),
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
@@ -639,8 +680,9 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCrossbowsTable(),
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
-            $this->getMeleeWeaponSanctionsTable(),
-            $this->getRangeWeaponSanctionsTable(),
+            $this->getMeleeWeaponSanctionsByMissingStrengthTable(),
+            $this->getShieldSanctionsByMissingStrengthTable(),
+            $this->getRangeWeaponSanctionsByMissingStrengthTable(),
             $this->getMissingWeaponSkillsTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),

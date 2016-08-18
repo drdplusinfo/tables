@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Range\Exceptions;
 
-use DrdPlus\Tables\Armaments\Exceptions\UnknownArmamentCode;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon;
 
-class UnknownRangeWeaponCode extends UnknownArmamentCode implements Logic
+class UnknownRangeWeaponCode extends UnknownWeapon implements Logic
 {
 
 }

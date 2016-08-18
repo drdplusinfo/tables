@@ -14,7 +14,10 @@ class TablesTest extends \PHPUnit_Framework_TestCase
         foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
             $baseName = preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);
             $getTable = "get{$baseName}";
-            self::assertTrue(method_exists($tables, $getTable), 'Tables factory is missing getter for ' . $baseName);
+            self::assertTrue(
+                method_exists($tables, $getTable),
+                'Tables factory is missing getter for ' . $baseName . ' (or the class should be abstract?)'
+            );
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);
             $getterReflection = new \ReflectionMethod($tables, $getTable);
