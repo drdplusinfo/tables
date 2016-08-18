@@ -2,11 +2,28 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons;
 
 use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTableTest;
 
-class MissingWeaponSkillsTableTest extends TestWithMockery implements TableTestInterface
+class MissingWeaponSkillsTableTest extends AbstractMissingArmamentSkillsTableTest
 {
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
+     */
+    public function I_can_not_use_negative_rank()
+    {
+        (new MissingWeaponSkillsTable())->getAttackNumberForWeaponSkill(-1);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
+     */
+    public function I_can_not_use_higher_rank_than_three()
+    {
+        (new MissingWeaponSkillsTable())->getBaseOfWoundsForWeaponSkill(4);
+    }
+
     /**
      * @test
      */
