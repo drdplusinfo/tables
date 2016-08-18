@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTableTest;
 
-class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
 {
     /**
      * @test
@@ -63,6 +63,22 @@ class ArmorSanctionsTableTest extends \PHPUnit_Framework_TestCase implements Tab
                 ],
             ],
             (new ArmorSanctionsByMissingStrengthTable())->getIndexedValues()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_sanctions_for_missing_strength()
+    {
+        self::assertSame(
+            [
+                'missing_strength' => 10,
+                'sanction_description' => 'extreme',
+                'agility_sanction' => -12,
+                'can_move' => true
+            ],
+            (new ArmorSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(9)
         );
     }
 

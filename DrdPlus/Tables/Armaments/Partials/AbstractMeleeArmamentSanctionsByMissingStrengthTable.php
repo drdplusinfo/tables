@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
-abstract class MissingStrengthForMeleeArmamentSanctionsTable extends AbstractSanctionsForMissingStrengthTable
+abstract class AbstractMeleeArmamentSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
 {
     protected function getDataFileName()
     {

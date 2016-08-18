@@ -2,16 +2,15 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTableTest;
 
-class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
         self::assertSame(
             [
                 [
@@ -24,7 +23,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
                     'can_use_weapon'
                 ]
             ],
-            $shootingWeaponSanctionsTable->getHeader()
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getHeader()
         );
     }
 
@@ -33,7 +32,6 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_all_values()
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
         self::assertSame(
             [
                 0 => [
@@ -145,7 +143,26 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
                     'can_use_weapon' => false
                 ],
             ],
-            $shootingWeaponSanctionsTable->getIndexedValues()
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getIndexedValues()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_sanctions_for_missing_strength()
+    {
+        self::assertSame(
+            [
+                'missing_strength' => 1,
+                'fight_number' => -1,
+                'loading_in_rounds' => 1,
+                'attack_number' => 0,
+                'encounter_range' => 0,
+                'base_of_wounds' => 0,
+                'can_use_weapon' => true
+            ],
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(1)
         );
     }
 
@@ -183,8 +200,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_fight_number_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getFightNumberSanction($missingStrength));
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getFightNumberSanction($missingStrength)
+        );
     }
 
     public function provideMissingStrengthAndFightSanction()
@@ -211,8 +230,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_loading_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getLoadingInRounds($missingStrength));
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getLoadingInRounds($missingStrength)
+        );
     }
 
     public function provideMissingStrengthAndLoadingSanction()
@@ -239,8 +260,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_attack_number_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getAttackNumberSanction($missingStrength));
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getAttackNumberSanction($missingStrength)
+        );
     }
 
     public function provideMissingStrengthAndAttackNumberSanction()
@@ -267,8 +290,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_encounter_range_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getEncounterRangeSanction($missingStrength));
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getEncounterRangeSanction($missingStrength)
+        );
     }
 
     public function provideMissingStrengthAndEncounterRangeSanction()
@@ -295,8 +320,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
      */
     public function I_can_get_base_of_wounds_sanction($missingStrength, $expectedSanction)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($expectedSanction, $shootingWeaponSanctionsTable->getBaseOfWoundsSanction($missingStrength));
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getBaseOfWoundsSanction($missingStrength)
+        );
     }
 
     public function provideMissingStrengthAndBaseOfWoundsSanction()
@@ -350,8 +377,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends \PHPUnit_Framework_
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName);
-        $rangeWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        $rangeWeaponSanctionsTable->$sanctionGetter(11);
+        (new RangeWeaponSanctionsByMissingStrengthTable())->$sanctionGetter(11);
     }
 
 }

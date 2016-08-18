@@ -1,12 +1,12 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Tables\Armaments\Partials\MissingStrengthForMeleeArmamentSanctionsTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMeleeArmamentSanctionsByMissingStrengthTable;
 
 /**
  * Shield uses same sanctions as a weapon
  */
-class ShieldSanctionsByMissingStrengthTable extends MissingStrengthForMeleeArmamentSanctionsTable
+class ShieldSanctionsByMissingStrengthTable extends AbstractMeleeArmamentSanctionsByMissingStrengthTable
 {
     /**
      * @param $missingStrength
