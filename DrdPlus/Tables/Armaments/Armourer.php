@@ -258,7 +258,11 @@ class Armourer extends StrictObject
      */
     public function getFightNumberMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
     {
-        $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
+        try {
+            $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
+        } catch (UnknownArmament $unknownArmament) {
+            throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
+        }
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getFightNumberSanction($missingStrength);
         }
@@ -266,7 +270,7 @@ class Armourer extends StrictObject
             return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getFightNumberSanction($missingStrength);
         }
         if ($weaponCode instanceof ShieldCode) {
-            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getFightNumberSanction($currentStrength);
+            return $this->tables->getShieldSanctionsByMissingStrengthTable()->getFightNumberSanction($missingStrength);
         }
         throw new Exceptions\UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
@@ -338,7 +342,11 @@ class Armourer extends StrictObject
     public function getDefenseNumberMalusOfMeleeArmament(MeleeArmamentCode $meleeArmamentCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $missingStrength = $this->getMissingStrengthForArmament($meleeArmamentCode, $currentStrength, Size::getIt(0));
+        try {
+            $missingStrength = $this->getMissingStrengthForArmament($meleeArmamentCode, $currentStrength, Size::getIt(0));
+        } catch (UnknownArmament $unknownArmament) {
+            throw new Exceptions\UnknownMeleeArmament("Unknown type of melee armament '{$meleeArmamentCode}'");
+        }
         if ($meleeArmamentCode instanceof MeleeWeaponCode) {
             return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getDefenseNumberSanction($missingStrength);
         }
@@ -359,7 +367,11 @@ class Armourer extends StrictObject
      */
     public function getBaseOfWoundsMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
     {
-        $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
+        try {
+            $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
+        } catch (UnknownArmament $unknownArmament) {
+            throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
+        }
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getBaseOfWoundsSanction($missingStrength);
         }
@@ -369,7 +381,7 @@ class Armourer extends StrictObject
         if ($weaponCode instanceof ShieldCode) {
             return $this->tables->getShieldSanctionsByMissingStrengthTable()->getBaseOfWoundsSanction($missingStrength);
         }
-        throw new UnknownWeapon("Unknown type of weapon code{$weaponCode}");
+        throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
     }
 
     /**
