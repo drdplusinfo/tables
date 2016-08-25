@@ -23,10 +23,12 @@ abstract class AbstractMissingArmamentSkillsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     protected function getValueForSkillRank($skillRank, $parameterName)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([ToInteger::toInteger($skillRank)], $parameterName);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
             throw new Exceptions\UnexpectedSkillRank(

@@ -4,11 +4,11 @@ namespace DrdPlus\Tables\Armaments\Shields;
 use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTable;
 use Granam\Integer\IntegerInterface;
 
-class MissingShieldSkillsTable extends AbstractMissingArmamentSkillsTable
+class MissingShieldSkillTable extends AbstractMissingArmamentSkillsTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_shield_skills.csv';
+        return __DIR__ . '/data/missing_shield_skill.csv';
     }
 
     const RESTRICTION_BONUS = 'restriction_bonus';
@@ -28,6 +28,10 @@ class MissingShieldSkillsTable extends AbstractMissingArmamentSkillsTable
     /**
      * @param int|IntegerInterface $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     public function getRestrictionBonusForSkillRank($skillRank)
     {
@@ -37,10 +41,14 @@ class MissingShieldSkillsTable extends AbstractMissingArmamentSkillsTable
     /**
      * @param int|IntegerInterface $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     public function getCoverForSkillRank($skillRank)
     {
-        return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);
+        return $this->getValueForSkillRank($skillRank, self::COVER);
     }
 
 }

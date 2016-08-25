@@ -6,7 +6,7 @@ use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
-use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillsTable;
+use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
@@ -328,15 +328,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return MissingShieldSkillsTable
+     * @return MissingShieldSkillTable
      */
-    public function getMissingShieldSkillsTable()
+    public function getMissingShieldSkillTable()
     {
-        if (!array_key_exists(MissingShieldSkillsTable::class, $this->tables)) {
-            $this->tables[MissingShieldSkillsTable::class] = new MissingShieldSkillsTable();
+        if (!array_key_exists(MissingShieldSkillTable::class, $this->tables)) {
+            $this->tables[MissingShieldSkillTable::class] = new MissingShieldSkillTable();
         }
 
-        return $this->tables[MissingShieldSkillsTable::class];
+        return $this->tables[MissingShieldSkillTable::class];
     }
 
     /**
@@ -664,7 +664,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getArmorSanctionsByMissingStrengthTable(),
             $this->getMissingArmorSkillsTable(),
             $this->getShieldsTable(),
-            $this->getMissingShieldSkillsTable(),
+            $this->getMissingShieldSkillTable(),
             $this->getAxesTable(),
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
