@@ -1,14 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
 use Granam\Integer\Tools\ToInteger;
 
-class MissingWeaponSkillsTable extends AbstractMissingArmamentSkillsTable
+class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_weapon_skills.csv';
+        return __DIR__ . '/data/missing_weapon_skill.csv';
     }
 
     const FIGHT_NUMBER = 'fight_number';

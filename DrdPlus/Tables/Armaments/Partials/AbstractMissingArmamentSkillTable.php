@@ -7,7 +7,7 @@ use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractMissingArmamentSkillsTable extends AbstractFileTable
+abstract class AbstractMissingArmamentSkillTable extends AbstractFileTable
 {
     const SKILL_RANK = 'skill_rank';
 

@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillsTable;
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTableTest;
+use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillTableTest;
 
-class MissingArmorSkillsTableTest extends AbstractMissingArmamentSkillsTableTest
+class MissingArmorSkillTableTest extends AbstractMissingArmamentSkillTableTest
 {
     /**
      * @test
@@ -12,7 +12,7 @@ class MissingArmorSkillsTableTest extends AbstractMissingArmamentSkillsTableTest
      */
     public function I_can_not_use_negative_rank()
     {
-        (new MissingArmorSkillsTable())->gotBonusForSkillRank(-1);
+        (new MissingArmorSkillTable())->gotBonusForSkillRank(-1);
     }
 
     /**
@@ -21,7 +21,7 @@ class MissingArmorSkillsTableTest extends AbstractMissingArmamentSkillsTableTest
      */
     public function I_can_not_use_higher_rank_than_three()
     {
-        (new MissingArmorSkillsTable())->gotBonusForSkillRank(4);
+        (new MissingArmorSkillTable())->gotBonusForSkillRank(4);
     }
 
     /**
@@ -29,7 +29,7 @@ class MissingArmorSkillsTableTest extends AbstractMissingArmamentSkillsTableTest
      */
     public function I_can_get_header()
     {
-        self::assertSame([['skill_rank', 'bonus']], (new MissingArmorSkillsTable())->getHeader());
+        self::assertSame([['skill_rank', 'bonus']], (new MissingArmorSkillTable())->getHeader());
     }
 
 }

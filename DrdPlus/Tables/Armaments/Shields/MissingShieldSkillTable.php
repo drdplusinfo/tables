@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
 use Granam\Integer\IntegerInterface;
 
-class MissingShieldSkillTable extends AbstractMissingArmamentSkillsTable
+class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
 {
     protected function getDataFileName()
     {

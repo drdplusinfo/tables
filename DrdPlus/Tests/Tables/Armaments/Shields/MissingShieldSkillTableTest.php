@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTableTest;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillTableTest;
 
-class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillsTableTest
+class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
 {
     /**
      * @test

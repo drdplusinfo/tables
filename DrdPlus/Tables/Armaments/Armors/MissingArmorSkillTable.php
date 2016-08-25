@@ -1,16 +1,16 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillsTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
 
-class MissingArmorSkillsTable extends AbstractMissingArmamentSkillsTable
+class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable
 {
     /**
      * @return string
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_armor_skills.csv';
+        return __DIR__ . '/data/missing_armor_skill.csv';
     }
 
     const BONUS = 'bonus';
@@ -32,6 +32,7 @@ class MissingArmorSkillsTable extends AbstractMissingArmamentSkillsTable
      */
     public function gotBonusForSkillRank($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::BONUS);
     }
 
