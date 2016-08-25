@@ -30,45 +30,56 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
     /**
      * @param int $skillRank
      * @return array
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function getMalusesForWeaponSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([ToInteger::toPositiveInteger($skillRank)]);
     }
 
     /**
      * @param int $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
     public function getFightNumberForWeaponSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::FIGHT_NUMBER);
     }
 
     /**
      * @param int $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
     public function getAttackNumberForWeaponSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::ATTACK_NUMBER);
     }
 
     /**
      * @param int $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
     public function getCoverForWeaponSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::COVER);
     }
 
     /**
      * @param int $skillRank
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
     public function getBaseOfWoundsForWeaponSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::BASE_OF_WOUNDS);
     }
 
