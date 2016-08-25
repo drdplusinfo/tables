@@ -32,4 +32,11 @@ class MissingArmorSkillTableTest extends AbstractMissingArmamentSkillTableTest
         self::assertSame([['skill_rank', 'bonus']], (new MissingArmorSkillTable())->getHeader());
     }
 
+    /**
+     * @test
+     */
+    public function I_can_get_bonus_for_skill_rank()
+    {
+        self::assertSame(2, (new MissingArmorSkillTable())->gotBonusForSkillRank(2));
+    }
 }
