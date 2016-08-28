@@ -167,7 +167,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionDescriptionForArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
+    public function getSanctionDescriptionWithArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
     {
         $missingStrength = $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize);
 
@@ -183,7 +183,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAgilityMalusFromArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
+    public function getAgilityMalusWithArmor(ArmorCode $armorCode, Size $bodySize, $currentStrength)
     {
         $missingStrength = $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize);
 
@@ -256,7 +256,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getFightNumberMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
+    public function getFightNumberMalusWithWeapon(WeaponCode $weaponCode, $currentStrength)
     {
         try {
             $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
@@ -284,7 +284,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAttackNumberMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
+    public function getAttackNumberMalusWithWeapon(WeaponCode $weaponCode, $currentStrength)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
             return $this->getMeleeWeaponAttackNumberMalus($weaponCode, $currentStrength);
@@ -339,7 +339,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusOfMeleeArmament(MeleeArmamentCode $meleeArmamentCode, $currentStrength)
+    public function getDefenseNumberMalusWithMeleeArmament(MeleeArmamentCode $meleeArmamentCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         try {
@@ -365,7 +365,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getBaseOfWoundsMalusOfWeapon(WeaponCode $weaponCode, $currentStrength)
+    public function getBaseOfWoundsMalusWithWeapon(WeaponCode $weaponCode, $currentStrength)
     {
         try {
             $missingStrength = $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0));
@@ -588,7 +588,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getEncounterRangeMalusOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    public function getEncounterRangeMalusWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
