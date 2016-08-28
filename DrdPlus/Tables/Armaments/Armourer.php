@@ -289,11 +289,16 @@ class Armourer extends StrictObject
     public function getAttackNumberMalusWithWeapon(WeaponCode $weaponCode, Strength $currentStrength)
     {
         if ($weaponCode instanceof MeleeWeaponCode) {
-            return $this->getMeleeWeaponAttackNumberMalus($weaponCode, $currentStrength);
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction(
+                $this->getMissingStrengthForMeleeWeapon($weaponCode, $currentStrength)
+            );
         }
         if ($weaponCode instanceof RangeWeaponCode) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getRangeWeaponAttackNumberMalus($weaponCode, $currentStrength);
+            return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction(
+                $this->getMissingStrengthForArmament($weaponCode, $currentStrength, Size::getIt(0))
+            );
         }
         if ($weaponCode instanceof ShieldCode) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -301,37 +306,6 @@ class Armourer extends StrictObject
                 ->getAttackNumberSanction($currentStrength->getValue());
         }
         throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
-    }
-
-    /**
-     * @param MeleeWeaponCode $meleeWeaponCode
-     * @param Strength $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
-     */
-    private function getMeleeWeaponAttackNumberMalus(MeleeWeaponCode $meleeWeaponCode, Strength $currentStrength)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getMeleeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction(
-            $this->getMissingStrengthForMeleeWeapon($meleeWeaponCode, $currentStrength)
-        );
-    }
-
-    /**
-     * @param RangeWeaponCode $rangeWeaponCode
-     * @param Strength $currentStrength
-     * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    private function getRangeWeaponAttackNumberMalus(RangeWeaponCode $rangeWeaponCode, Strength $currentStrength)
-    {
-        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getAttackNumberSanction(
-            $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
-        );
     }
 
     /**
