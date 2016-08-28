@@ -556,7 +556,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingInRoundsOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    public function getLoadingInRoundsWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));
@@ -572,7 +572,7 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingInRoundsMalusOfRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
+    public function getLoadingInRoundsMalusWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $missingStrength = $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0));

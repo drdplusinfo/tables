@@ -557,14 +557,14 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getLoadingInRoundsOfRangeWeapon($weaponCode, $strength)
+            $armourer->getLoadingInRoundsWithRangeWeapon($weaponCode, $strength)
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getLoadingInRoundsSanction')
             ->andReturn('foobaz');
         self::assertSame(
             'foobaz',
-            $armourer->getLoadingInRoundsMalusOfRangeWeapon($weaponCode, $strength)
+            $armourer->getLoadingInRoundsMalusWithRangeWeapon($weaponCode, $strength)
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getEncounterRangeSanction')
