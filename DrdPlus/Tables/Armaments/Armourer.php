@@ -160,15 +160,15 @@ class Armourer extends StrictObject
 
     /**
      * @param ArmorCode $armorCode
-     * @param Size $bodySize
      * @param Strength $currentStrength
+     * @param Size $bodySize
      * @return int
      * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionDescriptionWithArmor(ArmorCode $armorCode, Size $bodySize, Strength $currentStrength)
+    public function getSanctionDescriptionWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
     {
         return $this->tables->getArmorSanctionsByMissingStrengthTable()->getSanctionDescription(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
@@ -177,15 +177,15 @@ class Armourer extends StrictObject
 
     /**
      * @param ArmorCode $armorCode
-     * @param Size $bodySize
      * @param Strength $currentStrength
+     * @param Size $bodySize
      * @return int
      * @throws CanNotUseArmorBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAgilityMalusWithArmor(ArmorCode $armorCode, Size $bodySize, Strength $currentStrength)
+    public function getAgilityMalusWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
     {
         return $this->tables->getArmorSanctionsByMissingStrengthTable()->getAgilityMalus(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
