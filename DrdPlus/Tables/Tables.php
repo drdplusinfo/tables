@@ -770,7 +770,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @return WeaponlikeParametersInterface
-     * @throws UnknownWeapon
+     * @throws UnknownMeleeWeaponlike
      */
     public function getWeaponlikeCodesTableByMeleeWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
