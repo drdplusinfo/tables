@@ -102,7 +102,7 @@ abstract class RangeWeaponsTableTest extends \PHPUnit_Framework_TestCase impleme
      * @test
      * @dataProvider provideValueName
      * @param string $valueName
-     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Range\Exceptions\UnknownRangeWeaponCode
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)

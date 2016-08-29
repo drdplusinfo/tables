@@ -97,7 +97,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider provideValueName
      * @param string $valueName
-     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Melee\Exceptions\UnknownMeleeWeapon
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)

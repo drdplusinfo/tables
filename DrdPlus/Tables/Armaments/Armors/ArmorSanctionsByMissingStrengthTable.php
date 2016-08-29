@@ -31,6 +31,17 @@ class ArmorSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingSt
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
+    public function canUseArmament($missingStrength)
+    {
+        return $this->canMove($missingStrength);
+    }
+
+    /**
+     * @param int $missingStrength
+     * @return bool
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
     public function canMove($missingStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

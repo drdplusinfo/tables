@@ -18,4 +18,16 @@ class ShieldSanctionsByMissingStrengthTable extends AbstractMeleeArmamentSanctio
     {
         return $this->canUseArmament($missingStrength);
     }
+
+    /**
+     * Because shield can be used as a weapon and therefore shares same interface
+     * @param $missingStrength
+     * @return bool
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function canUseWeapon($missingStrength)
+    {
+        return $this->canUseArmament($missingStrength);
+    }
 }

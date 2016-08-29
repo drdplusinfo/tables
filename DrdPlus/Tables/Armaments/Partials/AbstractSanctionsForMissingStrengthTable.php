@@ -31,4 +31,10 @@ abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTabl
 
         return $currentRow; // row with highest missing strength is the last
     }
+
+    /**
+     * @param int $missingStrength
+     * @return bool
+     */
+    abstract public function canUseArmament($missingStrength);
 }

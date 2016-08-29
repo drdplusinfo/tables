@@ -1,11 +1,32 @@
 <?php
 namespace DrdPlus\Tables;
 
+use DrdPlus\Codes\ArmamentCode;
+use DrdPlus\Codes\ArmorCode;
+use DrdPlus\Codes\BodyArmorCode;
+use DrdPlus\Codes\HelmCode;
+use DrdPlus\Codes\MeleeWeaponlikeCode;
+use DrdPlus\Codes\MeleeWeaponCode;
+use DrdPlus\Codes\RangeWeaponCode;
+use DrdPlus\Codes\ShieldCode;
+use DrdPlus\Codes\WeaponlikeCode;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon;
+use DrdPlus\Tables\Armaments\Partials\AbstractMeleeArmamentSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\CoveringArmamentParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
+use DrdPlus\Tables\Armaments\Partials\WeaponParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\WearableParametersInterface;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
@@ -14,6 +35,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
@@ -24,6 +46,7 @@ use DrdPlus\Tables\Armaments\Weapons\Range\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\DartsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\ThrowingWeaponsTable;
@@ -693,7 +716,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getRidesTable(),
             $this->getRidingAnimalMovementTypesTable(),
             $this->getRidingAnimalsTable(),
-            $this->getWoundsOnFallFromHorseTable()
+            $this->getWoundsOnFallFromHorseTable(),
         ]);
     }
 
@@ -707,6 +730,193 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
 
         return $this->armourer;
+    }
+
+    /**
+     * @param ArmamentCode $armamentCode
+     * @return WearableParametersInterface
+     * @throws UnknownArmament
+     */
+    public function getArmamentsTableByArmamentCode(ArmamentCode $armamentCode)
+    {
+        if ($armamentCode instanceof WeaponlikeCode) {
+            return $this->getWeaponsTableByWeaponCode($armamentCode);
+        }
+        if ($armamentCode instanceof ArmorCode) {
+            return $this->getArmorsTableByArmorCode($armamentCode);
+        }
+        throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
+    }
+
+    /**
+     * @param WeaponlikeCode $weaponCode
+     * @return WeaponParametersInterface|WearableParametersInterface
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon
+     */
+    public function getWeaponsTableByWeaponCode(WeaponlikeCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponCode) {
+            return $this->getMeleeWeaponsTableByMeleeWeaponCode($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getRangeWeaponsTableByRangeWeaponCode($weaponCode);
+        }
+        if ($weaponCode instanceof ShieldCode) {
+            return $this->getShieldsTable();
+        }
+        throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
+    }
+
+    /**
+     * @param MeleeWeaponlikeCode $meleeArmamentCode
+     * @return CoveringArmamentParametersInterface
+     * @throws UnknownWeapon
+     */
+    public function getMeleeArmamentsTableByMeleeArmamentCode(MeleeWeaponlikeCode $meleeArmamentCode)
+    {
+        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
+            return $this->getMeleeWeaponsTableByMeleeWeaponCode($meleeArmamentCode);
+        }
+        if ($meleeArmamentCode instanceof ShieldCode) {
+            return $this->getShieldsTable();
+        }
+        throw new UnknownWeapon("Unknown type of weapon '{$meleeArmamentCode}'");
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @return MeleeWeaponsTable
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
+     */
+    public function getMeleeWeaponsTableByMeleeWeaponCode(MeleeWeaponCode $meleeWeaponCode)
+    {
+        if ($meleeWeaponCode->isAxe()) {
+            return $this->getAxesTable();
+        }
+        if ($meleeWeaponCode->isKnifeOrDagger()) {
+            return $this->getKnifesAndDaggersTable();
+        }
+        if ($meleeWeaponCode->isMaceOrClub()) {
+            return $this->getMacesAndClubsTable();
+        }
+        if ($meleeWeaponCode->isMorningstarOrMorgenstern()) {
+            return $this->getMorningstarsAndMorgensternsTable();
+        }
+        if ($meleeWeaponCode->isSaberOrBowieKnife()) {
+            return $this->getSabersAndBowieKnifesTable();
+        }
+        if ($meleeWeaponCode->isStaffOrSpear()) {
+            return $this->getStaffsAndSpearsTable();
+        }
+        if ($meleeWeaponCode->isSword()) {
+            return $this->getSwordsTable();
+        }
+        if ($meleeWeaponCode->isUnarmed()) {
+            return $this->getUnarmedTable();
+        }
+        if ($meleeWeaponCode->isVoulgeOrTrident()) {
+            return $this->getVoulgesAndTridentsTable();
+        }
+        throw new UnknownMeleeWeapon("Unknown type of melee weapon '{$meleeWeaponCode}'");
+    }
+
+    /**
+     * @param RangeWeaponCode $rangeWeaponCode
+     * @return RangeWeaponsTable
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     */
+    public function getRangeWeaponsTableByRangeWeaponCode(RangeWeaponCode $rangeWeaponCode)
+    {
+        if ($rangeWeaponCode->isArrow()) {
+            return $this->getArrowsTable();
+        }
+        if ($rangeWeaponCode->isBow()) {
+            return $this->getBowsTable();
+        }
+        if ($rangeWeaponCode->isCrossbow()) {
+            return $this->getCrossbowsTable();
+        }
+        if ($rangeWeaponCode->isDart()) {
+            return $this->getDartsTable();
+        }
+        if ($rangeWeaponCode->isSlingStone()) {
+            return $this->getSlingStonesTable();
+        }
+        if ($rangeWeaponCode->isThrowingWeapon()) {
+            return $this->getThrowingWeaponsTable();
+        }
+        throw new UnknownRangeWeapon("Unknown type of range weapon '{$rangeWeaponCode}'");
+    }
+
+    /**
+     * @param ArmorCode $armorCode
+     * @return BodyArmorsTable|HelmsTable
+     * @throws UnknownArmor
+     */
+    private function getArmorsTableByArmorCode(ArmorCode $armorCode)
+    {
+        if ($armorCode instanceof BodyArmorCode) {
+            return $this->getBodyArmorsTable();
+        }
+        if ($armorCode instanceof HelmCode) {
+            return $this->getHelmsTable();
+        }
+
+        throw new UnknownArmor("Unknown type of armor '{$armorCode}'");
+    }
+
+    /**
+     * @param ArmamentCode $armamentCode
+     * @return AbstractSanctionsForMissingStrengthTable
+     * @throws UnknownArmament
+     * @throws UnknownMeleeArmament
+     * @throws UnknownWeapon
+     */
+    public function getArmamentSanctionsByMissingStrengthTableByWeaponCode(ArmamentCode $armamentCode)
+    {
+        if ($armamentCode instanceof WeaponlikeCode) {
+            return $this->getWeaponSanctionsByMissingStrengthTableByWeaponCode($armamentCode);
+        }
+        if ($armamentCode instanceof ArmorCode) {
+            return $this->getArmorSanctionsByMissingStrengthTable();
+        }
+
+        throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
+    }
+
+    /**
+     * @param WeaponlikeCode $weaponCode
+     * @return SanctionsForMissingStrengthForWeaponInterface
+     * @throws UnknownWeapon
+     * @throws UnknownMeleeArmament
+     */
+    public function getWeaponSanctionsByMissingStrengthTableByWeaponCode(WeaponlikeCode $weaponCode)
+    {
+        if ($weaponCode instanceof MeleeWeaponlikeCode) {
+            return $this->getMeleeArmamentSanctionsByMissingStrengthTableByCode($weaponCode);
+        }
+        if ($weaponCode instanceof RangeWeaponCode) {
+            return $this->getRangeWeaponSanctionsByMissingStrengthTable();
+        }
+
+        throw new UnknownWeapon("Unknown type of weapon '{$weaponCode}'");
+    }
+
+    /**
+     * @param MeleeWeaponlikeCode $meleeArmamentCode
+     * @return AbstractMeleeArmamentSanctionsByMissingStrengthTable
+     * @throws UnknownMeleeArmament
+     */
+    public function getMeleeArmamentSanctionsByMissingStrengthTableByCode(MeleeWeaponlikeCode $meleeArmamentCode)
+    {
+        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
+            return $this->getMeleeWeaponSanctionsByMissingStrengthTable();
+        }
+        if ($meleeArmamentCode instanceof ShieldCode) {
+            return $this->getShieldSanctionsByMissingStrengthTable();
+        }
+
+        throw new UnknownMeleeArmament("Unknown type of melee armament '{$meleeArmamentCode}'");
     }
 
 }

@@ -6,10 +6,10 @@ interface WearableParametersInterface
     const REQUIRED_STRENGTH = 'required_strength';
 
     /**
-     * @param string $itemCode
+     * @param string $wearableCode
      * @return int
      */
-    public function getRequiredStrengthOf($itemCode);
+    public function getRequiredStrengthOf($wearableCode);
 
     const WEIGHT = 'weight';
 

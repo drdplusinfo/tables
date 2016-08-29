@@ -2,9 +2,11 @@
 namespace DrdPlus\Tables\Armaments\Weapons\Range;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
 class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
+    implements SanctionsForMissingStrengthForWeaponInterface
 {
     protected function getDataFileName()
     {
@@ -29,6 +31,17 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
             self::BASE_OF_WOUNDS => self::NEGATIVE_INTEGER,
             self::CAN_USE_WEAPON => self::BOOLEAN,
         ];
+    }
+
+    /**
+     * @param int $missingStrength
+     * @return bool
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function canUseArmament($missingStrength)
+    {
+        return $this->canUseWeapon($missingStrength);
     }
 
     /**

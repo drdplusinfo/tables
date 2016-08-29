@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
 abstract class AbstractMeleeArmamentSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
+    implements SanctionsForMissingStrengthForWeaponInterface
 {
     protected function getDataFileName()
     {
@@ -102,7 +103,7 @@ abstract class AbstractMeleeArmamentSanctionsByMissingStrengthTable extends Abst
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    protected function canUseArmament($missingStrength)
+    public function canUseArmament($missingStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
