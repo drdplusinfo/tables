@@ -3,18 +3,16 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\CoveringArmamentParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\WeaponlikeParametersInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements CoveringArmamentParametersInterface
+abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements WeaponlikeParametersInterface
 {
     protected function getRowsHeader()
     {
         return ['weapon'];
     }
-
-    const LENGTH = 'length';
 
     protected function getExpectedDataHeaderNamesToTypes()
     {

@@ -3,12 +3,12 @@ namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\CoveringArmamentParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\WeaponlikeParametersInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersInterface, CoveringArmamentParametersInterface
+class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersInterface, WeaponlikeParametersInterface
 {
     protected function getDataFileName()
     {
@@ -24,6 +24,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersI
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,
+            self::LENGTH => self::INTEGER,
             self::RESTRICTION => self::INTEGER,
             self::OFFENSIVENESS => self::INTEGER,
             self::WOUNDS => self::INTEGER,
@@ -58,6 +59,16 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersI
                 'Unknown shield code ' . ValueDescriber::describe($shieldCode)
             );
         }
+    }
+
+    /**
+     * @param string $weaponCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
+     */
+    public function getLengthOf($weaponCode)
+    {
+        return $this->getValueOf($weaponCode, self::LENGTH);
     }
 
     /**

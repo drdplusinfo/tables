@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 
-abstract class AbstractMeleeArmamentSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
+abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
 {
     /**
      * @test

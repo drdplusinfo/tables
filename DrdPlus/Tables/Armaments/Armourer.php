@@ -4,15 +4,13 @@ namespace DrdPlus\Tables\Armaments;
 use DrdPlus\Codes\ArmamentCode;
 use DrdPlus\Codes\ArmorCode;
 use DrdPlus\Codes\MeleeWeaponlikeCode;
-use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
-use DrdPlus\Codes\ShieldCode;
 use DrdPlus\Codes\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
 use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
-use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon;
 use DrdPlus\Tables\Tables;
@@ -43,19 +41,14 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeArmamentCode
+     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @return int
-     * @throws Exceptions\UnknownMeleeArmament
+     * @throws Exceptions\UnknownMeleeWeaponlike
      */
-    public function getLengthOfMeleeArmament(MeleeWeaponlikeCode $meleeArmamentCode)
+    public function getLengthOfWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
-        if ($meleeArmamentCode instanceof MeleeWeaponCode) {
-            return $this->tables->getMeleeWeaponsTableByMeleeWeaponCode($meleeArmamentCode)->getLengthOf($meleeArmamentCode);
-        }
-        if ($meleeArmamentCode instanceof ShieldCode) {
-            return 0;
-        }
-        throw new Exceptions\UnknownMeleeArmament("Unknown type of weapon '{$meleeArmamentCode}'");
+        return $this->tables->getWeaponlikeCodesTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)
+            ->getLengthOf($meleeWeaponlikeCode);
     }
 
     /**
@@ -79,13 +72,13 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeArmamentCode
+     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeapon
      */
-    public function getCoverOfMeleeArmament(MeleeWeaponlikeCode $meleeArmamentCode)
+    public function getCoverOfWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
-        return $this->tables->getMeleeArmamentsTableByMeleeArmamentCode($meleeArmamentCode)->getCoverOf($meleeArmamentCode);
+        return $this->tables->getWeaponlikeCodesTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getCoverOf($meleeWeaponlikeCode);
     }
 
     /**
@@ -225,16 +218,16 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeArmamentCode
+     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @param Strength $currentStrength
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusByStrengthWithMeleeArmament(MeleeWeaponlikeCode $meleeArmamentCode, Strength $currentStrength)
+    public function getDefenseNumberMalusByStrengthWithWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode, Strength $currentStrength)
     {
-        return $this->tables->getMeleeArmamentSanctionsByMissingStrengthTableByCode($meleeArmamentCode)->getDefenseNumberSanction(
-            $this->getMissingStrengthForArmament($meleeArmamentCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getWeaponlikeCodeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode)->getDefenseNumberSanction(
+            $this->getMissingStrengthForArmament($meleeWeaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
 

@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons;
 
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMeleeArmamentSanctionsByMissingStrengthTableTest;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest;
 
-class MeleeWeaponSanctionsByMissingStrengthTableTest extends AbstractMeleeArmamentSanctionsByMissingStrengthTableTest
+class MeleeWeaponSanctionsByMissingStrengthTableTest extends AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest
 {
     /**
      * @test

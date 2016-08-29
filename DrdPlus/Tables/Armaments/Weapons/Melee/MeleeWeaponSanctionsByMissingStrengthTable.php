@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractMeleeArmamentSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable;
 
-class MeleeWeaponSanctionsByMissingStrengthTable extends AbstractMeleeArmamentSanctionsByMissingStrengthTable
+class MeleeWeaponSanctionsByMissingStrengthTable extends AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable
 {
     const CAN_USE_WEAPON = self::CAN_USE_ARMAMENT;
 

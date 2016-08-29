@@ -3,7 +3,6 @@ namespace DrdPlus\Tests\Tables\Armaments;
 
 use DrdPlus\Codes\BodyArmorCode;
 use DrdPlus\Codes\HelmCode;
-use DrdPlus\Codes\MeleeWeaponlikeCode;
 use DrdPlus\Codes\MeleeWeaponCode;
 use DrdPlus\Codes\RangeWeaponCode;
 use DrdPlus\Codes\ShieldCode;
@@ -279,14 +278,14 @@ class ArmourerTest extends TestWithMockery
             $armourer->getAttackNumberMalusByStrengthWithWeapon($meleeWeaponCode, Strength::getIt($strength))
         );
 
-        $tables->shouldReceive('getMeleeArmamentSanctionsByMissingStrengthTableByCode')
+        $tables->shouldReceive('getWeaponlikeCodeSanctionsByMissingStrengthTableByCode')
             ->andReturn($meleeWeaponSanctionsTable);
         $meleeWeaponSanctionsTable->shouldReceive('getDefenseNumberSanction')
             ->with($expectedMissingStrength)
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getDefenseNumberMalusByStrengthWithMeleeArmament($meleeWeaponCode, Strength::getIt($strength))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponlikeCode($meleeWeaponCode, Strength::getIt($strength))
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
@@ -419,14 +418,14 @@ class ArmourerTest extends TestWithMockery
             $armourer->getAttackNumberMalusByStrengthWithWeapon($shield, Strength::getIt(3))
         );
 
-        $tables->shouldReceive('getMeleeArmamentSanctionsByMissingStrengthTableByCode')
+        $tables->shouldReceive('getWeaponlikeCodeSanctionsByMissingStrengthTableByCode')
             ->andReturn($shieldSanctionsByMissingStrengthTable);
         $shieldSanctionsByMissingStrengthTable->shouldReceive('getDefenseNumberSanction')
             ->with(3 /* required strength - strength */)
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getDefenseNumberMalusByStrengthWithMeleeArmament($shield, Strength::getIt(2))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponlikeCode($shield, Strength::getIt(2))
         );
 
         $shieldSanctionsByMissingStrengthTable->shouldReceive('getBaseOfWoundsSanction')
@@ -655,21 +654,13 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
         $knife = $this->createMeleeWeaponCode('foo', 'knifeOrDagger');
-        $tables->shouldReceive('getMeleeWeaponsTableByMeleeWeaponCode')
+        $tables->shouldReceive('getWeaponlikeCodesTableByMeleeWeaponlikeCode')
             ->with($knife)
             ->andReturn($knifesAndDaggersTable = $this->createMeleeWeaponTable());
         $knifesAndDaggersTable->shouldReceive('getLengthOf')
             ->with($knife)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getLengthOfMeleeArmament($knife));
-    }
-
-    /**
-     * @test
-     */
-    public function I_get_zero_length_of_shield()
-    {
-        self::assertSame(0, (new Armourer($this->createTables()))->getLengthOfMeleeArmament($this->createShield()));
+        self::assertSame('bar', (new Armourer($tables))->getLengthOfWeaponlikeCode($knife));
     }
 
     /**
@@ -678,15 +669,6 @@ class ArmourerTest extends TestWithMockery
     private function createShield()
     {
         return $this->mockery(ShieldCode::class);
-    }
-
-    /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeArmament
-     */
-    public function I_can_not_get_length_for_unknown_weapon_code()
-    {
-        (new Armourer($this->createTables()))->getLengthOfMeleeArmament($this->mockery(MeleeWeaponlikeCode::class));
     }
 
     /**
@@ -841,22 +823,22 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
 
         $fist = $this->createMeleeWeaponCode('foo', 'unarmed');
-        $tables->shouldReceive('getMeleeArmamentsTableByMeleeArmamentCode')
+        $tables->shouldReceive('getWeaponlikeCodesTableByMeleeWeaponlikeCode')
             ->with($fist)
             ->andReturn($unarmedTable = $this->createMeleeWeaponTable());
         $unarmedTable->shouldReceive('getCoverOf')
             ->with($fist)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getCoverOfMeleeArmament($fist));
+        self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponlikeCode($fist));
 
         $shield = $this->createShield();
-        $tables->shouldReceive('getMeleeArmamentsTableByMeleeArmamentCode')
+        $tables->shouldReceive('getWeaponlikeCodesTableByMeleeWeaponlikeCode')
             ->with($shield)
             ->andReturn($shieldsTable = $this->createShieldsTable());
         $shieldsTable->shouldReceive('getCoverOf')
             ->with($shield)
             ->andReturn('baz');
-        self::assertSame('baz', (new Armourer($tables))->getCoverOfMeleeArmament($shield));
+        self::assertSame('baz', (new Armourer($tables))->getCoverOfWeaponlikeCode($shield));
     }
 
     /**

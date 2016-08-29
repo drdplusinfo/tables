@@ -3,12 +3,12 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
-abstract class AbstractMeleeArmamentSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
+abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
     implements SanctionsForMissingStrengthForWeaponInterface
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_strength_for_melee_armament_sanctions.csv';
+        return __DIR__ . '/data/missing_strength_for_melee_weaponlike_sanctions.csv';
     }
 
     const FIGHT_NUMBER = 'fight_number';

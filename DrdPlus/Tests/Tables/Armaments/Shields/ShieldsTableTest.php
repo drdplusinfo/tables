@@ -14,7 +14,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
     {
         $shieldsTable = new ShieldsTable();
         self::assertSame(
-            [['shield', 'required_strength', 'restriction', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
+            [['shield', 'required_strength', 'length', 'restriction', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
             $shieldsTable->getHeader()
         );
     }
@@ -76,6 +76,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
     {
         return [
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::REQUIRED_STRENGTH, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::LENGTH, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::RESTRICTION, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::OFFENSIVENESS, false],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS, false],
@@ -85,6 +86,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WEIGHT, 0.0],
 
             [ShieldCode::BUCKLER, ShieldsTable::REQUIRED_STRENGTH, -3],
+            [ShieldCode::BUCKLER, ShieldsTable::LENGTH, 0],
             [ShieldCode::BUCKLER, ShieldsTable::RESTRICTION, -1],
             [ShieldCode::BUCKLER, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::BUCKLER, ShieldsTable::WOUNDS, 0],
@@ -93,6 +95,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
             [ShieldCode::BUCKLER, ShieldsTable::WEIGHT, 0.8],
 
             [ShieldCode::SMALL_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 1],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::LENGTH, 0],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::RESTRICTION, -2],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS, 1],
@@ -101,6 +104,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WEIGHT, 1.5],
 
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 5],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::LENGTH, 0],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::RESTRICTION, -3],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS, 2],
@@ -109,6 +113,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WEIGHT, 2.5],
 
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 9],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::LENGTH, 0],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::RESTRICTION, -4],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS, 3],
@@ -117,6 +122,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WEIGHT, 4.0],
 
             [ShieldCode::PAVISE, ShieldsTable::REQUIRED_STRENGTH, 13],
+            [ShieldCode::PAVISE, ShieldsTable::LENGTH, 0],
             [ShieldCode::PAVISE, ShieldsTable::RESTRICTION, -5],
             [ShieldCode::PAVISE, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::PAVISE, ShieldsTable::WOUNDS, 4],
