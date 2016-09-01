@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Armaments\Partials;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;
 
-abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTable
+abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTable implements SanctionsForMissingStrengthInterface
 {
     const MISSING_STRENGTH = 'missing_strength';
 
@@ -32,9 +32,4 @@ abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTabl
         return $currentRow; // row with highest missing strength is the last
     }
 
-    /**
-     * @param int $missingStrength
-     * @return bool
-     */
-    abstract public function canUseArmament($missingStrength);
 }

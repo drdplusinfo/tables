@@ -52,7 +52,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable extends Ab
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
-        if ($guardMaximumMissingStrength && !$this->canUseArmament($missingStrength)) {
+        if ($guardMaximumMissingStrength && !$this->canUseIt($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
                 "Too much missing strength {$missingStrength} to use a melee weapon"
             );
@@ -103,7 +103,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable extends Ab
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseArmament($missingStrength)
+    public function canUseIt($missingStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(

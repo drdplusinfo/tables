@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
-use DrdPlus\Codes\ShieldCode;
+use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tests\Tables\TableTestInterface;
 

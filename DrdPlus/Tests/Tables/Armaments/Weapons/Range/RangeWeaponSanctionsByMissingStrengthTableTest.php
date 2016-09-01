@@ -175,7 +175,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     public function I_can_properly_detect_if_can_use_a_shooting_weapon($missingStrength, $canUse)
     {
         $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
-        self::assertSame($canUse, $shootingWeaponSanctionsTable->canUseWeapon($missingStrength));
+        self::assertSame($canUse, $shootingWeaponSanctionsTable->canUseIt($missingStrength));
     }
 
     public function provideMissingStrengthAndUsableResult()

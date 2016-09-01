@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface WearableParametersInterface
+interface WearableTableInterface
 {
     const REQUIRED_STRENGTH = 'required_strength';
 

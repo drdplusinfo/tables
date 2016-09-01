@@ -26,12 +26,12 @@ class BowsTable extends RangeWeaponsTable
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      */
-    public function getMaximalApplicableStrengthOf($weaponCode)
+    public function getMaximalApplicableStrengthOf($weaponlikeCode)
     {
-        return self::getValueOf($weaponCode, self::MAXIMAL_APPLICABLE_STRENGTH);
+        return self::getValueOf($weaponlikeCode, self::MAXIMAL_APPLICABLE_STRENGTH);
     }
 
     protected function getRowsHeader()

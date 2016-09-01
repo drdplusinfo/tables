@@ -21,7 +21,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_higher_rank_than_three()
     {
-        (new MissingShieldSkillTable())->getRestrictionBonusForSkillRank(8);
+        (new MissingShieldSkillTable())->getRestrictionBonusForSkill(8);
     }
 
     /**
@@ -37,7 +37,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_restriction_bonus_for_skill_rank()
     {
-        self::assertSame(1, (new MissingShieldSkillTable())->getRestrictionBonusForSkillRank(1));
+        self::assertSame(1, (new MissingShieldSkillTable())->getRestrictionBonusForSkill(1));
     }
 
     /**

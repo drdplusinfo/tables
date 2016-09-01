@@ -1,14 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface SanctionsForMissingStrengthForWeaponInterface
+interface SanctionsForMissingStrengthForWeaponInterface extends SanctionsForMissingStrengthInterface
 {
-    /**
-     * @param int $missingStrength
-     * @return bool
-     */
-    public function canUseWeapon($missingStrength);
-
     /**
      * @param int $missingStrength
      * @return int

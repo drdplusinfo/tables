@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Codes\BodyArmorCode;
+use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 
 class BodyArmorsTableTest extends AbstractArmorsTableTest

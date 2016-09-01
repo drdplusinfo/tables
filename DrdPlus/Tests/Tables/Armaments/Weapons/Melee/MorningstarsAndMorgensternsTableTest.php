@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
-use DrdPlus\Codes\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;

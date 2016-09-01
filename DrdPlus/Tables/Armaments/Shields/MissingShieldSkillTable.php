@@ -31,10 +31,10 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
-    public function getRestrictionBonusForSkillRank($skillRank)
+    public function getRestrictionBonusForSkill($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);
     }
 
@@ -44,10 +44,10 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
     public function getCoverForSkillRank($skillRank)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::COVER);
     }
 

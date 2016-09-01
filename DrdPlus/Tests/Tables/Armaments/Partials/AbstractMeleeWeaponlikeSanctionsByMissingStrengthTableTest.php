@@ -169,7 +169,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
                     MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => 0,
                     MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => 0,
                     MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_WEAPON => true,
+                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => true,
                 ]
             ];
         }
@@ -182,7 +182,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
                     MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => min(0, (int)floor((-$missingStrength + 1) / 2)),
                     MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => min(0, (int)floor((-$missingStrength + 2) / 2)),
                     MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => min(0, (int)floor((-$missingStrength + 3) / 2)),
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_WEAPON => true,
+                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => true,
                 ]
             ];
         }
@@ -195,7 +195,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
                     MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => false,
                     MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => false,
                     MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => false,
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_WEAPON => false,
+                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => false,
                 ]
             ];
         }

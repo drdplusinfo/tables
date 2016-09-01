@@ -3,11 +3,11 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\WeaponlikeParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements WeaponlikeParametersInterface
+abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikeTableInterface
 {
     protected function getRowsHeader()
     {
@@ -28,90 +28,90 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Weapo
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getOffensivenessOf($weaponCode)
+    public function getOffensivenessOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::OFFENSIVENESS);
+        return $this->getValueOf($weaponlikeCode, self::OFFENSIVENESS);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @param string $valueName
      * @return float|int|string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    private function getValueOf($weaponCode, $valueName)
+    private function getValueOf($weaponlikeCode, $valueName)
     {
         try {
-            return $this->getValue([$weaponCode], $valueName);
+            return $this->getValue([$weaponlikeCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
             throw new UnknownMeleeWeapon(
-                'Unknown weapon code ' . ValueDescriber::describe($weaponCode)
+                'Unknown weapon code ' . ValueDescriber::describe($weaponlikeCode)
             );
         }
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWoundsOf($weaponCode)
+    public function getWoundsOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::WOUNDS);
+        return $this->getValueOf($weaponlikeCode, self::WOUNDS);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWoundsTypeOf($weaponCode)
+    public function getWoundsTypeOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::WOUNDS_TYPE);
+        return $this->getValueOf($weaponlikeCode, self::WOUNDS_TYPE);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getRequiredStrengthOf($weaponCode)
+    public function getRequiredStrengthOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::REQUIRED_STRENGTH);
+        return $this->getValueOf($weaponlikeCode, self::REQUIRED_STRENGTH);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getLengthOf($weaponCode)
+    public function getLengthOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::LENGTH);
+        return $this->getValueOf($weaponlikeCode, self::LENGTH);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getCoverOf($weaponCode)
+    public function getCoverOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::COVER);
+        return $this->getValueOf($weaponlikeCode, self::COVER);
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWeightOf($weaponCode)
+    public function getWeightOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::WEIGHT);
+        return $this->getValueOf($weaponlikeCode, self::WEIGHT);
     }
 
 }

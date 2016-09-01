@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
-use DrdPlus\Codes\RangeWeaponCode;
+use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTableTest;

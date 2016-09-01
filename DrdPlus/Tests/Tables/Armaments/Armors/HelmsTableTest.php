@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Codes\HelmCode;
+use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 
 class HelmsTableTest extends AbstractArmorsTableTest

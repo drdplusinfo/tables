@@ -3,12 +3,12 @@ namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\WeaponlikeParametersInterface;
-use DrdPlus\Tables\Armaments\Partials\UnwieldyParametersInterface;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyTableInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersInterface, WeaponlikeParametersInterface
+class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTableInterface, MeleeWeaponlikeTableInterface
 {
     protected function getDataFileName()
     {
@@ -62,13 +62,13 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyParametersI
     }
 
     /**
-     * @param string $weaponCode
+     * @param string $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getLengthOf($weaponCode)
+    public function getLengthOf($weaponlikeCode)
     {
-        return $this->getValueOf($weaponCode, self::LENGTH);
+        return $this->getValueOf($weaponlikeCode, self::LENGTH);
     }
 
     /**

@@ -12,7 +12,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_negative_rank()
     {
-        (new MissingWeaponSkillTable())->getAttackNumberForWeaponSkill(-1);
+        (new MissingWeaponSkillTable())->getAttackNumberMalusForSkill(-1);
     }
 
     /**
@@ -21,7 +21,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_higher_rank_than_three()
     {
-        (new MissingWeaponSkillTable())->getBaseOfWoundsForWeaponSkill(4);
+        (new MissingWeaponSkillTable())->getBaseOfWoundsMalusForSkill(4);
     }
 
     /**
@@ -99,7 +99,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
     {
         self::assertSame(
             -3,
-            (new MissingWeaponSkillTable())->getFightNumberForWeaponSkill(0)
+            (new MissingWeaponSkillTable())->getFightNumberMalusForSkill(0)
         );
     }
 
@@ -110,7 +110,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
     {
         self::assertSame(
             -2,
-            (new MissingWeaponSkillTable())->getAttackNumberForWeaponSkill(1)
+            (new MissingWeaponSkillTable())->getAttackNumberMalusForSkill(1)
         );
     }
 
@@ -121,7 +121,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
     {
         self::assertSame(
             0,
-            (new MissingWeaponSkillTable())->getCoverForWeaponSkill(3)
+            (new MissingWeaponSkillTable())->getCoverMalusForSkill(3)
         );
     }
 
@@ -132,7 +132,7 @@ class MissingWeaponSkillTableTest extends AbstractMissingArmamentSkillTableTest
     {
         self::assertSame(
             0,
-            (new MissingWeaponSkillTable())->getBaseOfWoundsForWeaponSkill(2)
+            (new MissingWeaponSkillTable())->getBaseOfWoundsMalusForSkill(2)
         );
     }
 

@@ -44,7 +44,7 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getFightNumberForWeaponSkill($skillRank)
+    public function getFightNumberMalusForSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::FIGHT_NUMBER);
@@ -55,7 +55,7 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getAttackNumberForWeaponSkill($skillRank)
+    public function getAttackNumberMalusForSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::ATTACK_NUMBER);
@@ -66,7 +66,7 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getCoverForWeaponSkill($skillRank)
+    public function getCoverMalusForSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::COVER);
@@ -77,7 +77,7 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getBaseOfWoundsForWeaponSkill($skillRank)
+    public function getBaseOfWoundsMalusForSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::BASE_OF_WOUNDS);

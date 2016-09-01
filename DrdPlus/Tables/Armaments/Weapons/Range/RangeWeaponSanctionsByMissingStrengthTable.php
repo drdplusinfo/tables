@@ -39,18 +39,7 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseArmament($missingStrength)
-    {
-        return $this->canUseWeapon($missingStrength);
-    }
-
-    /**
-     * @param int $missingStrength
-     * @return bool
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
-     */
-    public function canUseWeapon($missingStrength)
+    public function canUseIt($missingStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
@@ -83,7 +72,7 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
      */
     private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
     {
-        if ($guardMaximumMissingStrength && !$this->canUseWeapon($missingStrength)) {
+        if ($guardMaximumMissingStrength && !$this->canUseIt($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
                 "Too much missing strength {$missingStrength} to use a range weapon"
             );

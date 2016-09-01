@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Exceptions;
 
-class UnknownMeleeWeaponlike extends UnknownWeapon
+class UnknownMeleeWeaponlike extends UnknownWeaponlike
 {
 
 }
