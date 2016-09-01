@@ -79,6 +79,7 @@ class WeightTable extends AbstractMeasurementFileTable
     }
 
     /**
+     * Affects activities using strength, agility or knack, see PPH page 113, right column, bottom.
      * @param Strength $strength
      * @param Weight $cargoWeight
      * @return int negative number or zero
@@ -88,11 +89,12 @@ class WeightTable extends AbstractMeasurementFileTable
     {
         $requiredStrength = $cargoWeight->getBonus()->getValue();
         $missingStrength = $requiredStrength - $strength->getValue();
+        $malus = -SumAndRound::half($missingStrength); // see PPH page 113, right column
+        if ($malus > 0) {
+            return 0;
+        }
 
-        return min( // negative number or zero
-            -SumAndRound::half($missingStrength), // see PPH page 113, right column
-            0
-        );
+        return $malus;
     }
 
 }
