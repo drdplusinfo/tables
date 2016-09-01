@@ -1,9 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
 
-class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable
+class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable implements MissingProtectiveArmamentSkill
 {
     /**
      * @return string
@@ -13,14 +14,12 @@ class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable
         return __DIR__ . '/data/missing_armor_skill.csv';
     }
 
-    const BONUS = 'bonus';
-
     /**
      * @return array|string[]
      */
     protected function getExpectedDataHeaderNamesToTypes()
     {
-        return [self::BONUS => self::POSITIVE_INTEGER];
+        return [self::RESTRICTION_BONUS => self::POSITIVE_INTEGER];
     }
 
     /**
@@ -30,10 +29,10 @@ class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function gotBonusForSkillRank($skillRank)
+    public function getRestrictionBonusForSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueForSkillRank($skillRank, self::BONUS);
+        return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);
     }
 
 }

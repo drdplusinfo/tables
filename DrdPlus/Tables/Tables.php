@@ -7,6 +7,7 @@ use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
@@ -19,8 +20,10 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
+use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
@@ -914,6 +917,22 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
 
         throw new UnknownMeleeWeaponlike("Unknown type of melee armament '{$meleeWeaponlikeCode}'");
+    }
+
+    /**
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
+     * @return MissingProtectiveArmamentSkill
+     * @throws UnknownProtectiveArmament
+     */
+    public function getProtectiveArmamentMissingSkillTableByCode(ProtectiveArmamentCode $protectiveArmamentCode)
+    {
+        if ($protectiveArmamentCode instanceof ArmorCode) {
+            return $this->getMissingArmorSkillTable();
+        }
+        if ($protectiveArmamentCode instanceof ShieldCode) {
+            return $this->getMissingShieldSkillTable();
+        }
+        throw new UnknownProtectiveArmament("Unknown type of protective armament {$protectiveArmamentCode}");
     }
 
 }

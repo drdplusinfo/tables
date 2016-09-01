@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Armaments;
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
@@ -366,34 +367,21 @@ class Armourer extends StrictObject
     // missing shield-specific skill
 
     /**
+     * Applicable to lower shield or armor Restriction (Fight number malus), but can not make it positive.
+     *
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
      * @param PositiveInteger $shieldUsageSkillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getShieldRestrictionBonusForSkill(PositiveInteger $shieldUsageSkillRank)
+    public function getProtectiveArmamentRestrictionBonusForSkill(
+        ProtectiveArmamentCode $protectiveArmamentCode,
+        PositiveInteger $shieldUsageSkillRank
+    )
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getMissingShieldSkillTable()->getRestrictionBonusForSkill($shieldUsageSkillRank->getValue());
-    }
-
-    /**
-     * Applicable to lower shield Restriction (Fight number malus), but can not make it positive.
-     *
-     * @param ShieldCode $shieldCode
-     * @param PositiveInteger $shieldUsageSkillRank
-     * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
-     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
-     */
-    public function getShieldRestrictionWithShieldAndSkill(ShieldCode $shieldCode, PositiveInteger $shieldUsageSkillRank)
-    {
-        $malusFromRestriction = $this->getRestrictionOfShield($shieldCode)
-            + $this->getShieldRestrictionBonusForSkill($shieldUsageSkillRank);
-        if ($malusFromRestriction > 0) {
-            return 0; // skill can lower the malus, but can not give bonus
-        }
-
-        return $malusFromRestriction;
+        return $this->tables->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
+            ->getRestrictionBonusForSkill($shieldUsageSkillRank->getValue());
     }
 
 }

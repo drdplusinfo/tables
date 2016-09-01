@@ -1,17 +1,17 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Shields;
 
+use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
-use Granam\Integer\IntegerInterface;
+use Granam\Integer\PositiveInteger;
 
-class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
+class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implements MissingProtectiveArmamentSkill
 {
     protected function getDataFileName()
     {
         return __DIR__ . '/data/missing_shield_skill.csv';
     }
 
-    const RESTRICTION_BONUS = 'restriction_bonus';
     const COVER = 'cover';
 
     /**
@@ -21,12 +21,12 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
     {
         return [
             self::RESTRICTION_BONUS => self::POSITIVE_INTEGER,
-            self::COVER => self::NEGATIVE_INTEGER
+            self::COVER => self::NEGATIVE_INTEGER,
         ];
     }
 
     /**
-     * @param int|IntegerInterface $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
@@ -39,7 +39,7 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable
     }
 
     /**
-     * @param int|IntegerInterface $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType

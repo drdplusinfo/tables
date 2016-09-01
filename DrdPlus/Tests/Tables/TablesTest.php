@@ -7,6 +7,7 @@ use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
@@ -14,7 +15,9 @@ use DrdPlus\Codes\Code;
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
+use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
@@ -117,8 +120,7 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_every_armament_table_by_armament_code(ArmamentCode $armamentCode, $expectedTableClass)
     {
-        $tables = new Tables();
-        self::assertInstanceOf($expectedTableClass, $tables->getArmamentsTableByArmamentCode($armamentCode));
+        self::assertInstanceOf($expectedTableClass, (new Tables())->getArmamentsTableByArmamentCode($armamentCode));
     }
 
     public function provideArmamentCodeAndExpectedTableClass()
@@ -176,10 +178,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_armament_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var ArmamentCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
-        $tables->getArmamentsTableByArmamentCode($armamentCode);
+        (new Tables())->getArmamentsTableByArmamentCode($armamentCode);
     }
 
     /**
@@ -188,10 +189,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_weaponlike_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
-        $tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode);
+        (new Tables())->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode);
     }
 
     /**
@@ -200,10 +200,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_melee_weaponlike_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        $tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode);
+        (new Tables())->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode);
     }
 
     /**
@@ -213,10 +212,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_melee_weapons_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var MeleeWeaponCode $meleeWeaponCode */
         $meleeWeaponCode = $this->createMeleeWeaponCode('denigration', 'poisonous language');
-        $tables->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
+        (new Tables())->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
     }
 
     /**
@@ -254,10 +252,9 @@ class TablesTest extends TestWithMockery
         $expectedTableClass
     )
     {
-        $tables = new Tables();
         self::assertInstanceOf(
             $expectedTableClass,
-            $tables->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode)
+            (new Tables())->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode)
         );
     }
 
@@ -278,10 +275,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_sanctions_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var ArmorCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
-        $tables->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode);
+        (new Tables())->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode);
     }
 
     /**
@@ -290,10 +286,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_weaponlike_sanctions_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
-        $tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
+        (new Tables())->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
     }
 
     /**
@@ -302,10 +297,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_melee_weaponlike_sanctions_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        $tables->getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode);
+        (new Tables())->getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode);
     }
 
     /**
@@ -315,10 +309,9 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_range_weapons_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var RangeWeaponCode $rangeWeaponCode */
         $rangeWeaponCode = $this->createRangeWeaponCode('wallop', 'bio weapons');
-        $tables->getRangeWeaponsTableByRangeWeaponCode($rangeWeaponCode);
+        (new Tables())->getRangeWeaponsTableByRangeWeaponCode($rangeWeaponCode);
     }
 
     /**
@@ -348,10 +341,45 @@ class TablesTest extends TestWithMockery
      */
     public function I_do_not_get_any_armors_table_by_unknown_code()
     {
-        $tables = new Tables();
         /** @var ArmorCode $armorCode */
         $armorCode = $this->mockery(ArmorCode::class);
-        $tables->getArmorsTableByArmorCode($armorCode);
+        (new Tables())->getArmorsTableByArmorCode($armorCode);
     }
 
+    /**
+     * @test
+     * @dataProvider provideProtectiveArmamentCodeAndExpectedSanctionsTable
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
+     * @param string $expectedTableClass
+     */
+    public function I_can_get_table_with_sanctions_by_missing_skill_for_every_protective_armament(
+        ProtectiveArmamentCode $protectiveArmamentCode,
+        $expectedTableClass
+    )
+    {
+        self::assertInstanceOf(
+            $expectedTableClass,
+            (new Tables())->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
+        );
+    }
+
+    public function provideProtectiveArmamentCodeAndExpectedSanctionsTable()
+    {
+        return [
+            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), MissingArmorSkillTable::class],
+            [HelmCode::getIt(HelmCode::GREAT_HELM), MissingArmorSkillTable::class],
+            [ShieldCode::getIt(ShieldCode::BUCKLER), MissingShieldSkillTable::class],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
+     */
+    public function I_do_not_get_table_any_sanctions_by_missing_skill_for_unknown_code()
+    {
+        /** @var ProtectiveArmamentCode $protectiveArmamentCode */
+        $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
+        (new Tables())->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode);
+    }
 }
