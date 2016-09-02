@@ -140,6 +140,7 @@ class WeightTableTest extends TestWithMockery implements MeasurementTableTest
             [0, 0, 0],
             [10, 10, 0],
             [-5, 12, -9],
+            [45, 1, 0], // malus is zero at most, never becomes positive number (bonus)
         ];
     }
 

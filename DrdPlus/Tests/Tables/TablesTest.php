@@ -376,10 +376,47 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function I_do_not_get_table_any_sanctions_by_missing_skill_for_unknown_code()
+    public function I_do_not_get_table_any_sanctions_by_missing_skill_table_for_unknown_code()
     {
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
         (new Tables())->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode);
+    }
+
+    /**
+     * @test
+     * @dataProvider provideProtectiveArmamentCodeAndExpectedRestrictionTable
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
+     * @param string $expectedTableClass
+     */
+    public function I_can_get_table_with_restriction_for_every_protective_armament(
+        ProtectiveArmamentCode $protectiveArmamentCode,
+        $expectedTableClass
+    )
+    {
+        self::assertInstanceOf(
+            $expectedTableClass,
+            (new Tables())->getProtectiveArmamentsTable($protectiveArmamentCode)
+        );
+    }
+
+    public function provideProtectiveArmamentCodeAndExpectedRestrictionTable()
+    {
+        return [
+            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), BodyArmorsTable::class],
+            [HelmCode::getIt(HelmCode::GREAT_HELM), HelmsTable::class],
+            [ShieldCode::getIt(ShieldCode::BUCKLER), ShieldsTable::class],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
+     */
+    public function I_do_not_get_table_any_restriction_table_for_unknown_code()
+    {
+        /** @var ProtectiveArmamentCode $protectiveArmamentCode */
+        $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
+        (new Tables())->getProtectiveArmamentsTable($protectiveArmamentCode);
     }
 }
