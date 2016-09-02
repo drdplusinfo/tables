@@ -28,6 +28,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingS
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
 use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyTableInterface;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTableInterface;
 use DrdPlus\Tables\Armaments\Partials\WearableTableInterface;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
@@ -931,6 +932,25 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
         if ($protectiveArmamentCode instanceof ShieldCode) {
             return $this->getMissingShieldSkillTable();
+        }
+        throw new UnknownProtectiveArmament("Unknown type of protective armament {$protectiveArmamentCode}");
+    }
+
+    /**
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
+     * @return UnwieldyTableInterface
+     * @throws UnknownProtectiveArmament
+     */
+    public function getProtectiveArmamentsTable(ProtectiveArmamentCode $protectiveArmamentCode)
+    {
+        if ($protectiveArmamentCode instanceof BodyArmorCode) {
+            return $this->getBodyArmorsTable();
+        }
+        if ($protectiveArmamentCode instanceof HelmCode) {
+            return $this->getHelmsTable();
+        }
+        if ($protectiveArmamentCode instanceof ShieldCode) {
+            return $this->getShieldsTable();
         }
         throw new UnknownProtectiveArmament("Unknown type of protective armament {$protectiveArmamentCode}");
     }

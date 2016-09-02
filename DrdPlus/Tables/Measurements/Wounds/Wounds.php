@@ -25,6 +25,7 @@ class Wounds extends AbstractMeasurementWithBonus
     public function getValue()
     {
         // turning float to integer (without value lost)
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return ToInteger::toInteger(parent::getValue());
     }
 

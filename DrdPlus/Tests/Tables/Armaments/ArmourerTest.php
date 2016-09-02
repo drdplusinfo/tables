@@ -888,16 +888,17 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_restriction_of_shield()
+    public function I_can_get_restriction_of_protective_armament()
     {
         $tables = $this->createTables();
         $shield = $this->createShield();
-        $tables->shouldReceive('getShieldsTable')
+        $tables->shouldReceive('getProtectiveArmamentsTable')
+            ->with($shield)
             ->andReturn($shieldsTable = $this->createShieldsTable());
         $shieldsTable->shouldReceive('getRestrictionOf')
             ->with($shield)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->getRestrictionOfShield($shield));
+        self::assertSame('foo', (new Armourer($tables))->getRestrictionOfProtectiveArmament($shield));
     }
 
     /**
@@ -996,7 +997,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_both_protective_armaments_restriction_bonus_by_skill_rank()
+    public function I_can_get_protective_armament_restriction_bonus_by_skill_rank()
     {
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
@@ -1011,6 +1012,58 @@ class ArmourerTest extends TestWithMockery
             'foo',
             (new Armourer($tables))->getProtectiveArmamentRestrictionBonusForSkill($shield, $skillRank)
         );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_protective_armament_restriction_by_skill_rank()
+    {
+        $tables = $this->createTables();
+        $shield = $this->createShield();
+
+        $tables->shouldReceive('getProtectiveArmamentsTable')
+            ->with($shield)
+            ->andReturn($shieldsTable = $this->createShieldsTable());
+        $shieldsTable->shouldReceive('getRestrictionOf')
+            ->with($shield)
+            ->andReturn(-11);
+
+        $skillRank = $this->createPositiveInteger(123);
+        $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
+            ->with($shield)
+            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
+        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkill')
+            ->with(123)
+            ->andReturn(7);
+
+        self::assertSame(-4, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkill($shield, $skillRank));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_zero_as_protective_armament_restriction_by_skill_rank_if_would_result_to_positive()
+    {
+        $tables = $this->createTables();
+        $shield = $this->createShield();
+
+        $tables->shouldReceive('getProtectiveArmamentsTable')
+            ->with($shield)
+            ->andReturn($shieldsTable = $this->createShieldsTable());
+        $shieldsTable->shouldReceive('getRestrictionOf')
+            ->with($shield)
+            ->andReturn(456);
+
+        $skillRank = $this->createPositiveInteger(123);
+        $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
+            ->with($shield)
+            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
+        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkill')
+            ->with(123)
+            ->andReturn(789);
+
+        self::assertSame(0, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkill($shield, $skillRank));
     }
 
 }

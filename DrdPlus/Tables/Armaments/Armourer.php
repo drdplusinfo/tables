@@ -6,7 +6,6 @@ use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
-use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -107,15 +106,16 @@ class Armourer extends StrictObject
     // shield-specific
 
     /**
-     * Applicable to lower shield Restriction (Fight number malus), but can not make it positive.
+     * Applicable to lower shield or armor Restriction (Fight number malus), but can not turn to positive (to bonus).
      *
-     * @param ShieldCode $shieldCode
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function getRestrictionOfShield(ShieldCode $shieldCode)
+    public function getRestrictionOfProtectiveArmament(ProtectiveArmamentCode $protectiveArmamentCode)
     {
-        return $this->tables->getShieldsTable()->getRestrictionOf($shieldCode);
+        return $this->tables->getProtectiveArmamentsTable($protectiveArmamentCode)
+            ->getRestrictionOf($protectiveArmamentCode);
     }
 
     // range-weapon-specific
@@ -370,18 +370,41 @@ class Armourer extends StrictObject
      * Applicable to lower shield or armor Restriction (Fight number malus), but can not make it positive.
      *
      * @param ProtectiveArmamentCode $protectiveArmamentCode
-     * @param PositiveInteger $shieldUsageSkillRank
+     * @param PositiveInteger $protectiveArmamentSkillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
     public function getProtectiveArmamentRestrictionBonusForSkill(
         ProtectiveArmamentCode $protectiveArmamentCode,
-        PositiveInteger $shieldUsageSkillRank
+        PositiveInteger $protectiveArmamentSkillRank
     )
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
-            ->getRestrictionBonusForSkill($shieldUsageSkillRank->getValue());
+            ->getRestrictionBonusForSkill($protectiveArmamentSkillRank->getValue());
+    }
+
+    /**
+     * Restriction is Fight number malus.
+     *
+     * @param ProtectiveArmamentCode $protectiveArmamentCode
+     * @param PositiveInteger $protectiveArmamentSkillRank
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
+     */
+    public function getProtectiveArmamentRestrictionForSkill(
+        ProtectiveArmamentCode $protectiveArmamentCode,
+        PositiveInteger $protectiveArmamentSkillRank
+    )
+    {
+        $restriction = $this->getRestrictionOfProtectiveArmament($protectiveArmamentCode)
+            + $this->getProtectiveArmamentRestrictionBonusForSkill($protectiveArmamentCode, $protectiveArmamentSkillRank);
+        if ($restriction > 0) {
+            return 0; // can not turn into bonus
+        }
+
+        return $restriction;
     }
 
 }
