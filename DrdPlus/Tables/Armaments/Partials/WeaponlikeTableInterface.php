@@ -26,4 +26,12 @@ interface WeaponlikeTableInterface extends WearableTableInterface
      * @return string
      */
     public function getWoundsTypeOf($weaponlikeCode);
+
+    const COVER = 'cover';
+
+    /**
+     * @param string $weaponlikeCode
+     * @return int
+     */
+    public function getCoverOf($weaponlikeCode);
 }

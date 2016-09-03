@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Range;
 
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
 
-class BowsTable extends RangeWeaponsTable
+class BowsTable extends RangedWeaponsTable
 {
     protected function getDataFileName()
     {
@@ -16,11 +16,12 @@ class BowsTable extends RangeWeaponsTable
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,
-            self::MAXIMAL_APPLICABLE_STRENGTH => self::INTEGER,
+            self::MAXIMAL_APPLICABLE_STRENGTH => self::POSITIVE_INTEGER,
             self::OFFENSIVENESS => self::INTEGER,
             self::WOUNDS => self::INTEGER,
             self::WOUNDS_TYPE => self::STRING,
-            self::RANGE => self::INTEGER,
+            self::RANGE => self::POSITIVE_INTEGER,
+            self::COVER => self::POSITIVE_INTEGER,
             self::WEIGHT => self::FLOAT,
         ];
     }

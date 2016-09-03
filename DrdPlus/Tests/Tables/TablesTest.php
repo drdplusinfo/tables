@@ -22,7 +22,7 @@ use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -131,7 +131,7 @@ class TablesTest extends TestWithMockery
             HelmCode::class => HelmsTable::class,
             ShieldCode::class => ShieldsTable::class,
             MeleeWeaponCode::class => MeleeWeaponsTable::class,
-            RangeWeaponCode::class => RangeWeaponsTable::class,
+            RangeWeaponCode::class => RangedWeaponsTable::class,
         ] as $codeClass => $tableClass) {
             foreach ($this->pairCodesWithClass($this->getCodes($codeClass), $tableClass) as $pair) {
                 $values[] = $pair;
@@ -299,7 +299,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        (new Tables())->getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode);
+        (new Tables())->getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode);
     }
 
     /**

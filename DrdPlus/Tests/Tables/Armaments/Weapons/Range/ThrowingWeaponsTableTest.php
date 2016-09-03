@@ -3,10 +3,10 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
 
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTableTest;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTableTest;
 
-class ThrowingWeaponsTableTest extends RangeWeaponsTableTest
+class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
 {
     protected function getRowHeaderName()
     {
@@ -16,68 +16,77 @@ class ThrowingWeaponsTableTest extends RangeWeaponsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::REQUIRED_STRENGTH, -2],
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::OFFENSIVENESS, 2],
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::WOUNDS, -2],
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::RANGE, 20],
-            [RangeWeaponCode::ROCK, RangeWeaponsTable::WEIGHT, 0.3],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::REQUIRED_STRENGTH, -2],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::OFFENSIVENESS, 2],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::WOUNDS, -2],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::RANGE, 20],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::ROCK, RangedWeaponsTable::WEIGHT, 0.3],
 
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::REQUIRED_STRENGTH, 0],
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::OFFENSIVENESS, 0],
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::WOUNDS, 1],
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::RANGE, 14],
-            [RangeWeaponCode::THROWING_DAGGER, RangeWeaponsTable::WEIGHT, 0.2],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::REQUIRED_STRENGTH, 0],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::WOUNDS, 1],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::RANGE, 14],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::THROWING_DAGGER, RangedWeaponsTable::WEIGHT, 0.2],
 
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::REQUIRED_STRENGTH, 2],
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::OFFENSIVENESS, 1],
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::WOUNDS, 2],
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::RANGE, 12],
-            [RangeWeaponCode::LIGHT_THROWING_AXE, RangeWeaponsTable::WEIGHT, 0.7],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::OFFENSIVENESS, 1],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::WOUNDS, 2],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::RANGE, 12],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::WEIGHT, 0.7],
 
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::REQUIRED_STRENGTH, 2],
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::OFFENSIVENESS, 1],
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::WOUNDS, 5],
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::RANGE, 10],
-            [RangeWeaponCode::WAR_THROWING_AXE, RangeWeaponsTable::WEIGHT, 1.0],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::OFFENSIVENESS, 1],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::WOUNDS, 5],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::RANGE, 10],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::WEIGHT, 1.0],
 
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::REQUIRED_STRENGTH, 5],
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::OFFENSIVENESS, 2],
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::WOUNDS, 7],
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::RANGE, 9],
-            [RangeWeaponCode::THROWING_HAMMER, RangeWeaponsTable::WEIGHT, 1.5],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::REQUIRED_STRENGTH, 5],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::OFFENSIVENESS, 2],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::WOUNDS, 7],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::RANGE, 9],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::THROWING_HAMMER, RangedWeaponsTable::WEIGHT, 1.5],
 
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::REQUIRED_STRENGTH, -1],
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::OFFENSIVENESS, 0],
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::WOUNDS, 1],
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::RANGE, 14],
-            [RangeWeaponCode::SHURIKEN, RangeWeaponsTable::WEIGHT, 0.1],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::REQUIRED_STRENGTH, -1],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::WOUNDS, 1],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::RANGE, 14],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::SHURIKEN, RangedWeaponsTable::WEIGHT, 0.1],
 
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::REQUIRED_STRENGTH, 3],
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::OFFENSIVENESS, 2],
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::WOUNDS, 3],
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::RANGE, 20],
-            [RangeWeaponCode::SPEAR, RangeWeaponsTable::WEIGHT, 1.2],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::REQUIRED_STRENGTH, 3],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::OFFENSIVENESS, 2],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::WOUNDS, 3],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::RANGE, 20],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::SPEAR, RangedWeaponsTable::WEIGHT, 1.2],
 
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::REQUIRED_STRENGTH, 2],
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::OFFENSIVENESS, 2],
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::WOUNDS, 2],
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::RANGE, 22],
-            [RangeWeaponCode::JAVELIN, RangeWeaponsTable::WEIGHT, 1.0],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::OFFENSIVENESS, 2],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::WOUNDS, 2],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::RANGE, 22],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::JAVELIN, RangedWeaponsTable::WEIGHT, 1.0],
 
-            [RangeWeaponCode::SLING, RangeWeaponsTable::REQUIRED_STRENGTH, -1],
-            [RangeWeaponCode::SLING, RangeWeaponsTable::OFFENSIVENESS, 1],
-            [RangeWeaponCode::SLING, RangeWeaponsTable::WOUNDS, 1],
-            [RangeWeaponCode::SLING, RangeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
-            [RangeWeaponCode::SLING, RangeWeaponsTable::RANGE, 27],
-            [RangeWeaponCode::SLING, RangeWeaponsTable::WEIGHT, 0.1],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::REQUIRED_STRENGTH, -1],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::OFFENSIVENESS, 1],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::WOUNDS, 1],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::RANGE, 27],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::COVER, 2],
+            [RangeWeaponCode::SLING, RangedWeaponsTable::WEIGHT, 0.1],
         ];
     }
 

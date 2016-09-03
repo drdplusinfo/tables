@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Range;
 
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
 
-class CrossbowsTable extends RangeWeaponsTable
+class CrossbowsTable extends RangedWeaponsTable
 {
     protected function getDataFileName()
     {

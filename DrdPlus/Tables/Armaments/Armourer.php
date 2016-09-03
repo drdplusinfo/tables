@@ -206,18 +206,25 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
+     * Using ranged weapon for defense is possible (it has always cover of 2) but there is 50% chance it will be destroyed.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusByStrengthWithWeaponlike(MeleeWeaponlikeCode $meleeWeaponlikeCode, Strength $currentStrength)
+    public function getDefenseNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
+        if ($weaponlikeCode instanceof RangeWeaponCode && $weaponlikeCode->isMeleeArmament()) {
+            // spear can be used more effectively to cover as a melee weapon
+            $weaponlikeCode = $weaponlikeCode->convertToMeleeWeaponCodeEquivalent();
+        }
+
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode)->getDefenseNumberSanction(
-            $this->getMissingStrengthForArmament($meleeWeaponlikeCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode)->getDefenseNumberSanction(
+            $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
 

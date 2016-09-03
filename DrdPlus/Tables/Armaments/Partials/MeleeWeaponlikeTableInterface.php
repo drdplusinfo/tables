@@ -3,7 +3,6 @@ namespace DrdPlus\Tables\Armaments\Partials;
 
 interface MeleeWeaponlikeTableInterface extends WeaponlikeTableInterface
 {
-    const COVER = 'cover';
     const LENGTH = 'length';
 
     /**
@@ -12,9 +11,4 @@ interface MeleeWeaponlikeTableInterface extends WeaponlikeTableInterface
      */
     public function getLengthOf($weaponlikeCode);
 
-    /**
-     * @param string $weaponlikeCode
-     * @return int
-     */
-    public function getCoverOf($weaponlikeCode);
 }

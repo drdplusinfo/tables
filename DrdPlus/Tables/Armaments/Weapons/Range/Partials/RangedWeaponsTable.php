@@ -7,7 +7,7 @@ use DrdPlus\Tables\Armaments\Partials\WeaponlikeTableInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class RangeWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTableInterface
+abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTableInterface
 {
     const RANGE = 'range';
 
@@ -19,6 +19,7 @@ abstract class RangeWeaponsTable extends AbstractArmamentsTable implements Weapo
             self::WOUNDS => self::INTEGER,
             self::WOUNDS_TYPE => self::STRING,
             self::RANGE => self::INTEGER,
+            self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
         ];
     }
@@ -88,6 +89,18 @@ abstract class RangeWeaponsTable extends AbstractArmamentsTable implements Weapo
     public function getRangeOf($weaponlikeCode)
     {
         return $this->getValueOf($weaponlikeCode, self::RANGE);
+    }
+
+    /**
+     * Every ranged weapon is considered as with cover of 2 (projectiles 0), see PPH page 94, right column
+     *
+     * @param string $weaponlikeCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     */
+    public function getCoverOf($weaponlikeCode)
+    {
+        return $this->getValueOf($weaponlikeCode, self::COVER);
     }
 
     /**

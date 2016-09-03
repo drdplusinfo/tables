@@ -16,6 +16,7 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
     const FIGHT_NUMBER = 'fight_number';
     const LOADING_IN_ROUNDS = 'loading_in_rounds';
     const ATTACK_NUMBER = 'attack_number';
+    const DEFENSE_NUMBER = 'defense_number';
     const ENCOUNTER_RANGE = 'encounter_range';
     const BASE_OF_WOUNDS = 'base_of_wounds';
     const CAN_USE_WEAPON = 'can_use_weapon';
@@ -27,6 +28,7 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
             self::FIGHT_NUMBER => self::NEGATIVE_INTEGER,
             self::LOADING_IN_ROUNDS => self::POSITIVE_INTEGER,
             self::ATTACK_NUMBER => self::NEGATIVE_INTEGER,
+            self::DEFENSE_NUMBER => self::NEGATIVE_INTEGER,
             self::ENCOUNTER_RANGE => self::NEGATIVE_INTEGER,
             self::BASE_OF_WOUNDS => self::NEGATIVE_INTEGER,
             self::CAN_USE_WEAPON => self::BOOLEAN,
@@ -79,6 +81,18 @@ class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMis
         }
 
         return $this->getSanctionsForMissingStrength($missingStrength)[$columnName];
+    }
+
+    /**
+     * @param int $missingStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getDefenseNumberSanction($missingStrength)
+    {
+        return $this->getSanctionOf($missingStrength, self::DEFENSE_NUMBER);
     }
 
     /**

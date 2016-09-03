@@ -16,7 +16,7 @@ use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
@@ -381,6 +381,36 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_get_defense_number_malus_by_missing_strength_for_spear_always_as_melee()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        $tables->shouldReceive('getWeaponlikeSanctionsByMissingStrengthTableByCode')
+            ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
+        $rangedSpear = $this->mockery(RangeWeaponCode::class);
+        $rangedSpear->shouldReceive('isMeleeArmament')
+            ->andReturn(true);
+        $rangedSpear->shouldReceive('convertToMeleeWeaponCodeEquivalent')
+            ->andReturn($meleeSpear = $this->mockery(MeleeWeaponCode::class));
+        $tables->shouldReceive('getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode')
+            ->andReturn($meleeWeaponSanctionsTable);
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->with($meleeSpear)
+            ->andReturn($meleeWeaponTable = $this->createMeleeWeaponTable());
+        $meleeWeaponTable->shouldReceive('getRequiredStrengthOf')
+            ->with($meleeSpear)
+            ->andReturn(5);
+        $meleeWeaponSanctionsTable->shouldReceive('getDefenseNumberSanction')
+            ->with(5)
+            ->andReturn('foobar');
+        self::assertSame(
+            'foobar',
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($rangedSpear, Strength::getIt(0))
+        );
+    }
+
+    /**
+     * @test
+     */
     public function I_can_get_missing_strength_and_sanction_values_for_shield()
     {
         $armourer = new Armourer($tables = $this->createTables());
@@ -501,6 +531,14 @@ class ArmourerTest extends TestWithMockery
             $armourer->getAttackNumberMalusByStrengthWithWeaponlike($weaponlikeCode, Strength::getIt($strength))
         );
 
+        $rangeWeaponSanctionsTable->shouldReceive('getDefenseNumberSanction')
+            ->with($expectedMissingStrength)
+            ->andReturn('bar bar');
+        self::assertSame(
+            'bar bar',
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($weaponlikeCode, Strength::getIt($strength))
+        );
+
         $tables->shouldReceive('getRangeWeaponSanctionsByMissingStrengthTable')
             ->andReturn($rangeWeaponSanctionsTable);
         $rangeWeaponSanctionsTable->shouldReceive('getLoadingInRounds')
@@ -552,11 +590,11 @@ class ArmourerTest extends TestWithMockery
     }
 
     /**
-     * @return \Mockery\MockInterface|RangeWeaponsTable
+     * @return \Mockery\MockInterface|RangedWeaponsTable
      */
     private function createRangeWeaponsTable()
     {
-        return $this->mockery(RangeWeaponsTable::class);
+        return $this->mockery(RangedWeaponsTable::class);
     }
 
     /**
@@ -578,9 +616,10 @@ class ArmourerTest extends TestWithMockery
     /**
      * @param $value
      * @param string $matchingWeaponGroup
+     * @param bool $isMeleeArmament
      * @return \Mockery\MockInterface|RangeWeaponCode
      */
-    private function createRangeWeaponCode($value, $matchingWeaponGroup)
+    private function createRangeWeaponCode($value, $matchingWeaponGroup, $isMeleeArmament = false)
     {
         $code = $this->mockery(RangeWeaponCode::class);
         $code->shouldReceive('getValue')
@@ -591,6 +630,8 @@ class ArmourerTest extends TestWithMockery
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
+        $code->shouldReceive('isMeleeArmament')
+            ->andReturn($isMeleeArmament);
 
         return $code;
     }

@@ -12,18 +12,19 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     public function I_can_get_header()
     {
         self::assertSame(
-            [
+            $expected =[
                 [
                     'missing_strength',
                     'fight_number',
                     'loading_in_rounds',
                     'attack_number',
+                    'defense_number',
                     'encounter_range',
                     'base_of_wounds',
-                    'can_use_weapon'
-                ]
+                    'can_use_weapon',
+                ],
             ],
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getHeader()
+            $actual = (new RangeWeaponSanctionsByMissingStrengthTable())->getHeader()
         );
     }
 
@@ -39,108 +40,120 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
                     'fight_number' => 0,
                     'loading_in_rounds' => 0,
                     'attack_number' => 0,
+                    'defense_number' => 0,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 1 => [
                     'missing_strength' => 1,
                     'fight_number' => -1,
                     'loading_in_rounds' => 1,
                     'attack_number' => 0,
+                    'defense_number' => 0,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 2 => [
                     'missing_strength' => 2,
                     'fight_number' => -2,
                     'loading_in_rounds' => 1,
                     'attack_number' => -1,
+                    'defense_number' => 0,
                     'encounter_range' => 0,
                     'base_of_wounds' => 0,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 3 => [
                     'missing_strength' => 3,
                     'fight_number' => -3,
                     'loading_in_rounds' => 1,
                     'attack_number' => -1,
+                    'defense_number' => -1,
                     'encounter_range' => -1,
                     'base_of_wounds' => 0,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 4 => [
                     'missing_strength' => 4,
                     'fight_number' => -4,
                     'loading_in_rounds' => 1,
                     'attack_number' => -2,
+                    'defense_number' => -1,
                     'encounter_range' => -1,
                     'base_of_wounds' => -1,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 5 => [
                     'missing_strength' => 5,
                     'fight_number' => -5,
                     'loading_in_rounds' => 1,
                     'attack_number' => -2,
+                    'defense_number' => -2,
                     'encounter_range' => -2,
                     'base_of_wounds' => -1,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 6 => [
                     'missing_strength' => 6,
                     'fight_number' => -6,
                     'loading_in_rounds' => 1,
                     'attack_number' => -3,
+                    'defense_number' => -2,
                     'encounter_range' => -2,
                     'base_of_wounds' => -2,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 7 => [
                     'missing_strength' => 7,
                     'fight_number' => -1,
                     'loading_in_rounds' => 2,
                     'attack_number' => -3,
+                    'defense_number' => -3,
                     'encounter_range' => -3,
                     'base_of_wounds' => -2,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 8 => [
                     'missing_strength' => 8,
                     'fight_number' => -2,
                     'loading_in_rounds' => 2,
                     'attack_number' => -4,
+                    'defense_number' => -3,
                     'encounter_range' => -3,
                     'base_of_wounds' => -3,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 9 => [
                     'missing_strength' => 9,
                     'fight_number' => -3,
                     'loading_in_rounds' => 2,
                     'attack_number' => -4,
+                    'defense_number' => -4,
                     'encounter_range' => -4,
                     'base_of_wounds' => -3,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 10 => [
                     'missing_strength' => 10,
                     'fight_number' => -4,
                     'loading_in_rounds' => 2,
                     'attack_number' => -5,
+                    'defense_number' => -4,
                     'encounter_range' => -4,
                     'base_of_wounds' => -4,
-                    'can_use_weapon' => true
+                    'can_use_weapon' => true,
                 ],
                 11 => [
                     'missing_strength' => 11,
                     'fight_number' => false,
                     'loading_in_rounds' => false,
                     'attack_number' => false,
+                    'defense_number' => false,
                     'encounter_range' => false,
                     'base_of_wounds' => false,
-                    'can_use_weapon' => false
+                    'can_use_weapon' => false,
                 ],
             ],
             (new RangeWeaponSanctionsByMissingStrengthTable())->getIndexedValues()
@@ -158,9 +171,10 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
                 'fight_number' => -1,
                 'loading_in_rounds' => 1,
                 'attack_number' => 0,
+                'defense_number' => 0,
                 'encounter_range' => 0,
                 'base_of_wounds' => 0,
-                'can_use_weapon' => true
+                'can_use_weapon' => true,
             ],
             (new RangeWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(1)
         );
@@ -278,6 +292,36 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
             [4, -2],
             [3, -1],
             [2, -1],
+            [1, 0],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideMissingStrengthAndDefenseNumberSanction
+     * @param int $missingStrength
+     * @param int $expectedSanction
+     */
+    public function I_can_get_defense_number_sanction($missingStrength, $expectedSanction)
+    {
+        self::assertSame(
+            $expectedSanction,
+            (new RangeWeaponSanctionsByMissingStrengthTable())->getDefenseNumberSanction($missingStrength)
+        );
+    }
+
+    public function provideMissingStrengthAndDefenseNumberSanction()
+    {
+        return [
+            [10, -4],
+            [9, -4],
+            [8, -3],
+            [7, -3],
+            [6, -2],
+            [5, -2],
+            [4, -1],
+            [3, -1],
+            [2, 0],
             [1, 0],
         ];
     }

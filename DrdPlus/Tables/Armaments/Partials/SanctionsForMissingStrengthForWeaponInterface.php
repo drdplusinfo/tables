@@ -11,13 +11,19 @@ interface SanctionsForMissingStrengthForWeaponInterface extends SanctionsForMiss
 
     /**
      * @param int $missingStrength
-     * @return bool
+     * @return int
      */
     public function getBaseOfWoundsSanction($missingStrength);
 
     /**
      * @param int $missingStrength
-     * @return bool
+     * @return int
      */
     public function getFightNumberSanction($missingStrength);
+
+    /**
+     * @param $missingStrength
+     * @return int
+     */
+    public function getDefenseNumberSanction($missingStrength);
 }

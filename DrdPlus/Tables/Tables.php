@@ -50,7 +50,7 @@ use DrdPlus\Tables\Armaments\Weapons\Range\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\DartsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Range\ThrowingWeaponsTable;
@@ -823,7 +823,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param RangeWeaponCode $rangeWeaponCode
-     * @return RangeWeaponsTable
+     * @return RangedWeaponsTable
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
      */
     public function getRangeWeaponsTableByRangeWeaponCode(RangeWeaponCode $rangeWeaponCode)
@@ -897,7 +897,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             return $this->getRangeWeaponSanctionsByMissingStrengthTable();
         }
         if ($weaponlikeCode instanceof MeleeWeaponlikeCode) {
-            return $this->getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
+            return $this->getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
         }
 
         throw new UnknownWeaponlike("Unknown type of weapon '{$weaponlikeCode}'");
@@ -908,7 +908,7 @@ class Tables extends StrictObject implements \IteratorAggregate
      * @return AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable
      * @throws UnknownMeleeWeaponlike
      */
-    public function getMeleeWeaponlikeCodeSanctionsByMissingStrengthTableByCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
+    public function getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
         if ($meleeWeaponlikeCode instanceof MeleeWeaponCode) {
             return $this->getMeleeWeaponSanctionsByMissingStrengthTable();
