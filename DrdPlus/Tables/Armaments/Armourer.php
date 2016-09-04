@@ -3,7 +3,7 @@ namespace DrdPlus\Tables\Armaments;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
-use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
@@ -43,14 +43,20 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
+     * Increases fight number.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws Exceptions\UnknownMeleeWeaponlike
      */
-    public function getLengthOfWeaponlike(MeleeWeaponlikeCode $meleeWeaponlikeCode)
+    public function getLengthOfWeaponlike(WeaponlikeCode $weaponlikeCode)
     {
-        return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)
-            ->getLengthOf($meleeWeaponlikeCode);
+        if ($weaponlikeCode instanceof MeleeWeaponCode) {
+            return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($weaponlikeCode)
+                ->getLengthOf($weaponlikeCode);
+        }
+
+        return 0; // ranged weapons do not have bonus to fight number for their length, surprisingly
     }
 
     /**

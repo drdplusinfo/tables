@@ -75,7 +75,7 @@ class ArmourerTest extends TestWithMockery
     private function I_can_find_out_if_can_use_range_weapon()
     {
         $armourer = new Armourer($tables = $this->createTables());
-        $bow = $this->createRangeWeaponCode('foo bar', 'bow');
+        $bow = $this->createRangedWeaponCode('foo bar', 'bow');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($bow)
             ->andReturn($armamentsTable = $this->mockery(AbstractArmamentsTable::class));
@@ -106,6 +106,14 @@ class ArmourerTest extends TestWithMockery
             ->with(444 /* required strength - current strength */)
             ->andReturn('foo bar');
         self::assertSame('foo bar', $armourer->canUseArmament($shield, Strength::getIt(12), $this->mockery(Size::class)));
+    }
+
+    /**
+     * @return \Mockery\MockInterface|ShieldCode
+     */
+    private function createShield()
+    {
+        return $this->mockery(ShieldCode::class);
     }
 
     /**
@@ -494,7 +502,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->andReturn($rangeWeaponTable = $this->createRangeWeaponsTable());
-        $weaponlikeCode = $this->createRangeWeaponCode('foo', $weaponGroup);
+        $weaponlikeCode = $this->createRangedWeaponCode('foo', $weaponGroup);
         $rangeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($weaponlikeCode)
             ->andReturn($requiredStrength);
@@ -619,7 +627,7 @@ class ArmourerTest extends TestWithMockery
      * @param bool $isMeleeArmament
      * @return \Mockery\MockInterface|RangeWeaponCode
      */
-    private function createRangeWeaponCode($value, $matchingWeaponGroup, $isMeleeArmament = false)
+    private function createRangedWeaponCode($value, $matchingWeaponGroup, $isMeleeArmament = false)
     {
         $code = $this->mockery(RangeWeaponCode::class);
         $code->shouldReceive('getValue')
@@ -679,7 +687,7 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_required_strength_of_range_weapons()
     {
         $tables = $this->createTables();
-        $bow = $this->createRangeWeaponCode('foo', 'bow');
+        $bow = $this->createRangedWeaponCode('foo', 'bow');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($bow)
             ->andReturn($bowsTable = $this->createRangeWeaponsTable());
@@ -706,11 +714,12 @@ class ArmourerTest extends TestWithMockery
     }
 
     /**
-     * @return \Mockery\MockInterface|ShieldCode
+     * @test
      */
-    private function createShield()
+    public function I_get_zero_as_length_of_ranged_weapons()
     {
-        return $this->mockery(ShieldCode::class);
+        $crossbow = $this->createRangedWeaponCode('foo', 'crossbow');
+        self::assertSame(0, (new Armourer($this->createTables()))->getLengthOfWeaponlike($crossbow));
     }
 
     /**
@@ -735,7 +744,7 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_offensiveness_of_range_weapons()
     {
         $tables = $this->createTables();
-        $slingStone = $this->createRangeWeaponCode('foo', 'slingStone');
+        $slingStone = $this->createRangedWeaponCode('foo', 'slingStone');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($slingStone)
             ->andReturn($slingStonesTable = $this->createRangeWeaponsTable());
@@ -783,7 +792,7 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_wounds_of_range_weapons()
     {
         $tables = $this->createTables();
-        $sling = $this->createRangeWeaponCode('foo', 'throwingWeapon');
+        $sling = $this->createRangedWeaponCode('foo', 'throwingWeapon');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($sling)
             ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
@@ -831,7 +840,7 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_wounds_type_of_range_weapons()
     {
         $tables = $this->createTables();
-        $shuriken = $this->createRangeWeaponCode('foo', 'throwingWeapon');
+        $shuriken = $this->createRangedWeaponCode('foo', 'throwingWeapon');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($shuriken)
             ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
@@ -882,7 +891,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('baz');
         self::assertSame('baz', (new Armourer($tables))->getCoverOfWeaponlike($shield));
 
-        $bow = $this->createRangeWeaponCode('qux', 'bow');
+        $bow = $this->createRangedWeaponCode('qux', 'bow');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($bow)
             ->andReturn($shieldsTable = $this->createRangeWeaponsTable());
@@ -907,7 +916,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foo');
         self::assertSame('foo', (new Armourer($tables))->getWeightOfArmament($escalatorlibur));
 
-        $arrow = $this->createRangeWeaponCode('foo', 'arrow');
+        $arrow = $this->createRangedWeaponCode('foo', 'arrow');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($arrow)
             ->andReturn($arrowsTable = $this->createRangeWeaponsTable());
@@ -957,7 +966,7 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_range_of_range_weapons()
     {
         $tables = $this->createTables();
-        $bow = $this->createRangeWeaponCode('foo', 'bow');
+        $bow = $this->createRangedWeaponCode('foo', 'bow');
         $tables->shouldReceive('getRangeWeaponsTableByRangeWeaponCode')
             ->with($bow)
             ->andReturn($bowsTable = $this->createRangeWeaponsTable());
