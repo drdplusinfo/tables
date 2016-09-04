@@ -106,9 +106,16 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return [];
     }
 
+    /**
+     * If gets two bonuses to sum, returns "base of wounds" + 5 according to note about bonuses summation.
+     * See note on PPH page 164, bottom.
+     *
+     * @param array|int $bonuses
+     * @return int|null
+     */
     public function sumBonuses(array $bonuses)
     {
-        while (!is_null($firstBonus = array_shift($bonuses)) && !is_null($secondBonus = array_shift($bonuses))) {
+        while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
             $intersection = $this->getBonusesIntersection([$firstBonus, $secondBonus]);
             $sum = $intersection + 5; // see note on PPH page 164, bottom
             if (count($bonuses) === 0) {
@@ -122,12 +129,12 @@ class BaseOfWoundsTable extends StrictObject implements Table
 
     /**
      * @param array|int[] $bonuses
-     *
-     * @return int|null summarized bonuses, or null if no given (single bonus results into the same bonus)
+     * @return int|null summarized bonuses, or null if no given at all (empty array).
+     * Therefore single bonus results into the same bonus.
      */
     public function getBonusesIntersection(array $bonuses)
     {
-        while (!is_null($firstBonus = array_shift($bonuses)) && !is_null($secondBonus = array_shift($bonuses))) {
+        while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
             $columnRank = $this->getColumnRank($firstBonus);
             $rowRank = $this->getRowRank($secondBonus);
             $sumBonus = $this->locateBonus($columnRank, $rowRank);
