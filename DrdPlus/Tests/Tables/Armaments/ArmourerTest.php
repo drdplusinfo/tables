@@ -860,27 +860,36 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_cover_of_every_melee_armament()
+    public function I_can_get_cover_of_every_armament()
     {
         $tables = $this->createTables();
 
         $fist = $this->createMeleeWeaponCode('foo', 'unarmed');
-        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($fist)
             ->andReturn($unarmedTable = $this->createMeleeWeaponTable());
         $unarmedTable->shouldReceive('getCoverOf')
             ->with($fist)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getCoverOfMeleeWeaponlike($fist));
+        self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponlike($fist));
 
         $shield = $this->createShield();
-        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($shield)
             ->andReturn($shieldsTable = $this->createShieldsTable());
         $shieldsTable->shouldReceive('getCoverOf')
             ->with($shield)
             ->andReturn('baz');
-        self::assertSame('baz', (new Armourer($tables))->getCoverOfMeleeWeaponlike($shield));
+        self::assertSame('baz', (new Armourer($tables))->getCoverOfWeaponlike($shield));
+
+        $bow = $this->createRangeWeaponCode('qux', 'bow');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($bow)
+            ->andReturn($shieldsTable = $this->createRangeWeaponsTable());
+        $shieldsTable->shouldReceive('getCoverOf')
+            ->with($bow)
+            ->andReturn('foo bar');
+        self::assertSame('foo bar', (new Armourer($tables))->getCoverOfWeaponlike($bow));
     }
 
     /**

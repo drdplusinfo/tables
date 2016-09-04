@@ -74,13 +74,13 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
+     * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getCoverOfMeleeWeaponlike(MeleeWeaponlikeCode $meleeWeaponlikeCode)
+    public function getCoverOfWeaponlike(WeaponlikeCode $weaponlikeCode)
     {
-        return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getCoverOf($meleeWeaponlikeCode);
+        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getCoverOf($weaponlikeCode);
     }
 
     /**
