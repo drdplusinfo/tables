@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range\Partials;
+namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials;
 
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 abstract class RangedWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
@@ -102,7 +102,7 @@ abstract class RangedWeaponsTableTest extends \PHPUnit_Framework_TestCase implem
      * @test
      * @dataProvider provideValueName
      * @param string $valueName
-     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)

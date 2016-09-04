@@ -1,11 +1,11 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Range;
+namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 
-class RangeWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
+class RangedWeaponSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
     implements SanctionsForMissingStrengthForWeaponInterface
 {
     protected function getDataFileName()

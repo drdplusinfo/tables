@@ -8,7 +8,7 @@ use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
-use DrdPlus\Codes\Armaments\RangeWeaponCode;
+use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Codes\Code;
@@ -22,8 +22,8 @@ use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponSanctionsByMissingStrengthTable;
 use Granam\Tests\Tools\TestWithMockery;
 
 class TablesTest extends TestWithMockery
@@ -131,7 +131,7 @@ class TablesTest extends TestWithMockery
             HelmCode::class => HelmsTable::class,
             ShieldCode::class => ShieldsTable::class,
             MeleeWeaponCode::class => MeleeWeaponsTable::class,
-            RangeWeaponCode::class => RangedWeaponsTable::class,
+            RangedWeaponCode::class => RangedWeaponsTable::class,
         ] as $codeClass => $tableClass) {
             foreach ($this->pairCodesWithClass($this->getCodes($codeClass), $tableClass) as $pair) {
                 $values[] = $pair;
@@ -263,7 +263,7 @@ class TablesTest extends TestWithMockery
         return [
             [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorSanctionsByMissingStrengthTable::class],
             [HelmCode::getIt(HelmCode::GREAT_HELM), ArmorSanctionsByMissingStrengthTable::class],
-            [RangeWeaponCode::getIt(RangeWeaponCode::HEAVY_CROSSBOW), RangeWeaponSanctionsByMissingStrengthTable::class],
+            [RangedWeaponCode::getIt(RangedWeaponCode::HEAVY_CROSSBOW), RangedWeaponSanctionsByMissingStrengthTable::class],
             [MeleeWeaponCode::getIt(MeleeWeaponCode::CLUB), MeleeWeaponSanctionsByMissingStrengthTable::class],
             [ShieldCode::getIt(ShieldCode::BUCKLER), ShieldSanctionsByMissingStrengthTable::class],
         ];
@@ -304,24 +304,24 @@ class TablesTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @expectedExceptionMessageRegExp ~wallop~
      */
     public function I_do_not_get_range_weapons_table_by_unknown_code()
     {
-        /** @var RangeWeaponCode $rangeWeaponCode */
-        $rangeWeaponCode = $this->createRangeWeaponCode('wallop', 'bio weapons');
-        (new Tables())->getRangeWeaponsTableByRangeWeaponCode($rangeWeaponCode);
+        /** @var RangedWeaponCode $rangeWeaponCode */
+        $rangeWeaponCode = $this->createRangedWeaponCode('wallop', 'bio weapons');
+        (new Tables())->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode);
     }
 
     /**
      * @param $value
      * @param string $matchingWeaponGroup
-     * @return \Mockery\MockInterface|RangeWeaponCode
+     * @return \Mockery\MockInterface|RangedWeaponCode
      */
-    private function createRangeWeaponCode($value, $matchingWeaponGroup)
+    private function createRangedWeaponCode($value, $matchingWeaponGroup)
     {
-        $code = $this->mockery(RangeWeaponCode::class);
+        $code = $this->mockery(RangedWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
         $code->shouldReceive('__toString')

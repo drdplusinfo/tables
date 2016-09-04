@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Armaments\Weapons\Range;
+namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
-use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tests\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTableTest;
 
-class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
+class RangedWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
 {
     /**
      * @test
@@ -24,7 +24,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
                     'can_use_weapon',
                 ],
             ],
-            $actual = (new RangeWeaponSanctionsByMissingStrengthTable())->getHeader()
+            $actual = (new RangedWeaponSanctionsByMissingStrengthTable())->getHeader()
         );
     }
 
@@ -156,7 +156,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
                     'can_use_weapon' => false,
                 ],
             ],
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getIndexedValues()
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getIndexedValues()
         );
     }
 
@@ -176,7 +176,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
                 'base_of_wounds' => 0,
                 'can_use_weapon' => true,
             ],
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(1)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(1)
         );
     }
 
@@ -188,7 +188,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
      */
     public function I_can_properly_detect_if_can_use_a_shooting_weapon($missingStrength, $canUse)
     {
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
+        $shootingWeaponSanctionsTable = new RangedWeaponSanctionsByMissingStrengthTable();
         self::assertSame($canUse, $shootingWeaponSanctionsTable->canUseIt($missingStrength));
     }
 
@@ -216,7 +216,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getFightNumberSanction($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getFightNumberSanction($missingStrength)
         );
     }
 
@@ -246,7 +246,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getLoadingInRounds($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getLoadingInRounds($missingStrength)
         );
     }
 
@@ -276,7 +276,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getAttackNumberSanction($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getAttackNumberSanction($missingStrength)
         );
     }
 
@@ -306,7 +306,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getDefenseNumberSanction($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getDefenseNumberSanction($missingStrength)
         );
     }
 
@@ -336,7 +336,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getEncounterRangeSanction($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getEncounterRangeSanction($missingStrength)
         );
     }
 
@@ -366,7 +366,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     {
         self::assertSame(
             $expectedSanction,
-            (new RangeWeaponSanctionsByMissingStrengthTable())->getBaseOfWoundsSanction($missingStrength)
+            (new RangedWeaponSanctionsByMissingStrengthTable())->getBaseOfWoundsSanction($missingStrength)
         );
     }
 
@@ -394,7 +394,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     public function I_get_always_zero_for_every_sanction_if_no_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName);
-        $shootingWeaponSanctionsTable = new RangeWeaponSanctionsByMissingStrengthTable();
+        $shootingWeaponSanctionsTable = new RangedWeaponSanctionsByMissingStrengthTable();
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(0));
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(-1));
         self::assertSame(0, $shootingWeaponSanctionsTable->$sanctionGetter(-10));
@@ -421,7 +421,7 @@ class RangeWeaponSanctionsByMissingStrengthTableTest extends AbstractSanctionsFo
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName);
-        (new RangeWeaponSanctionsByMissingStrengthTable())->$sanctionGetter(11);
+        (new RangedWeaponSanctionsByMissingStrengthTable())->$sanctionGetter(11);
     }
 
 }

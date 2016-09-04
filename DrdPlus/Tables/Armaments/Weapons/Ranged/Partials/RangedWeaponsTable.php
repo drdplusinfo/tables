@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Range\Partials;
+namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 
-use DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTableInterface;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
@@ -27,7 +27,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getOffensivenessOf($weaponlikeCode)
     {
@@ -38,14 +38,14 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
      * @param string $weaponlikeCode
      * @param string $valueName
      * @return float|int|string
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     protected function getValueOf($weaponlikeCode, $valueName)
     {
         try {
             return $this->getValue([$weaponlikeCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
-            throw new UnknownRangeWeapon(
+            throw new UnknownRangedWeapon(
                 'Unknown shooting armament code ' . ValueDescriber::describe($weaponlikeCode)
             );
         }
@@ -54,7 +54,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getWoundsOf($weaponlikeCode)
     {
@@ -64,7 +64,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return string
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getWoundsTypeOf($weaponlikeCode)
     {
@@ -74,7 +74,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getRequiredStrengthOf($weaponlikeCode)
     {
@@ -84,7 +84,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getRangeOf($weaponlikeCode)
     {
@@ -96,7 +96,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
      *
      * @param string $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getCoverOf($weaponlikeCode)
     {
@@ -106,7 +106,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @return float
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getWeightOf($weaponlikeCode)
     {

@@ -5,7 +5,7 @@ use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
-use DrdPlus\Codes\Armaments\RangeWeaponCode;
+use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -127,13 +127,13 @@ class Armourer extends StrictObject
     // range-weapon-specific
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangeWeaponCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getRangeOfRangeWeapon(RangeWeaponCode $rangeWeaponCode)
+    public function getRangeOfRangedWeapon(RangedWeaponCode $rangeWeaponCode)
     {
-        return $this->tables->getRangeWeaponsTableByRangeWeaponCode($rangeWeaponCode)->getRangeOf($rangeWeaponCode);
+        return $this->tables->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode)->getRangeOf($rangeWeaponCode);
     }
 
     // ARMAMENTS USAGE AFFECTED BY STRENGTH
@@ -223,7 +223,7 @@ class Armourer extends StrictObject
      */
     public function getDefenseNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        if ($weaponlikeCode instanceof RangeWeaponCode && $weaponlikeCode->isMeleeArmament()) {
+        if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isMeleeArmament()) {
             // spear can be used more effectively to cover as a melee weapon
             $weaponlikeCode = $weaponlikeCode->convertToMeleeWeaponCodeEquivalent();
         }
@@ -253,43 +253,43 @@ class Armourer extends StrictObject
     // range-weapon-specific usage affected by strength
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangeWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsByStrengthWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getLoadingInRounds(
+        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getLoadingInRounds(
             $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
         );
     }
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangeWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsMalusByStrengthWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getLoadingInRoundsSanction(
+        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getLoadingInRoundsSanction(
             $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
         );
     }
 
     /**
-     * @param RangeWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangeWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getEncounterRangeMalusByStrengthWithRangeWeapon(RangeWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    public function getEncounterRangeMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangeWeaponSanctionsByMissingStrengthTable()->getEncounterRangeSanction(
+        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getEncounterRangeSanction(
             $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
         );
     }

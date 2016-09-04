@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments;
 use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
-use DrdPlus\Codes\Armaments\RangeWeaponCode;
+use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -16,8 +16,8 @@ use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Range\RangeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 use Granam\Tests\Tools\TestWithMockery;
@@ -83,8 +83,8 @@ class ArmourerTest extends TestWithMockery
             ->with($bow)
             ->andReturn(345);
         $tables->shouldReceive('getArmamentSanctionsByMissingStrengthTableByCode')
-            ->andReturn($rangeWeaponSanctionsTable = $this->createRangeWeaponSanctionsTable());
-        $rangeWeaponSanctionsTable->shouldReceive('canUseIt')
+            ->andReturn($rangedWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
+        $rangedWeaponSanctionsTable->shouldReceive('canUseIt')
             ->with(344 /* required strength - current strength */)
             ->andReturn('qux');
         self::assertSame('qux', $armourer->canUseArmament($bow, Strength::getIt(1), $this->mockery(Size::class)));
@@ -394,7 +394,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $tables->shouldReceive('getWeaponlikeSanctionsByMissingStrengthTableByCode')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
-        $rangedSpear = $this->mockery(RangeWeaponCode::class);
+        $rangedSpear = $this->mockery(RangedWeaponCode::class);
         $rangedSpear->shouldReceive('isMeleeArmament')
             ->andReturn(true);
         $rangedSpear->shouldReceive('convertToMeleeWeaponCodeEquivalent')
@@ -486,7 +486,7 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
-     * @dataProvider provideStrengthAndRangeWeaponGroup
+     * @dataProvider provideStrengthAndRangedWeaponGroup
      * @param int $requiredStrength
      * @param int $strength
      * @param mixed $expectedMissingStrength
@@ -501,9 +501,9 @@ class ArmourerTest extends TestWithMockery
     {
         $armourer = new Armourer($tables = $this->createTables());
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
-            ->andReturn($rangeWeaponTable = $this->createRangeWeaponsTable());
+            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
         $weaponlikeCode = $this->createRangedWeaponCode('foo', $weaponGroup);
-        $rangeWeaponTable->shouldReceive('getRequiredStrengthOf')
+        $rangedWeaponsTable->shouldReceive('getRequiredStrengthOf')
             ->with($weaponlikeCode)
             ->andReturn($requiredStrength);
         self::assertSame(
@@ -511,7 +511,7 @@ class ArmourerTest extends TestWithMockery
             $armourer->getMissingStrengthForArmament($weaponlikeCode, Strength::getIt($strength), $this->mockery(Size::class))
         );
         $tables->shouldReceive('getArmamentSanctionsByMissingStrengthTableByCode')
-            ->andReturn($rangeWeaponSanctionsTable = $this->createRangeWeaponSanctionsTable());
+            ->andReturn($rangeWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
 
         $rangeWeaponSanctionsTable->shouldReceive('canUseIt')
             ->with($expectedMissingStrength)
@@ -547,14 +547,14 @@ class ArmourerTest extends TestWithMockery
             $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($weaponlikeCode, Strength::getIt($strength))
         );
 
-        $tables->shouldReceive('getRangeWeaponSanctionsByMissingStrengthTable')
+        $tables->shouldReceive('getRangedWeaponSanctionsByMissingStrengthTable')
             ->andReturn($rangeWeaponSanctionsTable);
         $rangeWeaponSanctionsTable->shouldReceive('getLoadingInRounds')
             ->with($expectedMissingStrength)
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getLoadingInRoundsByStrengthWithRangeWeapon($weaponlikeCode, Strength::getIt($strength))
+            $armourer->getLoadingInRoundsByStrengthWithRangedWeapon($weaponlikeCode, Strength::getIt($strength))
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getLoadingInRoundsSanction')
@@ -562,7 +562,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foobaz');
         self::assertSame(
             'foobaz',
-            $armourer->getLoadingInRoundsMalusByStrengthWithRangeWeapon($weaponlikeCode, Strength::getIt($strength))
+            $armourer->getLoadingInRoundsMalusByStrengthWithRangedWeapon($weaponlikeCode, Strength::getIt($strength))
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getEncounterRangeSanction')
@@ -570,7 +570,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('fooqux');
         self::assertSame(
             'fooqux',
-            $armourer->getEncounterRangeMalusByStrengthWithRangeWeapon($weaponlikeCode, Strength::getIt($strength))
+            $armourer->getEncounterRangeMalusByStrengthWithRangedWeapon($weaponlikeCode, Strength::getIt($strength))
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
@@ -582,7 +582,7 @@ class ArmourerTest extends TestWithMockery
         );
     }
 
-    public function provideStrengthAndRangeWeaponGroup()
+    public function provideStrengthAndRangedWeaponGroup()
     {
         return [
             [123, 456, 0, 'arrow'],
@@ -600,17 +600,17 @@ class ArmourerTest extends TestWithMockery
     /**
      * @return \Mockery\MockInterface|RangedWeaponsTable
      */
-    private function createRangeWeaponsTable()
+    private function createRangedWeaponsTable()
     {
         return $this->mockery(RangedWeaponsTable::class);
     }
 
     /**
-     * @return \Mockery\MockInterface|RangeWeaponSanctionsByMissingStrengthTable
+     * @return \Mockery\MockInterface|RangedWeaponSanctionsByMissingStrengthTable
      */
-    private function createRangeWeaponSanctionsTable()
+    private function createRangedWeaponSanctionsTable()
     {
-        return $this->mockery(RangeWeaponSanctionsByMissingStrengthTable::class);
+        return $this->mockery(RangedWeaponSanctionsByMissingStrengthTable::class);
     }
 
     /**
@@ -625,16 +625,16 @@ class ArmourerTest extends TestWithMockery
      * @param $value
      * @param string $matchingWeaponGroup
      * @param bool $isMeleeArmament
-     * @return \Mockery\MockInterface|RangeWeaponCode
+     * @return \Mockery\MockInterface|RangedWeaponCode
      */
     private function createRangedWeaponCode($value, $matchingWeaponGroup, $isMeleeArmament = false)
     {
-        $code = $this->mockery(RangeWeaponCode::class);
+        $code = $this->mockery(RangedWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
-        foreach ($this->getRangeWeaponGroups() as $weaponGroup) {
+        foreach ($this->getRangedWeaponGroups() as $weaponGroup) {
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
@@ -644,7 +644,7 @@ class ArmourerTest extends TestWithMockery
         return $code;
     }
 
-    private function getRangeWeaponGroups()
+    private function getRangedWeaponGroups()
     {
         return ['bow', 'arrow', 'crossbow', 'dart', 'throwingWeapon', 'slingStone'];
     }
@@ -690,7 +690,7 @@ class ArmourerTest extends TestWithMockery
         $bow = $this->createRangedWeaponCode('foo', 'bow');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($bow)
-            ->andReturn($bowsTable = $this->createRangeWeaponsTable());
+            ->andReturn($bowsTable = $this->createRangedWeaponsTable());
         $bowsTable->shouldReceive('getRequiredStrengthOf')
             ->with($bow)
             ->andReturn('bar');
@@ -747,7 +747,7 @@ class ArmourerTest extends TestWithMockery
         $slingStone = $this->createRangedWeaponCode('foo', 'slingStone');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($slingStone)
-            ->andReturn($slingStonesTable = $this->createRangeWeaponsTable());
+            ->andReturn($slingStonesTable = $this->createRangedWeaponsTable());
         $slingStonesTable->shouldReceive('getOffensivenessOf')
             ->with($slingStone)
             ->andReturn('bar');
@@ -795,7 +795,7 @@ class ArmourerTest extends TestWithMockery
         $sling = $this->createRangedWeaponCode('foo', 'throwingWeapon');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($sling)
-            ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
+            ->andReturn($throwingWeaponsTable = $this->createRangedWeaponsTable());
         $throwingWeaponsTable->shouldReceive('getWoundsOf')
             ->with($sling)
             ->andReturn('bar');
@@ -843,7 +843,7 @@ class ArmourerTest extends TestWithMockery
         $shuriken = $this->createRangedWeaponCode('foo', 'throwingWeapon');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($shuriken)
-            ->andReturn($throwingWeaponsTable = $this->createRangeWeaponsTable());
+            ->andReturn($throwingWeaponsTable = $this->createRangedWeaponsTable());
         $throwingWeaponsTable->shouldReceive('getWoundsTypeOf')
             ->with($shuriken)
             ->andReturn('bar');
@@ -894,7 +894,7 @@ class ArmourerTest extends TestWithMockery
         $bow = $this->createRangedWeaponCode('qux', 'bow');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($bow)
-            ->andReturn($shieldsTable = $this->createRangeWeaponsTable());
+            ->andReturn($shieldsTable = $this->createRangedWeaponsTable());
         $shieldsTable->shouldReceive('getCoverOf')
             ->with($bow)
             ->andReturn('foo bar');
@@ -919,7 +919,7 @@ class ArmourerTest extends TestWithMockery
         $arrow = $this->createRangedWeaponCode('foo', 'arrow');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($arrow)
-            ->andReturn($arrowsTable = $this->createRangeWeaponsTable());
+            ->andReturn($arrowsTable = $this->createRangedWeaponsTable());
         $arrowsTable->shouldReceive('getWeightOf')
             ->with($arrow)
             ->andReturn('bar');
@@ -967,13 +967,13 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
         $bow = $this->createRangedWeaponCode('foo', 'bow');
-        $tables->shouldReceive('getRangeWeaponsTableByRangeWeaponCode')
+        $tables->shouldReceive('getRangedWeaponsTableByRangedWeaponCode')
             ->with($bow)
-            ->andReturn($bowsTable = $this->createRangeWeaponsTable());
+            ->andReturn($bowsTable = $this->createRangedWeaponsTable());
         $bowsTable->shouldReceive('getRangeOf')
             ->with($bow)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getRangeOfRangeWeapon($bow));
+        self::assertSame('bar', (new Armourer($tables))->getRangeOfRangedWeapon($bow));
     }
 
     // MISSING WEAPON SKILL

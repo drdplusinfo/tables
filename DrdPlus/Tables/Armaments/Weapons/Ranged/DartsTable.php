@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Weapons\Range;
+namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 
-use DrdPlus\Tables\Armaments\Weapons\Range\Partials\RangedWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 
 class DartsTable extends RangedWeaponsTable
 {
