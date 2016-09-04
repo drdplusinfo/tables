@@ -34,4 +34,12 @@ interface WeaponlikeTableInterface extends WearableTableInterface
      * @return int
      */
     public function getCoverOf($weaponlikeCode);
+
+    const TWO_HANDED = 'two_handed';
+
+    /**
+     * @param $itemCode
+     * @return bool
+     */
+    public function getTwoHandedOf($itemCode);
 }

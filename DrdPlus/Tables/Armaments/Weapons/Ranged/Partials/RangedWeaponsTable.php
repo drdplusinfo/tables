@@ -21,6 +21,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
             self::RANGE => self::INTEGER,
             self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
+            self::TWO_HANDED => self::BOOLEAN,
         ];
     }
 
@@ -37,12 +38,13 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @param string $weaponlikeCode
      * @param string $valueName
-     * @return float|int|string
+     * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     protected function getValueOf($weaponlikeCode, $valueName)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([$weaponlikeCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
             throw new UnknownRangedWeapon(
@@ -111,6 +113,16 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     public function getWeightOf($weaponlikeCode)
     {
         return $this->getValueOf($weaponlikeCode, self::WEIGHT);
+    }
+
+    /**
+     * @param $weaponlikeCode
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
+     */
+    public function getTwoHandedOf($weaponlikeCode)
+    {
+        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
     }
 
 }

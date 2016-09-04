@@ -109,6 +109,15 @@ class Armourer extends StrictObject
         return $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getWeightOf($armamentCode);
     }
 
+    /**
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return bool
+     */
+    public function isTwoHanded(WeaponlikeCode $weaponlikeCode)
+    {
+        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOf($weaponlikeCode);
+    }
+
     // shield-specific
 
     /**

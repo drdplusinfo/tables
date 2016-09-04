@@ -31,6 +31,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTableInterf
             self::WOUNDS_TYPE => self::STRING,
             self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
+            self::TWO_HANDED => self::BOOLEAN,
         ];
     }
 
@@ -129,6 +130,16 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTableInterf
     public function getWeightOf($shieldCode)
     {
         return $this->getValueOf($shieldCode, self::WEIGHT);
+    }
+
+    /**
+     * @param string $weaponlikeCode
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
+     */
+    public function getTwoHandedOf($weaponlikeCode)
+    {
+        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
     }
 
 }

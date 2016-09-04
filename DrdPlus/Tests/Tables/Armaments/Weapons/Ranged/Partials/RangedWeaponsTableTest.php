@@ -15,7 +15,7 @@ abstract class RangedWeaponsTableTest extends \PHPUnit_Framework_TestCase implem
         /** @var RangedWeaponsTable $shootingArmamentsTable */
         $shootingArmamentsTable = new $sutClass();
         self::assertSame(
-            [[$this->getRowHeaderName(), 'required_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'cover', 'weight']],
+            [[$this->getRowHeaderName(), 'required_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'cover', 'weight', 'two_handed']],
             $shootingArmamentsTable->getHeader()
         );
     }
@@ -124,6 +124,7 @@ abstract class RangedWeaponsTableTest extends \PHPUnit_Framework_TestCase implem
             [RangedWeaponsTable::RANGE],
             [RangedWeaponsTable::COVER],
             [RangedWeaponsTable::WEIGHT],
+            [RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

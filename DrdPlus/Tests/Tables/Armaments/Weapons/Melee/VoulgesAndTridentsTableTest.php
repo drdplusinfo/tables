@@ -5,9 +5,9 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
+class VoulgesAndTridentsTableTest extends MeleeWeaponsTableTest
 {
     public function provideWeaponAndNameWithValue()
     {
@@ -19,6 +19,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::PITCHFORK, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::PITCHFORK, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::PITCHFORK, MeleeWeaponsTable::WEIGHT, 1.5],
+            [MeleeWeaponCode::PITCHFORK, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::REQUIRED_STRENGTH, 2],
             [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::LENGTH, 4],
@@ -27,6 +28,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::WEIGHT, 2.0],
+            [MeleeWeaponCode::LIGHT_VOULGE, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::REQUIRED_STRENGTH, 5],
             [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::LENGTH, 4],
@@ -35,6 +37,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::WEIGHT, 2.5],
+            [MeleeWeaponCode::LIGHT_TRIDENT, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::LENGTH, 4],
@@ -43,6 +46,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::WEIGHT, 3.5],
+            [MeleeWeaponCode::HALBERD, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::REQUIRED_STRENGTH, 7],
             [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::LENGTH, 4],
@@ -51,6 +55,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::WEIGHT, 4.0],
+            [MeleeWeaponCode::HEAVY_VOULGE, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::REQUIRED_STRENGTH, 9],
             [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::LENGTH, 4],
@@ -59,6 +64,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::WEIGHT, 4.0],
+            [MeleeWeaponCode::HEAVY_TRIDENT, MeleeWeaponsTable::TWO_HANDED, true],
 
             [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::REQUIRED_STRENGTH, 10],
             [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::LENGTH, 4],
@@ -67,6 +73,7 @@ class VoulgesAndTridentsTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::WEIGHT, 6.0],
+            [MeleeWeaponCode::HEAVY_HALBERD, MeleeWeaponsTable::TWO_HANDED, true],
         ];
     }
 

@@ -1,6 +1,6 @@
-projectile,required_strength,offensiveness,wounds,wounds_type,range,cover,weight
-basic_dart,,0,0,stab,0,0,0.05
-war_dart,,0,2,stab,-2,0,0.1
-piercing_dart,,0,-1,stab,0,0,0.05
-hollow_dart,,0,-1,stab,0,0,0.05
-silver_dart,,0,0,stab,0,0,0.05
+projectile,required_strength,offensiveness,wounds,wounds_type,range,cover,weight,two_handed
+basic_dart,,0,0,stab,0,0,0.05,0
+war_dart,,0,2,stab,-2,0,0.1,0
+piercing_dart,,0,-1,stab,0,0,0.05,0
+hollow_dart,,0,-1,stab,0,0,0.05,0
+silver_dart,,0,0,stab,0,0,0.05,0

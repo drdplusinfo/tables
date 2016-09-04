@@ -23,6 +23,7 @@ class BowsTable extends RangedWeaponsTable
             self::RANGE => self::POSITIVE_INTEGER,
             self::COVER => self::POSITIVE_INTEGER,
             self::WEIGHT => self::FLOAT,
+            self::TWO_HANDED => self::BOOLEAN,
         ];
     }
 

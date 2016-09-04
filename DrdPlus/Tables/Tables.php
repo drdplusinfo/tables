@@ -754,7 +754,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param WeaponlikeCode $weaponlikeCode
-     * @return WeaponlikeTableInterface|WearableTableInterface
+     * @return WeaponlikeTableInterface
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
     public function getWeaponlikeTableByWeaponlikeCode(WeaponlikeCode $weaponlikeCode)

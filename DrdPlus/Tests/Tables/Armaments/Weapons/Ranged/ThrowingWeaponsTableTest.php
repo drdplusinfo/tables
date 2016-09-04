@@ -23,6 +23,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::ROCK, RangedWeaponsTable::RANGE, 20],
             [RangedWeaponCode::ROCK, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::ROCK, RangedWeaponsTable::WEIGHT, 0.3],
+            [RangedWeaponCode::ROCK, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::REQUIRED_STRENGTH, 0],
             [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -31,6 +32,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::RANGE, 14],
             [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::WEIGHT, 0.2],
+            [RangedWeaponCode::THROWING_DAGGER, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
             [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::OFFENSIVENESS, 1],
@@ -39,6 +41,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::RANGE, 12],
             [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::WEIGHT, 0.7],
+            [RangedWeaponCode::LIGHT_THROWING_AXE, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
             [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::OFFENSIVENESS, 1],
@@ -47,6 +50,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::RANGE, 10],
             [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::WEIGHT, 1.0],
+            [RangedWeaponCode::WAR_THROWING_AXE, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::REQUIRED_STRENGTH, 5],
             [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::OFFENSIVENESS, 2],
@@ -55,6 +59,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::RANGE, 9],
             [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::WEIGHT, 1.5],
+            [RangedWeaponCode::THROWING_HAMMER, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::REQUIRED_STRENGTH, -1],
             [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -63,6 +68,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::RANGE, 14],
             [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::WEIGHT, 0.1],
+            [RangedWeaponCode::SHURIKEN, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SPEAR, RangedWeaponsTable::REQUIRED_STRENGTH, 3],
             [RangedWeaponCode::SPEAR, RangedWeaponsTable::OFFENSIVENESS, 2],
@@ -71,6 +77,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SPEAR, RangedWeaponsTable::RANGE, 20],
             [RangedWeaponCode::SPEAR, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::SPEAR, RangedWeaponsTable::WEIGHT, 1.2],
+            [RangedWeaponCode::SPEAR, RangedWeaponsTable::TWO_HANDED, true],
 
             [RangedWeaponCode::JAVELIN, RangedWeaponsTable::REQUIRED_STRENGTH, 2],
             [RangedWeaponCode::JAVELIN, RangedWeaponsTable::OFFENSIVENESS, 2],
@@ -79,6 +86,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::JAVELIN, RangedWeaponsTable::RANGE, 22],
             [RangedWeaponCode::JAVELIN, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::JAVELIN, RangedWeaponsTable::WEIGHT, 1.0],
+            [RangedWeaponCode::JAVELIN, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SLING, RangedWeaponsTable::REQUIRED_STRENGTH, -1],
             [RangedWeaponCode::SLING, RangedWeaponsTable::OFFENSIVENESS, 1],
@@ -87,6 +95,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SLING, RangedWeaponsTable::RANGE, 27],
             [RangedWeaponCode::SLING, RangedWeaponsTable::COVER, 2],
             [RangedWeaponCode::SLING, RangedWeaponsTable::WEIGHT, 0.1],
+            [RangedWeaponCode::SLING, RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

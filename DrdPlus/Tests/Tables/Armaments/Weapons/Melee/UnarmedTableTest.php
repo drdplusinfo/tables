@@ -5,9 +5,9 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
+class UnarmedTableTest extends MeleeWeaponsTableTest
 {
     public function provideWeaponAndNameWithValue()
     {
@@ -19,6 +19,7 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::WEIGHT, false],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::LENGTH, 0],
@@ -27,6 +28,7 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WEIGHT, false],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::LENGTH, 0],
@@ -35,6 +37,7 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::WEIGHT, false],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::LENGTH, 0],
@@ -43,6 +46,7 @@ class UnarmedTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WEIGHT, false],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::TWO_HANDED, false],
         ];
     }
 

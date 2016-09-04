@@ -23,6 +23,7 @@ class DartsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::WAR_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::WAR_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -31,6 +32,7 @@ class DartsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::WAR_DART, RangedWeaponsTable::RANGE, -2],
             [RangedWeaponCode::WAR_DART, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::WAR_DART, RangedWeaponsTable::WEIGHT, 0.1],
+            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -39,6 +41,7 @@ class DartsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -47,6 +50,7 @@ class DartsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -55,6 +59,7 @@ class DartsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

@@ -5,9 +5,9 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class AxesTableTest extends AbstractMeleeWeaponsTableTest
+class AxesTableTest extends MeleeWeaponsTableTest
 {
 
     public function provideWeaponAndNameWithValue()
@@ -20,6 +20,7 @@ class AxesTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::WEIGHT, 1.0],
+            [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::LENGTH, 2],
@@ -28,6 +29,7 @@ class AxesTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::WEIGHT, 2.0],
+            [MeleeWeaponCode::AXE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 9],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::LENGTH, 3],
@@ -36,6 +38,7 @@ class AxesTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::WEIGHT, 2.5],
+            [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 12],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::LENGTH, 3],
@@ -44,6 +47,7 @@ class AxesTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::WEIGHT, 3.0],
+            [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::TWO_HANDED, false],
         ];
     }
 

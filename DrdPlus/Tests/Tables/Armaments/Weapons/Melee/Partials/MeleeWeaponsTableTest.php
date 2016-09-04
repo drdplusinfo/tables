@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
-abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+abstract class MeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
     /**
      * @test
@@ -15,7 +15,7 @@ abstract class AbstractMeleeWeaponsTableTest extends \PHPUnit_Framework_TestCase
         /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         self::assertSame(
-            [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight']],
+            [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight', 'two_handed']],
             $meleeWeaponsTable->getHeader()
         );
     }

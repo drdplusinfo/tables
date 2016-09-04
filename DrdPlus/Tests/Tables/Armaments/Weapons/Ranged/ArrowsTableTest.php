@@ -23,6 +23,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::BASIC_ARROW, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::BASIC_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::BASIC_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::BASIC_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -31,6 +32,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::RANGE, 2],
             [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::LONG_RANGE_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -39,6 +41,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::RANGE, -2],
             [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::WEIGHT, 0.1],
+            [RangedWeaponCode::WAR_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -47,6 +50,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::PIERCING_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -55,6 +59,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::HOLLOW_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::OFFENSIVENESS, -1],
@@ -63,6 +68,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::RANGE, -1],
             [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::CRIPPLING_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::OFFENSIVENESS, -3],
@@ -71,6 +77,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::RANGE, -2],
             [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::INCENDIARY_ARROW, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -79,6 +86,7 @@ class ArrowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::WEIGHT, 0.05],
+            [RangedWeaponCode::SILVER_ARROW, RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

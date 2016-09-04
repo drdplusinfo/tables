@@ -23,6 +23,7 @@ class SlingStonesTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SLING_STONE_LIGHT, RangedWeaponsTable::RANGE, 0],
             [RangedWeaponCode::SLING_STONE_LIGHT, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::SLING_STONE_LIGHT, RangedWeaponsTable::WEIGHT, 0.1],
+            [RangedWeaponCode::SLING_STONE_LIGHT, RangedWeaponsTable::TWO_HANDED, false],
 
             [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::REQUIRED_STRENGTH, false],
             [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::OFFENSIVENESS, 0],
@@ -31,6 +32,7 @@ class SlingStonesTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::RANGE, -2],
             [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::COVER, 0],
             [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::WEIGHT, 0.2],
+            [RangedWeaponCode::SLING_STONE_HEAVIER, RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

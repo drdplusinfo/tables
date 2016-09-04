@@ -5,9 +5,9 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\AbstractMeleeWeaponsTableTest;
+use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
+class KnifesAndDaggersTableTest extends MeleeWeaponsTableTest
 {
     public function provideWeaponAndNameWithValue()
     {
@@ -19,6 +19,7 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::KNIFE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::KNIFE, MeleeWeaponsTable::COVER, 1],
             [MeleeWeaponCode::KNIFE, MeleeWeaponsTable::WEIGHT, 0.2],
+            [MeleeWeaponCode::KNIFE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::REQUIRED_STRENGTH, -1],
             [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::LENGTH, 0],
@@ -27,6 +28,7 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::WEIGHT, 0.2],
+            [MeleeWeaponCode::DAGGER, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::REQUIRED_STRENGTH, -1],
             [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::LENGTH, 0],
@@ -35,6 +37,7 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::COVER, 1],
             [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::WEIGHT, 0.2],
+            [MeleeWeaponCode::STABBING_DAGGER, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::REQUIRED_STRENGTH, -2],
             [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::LENGTH, 1],
@@ -43,6 +46,7 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::COVER, 1],
             [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::WEIGHT, 0.2],
+            [MeleeWeaponCode::LONG_KNIFE, MeleeWeaponsTable::TWO_HANDED, false],
 
             [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::REQUIRED_STRENGTH, 1],
             [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::LENGTH, 1],
@@ -51,6 +55,7 @@ class KnifesAndDaggersTableTest extends AbstractMeleeWeaponsTableTest
             [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
             [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::WEIGHT, 0.3],
+            [MeleeWeaponCode::LONG_DAGGER, MeleeWeaponsTable::TWO_HANDED, false],
         ];
     }
 
