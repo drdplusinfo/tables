@@ -26,11 +26,11 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
-use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTable;
 use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
-use DrdPlus\Tables\Armaments\Partials\UnwieldyTableInterface;
-use DrdPlus\Tables\Armaments\Partials\WeaponlikeTableInterface;
-use DrdPlus\Tables\Armaments\Partials\WearableTableInterface;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
+use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
+use DrdPlus\Tables\Armaments\Partials\WearablesTable;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
@@ -738,7 +738,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return WearableTableInterface
+     * @return WearablesTable
      * @throws UnknownArmament
      */
     public function getArmamentsTableByArmamentCode(ArmamentCode $armamentCode)
@@ -754,7 +754,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param WeaponlikeCode $weaponlikeCode
-     * @return WeaponlikeTableInterface
+     * @return WeaponlikeTable
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
     public function getWeaponlikeTableByWeaponlikeCode(WeaponlikeCode $weaponlikeCode)
@@ -770,7 +770,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
-     * @return MeleeWeaponlikeTableInterface
+     * @return MeleeWeaponlikeTable
      * @throws UnknownMeleeWeaponlike
      */
     public function getMeleeWeaponlikeTableByMeleeWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
@@ -938,7 +938,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ProtectiveArmamentCode $protectiveArmamentCode
-     * @return UnwieldyTableInterface
+     * @return UnwieldyTable
      * @throws UnknownProtectiveArmament
      */
     public function getProtectiveArmamentsTable(ProtectiveArmamentCode $protectiveArmamentCode)

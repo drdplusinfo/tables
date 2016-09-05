@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface UnwieldyTableInterface extends WearableTableInterface
+interface UnwieldyTable extends WearablesTable
 {
     const RESTRICTION = 'restriction';
 

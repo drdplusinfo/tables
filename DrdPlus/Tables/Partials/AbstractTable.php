@@ -2,7 +2,9 @@
 namespace DrdPlus\Tables\Partials;
 
 use DrdPlus\Tables\Table;
+use Granam\Scalar\Tools\ToString;
 use Granam\Strict\Object\StrictObject;
+use Granam\Tools\ValueDescriber;
 
 abstract class AbstractTable extends StrictObject implements Table
 {
@@ -107,5 +109,67 @@ abstract class AbstractTable extends StrictObject implements Table
      * @return array|\ArrayObject|string[]|string[][][]
      */
     abstract protected function getColumnsHeader();
+
+    /**
+     * @param array|string|int $rowIndexes
+     * @param string $columnIndex
+     * @return int|float|string|bool
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
+     * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
+     */
+    public function getValue($rowIndexes, $columnIndex)
+    {
+        $row = $this->getRow((array)$rowIndexes);
+
+        return $this->getValueInRow($row, $columnIndex);
+    }
+
+    /**
+     * @param array $singleRowIndexes
+     *
+     * @return array|mixed[]
+     * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
+     */
+    public function getRow(array $singleRowIndexes)
+    {
+        if (count($singleRowIndexes) === 0) {
+            throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
+        }
+        $values = $this->getIndexedValues();
+        foreach ($singleRowIndexes as $rowIndex) {
+            if (!array_key_exists(ToString::toString($rowIndex), $values)) {
+                throw new Exceptions\RequiredRowNotFound(
+                    'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
+                );
+            }
+            $values = $values[$rowIndex];
+            if (!is_array(current($values))) { // flat array found
+                break;
+            }
+        }
+
+        return $values;
+    }
+
+    /**
+     * @param array $row
+     * @param $columnIndex
+     * @return int|float|string|bool
+     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
+     */
+    private function getValueInRow(array $row, $columnIndex)
+    {
+        if (!array_key_exists($columnIndex, $row)) {
+            throw new Exceptions\RequiredColumnNotFound(
+                'Column of name ' . ValueDescriber::describe($columnIndex) . ' does not exist'
+            );
+        }
+
+        return $row[$columnIndex];
+    }
 
 }

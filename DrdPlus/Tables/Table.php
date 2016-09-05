@@ -23,4 +23,12 @@ interface Table
      * @return array|\ArrayAccess|string[][]
      */
     public function getHeader();
+
+    /**
+     * @param int|string|array $rowIndexes
+     * @param string|int $columnIndex
+     * @return bool|int|float|string
+     */
+    public function getValue($rowIndexes, $columnIndex);
+
 }

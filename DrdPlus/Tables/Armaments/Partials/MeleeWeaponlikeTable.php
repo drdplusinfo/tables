@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface MeleeWeaponlikeTableInterface extends WeaponlikeTableInterface
+interface MeleeWeaponlikeTable extends WeaponlikeTable
 {
     const LENGTH = 'length';
 

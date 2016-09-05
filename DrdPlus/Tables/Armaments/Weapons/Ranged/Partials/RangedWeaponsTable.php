@@ -3,11 +3,11 @@ namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\WeaponlikeTableInterface;
+use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTableInterface
+abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTable
 {
     const RANGE = 'range';
 

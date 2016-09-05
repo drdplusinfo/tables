@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class VoulgesAndTridentsTableTest extends MeleeWeaponsTableTest
 {
-    public function provideWeaponAndNameWithValue()
+    public function provideArmamentAndNameWithValue()
     {
         return [
             [MeleeWeaponCode::PITCHFORK, MeleeWeaponsTable::REQUIRED_STRENGTH, 0],

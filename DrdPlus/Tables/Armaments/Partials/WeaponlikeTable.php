@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Partials;
 
-interface WeaponlikeTableInterface extends WearableTableInterface
+interface WeaponlikeTable extends WearablesTable
 {
     const OFFENSIVENESS = 'offensiveness';
 

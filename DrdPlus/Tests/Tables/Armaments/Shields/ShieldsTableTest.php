@@ -1,11 +1,12 @@
 <?php
-namespace DrdPlus\Tables\Armaments\Shields;
+namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\WoundTypeCode;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
+use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;
 
-class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class ShieldsTableTest extends WeaponlikeTableTest
 {
     /**
      * @test
@@ -19,60 +20,7 @@ class ShieldsTableTest extends \PHPUnit_Framework_TestCase implements TableTestI
         );
     }
 
-    /**
-     * @test
-     */
-    public function I_can_get_all_values()
-    {
-        self::assertSame(
-            $this->assembleIndexedValues($this->provideShieldAndValue()),
-            (new ShieldsTable())->getIndexedValues()
-        );
-    }
-
-    private function assembleIndexedValues(array $values)
-    {
-        $indexedValues = [];
-        foreach ($values as $row) {
-            list($shield, $parameterName, $parameterValue) = $row;
-            if (!array_key_exists($shield, $indexedValues)) {
-                $indexedValues[$shield] = [];
-            }
-            $indexedValues[$shield][$parameterName] = $parameterValue;
-        }
-
-        return $indexedValues;
-    }
-
-    /**
-     * @test
-     * @dataProvider provideShieldAndValue
-     * @param string $shieldCode
-     * @param string $valueName
-     * @param mixed $expectedValue
-     */
-    public function I_can_get_values_for_every_armor($shieldCode, $valueName, $expectedValue)
-    {
-        $shieldsTable = new ShieldsTable();
-        $value = $shieldsTable->getValue([$shieldCode], $valueName);
-        self::assertSame($expectedValue, $value);
-        $getValueNameOf = $this->assembleValueGetter($valueName);
-        self::assertSame($value, $shieldsTable->$getValueNameOf($shieldCode));
-    }
-
-    private function assembleValueGetter($valueName)
-    {
-        return 'get' . implode(
-            array_map(
-                function ($namePart) {
-                    return ucfirst($namePart);
-                },
-                explode('_', $valueName)
-            )
-        ) . 'Of';
-    }
-
-    public function provideShieldAndValue()
+    public function provideArmamentAndNameWithValue()
     {
         return [
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::REQUIRED_STRENGTH, false],

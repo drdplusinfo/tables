@@ -3,12 +3,12 @@ namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTableInterface;
-use DrdPlus\Tables\Armaments\Partials\UnwieldyTableInterface;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTable;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTableInterface, MeleeWeaponlikeTableInterface
+class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, MeleeWeaponlikeTable
 {
     protected function getDataFileName()
     {

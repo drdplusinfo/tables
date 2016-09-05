@@ -3,10 +3,10 @@ namespace DrdPlus\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\UnwieldyTableInterface;
+use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use Granam\Tools\ValueDescriber;
 
-abstract class AbstractArmorsTable extends AbstractArmamentsTable implements UnwieldyTableInterface
+abstract class AbstractArmorsTable extends AbstractArmamentsTable implements UnwieldyTable
 {
 
     const PROTECTION = 'protection';

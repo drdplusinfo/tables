@@ -40,18 +40,14 @@ class EveryTableTest extends \PHPUnit_Framework_TestCase
                     foreach (self::scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir) as $tableClass) {
                         $tableClasses[] = $tableClass;
                     }
-                } else if (is_file($fullPath)) {
-                    if (preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
-                        $assembledTableClass = $rootNamespace . '\\' . $matches['tableBasename'];
-                        self::assertTrue(
-                            class_exists($assembledTableClass),
-                            "Class {$assembledTableClass} can not be auto-loaded"
-                        );
-                        $tableReflection = new \ReflectionClass($assembledTableClass);
-                        if (!$tableReflection->isAbstract()) {
-                            $tableClasses[] = $tableReflection->getName();
-                        }
-                    }
+                } else if (is_file($fullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
+                    $assembledTableClass = $rootNamespace . '\\' . $matches['tableBasename'];
+                    self::assertTrue(
+                        class_exists($assembledTableClass) || interface_exists($assembledTableClass),
+                        "Class {$assembledTableClass} can not be auto-loaded"
+                    );
+                    $tableReflection = new \ReflectionClass($assembledTableClass);
+                    $tableClasses[] = $tableReflection->getName();
                 }
             }
         }

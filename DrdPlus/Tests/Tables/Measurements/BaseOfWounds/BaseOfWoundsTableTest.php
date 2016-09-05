@@ -134,4 +134,31 @@ class BaseOfWoundsTableTest extends TestWithMockery
         self::assertSame(-15, $baseOfWoundsTable->tenMinifyBonus(5));
     }
 
+    /**
+     * @test
+     */
+    public function I_can_get_single_value_by_its_indexes()
+    {
+        // value on indexes, not on coordinates-by-values
+        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(3, 5));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
+     */
+    public function I_can_not_get_single_value_by_invalid_row_index()
+    {
+        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(999, 5));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     */
+    public function I_can_not_get_single_value_by_invalid_column_index()
+    {
+        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(6, 999));
+    }
+
 }

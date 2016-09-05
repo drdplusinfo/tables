@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
 use DrdPlus\Tables\Table;
 use Granam\Strict\Object\StrictObject;
+use Granam\Tools\ValueDescriber;
 
 /**
  * Base of wounds is special table, without standard interface
@@ -161,6 +162,29 @@ class BaseOfWoundsTable extends StrictObject implements Table
     private function locateBonus($columnRank, $rowRank)
     {
         return $this->bonuses[$rowRank][$columnRank];
+    }
+
+    /**
+     * @param int $rowIndex
+     * @param int $columnIndex
+     * @return string
+     * @throws Exceptions\NoRowExistsOnProvidedIndex
+     * @throws Exceptions\NoColumnExistsOnProvidedIndex
+     */
+    public function getValue($rowIndex, $columnIndex)
+    {
+        if (!array_key_exists($rowIndex, $this->values)) {
+            throw new Exceptions\NoRowExistsOnProvidedIndex(
+                'No row exists for given row index ' . ValueDescriber::describe($rowIndex)
+            );
+        }
+        if (!array_key_exists($columnIndex, $this->values[$rowIndex])) {
+            throw new Exceptions\NoColumnExistsOnProvidedIndex(
+                'No column exists for given column index ' . ValueDescriber::describe($columnIndex)
+            );
+        }
+
+        return $this->values[$rowIndex][$columnIndex];
     }
 
     /**
