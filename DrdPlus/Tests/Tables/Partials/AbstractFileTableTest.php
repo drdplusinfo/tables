@@ -2,8 +2,9 @@
 namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use Granam\Tests\Tools\TestWithMockery;
 
-class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
+class AbstractFileTableTest extends TestWithMockery
 {
     /**
      * @test
@@ -21,7 +22,7 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_am_stopped_if_datafile_is_empty()
     {
-        $table = new TableWithEmptyFilename();
+        $table = new TableWithEmptyFile();
         $table->getIndexedValues();
     }
 
@@ -104,6 +105,16 @@ class AbstractFileTableTest extends \PHPUnit_Framework_TestCase
         self::assertSame([], $table->getHeader());
         self::assertSame([['foo' => 'baz', 'bar' => 'qux']], $table->getIndexedValues());
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Partials\Exceptions\UnknownFetchedColumn
+     */
+    public function I_can_not_create_table_with_missing_expected_header_record()
+    {
+        $table = new TableWithMissingExpectedDataHeader();
+        $table->getIndexedValues();
+    }
 }
 
 /** inner */
@@ -132,13 +143,14 @@ class TableWithWrongFileReference extends AbstractFileTable
 
 }
 
-class TableWithEmptyFilename extends TableWithWrongFileReference
+class TableWithEmptyFile extends TableWithWrongFileReference
 {
     protected $dataFileName;
 
     public function __construct()
     {
         $this->dataFileName = $this->createDataFileName();
+        file_put_contents($this->dataFileName, '');
     }
 
     protected function createDataFileName()
@@ -155,13 +167,11 @@ class TableWithEmptyFilename extends TableWithWrongFileReference
 
     protected function getDataFileName()
     {
-        file_put_contents($this->dataFileName, '');
-
         return $this->dataFileName;
     }
 }
 
-class TableWithMissingHeaderRow extends TableWithEmptyFilename
+class TableWithMissingHeaderRow extends TableWithEmptyFile
 {
 
     protected function getDataFileName()
@@ -182,7 +192,7 @@ class TableWithMissingHeaderRow extends TableWithEmptyFilename
     }
 }
 
-class TableWithMissingHeaderColumn extends TableWithEmptyFilename
+class TableWithMissingHeaderColumn extends TableWithEmptyFile
 {
 
     protected function getDataFileName()
@@ -203,7 +213,7 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFilename
     }
 }
 
-class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFilename
+class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFile
 {
 
     protected function getDataFileName()
@@ -224,13 +234,12 @@ class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFilename
     }
 }
 
-class TableWithPublicHeaders extends TableWithEmptyFilename
+class TableWithPublicHeaders extends TableWithEmptyFile
 {
-    protected function getDataFileName()
+    public function __construct()
     {
+        parent::__construct();
         file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 123]));
-
-        return $this->dataFileName;
     }
 
     public function getRowsHeader()
@@ -244,7 +253,7 @@ class TableWithPublicHeaders extends TableWithEmptyFilename
     }
 }
 
-class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
+class TableWithUnknownColumnScalarType extends TableWithEmptyFile
 {
     protected function getDataFileName()
     {
@@ -264,7 +273,7 @@ class TableWithUnknownColumnScalarType extends TableWithEmptyFilename
     }
 }
 
-class TableWithEmptyRowsHeader extends TableWithEmptyFilename
+class TableWithEmptyRowsHeader extends TableWithEmptyFile
 {
     protected function getDataFileName()
     {
@@ -281,5 +290,24 @@ class TableWithEmptyRowsHeader extends TableWithEmptyFilename
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return ['foo' => self::STRING, 'bar' => self::STRING];
+    }
+}
+class TableWithMissingExpectedDataHeader extends TableWithEmptyFile
+{
+    protected function getDataFileName()
+    {
+        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
+
+        return $this->dataFileName;
+    }
+
+    protected function getRowsHeader()
+    {
+        return [];
+    }
+
+    protected function getExpectedDataHeaderNamesToTypes()
+    {
+        return ['foo' => self::STRING /* bar is missing */];
     }
 }

@@ -262,11 +262,16 @@ abstract class AbstractFileTable extends AbstractTable
         return $this->normalizeValueForType($value, $this->getColumnType($columnIndex));
     }
 
+    /**
+     * @param $columnIndex
+     * @return mixed
+     * @throws Exceptions\UnknownFetchedColumn
+     */
     private function getColumnType($columnIndex)
     {
         $header = $this->getNormalizedExpectedColumnsHeader();
         if (!array_key_exists($columnIndex, $header)) {
-            throw new \InvalidArgumentException(
+            throw new Exceptions\UnknownFetchedColumn(
                 'Given column index ' . ValueDescriber::describe($columnIndex) . ' does not exists in header indexes '
                 . implode(',', array_keys($header))
             );
