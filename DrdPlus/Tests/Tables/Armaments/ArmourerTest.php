@@ -9,7 +9,6 @@ use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
-use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
@@ -215,14 +214,6 @@ class ArmourerTest extends TestWithMockery
     private function createArmorSanctionsTable()
     {
         return $this->mockery(ArmorSanctionsByMissingStrengthTable::class);
-    }
-
-    /**
-     * @return \Mockery\MockInterface|HelmsTable
-     */
-    private function createHelmsTable()
-    {
-        return $this->mockery(HelmsTable::class);
     }
 
     /**
@@ -869,7 +860,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_cover_of_every_armament()
+    public function I_can_get_cover_of_armament()
     {
         $tables = $this->createTables();
 
@@ -881,24 +872,6 @@ class ArmourerTest extends TestWithMockery
             ->with($fist)
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponlike($fist));
-
-        $shield = $this->createShield();
-        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
-            ->with($shield)
-            ->andReturn($shieldsTable = $this->createShieldsTable());
-        $shieldsTable->shouldReceive('getCoverOf')
-            ->with($shield)
-            ->andReturn('baz');
-        self::assertSame('baz', (new Armourer($tables))->getCoverOfWeaponlike($shield));
-
-        $bow = $this->createRangedWeaponCode('qux', 'bow');
-        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
-            ->with($bow)
-            ->andReturn($shieldsTable = $this->createRangedWeaponsTable());
-        $shieldsTable->shouldReceive('getCoverOf')
-            ->with($bow)
-            ->andReturn('foo bar');
-        self::assertSame('foo bar', (new Armourer($tables))->getCoverOfWeaponlike($bow));
     }
 
     /**
@@ -915,33 +888,22 @@ class ArmourerTest extends TestWithMockery
             ->with($escalatorlibur)
             ->andReturn('foo');
         self::assertSame('foo', (new Armourer($tables))->getWeightOfArmament($escalatorlibur));
+    }
 
-        $arrow = $this->createRangedWeaponCode('foo', 'arrow');
-        $tables->shouldReceive('getArmamentsTableByArmamentCode')
-            ->with($arrow)
-            ->andReturn($arrowsTable = $this->createRangedWeaponsTable());
-        $arrowsTable->shouldReceive('getWeightOf')
-            ->with($arrow)
-            ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getWeightOfArmament($arrow));
-
-        $shield = $this->createShield();
-        $tables->shouldReceive('getArmamentsTableByArmamentCode')
-            ->with($shield)
-            ->andReturn($shieldsTable = $this->createShieldsTable());
-        $shieldsTable->shouldReceive('getWeightOf')
-            ->with($shield)
-            ->andReturn('baz');
-        self::assertSame('baz', (new Armourer($tables))->getWeightOfArmament($shield));
-
-        $helm = $this->createHelmCode();
-        $tables->shouldReceive('getArmamentsTableByArmamentCode')
-            ->with($helm)
-            ->andReturn($helmsTable = $this->createHelmsTable());
-        $helmsTable->shouldReceive('getWeightOf')
-            ->with($helm)
-            ->andReturn('qux');
-        self::assertSame('qux', (new Armourer($tables))->getWeightOfArmament($helm));
+    /**
+     * @test
+     */
+    public function I_can_ask_if_weaponlike_has_to_be_hold_two_handed()
+    {
+        $tables = $this->createTables();
+        $fork = $this->createMeleeWeaponCode('foo', 'staffOrSpear');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($fork)
+            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponTable());
+        $staffsAndSpearsTable->shouldReceive('getTwoHandedOf')
+            ->with($fork)
+            ->andReturn('foo');
+        self::assertSame('foo', (new Armourer($tables))->isTwoHanded($fork));
     }
 
     /**

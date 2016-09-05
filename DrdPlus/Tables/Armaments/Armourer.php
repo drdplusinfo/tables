@@ -92,7 +92,7 @@ class Armourer extends StrictObject
     /**
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     * @throws Exceptions\UnknownWeaponlike
      */
     public function getOffensivenessOfWeaponlike(WeaponlikeCode $weaponlikeCode)
     {
@@ -112,6 +112,7 @@ class Armourer extends StrictObject
     /**
      * @param WeaponlikeCode $weaponlikeCode
      * @return bool
+     * @throws Exceptions\UnknownWeaponlike
      */
     public function isTwoHanded(WeaponlikeCode $weaponlikeCode)
     {
