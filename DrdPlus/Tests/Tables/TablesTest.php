@@ -92,7 +92,7 @@ class TablesTest extends TestWithMockery
                     }
                 } else if (is_file($fullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
                     $tableReflection = new \ReflectionClass($rootNamespace . '\\' . $matches['tableBasename']);
-                    if (!$tableReflection->isAbstract()) {
+                    if ($tableReflection->isInstantiable()) {
                         $tableClasses[] = $tableReflection->getName();
                     }
                 }
