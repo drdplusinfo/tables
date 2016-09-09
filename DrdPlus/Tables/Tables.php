@@ -11,6 +11,7 @@ use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
@@ -670,6 +671,18 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[WoundsOnFallFromHorseTable::class];
     }
 
+    /**
+     * @return CombatActionsCompatibilityTable
+     */
+    public function getCombatActionsCompatibilityTable()
+    {
+        if (!array_key_exists(CombatActionsCompatibilityTable::class, $this->tables)) {
+            $this->tables[CombatActionsCompatibilityTable::class] = new CombatActionsCompatibilityTable();
+        }
+
+        return $this->tables[CombatActionsCompatibilityTable::class];
+    }
+
     public function getIterator()
     {
         return new \ArrayObject([
@@ -721,6 +734,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getRidingAnimalMovementTypesTable(),
             $this->getRidingAnimalsTable(),
             $this->getWoundsOnFallFromHorseTable(),
+            $this->getCombatActionsCompatibilityTable(),
         ]);
     }
 
