@@ -94,14 +94,12 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
             CombatActionCode::ATTACK_FROM_BEHIND,
             CombatActionCode::MOVE,
             CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
-            CombatActionCode::PUT_OUT_EASILY_ACCESSIBLE_ITEM,
             MeleeCombatActionCode::RETREAT,
         ]));
         self::assertFalse($combatActionsCompatibilityTable->canCombineActions([
             CombatActionCode::ATTACK_FROM_BEHIND,
             CombatActionCode::MOVE,
             CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
-            CombatActionCode::PUT_OUT_EASILY_ACCESSIBLE_ITEM,
             MeleeCombatActionCode::RETREAT,
             RangedCombatActionCode::AIMED_SHOT,
         ]));
