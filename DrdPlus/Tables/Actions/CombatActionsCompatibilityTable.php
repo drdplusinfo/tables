@@ -21,7 +21,8 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
         return [
             CombatActionCode::MOVE => self::BOOLEAN,
             CombatActionCode::RUN => self::BOOLEAN,
-            CombatActionCode::STANDARD_ATTACK => self::BOOLEAN,
+            CombatActionCode::STANDARD_MELEE_ATTACK => self::BOOLEAN,
+            CombatActionCode::STANDARD_RANGED_ATTACK => self::BOOLEAN,
             CombatActionCode::SWAP_WEAPONS => self::BOOLEAN,
             CombatActionCode::CONCENTRATION_ON_DEFENSE => self::BOOLEAN,
             CombatActionCode::PUT_OUT_EASILY_ACCESSIBLE_ITEM => self::BOOLEAN,
