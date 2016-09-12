@@ -29,7 +29,9 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
                     'sitting_or_on_kneels',
                     'getting_up',
                     'putting_on_armor',
-                    'attack_from_behind',
+                    'putting_on_armor_with_help',
+                    'helping_to_put_on_armor',
+                    'attacked_from_behind',
                     'blindfold_fight',
                     'fight_in_reduced_visibility',
                     'attack_on_disabled_opponent',
@@ -61,7 +63,7 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
                 self::assertSame(
                     $combatActionsCompatibilityTable->getValue($someCode, $anotherCode),
                     $combatActionsCompatibilityTable->getValue($anotherCode, $someCode),
-                    "'{$someCode}' and '{$anotherCode}' do not match from both sides"
+                    "'{$someCode}' x '{$anotherCode}' do not match from both sides"
                 );
             }
         }
@@ -74,7 +76,7 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
     {
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();
         self::assertTrue($combatActionsCompatibilityTable->canCombineTwoActions(
-            CombatActionCode::ATTACK_FROM_BEHIND,
+            CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
             CombatActionCode::MOVE
         ));
         self::assertFalse($combatActionsCompatibilityTable->canCombineTwoActions(
@@ -91,13 +93,11 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();
         self::assertTrue($combatActionsCompatibilityTable->canCombineActions([MeleeCombatActionCode::COVER_OF_ALLY]));
         self::assertTrue($combatActionsCompatibilityTable->canCombineActions([
-            CombatActionCode::ATTACK_FROM_BEHIND,
             CombatActionCode::MOVE,
             CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
             MeleeCombatActionCode::RETREAT,
         ]));
         self::assertFalse($combatActionsCompatibilityTable->canCombineActions([
-            CombatActionCode::ATTACK_FROM_BEHIND,
             CombatActionCode::MOVE,
             CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
             MeleeCombatActionCode::RETREAT,
