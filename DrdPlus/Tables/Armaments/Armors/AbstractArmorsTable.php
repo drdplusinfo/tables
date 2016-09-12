@@ -16,7 +16,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,
             self::RESTRICTION => self::INTEGER,
-            self::PROTECTION => self::INTEGER,
+            self::PROTECTION => self::POSITIVE_INTEGER,
             self::WEIGHT => self::FLOAT,
         ];
     }
@@ -37,7 +37,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
      * @return bool|float|int|string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    private function getValueFor($armorCode, $valueName)
+    protected function getValueFor($armorCode, $valueName)
     {
         try {
             return $this->getValue([$armorCode], $valueName);
