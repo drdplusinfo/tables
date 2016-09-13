@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCode;
-use DrdPlus\Codes\SkillTypeCode;
+use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /** see PPH page 39, bottom */

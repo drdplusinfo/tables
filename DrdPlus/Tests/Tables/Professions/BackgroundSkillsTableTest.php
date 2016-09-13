@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCode;
-use DrdPlus\Codes\SkillTypeCode;
+use DrdPlus\Codes\Skills\SkillTypeCode;
 
 class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
 {
