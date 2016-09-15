@@ -198,6 +198,7 @@ class Armourer extends StrictObject
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return
+            // shooting weapons are two-handed (except minicrossbow), projectiles are not
             $this->isTwoHanded($weaponToHoldByBothHands) // the weapon is explicitly two-handed
             // or it is melee weapon with length at least 1 (see PPH page 92 right column)
             || ($weaponToHoldByBothHands->isMeleeArmament()
