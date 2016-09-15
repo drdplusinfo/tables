@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 
+use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
@@ -36,7 +37,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|WeaponlikeCode $weaponlikeCode
      * @param string $valueName
      * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
@@ -116,7 +117,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     }
 
     /**
-     * @param $weaponlikeCode
+     * @param string|WeaponlikeCode $weaponlikeCode
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */

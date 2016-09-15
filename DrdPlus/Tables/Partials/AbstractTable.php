@@ -2,8 +2,10 @@
 namespace DrdPlus\Tables\Partials;
 
 use DrdPlus\Tables\Table;
+use Granam\Scalar\ScalarInterface;
 use Granam\Scalar\Tools\ToString;
 use Granam\Strict\Object\StrictObject;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 abstract class AbstractTable extends StrictObject implements Table
@@ -111,8 +113,8 @@ abstract class AbstractTable extends StrictObject implements Table
     abstract protected function getColumnsHeader();
 
     /**
-     * @param array|string|int $rowIndexes
-     * @param string $columnIndex
+     * @param array|string|int|ScalarInterface $rowIndexes
+     * @param string|StringInterface $columnIndex
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
@@ -141,12 +143,13 @@ abstract class AbstractTable extends StrictObject implements Table
         }
         $values = $this->getIndexedValues();
         foreach ($singleRowIndexes as $rowIndex) {
-            if (!array_key_exists(ToString::toString($rowIndex), $values)) {
+            $stringRowIndex = ToString::toString($rowIndex);
+            if (!array_key_exists($stringRowIndex, $values)) {
                 throw new Exceptions\RequiredRowNotFound(
                     'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
                 );
             }
-            $values = $values[$rowIndex];
+            $values = $values[$stringRowIndex];
             if (!is_array(current($values))) { // flat array found
                 break;
             }
@@ -157,19 +160,21 @@ abstract class AbstractTable extends StrictObject implements Table
 
     /**
      * @param array $row
-     * @param $columnIndex
+     * @param string|int|float|ScalarInterface $columnIndex
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     private function getValueInRow(array $row, $columnIndex)
     {
-        if (!array_key_exists($columnIndex, $row)) {
+        $stringColumnIndex = ToString::toString($columnIndex);
+        if (!array_key_exists($stringColumnIndex, $row)) {
             throw new Exceptions\RequiredColumnNotFound(
                 'Column of name ' . ValueDescriber::describe($columnIndex) . ' does not exist'
             );
         }
 
-        return $row[$columnIndex];
+        return $row[$stringColumnIndex];
     }
 
 }
