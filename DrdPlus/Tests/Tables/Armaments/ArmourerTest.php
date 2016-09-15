@@ -938,7 +938,7 @@ class ArmourerTest extends TestWithMockery
         $staffsAndSpearsTable->shouldReceive('getTwoHandedOf')
             ->with($fork)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->isTwoHanded($fork));
+        self::assertSame('foo', (new Armourer($tables))->isTwoHandedOnly($fork));
     }
 
     /**

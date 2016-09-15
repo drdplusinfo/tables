@@ -115,7 +115,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws Exceptions\UnknownWeaponlike
      */
-    public function isTwoHanded(WeaponlikeCode $weaponlikeCode)
+    public function isTwoHandedOnly(WeaponlikeCode $weaponlikeCode)
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOf($weaponlikeCode);
     }
@@ -199,7 +199,7 @@ class Armourer extends StrictObject
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return
             // shooting weapons are two-handed (except minicrossbow), projectiles are not
-            $this->isTwoHanded($weaponToHoldByBothHands) // the weapon is explicitly two-handed
+            $this->isTwoHandedOnly($weaponToHoldByBothHands) // the weapon is explicitly two-handed
             // or it is melee weapon with length at least 1 (see PPH page 92 right column)
             || ($weaponToHoldByBothHands->isMeleeArmament()
                 && $this->tables->getArmourer()->getLengthOfWeaponlike($weaponToHoldByBothHands) >= 1
