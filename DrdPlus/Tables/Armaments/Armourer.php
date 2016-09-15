@@ -220,6 +220,20 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Note about SHIELD: it has always length of 0 and therefore you can NOT hold it by both hands (but the last word has DM).
+     *
+     * @param WeaponlikeCode $mainHand
+     * @return bool
+     */
+    public function canHoldAsOneHandedByBothHands(WeaponlikeCode $mainHand)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return
+            !$this->tables->getArmourer()->isTwoHandedOnly($mainHand)
+            && ($mainHand->isMeleeArmament() && $this->tables->getArmourer()->getLengthOfWeaponlike($mainHand) >= 1);
+    }
+
+    /**
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int

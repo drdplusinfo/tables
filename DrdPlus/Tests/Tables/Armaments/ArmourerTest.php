@@ -678,6 +678,25 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_find_out_if_can_hold_one_handed_weapon_by_both_hands()
+    {
+        $armourer = new Armourer(new Tables());
+        // one handed melee weapons longer than 1
+        self::assertTrue($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::SHORT_SWORD)));
+        self::assertTrue($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
+        // shorter than 1
+        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
+        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(ShieldCode::getIt(ShieldCode::HEAVY_SHIELD)));
+        // not melee
+        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
+        // only both handed
+        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
+        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
+    }
+
+    /**
+     * @test
+     */
     public function I_can_get_required_strength_of_melee_weapons()
     {
         $tables = $this->createTables();
