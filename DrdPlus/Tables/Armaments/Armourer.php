@@ -6,6 +6,7 @@ use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -187,6 +188,34 @@ class Armourer extends StrictObject
         }
 
         return $missingStrength;
+    }
+
+    /**
+     * @param WeaponlikeCode $weaponToHoldByBothHands
+     * @return bool
+     */
+    public function canHoldItByBothHands(WeaponlikeCode $weaponToHoldByBothHands)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return
+            $this->isTwoHanded($weaponToHoldByBothHands) // the weapon is explicitly two-handed
+            // or it is melee weapon with length at least 1 (see PPH page 92 right column)
+            || ($weaponToHoldByBothHands->isMeleeArmament()
+                && $this->tables->getArmourer()->getLengthOfWeaponlike($weaponToHoldByBothHands) >= 1
+            );
+    }
+
+    /**
+     * Even LEG and HOBNAILED BOOT are considered as empty hand.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return bool
+     */
+    public function hasEmptyHand(WeaponlikeCode $weaponlikeCode)
+    {
+        return
+            ($weaponlikeCode instanceof ShieldCode && $weaponlikeCode->isWithoutShield())
+            || ($weaponlikeCode instanceof MeleeWeaponCode && $weaponlikeCode->isUnarmed());
     }
 
     /**

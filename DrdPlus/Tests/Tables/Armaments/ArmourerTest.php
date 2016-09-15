@@ -643,6 +643,41 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
+    public function I_can_find_out_if_can_hold_weapon_by_both_hands()
+    {
+        $armourer = new Armourer(new Tables());
+        // ranged
+        self::assertTrue($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::LIGHT_CROSSBOW)));
+        self::assertFalse($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::MINICROSSBOW)));
+        self::assertFalse($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::CRIPPLING_ARROW)));
+        // melee weapon
+        self::assertTrue($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
+        self::assertFalse($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::KNIFE)));
+        self::assertTrue($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
+        // shield
+        self::assertFalse($armourer->canHoldItByBothHands(ShieldCode::getIt(ShieldCode::BUCKLER)));
+        self::assertFalse($armourer->canHoldItByBothHands(ShieldCode::getIt(ShieldCode::PAVISE)));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_find_out_if_weapon_code_means_empty_hand()
+    {
+        $armourer = new Armourer(new Tables());
+        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::HAND)));
+        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::LEG)));
+        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
+        self::assertTrue($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::WITHOUT_SHIELD)));
+        self::assertFalse($armourer->hasEmptyHand(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
+        self::assertFalse($armourer->hasEmptyHand(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
+        self::assertFalse($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::CUDGEL)));
+        self::assertFalse($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::BUCKLER)));
+    }
+
+    /**
+     * @test
+     */
     public function I_can_get_required_strength_of_melee_weapons()
     {
         $tables = $this->createTables();
