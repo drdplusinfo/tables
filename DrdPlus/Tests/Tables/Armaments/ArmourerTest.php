@@ -386,7 +386,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeSanctionsByMissingStrengthTableByCode')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
         $rangedSpear = $this->mockery(RangedWeaponCode::class);
-        $rangedSpear->shouldReceive('isMeleeArmament')
+        $rangedSpear->shouldReceive('isMelee')
             ->andReturn(true);
         $rangedSpear->shouldReceive('convertToMeleeWeaponCodeEquivalent')
             ->andReturn($meleeSpear = $this->mockery(MeleeWeaponCode::class));
@@ -629,7 +629,7 @@ class ArmourerTest extends TestWithMockery
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
-        $code->shouldReceive('isMeleeArmament')
+        $code->shouldReceive('isMelee')
             ->andReturn($isMeleeArmament);
 
         return $code;
@@ -643,20 +643,20 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_find_out_if_can_hold_weapon_by_both_hands()
+    public function I_can_find_out_if_can_hold_weapon_by_two_hands()
     {
         $armourer = new Armourer(new Tables());
         // ranged
-        self::assertTrue($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::LIGHT_CROSSBOW)));
-        self::assertFalse($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::MINICROSSBOW)));
-        self::assertFalse($armourer->canHoldItByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::CRIPPLING_ARROW)));
+        self::assertTrue($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::LIGHT_CROSSBOW)));
+        self::assertFalse($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::MINICROSSBOW)));
+        self::assertFalse($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::CRIPPLING_ARROW)));
         // melee weapon
-        self::assertTrue($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
-        self::assertFalse($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::KNIFE)));
-        self::assertTrue($armourer->canHoldItByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
+        self::assertTrue($armourer->canHoldItByTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
+        self::assertFalse($armourer->canHoldItByTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::KNIFE)));
+        self::assertTrue($armourer->canHoldItByTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
         // shield
-        self::assertFalse($armourer->canHoldItByBothHands(ShieldCode::getIt(ShieldCode::BUCKLER)));
-        self::assertFalse($armourer->canHoldItByBothHands(ShieldCode::getIt(ShieldCode::PAVISE)));
+        self::assertFalse($armourer->canHoldItByTwoHands(ShieldCode::getIt(ShieldCode::BUCKLER)));
+        self::assertFalse($armourer->canHoldItByTwoHands(ShieldCode::getIt(ShieldCode::PAVISE)));
     }
 
     /**
@@ -678,20 +678,20 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_find_out_if_can_hold_one_handed_weapon_by_both_hands()
+    public function I_can_find_out_if_can_hold_one_handed_weapon_by_two_hands()
     {
         $armourer = new Armourer(new Tables());
         // one handed melee weapons longer than 1
-        self::assertTrue($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::SHORT_SWORD)));
-        self::assertTrue($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
+        self::assertTrue($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::SHORT_SWORD)));
+        self::assertTrue($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
         // shorter than 1
-        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
-        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(ShieldCode::getIt(ShieldCode::HEAVY_SHIELD)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(ShieldCode::getIt(ShieldCode::HEAVY_SHIELD)));
         // not melee
-        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
         // only both handed
-        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
-        self::assertFalse($armourer->canHoldAsOneHandedByBothHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
     }
 
     /**

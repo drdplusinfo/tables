@@ -120,6 +120,75 @@ class Armourer extends StrictObject
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOf($weaponlikeCode);
     }
 
+    /**
+     * There are weapons so small so can not be hold by two hands
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return bool
+     * @throws Exceptions\UnknownWeaponlike
+     */
+    public function isOneHandedOnly(WeaponlikeCode $weaponlikeCode)
+    {
+        return !$this->canHoldItByTwoHands($weaponlikeCode);
+    }
+
+    /**
+     * Not all weapons can be hold by two hands - some of them are simply so small so it is not possible or highly ineffective.
+     *
+     * @param WeaponlikeCode $weaponToHoldByTwoHands
+     * @return bool
+     * @throws Exceptions\UnknownWeaponlike
+     */
+    public function canHoldItByTwoHands(WeaponlikeCode $weaponToHoldByTwoHands)
+    {
+        return
+            // shooting weapons are two-handed (except minicrossbow), projectiles are not
+            $this->isTwoHandedOnly($weaponToHoldByTwoHands) // the weapon is explicitly two-handed
+            // or it is melee weapon with length at least 1 (see PPH page 92 right column)
+            || ($weaponToHoldByTwoHands->isMelee()
+                && $this->tables->getArmourer()->getLengthOfWeaponlike($weaponToHoldByTwoHands) >= 1
+            );
+    }
+
+    /**
+     * Some weapons are so specific so keeping them in a single hand would make them highly inefficient, like a halberd.
+     *
+     * @param WeaponlikeCode $weaponToHoldByTwoHands
+     * @return bool
+     * @throws Exceptions\UnknownWeaponlike
+     */
+    public function canHoldItByOneHand(WeaponlikeCode $weaponToHoldByTwoHands)
+    {
+        return !$this->isTwoHandedOnly($weaponToHoldByTwoHands); // shooting weapons are two-handed (except minicrossbow), projectiles are not
+    }
+
+    /**
+     * Note about SHIELD: it has always length of 0 and therefore you can NOT hold it by both hands (but the last word has DM).
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return bool
+     * @throws Exceptions\UnknownWeaponlike
+     */
+    public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode)
+    {
+        return $this->canHoldItByOneHand($weaponlikeCode)
+            && $this->canHoldItByTwoHands($weaponlikeCode);
+    }
+
+    /**
+     * Even LEG and HOBNAILED BOOT are considered as empty hand.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return bool
+     */
+    public function hasEmptyHand(WeaponlikeCode $weaponlikeCode)
+    {
+        return
+            ($weaponlikeCode instanceof ShieldCode && $weaponlikeCode->isWithoutShield())
+            || ($weaponlikeCode instanceof MeleeWeaponCode && $weaponlikeCode->isUnarmed());
+    }
+
+
     // shield-specific
 
     /**
@@ -191,49 +260,6 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param WeaponlikeCode $weaponToHoldByBothHands
-     * @return bool
-     */
-    public function canHoldItByBothHands(WeaponlikeCode $weaponToHoldByBothHands)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return
-            // shooting weapons are two-handed (except minicrossbow), projectiles are not
-            $this->isTwoHandedOnly($weaponToHoldByBothHands) // the weapon is explicitly two-handed
-            // or it is melee weapon with length at least 1 (see PPH page 92 right column)
-            || ($weaponToHoldByBothHands->isMeleeArmament()
-                && $this->tables->getArmourer()->getLengthOfWeaponlike($weaponToHoldByBothHands) >= 1
-            );
-    }
-
-    /**
-     * Even LEG and HOBNAILED BOOT are considered as empty hand.
-     *
-     * @param WeaponlikeCode $weaponlikeCode
-     * @return bool
-     */
-    public function hasEmptyHand(WeaponlikeCode $weaponlikeCode)
-    {
-        return
-            ($weaponlikeCode instanceof ShieldCode && $weaponlikeCode->isWithoutShield())
-            || ($weaponlikeCode instanceof MeleeWeaponCode && $weaponlikeCode->isUnarmed());
-    }
-
-    /**
-     * Note about SHIELD: it has always length of 0 and therefore you can NOT hold it by both hands (but the last word has DM).
-     *
-     * @param WeaponlikeCode $mainHand
-     * @return bool
-     */
-    public function canHoldAsOneHandedByBothHands(WeaponlikeCode $mainHand)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return
-            !$this->tables->getArmourer()->isTwoHandedOnly($mainHand)
-            && ($mainHand->isMeleeArmament() && $this->tables->getArmourer()->getLengthOfWeaponlike($mainHand) >= 1);
-    }
-
-    /**
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int
@@ -277,7 +303,7 @@ class Armourer extends StrictObject
      */
     public function getDefenseNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isMeleeArmament()) {
+        if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isMelee()) {
             // spear can be used more effectively to cover as a melee weapon
             $weaponlikeCode = $weaponlikeCode->convertToMeleeWeaponCodeEquivalent();
         }

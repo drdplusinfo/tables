@@ -1,12 +1,12 @@
-action,move,run,main_hand_only_melee_attack,offhand_only_melee_attack,both_hands_melee_attack,main_hand_only_ranged_attack,offhand_only_ranged_attack,both_hands_ranged_attack,swap_weapons,concentration_on_defense,put_out_easily_accessible_item,put_out_hardly_accessible_item,laying,sitting_or_on_kneels,getting_up,putting_on_armor,putting_on_armor_with_help,helping_to_put_on_armor,attacked_from_behind,blindfold_fight,fight_in_reduced_visibility,attack_on_disabled_opponent,headless_attack,cover_of_ally,flat_attack,pressure,retreat,handover_item,aimed_shot
+action,move,run,main_hand_only_melee_attack,offhand_only_melee_attack,two_hands_melee_attack,main_hand_only_ranged_attack,offhand_only_ranged_attack,two_hands_ranged_attack,swap_weapons,concentration_on_defense,put_out_easily_accessible_item,put_out_hardly_accessible_item,laying,sitting_or_on_kneels,getting_up,putting_on_armor,putting_on_armor_with_help,helping_to_put_on_armor,attacked_from_behind,blindfold_fight,fight_in_reduced_visibility,attack_on_disabled_opponent,headless_attack,cover_of_ally,flat_attack,pressure,retreat,handover_item,aimed_shot
 move,1,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,0
 run,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0
 main_hand_only_melee_attack,1,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,1,0,1,1,1,1,0
 offhand_only_melee_attack,1,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,0
-both_hands_melee_attack,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,0
+two_hands_melee_attack,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,0
 main_hand_only_ranged_attack,1,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,1
 offhand_only_ranged_attack,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,1
-both_hands_ranged_attack,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,1
+two_hands_ranged_attack,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,1,1,1
 swap_weapons,1,0,0,0,0,0,0,0,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0
 concentration_on_defense,1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,0
 put_out_easily_accessible_item,1,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0,0,1,1,0

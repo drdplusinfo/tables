@@ -129,20 +129,20 @@ abstract class AbstractTable extends StrictObject implements Table
     }
 
     /**
-     * @param array $singleRowIndexes
-     *
+     * @param array|string $singleRowIndexes
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRow(array $singleRowIndexes)
+    public function getRow($singleRowIndexes)
     {
-        if (count($singleRowIndexes) === 0) {
+        $arraySingleRowIndexes = (array)$singleRowIndexes;
+        if (count($arraySingleRowIndexes) === 0) {
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }
         $values = $this->getIndexedValues();
-        foreach ($singleRowIndexes as $rowIndex) {
+        foreach ($arraySingleRowIndexes as $rowIndex) {
             $stringRowIndex = ToString::toString($rowIndex);
             if (!array_key_exists($stringRowIndex, $values)) {
                 throw new Exceptions\RequiredRowNotFound(
