@@ -698,6 +698,9 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CombatActionsWithWeaponTypeCompatibilityTable::class];
     }
 
+    /**
+     * @return \ArrayObject
+     */
     public function getIterator()
     {
         return new \ArrayObject([

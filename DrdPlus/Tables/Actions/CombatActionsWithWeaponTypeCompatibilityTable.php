@@ -91,8 +91,6 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
-     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function getActionsPossibleWhenAttackingWith(WeaponlikeCode $weaponlikeCode)
     {
