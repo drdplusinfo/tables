@@ -29,6 +29,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
                     'main_hand_only_ranged_attack',
                     'offhand_only_ranged_attack',
                     'two_hands_ranged_attack',
+                    'two_hands_defense',
                     'swap_weapons',
                     'concentration_on_defense',
                     'put_out_easily_accessible_item',
@@ -52,8 +53,26 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
                     'aimed_shot',
                 ],
             ],
-            $actual = (new CombatActionsWithWeaponTypeCompatibilityTable((new Tables())->getArmourer()))->getHeader(),
-            implode(',', array_diff($expected[0], $actual[0]))
+            $current = (new CombatActionsWithWeaponTypeCompatibilityTable((new Tables())->getArmourer()))->getHeader(),
+            implode(',', array_diff($expected[0], $current[0]))
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function Pool_of_actions_is_same_as_from_combat_actions_compatibility_table()
+    {
+        $current = (new CombatActionsWithWeaponTypeCompatibilityTable((new Tables())->getArmourer()))->getHeader()[0];
+        array_shift($current); // remove rows header name
+        sort($current);
+        $shouldBe = (new CombatActionsCompatibilityTable())->getHeader()[0];
+        array_shift($shouldBe); // remove rows header name
+        sort($shouldBe);
+        self::assertSame(
+            $current,
+            $shouldBe,
+            implode(',', array_diff($current, $shouldBe)) . ';' . implode(',', array_diff($shouldBe, $current))
         );
     }
 
