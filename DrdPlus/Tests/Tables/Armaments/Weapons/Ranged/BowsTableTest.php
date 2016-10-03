@@ -80,4 +80,30 @@ class BowsTableTest extends RangedWeaponsTableTest
         ];
     }
 
+    /**
+     * @test
+     */
+    public function I_can_get_maximal_applicable_strength_easily()
+    {
+        $bowsTable = new BowsTable();
+        self::assertSame(
+            3,
+            $bowsTable->getMaximalApplicableStrengthOf(RangedWeaponCode::getIt(RangedWeaponCode::SHORT_BOW))
+        );
+        self::assertSame(
+            12,
+            $bowsTable->getMaximalApplicableStrengthOf(RangedWeaponCode::POWER_BOW)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
+     * @expectedExceptionMessageRegExp ~javelin~
+     */
+    public function I_can_not_get_maximal_applicable_strength_for_unknown_bow()
+    {
+        (new BowsTable())->getMaximalApplicableStrengthOf(RangedWeaponCode::JAVELIN);
+    }
+
 }

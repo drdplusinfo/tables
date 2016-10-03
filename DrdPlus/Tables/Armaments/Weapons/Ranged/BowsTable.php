@@ -1,7 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 
+use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
+use Granam\String\StringInterface;
 
 class BowsTable extends RangedWeaponsTable
 {
@@ -28,12 +31,17 @@ class BowsTable extends RangedWeaponsTable
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface|RangedWeaponCode $bowCode
      * @return int
+     * @throws Exceptions\UnknownBow
      */
-    public function getMaximalApplicableStrengthOf($weaponlikeCode)
+    public function getMaximalApplicableStrengthOf($bowCode)
     {
-        return self::getValueOf($weaponlikeCode, self::MAXIMAL_APPLICABLE_STRENGTH);
+        try {
+            return $this->getValueOf($bowCode, self::MAXIMAL_APPLICABLE_STRENGTH);
+        } catch (UnknownRangedWeapon $unknownRangedWeapon) {
+            throw new Exceptions\UnknownBow("Unknown bow '{$bowCode}'");
+        }
     }
 
     protected function getRowsHeader()

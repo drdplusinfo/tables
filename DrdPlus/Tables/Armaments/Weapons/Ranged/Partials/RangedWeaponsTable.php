@@ -1,11 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 
+use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTable
@@ -37,19 +39,19 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     }
 
     /**
-     * @param string|WeaponlikeCode $weaponlikeCode
+     * @param string|StringInterface|RangedWeaponCode $rangedWeaponCode
      * @param string $valueName
      * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    protected function getValueOf($weaponlikeCode, $valueName)
+    protected function getValueOf($rangedWeaponCode, $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getValue([$weaponlikeCode], $valueName);
+            return $this->getValue([$rangedWeaponCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
             throw new UnknownRangedWeapon(
-                'Unknown shooting armament code ' . ValueDescriber::describe($weaponlikeCode)
+                'Unknown ranged armament code ' . ValueDescriber::describe($rangedWeaponCode)
             );
         }
     }
