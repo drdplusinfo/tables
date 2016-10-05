@@ -1,17 +1,17 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
-use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTableTest;
+use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractStrengthSanctionsTableTest;
 
-class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
+class ArmorStrengthSanctionsTableTest extends AbstractStrengthSanctionsTableTest
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertSame(
             [['missing_strength', 'sanction_description', 'agility_sanction', 'can_move']],
             $armorSanctionsTable->getHeader()
@@ -62,7 +62,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
                     'can_move' => false
                 ],
             ],
-            (new ArmorSanctionsByMissingStrengthTable())->getIndexedValues()
+            (new ArmorStrengthSanctionsTable())->getIndexedValues()
         );
     }
 
@@ -78,7 +78,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
                 'agility_sanction' => -12,
                 'can_move' => true
             ],
-            (new ArmorSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(9)
+            (new ArmorStrengthSanctionsTable())->getSanctionsForMissingStrength(9)
         );
     }
 
@@ -90,7 +90,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
      */
     public function I_can_get_sanction_data_for_any_strength_missing($missingStrength, array $expectedValues)
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertSame(
             $expectedValues,
             $armorSanctionsTable->getSanctionsForMissingStrength($missingStrength),
@@ -105,10 +105,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 0,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'light',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => 0,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 0,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'light',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => 0,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -116,10 +116,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 3,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'medium',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -2,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 3,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'medium',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => -2,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -127,10 +127,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 6,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'heavy',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -4,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 6,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'heavy',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => -4,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -138,10 +138,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 8,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'very_heavy',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -8,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 8,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'very_heavy',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => -8,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -149,10 +149,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 10,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'extreme',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => -12,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => true,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 10,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'extreme',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => -12,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => true,
                 ]
             ];
         }
@@ -160,10 +160,10 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
             $values[] = [
                 $missingStrength,
                 [
-                    ArmorSanctionsByMissingStrengthTable::MISSING_STRENGTH => 11,
-                    ArmorSanctionsByMissingStrengthTable::SANCTION_DESCRIPTION => 'unbearable',
-                    ArmorSanctionsByMissingStrengthTable::AGILITY_SANCTION => false,
-                    ArmorSanctionsByMissingStrengthTable::CAN_MOVE => false,
+                    ArmorStrengthSanctionsTable::MISSING_STRENGTH => 11,
+                    ArmorStrengthSanctionsTable::SANCTION_DESCRIPTION => 'unbearable',
+                    ArmorStrengthSanctionsTable::AGILITY_SANCTION => false,
+                    ArmorStrengthSanctionsTable::CAN_MOVE => false,
                 ]
             ];
         }
@@ -176,7 +176,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
      */
     public function I_can_find_out_if_can_move()
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertTrue($armorSanctionsTable->canMove(-10));
         self::assertTrue($armorSanctionsTable->canMove(10));
         self::assertFalse($armorSanctionsTable->canMove(11));
@@ -188,7 +188,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
      */
     public function I_can_get_sanction_description()
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertSame('light', $armorSanctionsTable->getSanctionDescription(-10));
         self::assertSame('extreme', $armorSanctionsTable->getSanctionDescription(10));
         self::assertSame('unbearable', $armorSanctionsTable->getSanctionDescription(999));
@@ -199,7 +199,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
      */
     public function I_can_get_agility_malus()
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertSame(0, $armorSanctionsTable->getAgilityMalus(-10));
         self::assertSame(-8, $armorSanctionsTable->getAgilityMalus(7));
         self::assertSame(-8, $armorSanctionsTable->getAgilityMalus(8));
@@ -212,7 +212,7 @@ class ArmorSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissi
      */
     public function I_can_not_get_agility_malus_if_unbearable()
     {
-        $armorSanctionsTable = new ArmorSanctionsByMissingStrengthTable();
+        $armorSanctionsTable = new ArmorStrengthSanctionsTable();
         self::assertSame(0, $armorSanctionsTable->getAgilityMalus(11));
     }
 }

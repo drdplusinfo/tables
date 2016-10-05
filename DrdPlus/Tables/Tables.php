@@ -14,7 +14,7 @@ use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
-use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armourer;
@@ -26,20 +26,20 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
-use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable;
-use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeStrengthSanctionsTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTable;
-use DrdPlus\Tables\Armaments\Partials\SanctionsForMissingStrengthForWeaponInterface;
+use DrdPlus\Tables\Armaments\Partials\WeaponStrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
 use DrdPlus\Tables\Armaments\Partials\WearablesTable;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
-use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
@@ -53,7 +53,7 @@ use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
@@ -273,15 +273,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ArmorSanctionsByMissingStrengthTable
+     * @return ArmorStrengthSanctionsTable
      */
-    public function getArmorSanctionsByMissingStrengthTable()
+    public function getArmorStrengthSanctionsTable()
     {
-        if (!array_key_exists(ArmorSanctionsByMissingStrengthTable::class, $this->tables)) {
-            $this->tables[ArmorSanctionsByMissingStrengthTable::class] = new ArmorSanctionsByMissingStrengthTable();
+        if (!array_key_exists(ArmorStrengthSanctionsTable::class, $this->tables)) {
+            $this->tables[ArmorStrengthSanctionsTable::class] = new ArmorStrengthSanctionsTable();
         }
 
-        return $this->tables[ArmorSanctionsByMissingStrengthTable::class];
+        return $this->tables[ArmorStrengthSanctionsTable::class];
     }
 
     /**
@@ -297,27 +297,27 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return MeleeWeaponSanctionsByMissingStrengthTable
+     * @return MeleeWeaponStrengthSanctionsTable
      */
-    public function getMeleeWeaponSanctionsByMissingStrengthTable()
+    public function getMeleeWeaponStrengthSanctionsTable()
     {
-        if (!array_key_exists(MeleeWeaponSanctionsByMissingStrengthTable::class, $this->tables)) {
-            $this->tables[MeleeWeaponSanctionsByMissingStrengthTable::class] = new MeleeWeaponSanctionsByMissingStrengthTable();
+        if (!array_key_exists(MeleeWeaponStrengthSanctionsTable::class, $this->tables)) {
+            $this->tables[MeleeWeaponStrengthSanctionsTable::class] = new MeleeWeaponStrengthSanctionsTable();
         }
 
-        return $this->tables[MeleeWeaponSanctionsByMissingStrengthTable::class];
+        return $this->tables[MeleeWeaponStrengthSanctionsTable::class];
     }
 
     /**
-     * @return RangedWeaponSanctionsByMissingStrengthTable
+     * @return RangedWeaponStrengthSanctionsTable
      */
-    public function getRangedWeaponSanctionsByMissingStrengthTable()
+    public function getRangedWeaponStrengthSanctionsTable()
     {
-        if (!array_key_exists(RangedWeaponSanctionsByMissingStrengthTable::class, $this->tables)) {
-            $this->tables[RangedWeaponSanctionsByMissingStrengthTable::class] = new RangedWeaponSanctionsByMissingStrengthTable();
+        if (!array_key_exists(RangedWeaponStrengthSanctionsTable::class, $this->tables)) {
+            $this->tables[RangedWeaponStrengthSanctionsTable::class] = new RangedWeaponStrengthSanctionsTable();
         }
 
-        return $this->tables[RangedWeaponSanctionsByMissingStrengthTable::class];
+        return $this->tables[RangedWeaponStrengthSanctionsTable::class];
     }
 
     /**
@@ -345,15 +345,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ShieldSanctionsByMissingStrengthTable
+     * @return ShieldStrengthSanctionsTable
      */
-    public function getShieldSanctionsByMissingStrengthTable()
+    public function getShieldStrengthSanctionsTable()
     {
-        if (!array_key_exists(ShieldSanctionsByMissingStrengthTable::class, $this->tables)) {
-            $this->tables[ShieldSanctionsByMissingStrengthTable::class] = new ShieldSanctionsByMissingStrengthTable();
+        if (!array_key_exists(ShieldStrengthSanctionsTable::class, $this->tables)) {
+            $this->tables[ShieldStrengthSanctionsTable::class] = new ShieldStrengthSanctionsTable();
         }
 
-        return $this->tables[ShieldSanctionsByMissingStrengthTable::class];
+        return $this->tables[ShieldStrengthSanctionsTable::class];
     }
 
     /**
@@ -719,7 +719,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getWoundsTable(),
             $this->getBodyArmorsTable(),
             $this->getHelmsTable(),
-            $this->getArmorSanctionsByMissingStrengthTable(),
+            $this->getArmorStrengthSanctionsTable(),
             $this->getMissingArmorSkillTable(),
             $this->getShieldsTable(),
             $this->getMissingShieldSkillTable(),
@@ -738,9 +738,9 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCrossbowsTable(),
             $this->getSlingStonesTable(),
             $this->getThrowingWeaponsTable(),
-            $this->getMeleeWeaponSanctionsByMissingStrengthTable(),
-            $this->getShieldSanctionsByMissingStrengthTable(),
-            $this->getRangedWeaponSanctionsByMissingStrengthTable(),
+            $this->getMeleeWeaponStrengthSanctionsTable(),
+            $this->getShieldStrengthSanctionsTable(),
+            $this->getRangedWeaponStrengthSanctionsTable(),
             $this->getMissingWeaponSkillTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),
@@ -901,18 +901,18 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return AbstractSanctionsForMissingStrengthTable
+     * @return AbstractStrengthSanctionsTable
      * @throws UnknownArmament
      * @throws UnknownMeleeWeaponlike
      * @throws UnknownWeaponlike
      */
-    public function getArmamentSanctionsByMissingStrengthTableByCode(ArmamentCode $armamentCode)
+    public function getArmamentStrengthSanctionsTableByCode(ArmamentCode $armamentCode)
     {
         if ($armamentCode instanceof ArmorCode) {
-            return $this->getArmorSanctionsByMissingStrengthTable();
+            return $this->getArmorStrengthSanctionsTable();
         }
         if ($armamentCode instanceof WeaponlikeCode) {
-            return $this->getWeaponlikeSanctionsByMissingStrengthTableByCode($armamentCode);
+            return $this->getWeaponlikeStrengthSanctionsTableByCode($armamentCode);
         }
 
         throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
@@ -920,17 +920,17 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param WeaponlikeCode $weaponlikeCode
-     * @return SanctionsForMissingStrengthForWeaponInterface
+     * @return WeaponStrengthSanctionsInterface
      * @throws UnknownWeaponlike
      * @throws UnknownMeleeWeaponlike
      */
-    public function getWeaponlikeSanctionsByMissingStrengthTableByCode(WeaponlikeCode $weaponlikeCode)
+    public function getWeaponlikeStrengthSanctionsTableByCode(WeaponlikeCode $weaponlikeCode)
     {
         if ($weaponlikeCode instanceof RangedWeaponCode) {
-            return $this->getRangedWeaponSanctionsByMissingStrengthTable();
+            return $this->getRangedWeaponStrengthSanctionsTable();
         }
         if ($weaponlikeCode instanceof MeleeWeaponlikeCode) {
-            return $this->getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
+            return $this->getMeleeWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode);
         }
 
         throw new UnknownWeaponlike("Unknown type of weapon '{$weaponlikeCode}'");
@@ -938,16 +938,16 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
-     * @return AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable
+     * @return AbstractMeleeWeaponlikeStrengthSanctionsTable
      * @throws UnknownMeleeWeaponlike
      */
-    public function getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
+    public function getMeleeWeaponlikeStrengthSanctionsTableByCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
         if ($meleeWeaponlikeCode instanceof MeleeWeaponCode) {
-            return $this->getMeleeWeaponSanctionsByMissingStrengthTable();
+            return $this->getMeleeWeaponStrengthSanctionsTable();
         }
         if ($meleeWeaponlikeCode instanceof ShieldCode) {
-            return $this->getShieldSanctionsByMissingStrengthTable();
+            return $this->getShieldStrengthSanctionsTable();
         }
 
         throw new UnknownMeleeWeaponlike("Unknown type of melee armament '{$meleeWeaponlikeCode}'");

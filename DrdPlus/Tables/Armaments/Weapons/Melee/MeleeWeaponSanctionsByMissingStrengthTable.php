@@ -1,8 +1,0 @@
-<?php
-namespace DrdPlus\Tables\Armaments\Weapons\Melee;
-
-use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable;
-
-class MeleeWeaponSanctionsByMissingStrengthTable extends AbstractMeleeWeaponlikeSanctionsByMissingStrengthTable
-{
-}

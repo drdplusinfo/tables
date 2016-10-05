@@ -96,7 +96,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
     public function getActionsPossibleWhenAttackingWith(WeaponlikeCode $weaponlikeCode)
     {
         $rangeGroupPossibleActions = [];
-        foreach ($this->getRangeWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
+        foreach ($this->getRangedWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
             $rangeGroupPossibleActions = $this->mergeActionsFromSameGroup($weaponType, $rangeGroupPossibleActions);
         }
         $holdingGroupPossibleActions = [];
@@ -132,7 +132,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
      */
-    private function getRangeWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
+    private function getRangedWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
     {
         $types = [];
         if ($weaponlikeCode->isMelee()) {

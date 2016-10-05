@@ -1,9 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
-use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 
-abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extends AbstractSanctionsForMissingStrengthTableTest
+abstract class AbstractMeleeWeaponlikeStrengthSanctionsTableTest extends AbstractStrengthSanctionsTableTest
 {
     /**
      * @test
@@ -12,7 +12,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
     {
         self::assertSame(
             [['missing_strength', 'fight_number', 'attack_number', 'defense_number', 'base_of_wounds', 'can_use_armament']],
-            (new MeleeWeaponSanctionsByMissingStrengthTable())->getHeader()
+            (new MeleeWeaponStrengthSanctionsTable())->getHeader()
         );
     }
 
@@ -120,7 +120,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
                     'can_use_armament' => false,
                 ],
             ],
-            (new MeleeWeaponSanctionsByMissingStrengthTable())->getIndexedValues()
+            (new MeleeWeaponStrengthSanctionsTable())->getIndexedValues()
         );
     }
 
@@ -138,7 +138,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
                 'base_of_wounds' => 0,
                 'can_use_armament' => true,
             ],
-            (new MeleeWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength(2)
+            (new MeleeWeaponStrengthSanctionsTable())->getSanctionsForMissingStrength(2)
         );
     }
 
@@ -152,7 +152,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
     {
         self::assertSame(
             $expectedValues,
-            (new MeleeWeaponSanctionsByMissingStrengthTable())->getSanctionsForMissingStrength($missingStrength),
+            (new MeleeWeaponStrengthSanctionsTable())->getSanctionsForMissingStrength($missingStrength),
             'Expected ' . serialize($expectedValues) . " for missing strength $missingStrength"
         );
     }
@@ -164,12 +164,12 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
             $values[] = [
                 $missingStrength,
                 [
-                    MeleeWeaponSanctionsByMissingStrengthTable::MISSING_STRENGTH => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::FIGHT_NUMBER => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => 0,
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => true,
+                    MeleeWeaponStrengthSanctionsTable::MISSING_STRENGTH => 0,
+                    MeleeWeaponStrengthSanctionsTable::FIGHT_NUMBER => 0,
+                    MeleeWeaponStrengthSanctionsTable::ATTACK_NUMBER => 0,
+                    MeleeWeaponStrengthSanctionsTable::DEFENSE_NUMBER => 0,
+                    MeleeWeaponStrengthSanctionsTable::BASE_OF_WOUNDS => 0,
+                    MeleeWeaponStrengthSanctionsTable::CAN_USE_ARMAMENT => true,
                 ]
             ];
         }
@@ -177,12 +177,12 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
             $values[] = [
                 $missingStrength,
                 [
-                    MeleeWeaponSanctionsByMissingStrengthTable::MISSING_STRENGTH => $missingStrength,
-                    MeleeWeaponSanctionsByMissingStrengthTable::FIGHT_NUMBER => (int)floor(-$missingStrength / 2),
-                    MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => min(0, (int)floor((-$missingStrength + 1) / 2)),
-                    MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => min(0, (int)floor((-$missingStrength + 2) / 2)),
-                    MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => min(0, (int)floor((-$missingStrength + 3) / 2)),
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => true,
+                    MeleeWeaponStrengthSanctionsTable::MISSING_STRENGTH => $missingStrength,
+                    MeleeWeaponStrengthSanctionsTable::FIGHT_NUMBER => (int)floor(-$missingStrength / 2),
+                    MeleeWeaponStrengthSanctionsTable::ATTACK_NUMBER => min(0, (int)floor((-$missingStrength + 1) / 2)),
+                    MeleeWeaponStrengthSanctionsTable::DEFENSE_NUMBER => min(0, (int)floor((-$missingStrength + 2) / 2)),
+                    MeleeWeaponStrengthSanctionsTable::BASE_OF_WOUNDS => min(0, (int)floor((-$missingStrength + 3) / 2)),
+                    MeleeWeaponStrengthSanctionsTable::CAN_USE_ARMAMENT => true,
                 ]
             ];
         }
@@ -190,12 +190,12 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
             $values[] = [
                 $missingStrength,
                 [
-                    MeleeWeaponSanctionsByMissingStrengthTable::MISSING_STRENGTH => 11,
-                    MeleeWeaponSanctionsByMissingStrengthTable::FIGHT_NUMBER => false,
-                    MeleeWeaponSanctionsByMissingStrengthTable::ATTACK_NUMBER => false,
-                    MeleeWeaponSanctionsByMissingStrengthTable::DEFENSE_NUMBER => false,
-                    MeleeWeaponSanctionsByMissingStrengthTable::BASE_OF_WOUNDS => false,
-                    MeleeWeaponSanctionsByMissingStrengthTable::CAN_USE_ARMAMENT => false,
+                    MeleeWeaponStrengthSanctionsTable::MISSING_STRENGTH => 11,
+                    MeleeWeaponStrengthSanctionsTable::FIGHT_NUMBER => false,
+                    MeleeWeaponStrengthSanctionsTable::ATTACK_NUMBER => false,
+                    MeleeWeaponStrengthSanctionsTable::DEFENSE_NUMBER => false,
+                    MeleeWeaponStrengthSanctionsTable::BASE_OF_WOUNDS => false,
+                    MeleeWeaponStrengthSanctionsTable::CAN_USE_ARMAMENT => false,
                 ]
             ];
         }
@@ -211,7 +211,7 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
     public function I_get_always_zero_for_every_sanction_if_no_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
-        $meleeWeaponSanctionsTable = new MeleeWeaponSanctionsByMissingStrengthTable();
+        $meleeWeaponSanctionsTable = new MeleeWeaponStrengthSanctionsTable();
         self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(0));
         self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(-1));
         self::assertSame(0, $meleeWeaponSanctionsTable->$sanctionGetter(-10));
@@ -236,6 +236,6 @@ abstract class AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest extend
     public function I_can_not_get_any_sanction_for_too_much_missing_strength($sanctionName)
     {
         $sanctionGetter = 'get' . ucfirst($sanctionName) . 'Sanction';
-        (new MeleeWeaponSanctionsByMissingStrengthTable())->$sanctionGetter(11);
+        (new MeleeWeaponStrengthSanctionsTable())->$sanctionGetter(11);
     }
 }

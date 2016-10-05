@@ -1,8 +1,0 @@
-<?php
-namespace DrdPlus\Tests\Tables\Armaments\Shields;
-
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest;
-
-class ShieldSanctionsByMissingStrengthTableTest extends AbstractMeleeWeaponlikeSanctionsByMissingStrengthTableTest
-{
-}

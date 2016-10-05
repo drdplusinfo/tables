@@ -2,9 +2,10 @@
 namespace DrdPlus\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 
-abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTable implements SanctionsForMissingStrengthInterface
+abstract class AbstractStrengthSanctionsTable extends AbstractFileTable implements StrengthSanctionsInterface
 {
     const MISSING_STRENGTH = 'missing_strength';
 
@@ -14,7 +15,7 @@ abstract class AbstractSanctionsForMissingStrengthTable extends AbstractFileTabl
     }
 
     /**
-     * @param int $missingStrength
+     * @param int|IntegerInterface $missingStrength
      * @return array|mixed[];
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast

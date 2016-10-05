@@ -11,19 +11,19 @@ use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
-use DrdPlus\Codes\Code;
-use DrdPlus\Tables\Armaments\Armors\ArmorSanctionsByMissingStrengthTable;
+use DrdPlus\Codes\Partials\AbstractCode;
+use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
-use DrdPlus\Tables\Armaments\Shields\ShieldSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponSanctionsByMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use Granam\Tests\Tools\TestWithMockery;
 
 class TablesTest extends TestWithMockery
@@ -148,7 +148,7 @@ class TablesTest extends TestWithMockery
     private function getCodes($class)
     {
         $codes = [];
-        /** @var Code $class */
+        /** @var AbstractCode $class */
         $reflectionClass = new \ReflectionClass($class);
         foreach ($reflectionClass->getConstants() as $constant) {
             $codes[] = $class::getIt($constant);
@@ -254,18 +254,18 @@ class TablesTest extends TestWithMockery
     {
         self::assertInstanceOf(
             $expectedTableClass,
-            (new Tables())->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode)
+            (new Tables())->getArmamentStrengthSanctionsTableByCode($armamentCode)
         );
     }
 
     public function provideArmamentCodeAndExpectedSanctionsTable()
     {
         return [
-            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorSanctionsByMissingStrengthTable::class],
-            [HelmCode::getIt(HelmCode::GREAT_HELM), ArmorSanctionsByMissingStrengthTable::class],
-            [RangedWeaponCode::getIt(RangedWeaponCode::HEAVY_CROSSBOW), RangedWeaponSanctionsByMissingStrengthTable::class],
-            [MeleeWeaponCode::getIt(MeleeWeaponCode::CLUB), MeleeWeaponSanctionsByMissingStrengthTable::class],
-            [ShieldCode::getIt(ShieldCode::BUCKLER), ShieldSanctionsByMissingStrengthTable::class],
+            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorStrengthSanctionsTable::class],
+            [HelmCode::getIt(HelmCode::GREAT_HELM), ArmorStrengthSanctionsTable::class],
+            [RangedWeaponCode::getIt(RangedWeaponCode::HEAVY_CROSSBOW), RangedWeaponStrengthSanctionsTable::class],
+            [MeleeWeaponCode::getIt(MeleeWeaponCode::CLUB), MeleeWeaponStrengthSanctionsTable::class],
+            [ShieldCode::getIt(ShieldCode::BUCKLER), ShieldStrengthSanctionsTable::class],
         ];
     }
 
@@ -277,7 +277,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ArmorCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
-        (new Tables())->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode);
+        (new Tables())->getArmamentStrengthSanctionsTableByCode($armamentCode);
     }
 
     /**
@@ -288,7 +288,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
-        (new Tables())->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode);
+        (new Tables())->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode);
     }
 
     /**
@@ -299,7 +299,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        (new Tables())->getMeleeWeaponlikeSanctionsByMissingStrengthTableByCode($meleeWeaponlikeCode);
+        (new Tables())->getMeleeWeaponlikeStrengthSanctionsTableByCode($meleeWeaponlikeCode);
     }
 
     /**

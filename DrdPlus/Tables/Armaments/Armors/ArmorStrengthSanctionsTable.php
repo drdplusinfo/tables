@@ -2,13 +2,13 @@
 namespace DrdPlus\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
-use DrdPlus\Tables\Armaments\Partials\AbstractSanctionsForMissingStrengthTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
 
-class ArmorSanctionsByMissingStrengthTable extends AbstractSanctionsForMissingStrengthTable
+class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_strength_for_armor_sanctions.csv';
+        return __DIR__ . '/data/armor_strength_sanctions.csv';
     }
 
     const SANCTION_DESCRIPTION = 'sanction_description';

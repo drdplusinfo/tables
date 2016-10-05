@@ -10,12 +10,16 @@ use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
+use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow;
 use DrdPlus\Tables\Tables;
+use DrdPlus\Tools\Calculations\SumAndRound;
 use Granam\Integer\PositiveInteger;
 use Granam\Strict\Object\StrictObject;
 
@@ -133,7 +137,8 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Not all weapons can be hold by two hands - some of them are simply so small so it is not possible or highly ineffective.
+     * Not all weapons can be hold by two hands - some of them are simply so small so it is not possible or highly
+     * ineffective.
      *
      * @param WeaponlikeCode $weaponToHoldByTwoHands
      * @return bool
@@ -163,7 +168,8 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Note about SHIELD: it has always length of 0 and therefore you can NOT hold it by both hands (but the last word has DM).
+     * Note about SHIELD: it has always length of 0 and therefore you can NOT hold it by both hands (but the last word
+     * has DM).
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return bool
@@ -172,7 +178,7 @@ class Armourer extends StrictObject
     public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode)
     {
         return $this->canHoldItByOneHand($weaponlikeCode)
-            && $this->canHoldItByTwoHands($weaponlikeCode);
+        && $this->canHoldItByTwoHands($weaponlikeCode);
     }
 
     /**
@@ -207,16 +213,35 @@ class Armourer extends StrictObject
     // range-weapon-specific
 
     /**
-     * @param RangedWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangedWeaponCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getRangeOfRangedWeapon(RangedWeaponCode $rangeWeaponCode)
+    public function getRangeOfRangedWeapon(RangedWeaponCode $rangedWeaponCode)
     {
-        return $this->tables->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode)->getRangeOf($rangeWeaponCode);
+        return $this->tables->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode)->getRangeOf($rangedWeaponCode);
     }
 
     // ARMAMENTS USAGE AFFECTED BY STRENGTH
+
+    /**
+     * @param WeaponlikeCode $weaponlikeCode
+     * @param Strength $currentStrength
+     * @return Strength
+     * @throws UnknownBow
+     */
+    public function getApplicableStrength(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    {
+        if ((!$weaponlikeCode instanceof RangedWeaponCode) || !$weaponlikeCode->isBow()) {
+            return $currentStrength;
+        }
+        $strengthValue = min(
+            $currentStrength->getValue(),
+            $this->tables->getBowsTable()->getMaximalApplicableStrengthOf($weaponlikeCode)
+        );
+
+        return Strength::getIt($strengthValue);
+    }
 
     /**
      * Note: spear can be both range and melee, but required strength is for melee and range usages the same
@@ -229,7 +254,7 @@ class Armourer extends StrictObject
      */
     public function canUseArmament(ArmamentCode $armamentCode, Strength $currentStrength, Size $bodySize)
     {
-        return $this->tables->getArmamentSanctionsByMissingStrengthTableByCode($armamentCode)->canUseIt(
+        return $this->tables->getArmamentStrengthSanctionsTableByCode($armamentCode)->canUseIt(
             $this->getMissingStrengthForArmament($armamentCode, $currentStrength, $bodySize)
         );
     }
@@ -270,7 +295,7 @@ class Armourer extends StrictObject
      */
     public function getFightNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        return $this->tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode)->getFightNumberSanction(
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getFightNumberSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
@@ -286,13 +311,14 @@ class Armourer extends StrictObject
      */
     public function getAttackNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        return $this->tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode)->getAttackNumberSanction(
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getAttackNumberSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
 
     /**
-     * Using ranged weapon for defense is possible (it has always cover of 2) but there is 50% chance it will be destroyed.
+     * Using ranged weapon for defense is possible (it has always cover of 2) but there is 50% chance it will be
+     * destroyed.
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
@@ -309,7 +335,7 @@ class Armourer extends StrictObject
         }
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode)->getDefenseNumberSanction(
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getDefenseNumberSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
@@ -325,53 +351,135 @@ class Armourer extends StrictObject
      */
     public function getBaseOfWoundsMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        return $this->tables->getWeaponlikeSanctionsByMissingStrengthTableByCode($weaponlikeCode)->getBaseOfWoundsSanction(
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getBaseOfWoundsSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
         );
     }
 
-    // range-weapon-specific usage affected by strength
+    // range-weapon-specific usage affected by properties
 
     /**
-     * @param RangedWeaponCode $rangeWeaponCode
+     * The final number of rounds needed to load a weapon.
+     *
+     * @param RangedWeaponCode $rangedWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsByStrengthWithRangedWeapon(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getLoadingInRounds(
-            $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getRangedWeaponStrengthSanctionsTable()->getLoadingInRounds(
+            $this->getMissingStrengthForArmament($rangedWeaponCode, $currentStrength, Size::getIt(0))
         );
     }
 
     /**
-     * @param RangedWeaponCode $rangeWeaponCode
+     * The relative number of rounds as a malus to standard number of rounds needed to load a weapon.
+     *
+     * @param RangedWeaponCode $rangedWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getLoadingInRoundsSanction(
-            $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getRangedWeaponStrengthSanctionsTable()->getLoadingInRoundsSanction(
+            $this->getMissingStrengthForArmament($rangedWeaponCode, $currentStrength, Size::getIt(0))
         );
     }
 
     /**
-     * @param RangedWeaponCode $rangeWeaponCode
+     * @param RangedWeaponCode $rangedWeaponCode
+     * @param Strength $currentStrength
+     * @param Speed $currentSpeed
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws UnknownArmament
+     * @throws UnknownRangedWeapon
+     * @throws UnknownBow
+     */
+    public function getEncounterRangeWithRangedWeapon(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength,
+        Speed $currentSpeed
+    )
+    {
+        $encounterRange = $this->getRangeOfRangedWeapon($rangedWeaponCode);
+        $encounterRange += $this->getEncounterRangeMalusByStrength($rangedWeaponCode, $currentStrength);
+        $encounterRange += $this->getEncounterRangeBonusByStrength($rangedWeaponCode, $currentStrength);
+        $encounterRange += $this->getEncounterRangeBonusBySpeed($rangedWeaponCode, $currentSpeed);
+
+        return $encounterRange;
+    }
+
+    /**
+     * @param RangedWeaponCode $rangedWeaponCode
      * @param Strength $currentStrength
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws UnknownArmament
+     * @throws UnknownBow
      */
-    public function getEncounterRangeMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangeWeaponCode, Strength $currentStrength)
+    private function getEncounterRangeMalusByStrength(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength
+    )
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getRangedWeaponSanctionsByMissingStrengthTable()->getEncounterRangeSanction(
-            $this->getMissingStrengthForArmament($rangeWeaponCode, $currentStrength, Size::getIt(0))
+        if (!$rangedWeaponCode->isBow() && !$rangedWeaponCode->isThrowingWeapon()) {
+            return 0;
+        }
+        $currentStrength = $this->getApplicableStrength($rangedWeaponCode, $currentStrength);
+        $missingStrength = $this->getMissingStrengthForArmament(
+            $rangedWeaponCode,
+            $currentStrength,
+            Size::getIt(0) // size is irrelevant for this armament
         );
+
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->tables->getRangedWeaponStrengthSanctionsTable()->getEncounterRangeSanction(
+            $missingStrength
+        );
+    }
+
+    /**
+     * Bows get bonus to range from used strength (up to maximal strength applicable for given bow).
+     * Other ranged weapons gets no range bonus (zero) from strength.
+     *
+     * @param RangedWeaponCode $rangedWeaponCode
+     * @param Strength $currentStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws UnknownBow
+     */
+    private function getEncounterRangeBonusByStrength(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
+    {
+        if (!$rangedWeaponCode->isBow()) {
+            return 0;
+        }
+        $currentStrength = $this->getApplicableStrength($rangedWeaponCode, $currentStrength);
+
+        // the range bonus for bow is equal to strength applicable for it
+        return min(
+            $this->tables->getBowsTable()->getMaximalApplicableStrengthOf($rangedWeaponCode),
+            $currentStrength->getValue()
+        );
+    }
+
+    /**
+     * @param RangedWeaponCode $rangedWeaponCode
+     * @param Speed $speed
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     */
+    private function getEncounterRangeBonusBySpeed(RangedWeaponCode $rangedWeaponCode, Speed $speed)
+    {
+        if (!$rangedWeaponCode->isThrowingWeapon()) {
+            return 0;
+        }
+
+        return SumAndRound::half($speed->getValue());
     }
 
     // armor-specific usage affected by strength
@@ -387,7 +495,7 @@ class Armourer extends StrictObject
     public function getAgilityMalusByStrengthWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getArmorSanctionsByMissingStrengthTable()->getAgilityMalus(
+        return $this->tables->getArmorStrengthSanctionsTable()->getAgilityMalus(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
         );
     }
@@ -404,7 +512,7 @@ class Armourer extends StrictObject
      */
     public function getSanctionDescriptionByStrengthWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
     {
-        return $this->tables->getArmorSanctionsByMissingStrengthTable()->getSanctionDescription(
+        return $this->tables->getArmorStrengthSanctionsTable()->getSanctionDescription(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
         );
     }
@@ -412,7 +520,8 @@ class Armourer extends StrictObject
     // MISSING WEAPON SKILL
 
     /**
-     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into zero skill rank.
+     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into
+     * zero skill rank.
      *
      * @param PositiveInteger $weaponTypeSkillRank
      * @return int
@@ -424,7 +533,8 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into zero skill rank.
+     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into
+     * zero skill rank.
      *
      * @param PositiveInteger $weaponTypeSkillRank
      * @return int
@@ -446,7 +556,8 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into zero skill rank.
+     * Note about shields: there is no such skill as FightWithShields, any attempt to fight with shield results into
+     * zero skill rank.
      *
      * @param PositiveInteger $weaponTypeSkillRank
      * @return int
