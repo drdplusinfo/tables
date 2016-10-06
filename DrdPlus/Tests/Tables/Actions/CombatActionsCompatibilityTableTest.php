@@ -57,6 +57,27 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
     /**
      * @test
      */
+    public function I_can_get_compatibility_to_all_combat_actions()
+    {
+        $actions = CombatActionCode::getCombatActionCodes();
+        $actions = array_merge($actions, MeleeCombatActionCode::getMeleeOnlyCombatActionCodes());
+        $actions = array_merge($actions, RangedCombatActionCode::getRangedOnlyCombatActionCodes());
+        sort($actions);
+        $compatibilities = (new CombatActionsCompatibilityTable())->getHeader()[0];
+        array_shift($compatibilities); // remove rows header
+        sort($compatibilities);
+        self::assertSame(
+            $actions,
+            $compatibilities,
+            'missing: ' . implode(',', array_diff($actions, $compatibilities))
+            . "\n" . 'redundant: ' . implode(',', array_diff($compatibilities, $actions))
+        );
+    }
+
+    /**
+     * @test
+     * @depends I_can_get_compatibility_to_all_combat_actions
+     */
     public function Combinations_are_same_from_both_sides()
     {
         $codes = CombatActionCode::getCombatActionCodes();
