@@ -2,6 +2,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\BaseOfWounds;
 
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
+use Granam\Integer\IntegerObject;
 use Granam\Tests\Tools\TestWithMockery;
 
 class BaseOfWoundsTableTest extends TestWithMockery
@@ -69,15 +70,35 @@ class BaseOfWoundsTableTest extends TestWithMockery
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
         self::assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(-5, -5));
-        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(0, 0));
+        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(new IntegerObject(0), new IntegerObject(0)));
         self::assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(20, 20));
-        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(-5, 20));
+        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(new IntegerObject(-5), 20));
         self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(20, -5));
         self::assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
-        self::assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, -3, 10]));
+        self::assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, new IntegerObject(-3), 10]));
         for ($bonus = -5; $bonus <= 20; $bonus++) {
             self::assertSame($bonus, $baseOfWoundsTable->getBonusesIntersection([$bonus]));
         }
+    }
+
+    /**
+     * @test
+     * @dataProvider provideNoBonuses
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
+     * @param array $bonuses
+     */
+    public function I_can_not_intersect_nothing(array $bonuses)
+    {
+        self::assertNull((new BaseOfWoundsTable())->getBonusesIntersection($bonuses));
+    }
+
+    public function provideNoBonuses()
+    {
+        return [
+            [[]],
+            [[null]],
+            [[null, 1]],
+        ];
     }
 
     /**
@@ -87,11 +108,21 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertNull($baseOfWoundsTable->sumBonuses([]));
         self::assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
-        self::assertSame(5, $baseOfWoundsTable->sumBonuses([-5, -5, -5]));
-        self::assertSame(14, $baseOfWoundsTable->sumBonuses([-5, 0, 10]));
-        self::assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, -3, -2, -1, 0]));
+        self::assertSame(5, $baseOfWoundsTable->sumBonuses([-5, new IntegerObject(-5), -5]));
+        self::assertSame(14, $baseOfWoundsTable->sumBonuses([new IntegerObject(-5), new IntegerObject(0), new IntegerObject(10)]));
+        self::assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, new IntegerObject(-3), -2, new IntegerObject(-1), 0]));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideNoBonuses
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
+     * @param array $bonuses
+     */
+    public function I_can_not_sum_nothing(array $bonuses)
+    {
+        self::assertNull((new BaseOfWoundsTable())->sumBonuses($bonuses));
     }
 
     /**
@@ -121,7 +152,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertSame(25, $baseOfWoundsTable->tenMultipleBonus(5));
+        self::assertSame(25, $baseOfWoundsTable->tenMultipleBonus(new IntegerObject(5)));
     }
 
     /**
@@ -131,7 +162,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertSame(-15, $baseOfWoundsTable->tenMinifyBonus(5));
+        self::assertSame(-15, $baseOfWoundsTable->tenMinifyBonus(new IntegerObject(5)));
     }
 
     /**
@@ -140,7 +171,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
     public function I_can_get_single_value_by_its_indexes()
     {
         // value on indexes, not on coordinates-by-values
-        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(3, 5));
+        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(3, new IntegerObject(5)));
     }
 
     /**
@@ -149,7 +180,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
      */
     public function I_can_not_get_single_value_by_invalid_row_index()
     {
-        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(999, 5));
+        self::assertSame(-1, (new BaseOfWoundsTable())->getValue(new IntegerObject(999), new IntegerObject(5)));
     }
 
     /**
