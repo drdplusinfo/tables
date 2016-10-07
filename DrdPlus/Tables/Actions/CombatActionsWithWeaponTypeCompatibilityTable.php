@@ -45,6 +45,8 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
             CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK => self::BOOLEAN,
             CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK => self::BOOLEAN,
             CombatActionCode::TWO_HANDS_RANGED_ATTACK => self::BOOLEAN,
+            CombatActionCode::MAIN_HAND_ONLY_DEFENSE => self::BOOLEAN,
+            CombatActionCode::OFFHAND_ONLY_DEFENSE => self::BOOLEAN,
             CombatActionCode::TWO_HANDS_DEFENSE => self::BOOLEAN,
             CombatActionCode::SWAP_WEAPONS => self::BOOLEAN,
             CombatActionCode::CONCENTRATION_ON_DEFENSE => self::BOOLEAN,

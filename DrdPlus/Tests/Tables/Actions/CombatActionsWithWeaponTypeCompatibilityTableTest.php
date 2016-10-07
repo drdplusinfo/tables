@@ -29,6 +29,8 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
                     'main_hand_only_ranged_attack',
                     'offhand_only_ranged_attack',
                     'two_hands_ranged_attack',
+                    'main_hand_only_defense',
+                    'offhand_only_defense',
                     'two_hands_defense',
                     'swap_weapons',
                     'concentration_on_defense',
