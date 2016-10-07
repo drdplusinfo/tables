@@ -129,9 +129,10 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
+     * Warning - the result depends on the sequence of bonuses
+     *
      * @param array|int[] $bonuses
      * @return int|null summarized bonuses, or null if no given at all (empty array).
-     * Therefore single bonus results into the same bonus.
      */
     public function getBonusesIntersection(array $bonuses)
     {
