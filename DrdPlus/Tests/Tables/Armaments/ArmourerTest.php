@@ -113,7 +113,11 @@ class ArmourerTest extends TestWithMockery
      */
     private function createShield()
     {
-        return $this->mockery(ShieldCode::class);
+        $shieldCode = $this->mockery(ShieldCode::class);
+        $shieldCode->shouldReceive('isWeapon')
+            ->andReturn(false);
+
+        return $shieldCode;
     }
 
     /**
@@ -363,6 +367,8 @@ class ArmourerTest extends TestWithMockery
             $code->shouldReceive('is' . ucfirst($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
+        $code->shouldReceive('isWeapon')
+            ->andReturn(true);
 
         return $code;
     }
@@ -1171,13 +1177,32 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_malus_to_cover_by_skill_rank()
     {
         $tables = $this->createTables();
-        $skillRank = $this->createPositiveInteger(123);
+
         $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
         $missingWeaponSkillTable->shouldReceive('getCoverMalusForSkill')
             ->with(123)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->getCoverMalusForSkill($skillRank));
+        self::assertSame(
+            'foo',
+            (new Armourer($tables))->getCoverMalusForSkill(
+                $this->createPositiveInteger(123),
+                $this->createMeleeWeaponCode('foo', 'knifeOrDagger')
+            )
+        );
+
+        $tables->shouldReceive('getMissingShieldSkillTable')
+            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
+        $missingShieldSkillTable->shouldReceive('getCoverMalusForSkill')
+            ->with(456)
+            ->andReturn('bar');
+        self::assertSame(
+            'bar',
+            (new Armourer($tables))->getCoverMalusForSkill(
+                $this->createPositiveInteger(456),
+                $this->createShield()
+            )
+        );
     }
 
     /**

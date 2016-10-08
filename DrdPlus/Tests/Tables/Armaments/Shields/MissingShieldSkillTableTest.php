@@ -12,7 +12,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_negative_rank()
     {
-        (new MissingShieldSkillTable())->getCoverForSkillRank(-2);
+        (new MissingShieldSkillTable())->getCoverMalusForSkill(-2);
     }
 
     /**
@@ -45,6 +45,6 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_cover_for_skill_rank()
     {
-        self::assertSame(0, (new MissingShieldSkillTable())->getCoverForSkillRank(3));
+        self::assertSame(0, (new MissingShieldSkillTable())->getCoverMalusForSkill(3));
     }
 }

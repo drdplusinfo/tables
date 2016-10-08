@@ -546,13 +546,23 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Gives malus to cover with a weapon or a shield according to given skill rank.
+     * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not have maximal skill).
+     * Correct is @see \DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable
+     *
      * @param PositiveInteger $weaponTypeSkillRank
+     * @param WeaponlikeCode $weaponOrShield
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getCoverMalusForSkill(PositiveInteger $weaponTypeSkillRank)
+    public function getCoverMalusForSkill(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkill($weaponTypeSkillRank->getValue());
+        if ($weaponOrShield->isWeapon()) {
+            return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkill($weaponTypeSkillRank->getValue());
+        }
+        assert($weaponOrShield->isShield());
+
+        return $this->tables->getMissingShieldSkillTable()->getCoverMalusForSkill($weaponTypeSkillRank->getValue());
     }
 
     /**
