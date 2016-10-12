@@ -527,9 +527,9 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getFightNumberMalusForSkill(PositiveInteger $weaponTypeSkillRank)
+    public function getFightNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getFightNumberMalusForSkill($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -540,9 +540,9 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getAttackNumberMalusForSkill(PositiveInteger $weaponTypeSkillRank)
+    public function getAttackNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getAttackNumberMalusForSkill($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -555,14 +555,15 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getCoverMalusForSkill(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
+    public function getCoverMalusForSkillRank(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
     {
         if ($weaponOrShield->isWeapon()) {
-            return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkill($weaponTypeSkillRank->getValue());
+            return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
         }
         assert($weaponOrShield->isShield());
 
-        return $this->tables->getMissingShieldSkillTable()->getCoverMalusForSkill($weaponTypeSkillRank->getValue());
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->tables->getMissingShieldSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -573,9 +574,9 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getBaseOfWoundsMalusForSkill(PositiveInteger $weaponTypeSkillRank)
+    public function getBaseOfWoundsMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getBaseOfWoundsMalusForSkill($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     // missing shield-specific skill
@@ -588,14 +589,14 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getProtectiveArmamentRestrictionBonusForSkill(
+    public function getProtectiveArmamentRestrictionBonusForSkillRank(
         ProtectiveArmamentCode $protectiveArmamentCode,
         PositiveInteger $protectiveArmamentSkillRank
     )
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
-            ->getRestrictionBonusForSkill($protectiveArmamentSkillRank->getValue());
+            ->getRestrictionBonusForSkillRank($protectiveArmamentSkillRank->getValue());
     }
 
     /**
@@ -607,13 +608,13 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function getProtectiveArmamentRestrictionForSkill(
+    public function getProtectiveArmamentRestrictionForSkillRank(
         ProtectiveArmamentCode $protectiveArmamentCode,
         PositiveInteger $protectiveArmamentSkillRank
     )
     {
         $restriction = $this->getRestrictionOfProtectiveArmament($protectiveArmamentCode)
-            + $this->getProtectiveArmamentRestrictionBonusForSkill($protectiveArmamentCode, $protectiveArmamentSkillRank);
+            + $this->getProtectiveArmamentRestrictionBonusForSkillRank($protectiveArmamentCode, $protectiveArmamentSkillRank);
         if ($restriction > 0) {
             return 0; // can not turn into bonus
         }

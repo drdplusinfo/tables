@@ -32,7 +32,7 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implemen
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getRestrictionBonusForSkill($skillRank)
+    public function getRestrictionBonusForSkillRank($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);
@@ -45,7 +45,7 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implemen
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getCoverMalusForSkill($skillRank)
+    public function getCoverMalusForSkillRank($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::COVER);

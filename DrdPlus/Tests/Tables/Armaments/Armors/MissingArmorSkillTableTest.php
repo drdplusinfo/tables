@@ -12,7 +12,7 @@ class MissingArmorSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_negative_rank()
     {
-        (new MissingArmorSkillTable())->getRestrictionBonusForSkill(-1);
+        (new MissingArmorSkillTable())->getRestrictionBonusForSkillRank(-1);
     }
 
     /**
@@ -21,7 +21,7 @@ class MissingArmorSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_higher_rank_than_three()
     {
-        (new MissingArmorSkillTable())->getRestrictionBonusForSkill(4);
+        (new MissingArmorSkillTable())->getRestrictionBonusForSkillRank(4);
     }
 
     /**
@@ -37,6 +37,6 @@ class MissingArmorSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_bonus_for_skill_rank()
     {
-        self::assertSame(2, (new MissingArmorSkillTable())->getRestrictionBonusForSkill(2));
+        self::assertSame(2, (new MissingArmorSkillTable())->getRestrictionBonusForSkillRank(2));
     }
 }

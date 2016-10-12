@@ -29,7 +29,7 @@ class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable implement
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getRestrictionBonusForSkill($skillRank)
+    public function getRestrictionBonusForSkillRank($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);

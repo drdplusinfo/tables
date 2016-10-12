@@ -1135,10 +1135,10 @@ class ArmourerTest extends TestWithMockery
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
-        $missingWeaponSkillTable->shouldReceive('getFightNumberMalusForSkill')
+        $missingWeaponSkillTable->shouldReceive('getFightNumberMalusForSkillRank')
             ->with(123)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->getFightNumberMalusForSkill($skillRank));
+        self::assertSame('foo', (new Armourer($tables))->getFightNumberMalusForSkillRank($skillRank));
     }
 
     /**
@@ -1165,10 +1165,10 @@ class ArmourerTest extends TestWithMockery
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
-        $missingWeaponSkillTable->shouldReceive('getAttackNumberMalusForSkill')
+        $missingWeaponSkillTable->shouldReceive('getAttackNumberMalusForSkillRank')
             ->with(123)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->getAttackNumberMalusForSkill($skillRank));
+        self::assertSame('foo', (new Armourer($tables))->getAttackNumberMalusForSkillRank($skillRank));
     }
 
     /**
@@ -1180,12 +1180,12 @@ class ArmourerTest extends TestWithMockery
 
         $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
-        $missingWeaponSkillTable->shouldReceive('getCoverMalusForSkill')
+        $missingWeaponSkillTable->shouldReceive('getCoverMalusForSkillRank')
             ->with(123)
             ->andReturn('foo');
         self::assertSame(
             'foo',
-            (new Armourer($tables))->getCoverMalusForSkill(
+            (new Armourer($tables))->getCoverMalusForSkillRank(
                 $this->createPositiveInteger(123),
                 $this->createMeleeWeaponCode('foo', 'knifeOrDagger')
             )
@@ -1193,12 +1193,12 @@ class ArmourerTest extends TestWithMockery
 
         $tables->shouldReceive('getMissingShieldSkillTable')
             ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getCoverMalusForSkill')
+        $missingShieldSkillTable->shouldReceive('getCoverMalusForSkillRank')
             ->with(456)
             ->andReturn('bar');
         self::assertSame(
             'bar',
-            (new Armourer($tables))->getCoverMalusForSkill(
+            (new Armourer($tables))->getCoverMalusForSkillRank(
                 $this->createPositiveInteger(456),
                 $this->createShield()
             )
@@ -1214,10 +1214,10 @@ class ArmourerTest extends TestWithMockery
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
-        $missingWeaponSkillTable->shouldReceive('getBaseOfWoundsMalusForSkill')
+        $missingWeaponSkillTable->shouldReceive('getBaseOfWoundsMalusForSkillRank')
             ->with(123)
             ->andReturn('foo');
-        self::assertSame('foo', (new Armourer($tables))->getBaseOfWoundsMalusForSkill($skillRank));
+        self::assertSame('foo', (new Armourer($tables))->getBaseOfWoundsMalusForSkillRank($skillRank));
     }
 
     /**
@@ -1231,12 +1231,12 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
             ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkill')
+        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn('foo');
         self::assertSame(
             'foo',
-            (new Armourer($tables))->getProtectiveArmamentRestrictionBonusForSkill($shield, $skillRank)
+            (new Armourer($tables))->getProtectiveArmamentRestrictionBonusForSkillRank($shield, $skillRank)
         );
     }
 
@@ -1259,11 +1259,11 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
             ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkill')
+        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn(7);
 
-        self::assertSame(-4, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkill($shield, $skillRank));
+        self::assertSame(-4, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkillRank($shield, $skillRank));
     }
 
     /**
@@ -1285,11 +1285,11 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
             ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkill')
+        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn(789);
 
-        self::assertSame(0, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkill($shield, $skillRank));
+        self::assertSame(0, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkillRank($shield, $skillRank));
     }
 
 }
