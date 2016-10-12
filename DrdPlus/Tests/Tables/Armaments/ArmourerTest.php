@@ -272,7 +272,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('baz');
         self::assertSame(
             'baz',
-            $armourer->getFightNumberMalusByStrengthWithWeaponlike($meleeWeaponCode, Strength::getIt($strength))
+            $armourer->getFightNumberMalusByStrengthWithWeaponOrShield($meleeWeaponCode, Strength::getIt($strength))
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getAttackNumberSanction')
@@ -290,7 +290,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($meleeWeaponCode, Strength::getIt($strength))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponOrShield($meleeWeaponCode, Strength::getIt($strength))
         );
 
         $meleeWeaponSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
@@ -410,7 +410,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($rangedSpear, Strength::getIt(0))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponOrShield($rangedSpear, Strength::getIt(0))
         );
     }
 
@@ -444,7 +444,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('baz');
         self::assertSame(
             'baz',
-            $armourer->getFightNumberMalusByStrengthWithWeaponlike($shield, Strength::getIt(4))
+            $armourer->getFightNumberMalusByStrengthWithWeaponOrShield($shield, Strength::getIt(4))
         );
 
         $shieldStrengthSanctionsTable->shouldReceive('getAttackNumberSanction')
@@ -462,7 +462,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('foobar');
         self::assertSame(
             'foobar',
-            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($shield, Strength::getIt(2))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponOrShield($shield, Strength::getIt(2))
         );
 
         $shieldStrengthSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
@@ -526,7 +526,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('baz');
         self::assertSame(
             'baz',
-            $armourer->getFightNumberMalusByStrengthWithWeaponlike($weaponlikeCode, Strength::getIt($strength))
+            $armourer->getFightNumberMalusByStrengthWithWeaponOrShield($weaponlikeCode, Strength::getIt($strength))
         );
 
         $rangeWeaponSanctionsTable->shouldReceive('getAttackNumberSanction')
@@ -542,7 +542,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bar bar');
         self::assertSame(
             'bar bar',
-            $armourer->getDefenseNumberMalusByStrengthWithWeaponlike($weaponlikeCode, Strength::getIt($strength))
+            $armourer->getDefenseNumberMalusByStrengthWithWeaponOrShield($weaponlikeCode, Strength::getIt($strength))
         );
 
         $tables->shouldReceive('getRangedWeaponStrengthSanctionsTable')
@@ -1016,7 +1016,7 @@ class ArmourerTest extends TestWithMockery
         $unarmedTable->shouldReceive('getCoverOf')
             ->with($fist)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponlike($fist));
+        self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponOrShield($fist));
     }
 
     /**

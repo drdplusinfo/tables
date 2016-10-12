@@ -49,6 +49,7 @@ class Armourer extends StrictObject
 
     /**
      * Increases fight number.
+     * Note about shield: every shield is considered as a weapon of length 0 if used for attack.
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
@@ -65,6 +66,8 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Even shield can ba used as weapon, just quite ineffective.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws Exceptions\UnknownWeaponlike
@@ -75,6 +78,8 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Even shield can ba used as weapon, just quite ineffective.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
@@ -89,12 +94,14 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getCoverOfWeaponlike(WeaponlikeCode $weaponlikeCode)
+    public function getCoverOfWeaponOrShield(WeaponlikeCode $weaponlikeCode)
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getCoverOf($weaponlikeCode);
     }
 
     /**
+     * Even shield can ba used as weapon, just quite ineffective.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws Exceptions\UnknownWeaponlike
@@ -195,10 +202,10 @@ class Armourer extends StrictObject
     }
 
 
-    // shield-specific
+    // shield-and-armor-specific
 
     /**
-     * Applicable to lower shield or armor Restriction (Fight number malus), but can not turn to positive (to bonus).
+     * Restriction affects fight number (Fight number malus).
      *
      * @param ProtectiveArmamentCode $protectiveArmamentCode
      * @return int
@@ -285,6 +292,8 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Note about shield: this malus is applied by the same way if used shield as a protective item as well as a weapon.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int
@@ -293,7 +302,7 @@ class Armourer extends StrictObject
      * @throws Exceptions\UnknownWeaponlike
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getFightNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getFightNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
         return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getFightNumberSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
@@ -301,6 +310,8 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Even shield can ba used as weapon, just quite ineffective.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int
@@ -327,7 +338,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getDefenseNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
         if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isMelee()) {
             // spear can be used more effectively to cover as a melee weapon
@@ -341,6 +352,8 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Even shield can ba used as weapon, just quite ineffective.
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return int
@@ -547,8 +560,8 @@ class Armourer extends StrictObject
 
     /**
      * Gives malus to cover with a weapon or a shield according to given skill rank.
-     * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not have maximal skill).
-     * Correct is @see \DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable
+     * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not
+     * have maximal skill). Correct is @see \DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable
      *
      * @param PositiveInteger $weaponTypeSkillRank
      * @param WeaponlikeCode $weaponOrShield
