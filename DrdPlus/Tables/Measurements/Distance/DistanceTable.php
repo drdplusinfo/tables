@@ -3,7 +3,8 @@ namespace DrdPlus\Tables\Measurements\Distance;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use Granam\Integer\IntegerObject;
+use Granam\Integer\IntegerInterface;
+use Granam\Integer\Tools\ToInteger;
 
 /**
  * PPH page 162, top
@@ -32,6 +33,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      */
     public function toDistance(DistanceBonus $distanceBonus)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($distanceBonus);
     }
 
@@ -66,12 +68,14 @@ class DistanceTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param IntegerObject $size
+     * @param IntegerInterface|int $size
      * @return DistanceBonus
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function sizeToDistanceBonus(IntegerObject $size)
+    public function sizeToDistanceBonus($size)
     {
-        return $this->createBonus($size->getValue() + 12);
+        return $this->createBonus(ToInteger::toInteger($size) + 12);
     }
 
 }

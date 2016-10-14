@@ -23,9 +23,9 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     /**
      * @param float $value
      * @param string $unit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     protected function __construct($value, $unit)
     {

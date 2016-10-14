@@ -4,6 +4,7 @@ namespace DrdPlus\Tests\Tables\Armaments;
 use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Properties\Base\Strength;
@@ -12,12 +13,16 @@ use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
+use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 use Granam\Tests\Tools\TestWithMockery;
@@ -255,7 +260,7 @@ class ArmourerTest extends TestWithMockery
         $meleeWeaponCode = $this->createMeleeWeaponCode('foo', $weaponGroup);
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($meleeWeaponCode)
-            ->andReturn($meleeWeaponTable = $this->createMeleeWeaponTable());
+            ->andReturn($meleeWeaponTable = $this->createMeleeWeaponsTable());
         $meleeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($meleeWeaponCode)
             ->andReturn($requiredStrength);
@@ -330,7 +335,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @return \Mockery\MockInterface|MeleeWeaponsTable
      */
-    private function createMeleeWeaponTable()
+    private function createMeleeWeaponsTable()
     {
         return $this->mockery(MeleeWeaponsTable::class);
     }
@@ -401,7 +406,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($meleeWeaponSanctionsTable);
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($meleeSpear)
-            ->andReturn($meleeWeaponTable = $this->createMeleeWeaponTable());
+            ->andReturn($meleeWeaponTable = $this->createMeleeWeaponsTable());
         $meleeWeaponTable->shouldReceive('getRequiredStrengthOf')
             ->with($meleeSpear)
             ->andReturn(5);
@@ -659,7 +664,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables);
         self::assertSame(
             $expectedEncounterRange,
-            $armourer->getEncounterRangeWithRangedWeapon($rangedWeaponCode, Strength::getIt($strengthValue), $this->createSpeed($speedValue))
+            $armourer->getEncounterRangeWithWeaponlike($rangedWeaponCode, Strength::getIt($strengthValue), $this->createSpeed($speedValue))
         );
     }
 
@@ -733,6 +738,72 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
+     * @dataProvider provideWeaponsForMeleeEncounterRange
+     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
+     * @param Tables $tables
+     * @param int $expectedEncounterRange
+     */
+    public function I_can_get_encounter_range_even_for_melee_weapon(
+        MeleeWeaponlikeCode $meleeWeaponlikeCode,
+        Tables $tables,
+        $expectedEncounterRange
+    )
+    {
+        $strength = $this->mockery(Strength::class); // strength is useless for this
+        $speed = $this->mockery(Speed::class); // speed is useless for this
+        self::assertSame(
+            $expectedEncounterRange,
+            (new Armourer($tables))->getEncounterRangeWithWeaponlike($meleeWeaponlikeCode, $strength, $speed)
+        );
+    }
+
+    public function provideWeaponsForMeleeEncounterRange()
+    {
+        $weapons = [];
+
+        $tables = $this->createTables();
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->with($axe = $this->createMeleeWeaponlikeCode('foo', 'axes'))
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getLengthOf')
+            ->with($axe)
+            ->andReturn(111);
+        $tables->shouldReceive('getDistanceTable')
+            ->andReturn($distanceTable = $this->mockery(DistanceTable::class));
+        $expectedHalfOfWeaponLength = 56; // 111 / 2 rounded up
+        $distanceTable->shouldReceive('toBonus')
+            ->with(\Mockery::type(Distance::class))
+            ->andReturnUsing(function (Distance $distanceWithHalfOfWeaponLength) use ($expectedHalfOfWeaponLength) {
+                self::assertSame((float)$expectedHalfOfWeaponLength, $distanceWithHalfOfWeaponLength->getValue());
+
+                return $this->createDistanceBonus('bar');
+            });
+        $weapons[] = [$axe, $tables, 'bar'];
+
+        $tables = $this->createTables();
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->with($shield = $this->createMeleeWeaponlikeCode('baz', 'shield'))
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getLengthOf')
+            ->with($shield)
+            ->andReturn(998);
+        $tables->shouldReceive('getDistanceTable')
+            ->andReturn($distanceTable = $this->mockery(DistanceTable::class));
+        $expectedHalfOfWeaponLength = 499; // 998 / 2 rounded up
+        $distanceTable->shouldReceive('toBonus')
+            ->with(\Mockery::type(Distance::class))
+            ->andReturnUsing(function (Distance $distanceWithHalfOfWeaponLength) use ($expectedHalfOfWeaponLength) {
+                self::assertSame((float)$expectedHalfOfWeaponLength, $distanceWithHalfOfWeaponLength->getValue());
+
+                return $this->createDistanceBonus('qux');
+            });
+        $weapons[] = [$shield, $tables, 'qux'];
+
+        return $weapons;
+    }
+
+    /**
+     * @test
      */
     public function I_can_find_out_if_can_hold_weapon_by_two_hands()
     {
@@ -748,6 +819,27 @@ class ArmourerTest extends TestWithMockery
         // shield
         self::assertFalse($armourer->canHoldItByTwoHands(ShieldCode::getIt(ShieldCode::BUCKLER)));
         self::assertFalse($armourer->canHoldItByTwoHands(ShieldCode::getIt(ShieldCode::PAVISE)));
+    }
+
+    /**
+     * @return \Mockery\MockInterface|MeleeWeaponlikesTable
+     */
+    private function createMeleeWeaponlikesTable()
+    {
+        return $this->mockery(MeleeWeaponsTable::class);
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|DistanceBonus
+     */
+    private function createDistanceBonus($value)
+    {
+        $distanceBonus = $this->mockery(DistanceBonus::class);
+        $distanceBonus->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $distanceBonus;
     }
 
     /**
@@ -794,7 +886,7 @@ class ArmourerTest extends TestWithMockery
         $axe = $this->createMeleeWeaponCode('foo', 'axe');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($axe)
-            ->andReturn($axesTable = $this->createMeleeWeaponTable());
+            ->andReturn($axesTable = $this->createMeleeWeaponsTable());
         $axesTable->shouldReceive('getRequiredStrengthOf')
             ->with($axe)
             ->andReturn('bar');
@@ -839,14 +931,56 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_length_of_melee_weapons()
     {
         $tables = $this->createTables();
-        $knife = $this->createMeleeWeaponCode('foo', 'knifeOrDagger');
+        $knife = $this->createMeleeWeaponlikeCode('foo', 'knifeOrDagger');
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
             ->with($knife)
-            ->andReturn($knifesAndDaggersTable = $this->createMeleeWeaponTable());
+            ->andReturn($knifesAndDaggersTable = $this->createMeleeWeaponsTable());
         $knifesAndDaggersTable->shouldReceive('getLengthOf')
             ->with($knife)
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getLengthOfWeaponlike($knife));
+
+        $shield = $this->createMeleeWeaponlikeCode('foo', 'shield');
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->with($shield)
+            ->andReturn($shieldsTable = $this->createMeleeWeaponsTable());
+        $shieldsTable->shouldReceive('getLengthOf')
+            ->with($shield)
+            ->andReturn('baz');
+        self::assertSame('baz', (new Armourer($tables))->getLengthOfWeaponlike($shield));
+    }
+
+    /**
+     * @param $value
+     * @param string $matchingMeleeWeaponlikeGroup
+     * @return \Mockery\MockInterface|MeleeWeaponlikeCode
+     */
+    private function createMeleeWeaponlikeCode($value, $matchingMeleeWeaponlikeGroup)
+    {
+        $code = $this->mockery(MeleeWeaponlikeCode::class);
+        $code->shouldReceive('getValue')
+            ->andReturn($value);
+        $code->shouldReceive('__toString')
+            ->andReturn((string)$value);
+        foreach ($this->getMeleeWeaponlikeGroups() as $meleeWeaponlikeGroup) {
+            $code->shouldReceive('is' . ucfirst($meleeWeaponlikeGroup))
+                ->andReturn($meleeWeaponlikeGroup === $matchingMeleeWeaponlikeGroup);
+        }
+        $code->shouldReceive('isMeleeWeapon')
+            ->andReturn(true);
+
+        return $code;
+    }
+
+    /**
+     * @return array
+     */
+    private function getMeleeWeaponlikeGroups()
+    {
+        $meleeWeaponlikeGroups = $this->getMeleeWeaponGroups();
+        $meleeWeaponlikeGroups[] = 'shield';
+
+        return $meleeWeaponlikeGroups;
     }
 
     /**
@@ -867,7 +1001,7 @@ class ArmourerTest extends TestWithMockery
         $club = $this->createMeleeWeaponCode('foo', 'maceOrClub');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($club)
-            ->andReturn($macesAndClubsTable = $this->createMeleeWeaponTable());
+            ->andReturn($macesAndClubsTable = $this->createMeleeWeaponsTable());
         $macesAndClubsTable->shouldReceive('getOffensivenessOf')
             ->with($club)
             ->andReturn('bar');
@@ -915,7 +1049,7 @@ class ArmourerTest extends TestWithMockery
         $morgenstern = $this->createMeleeWeaponCode('foo', 'morningstarOrMorgenstern');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($morgenstern)
-            ->andReturn($morningstarsAndMorgensternsTable = $this->createMeleeWeaponTable());
+            ->andReturn($morningstarsAndMorgensternsTable = $this->createMeleeWeaponsTable());
         $morningstarsAndMorgensternsTable->shouldReceive('getWoundsOf')
             ->with($morgenstern)
             ->andReturn('bar');
@@ -963,7 +1097,7 @@ class ArmourerTest extends TestWithMockery
         $staff = $this->createMeleeWeaponCode('foo', 'staffOrSpear');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($staff)
-            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponTable());
+            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponsTable());
         $staffsAndSpearsTable->shouldReceive('getWoundsTypeOf')
             ->with($staff)
             ->andReturn('bar');
@@ -1012,11 +1146,31 @@ class ArmourerTest extends TestWithMockery
         $fist = $this->createMeleeWeaponCode('foo', 'unarmed');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($fist)
-            ->andReturn($unarmedTable = $this->createMeleeWeaponTable());
+            ->andReturn($unarmedTable = $this->createMeleeWeaponsTable());
         $unarmedTable->shouldReceive('getCoverOf')
             ->with($fist)
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getCoverOfWeaponOrShield($fist));
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_cover_of_two_for_every_ranged_weapon_and_zero_for_projectile()
+    {
+        $armourer = new Armourer(new Tables());
+        foreach (RangedWeaponCode::getRangedWeaponCodes() as $rangedWeaponCode) {
+            $rangedWeapon = RangedWeaponCode::getIt($rangedWeaponCode);
+            if ($rangedWeapon->isProjectile()) {
+                self::assertSame(0, $armourer->getCoverOfWeaponOrShield($rangedWeapon));
+            } else {
+                self::assertSame(
+                    2,
+                    $armourer->getCoverOfWeaponOrShield($rangedWeapon),
+                    "'{$rangedWeapon}' should has cover of 2"
+                );
+            }
+        }
     }
 
     /**
@@ -1028,7 +1182,7 @@ class ArmourerTest extends TestWithMockery
         $escalatorlibur = $this->createMeleeWeaponCode('foo', 'sword');
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($escalatorlibur)
-            ->andReturn($swordsTable = $this->createMeleeWeaponTable());
+            ->andReturn($swordsTable = $this->createMeleeWeaponsTable());
         $swordsTable->shouldReceive('getWeightOf')
             ->with($escalatorlibur)
             ->andReturn('foo');
@@ -1044,7 +1198,7 @@ class ArmourerTest extends TestWithMockery
         $fork = $this->createMeleeWeaponCode('foo', 'staffOrSpear');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($fork)
-            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponTable());
+            ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponsTable());
         $staffsAndSpearsTable->shouldReceive('getTwoHandedOf')
             ->with($fork)
             ->andReturn('foo');

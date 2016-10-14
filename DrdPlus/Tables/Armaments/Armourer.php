@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Armaments;
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
@@ -18,6 +19,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow;
+use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tools\Calculations\SumAndRound;
 use Granam\Integer\PositiveInteger;
@@ -57,7 +59,7 @@ class Armourer extends StrictObject
      */
     public function getLengthOfWeaponlike(WeaponlikeCode $weaponlikeCode)
     {
-        if ($weaponlikeCode instanceof MeleeWeaponCode) {
+        if ($weaponlikeCode instanceof MeleeWeaponlikeCode) {
             return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($weaponlikeCode)
                 ->getLengthOf($weaponlikeCode);
         }
@@ -404,7 +406,9 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param RangedWeaponCode $rangedWeaponCode
+     * Gives bonus to range of a weapon, which can be turned into meters.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @param Speed $currentSpeed
      * @return int
@@ -413,16 +417,25 @@ class Armourer extends StrictObject
      * @throws UnknownRangedWeapon
      * @throws UnknownBow
      */
-    public function getEncounterRangeWithRangedWeapon(
-        RangedWeaponCode $rangedWeaponCode,
+    public function getEncounterRangeWithWeaponlike(
+        WeaponlikeCode $weaponlikeCode,
         Strength $currentStrength,
         Speed $currentSpeed
     )
     {
-        $encounterRange = $this->getRangeOfRangedWeapon($rangedWeaponCode);
-        $encounterRange += $this->getEncounterRangeMalusByStrength($rangedWeaponCode, $currentStrength);
-        $encounterRange += $this->getEncounterRangeBonusByStrength($rangedWeaponCode, $currentStrength);
-        $encounterRange += $this->getEncounterRangeBonusBySpeed($rangedWeaponCode, $currentSpeed);
+        if (!($weaponlikeCode instanceof RangedWeaponCode)) {
+            /** see melee weapon Length in PPH page 85 right column (length in meters is half of weapon length) */
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            $weaponLengthInMeters = SumAndRound::half($this->getLengthOfWeaponlike($weaponlikeCode));
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            $distance = new Distance($weaponLengthInMeters, Distance::M, $this->tables->getDistanceTable());
+
+            return $distance->getBonus()->getValue();
+        }
+        $encounterRange = $this->getRangeOfRangedWeapon($weaponlikeCode);
+        $encounterRange += $this->getEncounterRangeMalusByStrength($weaponlikeCode, $currentStrength);
+        $encounterRange += $this->getEncounterRangeBonusByStrength($weaponlikeCode, $currentStrength);
+        $encounterRange += $this->getEncounterRangeBonusBySpeed($weaponlikeCode, $currentSpeed);
 
         return $encounterRange;
     }

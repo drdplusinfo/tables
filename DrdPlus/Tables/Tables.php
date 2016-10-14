@@ -28,7 +28,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
-use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTable;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponStrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
@@ -803,7 +803,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
-     * @return MeleeWeaponlikeTable
+     * @return MeleeWeaponlikesTable
      * @throws UnknownMeleeWeaponlike
      */
     public function getMeleeWeaponlikeTableByMeleeWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)

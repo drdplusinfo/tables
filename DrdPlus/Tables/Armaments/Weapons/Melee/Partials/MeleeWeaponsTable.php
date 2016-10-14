@@ -3,11 +3,11 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikeTable;
+use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
-abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikeTable
+abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikesTable
 {
     protected function getRowsHeader()
     {
