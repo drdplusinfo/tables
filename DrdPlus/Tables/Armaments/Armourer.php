@@ -92,17 +92,19 @@ class Armourer extends StrictObject
     }
 
     /**
-     * @param WeaponlikeCode $weaponlikeCode
+     * Note about shield: shield is always used as a shield for cover, even if is used for desperate attack.
+     *
+     * @param WeaponlikeCode $weaponOrShield
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getCoverOfWeaponOrShield(WeaponlikeCode $weaponlikeCode)
+    public function getCoverOfWeaponOrShield(WeaponlikeCode $weaponOrShield)
     {
-        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getCoverOf($weaponlikeCode);
+        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponOrShield)->getCoverOf($weaponOrShield);
     }
 
     /**
-     * Even shield can ba used as weapon, just quite ineffective.
+     * Even shield can be used as weapon, just quite ineffective.
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
@@ -294,9 +296,9 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Note about shield: this malus is applied by the same way if used shield as a protective item as well as a weapon.
+     * Note about shield: this malus is very same if used shield as a protective item as well as a weapon.
      *
-     * @param WeaponlikeCode $weaponlikeCode
+     * @param WeaponlikeCode $weaponOrShield
      * @param Strength $currentStrength
      * @return int
      * @throws Exceptions\UnknownArmament
@@ -304,10 +306,10 @@ class Armourer extends StrictObject
      * @throws Exceptions\UnknownWeaponlike
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getFightNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getFightNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponOrShield, Strength $currentStrength)
     {
-        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getFightNumberSanction(
-            $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponOrShield)->getFightNumberSanction(
+            $this->getMissingStrengthForArmament($weaponOrShield, $currentStrength, Size::getIt(0))
         );
     }
 
@@ -332,24 +334,25 @@ class Armourer extends StrictObject
     /**
      * Using ranged weapon for defense is possible (it has always cover of 2) but there is 50% chance it will be
      * destroyed.
+     * Note about shield: this malus is very same if used shield as a protective item as well as a weapon.
      *
-     * @param WeaponlikeCode $weaponlikeCode
+     * @param WeaponlikeCode $weaponOrShield
      * @param Strength $currentStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getDefenseNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponOrShield, Strength $currentStrength)
     {
-        if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isMelee()) {
+        if ($weaponOrShield instanceof RangedWeaponCode && $weaponOrShield->isMelee()) {
             // spear can be used more effectively to cover as a melee weapon
-            $weaponlikeCode = $weaponlikeCode->convertToMeleeWeaponCodeEquivalent();
+            $weaponOrShield = $weaponOrShield->convertToMeleeWeaponCodeEquivalent();
         }
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getDefenseNumberSanction(
-            $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
+        return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponOrShield)->getDefenseNumberSanction(
+            $this->getMissingStrengthForArmament($weaponOrShield, $currentStrength, Size::getIt(0))
         );
     }
 
@@ -575,6 +578,7 @@ class Armourer extends StrictObject
      * Gives malus to cover with a weapon or a shield according to given skill rank.
      * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not
      * have maximal skill). Correct is @see \DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable
+     * Note about shield: shield is always used as a shield for cover, even if is used for desperate attack.
      *
      * @param PositiveInteger $weaponTypeSkillRank
      * @param WeaponlikeCode $weaponOrShield
