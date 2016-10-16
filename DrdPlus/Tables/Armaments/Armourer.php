@@ -236,22 +236,33 @@ class Armourer extends StrictObject
     // ARMAMENTS USAGE AFFECTED BY STRENGTH
 
     /**
+     * Gives effective strength usable for attack with given weapon (has usage for bows and crossbows).
+     *
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @return Strength
      * @throws UnknownBow
+     * @throws UnknownRangedWeapon
      */
     public function getApplicableStrength(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
-        if ((!$weaponlikeCode instanceof RangedWeaponCode) || !$weaponlikeCode->isBow()) {
+        if (!$weaponlikeCode->isShootingWeapon()) {
             return $currentStrength;
         }
-        $strengthValue = min(
-            $currentStrength->getValue(),
-            $this->tables->getBowsTable()->getMaximalApplicableStrengthOf($weaponlikeCode)
-        );
+        assert($weaponlikeCode instanceof RangedWeaponCode);
+        /** @var RangedWeaponCode $weaponlikeCode */
+        if ($weaponlikeCode->isBow()) {
+            $strengthValue = min(
+                $currentStrength->getValue(),
+                $this->tables->getBowsTable()->getMaximalApplicableStrengthOf($weaponlikeCode)
+            );
 
-        return Strength::getIt($strengthValue);
+            return Strength::getIt($strengthValue);
+        }
+        assert($weaponlikeCode->isCrossbow());
+
+        // crossbow as a machine does not apply shooter strength, just its own - see PPH page 94 right column
+        return Strength::getIt($this->tables->getCrossbowsTable()->getRequiredStrengthOf($weaponlikeCode));
     }
 
     /**
@@ -451,15 +462,11 @@ class Armourer extends StrictObject
      * @throws UnknownArmament
      * @throws UnknownBow
      */
-    private function getEncounterRangeMalusByStrength(
-        RangedWeaponCode $rangedWeaponCode,
-        Strength $currentStrength
-    )
+    private function getEncounterRangeMalusByStrength(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
     {
         if (!$rangedWeaponCode->isBow() && !$rangedWeaponCode->isThrowingWeapon()) {
             return 0;
         }
-        $currentStrength = $this->getApplicableStrength($rangedWeaponCode, $currentStrength);
         $missingStrength = $this->getMissingStrengthForArmament(
             $rangedWeaponCode,
             $currentStrength,
@@ -481,6 +488,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws UnknownBow
+     * @throws UnknownRangedWeapon
      */
     private function getEncounterRangeBonusByStrength(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
     {
@@ -650,6 +658,33 @@ class Armourer extends StrictObject
         }
 
         return $restriction;
+    }
+
+    // summations
+
+    /**
+     * Gives base of wound with a weapon and user strength.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @param Strength $currentStrength
+     * @return int
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws Exceptions\UnknownArmament
+     * @throws Exceptions\UnknownWeaponlike
+     * @throws Exceptions\UnknownRangedWeapon
+     * @throws UnknownMeleeWeaponlike
+     * @throws UnknownBow
+     */
+    public function getBaseOfWoundsUsingWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $baseOfWounds = $this->tables->getBaseOfWoundsTable()->calculateBaseOfWounds(
+            $this->getWoundsOfWeaponlike($weaponlikeCode),
+            $this->getApplicableStrength($weaponlikeCode, $currentStrength)
+        );
+        $baseOfWounds += $this->getBaseOfWoundsMalusByStrengthWithWeaponlike($weaponlikeCode, $currentStrength);
+
+        return $baseOfWounds;
     }
 
 }
