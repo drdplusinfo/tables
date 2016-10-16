@@ -161,9 +161,7 @@ class Armourer extends StrictObject
             // shooting weapons are two-handed (except minicrossbow), projectiles are not
             $this->isTwoHandedOnly($weaponToHoldByTwoHands) // the weapon is explicitly two-handed
             // or it is melee weapon with length at least 1 (see PPH page 92 right column)
-            || ($weaponToHoldByTwoHands->isMelee()
-                && $this->tables->getArmourer()->getLengthOfWeaponlike($weaponToHoldByTwoHands) >= 1
-            );
+            || ($weaponToHoldByTwoHands->isMelee() && $this->getLengthOfWeaponlike($weaponToHoldByTwoHands) >= 1);
     }
 
     /**
@@ -188,8 +186,9 @@ class Armourer extends StrictObject
      */
     public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode)
     {
-        return $this->canHoldItByOneHand($weaponlikeCode)
-        && $this->canHoldItByTwoHands($weaponlikeCode);
+        return
+            $this->canHoldItByOneHand($weaponlikeCode)
+            && $this->canHoldItByTwoHands($weaponlikeCode);
     }
 
     /**
@@ -677,6 +676,7 @@ class Armourer extends StrictObject
      */
     public function getBaseOfWoundsUsingWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
     {
+        // weapon base of wounds has to be summed with strength via bonus summing, see PPH page 92 right column
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $baseOfWounds = $this->tables->getBaseOfWoundsTable()->calculateBaseOfWounds(
             $this->getWoundsOfWeaponlike($weaponlikeCode),
@@ -685,6 +685,38 @@ class Armourer extends StrictObject
         $baseOfWounds += $this->getBaseOfWoundsMalusByStrengthWithWeaponlike($weaponlikeCode, $currentStrength);
 
         return $baseOfWounds;
+    }
+
+    /**
+     * Melee weapon holdable by a single hand but holt by two hands gives more damage (+2).
+     * PPH page 92 right column
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @param bool $holdsWeaponByTwoHands
+     * @return int
+     * @throws Exceptions\CanNotHoldWeaponByTwoHands
+     * @throws Exceptions\UnknownWeaponlike
+     */
+    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, $holdsWeaponByTwoHands)
+    {
+        if (!$holdsWeaponByTwoHands) {
+            return 0;
+        }
+
+        if (!$this->canHoldItByTwoHands($weaponlikeCode)) {
+            throw new Exceptions\CanNotHoldWeaponByTwoHands(
+                'To get base of wounds bonus for two-hands holding you have to use appropriate weapon'
+                . ", got '{$weaponlikeCode}'"
+            );
+        }
+        if (!$weaponlikeCode->isMelee()) {
+            return 0;
+        }
+        if (!$this->canHoldItByOneHandAsWellAsTwoHands($weaponlikeCode)) {
+            return 0;
+        }
+
+        return 2;
     }
 
 }

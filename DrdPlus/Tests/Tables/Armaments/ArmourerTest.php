@@ -20,6 +20,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
+use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -376,6 +377,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(true);
         $code->shouldReceive('isShootingWeapon')
             ->andReturn(false);
+        $code->shouldReceive('isMelee')
+            ->andReturn(true);
 
         return $code;
     }
@@ -1477,6 +1480,110 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(789);
 
         self::assertSame(0, (new Armourer($tables))->getProtectiveArmamentRestrictionForSkillRank($shield, $skillRank));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_base_of_wounds_for_used_weapon_with_current_strength()
+    {
+        $axe = $this->createMeleeWeaponCode('foo', 'axe');
+        $currentStrength = Strength::getIt(123);
+        $tables = $this->createTables();
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($axe)
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getWoundsOf')
+            ->with($axe)
+            ->andReturn(789);
+        $tables->shouldReceive('getBaseOfWoundsTable')
+            ->andReturn($baseOfWoundsTable = $this->mockery(BaseOfWoundsTable::class));
+        $baseOfWoundsTable->shouldReceive('calculateBaseOfWounds')
+            ->with(789, $currentStrength)
+            ->andReturn(456);
+        $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
+            ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->with($axe)
+            ->andReturn($meleeWeaponlikesTable);
+        $meleeWeaponlikesTable->shouldReceive('getRequiredStrengthOf')
+            ->with($axe)
+            ->andReturn(555);
+        $meleeWeaponSanctionsTable->shouldReceive('getBaseOfWoundsSanction')
+            ->with(555 - 123)
+            ->andReturn(234);
+
+        self::assertSame(456 + 234, (new Armourer($tables))->getBaseOfWoundsUsingWeaponlike($axe, $currentStrength));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_base_of_wounds_bonus_for_two_hand_holding_of_one_hand_melee_weapon()
+    {
+        $tables = $this->createTables();
+        $armourer = new Armourer($tables);
+        self::assertSame(
+            0,
+            $armourer->getBaseOfWoundsBonusForHolding($this->createMeleeWeaponlikeCode('foo', 'bar'), false)
+        );
+
+        $bow = $this->createRangedWeaponCode('foo', 'bow');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($bow)
+            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
+        $rangedWeaponsTable->shouldReceive('getTwoHandedOf')
+            ->with($bow)
+            ->andReturn(true);
+        self::assertSame(0, $armourer->getBaseOfWoundsBonusForHolding($bow, true));
+
+        $pike = $this->createMeleeWeaponCode('foo', 'staffOrSpear');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($pike)
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+            ->with($pike)
+            ->andReturn(true);
+        self::assertSame(0, $armourer->getBaseOfWoundsBonusForHolding($pike, true));
+
+        $shortSword = $this->createMeleeWeaponCode('foo', 'sword');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($shortSword)
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+            ->with($shortSword)
+            ->andReturn(false);
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->with($shortSword)
+            ->andReturn($meleeWeaponlikesTable);
+        $meleeWeaponlikesTable->shouldReceive('getLengthOf')
+            ->with($shortSword)
+            ->andReturn(1);
+        self::assertSame(2, $armourer->getBaseOfWoundsBonusForHolding($shortSword, true));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
+     * @expectedExceptionMessageRegExp ~stilleto~
+     */
+    public function I_can_not_get_base_of_wounds_bonus_for_too_short_melee_weapon()
+    {
+        $tables = $this->createTables();
+        $dagger = $this->createMeleeWeaponCode('stilleto', 'knifeOrDagger');
+        $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
+            ->with($dagger)
+            ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+            ->with($dagger)
+            ->andReturn(false);
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->with($dagger)
+            ->andReturn($meleeWeaponlikesTable);
+        $meleeWeaponlikesTable->shouldReceive('getLengthOf')
+            ->with($dagger)
+            ->andReturn(0);
+        self::assertSame(0, (new Armourer($tables))->getBaseOfWoundsBonusForHolding($dagger, true));
     }
 
 }
