@@ -11,6 +11,8 @@ use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
+use DrdPlus\Properties\Combat\EncounterRange;
+use DrdPlus\Properties\Combat\MaximalRange;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
@@ -342,6 +344,45 @@ class Armourer extends StrictObject
     }
 
     /**
+     * Distance modifier can be solved very roughly by a simple table or more precisely with continual values by a calculation.
+     * This uses that calculation.
+     * See PPH page 104 left column.
+     *
+     * @param EncounterRange $currentEncounterRange
+     * @param Distance $distance
+     * @param MaximalRange $currentMaximalRange
+     * @return int
+     * @throws Exceptions\DistanceIsOutOfMaximalRange
+     * @throws Exceptions\EncounterRangeCanNotBeGreaterThanMaximalRange
+     */
+    public function getAttackNumberModifierByDistance(
+        Distance $distance,
+        EncounterRange $currentEncounterRange,
+        MaximalRange $currentMaximalRange
+    )
+    {
+        if ($distance->getBonus()->getValue() > $currentMaximalRange->getValue()) { // comparing distance bonuses in fact
+            throw new Exceptions\DistanceIsOutOfMaximalRange(
+                "Given distance {$distance->getBonus()} ({$distance->getMeters()} meters)"
+                . " is out of maximal range {$currentMaximalRange}"
+                . ' ('. $currentMaximalRange->getInMeters($this->tables->getDistanceTable()) . ' meters)'
+            );
+        }
+        if ($currentEncounterRange->getValue() > $currentMaximalRange->getValue()) {
+            throw new Exceptions\EncounterRangeCanNotBeGreaterThanMaximalRange(
+                "Got encounter range {$currentEncounterRange} greater than given maximal range {$currentMaximalRange}"
+            );
+        }
+        $attackNumberModifier = 0;
+        $attackNumberModifier -= SumAndRound::half($distance->getBonus()->getValue()) - 9; // PPH page 104 left column
+        if ($distance->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
+            $attackNumberModifier += $currentEncounterRange->getValue() - $distance->getBonus()->getValue(); // always negative
+        }
+
+        return $attackNumberModifier;
+    }
+
+    /**
      * Using ranged weapon for defense is possible (it has always cover of 2) but there is 50% chance it will be
      * destroyed.
      * Note about shield: this malus is very same if used shield as a protective item as well as a weapon.
@@ -424,7 +465,7 @@ class Armourer extends StrictObject
      * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength
      * @param Speed $currentSpeed
-     * @return int
+     * @return EncounterRange
      * @throws CanNotUseWeaponBecauseOfMissingStrength
      * @throws UnknownArmament
      * @throws UnknownRangedWeapon
@@ -437,20 +478,17 @@ class Armourer extends StrictObject
     )
     {
         if (!($weaponlikeCode instanceof RangedWeaponCode)) {
-            /** see melee weapon Length in PPH page 85 right column (length in meters is half of weapon length) */
+            /** note: melee weapon length in meters is half of weapon length, see PPH page 85 right column */
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $weaponLengthInMeters = SumAndRound::half($this->getLengthOfWeaponlike($weaponlikeCode));
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $distance = new Distance($weaponLengthInMeters, Distance::M, $this->tables->getDistanceTable());
-
-            return $distance->getBonus()->getValue();
+            return new EncounterRange(0);
         }
         $encounterRange = $this->getRangeOfRangedWeapon($weaponlikeCode);
         $encounterRange += $this->getEncounterRangeMalusByStrength($weaponlikeCode, $currentStrength);
         $encounterRange += $this->getEncounterRangeBonusByStrength($weaponlikeCode, $currentStrength);
         $encounterRange += $this->getEncounterRangeBonusBySpeed($weaponlikeCode, $currentSpeed);
 
-        return $encounterRange;
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return new EncounterRange($encounterRange);
     }
 
     /**
@@ -516,6 +554,35 @@ class Armourer extends StrictObject
         }
 
         return SumAndRound::half($speed->getValue());
+    }
+
+    /**
+     * Ranged weapons can be used for indirect shooting and those have much longer maximal and still somehow
+     * controllable
+     * (more or less - depends on weapon) range.
+     * Others have their maximal (and still controllable) range same as encounter range.
+     * See PPH page 104 left column.
+     *
+     * @param WeaponlikeCode $weaponlikeCode
+     * @param Strength $currentStrength
+     * @param Speed $currentSpeed
+     * @return MaximalRange
+     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws UnknownArmament
+     * @throws UnknownRangedWeapon
+     * @throws UnknownBow
+     */
+    public function getMaximalRangeWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength, Speed $currentSpeed)
+    {
+        $encounterRange = $this->getEncounterRangeWithWeaponlike($weaponlikeCode, $currentStrength, $currentSpeed);
+        if ($weaponlikeCode->isMelee()) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return MaximalRange::createForMeleeWeapon($encounterRange); // that is without change and that is zero
+        }
+
+        assert($weaponlikeCode->isRanged());
+
+        return MaximalRange::createForRangedWeapon($encounterRange);
     }
 
     // armor-specific usage affected by strength

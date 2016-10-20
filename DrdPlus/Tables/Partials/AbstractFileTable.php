@@ -234,16 +234,16 @@ abstract class AbstractFileTable extends AbstractTable
     private function normalizeScalarType($scalarType)
     {
         switch (strtolower($scalarType)) {
-            case self::BOOLEAN :
-                return self::BOOLEAN;
-            case self::FLOAT :
-                return self::FLOAT;
             case self::INTEGER :
                 return self::INTEGER;
             case self::POSITIVE_INTEGER :
                 return self::POSITIVE_INTEGER;
             case self::NEGATIVE_INTEGER :
                 return self::NEGATIVE_INTEGER;
+            case self::BOOLEAN :
+                return self::BOOLEAN;
+            case self::FLOAT :
+                return self::FLOAT;
             case self::STRING :
                 return self::STRING;
             default :

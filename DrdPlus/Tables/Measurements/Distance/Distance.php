@@ -52,6 +52,7 @@ class Distance extends AbstractMeasurementWithBonus
      */
     public function getMeters()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::M);
     }
 
@@ -59,8 +60,10 @@ class Distance extends AbstractMeasurementWithBonus
      * @param $value
      * @param $fromUnit
      * @param $toUnit
-     *
      * @return float
+     * @throws UnknownUnit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
     private function getValueInDifferentUnit($value, $fromUnit, $toUnit)
     {
@@ -84,6 +87,7 @@ class Distance extends AbstractMeasurementWithBonus
      */
     public function getKilometers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::KM);
     }
 
@@ -92,6 +96,7 @@ class Distance extends AbstractMeasurementWithBonus
      */
     public function getLightYears()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::LIGHT_YEAR);
     }
 

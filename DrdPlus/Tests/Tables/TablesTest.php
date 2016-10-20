@@ -39,7 +39,7 @@ class TablesTest extends TestWithMockery
             $getTable = "get{$baseName}";
             self::assertTrue(
                 method_exists($tables, $getTable),
-                'Tables factory is missing getter for ' . $baseName . ' (or the class should be abstract?)'
+                "'Tables' factory is missing getter for {$baseName} (or the class should be abstract?)"
             );
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);

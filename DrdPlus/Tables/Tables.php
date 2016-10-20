@@ -61,7 +61,9 @@ use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
+use DrdPlus\Tables\Environments\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
+use DrdPlus\Tables\Environments\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
@@ -597,6 +599,30 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return AttackNumberByDistanceTable
+     */
+    public function getAttackNumberByDistanceTable()
+    {
+        if (!array_key_exists(AttackNumberByDistanceTable::class, $this->tables)) {
+            $this->tables[AttackNumberByDistanceTable::class] = new AttackNumberByDistanceTable();
+        }
+
+        return $this->tables[AttackNumberByDistanceTable::class];
+    }
+
+    /**
+     * @return ContinuousAttackNumberByDistanceTable
+     */
+    public function getContinuousAttackNumberByDistanceTable()
+    {
+        if (!array_key_exists(ContinuousAttackNumberByDistanceTable::class, $this->tables)) {
+            $this->tables[ContinuousAttackNumberByDistanceTable::class] = new ContinuousAttackNumberByDistanceTable();
+        }
+
+        return $this->tables[ContinuousAttackNumberByDistanceTable::class];
+    }
+
+    /**
      * @return FatigueByLoadTable
      */
     public function getFatigueByLoadTable()
@@ -746,6 +772,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getHealingByConditionsTable(),
             $this->getMovementTypesTable(),
             $this->getImpassibilityOfTerrainTable(),
+            $this->getAttackNumberByDistanceTable(),
+            $this->getContinuousAttackNumberByDistanceTable(),
             $this->getFatigueByLoadTable(),
             $this->getRestingBySituationTable(),
             $this->getRidesTable(),
