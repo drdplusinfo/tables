@@ -23,10 +23,10 @@ class MeasurementTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_measurement_value_by_to_string_conversion()
+    public function I_can_get_measurement_value_and_unit_by_to_string_conversion()
     {
-        $measurement = new DeAbstractedMeasurement($value = 123, DeAbstractedMeasurement::POSSIBLE_UNIT);
-        self::assertSame((string)$value, (string)$measurement);
+        $measurement = new DeAbstractedMeasurement($value = 123, $unit = DeAbstractedMeasurement::POSSIBLE_UNIT);
+        self::assertSame("$value $unit", (string)$measurement);
     }
 
     /**
