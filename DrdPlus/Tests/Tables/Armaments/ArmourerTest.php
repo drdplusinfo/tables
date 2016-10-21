@@ -664,37 +664,36 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_can_get_attack_number_modifier_by_distance()
     {
-        $armourer = new Armourer($this->createTables());
-        $continuousModificationsByDistanceTable = new ContinuousAttackNumberByDistanceTable();
-        foreach ($continuousModificationsByDistanceTable->getIndexedValues() as $row) {
-            $distanceBonus = $row[ContinuousAttackNumberByDistanceTable::DISTANCE_BONUS];
-            $expectedAttackNumberModification = $row[ContinuousAttackNumberByDistanceTable::RANGED_ATTACK_NUMBER_MODIFICATION];
-            self::assertLessThan(456, $distanceBonus);
-            self::assertSame(
-                $expectedAttackNumberModification,
-                $armourer->getAttackNumberModifierByDistance(
-                    $this->createDistanceWithBonus($distanceBonus),
-                    $this->createEncounterRange(456),
-                    $this->createMaximalRange(789)
-                ),
-                'Should match to modification from' . ContinuousAttackNumberByDistanceTable::class
-            );
-        }
-
-        // some crazy values
+        $armourer = new Armourer($tables = $this->createTables());
+        $distance = $this->createDistanceWithBonus(123);
+        $tables->shouldReceive('getContinuousAttackNumberByDistanceTable')
+            ->andReturn($continuousAttackNumberByDistanceTable = $this->mockery(ContinuousAttackNumberByDistanceTable::class));
+        $continuousAttackNumberByDistanceTable->shouldReceive('getAttackNumberModifierByDistance')
+            ->with($distance)
+            ->andReturn(112233);
         self::assertSame(
-            -53, // -(round(123 / 2) - 9)
+            112233,
             $armourer->getAttackNumberModifierByDistance(
-                $this->createDistanceWithBonus(123),
+                $distance,
                 $this->createEncounterRange(456),
+                $this->createMaximalRange(789)
+            ),
+            'Should match to modification from' . ContinuousAttackNumberByDistanceTable::class
+        );
+
+        self::assertSame(
+            112233,
+            $armourer->getAttackNumberModifierByDistance(
+                $distance,
+                $this->createEncounterRange(123), // distance is on edge of encounter range
                 $this->createMaximalRange(789)
             )
         );
         self::assertSame(
-            -552,// -(456 / 2 - 9) + (123 - 456)
+            112233 + (1 /* encounter range */ - 123 /* distance */),
             $armourer->getAttackNumberModifierByDistance(
-                $this->createDistanceWithBonus(456),
-                $this->createEncounterRange(123),
+                $distance,
+                $this->createEncounterRange(1), // distance is out of encounter range but still in maximal range
                 $this->createMaximalRange(789)
             )
         );

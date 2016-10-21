@@ -21,6 +21,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow;
+use DrdPlus\Tables\Environments\Exceptions\DistanceOutOfKnownValues;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tools\Calculations\SumAndRound;
@@ -354,6 +355,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws Exceptions\DistanceIsOutOfMaximalRange
      * @throws Exceptions\EncounterRangeCanNotBeGreaterThanMaximalRange
+     * @throws DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(
         Distance $distance,
@@ -373,8 +375,8 @@ class Armourer extends StrictObject
                 "Got encounter range {$currentEncounterRange} greater than given maximal range {$currentMaximalRange}"
             );
         }
-        $attackNumberModifier = 0;
-        $attackNumberModifier -= SumAndRound::half($distance->getBonus()->getValue()) - 9; // PPH page 104 left column
+        $attackNumberModifier = $this->tables->getContinuousAttackNumberByDistanceTable()
+            ->getAttackNumberModifierByDistance($distance);
         if ($distance->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
             $attackNumberModifier += $currentEncounterRange->getValue() - $distance->getBonus()->getValue(); // always negative
         }
