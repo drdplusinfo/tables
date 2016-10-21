@@ -3,8 +3,10 @@ namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Tables\Environments\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Environments\Partials\AbstractAttackNumberByDistanceTableTest;
+use DrdPlus\Tools\Calculations\SumAndRound;
 
 class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
 {
@@ -23,24 +25,15 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
 
     public function provideDistanceAndExpectedModifier()
     {
-        return [
-            [1, 9],
-            [2, 6],
-            [4, 3],
-            [5, 2],
-            [6, 1],
-            [7, 0],
-            [8, 0],
-            [9, -1],
-            [10, -1],
-            [11, -2],
-            [12, -2],
-            // ...
-            [100, -11],
-            [200, -14],
-            [400, -17],
-            [900, -21],
-        ];
+        $testValues = [];
+        $distanceTable = new DistanceTable();
+        for ($distanceBonus = 1; $distanceBonus < 100; $distanceBonus++) {
+            $distanceInMeters = (new DistanceBonus($distanceBonus, $distanceTable))->getDistance()->getMeters();
+            $attackNumberModifier = -(SumAndRound::half($distanceBonus) - 9); // PPH page 104 left column
+            $testValues[] = [$distanceInMeters, $attackNumberModifier];
+        }
+
+        return $testValues;
     }
 
     /**

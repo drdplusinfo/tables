@@ -14,7 +14,7 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::DISTANCE_BONUS => self::POSITIVE_INTEGER,
+            self::DISTANCE_BONUS => self::INTEGER,
             self::RANGED_ATTACK_NUMBER_MODIFICATION => self::INTEGER,
         ];
     }
