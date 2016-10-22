@@ -17,7 +17,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
     {
         self::assertSame(
             [
-                ['distance_in_meters', 'distance_bonus', 'ranged_attack_number_modification'],
+                ['distance_in_meters', 'distance_bonus', 'ranged_attack_number_modifier'],
             ],
             (new ContinuousAttackNumberByDistanceTable())->getHeader()
         );

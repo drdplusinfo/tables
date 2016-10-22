@@ -12,11 +12,11 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
         return __DIR__ . '/data/attack_number_by_distance_table.csv';
     }
 
-    const DISTANCE_IN_METERS_UP_TO = 'distance_in_meters_up_to';
+    const DISTANCE_IN_METERS_FROM = 'distance_in_meters_from';
 
     protected function getRowsHeader()
     {
-        return [self::DISTANCE_IN_METERS_UP_TO];
+        return [self::DISTANCE_IN_METERS_FROM];
     }
 
     /**
@@ -27,14 +27,14 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
     {
         $distanceInMeters = $distance->getMeters();
         $orderedByDistanceDesc = $this->getOrderedByDistanceAsc();
-        foreach ($orderedByDistanceDesc as $distanceInMetersUpTo => $row) {
+        $attackNumberModifierCandidate = null;
+        foreach ($orderedByDistanceDesc as $distanceInMetersFrom => $row) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            if ($distanceInMeters < ToFloat::toPositiveFloat($distanceInMetersUpTo)) { // excluding
-                return $row[self::RANGED_ATTACK_NUMBER_MODIFICATION];
+            if ($distanceInMeters >= ToFloat::toPositiveFloat($distanceInMetersFrom)) {
+                $attackNumberModifierCandidate = $row[self::RANGED_ATTACK_NUMBER_MODIFIER];
             }
         }
 
-        // the highest range fits to any higher distance
-        return end($orderedByDistanceDesc)[self::RANGED_ATTACK_NUMBER_MODIFICATION];
+        return $attackNumberModifierCandidate;
     }
 }

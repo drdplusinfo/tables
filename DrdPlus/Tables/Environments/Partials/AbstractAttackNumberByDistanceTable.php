@@ -9,13 +9,13 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
 {
 
     const DISTANCE_BONUS = 'distance_bonus';
-    const RANGED_ATTACK_NUMBER_MODIFICATION = 'ranged_attack_number_modification';
+    const RANGED_ATTACK_NUMBER_MODIFIER = 'ranged_attack_number_modifier';
 
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::DISTANCE_BONUS => self::INTEGER,
-            self::RANGED_ATTACK_NUMBER_MODIFICATION => self::INTEGER,
+            self::RANGED_ATTACK_NUMBER_MODIFIER => self::INTEGER,
         ];
     }
 

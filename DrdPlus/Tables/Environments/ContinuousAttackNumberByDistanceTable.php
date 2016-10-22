@@ -34,7 +34,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
         foreach ($orderedByDistanceDesc as $distanceInMetersTo => $row) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             if ($distanceInMeters <= ToFloat::toPositiveFloat($distanceInMetersTo)) { // including
-                return $row[self::RANGED_ATTACK_NUMBER_MODIFICATION];
+                return $row[self::RANGED_ATTACK_NUMBER_MODIFIER];
             }
         }
 

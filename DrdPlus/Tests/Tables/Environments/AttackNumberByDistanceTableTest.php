@@ -13,7 +13,7 @@ class AttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTabl
     {
         self::assertSame(
             [
-                ['distance_in_meters_up_to', 'distance_bonus', 'ranged_attack_number_modification'],
+                ['distance_in_meters_from', 'distance_bonus', 'ranged_attack_number_modifier'],
             ],
             (new AttackNumberByDistanceTable())->getHeader()
         );
@@ -26,17 +26,17 @@ class AttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTabl
             [1, 3],
             [2, 3],
             [3.1, 3],
-            [3.2, 0],
-            [4, 0],
-            [5.5, 0],
-            [5.6, -3],
-            [5.7, -3],
-            [10.9, -3],
-            [11, -6],
-            [21.9, -6],
-            [22, -9],
-            [44.9, -9],
-            [45, -12],
+            [3.2, 3],
+            [4, 3],
+            [5.5, 3],
+            [5.6, 0],
+            [5.7, 0],
+            [10.9, 0],
+            [11, -3],
+            [21.9, -3],
+            [22, -6],
+            [44.9, -6],
+            [45, -9],
             [90, -12],
             [350, -12],
         ];
