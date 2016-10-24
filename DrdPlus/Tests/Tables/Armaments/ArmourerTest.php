@@ -5,6 +5,7 @@ use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Properties\Base\Strength;
@@ -16,6 +17,7 @@ use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
+use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
@@ -1398,6 +1400,106 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getRangeOfRangedWeapon($bow));
     }
+
+    // projectiles
+
+    /**
+     * @test
+     */
+    public function I_can_get_offensiveness_modifier_of_projectile()
+    {
+        $tables = $this->createTables();
+        $projectileCode = $this->createProjectileCode();
+        $tables->shouldReceive('getProjectilesTableByProjectiveCode')
+            ->with($projectileCode)
+            ->andReturn($projectilesTable = $this->createProjectilesTable());
+        $projectilesTable->shouldReceive('getOffensivenessOf')
+            ->with($projectileCode)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getOffensivenessModifierOfProjectile($projectileCode));
+    }
+
+    /**
+     * @return \Mockery\MockInterface|ProjectileCode
+     */
+    private function createProjectileCode()
+    {
+        return $this->mockery(ProjectileCode::class);
+    }
+
+    /**
+     * @return \Mockery\MockInterface|ProjectilesTable
+     */
+    private function createProjectilesTable()
+    {
+        return $this->mockery(ProjectilesTable::class);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_modifier_of_projectile()
+    {
+        $tables = $this->createTables();
+        $projectileCode = $this->createProjectileCode();
+        $tables->shouldReceive('getProjectilesTableByProjectiveCode')
+            ->with($projectileCode)
+            ->andReturn($projectilesTable = $this->createProjectilesTable());
+        $projectilesTable->shouldReceive('getWoundsOf')
+            ->with($projectileCode)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsModifierOfProjectile($projectileCode));
+    }
+    
+    /**
+     * @test
+     */
+    public function I_can_get_wounds_type_of_projectile()
+    {
+        $tables = $this->createTables();
+        $projectileCode = $this->createProjectileCode();
+        $tables->shouldReceive('getProjectilesTableByProjectiveCode')
+            ->with($projectileCode)
+            ->andReturn($projectilesTable = $this->createProjectilesTable());
+        $projectilesTable->shouldReceive('getWoundsTypeOf')
+            ->with($projectileCode)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsTypeOfProjectile($projectileCode));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_range_modifier_of_projectile()
+    {
+        $tables = $this->createTables();
+        $projectileCode = $this->createProjectileCode();
+        $tables->shouldReceive('getProjectilesTableByProjectiveCode')
+            ->with($projectileCode)
+            ->andReturn($projectilesTable = $this->createProjectilesTable());
+        $projectilesTable->shouldReceive('getRangeOf')
+            ->with($projectileCode)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getRangeModifierOfProjectile($projectileCode));
+    }
+    
+    /**
+     * @test
+     */
+    public function I_can_get_weight_of_projectile()
+    {
+        $tables = $this->createTables();
+        $projectileCode = $this->createProjectileCode();
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->with($projectileCode)
+            ->andReturn($projectilesTable = $this->createProjectilesTable());
+        $projectilesTable->shouldReceive('getWeightOf')
+            ->with($projectileCode)
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWeightOfArmament($projectileCode));
+    }
+    
+    // strength effect
 
     /**
      * @test

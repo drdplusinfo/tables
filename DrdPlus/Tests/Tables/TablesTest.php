@@ -3,13 +3,16 @@ namespace DrdPlus\Tables;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
+use DrdPlus\Codes\Armaments\ArrowCode;
 use DrdPlus\Codes\Armaments\BodyArmorCode;
+use DrdPlus\Codes\Armaments\DartCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
+use DrdPlus\Codes\Armaments\SlingStoneCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Codes\Partials\AbstractCode;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
@@ -17,6 +20,9 @@ use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
+use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
+use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
@@ -132,6 +138,9 @@ class TablesTest extends TestWithMockery
             ShieldCode::class => ShieldsTable::class,
             MeleeWeaponCode::class => MeleeWeaponsTable::class,
             RangedWeaponCode::class => RangedWeaponsTable::class,
+            ArrowCode::class => ArrowsTable::class,
+            DartCode::class => DartsTable::class,
+            SlingStoneCode::class => SlingStonesTable::class,
         ] as $codeClass => $tableClass) {
             foreach ($this->pairCodesWithClass($this->getCodes($codeClass), $tableClass) as $pair) {
                 $values[] = $pair;

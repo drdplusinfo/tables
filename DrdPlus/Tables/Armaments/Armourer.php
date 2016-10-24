@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Armaments;
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
@@ -227,6 +228,48 @@ class Armourer extends StrictObject
     public function getRangeOfRangedWeapon(RangedWeaponCode $rangedWeaponCode)
     {
         return $this->tables->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode)->getRangeOf($rangedWeaponCode);
+    }
+
+    // projectile-specific
+
+    /**
+     * @param ProjectileCode $projectileCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     */
+    public function getOffensivenessModifierOfProjectile(ProjectileCode $projectileCode)
+    {
+        return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getOffensivenessOf($projectileCode);
+    }
+
+    /**
+     * @param ProjectileCode $projectileCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     */
+    public function getWoundsModifierOfProjectile(ProjectileCode $projectileCode)
+    {
+        return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getWoundsOf($projectileCode);
+    }
+
+    /**
+     * @param ProjectileCode $projectileCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     */
+    public function getWoundsTypeOfProjectile(ProjectileCode $projectileCode)
+    {
+        return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getWoundsTypeOf($projectileCode);
+    }
+
+    /**
+     * @param ProjectileCode $projectileCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     */
+    public function getRangeModifierOfProjectile(ProjectileCode $projectileCode)
+    {
+        return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getRangeOf($projectileCode);
     }
 
     // ARMAMENTS USAGE AFFECTED BY STRENGTH

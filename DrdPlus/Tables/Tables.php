@@ -34,7 +34,10 @@ use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponStrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
-use DrdPlus\Tables\Armaments\Partials\WearablesTable;
+use DrdPlus\Tables\Armaments\Partials\HeavyBearablesTable;
+use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
+use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
+use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
@@ -50,12 +53,9 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
 use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\DartsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\ThrowingWeaponsTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
@@ -800,7 +800,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return WearablesTable
+     * @return HeavyBearablesTable
      * @throws UnknownArmament
      */
     public function getArmamentsTableByArmamentCode(ArmamentCode $armamentCode)
@@ -810,6 +810,9 @@ class Tables extends StrictObject implements \IteratorAggregate
         }
         if ($armamentCode instanceof ArmorCode) {
             return $this->getArmorsTableByArmorCode($armamentCode);
+        }
+        if ($armamentCode instanceof ProjectileCode) {
+            return $this->getProjectilesTableByProjectiveCode($armamentCode);
         }
         throw new UnknownArmament("Unknown type of armament '{$armamentCode}'");
     }
