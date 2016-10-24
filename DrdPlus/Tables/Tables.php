@@ -7,6 +7,7 @@ use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
@@ -22,6 +23,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
+use DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
@@ -52,7 +54,6 @@ use DrdPlus\Tables\Armaments\Weapons\Ranged\ArrowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\DartsTable;
-use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\ThrowingWeaponsTable;
@@ -884,30 +885,42 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param RangedWeaponCode $rangeWeaponCode
-     * @return RangedWeaponsTable
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
+     * @return BowsTable|CrossbowsTable|ThrowingWeaponsTable
+     * @throws UnknownRangedWeapon
      */
     public function getRangedWeaponsTableByRangedWeaponCode(RangedWeaponCode $rangeWeaponCode)
     {
-        if ($rangeWeaponCode->isArrow()) {
-            return $this->getArrowsTable();
-        }
+
         if ($rangeWeaponCode->isBow()) {
             return $this->getBowsTable();
         }
         if ($rangeWeaponCode->isCrossbow()) {
             return $this->getCrossbowsTable();
         }
-        if ($rangeWeaponCode->isDart()) {
-            return $this->getDartsTable();
-        }
-        if ($rangeWeaponCode->isSlingStone()) {
-            return $this->getSlingStonesTable();
-        }
+
         if ($rangeWeaponCode->isThrowingWeapon()) {
             return $this->getThrowingWeaponsTable();
         }
         throw new UnknownRangedWeapon("Unknown type of range weapon '{$rangeWeaponCode}'");
+    }
+
+    /**
+     * @param ProjectileCode $projectileCode
+     * @return ArrowsTable|DartsTable|SlingStonesTable
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     */
+    public function getProjectilesTableByProjectiveCode(ProjectileCode $projectileCode)
+    {
+        if ($projectileCode->isArrow()) {
+            return $this->getArrowsTable();
+        }
+        if ($projectileCode->isDart()) {
+            return $this->getDartsTable();
+        }
+        if ($projectileCode->isSlingStone()) {
+            return $this->getSlingStonesTable();
+        }
+        throw new UnknownProjectile("Unknown type of projectile '{$projectileCode}'");
     }
 
     /**

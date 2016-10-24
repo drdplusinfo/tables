@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
-use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Codes\Armaments\DartCode;
 use DrdPlus\Codes\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTest;
@@ -16,50 +16,50 @@ class DartsTableTest extends RangedWeaponsTableTest
     public function provideArmamentAndNameWithValue()
     {
         return [
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::WOUNDS, 0],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::RANGE, 0],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::COVER, 0],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::WEIGHT, 0.05],
-            [RangedWeaponCode::BASIC_DART, RangedWeaponsTable::TWO_HANDED, false],
+            [DartCode::BASIC_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [DartCode::BASIC_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [DartCode::BASIC_DART, RangedWeaponsTable::WOUNDS, 0],
+            [DartCode::BASIC_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [DartCode::BASIC_DART, RangedWeaponsTable::RANGE, 0],
+            [DartCode::BASIC_DART, RangedWeaponsTable::COVER, 0],
+            [DartCode::BASIC_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [DartCode::BASIC_DART, RangedWeaponsTable::TWO_HANDED, false],
 
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::WOUNDS, 2],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::RANGE, -2],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::COVER, 0],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::WEIGHT, 0.1],
-            [RangedWeaponCode::WAR_DART, RangedWeaponsTable::TWO_HANDED, false],
+            [DartCode::WAR_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [DartCode::WAR_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [DartCode::WAR_DART, RangedWeaponsTable::WOUNDS, 2],
+            [DartCode::WAR_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [DartCode::WAR_DART, RangedWeaponsTable::RANGE, -2],
+            [DartCode::WAR_DART, RangedWeaponsTable::COVER, 0],
+            [DartCode::WAR_DART, RangedWeaponsTable::WEIGHT, 0.1],
+            [DartCode::WAR_DART, RangedWeaponsTable::TWO_HANDED, false],
 
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::WOUNDS, -1],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::RANGE, 0],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::COVER, 0],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::WEIGHT, 0.05],
-            [RangedWeaponCode::PIERCING_DART, RangedWeaponsTable::TWO_HANDED, false],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::WOUNDS, -1],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::RANGE, 0],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::COVER, 0],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [DartCode::PIERCING_DART, RangedWeaponsTable::TWO_HANDED, false],
 
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::WOUNDS, -1],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::RANGE, 0],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::COVER, 0],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::WEIGHT, 0.05],
-            [RangedWeaponCode::HOLLOW_DART, RangedWeaponsTable::TWO_HANDED, false],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::WOUNDS, -1],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::RANGE, 0],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::COVER, 0],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [DartCode::HOLLOW_DART, RangedWeaponsTable::TWO_HANDED, false],
 
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::WOUNDS, 0],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::RANGE, 0],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::COVER, 0],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::WEIGHT, 0.05],
-            [RangedWeaponCode::SILVER_DART, RangedWeaponsTable::TWO_HANDED, false],
+            [DartCode::SILVER_DART, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [DartCode::SILVER_DART, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [DartCode::SILVER_DART, RangedWeaponsTable::WOUNDS, 0],
+            [DartCode::SILVER_DART, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [DartCode::SILVER_DART, RangedWeaponsTable::RANGE, 0],
+            [DartCode::SILVER_DART, RangedWeaponsTable::COVER, 0],
+            [DartCode::SILVER_DART, RangedWeaponsTable::WEIGHT, 0.05],
+            [DartCode::SILVER_DART, RangedWeaponsTable::TWO_HANDED, false],
         ];
     }
 

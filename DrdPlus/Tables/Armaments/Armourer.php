@@ -3,11 +3,9 @@ namespace DrdPlus\Tables\Armaments;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
-use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
-use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -189,9 +187,7 @@ class Armourer extends StrictObject
      */
     public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode)
     {
-        return
-            $this->canHoldItByOneHand($weaponlikeCode)
-            && $this->canHoldItByTwoHands($weaponlikeCode);
+        return $this->canHoldItByOneHand($weaponlikeCode) && $this->canHoldItByTwoHands($weaponlikeCode);
     }
 
     /**
@@ -202,9 +198,7 @@ class Armourer extends StrictObject
      */
     public function hasEmptyHand(WeaponlikeCode $weaponlikeCode)
     {
-        return
-            ($weaponlikeCode instanceof ShieldCode && $weaponlikeCode->isWithoutShield())
-            || ($weaponlikeCode instanceof MeleeWeaponCode && $weaponlikeCode->isUnarmed());
+        return $weaponlikeCode->isUnarmed();
     }
 
 

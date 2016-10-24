@@ -588,15 +588,10 @@ class ArmourerTest extends TestWithMockery
     public function provideStrengthAndRangedWeaponGroup()
     {
         return [
-            [123, 456, 0, 'arrow'],
-            [456, 123, 333, 'arrow'],
             [222, 333, 0, 'bow'],
             [222, 110, 112, 'bow'],
-            [963, 852, 111, 'dart'],
-            [0, 0, 0, 'dart'],
             [1, 0, 1, 'crossbow'],
             [-100, 34, 0, 'crossbow'],
-            [-5, -8, 3, 'slingStone'],
         ];
     }
 
@@ -651,7 +646,7 @@ class ArmourerTest extends TestWithMockery
 
     private function getRangedWeaponGroups()
     {
-        return ['bow', 'arrow', 'crossbow', 'dart', 'throwingWeapon', 'slingStone'];
+        return ['bow', 'crossbow', 'throwingWeapon'];
     }
 
     private function getShootingWeaponGroups()
@@ -818,24 +813,7 @@ class ArmourerTest extends TestWithMockery
 
     public function provideWeaponsForRangeEncounter()
     {
-        return [
-            $this->provideArrowForRangeEncounter(),
-            $this->provideBowForRangeEncounter(),
-        ];
-    }
-
-    private function provideArrowForRangeEncounter()
-    {
-        $tables = $this->createTables();
-        $arrow = $this->createRangedWeaponCode('foo', 'arrow');
-        $tables->shouldReceive('getRangedWeaponsTableByRangedWeaponCode')
-            ->with($arrow)
-            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
-        $rangedWeaponsTable->shouldReceive('getRangeOf')
-            ->with($arrow)
-            ->andReturn(123);
-
-        return [$arrow, $tables, Strength::getIt(456), 789, 123];
+        return [$this->provideBowForRangeEncounter()];
     }
 
     private function provideBowForRangeEncounter()
@@ -961,7 +939,6 @@ class ArmourerTest extends TestWithMockery
         // ranged
         self::assertTrue($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::LIGHT_CROSSBOW)));
         self::assertFalse($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::MINICROSSBOW)));
-        self::assertFalse($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::CRIPPLING_ARROW)));
         // melee weapon
         self::assertTrue($armourer->canHoldItByTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
         self::assertFalse($armourer->canHoldItByTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::KNIFE)));
@@ -989,7 +966,6 @@ class ArmourerTest extends TestWithMockery
         self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::LEG)));
         self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
         self::assertTrue($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::WITHOUT_SHIELD)));
-        self::assertFalse($armourer->hasEmptyHand(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
         self::assertFalse($armourer->hasEmptyHand(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
         self::assertFalse($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::CUDGEL)));
         self::assertFalse($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::BUCKLER)));
@@ -1008,7 +984,7 @@ class ArmourerTest extends TestWithMockery
         self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
         self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(ShieldCode::getIt(ShieldCode::HEAVY_SHIELD)));
         // not melee
-        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::BASIC_ARROW)));
+        self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::MILITARY_CROSSBOW)));
         // only both handed
         self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
         self::assertFalse($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::HALBERD)));
@@ -1153,14 +1129,14 @@ class ArmourerTest extends TestWithMockery
     public function I_can_get_offensiveness_of_range_weapons()
     {
         $tables = $this->createTables();
-        $slingStone = $this->createRangedWeaponCode('foo', 'slingStone');
+        $crossbow = $this->createRangedWeaponCode('foo', 'crossbow');
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
-            ->with($slingStone)
-            ->andReturn($slingStonesTable = $this->createRangedWeaponsTable());
-        $slingStonesTable->shouldReceive('getOffensivenessOf')
-            ->with($slingStone)
+            ->with($crossbow)
+            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
+        $rangedWeaponsTable->shouldReceive('getOffensivenessOf')
+            ->with($crossbow)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getOffensivenessOfWeaponlike($slingStone));
+        self::assertSame('bar', (new Armourer($tables))->getOffensivenessOfWeaponlike($crossbow));
     }
 
     /**
@@ -1467,14 +1443,6 @@ class ArmourerTest extends TestWithMockery
             $strength,
             (new Armourer($tables))->getApplicableStrength($crossbow, Strength::getIt(55)),
             'The crossbow required strength should be used'
-        );
-
-        $projectile = $this->createRangedWeaponCode('foo', 'arrow');
-        $strength = Strength::getIt(9991);
-        self::assertSame(
-            $strength,
-            (new Armourer($tables))->getApplicableStrength($projectile, $strength),
-            'Only bows and crossbows should be limited by applicable strength'
         );
 
         $axe = $this->createMeleeWeaponCode('foo', 'axe');
