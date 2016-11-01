@@ -89,13 +89,13 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
 
     /**
      * Gives a list of all possible actions with given weapon.
-     * Note about spear: that weapon can be used both for melee combat as well as ranged (throwing) - for this weapon
+     * Note about SPEAR: that weapon can be used both for melee as well as ranged combat (throwing) - for this weapon
      * you will get merged pool of both melee and ranged actions.
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
      */
-    public function getActionsPossibleWhenAttackingWith(WeaponlikeCode $weaponlikeCode)
+    public function getActionsPossibleWhenFightingWith(WeaponlikeCode $weaponlikeCode)
     {
         $rangeGroupPossibleActions = [];
         foreach ($this->getRangedWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {

@@ -88,7 +88,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
      * @param bool $canHoldItByOneHand
      * @param array|string[] $expectedActions
      */
-    public function I_can_get_actions_possible_when_attacking_with_weapon(
+    public function I_can_get_actions_possible_when_fighting_with_weapon(
         $isMelee,
         $isThrowing,
         $isShooting,
@@ -103,7 +103,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
         );
         self::assertSame(
             $expectedActions = self::sort($expectedActions),
-            $possibleActions = self::sort($table->getActionsPossibleWhenAttackingWith($weaponlikeCode)),
+            $possibleActions = self::sort($table->getActionsPossibleWhenFightingWith($weaponlikeCode)),
             'Differences: ' . implode(
                 ' and ',
                 [
