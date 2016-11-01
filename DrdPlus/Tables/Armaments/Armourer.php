@@ -191,18 +191,6 @@ class Armourer extends StrictObject
         return $this->canHoldItByOneHand($weaponlikeCode) && $this->canHoldItByTwoHands($weaponlikeCode);
     }
 
-    /**
-     * Even LEG and HOBNAILED BOOT are considered as empty hand.
-     *
-     * @param WeaponlikeCode $weaponlikeCode
-     * @return bool
-     */
-    public function hasEmptyHand(WeaponlikeCode $weaponlikeCode)
-    {
-        return $weaponlikeCode->isUnarmed();
-    }
-
-
     // shield-and-armor-specific
 
     /**

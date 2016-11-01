@@ -961,21 +961,6 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_find_out_if_weapon_code_means_empty_hand()
-    {
-        $armourer = new Armourer(new Tables());
-        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::HAND)));
-        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::LEG)));
-        self::assertTrue($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::HOBNAILED_BOOT)));
-        self::assertTrue($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::WITHOUT_SHIELD)));
-        self::assertFalse($armourer->hasEmptyHand(RangedWeaponCode::getIt(RangedWeaponCode::LONG_COMPOSITE_BOW)));
-        self::assertFalse($armourer->hasEmptyHand(MeleeWeaponCode::getIt(MeleeWeaponCode::CUDGEL)));
-        self::assertFalse($armourer->hasEmptyHand(ShieldCode::getIt(ShieldCode::BUCKLER)));
-    }
-
-    /**
-     * @test
-     */
     public function I_can_find_out_if_can_hold_one_handed_weapon_by_two_hands()
     {
         $armourer = new Armourer(new Tables());
