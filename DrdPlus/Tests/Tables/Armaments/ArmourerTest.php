@@ -1028,7 +1028,7 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_length_of_melee_weapons()
+    public function I_can_get_length_of_melee_weapons_and_shields()
     {
         $tables = $this->createTables();
         $knife = $this->createMeleeWeaponlikeCode('foo', 'knifeOrDagger');
@@ -1038,7 +1038,7 @@ class ArmourerTest extends TestWithMockery
         $knifesAndDaggersTable->shouldReceive('getLengthOf')
             ->with($knife)
             ->andReturn('bar');
-        self::assertSame('bar', (new Armourer($tables))->getLengthOfWeaponlike($knife));
+        self::assertSame('bar', (new Armourer($tables))->getLengthOfWeaponOrShield($knife));
 
         $shield = $this->createMeleeWeaponlikeCode('foo', 'shield');
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
@@ -1047,7 +1047,7 @@ class ArmourerTest extends TestWithMockery
         $shieldsTable->shouldReceive('getLengthOf')
             ->with($shield)
             ->andReturn('baz');
-        self::assertSame('baz', (new Armourer($tables))->getLengthOfWeaponlike($shield));
+        self::assertSame('baz', (new Armourer($tables))->getLengthOfWeaponOrShield($shield));
     }
 
     /**
@@ -1091,7 +1091,7 @@ class ArmourerTest extends TestWithMockery
     public function I_get_zero_as_length_of_ranged_weapons()
     {
         $crossbow = $this->createRangedWeaponCode('foo', 'crossbow');
-        self::assertSame(0, (new Armourer($this->createTables()))->getLengthOfWeaponlike($crossbow));
+        self::assertSame(0, (new Armourer($this->createTables()))->getLengthOfWeaponOrShield($crossbow));
     }
 
     /**

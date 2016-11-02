@@ -52,14 +52,14 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Increases fight number.
-     * Note about shield: every shield is considered as a weapon of length 0 if used for attack.
+     * Length of a weapon (or shield) increases fight number.
+     * Note about shield: every shield is considered as a weapon of length 0.
      *
      * @param WeaponlikeCode $weaponlikeCode
      * @return int
      * @throws Exceptions\UnknownMeleeWeaponlike
      */
-    public function getLengthOfWeaponlike(WeaponlikeCode $weaponlikeCode)
+    public function getLengthOfWeaponOrShield(WeaponlikeCode $weaponlikeCode)
     {
         if ($weaponlikeCode instanceof MeleeWeaponlikeCode) {
             return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($weaponlikeCode)
@@ -163,7 +163,7 @@ class Armourer extends StrictObject
             // shooting weapons are two-handed (except minicrossbow), projectiles are not
             $this->isTwoHandedOnly($weaponToHoldByTwoHands) // the weapon is explicitly two-handed
             // or it is melee weapon with length at least 1 (see PPH page 92 right column)
-            || ($weaponToHoldByTwoHands->isMelee() && $this->getLengthOfWeaponlike($weaponToHoldByTwoHands) >= 1);
+            || ($weaponToHoldByTwoHands->isMelee() && $this->getLengthOfWeaponOrShield($weaponToHoldByTwoHands) >= 1);
     }
 
     /**
