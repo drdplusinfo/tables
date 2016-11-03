@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Speed extends AbstractMeasurementWithBonus
@@ -71,4 +72,12 @@ class Speed extends AbstractMeasurementWithBonus
         return $this->speedTable->toBonus($this);
     }
 
+    /**
+     * @param DistanceTable $distanceTable
+     * @return \DrdPlus\Tables\Measurements\Distance\Distance
+     */
+    public function getDistancePerRound(DistanceTable $distanceTable)
+    {
+        return $this->getBonus()->getDistancePerRound($distanceTable);
+    }
 }

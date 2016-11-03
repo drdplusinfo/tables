@@ -14,6 +14,7 @@ class DistanceBonus extends AbstractBonus
     /**
      * @param int $value
      * @param DistanceTable $distanceTable
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function __construct($value, DistanceTable $distanceTable)
     {

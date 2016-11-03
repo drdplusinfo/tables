@@ -1,6 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class SpeedBonus extends AbstractBonus
@@ -14,6 +16,7 @@ class SpeedBonus extends AbstractBonus
     /**
      * @param int $bonusValue
      * @param SpeedTable $speedTable
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function __construct($bonusValue, SpeedTable $speedTable)
     {
@@ -28,6 +31,16 @@ class SpeedBonus extends AbstractBonus
     public function getSpeed($wantedUnit = null)
     {
         return $this->speedTable->toSpeed($this, $wantedUnit);
+    }
+
+    /**
+     * @param DistanceTable $distanceTable
+     * @return \DrdPlus\Tables\Measurements\Distance\Distance
+     */
+    public function getDistancePerRound(DistanceTable $distanceTable)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return (new DistanceBonus($this->getValue(), $distanceTable))->getDistance();
     }
 
 }
