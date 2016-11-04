@@ -83,32 +83,27 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      */
     public function getActionsPossibleWhenFightingWith(WeaponlikeCode $weaponlikeCode)
     {
-        $rangeGroupPossibleActions = [];
-        foreach ($this->getRangedWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
-            $rangeGroupPossibleActions = $this->mergeActionsFromSameGroup($weaponType, $rangeGroupPossibleActions);
-        }
-
-        return $rangeGroupPossibleActions;
-    }
-
-    private function mergeActionsFromSameGroup($weaponType, array $possibleActions)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $currentlyPossibleActions = array_keys(
-            array_filter(
-                $this->getRow($weaponType),
-                function ($isAllowed) {
-                    return $isAllowed;
-                }
-            )
-        );
-        foreach ($currentlyPossibleActions as $currentlyPossibleAction) {
-            if (!in_array($currentlyPossibleAction, $possibleActions, true)) {
-                $possibleActions[] = $currentlyPossibleAction;
-            }
+        $possibleActions = [];
+        foreach ($this->getWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
+            $possibleActions = array_unique(
+                array_merge($possibleActions, $this->getActionsPossibleWithType($weaponType))
+            );
         }
 
         return $possibleActions;
+    }
+
+    private function getActionsPossibleWithType($weaponType)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return array_keys(
+            array_filter(
+                $this->getRow($weaponType),
+                function ($isAllowed) {
+                    return $isAllowed; // directly uses value given by table source
+                }
+            )
+        );
     }
 
     const MELEE = 'melee';
@@ -119,7 +114,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
      */
-    private function getRangedWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
+    private function getWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
     {
         $types = [];
         if ($weaponlikeCode->isMelee()) {
