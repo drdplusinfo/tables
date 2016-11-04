@@ -23,15 +23,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
                     'attack_with_weapon_type',
                     'move',
                     'run',
-                    'main_hand_only_melee_attack',
-                    'offhand_only_melee_attack',
-                    'two_hands_melee_attack',
-                    'main_hand_only_ranged_attack',
-                    'offhand_only_ranged_attack',
-                    'two_hands_ranged_attack',
-                    'main_hand_only_defense',
-                    'offhand_only_defense',
-                    'two_hands_defense',
                     'swap_weapons',
                     'concentration_on_defense',
                     'put_out_easily_accessible_item',
@@ -84,23 +75,17 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
      * @param bool $isMelee
      * @param bool $isThrowing
      * @param bool $isShooting
-     * @param bool $canHoldItByTwoHands
-     * @param bool $canHoldItByOneHand
      * @param array|string[] $expectedActions
      */
     public function I_can_get_actions_possible_when_fighting_with_weapon(
         $isMelee,
         $isThrowing,
         $isShooting,
-        $canHoldItByTwoHands,
-        $canHoldItByOneHand,
         array $expectedActions
     )
     {
         $weaponlikeCode = $this->createWeaponlikeCode($isMelee, $isThrowing, $isShooting);
-        $table = new CombatActionsWithWeaponTypeCompatibilityTable(
-            $this->createArmourer($weaponlikeCode, $canHoldItByTwoHands, $canHoldItByOneHand)
-        );
+        $table = new CombatActionsWithWeaponTypeCompatibilityTable($this->createArmourer());
         self::assertSame(
             $expectedActions = self::sort($expectedActions),
             $possibleActions = self::sort($table->getActionsPossibleWhenFightingWith($weaponlikeCode)),
@@ -125,15 +110,15 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             // melee, throwing, shooting, two handed, one handed, actions
-            [false, false, false, false, false, []],
-            [false, true, false, false, true, self::getThrowingWeaponActions()],
-            [false, false, true, true, true, self::getShootingWeaponActions()],
+            [false, false, false, []],
+            [false, true, false, self::getThrowingWeaponActions()],
+            [false, false, true, self::getShootingWeaponActions()],
             // weapon usable both as one or two handed has same actions as one handed (because it is not "only" one handed)
-            [true, false, false, true, true, self::getMeleeActions()],
-            [true, false, false, false, true, self::getOnlyOneHandedMeleeWeaponActions()],
-            [true, false, false, true, false, self::getOnlyTwoHandedMeleeWeaponActions()],
-            [true, true, false, false, true, self::getOnlyOneHandedMeleeAndThrowingWeaponActions()], // like spear
-            [true, true, true, true, true, self::getTotallyUniversallyWeaponActions()] // like ... eee ... evolution?
+            [true, false, false, self::getMeleeActions()],
+            [true, false, false, self::getOnlyOneHandedMeleeWeaponActions()],
+            [true, false, false, self::getOnlyTwoHandedMeleeWeaponActions()],
+            [true, true, false, self::getOnlyOneHandedMeleeAndThrowingWeaponActions()], // like spear
+            [true, true, true, self::getTotallyUniversallyWeaponActions()] // like ... eee ... evolution?
         ];
     }
 
@@ -141,9 +126,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::TWO_HANDS_MELEE_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -161,8 +143,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -177,9 +157,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::TWO_HANDS_RANGED_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -195,8 +172,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_MELEE_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -214,7 +189,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::TWO_HANDS_MELEE_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -232,10 +206,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -253,12 +223,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     {
         return [
             CombatActionCode::MOVE,
-            CombatActionCode::MAIN_HAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_MELEE_ATTACK,
-            CombatActionCode::TWO_HANDS_MELEE_ATTACK,
-            CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK,
-            CombatActionCode::TWO_HANDS_RANGED_ATTACK,
             CombatActionCode::LAYING,
             CombatActionCode::SITTING_OR_ON_KNEELS,
             CombatActionCode::ATTACKED_FROM_BEHIND,
@@ -274,22 +238,11 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery 
     }
 
     /**
-     * @param WeaponlikeCode $weaponlikeCode
-     * @param bool $canHoldItByTwoHands
-     * @param bool $canHoldItByOneHand
      * @return \Mockery\MockInterface|Armourer
      */
-    private function createArmourer(WeaponlikeCode $weaponlikeCode, $canHoldItByTwoHands, $canHoldItByOneHand)
+    private function createArmourer()
     {
-        $armourer = $this->mockery(Armourer::class);
-        $armourer->shouldReceive('canHoldItByTwoHands')
-            ->with($weaponlikeCode)
-            ->andReturn($canHoldItByTwoHands);
-        $armourer->shouldReceive('canHoldItByOneHand')
-            ->with($weaponlikeCode)
-            ->andReturn($canHoldItByOneHand);
-
-        return $armourer;
+        return $this->mockery(Armourer::class);
     }
 
     /**

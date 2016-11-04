@@ -39,15 +39,6 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         return [
             CombatActionCode::MOVE => self::BOOLEAN,
             CombatActionCode::RUN => self::BOOLEAN,
-            CombatActionCode::MAIN_HAND_ONLY_MELEE_ATTACK => self::BOOLEAN,
-            CombatActionCode::OFFHAND_ONLY_MELEE_ATTACK => self::BOOLEAN,
-            CombatActionCode::TWO_HANDS_MELEE_ATTACK => self::BOOLEAN,
-            CombatActionCode::MAIN_HAND_ONLY_RANGED_ATTACK => self::BOOLEAN,
-            CombatActionCode::OFFHAND_ONLY_RANGED_ATTACK => self::BOOLEAN,
-            CombatActionCode::TWO_HANDS_RANGED_ATTACK => self::BOOLEAN,
-            CombatActionCode::MAIN_HAND_ONLY_DEFENSE => self::BOOLEAN,
-            CombatActionCode::OFFHAND_ONLY_DEFENSE => self::BOOLEAN,
-            CombatActionCode::TWO_HANDS_DEFENSE => self::BOOLEAN,
             CombatActionCode::SWAP_WEAPONS => self::BOOLEAN,
             CombatActionCode::CONCENTRATION_ON_DEFENSE => self::BOOLEAN,
             CombatActionCode::PUT_OUT_EASILY_ACCESSIBLE_ITEM => self::BOOLEAN,
@@ -73,11 +64,6 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
     }
 
     const ATTACK_WITH_WEAPON_TYPE = 'attack_with_weapon_type';
-    const MELEE = 'melee';
-    const SHOOTING = 'shooting';
-    const THROWING = 'throwing';
-    const ONE_HANDED = 'one_handed';
-    const TWO_HANDED = 'two_handed';
 
     /**
      * @return array|string[]
@@ -101,13 +87,8 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         foreach ($this->getRangedWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
             $rangeGroupPossibleActions = $this->mergeActionsFromSameGroup($weaponType, $rangeGroupPossibleActions);
         }
-        $holdingGroupPossibleActions = [];
-        foreach ($this->getHoldingWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
-            $holdingGroupPossibleActions = $this->mergeActionsFromSameGroup($weaponType, $holdingGroupPossibleActions);
-        }
 
-        // only actions allowed for BOTH groups
-        return array_intersect($rangeGroupPossibleActions, $holdingGroupPossibleActions);
+        return $rangeGroupPossibleActions;
     }
 
     private function mergeActionsFromSameGroup($weaponType, array $possibleActions)
@@ -130,6 +111,10 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         return $possibleActions;
     }
 
+    const MELEE = 'melee';
+    const SHOOTING = 'shooting';
+    const THROWING = 'throwing';
+
     /**
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
@@ -145,25 +130,6 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         }
         if ($weaponlikeCode->isThrowingWeapon()) {
             $types[] = self::THROWING;
-        }
-
-        return $types;
-    }
-
-    /**
-     * @param WeaponlikeCode $weaponlikeCode
-     * @return array|string[]
-     */
-    private function getHoldingWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
-    {
-        $types = [];
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        if ($this->armourer->canHoldItByTwoHands($weaponlikeCode)) {
-            $types[] = self::TWO_HANDED;
-        }
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        if ($this->armourer->canHoldItByOneHand($weaponlikeCode)) {
-            $types[] = self::ONE_HANDED;
         }
 
         return $types;
