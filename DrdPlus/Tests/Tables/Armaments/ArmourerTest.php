@@ -127,6 +127,8 @@ class ArmourerTest extends TestWithMockery
         $shieldCode = $this->mockery(ShieldCode::class);
         $shieldCode->shouldReceive('isWeapon')
             ->andReturn(false);
+        $shieldCode->shouldReceive('isShield')
+            ->andReturn(true);
 
         return $shieldCode;
     }
@@ -642,6 +644,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(in_array($matchingWeaponGroup, $this->getShootingWeaponGroups(), false));
         $code->shouldReceive('isMelee')
             ->andReturn($isAlsoMeleeArmament);
+        $code->shouldReceive('isRanged')
+            ->andReturn(true);
 
         return $code;
     }
@@ -1435,7 +1439,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getWoundsModifierOfProjectile($projectileCode));
     }
-    
+
     /**
      * @test
      */
@@ -1467,7 +1471,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getRangeModifierOfProjectile($projectileCode));
     }
-    
+
     /**
      * @test
      */
@@ -1483,7 +1487,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bar');
         self::assertSame('bar', (new Armourer($tables))->getWeightOfArmament($projectileCode));
     }
-    
+
     // strength effect
 
     /**
