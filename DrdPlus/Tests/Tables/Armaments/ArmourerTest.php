@@ -1502,24 +1502,21 @@ class ArmourerTest extends TestWithMockery
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($bow)
             ->andReturn(4);
-        self::assertEquals(
-            Strength::getIt(4),
-            (new Armourer($tables))->getApplicableStrength($bow, Strength::getIt(5)),
-            'The lower strength should be used'
-        );
+        $bowApplicableStrength = (new Armourer($tables))->getApplicableStrength($bow, Strength::getIt(5));
+        self::assertInstanceOf(Strength::class, $bowApplicableStrength);
+        self::assertSame(4, $bowApplicableStrength->getValue(), 'The lower strength should be used for a bow');
 
         $tables = $this->createTables();
-        $anotherBow = $this->createRangedWeaponCode('foo', 'bow');
+        $anotherBow = $this->createRangedWeaponCode('bar', 'bow');
         $tables->shouldReceive('getBowsTable')
             ->andReturn($bowsTable = $this->createRangedWeaponsTable());
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($anotherBow)
             ->andReturn(6);
-        $strength = Strength::getIt(5);
         self::assertSame(
-            $strength,
-            (new Armourer($tables))->getApplicableStrength($anotherBow, $strength),
-            'The lower strength should be used'
+            5,
+            (new Armourer($tables))->getApplicableStrength($anotherBow, Strength::getIt(5))->getValue(),
+            'The lower strength should be used for a bow'
         );
 
         $tables = $this->createTables();
@@ -1529,18 +1526,18 @@ class ArmourerTest extends TestWithMockery
         $crossbowsTable->shouldReceive('getRequiredStrengthOf')
             ->with($crossbow)
             ->andReturn(123);
-        $strength = Strength::getIt(123);
+        $requiredStrength = Strength::getIt(123);
         self::assertSame(
-            $strength,
-            (new Armourer($tables))->getApplicableStrength($crossbow, Strength::getIt(55)),
-            'The crossbow required strength should be used'
+            $requiredStrength->getValue(),
+            (new Armourer($tables))->getApplicableStrength($crossbow, Strength::getIt(55))->getValue(),
+            'The crossbow required strength should be used instead'
         );
 
         $axe = $this->createMeleeWeaponCode('foo', 'axe');
-        $strength = Strength::getIt(789);
+        $currentStrength = Strength::getIt(789);
         self::assertSame(
-            $strength,
-            (new Armourer($tables))->getApplicableStrength($axe, $strength),
+            $currentStrength->getValue(),
+            (new Armourer($tables))->getApplicableStrength($axe, $currentStrength)->getValue(),
             'Only bows should be limited by applicable strength'
         );
     }
