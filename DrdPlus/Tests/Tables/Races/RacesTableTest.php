@@ -7,8 +7,9 @@ use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
+use Granam\Tests\Tools\TestWithMockery;
 
-class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class RacesTableTest extends TestWithMockery implements TableTestInterface
 {
 
     /**
@@ -35,7 +36,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE,
                 PropertyCode::INFRAVISION,
                 PropertyCode::NATIVE_REGENERATION,
-                PropertyCode::REQUIRES_DM_AGREEMENT
+                PropertyCode::REQUIRES_DM_AGREEMENT,
             ]],
             $racesTable->getHeader()
         );
@@ -91,7 +92,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => '',
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -120,7 +121,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => '',
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -149,7 +150,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -178,7 +179,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -207,7 +208,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -236,7 +237,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -265,7 +266,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
             ],
             $modifiers
         );
@@ -294,7 +295,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -323,7 +324,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::TASTE,
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -352,7 +353,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => true,
-                PropertyCode::REQUIRES_DM_AGREEMENT => false
+                PropertyCode::REQUIRES_DM_AGREEMENT => false,
             ],
             $modifiers
         );
@@ -381,7 +382,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => true,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
             ],
             $modifiers
         );
@@ -410,7 +411,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
             ],
             $modifiers
         );
@@ -439,7 +440,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
             ],
             $modifiers
         );
@@ -468,7 +469,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                 PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
             ],
             $modifiers
         );
@@ -489,7 +490,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 180.0, PropertyCode::WEIGHT_IN_KG => 80.0, PropertyCode::SIZE => 0,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => '',
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::HIGHLANDER => [PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => 0, PropertyCode::KNACK => 0,
                         PropertyCode::WILL => 1, PropertyCode::INTELLIGENCE => -1, PropertyCode::CHARISMA => -1,
@@ -497,7 +498,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 180.0, PropertyCode::WEIGHT_IN_KG => 80.0, PropertyCode::SIZE => 0,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => '',
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                 ],
                 RaceCode::ELF => [
@@ -508,7 +509,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 160.0, PropertyCode::WEIGHT_IN_KG => 50.0, PropertyCode::SIZE => -1,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::GREEN => [
                         PropertyCode::STRENGTH => -1, PropertyCode::AGILITY => 1, PropertyCode::KNACK => 0,
@@ -517,7 +518,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 160.0, PropertyCode::WEIGHT_IN_KG => 50.0, PropertyCode::SIZE => -1,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::DARK => [
                         PropertyCode::STRENGTH => 0, PropertyCode::AGILITY => 0, PropertyCode::KNACK => 0,
@@ -526,7 +527,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 160.0, PropertyCode::WEIGHT_IN_KG => 50.0, PropertyCode::SIZE => -1,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => true
+                        PropertyCode::REQUIRES_DM_AGREEMENT => true,
                     ],
                 ],
                 RaceCode::DWARF => [
@@ -536,7 +537,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 140.0, PropertyCode::WEIGHT_IN_KG => 70.0, PropertyCode::SIZE => 0,
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::WOOD => [
                         PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => -1, PropertyCode::KNACK => 0, PropertyCode::WILL => 1,
@@ -544,7 +545,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 140.0, PropertyCode::WEIGHT_IN_KG => 70.0, PropertyCode::SIZE => 0,
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::MOUNTAIN => [
                         PropertyCode::STRENGTH => 2, PropertyCode::AGILITY => -1, PropertyCode::KNACK => 0, PropertyCode::WILL => 2,
@@ -552,7 +553,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 140.0, PropertyCode::WEIGHT_IN_KG => 70.0, PropertyCode::SIZE => 0,
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                 ],
                 RaceCode::HOBBIT => [
@@ -562,7 +563,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 110.0, PropertyCode::WEIGHT_IN_KG => 40.0, PropertyCode::SIZE => -2,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::TASTE,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                 ],
                 RaceCode::KROLL => [
@@ -572,7 +573,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 220.0, PropertyCode::WEIGHT_IN_KG => 120.0, PropertyCode::SIZE => 3,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => true,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => false
+                        PropertyCode::REQUIRES_DM_AGREEMENT => false,
                     ],
                     SubRaceCode::WILD => [
                         PropertyCode::STRENGTH => 3, PropertyCode::AGILITY => -1, PropertyCode::KNACK => -2, PropertyCode::WILL => 2,
@@ -580,7 +581,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 220.0, PropertyCode::WEIGHT_IN_KG => 120.0, PropertyCode::SIZE => 3,
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => true,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => true
+                        PropertyCode::REQUIRES_DM_AGREEMENT => true,
                     ],
                 ],
                 RaceCode::ORC => [
@@ -590,7 +591,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 160.0, PropertyCode::WEIGHT_IN_KG => 60.0, PropertyCode::SIZE => -1,
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => true
+                        PropertyCode::REQUIRES_DM_AGREEMENT => true,
                     ],
                     SubRaceCode::SKURUT => [
                         PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => 1, PropertyCode::KNACK => -1, PropertyCode::WILL => 0,
@@ -598,7 +599,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 180.0, PropertyCode::WEIGHT_IN_KG => 90.0, PropertyCode::SIZE => 1,
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => true
+                        PropertyCode::REQUIRES_DM_AGREEMENT => true,
                     ],
                     SubRaceCode::GOBLIN => [
                         PropertyCode::STRENGTH => -1, PropertyCode::AGILITY => 2, PropertyCode::KNACK => 1, PropertyCode::WILL => -2,
@@ -606,7 +607,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
                         PropertyCode::HEIGHT_IN_CM => 150.0, PropertyCode::WEIGHT_IN_KG => 55.0, PropertyCode::SIZE => -1,
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
-                        PropertyCode::REQUIRES_DM_AGREEMENT => true
+                        PropertyCode::REQUIRES_DM_AGREEMENT => true,
                     ],
                 ],
             ],
@@ -626,8 +627,11 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_strength_of_any_race($race, $subrace, $maleStrength, $femaleStrength)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleStrength, $racesTable->getMaleStrength($race, $subrace));
-        self::assertSame($femaleStrength, $racesTable->getFemaleStrength($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleStrength, $racesTable->getMaleStrength(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame(
+            $femaleStrength,
+            $racesTable->getFemaleStrength(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable())
+        );
     }
 
     public function provideStrengthOfRace()
@@ -662,8 +666,11 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_agility_of_any_race($race, $subrace, $maleAgility, $femaleAgility)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleAgility, $racesTable->getMaleAgility($race, $subrace));
-        self::assertSame($femaleAgility, $racesTable->getFemaleAgility($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleAgility, $racesTable->getMaleAgility(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame(
+            $femaleAgility,
+            $racesTable->getFemaleAgility(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable())
+        );
     }
 
     public function provideAgilityOfRace()
@@ -698,8 +705,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_knack_of_any_race($race, $subrace, $maleKnack, $femaleKnack)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleKnack, $racesTable->getMaleKnack($race, $subrace));
-        self::assertSame($femaleKnack, $racesTable->getFemaleKnack($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleKnack, $racesTable->getMaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame($femaleKnack, $racesTable->getFemaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable()));
     }
 
     public function provideKnackOfRace()
@@ -734,8 +741,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_will_of_any_race($race, $subrace, $maleWill, $femaleWill)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleWill, $racesTable->getMaleWill($race, $subrace));
-        self::assertSame($femaleWill, $racesTable->getFemaleWill($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleWill, $racesTable->getMaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame($femaleWill, $racesTable->getFemaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable()));
     }
 
     public function provideWillOfRace()
@@ -770,8 +777,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_intelligence_of_any_race($race, $subrace, $maleIntelligence, $femaleIntelligence)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleIntelligence, $racesTable->getMaleIntelligence($race, $subrace));
-        self::assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleIntelligence, $racesTable->getMaleIntelligence(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable()));
     }
 
     public function provideIntelligenceOfRace()
@@ -806,8 +813,8 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_charisma_of_any_race($race, $subrace, $maleCharisma, $femaleCharisma)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleCharisma, $racesTable->getMaleCharisma($race, $subrace));
-        self::assertSame($femaleCharisma, $racesTable->getFemaleCharisma($race, $subrace, new FemaleModifiersTable()));
+        self::assertSame($maleCharisma, $racesTable->getMaleCharisma(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame($femaleCharisma, $racesTable->getFemaleCharisma(RaceCode::getIt($race), SubRaceCode::getIt($subrace), new FemaleModifiersTable()));
     }
 
     public function provideCharismaOfRace()
@@ -841,7 +848,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_toughness_of_any_race($race, $subrace, $toughness)
     {
         $racesTable = new RacesTable();
-        self::assertSame($toughness, $racesTable->getToughness($race, $subrace));
+        self::assertSame($toughness, $racesTable->getToughness(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideToughnessOfRace()
@@ -875,7 +882,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_height_of_any_race($race, $subrace, $heightInCm)
     {
         $racesTable = new RacesTable();
-        self::assertSame($heightInCm, $racesTable->getHeightInCm($race, $subrace));
+        self::assertSame($heightInCm, $racesTable->getHeightInCm(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideHeightOfRace()
@@ -910,36 +917,20 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_weight_of_any_race($race, $subrace, $maleWeightInKg, $femaleWeightInKg)
     {
         $racesTable = new RacesTable();
-        self::assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg($race, $subrace));
+        self::assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
         $femaleModifiersTable = new FemaleModifiersTable();
         $weightTable = new WeightTable();
         self::assertSame(
             $femaleWeightInKg,
-            $racesTable->getFemaleWeightInKg($race, $subrace, $femaleModifiersTable, $weightTable)
+            $racesTable->getFemaleWeightInKg(RaceCode::getIt($race), SubRaceCode::getIt($subrace), $femaleModifiersTable, $weightTable)
         );
         self::assertSame(
             $maleWeightInKg,
-            $racesTable->getWeightInKg($race, $subrace, GenderCode::MALE, $femaleModifiersTable, $weightTable)
+            $racesTable->getWeightInKg(RaceCode::getIt($race), SubRaceCode::getIt($subrace), GenderCode::getIt(GenderCode::MALE), $femaleModifiersTable, $weightTable)
         );
         self::assertSame(
             $femaleWeightInKg,
-            $racesTable->getWeightInKg($race, $subrace, GenderCode::FEMALE, $femaleModifiersTable, $weightTable)
-        );
-    }
-
-    /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
-     */
-    public function I_can_not_get_weight_of_unknown_gender()
-    {
-        $racesTable = new RacesTable();
-        $racesTable->getWeightInKg(
-            RaceCode::HUMAN,
-            SubRaceCode::COMMON,
-            'not from this universe',
-            new FemaleModifiersTable(),
-            new WeightTable()
+            $racesTable->getWeightInKg(RaceCode::getIt($race), SubRaceCode::getIt($subrace), GenderCode::getIt(GenderCode::FEMALE), $femaleModifiersTable, $weightTable)
         );
     }
 
@@ -965,6 +956,35 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
 
     /**
      * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     */
+    public function I_can_not_get_weight_of_unknown_gender()
+    {
+        $racesTable = new RacesTable();
+        $racesTable->getWeightInKg(
+            RaceCode::getIt(RaceCode::HUMAN),
+            SubRaceCode::getIt(SubRaceCode::COMMON),
+            $this->createGenderCode('not from this universe'),
+            new FemaleModifiersTable(),
+            new WeightTable()
+        );
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|GenderCode
+     */
+    private function createGenderCode($value)
+    {
+        $genderCode = $this->mockery(GenderCode::class);
+        $genderCode->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $genderCode;
+    }
+
+    /**
+     * @test
      * @dataProvider provideSizeOfRace
      *
      * @param string $race
@@ -977,11 +997,11 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
         $racesTable = new RacesTable();
         $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($maleSize, $racesTable->getMaleSize($race, $subrace));
-        self::assertSame($maleSize, $racesTable->getSize($race, $subrace, GenderCode::MALE, $femaleModifiersTable));
+        self::assertSame($maleSize, $racesTable->getMaleSize(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
+        self::assertSame($maleSize, $racesTable->getSize(RaceCode::getIt($race), SubRaceCode::getIt($subrace), GenderCode::getIt(GenderCode::MALE), $femaleModifiersTable));
 
-        self::assertSame($femaleSize, $racesTable->getFemaleSize($race, $subrace, $femaleModifiersTable));
-        self::assertSame($femaleSize, $racesTable->getSize($race, $subrace, GenderCode::FEMALE, $femaleModifiersTable));
+        self::assertSame($femaleSize, $racesTable->getFemaleSize(RaceCode::getIt($race), SubRaceCode::getIt($subrace), $femaleModifiersTable));
+        self::assertSame($femaleSize, $racesTable->getSize(RaceCode::getIt($race), SubRaceCode::getIt($subrace), GenderCode::getIt(GenderCode::FEMALE), $femaleModifiersTable));
     }
 
     public function provideSizeOfRace()
@@ -1011,7 +1031,12 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_not_get_size_for_unknown_gender()
     {
         $racesTable = new RacesTable();
-        $racesTable->getSize(RaceCode::HUMAN, SubRaceCode::COMMON, 'unknown gender', new FemaleModifiersTable());
+        $racesTable->getSize(
+            RaceCode::getIt(RaceCode::HUMAN),
+            SubRaceCode::getIt(SubRaceCode::COMMON),
+            $this->createGenderCode('unknown gender'),
+            new FemaleModifiersTable()
+        );
     }
 
     /**
@@ -1025,7 +1050,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_senses_of_any_race($race, $subrace, $senses)
     {
         $racesTable = new RacesTable();
-        self::assertSame($senses, $racesTable->getSenses($race, $subrace));
+        self::assertSame($senses, $racesTable->getSenses(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideSensesOfRace()
@@ -1059,7 +1084,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_remarkable_sense_of_any_race($race, $subrace, $remarkableSense)
     {
         $racesTable = new RacesTable();
-        self::assertSame($remarkableSense, $racesTable->getRemarkableSense($race, $subrace));
+        self::assertSame($remarkableSense, $racesTable->getRemarkableSense(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideRemarkableSenseOfRace()
@@ -1093,7 +1118,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_infravision_of_any_race($race, $subrace, $infravision)
     {
         $racesTable = new RacesTable();
-        self::assertSame($infravision, $racesTable->hasInfravision($race, $subrace));
+        self::assertSame($infravision, $racesTable->hasInfravision(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideInfravisionOfRace()
@@ -1127,7 +1152,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_get_nativeRegeneration_of_any_race($race, $subrace, $nativeRegeneration)
     {
         $racesTable = new RacesTable();
-        self::assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration($race, $subrace));
+        self::assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideNativeRegenerationOfRace()
@@ -1161,7 +1186,7 @@ class RacesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInt
     public function I_can_detect_requirement_of_dm_agreement_of_any_race($race, $subrace, $requiredDmAgreement)
     {
         $racesTable = new RacesTable();
-        self::assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement($race, $subrace));
+        self::assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement(RaceCode::getIt($race), SubRaceCode::getIt($subrace)));
     }
 
     public function provideRequirementOfDmForRace()

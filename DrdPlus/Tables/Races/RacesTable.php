@@ -14,16 +14,14 @@ use Granam\Tools\ValueDescriber;
 class RacesTable extends AbstractFileTable
 {
 
-    /**
-     * @return string
+    /** @return string
      */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/races.csv';
     }
 
-    /**
-     * @return array|string
+    /** @return array|string
      */
     protected function getExpectedDataHeaderNamesToTypes()
     {
@@ -49,358 +47,322 @@ class RacesTable extends AbstractFileTable
     const RACE = 'race';
     const SUBRACE = 'subrace';
 
-    /**
-     * @return array
+    /** @return array
      */
     protected function getRowsHeader()
     {
         return [
             self::RACE,
-            self::SUBRACE
+            self::SUBRACE,
         ];
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonHumanModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HUMAN, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getHighlanderModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HUMAN, SubRaceCode::HIGHLANDER]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonElfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getDarkElfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::DARK]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getGreenElfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::GREEN]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonDwarfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getMountainDwarfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::MOUNTAIN]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getWoodDwarfModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::WOOD]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonHobbitModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HOBBIT, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonKrollModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::KROLL, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getWildKrollModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::KROLL, SubRaceCode::WILD]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getCommonOrcModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::COMMON]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getGoblinModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::GOBLIN]);
     }
 
-    /**
-     * @return array|\mixed[]
+    /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getSkurutModifiers()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::SKURUT]);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleStrength($raceCode, $subraceCode)
+    public function getMaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::STRENGTH);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleStrength($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleStrength($raceCode, $subraceCode) + $femaleModifiersTable->getStrength($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     * @param $propertyName
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
+     * @param string $propertyName
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    private function getProperty($raceCode, $subraceCode, $propertyName)
+    private function getProperty(RaceCode $raceCode, SubRaceCode $subraceCode, $propertyName)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$raceCode, $subraceCode], $propertyName);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleAgility($raceCode, $subraceCode)
+    public function getMaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGILITY);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleAgility($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleAgility($raceCode, $subraceCode) + $femaleModifiersTable->getAgility($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleKnack($raceCode, $subraceCode)
+    public function getMaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::KNACK);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleKnack($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleKnack($raceCode, $subraceCode) + $femaleModifiersTable->getKnack($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleWill($raceCode, $subraceCode)
+    public function getMaleWill(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::WILL);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleWill($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleWill($raceCode, $subraceCode) + $femaleModifiersTable->getWill($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleIntelligence($raceCode, $subraceCode)
+    public function getMaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::INTELLIGENCE);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleIntelligence($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleIntelligence($raceCode, $subraceCode) + $femaleModifiersTable->getIntelligence($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleCharisma($raceCode, $subraceCode)
+    public function getMaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::CHARISMA);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleCharisma($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
         return $this->getMaleCharisma($raceCode, $subraceCode) + $femaleModifiersTable->getCharisma($raceCode);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getToughness($raceCode, $subraceCode)
+    public function getToughness(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::TOUGHNESS);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return float
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getHeightInCm($raceCode, $subraceCode)
+    public function getHeightInCm(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::HEIGHT_IN_CM);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subRaceCode
-     * @param string $genderCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
+     * @param GenderCode $genderCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @param WeightTable $weightTable
      * @return float
      * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getWeightInKg(
-        $raceCode,
-        $subRaceCode,
-        $genderCode,
+        RaceCode $raceCode,
+        SubRaceCode $subraceCode,
+        GenderCode $genderCode,
         FemaleModifiersTable $femaleModifiersTable,
         WeightTable $weightTable
     )
     {
         switch ($genderCode) {
             case GenderCode::MALE :
-                return $this->getMaleWeightInKg($raceCode, $subRaceCode);
+                return $this->getMaleWeightInKg($raceCode, $subraceCode);
             case GenderCode::FEMALE :
-                return $this->getFemaleWeightInKg(
-                    $raceCode,
-                    $subRaceCode,
-                    $femaleModifiersTable,
-                    $weightTable
-                );
+                return $this->getFemaleWeightInKg($raceCode, $subraceCode, $femaleModifiersTable, $weightTable);
             default :
                 throw new Exceptions\UnknownGender(
                     'Unknown gender ' . ValueDescriber::describe($genderCode)
@@ -409,25 +371,21 @@ class RacesTable extends AbstractFileTable
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return float
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleWeightInKg($raceCode, $subraceCode)
+    public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::WEIGHT_IN_KG);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @param WeightTable $weightTable
-     *
      * @return float
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     public function getFemaleWeightInKg(
         $raceCode,
@@ -440,37 +398,42 @@ class RacesTable extends AbstractFileTable
         $maleWeightBonus = $weightTable->toBonus(new Weight($maleWeightValue, Weight::KG, $weightTable));
         $femaleWeightBonusModifier = $femaleModifiersTable->getWeightBonus($raceCode);
         $femaleWeightBonusValue = $maleWeightBonus->getValue() + $femaleWeightBonusModifier;
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $femaleWeightBonus = new WeightBonus($femaleWeightBonusValue, $weightTable);
 
         return $femaleWeightBonus->getWeight()->getValue();
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMaleSize($raceCode, $subraceCode)
+    public function getMaleSize(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::SIZE);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @param FemaleModifiersTable $femaleModifiersTable
-     *
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getFemaleSize($raceCode, $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
-        return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
+        return $this->getMaleSize($raceCode, $subraceCode) +$femaleModifiersTable->getSize($raceCode);
     }
 
-    public function getSize($raceCode, $subraceCode, $genderCode, FemaleModifiersTable $femaleModifiersTable)
+    /**
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
+     * @param GenderCode $genderCode
+     * @param FemaleModifiersTable $femaleModifiersTable
+     * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     */
+    public function getSize(RaceCode $raceCode, SubRaceCode $subraceCode, GenderCode $genderCode, FemaleModifiersTable $femaleModifiersTable)
     {
         switch ($genderCode) {
             case GenderCode::MALE :
@@ -486,61 +449,51 @@ class RacesTable extends AbstractFileTable
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return string
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getRemarkableSense($raceCode, $subraceCode)
+    public function getRemarkableSense(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::REMARKABLE_SENSE);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function hasInfravision($raceCode, $subraceCode)
+    public function hasInfravision(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::INFRAVISION);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function hasNativeRegeneration($raceCode, $subraceCode)
+    public function hasNativeRegeneration(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::NATIVE_REGENERATION);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return int
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getSenses($raceCode, $subraceCode)
+    public function getSenses(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::SENSES);
     }
 
     /**
-     * @param string $raceCode
-     * @param string $subraceCode
-     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
      * @return bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function requiresDmAgreement($raceCode, $subraceCode)
+    public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
     }
