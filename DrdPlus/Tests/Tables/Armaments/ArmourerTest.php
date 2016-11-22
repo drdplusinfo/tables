@@ -797,24 +797,23 @@ class ArmourerTest extends TestWithMockery
      * @param Tables $tables
      * @param int $strengthValue
      * @param int $speedValue
-     * @param int $expectedEncounterRange
+     * @param int $expectedEncounterRangeValue
      */
     public function I_can_get_encounter_range_of_any_range_weapon(
         RangedWeaponCode $rangedWeaponCode,
         Tables $tables,
         $strengthValue,
         $speedValue,
-        $expectedEncounterRange
+        $expectedEncounterRangeValue
     )
     {
         $armourer = new Armourer($tables);
-        self::assertEquals(
-            new EncounterRange($expectedEncounterRange),
-            $armourer->getEncounterRangeWithWeaponlike(
-                $rangedWeaponCode,
-                Strength::getIt($strengthValue), $this->createSpeed($speedValue)
-            )
+        $encounterRangeWithWeaponlike = $armourer->getEncounterRangeWithWeaponlike(
+            $rangedWeaponCode,
+            Strength::getIt($strengthValue), $this->createSpeed($speedValue)
         );
+        self::assertInstanceOf(EncounterRange::class, $encounterRangeWithWeaponlike);
+        self::assertSame($expectedEncounterRangeValue, $encounterRangeWithWeaponlike->getValue());
     }
 
     public function provideWeaponsForRangeEncounter()
@@ -876,14 +875,13 @@ class ArmourerTest extends TestWithMockery
         $speed = $this->mockery(Speed::class); // speed is useless for this
         $armourer = new Armourer($this->createTables());
         foreach ($this->getMeleeWeaponlikeGroups() as $meleeWeaponlikeGroup) {
-            self::assertEquals(
-                new EncounterRange(0),
-                $armourer->getEncounterRangeWithWeaponlike(
-                    $this->createMeleeWeaponlikeCode('foo', $meleeWeaponlikeGroup),
-                    $strength,
-                    $speed
-                )
+            $encounterRangeWithWeaponlike = $armourer->getEncounterRangeWithWeaponlike(
+                $this->createMeleeWeaponlikeCode('foo', $meleeWeaponlikeGroup),
+                $strength,
+                $speed
             );
+            self::assertInstanceOf(EncounterRange::class, $encounterRangeWithWeaponlike);
+            self::assertEquals(0, $encounterRangeWithWeaponlike->getValue());
         }
     }
 
@@ -911,9 +909,9 @@ class ArmourerTest extends TestWithMockery
         );
 
         self::assertInstanceOf(MaximalRange::class, $maximalRange);
-        self::assertEquals(
-            MaximalRange::createForRangedWeapon(new EncounterRange($expectedEncounterRange)),
-            $maximalRange
+        self::assertSame(
+            MaximalRange::createForRangedWeapon(new EncounterRange($expectedEncounterRange))->getValue(),
+            $maximalRange->getValue()
         );
     }
 
@@ -932,7 +930,7 @@ class ArmourerTest extends TestWithMockery
                 $speed
             );
             self::assertInstanceOf(MaximalRange::class, $maximalRange);
-            self::assertEquals(MaximalRange::createForMeleeWeapon(new EncounterRange(0)), $maximalRange);
+            self::assertSame(MaximalRange::createForMeleeWeapon(new EncounterRange(0))->getValue(), $maximalRange->getValue());
         }
     }
 
