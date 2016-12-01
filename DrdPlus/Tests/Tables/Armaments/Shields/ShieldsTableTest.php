@@ -29,8 +29,8 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::OFFENSIVENESS, false],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS, false],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS_TYPE, ''],
-            // shield provides another cover per round, therefore without shield this fades
-            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::COVER, false],
+            // note: shield provides another cover per round, therefore WITHOUT shield this fades
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::COVER, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WEIGHT, 0.0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::TWO_HANDED, false],
 

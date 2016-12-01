@@ -37,7 +37,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
 
     /**
      * @param string $shieldCode
-     * @return int
+     * @return int|bool gives false if no strength is required at all
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getRequiredStrengthOf($shieldCode)
@@ -48,12 +48,13 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     /**
      * @param string $shieldCode
      * @param string $valueName
-     * @return int|float|string
+     * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     private function getValueOf($shieldCode, $valueName)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([$shieldCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
             throw new UnknownShield(
@@ -84,7 +85,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
 
     /**
      * @param string $shieldCode
-     * @return int
+     * @return int|bool false if no offensiveness at all
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getOffensivenessOf($shieldCode)
@@ -94,7 +95,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
 
     /**
      * @param string $shieldCode
-     * @return int
+     * @return int|bool false if no wounds at all
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getWoundsOf($shieldCode)
@@ -104,7 +105,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
 
     /**
      * @param string $shieldCode
-     * @return int
+     * @return int|bool false if no wounds type at all
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getWoundsTypeOf($shieldCode)
