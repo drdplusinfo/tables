@@ -37,17 +37,16 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
         return $this->createSutWithTable($sutClass, $amount, $unit, $table);
     }
 
+    /**
+     * @param string $sutClass
+     * @param int $amount
+     * @param string $unit
+     * @param Table $table
+     * @return Measurement
+     */
     protected function createSutWithTable($sutClass, $amount, $unit, Table $table)
     {
         return new $sutClass($amount, $unit, $table);
-    }
-
-    /**
-     * @return string|Measurement
-     */
-    protected static function getSutClass()
-    {
-        return preg_replace('~Tests\\\(.+)Test$~', '$1', static::class);
     }
 
     protected function getDefaultUnit()
