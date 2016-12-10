@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
-use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTest;
 

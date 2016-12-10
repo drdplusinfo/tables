@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
-use DrdPlus\Codes\ConditionsAffectingHealingCode;
+use DrdPlus\Codes\Body\ConditionsAffectingHealingCode;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\Healing\HealingConditionsPercents;
 use DrdPlus\Tests\Tables\TableTestInterface;

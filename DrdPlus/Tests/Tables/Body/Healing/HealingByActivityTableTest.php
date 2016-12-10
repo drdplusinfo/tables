@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
-use DrdPlus\Codes\ActivityAffectingHealingCode;
+use DrdPlus\Codes\Body\ActivityAffectingHealingCode;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 

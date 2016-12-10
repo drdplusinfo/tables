@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Armaments\Projectiles;
 
 use DrdPlus\Codes\Armaments\ArrowCode;
-use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
 use DrdPlus\Tests\Tables\Armaments\Projectiles\Partials\ProjectilesTableTest;
 

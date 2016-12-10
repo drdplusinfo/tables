@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
-use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;

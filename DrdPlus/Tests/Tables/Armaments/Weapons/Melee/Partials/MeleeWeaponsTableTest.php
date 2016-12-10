@@ -11,7 +11,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
      */
     public function I_can_get_header()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         self::assertSame(
@@ -30,7 +30,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         $meleeWeaponsTable->$getValueNameOf('skull_crasher');

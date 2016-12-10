@@ -12,7 +12,7 @@ abstract class WoundingArmamentsTableTest extends \PHPUnit_Framework_TestCase im
      */
     public function I_can_get_all_values()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var WoundingArmamentsTable $weaponlikeTable */
         $weaponlikeTable = new $sutClass();
         self::assertSame(
@@ -57,7 +57,7 @@ abstract class WoundingArmamentsTableTest extends \PHPUnit_Framework_TestCase im
      */
     public function I_can_get_values_for_every_armament($shootingArmamentCode, $valueName, $expectedValue)
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var WoundingArmamentsTable $forAttackTable */
         $forAttackTable = new $sutClass();
 

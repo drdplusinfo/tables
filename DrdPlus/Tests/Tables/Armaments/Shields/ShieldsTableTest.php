@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
-use DrdPlus\Codes\WoundTypeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;

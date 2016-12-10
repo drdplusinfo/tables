@@ -16,7 +16,7 @@ abstract class AbstractAttackNumberByDistanceTableTest extends TestWithMockery i
      */
     public function I_can_get_attack_number_modifier_by_distance($distanceInMeters, $expectedAttackNumberModifier)
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractAttackNumberByDistanceTable $sut */
         $sut = new $sutClass();
         self::assertSame(
@@ -29,14 +29,6 @@ abstract class AbstractAttackNumberByDistanceTableTest extends TestWithMockery i
      * @return array|mixed[][]
      */
     abstract public function provideDistanceAndExpectedModifier();
-
-    /**
-     * @return string
-     */
-    protected function getSutClass()
-    {
-        return preg_replace('~[\\\]Tests([\\\].+)Test$~', '$1', static::class);
-    }
 
     /**
      * @param int $distanceInMeters

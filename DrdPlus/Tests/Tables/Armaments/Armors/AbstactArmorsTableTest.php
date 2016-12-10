@@ -3,15 +3,16 @@ namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
+use Granam\Tests\Tools\TestWithMockery;
 
-abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+abstract class AbstractArmorsTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
      */
     public function I_can_get_header()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractArmorsTable $armorsTable */
         $armorsTable = new $sutClass();
         self::assertSame(
@@ -25,7 +26,7 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_all_values()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractArmorsTable $armorsTable */
         $armorsTable = new $sutClass();
         self::assertSame($this->assembleIndexedValues($this->provideArmorAndValue()), $armorsTable->getIndexedValues());
@@ -50,7 +51,7 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     protected function getRowHeaderName()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         $baseName = preg_replace('~(?:.+[\\\])?(\w+)~', '$1', $sutClass);
 
         $rawHeaderName = str_replace('sTable', '', $baseName);
@@ -64,14 +65,6 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
     }
 
     /**
-     * @return string|AbstractArmorsTable
-     */
-    protected function getSutClass()
-    {
-        return preg_replace('~[\\\]Tests([\\\].+)Test$~', '$1', static::class);
-    }
-
-    /**
      * @test
      * @dataProvider provideArmorAndValue
      * @param string $armorCode
@@ -80,7 +73,7 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_get_values_for_every_armor($armorCode, $valueName, $expectedValue)
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractArmorsTable $armorsTable */
         $armorsTable = new $sutClass();
         $value = $armorsTable->getValue([$armorCode], $valueName);
@@ -102,7 +95,7 @@ abstract class AbstractArmorsTableTest extends \PHPUnit_Framework_TestCase imple
      */
     public function I_can_not_get_value_for_unknown_armor()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractArmorsTable $armorsTable */
         $armorsTable = new $sutClass();
         $armorsTable->getProtectionOf('skeleton armor of never-life');

@@ -10,7 +10,7 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_use_it()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var Percents $percents */
         $percents = new $sutClass(12);
         self::assertSame(12, $percents->getValue());
@@ -29,7 +29,7 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_turn_it_into_percents_string()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var Percents $percents */
         $percents = new $sutClass(56);
         self::assertSame('56 %', (string)$percents);
@@ -40,7 +40,7 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_rate()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var Percents $percents */
         $percents = new $sutClass(99);
         self::assertSame(0.99, $percents->getRate());
@@ -69,7 +69,7 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_not_create_negative_percents()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         new $sutClass(-1);
     }
 
@@ -80,7 +80,7 @@ abstract class PercentsTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_not_create_it_from_non_integer()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         new $sutClass('half of quarter');
     }
 

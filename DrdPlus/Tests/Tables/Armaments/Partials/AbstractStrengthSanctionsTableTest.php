@@ -17,18 +17,10 @@ abstract class AbstractStrengthSanctionsTableTest extends TestWithMockery implem
      */
     public function I_can_easily_find_out_if_can_use_armament()
     {
-        $sutClass = $this->getSutClass();
+        $sutClass = self::getSutClass();
         /** @var AbstractStrengthSanctionsTable $sut */
         $sut = new $sutClass();
         self::assertTrue($sut->canUseIt(-999));
         self::assertFalse($sut->canUseIt(999));
-    }
-
-    /**
-     * @return string
-     */
-    protected function getSutClass()
-    {
-        return preg_replace('~[\\\]Tests([\\\].+)Test$~', '$1', static::class);
     }
 }

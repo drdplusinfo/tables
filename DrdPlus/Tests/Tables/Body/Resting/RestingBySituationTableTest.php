@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\Resting;
 
-use DrdPlus\Codes\RestConditionsCode;
+use DrdPlus\Codes\Body\RestConditionsCode;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Body\Resting\RestingSituationPercents;
 use DrdPlus\Tests\Tables\TableTestInterface;
