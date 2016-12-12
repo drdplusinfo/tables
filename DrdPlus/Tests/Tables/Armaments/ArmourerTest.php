@@ -80,7 +80,15 @@ class ArmourerTest extends TestWithMockery
         $meleeWeaponSanctionsTable->shouldReceive('canUseIt')
             ->with(238 /* required strength - current strength */)
             ->andReturn('baz');
-        self::assertSame('baz', $armourer->canUseArmament($axe, Strength::getIt(-4), $this->mockery(Size::class)));
+        self::assertSame('baz', $armourer->canUseArmament($axe, Strength::getIt(-4), $this->createSize()));
+    }
+
+    /**
+     * @return \Mockery\MockInterface|Size
+     */
+    private function createSize()
+    {
+        return $this->mockery(Size::class);
     }
 
     private function I_can_find_out_if_can_use_range_weapon()
@@ -98,7 +106,7 @@ class ArmourerTest extends TestWithMockery
         $rangedWeaponSanctionsTable->shouldReceive('canUseIt')
             ->with(344 /* required strength - current strength */)
             ->andReturn('qux');
-        self::assertSame('qux', $armourer->canUseArmament($bow, Strength::getIt(1), $this->mockery(Size::class)));
+        self::assertSame('qux', $armourer->canUseArmament($bow, Strength::getIt(1), $this->createSize()));
     }
 
     private function I_can_find_out_if_can_use_shield()
@@ -116,7 +124,7 @@ class ArmourerTest extends TestWithMockery
         $shieldSanctionsSanctionsTable->shouldReceive('canUseIt')
             ->with(444 /* required strength - current strength */)
             ->andReturn('foo bar');
-        self::assertSame('foo bar', $armourer->canUseArmament($shield, Strength::getIt(12), $this->mockery(Size::class)));
+        self::assertSame('foo bar', $armourer->canUseArmament($shield, Strength::getIt(12), $this->createSize()));
     }
 
     /**
@@ -274,7 +282,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($requiredStrength);
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForArmament($meleeWeaponCode, Strength::getIt($strength), $this->mockery(Size::class))
+            $armourer->getMissingStrengthForArmament($meleeWeaponCode, Strength::getIt($strength), $this->createSize())
         );
 
         $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
@@ -321,7 +329,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('fooqux');
         self::assertSame(
             'fooqux',
-            $armourer->canUseArmament($meleeWeaponCode, Strength::getIt($strength), $this->mockery(Size::class))
+            $armourer->canUseArmament($meleeWeaponCode, Strength::getIt($strength), $this->createSize())
         );
     }
 
@@ -409,6 +417,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
+        /** @var RangedWeaponCode|\Mockery\MockInterface $rangedSpear */
         $rangedSpear = $this->mockery(RangedWeaponCode::class);
         $rangedSpear->shouldReceive('isMelee')
             ->andReturn(true);
@@ -446,7 +455,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(5);
         self::assertSame(
             1,
-            $armourer->getMissingStrengthForArmament($shield, Strength::getIt(4), $this->mockery(Size::class))
+            $armourer->getMissingStrengthForArmament($shield, Strength::getIt(4), $this->createSize())
         );
         $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
             ->with($shield)
@@ -495,7 +504,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('fooqux');
         self::assertSame(
             'fooqux',
-            $armourer->canUseArmament($shield, Strength::getIt(-3), $this->mockery(Size::class))
+            $armourer->canUseArmament($shield, Strength::getIt(-3), $this->createSize())
         );
     }
 
@@ -523,7 +532,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($requiredStrength);
         self::assertSame(
             $expectedMissingStrength,
-            $armourer->getMissingStrengthForArmament($weaponlikeCode, Strength::getIt($strength), $this->mockery(Size::class))
+            $armourer->getMissingStrengthForArmament($weaponlikeCode, Strength::getIt($strength), $this->createSize())
         );
         $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
             ->andReturn($rangeWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
@@ -533,7 +542,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn('bazbaz');
         self::assertSame(
             'bazbaz',
-            $armourer->canUseArmament($weaponlikeCode, Strength::getIt($strength), $this->mockery(Size::class))
+            $armourer->canUseArmament($weaponlikeCode, Strength::getIt($strength), $this->createSize())
         );
 
         $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
@@ -857,11 +866,13 @@ class ArmourerTest extends TestWithMockery
      * @param $value
      * @return \Mockery\MockInterface|Speed
      */
-    private function createSpeed($value)
+    private function createSpeed($value = null)
     {
         $speed = $this->mockery(Speed::class);
-        $speed->shouldReceive('getValue')
-            ->andReturn($value);
+        if ($value !== null) {
+            $speed->shouldReceive('getValue')
+                ->andReturn($value);
+        }
 
         return $speed;
     }
@@ -871,18 +882,24 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_get_always_zero_as_encounter_range_for_melee_weapon()
     {
-        $strength = $this->mockery(Strength::class); // strength is useless for this
-        $speed = $this->mockery(Speed::class); // speed is useless for this
         $armourer = new Armourer($this->createTables());
         foreach ($this->getMeleeWeaponlikeGroups() as $meleeWeaponlikeGroup) {
             $encounterRangeWithWeaponlike = $armourer->getEncounterRangeWithWeaponlike(
                 $this->createMeleeWeaponlikeCode('foo', $meleeWeaponlikeGroup),
-                $strength,
-                $speed
+                $this->createStrength(),
+                $this->createSpeed()
             );
             self::assertInstanceOf(EncounterRange::class, $encounterRangeWithWeaponlike);
             self::assertEquals(0, $encounterRangeWithWeaponlike->getValue());
         }
+    }
+
+    /**
+     * @return \Mockery\MockInterface|Strength
+     */
+    private function createStrength()
+    {
+        return $this->mockery(Strength::class);
     }
 
     /**
@@ -920,14 +937,12 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_can_get_maximal_range_same_as_encounter_for_melee_weapon()
     {
-        $strength = $this->mockery(Strength::class); // strength is useless for this
-        $speed = $this->mockery(Speed::class); // speed is useless for this
         $armourer = new Armourer($this->createTables());
         foreach ($this->getMeleeWeaponlikeGroups() as $meleeWeaponlikeGroup) {
             $maximalRange = $armourer->getMaximalRangeWithWeaponlike(
                 $this->createMeleeWeaponlikeCode('foo', $meleeWeaponlikeGroup),
-                $strength,
-                $speed
+                $this->createStrength(),
+                $this->createSpeed()
             );
             self::assertInstanceOf(MaximalRange::class, $maximalRange);
             self::assertSame(MaximalRange::createForMeleeWeapon(new EncounterRange(0))->getValue(), $maximalRange->getValue());
@@ -1263,7 +1278,7 @@ class ArmourerTest extends TestWithMockery
     public function I_get_cover_of_two_for_every_ranged_weapon_and_zero_for_projectile()
     {
         $armourer = new Armourer(new Tables());
-        foreach (RangedWeaponCode::getRangedWeaponCodes() as $rangedWeaponCode) {
+        foreach (RangedWeaponCode::getPossibleValues() as $rangedWeaponCode) {
             $rangedWeapon = RangedWeaponCode::getIt($rangedWeaponCode);
             if ($rangedWeapon->isProjectile()) {
                 self::assertSame(0, $armourer->getCoverOfWeaponOrShield($rangedWeapon));

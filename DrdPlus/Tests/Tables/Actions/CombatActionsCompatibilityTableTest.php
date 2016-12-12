@@ -52,7 +52,7 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
      */
     public function I_can_get_compatibility_to_all_combat_actions()
     {
-        $actions = CombatActionCode::getCombatActionCodes();
+        $actions = CombatActionCode::getPossibleValues();
         $actions = array_merge($actions, MeleeCombatActionCode::getMeleeOnlyCombatActionCodes());
         $actions = array_merge($actions, RangedCombatActionCode::getRangedOnlyCombatActionCodes());
         sort($actions);
@@ -73,7 +73,7 @@ class CombatActionsCompatibilityTableTest extends TestWithMockery implements Tab
      */
     public function Combinations_are_same_from_both_sides()
     {
-        $codes = CombatActionCode::getCombatActionCodes();
+        $codes = CombatActionCode::getPossibleValues();
         $codes = array_merge($codes, MeleeCombatActionCode::getMeleeOnlyCombatActionCodes());
         $codes = array_merge($codes, RangedCombatActionCode::getRangedOnlyCombatActionCodes());
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();

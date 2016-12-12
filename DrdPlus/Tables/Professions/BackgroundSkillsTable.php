@@ -41,15 +41,19 @@ class BackgroundSkillsTable extends AbstractFileTable
         return $originalColumnsHeader;
     }
 
-    private function getProfessionsRegexpPattern()
+    /**
+     * @param string $delimiter
+     * @return string
+     */
+    private function getProfessionsRegexpPattern($delimiter = '~')
     {
         return implode(
             '|',
             array_map(
-                function ($professionName) {
-                    return preg_quote($professionName);
+                function ($professionName) use ($delimiter) {
+                    return preg_quote($professionName, $delimiter);
                 },
-                ProfessionCode::getProfessionCodes()
+                ProfessionCode::getPossibleValues()
             )
         );
     }
@@ -60,8 +64,8 @@ class BackgroundSkillsTable extends AbstractFileTable
     protected function getExpectedDataHeaderNamesToTypes()
     {
         $professionsWithSkillTypes = [];
-        foreach (ProfessionCode::getProfessionCodes() as $professionCode) {
-            foreach (SkillTypeCode::getSkillTypeCodes() as $skillTypeCode) {
+        foreach (ProfessionCode::getPossibleValues() as $professionCode) {
+            foreach (SkillTypeCode::getPossibleValues() as $skillTypeCode) {
                 $professionsWithSkillTypes["$professionCode $skillTypeCode"] = self::INTEGER;
             }
         }

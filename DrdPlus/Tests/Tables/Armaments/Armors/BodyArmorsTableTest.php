@@ -78,7 +78,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     public function I_get_rounds_to_put_on_armor_related_to_its_protection()
     {
         $bodyArmorsTable = new BodyArmorsTable();
-        foreach (BodyArmorCode::getBodyArmorCodes() as $bodyArmorCode) {
+        foreach (BodyArmorCode::getPossibleValues() as $bodyArmorCode) {
             if ($bodyArmorCode === BodyArmorCode::WITHOUT_ARMOR) {
                 self::assertFalse($bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode));
             } else {

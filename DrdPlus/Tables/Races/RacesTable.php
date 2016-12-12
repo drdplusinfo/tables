@@ -41,6 +41,7 @@ class RacesTable extends AbstractFileTable
             PropertyCode::INFRAVISION => self::BOOLEAN,
             PropertyCode::NATIVE_REGENERATION => self::BOOLEAN,
             PropertyCode::REQUIRES_DM_AGREEMENT => self::BOOLEAN,
+            PropertyCode::AGE => self::POSITIVE_INTEGER,
         ];
     }
 
@@ -51,10 +52,7 @@ class RacesTable extends AbstractFileTable
      */
     protected function getRowsHeader()
     {
-        return [
-            self::RACE,
-            self::SUBRACE,
-        ];
+        return [self::RACE, self::SUBRACE];
     }
 
     /** @return array|\mixed[]
@@ -422,7 +420,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
     {
-        return $this->getMaleSize($raceCode, $subraceCode) +$femaleModifiersTable->getSize($raceCode);
+        return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
     }
 
     /**
@@ -496,5 +494,17 @@ class RacesTable extends AbstractFileTable
     public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subraceCode)
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
+    }
+
+    /**
+     * Gives usual age of a race on his first great adventure - like 15 years for common human or 25 for hobbit.
+     *
+     * @param RaceCode $raceCode
+     * @param SubraceCode $subraceCode
+     * @return bool
+     */
+    public function getAge(RaceCode $raceCode, SubRaceCode $subraceCode)
+    {
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGE);
     }
 }

@@ -37,6 +37,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION,
                 PropertyCode::NATIVE_REGENERATION,
                 PropertyCode::REQUIRES_DM_AGREEMENT,
+                PropertyCode::AGE,
             ]],
             $racesTable->getHeader()
         );
@@ -50,20 +51,20 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
         $racesTable = new RacesTable();
         self::assertEquals(
             [
-                [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0, 0, 0, 0, 0, 0, 180.0, 80.0, 0, 0, '', false, false, false],
-                [RaceCode::HUMAN, SubRaceCode::HIGHLANDER, 1, 0, 0, 1, -1, -1, 0, 180.0, 80.0, 0, 0, '', false, false, false],
-                [RaceCode::ELF, SubRaceCode::COMMON, -1, 1, 1, -2, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, false, false, false],
-                [RaceCode::ELF, SubRaceCode::GREEN, -1, 1, 0, -1, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, false, false, false],
-                [RaceCode::ELF, SubRaceCode::DARK, 0, 0, 0, 0, 1, 0, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, true, false, true],
-                [RaceCode::DWARF, SubRaceCode::COMMON, 1, -1, 0, 2, -1, -2, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false],
-                [RaceCode::DWARF, SubRaceCode::WOOD, 1, -1, 0, 1, -1, -1, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false],
-                [RaceCode::DWARF, SubRaceCode::MOUNTAIN, 2, -1, 0, 2, -2, -2, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false],
-                [RaceCode::HOBBIT, SubRaceCode::COMMON, -3, 1, 1, 0, -1, 2, 0, 110.0, 40.0, -2, 0, PropertyCode::TASTE, false, false, false],
-                [RaceCode::KROLL, SubRaceCode::COMMON, 3, -2, -1, 1, -3, -1, 0, 220.0, 120.0, 3, 0, PropertyCode::HEARING, false, true, false],
-                [RaceCode::KROLL, SubRaceCode::WILD, 3, -1, -2, 2, -3, -2, 0, 220.0, 120.0, 3, 0, PropertyCode::HEARING, false, true, true],
-                [RaceCode::ORC, SubRaceCode::COMMON, 0, 2, 0, -1, 0, -2, 0, 160.0, 60.0, -1, 1, PropertyCode::SMELL, true, false, true],
-                [RaceCode::ORC, SubRaceCode::SKURUT, 1, 1, -1, 0, 0, -2, 0, 180.0, 90.0, 1, 1, PropertyCode::SMELL, true, false, true],
-                [RaceCode::ORC, SubRaceCode::GOBLIN, -1, 2, 1, -2, 0, -1, 0, 150.0, 55.0, -1, 1, PropertyCode::SMELL, true, false, true],
+                [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0, 0, 0, 0, 0, 0, 180.0, 80.0, 0, 0, '', false, false, false, 15],
+                [RaceCode::HUMAN, SubRaceCode::HIGHLANDER, 1, 0, 0, 1, -1, -1, 0, 180.0, 80.0, 0, 0, '', false, false, false, 14],
+                [RaceCode::ELF, SubRaceCode::COMMON, -1, 1, 1, -2, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, false, false, false, 32],
+                [RaceCode::ELF, SubRaceCode::GREEN, -1, 1, 0, -1, 1, 1, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, false, false, false, 30],
+                [RaceCode::ELF, SubRaceCode::DARK, 0, 0, 0, 0, 1, 0, -1, 160.0, 50.0, -1, 0, PropertyCode::SIGHT, true, false, true, 30],
+                [RaceCode::DWARF, SubRaceCode::COMMON, 1, -1, 0, 2, -1, -2, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false, 22],
+                [RaceCode::DWARF, SubRaceCode::WOOD, 1, -1, 0, 1, -1, -1, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false, 20],
+                [RaceCode::DWARF, SubRaceCode::MOUNTAIN, 2, -1, 0, 2, -2, -2, 1, 140.0, 70.0, 0, -1, PropertyCode::TOUCH, true, false, false, 18],
+                [RaceCode::HOBBIT, SubRaceCode::COMMON, -3, 1, 1, 0, -1, 2, 0, 110.0, 40.0, -2, 0, PropertyCode::TASTE, false, false, false, 25],
+                [RaceCode::KROLL, SubRaceCode::COMMON, 3, -2, -1, 1, -3, -1, 0, 220.0, 120.0, 3, 0, PropertyCode::HEARING, false, true, false, 12],
+                [RaceCode::KROLL, SubRaceCode::WILD, 3, -1, -2, 2, -3, -2, 0, 220.0, 120.0, 3, 0, PropertyCode::HEARING, false, true, true, 11],
+                [RaceCode::ORC, SubRaceCode::COMMON, 0, 2, 0, -1, 0, -2, 0, 160.0, 60.0, -1, 1, PropertyCode::SMELL, true, false, true, 10],
+                [RaceCode::ORC, SubRaceCode::SKURUT, 1, 1, -1, 0, 0, -2, 0, 180.0, 90.0, 1, 1, PropertyCode::SMELL, true, false, true, 13],
+                [RaceCode::ORC, SubRaceCode::GOBLIN, -1, 2, 1, -2, 0, -1, 0, 150.0, 55.0, -1, 1, PropertyCode::SMELL, true, false, true, 9],
             ],
             $racesTable->getValues()
         );
@@ -93,6 +94,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 15,
             ],
             $modifiers
         );
@@ -122,6 +124,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 14,
             ],
             $modifiers
         );
@@ -151,6 +154,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 22,
             ],
             $modifiers
         );
@@ -180,6 +184,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 20,
             ],
             $modifiers
         );
@@ -209,6 +214,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 18,
             ],
             $modifiers
         );
@@ -238,35 +244,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
-            ],
-            $modifiers
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_get_dark_elf_modifiers()
-    {
-        $racesTable = new RacesTable();
-        $modifiers = $racesTable->getDarkElfModifiers();
-        self::assertEquals(
-            [
-                PropertyCode::STRENGTH => 0,
-                PropertyCode::AGILITY => 0,
-                PropertyCode::KNACK => 0,
-                PropertyCode::WILL => 0,
-                PropertyCode::INTELLIGENCE => 1,
-                PropertyCode::CHARISMA => 0,
-                PropertyCode::TOUGHNESS => -1,
-                PropertyCode::HEIGHT_IN_CM => 160.0,
-                PropertyCode::WEIGHT_IN_KG => 50.0,
-                PropertyCode::SIZE => -1,
-                PropertyCode::SENSES => 0,
-                PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
-                PropertyCode::INFRAVISION => true,
-                PropertyCode::NATIVE_REGENERATION => false,
-                PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 32,
             ],
             $modifiers
         );
@@ -296,6 +274,37 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 30,
+            ],
+            $modifiers
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_dark_elf_modifiers()
+    {
+        $racesTable = new RacesTable();
+        $modifiers = $racesTable->getDarkElfModifiers();
+        self::assertEquals(
+            [
+                PropertyCode::STRENGTH => 0,
+                PropertyCode::AGILITY => 0,
+                PropertyCode::KNACK => 0,
+                PropertyCode::WILL => 0,
+                PropertyCode::INTELLIGENCE => 1,
+                PropertyCode::CHARISMA => 0,
+                PropertyCode::TOUGHNESS => -1,
+                PropertyCode::HEIGHT_IN_CM => 160.0,
+                PropertyCode::WEIGHT_IN_KG => 50.0,
+                PropertyCode::SIZE => -1,
+                PropertyCode::SENSES => 0,
+                PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
+                PropertyCode::INFRAVISION => true,
+                PropertyCode::NATIVE_REGENERATION => false,
+                PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 30,
             ],
             $modifiers
         );
@@ -325,6 +334,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 25,
             ],
             $modifiers
         );
@@ -354,6 +364,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => true,
                 PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                PropertyCode::AGE => 12,
             ],
             $modifiers
         );
@@ -383,6 +394,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => false,
                 PropertyCode::NATIVE_REGENERATION => true,
                 PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 11,
             ],
             $modifiers
         );
@@ -412,6 +424,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 10,
             ],
             $modifiers
         );
@@ -441,6 +454,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 13,
             ],
             $modifiers
         );
@@ -470,6 +484,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                 PropertyCode::INFRAVISION => true,
                 PropertyCode::NATIVE_REGENERATION => false,
                 PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                PropertyCode::AGE => 9,
             ],
             $modifiers
         );
@@ -478,10 +493,10 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
     /**
      * @test
      */
-    public function I_got_expected_values()
+    public function I_can_get_expected_values()
     {
         $racesTable = new RacesTable();
-        self::assertSame(
+        self::assertEquals(
             [
                 RaceCode::HUMAN => [
                     SubRaceCode::COMMON => [
@@ -491,6 +506,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => '',
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 15,
                     ],
                     SubRaceCode::HIGHLANDER => [PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => 0, PropertyCode::KNACK => 0,
                         PropertyCode::WILL => 1, PropertyCode::INTELLIGENCE => -1, PropertyCode::CHARISMA => -1,
@@ -499,6 +515,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => '',
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 14,
                     ],
                 ],
                 RaceCode::ELF => [
@@ -510,6 +527,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 32,
                     ],
                     SubRaceCode::GREEN => [
                         PropertyCode::STRENGTH => -1, PropertyCode::AGILITY => 1, PropertyCode::KNACK => 0,
@@ -519,6 +537,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 30,
                     ],
                     SubRaceCode::DARK => [
                         PropertyCode::STRENGTH => 0, PropertyCode::AGILITY => 0, PropertyCode::KNACK => 0,
@@ -528,6 +547,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::SIGHT,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                        PropertyCode::AGE => 30,
                     ],
                 ],
                 RaceCode::DWARF => [
@@ -538,6 +558,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 22,
                     ],
                     SubRaceCode::WOOD => [
                         PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => -1, PropertyCode::KNACK => 0, PropertyCode::WILL => 1,
@@ -546,6 +567,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 20,
                     ],
                     SubRaceCode::MOUNTAIN => [
                         PropertyCode::STRENGTH => 2, PropertyCode::AGILITY => -1, PropertyCode::KNACK => 0, PropertyCode::WILL => 2,
@@ -554,6 +576,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => -1, PropertyCode::REMARKABLE_SENSE => PropertyCode::TOUCH,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 18,
                     ],
                 ],
                 RaceCode::HOBBIT => [
@@ -564,6 +587,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::TASTE,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 25,
                     ],
                 ],
                 RaceCode::KROLL => [
@@ -574,6 +598,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => true,
                         PropertyCode::REQUIRES_DM_AGREEMENT => false,
+                        PropertyCode::AGE => 12,
                     ],
                     SubRaceCode::WILD => [
                         PropertyCode::STRENGTH => 3, PropertyCode::AGILITY => -1, PropertyCode::KNACK => -2, PropertyCode::WILL => 2,
@@ -582,6 +607,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 0, PropertyCode::REMARKABLE_SENSE => PropertyCode::HEARING,
                         PropertyCode::INFRAVISION => false, PropertyCode::NATIVE_REGENERATION => true,
                         PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                        PropertyCode::AGE => 11,
                     ],
                 ],
                 RaceCode::ORC => [
@@ -592,6 +618,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                        PropertyCode::AGE => 10,
                     ],
                     SubRaceCode::SKURUT => [
                         PropertyCode::STRENGTH => 1, PropertyCode::AGILITY => 1, PropertyCode::KNACK => -1, PropertyCode::WILL => 0,
@@ -600,6 +627,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                        PropertyCode::AGE => 13,
                     ],
                     SubRaceCode::GOBLIN => [
                         PropertyCode::STRENGTH => -1, PropertyCode::AGILITY => 2, PropertyCode::KNACK => 1, PropertyCode::WILL => -2,
@@ -608,6 +636,7 @@ class RacesTableTest extends TestWithMockery implements TableTestInterface
                         PropertyCode::SENSES => 1, PropertyCode::REMARKABLE_SENSE => PropertyCode::SMELL,
                         PropertyCode::INFRAVISION => true, PropertyCode::NATIVE_REGENERATION => false,
                         PropertyCode::REQUIRES_DM_AGREEMENT => true,
+                        PropertyCode::AGE => 9,
                     ],
                 ],
             ],

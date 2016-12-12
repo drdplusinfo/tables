@@ -56,8 +56,8 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
         $rowIndex = 0;
         for ($backgroundSkillPoint = 0; $backgroundSkillPoint <= 8; $backgroundSkillPoint++) {
             $columnIndex = 0;
-            foreach (ProfessionCode::getProfessionCodes() as $professionCode) {
-                foreach (SkillTypeCode::getSkillTypeCodes() as $skillTypeCode) {
+            foreach (ProfessionCode::getPossibleValues() as $professionCode) {
+                foreach (SkillTypeCode::getPossibleValues() as $skillTypeCode) {
                     $combinations[] = [
                         $backgroundSkillPoint,
                         $professionCode,
