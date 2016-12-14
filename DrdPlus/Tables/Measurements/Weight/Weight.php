@@ -35,4 +35,12 @@ class Weight extends AbstractMeasurementWithBonus
         return $this->weightTable->toBonus($this);
     }
 
+    /**
+     * @return float
+     */
+    public function getKilograms()
+    {
+        return $this->getValue();
+    }
+
 }
