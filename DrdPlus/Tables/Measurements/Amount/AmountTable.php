@@ -2,6 +2,8 @@
 namespace DrdPlus\Tables\Measurements\Amount;
 
 use Drd\DiceRoll\Templates\Rollers\Roller1d6;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
@@ -15,11 +17,17 @@ class AmountTable extends AbstractMeasurementFileTable
         parent::__construct(new DiceChanceEvaluator(Roller1d6::getIt()));
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/amount.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeader()
     {
         return [Amount::AMOUNT];
@@ -27,17 +35,17 @@ class AmountTable extends AbstractMeasurementFileTable
 
     /**
      * @param AmountBonus $bonus
-     *
-     * @return Amount
+     * @return Amount|MeasurementWithBonus
      */
     public function toAmount(AmountBonus $bonus)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus);
     }
 
     /**
      * @param Amount $amount
-     * @return AmountBonus
+     * @return AmountBonus|AbstractBonus
      */
     public function toBonus(Amount $amount)
     {
@@ -47,7 +55,6 @@ class AmountTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Amount
      */
     protected function convertToMeasurement($value, $unit)
@@ -59,7 +66,6 @@ class AmountTable extends AbstractMeasurementFileTable
 
     /**
      * @param $bonusValue
-     *
      * @return AmountBonus
      */
     protected function createBonus($bonusValue)

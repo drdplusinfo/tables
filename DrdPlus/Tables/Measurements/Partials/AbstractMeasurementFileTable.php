@@ -93,7 +93,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     abstract protected function convertToMeasurement($value, $unit);
 
     /**
-     * @return array
      * @throws \DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead
      * @throws \DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty
      * @throws \DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted
@@ -104,7 +103,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
         $indexed = $this->normalizeAndIndex($rawData);
-
         $this->indexedValues = $indexed;
     }
 
@@ -116,7 +114,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function fetchDataFromFile($dataSourceFile)
     {
-        $resource = fopen($dataSourceFile, 'r');
+        $resource = fopen($dataSourceFile, 'rb');
         if (!$resource) {
             throw new FileCanNotBeRead("File with table data could not be read from $dataSourceFile");
         }
@@ -366,7 +364,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @param MeasurementWithBonus $measurement
-     *
      * @return AbstractBonus
      */
     protected function measurementToBonus(MeasurementWithBonus $measurement)

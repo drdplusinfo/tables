@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Measurements\Weight;
 
 use DrdPlus\Properties\Base\Strength;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
@@ -15,14 +16,20 @@ class WeightTable extends AbstractMeasurementFileTable
 {
     public function __construct()
     {
-        parent::__construct(new DummyEvaluator());
+        parent::__construct(new DummyEvaluator()); // no dice roll is expected
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/weight.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeader()
     {
         return [Weight::KG];
@@ -30,11 +37,11 @@ class WeightTable extends AbstractMeasurementFileTable
 
     /**
      * @param WeightBonus $weightBonus
-     *
-     * @return Weight
+     * @return Weight|MeasurementWithBonus
      */
     public function toWeight(WeightBonus $weightBonus)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($weightBonus, Weight::KG);
     }
 
@@ -56,7 +63,6 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Weight
      */
     protected function convertToMeasurement($value, $unit)
@@ -67,6 +73,7 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @param int $simplifiedBonus
      * @return WeightBonus
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function getBonusFromSimplifiedBonus($simplifiedBonus)
