@@ -38,7 +38,7 @@ class LightingQualityTable extends AbstractFileTable
      * @param LightConditionsCode $lightConditionsCode
      * @return int
      */
-    public function getLightingQuality(LightConditionsCode $lightConditionsCode)
+    public function getLightingQualityOnConditions(LightConditionsCode $lightConditionsCode)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($lightConditionsCode, self::QUALITY);

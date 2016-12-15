@@ -1,10 +1,10 @@
 light_conditions,quality
 dark,-200
-cloudy star night,-120
-star night,-90
-full moon night,-50
+cloudy_star_night,-120
+star_night,-90
+full_moon_night,-50
 sunset,-10
-very cloudy,15
+very_cloudy,15
 cloudy,40
 daylight,50
-strong daylight,60
+strong_daylight,60
