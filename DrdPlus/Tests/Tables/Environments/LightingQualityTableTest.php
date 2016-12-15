@@ -19,7 +19,7 @@ class LightingQualityTableTest extends TestWithMockery implements TableTestInter
     /**
      * @test
      * @dataProvider provideConditionsAndExpectedQualityOfLight
-     * @param LightConditionsCode $lightConditionsValue
+     * @param string $lightConditionsValue
      * @param int $expectedLightQuality
      */
     public function I_can_get_lighting_quality($lightConditionsValue, $expectedLightQuality)
