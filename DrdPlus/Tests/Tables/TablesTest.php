@@ -89,14 +89,14 @@ class TablesTest extends TestWithMockery
     private function scanForTables($rootDir, $rootNamespace)
     {
         $tableClasses = [];
-        foreach (scandir($rootDir) as $fileOrDir) {
-            $fullPath = $rootDir . DIRECTORY_SEPARATOR . $fileOrDir;
-            if ($fileOrDir !== '.' && $fileOrDir !== '..') {
-                if (is_dir($fullPath)) {
-                    foreach ($this->scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir) as $foundTable) {
+        foreach (scandir($rootDir) as $folder) {
+            $folderFullPath = $rootDir . DIRECTORY_SEPARATOR . $folder;
+            if ($folder !== '.' && $folder !== '..') {
+                if (is_dir($folderFullPath)) {
+                    foreach ($this->scanForTables($folderFullPath, $rootNamespace . '\\' . $folder) as $foundTable) {
                         $tableClasses[] = $foundTable;
                     }
-                } else if (is_file($fullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
+                } else if (is_file($folderFullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $folder, $matches)) {
                     $tableReflection = new \ReflectionClass($rootNamespace . '\\' . $matches['tableBasename']);
                     if ($tableReflection->isInstantiable()) {
                         $tableClasses[] = $tableReflection->getName();

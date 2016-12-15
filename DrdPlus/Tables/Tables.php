@@ -14,6 +14,7 @@ use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
+use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
@@ -29,14 +30,14 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike;
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeStrengthSanctionsTable;
-use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
+use DrdPlus\Tables\Armaments\Partials\StrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Partials\WeaponStrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
-use DrdPlus\Tables\Armaments\Partials\HeavyBearablesTable;
 use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
 use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
+use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
 use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
 use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
@@ -65,6 +66,8 @@ use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Environments\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Environments\AttackNumberByDistanceTable;
+use DrdPlus\Tables\Environments\LightingQualityTable;
+use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
@@ -726,6 +729,30 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return LightingQualityTable
+     */
+    public function getLightingQualityTable()
+    {
+        if (!array_key_exists(LightingQualityTable::class, $this->tables)) {
+            $this->tables[LightingQualityTable::class] = new LightingQualityTable();
+        }
+
+        return $this->tables[LightingQualityTable::class];
+    }
+
+    /**
+     * @return PowerOfLightSourcesTable
+     */
+    public function getPowerOfLightSourcesTable()
+    {
+        if (!array_key_exists(PowerOfLightSourcesTable::class, $this->tables)) {
+            $this->tables[PowerOfLightSourcesTable::class] = new PowerOfLightSourcesTable();
+        }
+
+        return $this->tables[PowerOfLightSourcesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -783,6 +810,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getWoundsOnFallFromHorseTable(),
             $this->getCombatActionsCompatibilityTable(),
             $this->getCombatActionsWithWeaponTypeCompatibilityTable(),
+            $this->getLightingQualityTable(),
+            $this->getPowerOfLightSourcesTable(),
         ]);
     }
 
@@ -800,7 +829,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return HeavyBearablesTable
+     * @return WeaponlikeTable|AbstractArmorsTable|ProjectilesTable
      * @throws UnknownArmament
      */
     public function getArmamentsTableByArmamentCode(ArmamentCode $armamentCode)
@@ -928,7 +957,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmorCode $armorCode
-     * @return BodyArmorsTable|HelmsTable
+     * @return AbstractArmorsTable
      * @throws UnknownArmor
      */
     public function getArmorsTableByArmorCode(ArmorCode $armorCode)
@@ -945,7 +974,7 @@ class Tables extends StrictObject implements \IteratorAggregate
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return AbstractStrengthSanctionsTable
+     * @return StrengthSanctionsInterface
      * @throws UnknownArmament
      * @throws UnknownMeleeWeaponlike
      * @throws UnknownWeaponlike
