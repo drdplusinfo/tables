@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Equipment\Riding;
 
-use DrdPlus\Codes\RidingAnimalMovementCode;
+use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Equipment\Riding\Ride;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
 use DrdPlus\Tests\Tables\TableTestInterface;

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Equipment\Riding;
 
-use DrdPlus\Codes\RidingAnimalMovementCode;
+use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Equipment\Riding\WoundsOnFallFromHorseTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;

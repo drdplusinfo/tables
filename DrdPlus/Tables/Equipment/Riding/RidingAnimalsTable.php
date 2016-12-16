@@ -1,8 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Equipment\Riding;
 
-use DrdPlus\Codes\RidingAnimalCode;
-use DrdPlus\Codes\RidingAnimalPropertyCode;
+use DrdPlus\Codes\Transport\RidingAnimalCode;
+use DrdPlus\Codes\Transport\RidingAnimalPropertyCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tools\Calculations\SumAndRound;
 

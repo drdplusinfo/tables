@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Equipment\Riding;
 
-use DrdPlus\Codes\RidingAnimalMovementCode;
+use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 class RidesTable extends AbstractFileTable

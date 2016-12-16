@@ -1,8 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
+use Granam\Integer\IntegerInterface;
 
 /**
  * PPH page 163
@@ -25,9 +28,9 @@ class SpeedTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param float $bonusValue
-     *
+     * @param int|IntegerInterface $bonusValue
      * @return SpeedBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     protected function createBonus($bonusValue)
     {
@@ -37,8 +40,7 @@ class SpeedTable extends AbstractMeasurementFileTable
     /**
      * @param SpeedBonus $bonus
      * @param string|null $wantedUnit
-     *
-     * @return Speed
+     * @return Speed|MeasurementWithBonus
      */
     public function toSpeed(SpeedBonus $bonus, $wantedUnit = null)
     {
@@ -48,7 +50,7 @@ class SpeedTable extends AbstractMeasurementFileTable
 
     /**
      * @param Speed $speed
-     * @return SpeedBonus
+     * @return SpeedBonus|AbstractBonus
      */
     public function toBonus(Speed $speed)
     {

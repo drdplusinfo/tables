@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes;
 
-use DrdPlus\Codes\MovementTypeCode;
+use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;

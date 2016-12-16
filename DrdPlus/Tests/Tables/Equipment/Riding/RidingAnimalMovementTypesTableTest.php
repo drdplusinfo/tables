@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Equipment\Riding;
 
-use DrdPlus\Codes\RidingAnimalMovementCode;
+use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
@@ -25,8 +25,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             ],
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getHeader()
         );
     }
@@ -61,8 +60,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             ],
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getIndexedValues()
         );
     }
@@ -79,8 +77,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus($expectedSpeedBonus, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonus(RidingAnimalMovementCode::getIt($ridingAnimalMovement))
         );
     }
@@ -102,8 +99,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus(0, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusWhenStill()
         );
     }
@@ -117,8 +113,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus(23, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnGait()
         );
     }
@@ -132,8 +127,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus(27, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnTrot()
         );
     }
@@ -147,8 +141,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus(34, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnCanter()
         );
     }
@@ -162,8 +155,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new SpeedBonus(39, $speedTable = new SpeedTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnGallop()
         );
     }
@@ -180,8 +172,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             $period,
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt($movementCode))
         );
     }
@@ -205,8 +196,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new Time(1, Time::HOUR, new TimeTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnGait()
         );
     }
@@ -220,8 +210,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new Time(0.5, Time::HOUR, new TimeTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnTrot()
         );
     }
@@ -235,8 +224,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new Time(5, Time::MINUTE, new TimeTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnCanter()
         );
     }
@@ -250,8 +238,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             new Time(2, Time::ROUND, new TimeTable()),
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnGallop()
         );
     }
@@ -270,7 +257,6 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             $movementTypesTable->getMaximumTimeBonusToSprint($endurance),
             (new RidingAnimalMovementTypesTable(
                 $speedTable,
-                $timeTable,
                 new MovementTypesTable($speedTable, $timeTable)
             ))->getMaximumTimeBonusToGallop($endurance)
         );
@@ -303,8 +289,7 @@ class RidingAnimalMovementTypesTableTest extends TestWithMockery implements Tabl
             $movementTypesTable->getRequiredTimeBonusToWalkAfterFullSprint($endurance),
             (new RidingAnimalMovementTypesTable(
                 $speedTable = new SpeedTable(),
-                $timeTable = new TimeTable(),
-                new MovementTypesTable($speedTable, $timeTable)
+                new MovementTypesTable($speedTable, new TimeTable())
             ))->getRequiredTimeBonusToWalkAfterFullGallop($endurance)
         );
     }

@@ -670,7 +670,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         if (!array_key_exists(RidingAnimalMovementTypesTable::class, $this->tables)) {
             $this->tables[RidingAnimalMovementTypesTable::class] = new RidingAnimalMovementTypesTable(
                 $this->getSpeedTable(),
-                $this->getTimeTable(),
                 $this->getMovementTypesTable()
             );
         }

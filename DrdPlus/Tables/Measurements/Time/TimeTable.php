@@ -1,6 +1,8 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
@@ -27,7 +29,7 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param TimeBonus $timeBonus
      * @param string|null $wantedUnit
-     * @return Time
+     * @return Time|MeasurementWithBonus
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
@@ -49,7 +51,7 @@ class TimeTable extends AbstractMeasurementFileTable
 
     /**
      * @param Time $time
-     * @return TimeBonus
+     * @return TimeBonus|AbstractBonus
      */
     public function toBonus(Time $time)
     {
