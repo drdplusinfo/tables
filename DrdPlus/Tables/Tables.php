@@ -66,6 +66,7 @@ use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Environments\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Environments\AttackNumberByDistanceTable;
+use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
@@ -752,6 +753,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return ImprovementOfLightSourceTable
+     */
+    public function getImprovementOfLightSourceTable()
+    {
+        if (!array_key_exists(ImprovementOfLightSourceTable::class, $this->tables)) {
+            $this->tables[ImprovementOfLightSourceTable::class] = new ImprovementOfLightSourceTable();
+        }
+
+        return $this->tables[ImprovementOfLightSourceTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -811,6 +824,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCombatActionsWithWeaponTypeCompatibilityTable(),
             $this->getLightingQualityTable(),
             $this->getPowerOfLightSourcesTable(),
+            $this->getImprovementOfLightSourceTable(),
         ]);
     }
 

@@ -59,7 +59,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     private function fetchDataFromFile($dataSourceFile)
     {
-        $resource = fopen($dataSourceFile, 'r');
+        $resource = fopen($dataSourceFile, 'rb');
         if (!$resource) {
             throw new Exceptions\CanNotReadFile("File with table data could not be read from $dataSourceFile");
         }

@@ -28,7 +28,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/combat_actions_with_weapon_type_compatibility_table.csv';
+        return __DIR__ . '/data/combat_actions_with_weapon_type_compatibility.csv';
     }
 
     /**

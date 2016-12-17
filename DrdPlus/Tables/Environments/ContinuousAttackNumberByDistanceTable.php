@@ -12,7 +12,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
 {
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/continuous_attack_number_by_distance_table.csv';
+        return __DIR__ . '/data/continuous_attack_number_by_distance.csv';
     }
 
     const DISTANCE_IN_METERS = 'distance_in_meters';
