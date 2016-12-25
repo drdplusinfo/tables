@@ -104,6 +104,26 @@ class BaseOfWoundsTableTest extends TestWithMockery
 
     /**
      * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @expectedExceptionMessageRegExp ~9999~
+     */
+    public function I_can_not_intersect_bonuses_if_first_is_out_of_range()
+    {
+        (new BaseOfWoundsTable())->getBonusesIntersection([9999, 0]);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @expectedExceptionMessageRegExp ~8765~
+     */
+    public function I_can_not_intersect_bonuses_if_second_is_out_of_range()
+    {
+        (new BaseOfWoundsTable())->getBonusesIntersection([0, 8765]);
+    }
+
+    /**
+     * @test
      */
     public function I_can_sum_bonuses() // like weights
     {

@@ -136,7 +136,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
      *
      * @param array|int[]|IntegerInterface[] $bonuses
      * @return int summarized bonuses
-     * @throws Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
     public function getBonusesIntersection(array $bonuses)
     {
@@ -164,10 +165,16 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @param int $bonus
      * @return int
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
     private function getColumnRank($bonus)
     {
-        return $this->getAxisX()[$bonus];
+        if (array_key_exists($bonus, $this->getAxisX())) {
+            return $this->getAxisX()[$bonus];
+        }
+        throw new Exceptions\BonusToIntersectIsOutOfKnownValues(
+            "Can not intersect bonus of value {$bonus} because it is out of table values"
+        );
     }
 
     /**
@@ -206,10 +213,16 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @param int $bonus
      * @return int
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
     private function getRowRank($bonus)
     {
-        return $this->getAxisY()[$bonus];
+        if (array_key_exists($bonus, $this->getAxisY())) {
+            return $this->getAxisY()[$bonus];
+        }
+        throw new Exceptions\BonusToIntersectIsOutOfKnownValues(
+            "Can not intersect bonus of value {$bonus} because it is out of table values"
+        );
     }
 
     /**
