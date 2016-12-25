@@ -31,18 +31,18 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     public function __construct($value, $unit, TimeTable $timeTable)
     {
         $this->timeTable = $timeTable;
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct($value, $unit);
     }
 
     /**
      * @return float|int
-     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
     public function getValue()
     {
         if ($this->getUnit() === self::ROUND) {
             // only rounds are always integer
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return ToInteger::toInteger(parent::getValue());
         }
 
@@ -110,6 +110,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
         }
         $bonus = $this->timeTable->toBonus($this);
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->timeTable->hasTimeFor($bonus, $unit)
             ? $this->timeTable->toTime($bonus, $unit)
             : null;

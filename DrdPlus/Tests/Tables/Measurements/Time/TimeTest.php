@@ -195,4 +195,17 @@ class TimeTest extends AbstractTestOfMeasurement
     {
         self::assertSame((new Time(1, Time::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
     }
+
+    /**
+     * This tests equals to that on PPH page 11 right column
+     * @test
+     */
+    public function I_get_zero_as_bonus_for_one_round()
+    {
+        self::assertSame(
+            0,
+            (new Time(1, Time::ROUND, new TimeTable()))->getBonus()->getValue(),
+            'First available bonus should be taken if more than single one matches the value'
+        );
+    }
 }
