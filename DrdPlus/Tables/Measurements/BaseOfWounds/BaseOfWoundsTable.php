@@ -47,10 +47,13 @@ class BaseOfWoundsTable extends StrictObject implements Table
         $this->values = $this->fetchData();
     }
 
+    /**
+     * @return array|string[][]
+     */
     private function fetchData()
     {
         $data = [];
-        $handle = fopen(__DIR__ . '/data/base_of_wounds.csv', 'r');
+        $handle = fopen(__DIR__ . '/data/base_of_wounds.csv', 'rb');
         while ($row = fgetcsv($handle)) {
             $data[] = array_map(
                 function ($value) {
@@ -67,6 +70,10 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $data;
     }
 
+    /**
+     * @param array|int[][] $data
+     * @return array|int[]
+     */
     private function collectAxisY(array $data)
     {
         $axisY = [];
@@ -75,7 +82,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         }
         unset ($axisY[0]); // removing blank first value ("⊕")
 
-        return $this->transpose($axisY); // rank (index) starts by number 1
+        return $this->transpose($axisY); // note: rank (index) starts by number 1
     }
 
     /**
@@ -125,7 +132,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * Warning - the result depends on the sequence of given bonuses
+     * Warning - the result depends on the SEQUENCE of given bonuses.
      *
      * @param array|int[]|IntegerInterface[] $bonuses
      * @return int|null summarized bonuses, or null if no given at all (empty array).
@@ -154,13 +161,17 @@ class BaseOfWoundsTable extends StrictObject implements Table
         throw new Exceptions\SumOfBonusesResultsIntoNull('Sum of ' . count($bonuses) . ' bonuses resulted into NULL');
     }
 
+    /**
+     * @param int $bonus
+     * @return int
+     */
     private function getColumnRank($bonus)
     {
         return $this->getAxisX()[$bonus];
     }
 
     /**
-     * @return array
+     * @return array|int[]
      */
     private function getAxisX()
     {
@@ -171,26 +182,38 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $this->axisX;
     }
 
+    /**
+     * @param array|int[][] $data
+     * @return array|int[][]
+     */
     private function collectAxisX(array $data)
     {
         $axisX = $data[0]; // first row
         unset($axisX[0]); // removing blank first value ("⊕")
 
-        return $this->transpose($axisX); // rank (index) starts by number 1
+        return $this->transpose($axisX); // note: rank (index) starts by number 1
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     private function transpose(array $data)
     {
         return array_flip($data);
     }
 
+    /**
+     * @param int $bonus
+     * @return int
+     */
     private function getRowRank($bonus)
     {
         return $this->getAxisY()[$bonus];
     }
 
     /**
-     * @return array
+     * @return array|int[]
      */
     private function getAxisY()
     {
@@ -201,6 +224,11 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $this->axisY;
     }
 
+    /**
+     * @param int $columnRank
+     * @param int $rowRank
+     * @return int
+     */
     private function locateBonus($columnRank, $rowRank)
     {
         return $this->getBonuses()[$rowRank][$columnRank];
@@ -218,6 +246,10 @@ class BaseOfWoundsTable extends StrictObject implements Table
         return $this->bonuses;
     }
 
+    /**
+     * @param array|int[][] $data
+     * @return array|int[][]
+     */
     private function collectBonuses(array $data)
     {
         unset($data[0]); // removing first row - the axis X header

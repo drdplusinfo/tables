@@ -87,9 +87,9 @@ class BaseOfWoundsTableTest extends TestWithMockery
      * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
      * @param array $bonuses
      */
-    public function I_can_not_intersect_nothing(array $bonuses)
+    public function I_can_not_intersect_nothing_or_null_as_first_bonus(array $bonuses)
     {
-        self::assertNull((new BaseOfWoundsTable())->getBonusesIntersection($bonuses));
+        (new BaseOfWoundsTable())->getBonusesIntersection($bonuses);
     }
 
     public function provideNoBonuses()
@@ -98,6 +98,7 @@ class BaseOfWoundsTableTest extends TestWithMockery
             [[]],
             [[null]],
             [[null, 1]],
+            [[null, 123, 456]],
         ];
     }
 
@@ -120,9 +121,9 @@ class BaseOfWoundsTableTest extends TestWithMockery
      * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
      * @param array $bonuses
      */
-    public function I_can_not_sum_nothing(array $bonuses)
+    public function I_can_not_sum_nothing_or_null_as_first_bonus(array $bonuses)
     {
-        self::assertNull((new BaseOfWoundsTable())->sumBonuses($bonuses));
+        (new BaseOfWoundsTable())->sumBonuses($bonuses);
     }
 
     /**
