@@ -42,10 +42,13 @@ class DistanceTest extends AbstractTestOfMeasurement
      */
     public function Invalid_unit_of_inherited_distance_is_detected()
     {
-        $distanceTable = new DistanceTable();
+        /** @var Distance|\Mockery\MockInterface $distanceWithInvalidUnit */
+        $distanceWithInvalidUnit = $this->mockery(Distance::class);
+        $distanceWithInvalidUnit->shouldReceive('getUnit')
+            ->andReturn('invalid unit');
+        $distanceWithInvalidUnit->shouldDeferMissing();
 
-        $invalid = new TestOfDistanceWithInvalidUnit(123, Distance::KM, $distanceTable);
-        $invalid->getMeters();
+        $distanceWithInvalidUnit->getMeters();
     }
 
     protected function getDefaultUnit()
@@ -58,13 +61,4 @@ class DistanceTest extends AbstractTestOfMeasurement
         return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
     }
 
-}
-
-/** inner */
-class TestOfDistanceWithInvalidUnit extends Distance
-{
-    public function getUnit()
-    {
-        return 'invalid unit';
-    }
 }
