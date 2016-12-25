@@ -135,7 +135,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * Warning - the result depends on the SEQUENCE of given bonuses.
      *
      * @param array|int[]|IntegerInterface[] $bonuses
-     * @return int|null summarized bonuses, or null if no given at all (empty array).
+     * @return int summarized bonuses
      * @throws Exceptions\SumOfBonusesResultsIntoNull
      */
     public function getBonusesIntersection(array $bonuses)
