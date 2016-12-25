@@ -29,18 +29,18 @@ class AmountTableTest extends TestWithMockery implements MeasurementTableTest
         $attempt = 1;
         do {
             $zeroOrOne = $amountTable->toAmount(new AmountBonus(-20, $amountTable));
-            if ($zeroOrOne->getValue() === 1.0) {
+            if ($zeroOrOne->getValue() === 1) {
                 break;
             }
         } while ($attempt++ < $maxAttempts);
         self::assertLessThan($maxAttempts, $attempt);
-        self::assertSame(1.0, $zeroOrOne->getValue());
+        self::assertSame(1, $zeroOrOne->getValue());
         self::assertSame(
-            1.0,
+            1,
             $amountTable->toAmount(new AmountBonus(0, $amountTable))->getValue()
         );
         self::assertSame(
-            90000.0,
+            90000,
             $amountTable->toAmount(new AmountBonus(99, $amountTable))->getValue()
         );
     }
