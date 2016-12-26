@@ -18,10 +18,10 @@ class DiceChanceEvaluatorTest extends TestWithMockery
         $roller = $this->mockery(Roller1d6::class);
         $evaluator = new DiceChanceEvaluator($roller);
         $roller->shouldReceive('roll')
-            ->twice()
-            ->andReturnValues([$this->createNumber($higherRoll = 321), $this->createNumber($lowerRoll = 123)]);
-        self::assertSame(1, $evaluator->evaluate($higherRoll - 1));
-        self::assertSame(0, $evaluator->evaluate($lowerRoll + 1));
+            ->andReturn($this->createNumber(321));
+        self::assertSame(0, $evaluator->evaluate(320), 'Higher roll than maximum should result into zero');
+        self::assertSame(1, $evaluator->evaluate(321));
+        self::assertSame(1, $evaluator->evaluate(322));
     }
 
     private function createNumber($value)

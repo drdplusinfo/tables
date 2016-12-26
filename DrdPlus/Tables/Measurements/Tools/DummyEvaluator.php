@@ -6,9 +6,8 @@ use DrdPlus\Tables\Measurements\Exceptions\UnsupportedMethodCalled;
 class DummyEvaluator implements EvaluatorInterface
 {
     /**
-     * @param float $maxRollToGetValue
-     *
-     * @return int
+     * @param int $maxRollToGetValue
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnsupportedMethodCalled
      */
     public function evaluate($maxRollToGetValue)
     {
