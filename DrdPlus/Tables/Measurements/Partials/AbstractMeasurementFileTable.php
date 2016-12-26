@@ -263,7 +263,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
     {
         $bonusValue = $bonus->getValue();
-        $this->checkBonusExistence($bonusValue);
+        $this->guardBonusExisting($bonusValue);
         $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
         $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
@@ -271,7 +271,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $this->convertToMeasurement($wantedValue, $wantedUnit);
     }
 
-    private function checkBonusExistence($bonusValue)
+    private function guardBonusExisting($bonusValue)
     {
         if (!array_key_exists($bonusValue, $this->getIndexedValues())) {
             throw new Exceptions\UnknownBonus("Value to bonus {$bonusValue} is not defined.");
@@ -287,7 +287,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     private function determineUnit($wantedUnit, $bonusValue)
     {
         if ($wantedUnit === null) {
-            $this->checkBonusExistence($bonusValue);
+            $this->guardBonusExisting($bonusValue);
             $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
         } else {
             $this->checkUnitExistence($wantedUnit);
