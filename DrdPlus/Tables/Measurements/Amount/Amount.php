@@ -5,6 +5,9 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 
+/**
+ * @method int getValue
+ */
 class Amount extends AbstractMeasurementWithBonus
 {
     const AMOUNT = 'amount';
