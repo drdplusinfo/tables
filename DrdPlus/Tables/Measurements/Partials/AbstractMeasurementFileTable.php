@@ -357,8 +357,10 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     protected function hasMeasurementFor(AbstractBonus $bonus, $wantedUnit = null)
     {
         $bonusValue = $bonus->getValue();
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit);
     }
 
@@ -368,7 +370,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     protected function measurementToBonus(MeasurementWithBonus $measurement)
     {
-        return $this->createBonus($this->determineBonus($measurement));
+        return $this->createBonus($this->determineBonusValue($measurement));
     }
 
     /**
@@ -376,7 +378,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      *
      * @return int
      */
-    private function determineBonus(MeasurementWithBonus $measurement)
+    private function determineBonusValue(MeasurementWithBonus $measurement)
     {
         $finds = $this->getBonusMatchingOrClosestTo($measurement);
         if (is_int($finds)) {
@@ -431,11 +433,11 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param float $searchedValue
      * @param array $closestLower
      * @param array $closestHigher
-     *
      * @return int
      */
     private function getBonusClosestTo($searchedValue, array $closestLower, array $closestHigher)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $searchedValue = ToFloat::toFloat($searchedValue);
         $closerValue = $this->getCloserValue($searchedValue, key($closestLower), key($closestHigher));
         if ($closerValue !== false) {
