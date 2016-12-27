@@ -7,7 +7,7 @@ use Granam\Integer\PositiveInteger;
 /**
  * See PPH page 129, left column (table without name)
  */
-class PossibleActionsAccordingToContrast extends AbstractFileTable
+class PossibleActionsAccordingToContrastTable extends AbstractFileTable
 {
     /**
      * @return string

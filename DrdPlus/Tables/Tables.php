@@ -68,6 +68,7 @@ use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Environments\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
+use DrdPlus\Tables\Environments\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
@@ -765,6 +766,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return PossibleActionsAccordingToContrastTable
+     */
+    public function getPossibleActionsAccordingToContrastTable()
+    {
+        if (!array_key_exists(PossibleActionsAccordingToContrastTable::class, $this->tables)) {
+            $this->tables[PossibleActionsAccordingToContrastTable::class] = new PossibleActionsAccordingToContrastTable();
+        }
+
+        return $this->tables[PossibleActionsAccordingToContrastTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -825,6 +838,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getLightingQualityTable(),
             $this->getPowerOfLightSourcesTable(),
             $this->getImprovementOfLightSourceTable(),
+            $this->getPossibleActionsAccordingToContrastTable(),
         ]);
     }
 

@@ -45,7 +45,7 @@ class TablesTest extends TestWithMockery
             $getTable = "get{$baseName}";
             self::assertTrue(
                 method_exists($tables, $getTable),
-                "'Tables' factory is missing getter for {$baseName} (or the class should be abstract?)"
+                "'Tables' factory is missing getter {$getTable} for {$expectedTableClass} (or the class should be abstract?)"
             );
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);
@@ -96,10 +96,15 @@ class TablesTest extends TestWithMockery
                     foreach ($this->scanForTables($folderFullPath, $rootNamespace . '\\' . $folder) as $foundTable) {
                         $tableClasses[] = $foundTable;
                     }
-                } else if (is_file($folderFullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $folder, $matches)) {
-                    $tableReflection = new \ReflectionClass($rootNamespace . '\\' . $matches['tableBasename']);
-                    if ($tableReflection->isInstantiable()) {
-                        $tableClasses[] = $tableReflection->getName();
+                } else if (is_file($folderFullPath) && preg_match('~(?<classBasename>\w+(?:Table)?)\.php$~', $folder, $matches)) {
+                    $reflectionClass = new \ReflectionClass($rootNamespace . '\\' . $matches['classBasename']);
+                    if ($reflectionClass->isInstantiable() && $reflectionClass->implementsInterface(Table::class)) {
+                        self::assertRegExp(
+                            '~Table$~',
+                            $reflectionClass->getName(),
+                            'Every single table should ends by "Table"'
+                        );
+                        $tableClasses[] = $reflectionClass->getName();
                     }
                 }
             }
@@ -133,15 +138,15 @@ class TablesTest extends TestWithMockery
     {
         $values = [];
         foreach ([
-            BodyArmorCode::class => BodyArmorsTable::class,
-            HelmCode::class => HelmsTable::class,
-            ShieldCode::class => ShieldsTable::class,
-            MeleeWeaponCode::class => MeleeWeaponsTable::class,
-            RangedWeaponCode::class => RangedWeaponsTable::class,
-            ArrowCode::class => ArrowsTable::class,
-            DartCode::class => DartsTable::class,
-            SlingStoneCode::class => SlingStonesTable::class,
-        ] as $codeClass => $tableClass) {
+                     BodyArmorCode::class => BodyArmorsTable::class,
+                     HelmCode::class => HelmsTable::class,
+                     ShieldCode::class => ShieldsTable::class,
+                     MeleeWeaponCode::class => MeleeWeaponsTable::class,
+                     RangedWeaponCode::class => RangedWeaponsTable::class,
+                     ArrowCode::class => ArrowsTable::class,
+                     DartCode::class => DartsTable::class,
+                     SlingStoneCode::class => SlingStonesTable::class,
+                 ] as $codeClass => $tableClass) {
             foreach ($this->pairCodesWithClass($this->getCodes($codeClass), $tableClass) as $pair) {
                 $values[] = $pair;
             }
