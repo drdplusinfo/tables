@@ -103,11 +103,15 @@ abstract class AbstractTable extends StrictObject implements Table
     }
 
     /**
+     * Names of those first columns defining where row names lays (mostly just first column).
+     *
      * @return array|\ArrayObject|string[]|string[][]
      */
     abstract protected function getRowsHeader();
 
     /**
+     * Names of all those columns where data itself lays (mostly all except first one).
+     *
      * @return array|\ArrayObject|string[]|string[][][]
      */
     abstract protected function getColumnsHeader();

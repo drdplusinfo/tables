@@ -231,6 +231,9 @@ abstract class AbstractFileTable extends AbstractTable
         return $this->normalizedExpectedColumnHeader;
     }
 
+    /** @return string[] */
+    abstract protected function getExpectedDataHeaderNamesToTypes();
+
     private function normalizeScalarType($scalarType)
     {
         switch (strtolower($scalarType)) {
@@ -252,9 +255,6 @@ abstract class AbstractFileTable extends AbstractTable
                 );
         }
     }
-
-    /** @return string[] */
-    abstract protected function getExpectedDataHeaderNamesToTypes();
 
     private function parseRowValue($value, $columnIndex)
     {
