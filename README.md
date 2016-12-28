@@ -1,6 +1,8 @@
 # Table values for DrD+
 
 [![Build Status](https://travis-ci.org/jaroslavtyc/drd-plus-tables.svg?branch=master)](https://travis-ci.org/jaroslavtyc/drd-plus-tables)
+[![Test Coverage](https://codeclimate.com/github/jaroslavtyc/drd-plus-tables/badges/coverage.svg)](https://codeclimate.com/github/jaroslavtyc/drd-plus-tables/coverage)
+[![License](https://poser.pugx.org/drd-plus/tables/license)](https://packagist.org/packages/drd-plus/tables)
 
 Over sixty tables used for calculation and information in DrD+.
 
