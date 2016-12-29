@@ -6,7 +6,7 @@ use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use DrdPlus\Tools\Calculations\SumAndRound;
+use DrdPlus\Calculations\SumAndRound;
 use Granam\Integer\Tools\ToInteger;
 
 /**

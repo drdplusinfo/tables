@@ -6,7 +6,7 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Environments\Partials\AbstractAttackNumberByDistanceTableTest;
-use DrdPlus\Tools\Calculations\SumAndRound;
+use DrdPlus\Calculations\SumAndRound;
 
 class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
 {

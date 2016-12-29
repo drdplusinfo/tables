@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\Equipment\Riding;
 use DrdPlus\Codes\Transport\RidingAnimalCode;
 use DrdPlus\Codes\Transport\RidingAnimalPropertyCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
-use DrdPlus\Tools\Calculations\SumAndRound;
+use DrdPlus\Calculations\SumAndRound;
 
 class RidingAnimalsTable extends AbstractFileTable
 {

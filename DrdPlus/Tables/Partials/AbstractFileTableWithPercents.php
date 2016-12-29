@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Partials;
 
-use DrdPlus\Tools\Calculations\SumAndRound;
+use DrdPlus\Calculations\SumAndRound;
 use Granam\Tools\ValueDescriber;
 
 abstract class AbstractFileTableWithPercents extends AbstractFileTable

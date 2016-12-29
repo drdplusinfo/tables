@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
-use DrdPlus\Tools\Calculations\SumAndRound;
+use DrdPlus\Calculations\SumAndRound;
 
 class BodyArmorsTableTest extends AbstractArmorsTableTest
 {
