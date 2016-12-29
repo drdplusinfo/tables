@@ -16,7 +16,7 @@
     "drd/dice-roll": "dev-master",
     "drd-plus/codes": "dev-master",
     "drd-plus/properties": "dev-master",
-    "drd-plus/tools": "dev-master"
+    "drd-plus/calculations": "dev-master"
   },
   "require-dev": {
     "phpunit/phpunit": ">=4.4",
