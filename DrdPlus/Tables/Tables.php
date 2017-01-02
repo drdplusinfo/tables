@@ -87,6 +87,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tables\Professions\BackgroundSkillsTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
+use DrdPlus\Tables\Races\SightRangesTable;
 use Granam\Strict\Object\StrictObject;
 
 class Tables extends StrictObject implements \IteratorAggregate
@@ -778,6 +779,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return SightRangesTable
+     */
+    public function getSightRangesTable()
+    {
+        if (!array_key_exists(SightRangesTable::class, $this->tables)) {
+            $this->tables[SightRangesTable::class] = new SightRangesTable();
+        }
+
+        return $this->tables[SightRangesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -839,6 +852,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getPowerOfLightSourcesTable(),
             $this->getImprovementOfLightSourceTable(),
             $this->getPossibleActionsAccordingToContrastTable(),
+            $this->getSightRangesTable(),
         ]);
     }
 
