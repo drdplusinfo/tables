@@ -127,13 +127,13 @@ abstract class AbstractTable extends StrictObject implements Table
      */
     public function getValue($rowIndexes, $columnIndex)
     {
-        $row = $this->getRow((array)$rowIndexes);
+        $row = $this->getRow($rowIndexes);
 
         return $this->getValueInRow($row, $columnIndex);
     }
 
     /**
-     * @param array|string $singleRowIndexes
+     * @param array|string|ScalarInterface $singleRowIndexes
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
@@ -141,7 +141,10 @@ abstract class AbstractTable extends StrictObject implements Table
      */
     public function getRow($singleRowIndexes)
     {
-        $arraySingleRowIndexes = (array)$singleRowIndexes;
+        /** @noinspection ArrayCastingEquivalentInspection */
+        $arraySingleRowIndexes = is_array($singleRowIndexes)
+            ? $singleRowIndexes
+            : [$singleRowIndexes];
         if (count($arraySingleRowIndexes) === 0) {
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }

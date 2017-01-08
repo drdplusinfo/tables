@@ -85,6 +85,7 @@ use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tables\Professions\BackgroundSkillsTable;
+use DrdPlus\Tables\Professions\ProfessionPrimaryPropertiesTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Races\SightRangesTable;
@@ -791,6 +792,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return ProfessionPrimaryPropertiesTable
+     */
+    public function getProfessionPrimaryPropertiesTable()
+    {
+        if (!array_key_exists(ProfessionPrimaryPropertiesTable::class, $this->tables)) {
+            $this->tables[ProfessionPrimaryPropertiesTable::class] = new ProfessionPrimaryPropertiesTable();
+        }
+
+        return $this->tables[ProfessionPrimaryPropertiesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -853,6 +866,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getImprovementOfLightSourceTable(),
             $this->getPossibleActionsAccordingToContrastTable(),
             $this->getSightRangesTable(),
+            $this->getProfessionPrimaryPropertiesTable(),
         ]);
     }
 
