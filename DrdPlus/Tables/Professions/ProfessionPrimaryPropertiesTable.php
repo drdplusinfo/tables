@@ -46,13 +46,15 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
     public function getPrimaryPropertiesOf(ProfessionCode $professionCode)
     {
         try {
+            $primaryProperties = [];
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return array_map(
-                function ($propertyValue) {
-                    return PropertyCode::getIt($propertyValue);
-                },
-                array_values($this->getRow([$professionCode]))
-            );
+            foreach ($this->getRow([$professionCode]) as $primaryPropertyValue) {
+                if ($primaryPropertyValue !== '') {
+                    $primaryProperties[] = PropertyCode::getIt($primaryPropertyValue);
+                }
+            }
+
+            return $primaryProperties;
         } catch (RequiredRowNotFound $requiredRowNotFound) {
             throw new Exceptions\UnknownProfession(
                 'Given profession is not known: ' . ValueDescriber::describe($professionCode)

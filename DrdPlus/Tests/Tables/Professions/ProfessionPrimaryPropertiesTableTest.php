@@ -31,7 +31,9 @@ class ProfessionPrimaryPropertiesTableTest extends TestWithMockery implements Ta
     {
         $professionPrimaryPropertiesTable = new ProfessionPrimaryPropertiesTable();
         $professionCode = ProfessionCode::getIt($profession);
-        $expectedProperties = [PropertyCode::getIt($firstPrimaryProperty), PropertyCode::getIt($secondPrimaryProperty)];
+        $expectedProperties = $firstPrimaryProperty && $secondPrimaryProperty
+            ? [PropertyCode::getIt($firstPrimaryProperty), PropertyCode::getIt($secondPrimaryProperty)]
+            : [];
         $givenProperties = $professionPrimaryPropertiesTable->getPrimaryPropertiesOf($professionCode);
         self::assertSame($expectedProperties, $givenProperties);
     }
@@ -39,6 +41,7 @@ class ProfessionPrimaryPropertiesTableTest extends TestWithMockery implements Ta
     public function provideProfessionAndExpectedPrimaryProperties()
     {
         return [
+            [ProfessionCode::COMMONER, false, false],
             [ProfessionCode::FIGHTER, PropertyCode::STRENGTH, PropertyCode::AGILITY],
             [ProfessionCode::RANGER, PropertyCode::KNACK, PropertyCode::STRENGTH],
             [ProfessionCode::THIEF, PropertyCode::AGILITY, PropertyCode::KNACK],
