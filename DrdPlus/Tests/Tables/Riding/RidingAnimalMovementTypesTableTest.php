@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Equipment\Riding;
+namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
-use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;
+use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;

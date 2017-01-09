@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Equipment\Riding;
+namespace DrdPlus\Tables\Riding;
 
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use DrdPlus\Tables\Partials\Percents;
@@ -9,7 +9,7 @@ class DefianceOfWildPercents extends Percents
 {
     /**
      * @param mixed $value
-     * @throws \DrdPlus\Tables\Equipment\Riding\Exceptions\UnexpectedDefianceOfWildPercents
+     * @throws \DrdPlus\Tables\Riding\Exceptions\UnexpectedDefianceOfWildPercents
      */
     public function __construct($value)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Equipment\Riding;
+namespace DrdPlus\Tables\Riding;
 
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
@@ -12,8 +12,8 @@ class Ride extends StrictObject implements IntegerInterface
 
     /**
      * @param int $rideValue
-     * @throws \DrdPlus\Tables\Equipment\Riding\Exceptions\InvalidRideValue
-     * @throws \Granam\Integer\Exceptions\PositiveIntegerCanNotBeNegative
+     * @throws \DrdPlus\Tables\Riding\Exceptions\InvalidRideValue
+     * @throws \Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative
      */
     public function __construct($rideValue)
     {

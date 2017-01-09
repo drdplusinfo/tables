@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Equipment\Riding;
+namespace DrdPlus\Tests\Tables\Riding;
 
-use DrdPlus\Tables\Equipment\Riding\DefianceOfWildPercents;
+use DrdPlus\Tables\Riding\DefianceOfWildPercents;
 use DrdPlus\Tests\Tables\Partials\PercentsTest;
 
 class DefianceOfWildPercentsTest extends PercentsTest
@@ -13,7 +13,7 @@ class DefianceOfWildPercentsTest extends PercentsTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Equipment\Riding\Exceptions\UnexpectedDefianceOfWildPercents
+     * @expectedException \DrdPlus\Tables\Riding\Exceptions\UnexpectedDefianceOfWildPercents
      * @expectedExceptionMessageRegExp ~\s101~
      */
     public function I_can_not_create_more_than_hundred_of_percents()

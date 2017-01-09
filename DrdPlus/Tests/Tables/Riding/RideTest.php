@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Equipment\Riding;
+namespace DrdPlus\Tests\Tables\Riding;
 
-use DrdPlus\Tables\Equipment\Riding\Ride;
+use DrdPlus\Tables\Riding\Ride;
 use Granam\Integer\IntegerInterface;
 
 class RideTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +19,7 @@ class RideTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Equipment\Riding\Exceptions\InvalidRideValue
+     * @expectedException \DrdPlus\Tables\Riding\Exceptions\InvalidRideValue
      * @expectedExceptionMessageRegExp ~devil-like~
      */
     public function I_can_not_create_ride_with_non_integer()

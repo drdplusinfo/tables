@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Equipment\Exceptions;
+namespace DrdPlus\Tables\Riding\Exceptions;
 
 interface Runtime extends Exception, \DrdPlus\Tables\Exceptions\Runtime
 {

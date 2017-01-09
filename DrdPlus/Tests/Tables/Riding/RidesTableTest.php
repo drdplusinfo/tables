@@ -1,9 +1,9 @@
 <?php
-namespace DrdPlus\Tests\Tables\Equipment\Riding;
+namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
-use DrdPlus\Tables\Equipment\Riding\Ride;
-use DrdPlus\Tables\Equipment\Riding\RidesTable;
+use DrdPlus\Tables\Riding\Ride;
+use DrdPlus\Tables\Riding\RidesTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 

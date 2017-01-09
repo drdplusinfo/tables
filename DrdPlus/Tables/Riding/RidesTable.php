@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Equipment\Riding;
+namespace DrdPlus\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;

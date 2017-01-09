@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Equipment\Riding;
+namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalCode;
 use DrdPlus\Codes\Transport\RidingAnimalPropertyCode;
-use DrdPlus\Tables\Equipment\Riding\DefianceOfWildPercents;
-use DrdPlus\Tables\Equipment\Riding\RidingAnimalsTable;
+use DrdPlus\Tables\Riding\DefianceOfWildPercents;
+use DrdPlus\Tables\Riding\RidingAnimalsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 

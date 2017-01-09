@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Equipment\Riding\Exceptions;
+namespace DrdPlus\Tables\Riding\Exceptions;
 
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 
