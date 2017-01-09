@@ -70,6 +70,7 @@ use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
+use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Riding\RidingAnimalsTable;
@@ -804,6 +805,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return BackgroundPointsTable
+     */
+    public function getBackgroundPointsTable()
+    {
+        if (!array_key_exists(BackgroundPointsTable::class, $this->tables)) {
+            $this->tables[BackgroundPointsTable::class] = new BackgroundPointsTable();
+        }
+
+        return $this->tables[BackgroundPointsTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -867,6 +880,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getPossibleActionsAccordingToContrastTable(),
             $this->getSightRangesTable(),
             $this->getProfessionPrimaryPropertiesTable(),
+            $this->getBackgroundPointsTable(),
         ]);
     }
 
