@@ -42,7 +42,7 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownChoice
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownFate
      * @expectedExceptionMessageRegExp ~homeless~
      */
     public function I_can_not_get_background_points_for_unknown_fate()

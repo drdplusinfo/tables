@@ -42,7 +42,7 @@ class BackgroundPointsTable extends AbstractFileTable
     /**
      * @param FateCode $fateCode
      * @return int
-     * @throws \DrdPlus\Tables\History\Exceptions\UnknownChoice
+     * @throws \DrdPlus\Tables\History\Exceptions\UnknownFate
      */
     public function getBackgroundPointsByFate(FateCode $fateCode)
     {
@@ -50,7 +50,7 @@ class BackgroundPointsTable extends AbstractFileTable
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue($fateCode, self::BACKGROUND_POINTS);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
-            throw new Exceptions\UnknownChoice('Unknown choice ' . $fateCode->getValue());
+            throw new Exceptions\UnknownFate('Unknown fate ' . $fateCode->getValue());
         }
     }
 
