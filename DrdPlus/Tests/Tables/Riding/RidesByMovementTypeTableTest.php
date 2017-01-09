@@ -3,11 +3,11 @@ namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Riding\Ride;
-use DrdPlus\Tables\Riding\RidesTable;
+use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
-class RidesTableTest extends TestWithMockery implements TableTestInterface
+class RidesByMovementTypeTableTest extends TestWithMockery implements TableTestInterface
 {
     /**
      * @test
@@ -18,7 +18,7 @@ class RidesTableTest extends TestWithMockery implements TableTestInterface
             [
                 ['movement_type', 'ride', 'additional']
             ],
-            (new RidesTable())->getHeader()
+            (new RidesByMovementTypeTable())->getHeader()
         );
     }
 
@@ -30,31 +30,31 @@ class RidesTableTest extends TestWithMockery implements TableTestInterface
         self::assertSame(
             [
                 RidingAnimalMovementCode::STILL => [
-                    RidesTable::RIDE => -2,
-                    RidesTable::ADDITIONAL => false
+                    RidesByMovementTypeTable::RIDE => -2,
+                    RidesByMovementTypeTable::ADDITIONAL => false
                 ],
                 RidingAnimalMovementCode::GAIT => [
-                    RidesTable::RIDE => 0,
-                    RidesTable::ADDITIONAL => false
+                    RidesByMovementTypeTable::RIDE => 0,
+                    RidesByMovementTypeTable::ADDITIONAL => false
                 ],
                 RidingAnimalMovementCode::TROT => [
-                    RidesTable::RIDE => 2,
-                    RidesTable::ADDITIONAL => false
+                    RidesByMovementTypeTable::RIDE => 2,
+                    RidesByMovementTypeTable::ADDITIONAL => false
                 ],
                 RidingAnimalMovementCode::CANTER => [
-                    RidesTable::RIDE => 4,
-                    RidesTable::ADDITIONAL => false
+                    RidesByMovementTypeTable::RIDE => 4,
+                    RidesByMovementTypeTable::ADDITIONAL => false
                 ],
                 RidingAnimalMovementCode::GALLOP => [
-                    RidesTable::RIDE => 6,
-                    RidesTable::ADDITIONAL => false
+                    RidesByMovementTypeTable::RIDE => 6,
+                    RidesByMovementTypeTable::ADDITIONAL => false
                 ],
                 RidingAnimalMovementCode::JUMPING => [
-                    RidesTable::RIDE => 2,
-                    RidesTable::ADDITIONAL => true
+                    RidesByMovementTypeTable::RIDE => 2,
+                    RidesByMovementTypeTable::ADDITIONAL => true
                 ],
             ],
-            (new RidesTable())->getIndexedValues()
+            (new RidesByMovementTypeTable())->getIndexedValues()
         );
     }
 
@@ -67,7 +67,7 @@ class RidesTableTest extends TestWithMockery implements TableTestInterface
      */
     public function I_can_get_ride_for_any_move($movement, $jumping, $expectedRideValue)
     {
-        $ridesTable = new RidesTable();
+        $ridesTable = new RidesByMovementTypeTable();
         self::assertEquals(
             new Ride($expectedRideValue),
             $ridesTable->getRideFor(RidingAnimalMovementCode::getIt($movement), $jumping)

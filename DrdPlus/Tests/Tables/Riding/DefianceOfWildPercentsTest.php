@@ -8,7 +8,7 @@ class DefianceOfWildPercentsTest extends PercentsTest
 {
     public function I_can_create_more_than_hundred_of_percents()
     {
-        // intentionally empty, because I can not
+        // intentionally empty, because I can NOT create more than a hundred of percents
     }
 
     /**

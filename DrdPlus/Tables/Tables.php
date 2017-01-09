@@ -70,7 +70,7 @@ use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
-use DrdPlus\Tables\Riding\RidesTable;
+use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Riding\RidingAnimalsTable;
 use DrdPlus\Tables\Riding\WoundsOnFallFromHorseTable;
@@ -655,15 +655,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return RidesTable
+     * @return RidesByMovementTypeTable
      */
-    public function getRidesTable()
+    public function getRidesByMovementTypeTable()
     {
-        if (!array_key_exists(RidesTable::class, $this->tables)) {
-            $this->tables[RidesTable::class] = new RidesTable();
+        if (!array_key_exists(RidesByMovementTypeTable::class, $this->tables)) {
+            $this->tables[RidesByMovementTypeTable::class] = new RidesByMovementTypeTable();
         }
 
-        return $this->tables[RidesTable::class];
+        return $this->tables[RidesByMovementTypeTable::class];
     }
 
     /**
@@ -855,7 +855,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getContinuousAttackNumberByDistanceTable(),
             $this->getFatigueByLoadTable(),
             $this->getRestingBySituationTable(),
-            $this->getRidesTable(),
+            $this->getRidesByMovementTypeTable(),
             $this->getRidingAnimalMovementTypesTable(),
             $this->getRidingAnimalsTable(),
             $this->getWoundsOnFallFromHorseTable(),

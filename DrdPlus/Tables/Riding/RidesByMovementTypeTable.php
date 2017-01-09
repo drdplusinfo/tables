@@ -4,7 +4,10 @@ namespace DrdPlus\Tables\Riding;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
-class RidesTable extends AbstractFileTable
+/**
+ * See PPH page 122 right column (table without name), @link https://pph.drdplus.jaroslavtyc.com/#tabulka_jizdy_podle_druhu_pohybu
+ */
+class RidesByMovementTypeTable extends AbstractFileTable
 {
     /**
      * @return string

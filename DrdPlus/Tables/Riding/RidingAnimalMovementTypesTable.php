@@ -21,20 +21,27 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
      */
     private $movementTypesTable;
 
-    public function __construct(
-        SpeedTable $speedTable,
-        MovementTypesTable $movementTypesTable
-    )
+    /**
+     * @param SpeedTable $speedTable
+     * @param MovementTypesTable $movementTypesTable
+     */
+    public function __construct(SpeedTable $speedTable, MovementTypesTable $movementTypesTable)
     {
         $this->speedTable = $speedTable;
         $this->movementTypesTable = $movementTypesTable;
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/riding_animal_movement_types.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
         return ['movement_type'];
@@ -43,6 +50,9 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
     const BONUS_TO_MOVEMENT_SPEED = MovementTypesTable::BONUS_TO_MOVEMENT_SPEED;
     const FATIGUE_LIKE = 'fatigue_like';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

@@ -6,6 +6,9 @@ use DrdPlus\Codes\Transport\RidingAnimalPropertyCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Calculations\SumAndRound;
 
+/**
+ * PPH page 122, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_jezdeckych_zvirat
+ */
 class RidingAnimalsTable extends AbstractFileTable
 {
     /**
