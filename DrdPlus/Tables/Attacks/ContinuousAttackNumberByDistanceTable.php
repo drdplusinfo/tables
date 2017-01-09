@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Environments;
+namespace DrdPlus\Tables\Attacks;
 
-use DrdPlus\Tables\Environments\Partials\AbstractAttackNumberByDistanceTable;
+use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use Granam\Float\Tools\ToFloat;
 
@@ -10,6 +10,9 @@ use Granam\Float\Tools\ToFloat;
  */
 class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/continuous_attack_number_by_distance.csv';
@@ -17,6 +20,9 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
 
     const DISTANCE_IN_METERS = 'distance_in_meters';
 
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
         return [self::DISTANCE_IN_METERS];

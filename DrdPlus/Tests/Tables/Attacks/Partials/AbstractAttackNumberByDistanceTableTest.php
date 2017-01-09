@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Environments\Partials;
+namespace DrdPlus\Tests\Tables\Attacks\Partials;
 
-use DrdPlus\Tables\Environments\Partials\AbstractAttackNumberByDistanceTable;
+use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;

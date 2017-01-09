@@ -19,7 +19,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow;
-use DrdPlus\Tables\Environments\Exceptions\DistanceOutOfKnownValues;
+use DrdPlus\Tables\Attacks\Exceptions\DistanceOutOfKnownValues;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Calculations\SumAndRound;
