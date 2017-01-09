@@ -1,10 +1,9 @@
 <?php
 namespace DrdPlus\Tables\History;
 
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
-use Granam\String\StringInterface;
-use Granam\Tools\ValueDescriber;
 
 class BackgroundPointsTable extends AbstractFileTable
 {
@@ -41,17 +40,17 @@ class BackgroundPointsTable extends AbstractFileTable
     }
 
     /**
-     * @param string|StringInterface $choice
+     * @param FateCode $fateCode
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnknownChoice
      */
-    public function getBackgroundPointsByChoice($choice)
+    public function getBackgroundPointsByFate(FateCode $fateCode)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getValue($choice, self::BACKGROUND_POINTS);
+            return $this->getValue($fateCode, self::BACKGROUND_POINTS);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
-            throw new Exceptions\UnknownChoice('Unknown choice ' . ValueDescriber::describe($choice));
+            throw new Exceptions\UnknownChoice('Unknown choice ' . $fateCode->getValue());
         }
     }
 
