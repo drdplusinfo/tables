@@ -1,7 +1,8 @@
 <?php
-namespace DrdPlus\Tables\Environments;
+namespace DrdPlus\Tests\Tables\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
+use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Integer\PositiveIntegerObject;
 

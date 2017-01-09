@@ -1,8 +1,9 @@
 <?php
-namespace DrdPlus\Tables\Professions;
+namespace DrdPlus\Tests\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
+use DrdPlus\Tables\Professions\BackgroundSkillsTable;
 
 class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
 {

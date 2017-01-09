@@ -1,8 +1,9 @@
 <?php
-namespace DrdPlus\Tables\Races;
+namespace DrdPlus\Tests\Tables\Races;
 
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
+use DrdPlus\Tables\Races\FemaleModifiersTable;
 
 class FemaleModifiersTableTest extends \PHPUnit_Framework_TestCase
 {

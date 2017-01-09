@@ -68,7 +68,7 @@ use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Environments\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
-use DrdPlus\Tables\Environments\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Equipment\Riding\RidesTable;
 use DrdPlus\Tables\Equipment\Riding\RidingAnimalMovementTypesTable;

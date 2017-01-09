@@ -1,11 +1,13 @@
 <?php
-namespace DrdPlus\Tables\Races;
+namespace DrdPlus\Tests\Tables\Races;
 
 use DrdPlus\Codes\GenderCode;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
+use DrdPlus\Tables\Races\FemaleModifiersTable;
+use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 

@@ -1,8 +1,9 @@
 <?php
-namespace DrdPlus\Tables\Professions;
+namespace DrdPlus\Tests\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Tables\Professions\ProfessionPrimaryPropertiesTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 

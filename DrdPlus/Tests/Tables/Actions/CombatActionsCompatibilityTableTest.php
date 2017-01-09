@@ -1,9 +1,10 @@
 <?php
-namespace DrdPlus\Tables\Actions;
+namespace DrdPlus\Tests\Tables\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
+use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
 
