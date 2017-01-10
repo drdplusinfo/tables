@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\History;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\PlayerDecisionCode;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
@@ -13,30 +13,30 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      */
     public function I_can_get_header()
     {
-        self::assertSame([['fate', 'background_points']], (new BackgroundPointsTable())->getHeader());
+        self::assertSame([['player_decision', 'background_points']], (new BackgroundPointsTable())->getHeader());
     }
 
     /**
      * @test
-     * @dataProvider provideChoiceAndExpectedBackgroundPoints
-     * @param string $fate
+     * @dataProvider providePlayerDecisionAndExpectedBackgroundPoints
+     * @param string $playerDecision
      * @param int $expectedBackgroundPoints
      */
-    public function I_can_get_background_points_for_fate($fate, $expectedBackgroundPoints)
+    public function I_can_get_background_points_for_fate($playerDecision, $expectedBackgroundPoints)
     {
         $backgroundPointsTable = new BackgroundPointsTable();
         self::assertSame(
             $expectedBackgroundPoints,
-            $backgroundPointsTable->getBackgroundPointsByFate(FateCode::getIt($fate))
+            $backgroundPointsTable->getBackgroundPointsByFate(PlayerDecisionCode::getIt($playerDecision))
         );
     }
 
-    public function provideChoiceAndExpectedBackgroundPoints()
+    public function providePlayerDecisionAndExpectedBackgroundPoints()
     {
         return [
-            [FateCode::FATE_OF_EXCEPTIONAL_PROPERTIES, 5],
-            [FateCode::FATE_OF_COMBINATION, 10],
-            [FateCode::FATE_OF_GOOD_REAR, 15],
+            [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 5],
+            [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 10],
+            [PlayerDecisionCode::GOOD_BACKGROUND, 15],
         ];
     }
 
@@ -47,16 +47,16 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      */
     public function I_can_not_get_background_points_for_unknown_fate()
     {
-        (new BackgroundPointsTable())->getBackgroundPointsByFate($this->createFate('homeless'));
+        (new BackgroundPointsTable())->getBackgroundPointsByFate($this->createPlayerDecision('homeless'));
     }
 
     /**
      * @param string $value
-     * @return \Mockery\MockInterface|FateCode
+     * @return \Mockery\MockInterface|PlayerDecisionCode
      */
-    private function createFate($value)
+    private function createPlayerDecision($value)
     {
-        $fate = $this->mockery(FateCode::class);
+        $fate = $this->mockery(PlayerDecisionCode::class);
         $fate->shouldReceive('getValue')
             ->andReturn($value);
         $fate->shouldReceive('__toString')

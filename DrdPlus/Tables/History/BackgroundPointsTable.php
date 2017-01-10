@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\History;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\PlayerDecisionCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
@@ -27,30 +27,28 @@ class BackgroundPointsTable extends AbstractFileTable
         ];
     }
 
-    const FATE = 'fate';
-
     /**
      * @return array|string[]
      */
     protected function getRowsHeader()
     {
         return [
-            self::FATE,
+            PlayerDecisionsTable::PLAYER_DECISION,
         ];
     }
 
     /**
-     * @param FateCode $fateCode
+     * @param PlayerDecisionCode $playerDecisionCode
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnknownFate
      */
-    public function getBackgroundPointsByFate(FateCode $fateCode)
+    public function getBackgroundPointsByFate(PlayerDecisionCode $playerDecisionCode)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getValue($fateCode, self::BACKGROUND_POINTS);
+            return $this->getValue($playerDecisionCode, self::BACKGROUND_POINTS);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
-            throw new Exceptions\UnknownFate('Unknown fate ' . $fateCode->getValue());
+            throw new Exceptions\UnknownFate('Unknown fate ' . $playerDecisionCode->getValue());
         }
     }
 

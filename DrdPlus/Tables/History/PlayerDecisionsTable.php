@@ -30,14 +30,14 @@ class PlayerDecisionsTable extends AbstractFileTable
         ];
     }
 
-    const DECISION = 'decision';
+    const PLAYER_DECISION = 'player_decision';
 
     /**
      * @return array|string[]
      */
     protected function getRowsHeader()
     {
-        return [self::DECISION];
+        return [self::PLAYER_DECISION];
     }
 
     /**

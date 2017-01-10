@@ -12,7 +12,7 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
     public function I_can_get_header()
     {
         self::assertSame(
-            [['decision', 'points_to_primary_properties', 'points_to_secondary_properties', 'maximum_to_single_property']],
+            [['player_decision', 'points_to_primary_properties', 'points_to_secondary_properties', 'maximum_to_single_property']],
             (new PlayerDecisionsTable())->getHeader()
         );
     }
@@ -36,7 +36,7 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
         return [
             [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 3],
             [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
-            [PlayerDecisionCode::GOOD_REAR, 1],
+            [PlayerDecisionCode::GOOD_BACKGROUND, 1],
         ];
     }
 
@@ -59,7 +59,7 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
         return [
             [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 6],
             [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 4],
-            [PlayerDecisionCode::GOOD_REAR, 2],
+            [PlayerDecisionCode::GOOD_BACKGROUND, 2],
         ];
     }
 
@@ -82,7 +82,7 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
         return [
             [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 3],
             [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
-            [PlayerDecisionCode::GOOD_REAR, 1],
+            [PlayerDecisionCode::GOOD_BACKGROUND, 1],
         ];
     }
 }
