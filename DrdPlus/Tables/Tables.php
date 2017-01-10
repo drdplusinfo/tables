@@ -71,6 +71,7 @@ use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
+use DrdPlus\Tables\History\InfluenceOfFortuneTable;
 use DrdPlus\Tables\History\PlayerDecisionsTable;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
@@ -830,6 +831,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return InfluenceOfFortuneTable
+     */
+    public function getInfluenceOfFortuneTable()
+    {
+        if (!array_key_exists(InfluenceOfFortuneTable::class, $this->tables)) {
+            $this->tables[InfluenceOfFortuneTable::class] = new InfluenceOfFortuneTable();
+        }
+
+        return $this->tables[InfluenceOfFortuneTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -895,6 +908,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getProfessionPrimaryPropertiesTable(),
             $this->getBackgroundPointsTable(),
             $this->getPlayerDecisionsTable(),
+            $this->getInfluenceOfFortuneTable(),
         ]);
     }
 

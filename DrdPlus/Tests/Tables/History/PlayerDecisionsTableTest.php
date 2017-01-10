@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\History;
 
-use DrdPlus\Codes\PlayerDecisionCode;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
@@ -12,7 +12,7 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
     public function I_can_get_header()
     {
         self::assertSame(
-            [['player_decision', 'points_to_primary_properties', 'points_to_secondary_properties', 'maximum_to_single_property']],
+            [['fate', 'points_to_primary_properties', 'points_to_secondary_properties', 'maximum_to_single_property']],
             (new PlayerDecisionsTable())->getHeader()
         );
     }
@@ -27,16 +27,16 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
     {
         self::assertSame(
             $expectedPoints,
-            (new PlayerDecisionsTable())->getPointsToPrimaryProperties(PlayerDecisionCode::getIt($decisionValue))
+            (new PlayerDecisionsTable())->getPointsToPrimaryProperties(FateCode::getIt($decisionValue))
         );
     }
 
     public function provideDecisionAndExpectedPointsToPrimaryProperties()
     {
         return [
-            [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 3],
-            [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
-            [PlayerDecisionCode::GOOD_BACKGROUND, 1],
+            [FateCode::EXCEPTIONAL_PROPERTIES, 3],
+            [FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
+            [FateCode::GOOD_BACKGROUND, 1],
         ];
     }
 
@@ -50,16 +50,16 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
     {
         self::assertSame(
             $expectedPoints,
-            (new PlayerDecisionsTable())->getPointsToSecondaryProperties(PlayerDecisionCode::getIt($decisionValue))
+            (new PlayerDecisionsTable())->getPointsToSecondaryProperties(FateCode::getIt($decisionValue))
         );
     }
 
     public function provideDecisionAndExpectedPointsToSecondaryProperties()
     {
         return [
-            [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 6],
-            [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 4],
-            [PlayerDecisionCode::GOOD_BACKGROUND, 2],
+            [FateCode::EXCEPTIONAL_PROPERTIES, 6],
+            [FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 4],
+            [FateCode::GOOD_BACKGROUND, 2],
         ];
     }
 
@@ -73,16 +73,16 @@ class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements Ta
     {
         self::assertSame(
             $expectedPoints,
-            (new PlayerDecisionsTable())->getMaximumToSingleProperty(PlayerDecisionCode::getIt($decisionValue))
+            (new PlayerDecisionsTable())->getMaximumToSingleProperty(FateCode::getIt($decisionValue))
         );
     }
 
     public function provideDecisionAndExpectedMaximumPointsToSingleProperty()
     {
         return [
-            [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 3],
-            [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
-            [PlayerDecisionCode::GOOD_BACKGROUND, 1],
+            [FateCode::EXCEPTIONAL_PROPERTIES, 3],
+            [FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 2],
+            [FateCode::GOOD_BACKGROUND, 1],
         ];
     }
 }

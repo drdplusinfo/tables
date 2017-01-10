@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\History;
 
-use DrdPlus\Codes\PlayerDecisionCode;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 class PlayerDecisionsTable extends AbstractFileTable
@@ -30,43 +30,43 @@ class PlayerDecisionsTable extends AbstractFileTable
         ];
     }
 
-    const PLAYER_DECISION = 'player_decision';
+    const FATE = 'fate';
 
     /**
      * @return array|string[]
      */
     protected function getRowsHeader()
     {
-        return [self::PLAYER_DECISION];
+        return [self::FATE];
     }
 
     /**
-     * @param PlayerDecisionCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @return int
      */
-    public function getPointsToPrimaryProperties(PlayerDecisionCode $playerDecisionCode)
+    public function getPointsToPrimaryProperties(FateCode $fateCode)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($playerDecisionCode, self::POINTS_TO_PRIMARY_PROPERTIES);
+        return $this->getValue($fateCode, self::POINTS_TO_PRIMARY_PROPERTIES);
     }
 
     /**
-     * @param PlayerDecisionCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @return int
      */
-    public function getPointsToSecondaryProperties(PlayerDecisionCode $playerDecisionCode)
+    public function getPointsToSecondaryProperties(FateCode $fateCode)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($playerDecisionCode, self::POINTS_TO_SECONDARY_PROPERTIES);
+        return $this->getValue($fateCode, self::POINTS_TO_SECONDARY_PROPERTIES);
     }
 
     /**
-     * @param PlayerDecisionCode $playerDecisionCode
+     * @param FateCode $fateCode
      * @return int
      */
-    public function getMaximumToSingleProperty(PlayerDecisionCode $playerDecisionCode)
+    public function getMaximumToSingleProperty(FateCode $fateCode)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($playerDecisionCode, self::MAXIMUM_TO_SINGLE_PROPERTY);
+        return $this->getValue($fateCode, self::MAXIMUM_TO_SINGLE_PROPERTY);
     }
 }

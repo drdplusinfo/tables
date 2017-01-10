@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\History;
 
-use DrdPlus\Codes\PlayerDecisionCode;
+use DrdPlus\Codes\FateCode;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;
@@ -13,7 +13,7 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      */
     public function I_can_get_header()
     {
-        self::assertSame([['player_decision', 'background_points']], (new BackgroundPointsTable())->getHeader());
+        self::assertSame([['fate', 'background_points']], (new BackgroundPointsTable())->getHeader());
     }
 
     /**
@@ -22,21 +22,21 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      * @param string $playerDecision
      * @param int $expectedBackgroundPoints
      */
-    public function I_can_get_background_points_for_player_decision($playerDecision, $expectedBackgroundPoints)
+    public function I_can_get_background_points_for_fate($playerDecision, $expectedBackgroundPoints)
     {
         $backgroundPointsTable = new BackgroundPointsTable();
         self::assertSame(
             $expectedBackgroundPoints,
-            $backgroundPointsTable->getBackgroundPointsByPlayerDecision(PlayerDecisionCode::getIt($playerDecision))
+            $backgroundPointsTable->getBackgroundPointsByPlayerDecision(FateCode::getIt($playerDecision))
         );
     }
 
     public function providePlayerDecisionAndExpectedBackgroundPoints()
     {
         return [
-            [PlayerDecisionCode::EXCEPTIONAL_PROPERTIES, 5],
-            [PlayerDecisionCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 10],
-            [PlayerDecisionCode::GOOD_BACKGROUND, 15],
+            [FateCode::EXCEPTIONAL_PROPERTIES, 5],
+            [FateCode::COMBINATION_OF_PROPERTIES_AND_BACKGROUND, 10],
+            [FateCode::GOOD_BACKGROUND, 15],
         ];
     }
 
@@ -45,18 +45,18 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownFate
      * @expectedExceptionMessageRegExp ~homeless~
      */
-    public function I_can_not_get_background_points_for_unknown_player_decision()
+    public function I_can_not_get_background_points_for_unknown_fate()
     {
         (new BackgroundPointsTable())->getBackgroundPointsByPlayerDecision($this->createPlayerDecision('homeless'));
     }
 
     /**
      * @param string $value
-     * @return \Mockery\MockInterface|PlayerDecisionCode
+     * @return \Mockery\MockInterface|FateCode
      */
     private function createPlayerDecision($value)
     {
-        $fate = $this->mockery(PlayerDecisionCode::class);
+        $fate = $this->mockery(FateCode::class);
         $fate->shouldReceive('getValue')
             ->andReturn($value);
         $fate->shouldReceive('__toString')
