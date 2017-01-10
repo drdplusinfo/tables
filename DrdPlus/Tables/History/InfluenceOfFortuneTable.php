@@ -64,7 +64,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
 
     /**
      * @param FateCode $fateCode
-     * @param int $diceRoll
+     * @param int|IntegerInterface $diceRoll
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedDiceRoll
      */
