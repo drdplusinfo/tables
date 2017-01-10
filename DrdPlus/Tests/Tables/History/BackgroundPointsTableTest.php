@@ -22,12 +22,12 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      * @param string $playerDecision
      * @param int $expectedBackgroundPoints
      */
-    public function I_can_get_background_points_for_fate($playerDecision, $expectedBackgroundPoints)
+    public function I_can_get_background_points_for_player_decision($playerDecision, $expectedBackgroundPoints)
     {
         $backgroundPointsTable = new BackgroundPointsTable();
         self::assertSame(
             $expectedBackgroundPoints,
-            $backgroundPointsTable->getBackgroundPointsByFate(PlayerDecisionCode::getIt($playerDecision))
+            $backgroundPointsTable->getBackgroundPointsByPlayerDecision(PlayerDecisionCode::getIt($playerDecision))
         );
     }
 
@@ -45,9 +45,9 @@ class BackgroundPointsTableTest extends TestWithMockery implements TableTestInte
      * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownFate
      * @expectedExceptionMessageRegExp ~homeless~
      */
-    public function I_can_not_get_background_points_for_unknown_fate()
+    public function I_can_not_get_background_points_for_unknown_player_decision()
     {
-        (new BackgroundPointsTable())->getBackgroundPointsByFate($this->createPlayerDecision('homeless'));
+        (new BackgroundPointsTable())->getBackgroundPointsByPlayerDecision($this->createPlayerDecision('homeless'));
     }
 
     /**
