@@ -4,7 +4,7 @@ namespace DrdPlus\Tables\History;
 use DrdPlus\Codes\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound;
-use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
 
@@ -80,7 +80,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
 
     /**
      * @param FateCode $fateCode
-     * @param int $diceRoll
+     * @param int|IntegerInterface $diceRoll
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedDiceRoll
      */
