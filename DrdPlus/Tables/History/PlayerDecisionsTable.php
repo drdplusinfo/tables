@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\History;
 use DrdPlus\Codes\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 30, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rozhodnuti_hrace
+ */
 class PlayerDecisionsTable extends AbstractFileTable
 {
     /**
