@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\History;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Tests\Tools\TestWithMockery;

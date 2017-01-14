@@ -149,6 +149,7 @@ abstract class AbstractTable extends StrictObject implements Table
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }
         $values = $this->getIndexedValues();
+        /** @noinspection ForeachSourceInspection */
         foreach ($arraySingleRowIndexes as $rowIndex) {
             $stringRowIndex = ToString::toString($rowIndex);
             if (!array_key_exists($stringRowIndex, $values)) {

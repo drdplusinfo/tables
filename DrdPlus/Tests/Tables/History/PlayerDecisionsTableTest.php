@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\History;
 
-use DrdPlus\Codes\FateCode;
+use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tests\Tables\TableTestInterface;
 
 class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
