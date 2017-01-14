@@ -23,11 +23,17 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
      * @param int $backgroundPoints
      * @param string $expectedAncestryValue
      */
-    public function I_can_get_ancestry_by_background_points($backgroundPoints, $expectedAncestryValue)
+    public function I_can_get_ancestry_by_background_points_and_vice_versa($backgroundPoints, $expectedAncestryValue)
     {
+        $ancestryTable = new AncestryTable();
+        $expectedAncestryCode = AncestryCode::getIt($expectedAncestryValue);
         self::assertSame(
-            AncestryCode::getIt($expectedAncestryValue),
-            (new AncestryTable())->getAncestryByPoints(new PositiveIntegerObject($backgroundPoints))
+            $expectedAncestryCode,
+            $ancestryTable->getAncestryByPoints(new PositiveIntegerObject($backgroundPoints))
+        );
+        self::assertSame(
+            $backgroundPoints,
+            $ancestryTable->getPointsByAncestry($expectedAncestryCode)
         );
     }
 
@@ -54,5 +60,30 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
     public function I_can_not_get_ancestry_by_invalid_background_points()
     {
         (new AncestryTable())->getAncestryByPoints(new PositiveIntegerObject(9));
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownAncestryCode
+     * @expectedExceptionMessageRegExp ~king kong~
+     */
+    public function I_can_not_get_background_points_by_unknown_ancestry()
+    {
+        (new AncestryTable())->getPointsByAncestry($this->createAncestryCode('king kong'));
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|AncestryCode
+     */
+    private function createAncestryCode($value)
+    {
+        $ancestryCode = $this->mockery(AncestryCode::class);
+        $ancestryCode->shouldReceive('getValue')
+            ->andReturn($value);
+        $ancestryCode->shouldReceive('__toString')
+            ->andReturn((string)$value);
+
+        return $ancestryCode;
     }
 }

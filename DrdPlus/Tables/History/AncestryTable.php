@@ -53,4 +53,21 @@ class AncestryTable extends AbstractFileTable
         }
     }
 
+    /**
+     * @param AncestryCode $ancestryCode
+     * @return AncestryCode
+     * @throws \DrdPlus\Tables\History\Exceptions\UnknownAncestryCode
+     */
+    public function getPointsByAncestry(AncestryCode $ancestryCode)
+    {
+        foreach ($this->getIndexedValues() as $points => $wrappedAncestry) {
+            $currentAncestry = end($wrappedAncestry);
+            if ($currentAncestry === $ancestryCode->getValue()) {
+                return $points;
+            }
+        }
+
+        throw new Exceptions\UnknownAncestryCode("Given ancestry {$ancestryCode} is not known");
+    }
+
 }
