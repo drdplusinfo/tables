@@ -75,6 +75,7 @@ use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\History\InfluenceOfFortuneTable;
 use DrdPlus\Tables\History\PlayerDecisionsTable;
+use DrdPlus\Tables\History\PossessionTable;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
 use DrdPlus\Tables\Riding\RidingAnimalsTable;
@@ -869,6 +870,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return PossessionTable
+     */
+    public function getPossessionTable()
+    {
+        if (!array_key_exists(PossessionTable::class, $this->tables)) {
+            $this->tables[PossessionTable::class] = new PossessionTable();
+        }
+
+        return $this->tables[PossessionTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -937,6 +950,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getInfluenceOfFortuneTable(),
             $this->getAncestryTable(),
             $this->getBackgroundPointsDistributionTable(),
+            $this->getPossessionTable(),
         ]);
     }
 

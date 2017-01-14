@@ -14,7 +14,7 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
      */
     public function I_can_get_header()
     {
-        self::assertSame([['points', 'ancestry']], (new AncestryTable())->getHeader());
+        self::assertSame([['background_points', 'ancestry']], (new AncestryTable())->getHeader());
     }
 
     /**
@@ -29,11 +29,11 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
         $expectedAncestryCode = AncestryCode::getIt($expectedAncestryValue);
         self::assertSame(
             $expectedAncestryCode,
-            $ancestryTable->getAncestryByPoints(new PositiveIntegerObject($backgroundPoints))
+            $ancestryTable->getAncestryByBackgroundPoints(new PositiveIntegerObject($backgroundPoints))
         );
         self::assertSame(
             $backgroundPoints,
-            $ancestryTable->getPointsByAncestry($expectedAncestryCode)
+            $ancestryTable->getBackgroundPointsByAncestry($expectedAncestryCode)
         );
     }
 
@@ -54,12 +54,12 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPointsForAncestry
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints
      * @expectedExceptionMessageRegExp ~9~
      */
     public function I_can_not_get_ancestry_by_invalid_background_points()
     {
-        (new AncestryTable())->getAncestryByPoints(new PositiveIntegerObject(9));
+        (new AncestryTable())->getAncestryByBackgroundPoints(new PositiveIntegerObject(9));
     }
 
     /**
@@ -69,7 +69,7 @@ class AncestryTableTest extends TestWithMockery implements TableTestInterface
      */
     public function I_can_not_get_background_points_by_unknown_ancestry()
     {
-        (new AncestryTable())->getPointsByAncestry($this->createAncestryCode('king kong'));
+        (new AncestryTable())->getBackgroundPointsByAncestry($this->createAncestryCode('king kong'));
     }
 
     /**

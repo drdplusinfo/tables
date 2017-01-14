@@ -77,7 +77,7 @@ class BackgroundPointsDistributionTableTest extends TestWithMockery implements T
     private function createAncestryTable(AncestryCode $ancestryCode, $points)
     {
         $ancestryTable = $this->mockery(AncestryTable::class);
-        $ancestryTable->shouldReceive('getPointsByAncestry')
+        $ancestryTable->shouldReceive('getBackgroundPointsByAncestry')
             ->with($ancestryCode)
             ->andReturn($points);
 
