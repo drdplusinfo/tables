@@ -71,6 +71,7 @@ use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\History\AncestryTable;
+use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\History\InfluenceOfFortuneTable;
 use DrdPlus\Tables\History\PlayerDecisionsTable;
@@ -856,6 +857,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return BackgroundPointsDistributionTable
+     */
+    public function getBackgroundPointsDistributionTable()
+    {
+        if (!array_key_exists(BackgroundPointsDistributionTable::class, $this->tables)) {
+            $this->tables[BackgroundPointsDistributionTable::class] = new BackgroundPointsDistributionTable();
+        }
+
+        return $this->tables[BackgroundPointsDistributionTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -923,6 +936,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getPlayerDecisionsTable(),
             $this->getInfluenceOfFortuneTable(),
             $this->getAncestryTable(),
+            $this->getBackgroundPointsDistributionTable(),
         ]);
     }
 

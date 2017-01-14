@@ -55,7 +55,7 @@ class AncestryTable extends AbstractFileTable
 
     /**
      * @param AncestryCode $ancestryCode
-     * @return AncestryCode
+     * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnknownAncestryCode
      */
     public function getPointsByAncestry(AncestryCode $ancestryCode)
