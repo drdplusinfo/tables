@@ -1,9 +1,9 @@
 <?php
-namespace DrdPlus\Tests\Tables\Professions;
+namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
-use DrdPlus\Tables\Professions\SkillsByBackgroundPointsTable;
+use DrdPlus\Tables\History\SkillsByBackgroundPointsTable;
 use DrdPlus\Tests\Tables\TableTestInterface;
 use Granam\Integer\PositiveIntegerObject;
 

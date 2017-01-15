@@ -90,7 +90,7 @@ use DrdPlus\Tables\Measurements\Time\BonusAdjustmentByTimeTable;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tables\Professions\SkillsByBackgroundPointsTable;
+use DrdPlus\Tables\History\SkillsByBackgroundPointsTable;
 use DrdPlus\Tables\Professions\ProfessionPrimaryPropertiesTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;

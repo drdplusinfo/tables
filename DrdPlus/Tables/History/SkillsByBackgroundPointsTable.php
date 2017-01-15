@@ -1,9 +1,8 @@
 <?php
-namespace DrdPlus\Tables\Professions;
+namespace DrdPlus\Tables\History;
 
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
-use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;
 
