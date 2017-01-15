@@ -3,7 +3,7 @@ namespace DrdPlus\Tests\Tables\Professions;
 
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
-use DrdPlus\Tables\Professions\BackgroundSkillsTable;
+use DrdPlus\Tables\Professions\SkillsByBackgroundPointsTable;
 
 class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +13,7 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
      */
     public function I_can_get_headers()
     {
-        $backgroundSkillsTable = new BackgroundSkillsTable();
+        $backgroundSkillsTable = new SkillsByBackgroundPointsTable();
         self::assertEquals(
             [
                 ['', 'commoner', 'commoner', 'commoner', 'fighter', 'fighter', 'fighter', 'thief', 'thief', 'thief', 'ranger', 'ranger', 'ranger', 'wizard', 'wizard', 'wizard', 'theurgist', 'theurgist', 'theurgist', 'priest', 'priest', 'priest'],
@@ -38,7 +38,7 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
         $expectedSkillPoints
     )
     {
-        $backgroundSkillsTable = new BackgroundSkillsTable();
+        $backgroundSkillsTable = new SkillsByBackgroundPointsTable();
         $skillPoints = $backgroundSkillsTable->getSkillPoints($backgroundSkillPoints, $professionCode, $skillGroup);
         self::assertSame($expectedSkillPoints, $skillPoints);
 

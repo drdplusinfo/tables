@@ -90,7 +90,7 @@ use DrdPlus\Tables\Measurements\Time\BonusAdjustmentByTimeTable;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tables\Professions\BackgroundSkillsTable;
+use DrdPlus\Tables\Professions\SkillsByBackgroundPointsTable;
 use DrdPlus\Tables\Professions\ProfessionPrimaryPropertiesTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
@@ -253,15 +253,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return BackgroundSkillsTable
+     * @return SkillsByBackgroundPointsTable
      */
-    public function getBackgroundSkillsTable()
+    public function getSkillsByBackgroundPointsTable()
     {
-        if (!array_key_exists(BackgroundSkillsTable::class, $this->tables)) {
-            $this->tables[BackgroundSkillsTable::class] = new BackgroundSkillsTable();
+        if (!array_key_exists(SkillsByBackgroundPointsTable::class, $this->tables)) {
+            $this->tables[SkillsByBackgroundPointsTable::class] = new SkillsByBackgroundPointsTable();
         }
 
-        return $this->tables[BackgroundSkillsTable::class];
+        return $this->tables[SkillsByBackgroundPointsTable::class];
     }
 
     /**
@@ -888,7 +888,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     {
         return new \ArrayObject([
             $this->getAmountTable(),
-            $this->getBackgroundSkillsTable(),
+            $this->getSkillsByBackgroundPointsTable(),
             $this->getBaseOfWoundsTable(),
             $this->getDistanceTable(),
             $this->getExperiencesTable(),

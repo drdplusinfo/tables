@@ -6,7 +6,7 @@ use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /** see PPH page 39, bottom */
-class BackgroundSkillsTable extends AbstractFileTable
+class SkillsByBackgroundPointsTable extends AbstractFileTable
 {
     /**
      * @var array
@@ -26,6 +26,10 @@ class BackgroundSkillsTable extends AbstractFileTable
         return $this->originalColumnsHeader;
     }
 
+    /**
+     * @param array $simplifiedColumnsHeader
+     * @return array
+     */
     private function getRebuiltOriginalColumnsHeader(array $simplifiedColumnsHeader)
     {
         $originalColumnsHeader = [];
@@ -86,7 +90,7 @@ class BackgroundSkillsTable extends AbstractFileTable
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/background_skills.csv';
+        return __DIR__ . '/data/skills_by_background_points.csv';
     }
 
     /**
