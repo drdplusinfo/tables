@@ -4,20 +4,28 @@ namespace DrdPlus\Tests\Tables\Professions;
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Tables\Professions\SkillsByBackgroundPointsTable;
+use DrdPlus\Tests\Tables\TableTestInterface;
+use Granam\Integer\PositiveIntegerObject;
 
-class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
+class SkillsByBackgroundPointsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
 {
 
     /**
      * @test
      */
-    public function I_can_get_headers()
+    public function I_can_get_header()
     {
         $backgroundSkillsTable = new SkillsByBackgroundPointsTable();
         self::assertEquals(
             [
-                ['', 'commoner', 'commoner', 'commoner', 'fighter', 'fighter', 'fighter', 'thief', 'thief', 'thief', 'ranger', 'ranger', 'ranger', 'wizard', 'wizard', 'wizard', 'theurgist', 'theurgist', 'theurgist', 'priest', 'priest', 'priest'],
-                ['points', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined'],
+                ['', 'commoner', 'commoner', 'commoner', 'fighter', 'fighter', 'fighter', 'thief', 'thief', 'thief',
+                    'ranger', 'ranger', 'ranger', 'wizard', 'wizard', 'wizard', 'theurgist', 'theurgist', 'theurgist',
+                    'priest', 'priest', 'priest',
+                ],
+                ['background_points', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined',
+                    'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical',
+                    'combined', 'physical', 'psychical', 'combined', 'physical', 'psychical', 'combined',
+                ],
             ],
             $backgroundSkillsTable->getHeader()
         );
@@ -39,15 +47,26 @@ class BackgroundSkillsTableTest extends \PHPUnit_Framework_TestCase
     )
     {
         $backgroundSkillsTable = new SkillsByBackgroundPointsTable();
-        $skillPoints = $backgroundSkillsTable->getSkillPoints($backgroundSkillPoints, $professionCode, $skillGroup);
-        self::assertSame($expectedSkillPoints, $skillPoints);
+        self::assertSame(
+            $expectedSkillPoints,
+            $backgroundSkillsTable->getSkillPoints(
+                new PositiveIntegerObject($backgroundSkillPoints),
+                $professionCode,
+                $skillGroup
+            )
+        );
 
         $getGroupSkillPoints = 'get' . ucfirst($skillGroup) . 'SkillPoints';
-        $groupSkillPoints = $backgroundSkillsTable->$getGroupSkillPoints($backgroundSkillPoints, $professionCode);
+        $groupSkillPoints = $backgroundSkillsTable->$getGroupSkillPoints(
+            new PositiveIntegerObject($backgroundSkillPoints),
+            $professionCode
+        );
         self::assertSame($expectedSkillPoints, $groupSkillPoints);
 
         $getProfessionGroupSkillPoints = 'get' . ucfirst($professionCode) . ucfirst($skillGroup) . 'SkillPoints';
-        $professionGroupSkillPoints = $backgroundSkillsTable->$getProfessionGroupSkillPoints($backgroundSkillPoints);
+        $professionGroupSkillPoints = $backgroundSkillsTable->$getProfessionGroupSkillPoints(
+            new PositiveIntegerObject($backgroundSkillPoints)
+        );
         self::assertSame($expectedSkillPoints, $professionGroupSkillPoints);
     }
 
