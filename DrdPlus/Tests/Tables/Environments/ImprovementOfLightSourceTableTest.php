@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Codes\Environment\LightSourceEnvironmentCode;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 
-class ImprovementOfLightSourceTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class ImprovementOfLightSourceTableTest extends TableTest
 {
     /**
      * @test

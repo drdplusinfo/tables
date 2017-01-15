@@ -8,10 +8,9 @@ use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class RacesTableTest extends TestWithMockery implements TableTestInterface
+class RacesTableTest extends TableTest
 {
 
     /**

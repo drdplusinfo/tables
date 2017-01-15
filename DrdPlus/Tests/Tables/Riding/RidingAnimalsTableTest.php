@@ -5,10 +5,9 @@ use DrdPlus\Codes\Transport\RidingAnimalCode;
 use DrdPlus\Codes\Transport\RidingAnimalPropertyCode;
 use DrdPlus\Tables\Riding\DefianceOfWildPercents;
 use DrdPlus\Tables\Riding\RidingAnimalsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class RidingAnimalsTableTest extends TestWithMockery implements TableTestInterface
+class RidingAnimalsTableTest extends TableTest
 {
     /**
      * @test

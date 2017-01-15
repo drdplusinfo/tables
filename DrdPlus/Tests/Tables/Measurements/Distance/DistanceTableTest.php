@@ -5,10 +5,9 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 use Granam\Integer\IntegerObject;
 
-class DistanceTableTest extends TestWithMockery implements MeasurementTableTest
+class DistanceTableTest extends MeasurementTableTest
 {
 
     /**

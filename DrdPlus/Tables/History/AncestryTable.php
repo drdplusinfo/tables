@@ -6,6 +6,9 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Integer\PositiveInteger;
 
+/**
+ * See PPH page 38 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_puvodu
+ */
 class AncestryTable extends AbstractFileTable
 {
     /**

@@ -8,7 +8,8 @@ use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 
 /**
- * Base of wounds is special table, without standard interface
+ * See PPH page 165 bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_pro_vypocet_zz
+ * Technical note: base of wounds is special table, without standard interface.
  */
 class BaseOfWoundsTable extends StrictObject implements Table
 {

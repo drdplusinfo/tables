@@ -4,10 +4,9 @@ namespace DrdPlus\Tests\Tables\Measurements\Time;
 use DrdPlus\Tables\Measurements\Time\BonusAdjustmentByTimeTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class BonusAdjustmentByTimeTableTest extends TestWithMockery implements TableTestInterface
+class BonusAdjustmentByTimeTableTest extends TableTest
 {
     /**
      * @test

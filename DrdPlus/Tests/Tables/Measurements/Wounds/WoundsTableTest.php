@@ -5,9 +5,8 @@ use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 
-class WoundsTableTest extends TestWithMockery implements MeasurementTableTest
+class WoundsTableTest extends MeasurementTableTest
 {
 
     /**

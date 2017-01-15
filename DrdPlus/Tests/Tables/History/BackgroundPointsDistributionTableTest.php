@@ -5,10 +5,9 @@ use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Codes\History\BackgroundCode;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class BackgroundPointsDistributionTableTest extends TestWithMockery implements TableTestInterface
+class BackgroundPointsDistributionTableTest extends TableTest
 {
 
     /**

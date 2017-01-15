@@ -12,6 +12,9 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 112 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu
+ */
 class MovementTypesTable extends AbstractFileTable
 {
     /**
@@ -23,22 +26,32 @@ class MovementTypesTable extends AbstractFileTable
      */
     private $timeTable;
 
+    /**
+     * @param SpeedTable $speedTable
+     * @param TimeTable $timeTable
+     */
     public function __construct(SpeedTable $speedTable, TimeTable $timeTable)
     {
         $this->speedTable = $speedTable;
         $this->timeTable = $timeTable;
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/movement_types.csv';
     }
 
+    const MOVEMENT_TYPE = 'movement_type';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return [
-            'movement_type'
-        ];
+        return [self::MOVEMENT_TYPE,];
     }
 
     const BONUS_TO_MOVEMENT_SPEED = 'bonus_to_movement_speed';
@@ -46,6 +59,9 @@ class MovementTypesTable extends AbstractFileTable
     const MINUTES_PER_POINT_OF_FATIGUE = 'minutes_per_point_of_fatigue';
     const ROUNDS_PER_POINT_OF_FATIGUE = 'rounds_per_point_of_fatigue';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

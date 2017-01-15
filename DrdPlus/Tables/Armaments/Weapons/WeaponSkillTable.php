@@ -1,11 +1,17 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Weapons;
 
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
 use Granam\Integer\Tools\ToInteger;
 
-class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
+/**
+ * See PPH page 145, @link https://pph.drdplus.jaroslavtyc.com/#boj_se_zbrani
+ */
+class WeaponSkillTable extends AbstractArmamentSkillTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/missing_weapon_skill.csv';
@@ -16,6 +22,9 @@ class MissingWeaponSkillTable extends AbstractMissingArmamentSkillTable
     const COVER = 'cover';
     const BASE_OF_WOUNDS = 'base_of_wounds';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

@@ -35,7 +35,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @return string[][]
+     * @return array|string[][]
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
     public function getIndexedValues()
@@ -59,10 +59,13 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     protected function getRowsHeader()
     {
         return [
-            ['bonus']
+            ['bonus'],
         ];
     }
 
+    /**
+     * @return array|\string[]
+     */
     protected function getColumnsHeader()
     {
         return $this->getExpectedDataHeader();
@@ -87,7 +90,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return MeasurementWithBonus
      */
     abstract protected function convertToMeasurement($value, $unit);
@@ -245,7 +247,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @param $value
-     *
      * @return int
      */
     private function isItDiceRollChance($value)
@@ -375,7 +376,6 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
     /**
      * @param MeasurementWithBonus $measurement
-     *
      * @return int
      */
     private function determineBonusValue(MeasurementWithBonus $measurement)

@@ -1,8 +1,14 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Armors;
 
+/**
+ * See PPH page 90 left column, https://pph.drdplus.jaroslavtyc.com/#tabulka_zbroji_a_prileb
+ */
 class BodyArmorsTable extends AbstractArmorsTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/body_armors.csv';
@@ -10,6 +16,9 @@ class BodyArmorsTable extends AbstractArmorsTable
 
     const ROUNDS_TO_PUT_ON = 'rounds_to_put_on';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
@@ -21,9 +30,14 @@ class BodyArmorsTable extends AbstractArmorsTable
         ];
     }
 
+    const BODY_ARMOR = 'body_armor';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['body_armor'];
+        return [self::BODY_ARMOR];
     }
 
     /**

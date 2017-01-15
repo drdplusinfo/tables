@@ -7,7 +7,8 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 
 /**
- * PPH page 165, top
+ * Note: fatigue table is equal to wounds table.
+ * See PPH page 165 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zraneni_a_unavy
  */
 class FatigueTable extends AbstractTable
 {
@@ -16,22 +17,35 @@ class FatigueTable extends AbstractTable
      */
     private $woundsTable;
 
+    /**
+     * @param WoundsTable $woundsTable
+     */
     public function __construct(WoundsTable $woundsTable)
     {
         // fatigue has the very same conversions as wounds have
         $this->woundsTable = $woundsTable;
     }
 
+    /**
+     * @return array|\string[][]
+     */
     public function getIndexedValues()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->woundsTable->getIndexedValues();
     }
 
+    /**
+     * @return array|\string[][]
+     */
     protected function getRowsHeader()
     {
         return $this->woundsTable->getRowsHeader();
     }
 
+    /**
+     * @return array|\string[]
+     */
     protected function getColumnsHeader()
     {
         return $this->woundsTable->getColumnsHeader();
@@ -39,7 +53,6 @@ class FatigueTable extends AbstractTable
 
     /**
      * @param Fatigue $fatigue
-     *
      * @return FatigueBonus
      */
     public function toBonus(Fatigue $fatigue)
@@ -52,7 +65,6 @@ class FatigueTable extends AbstractTable
 
     /**
      * @param FatigueBonus $bonus
-     *
      * @return Fatigue
      */
     public function toFatigue(FatigueBonus $bonus)

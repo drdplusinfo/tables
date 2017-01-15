@@ -5,6 +5,9 @@ use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
+/**
+ * See PPH page 37 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_bodu_zazemi
+ */
 class BackgroundPointsTable extends AbstractFileTable
 {
     /**

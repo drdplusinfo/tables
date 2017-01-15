@@ -5,9 +5,8 @@ use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 
-class TimeTableTest extends TestWithMockery implements MeasurementTableTest
+class TimeTableTest extends MeasurementTableTest
 {
     /**
      * @test

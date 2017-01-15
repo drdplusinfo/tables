@@ -5,21 +5,37 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 81 left column top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_leceni_podle_cinnosti_postavy
+ */
 class HealingByActivityTable extends AbstractFileTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/healing_by_activity.csv';
     }
 
+    const BONUS = 'bonus';
+
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
-        return ['bonus' => self::INTEGER];
+        return [self::BONUS => self::INTEGER];
     }
 
+    const SITUATION = 'situation';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['situation'];
+        return [self::SITUATION];
     }
 
     /**

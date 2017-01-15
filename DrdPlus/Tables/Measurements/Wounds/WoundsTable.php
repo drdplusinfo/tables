@@ -2,11 +2,14 @@
 namespace DrdPlus\Tables\Measurements\Wounds;
 
 use Drd\DiceRoll\Templates\Rollers\Roller1d6;
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
- * PPH page 165, top
+ * Note: fatigue table is equal to wounds table.
+ * See PPH page 165 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zraneni_a_unavy
  */
 class WoundsTable extends AbstractMeasurementFileTable
 {
@@ -27,17 +30,17 @@ class WoundsTable extends AbstractMeasurementFileTable
 
     /**
      * @param WoundsBonus $bonus
-     *
-     * @return Wounds
+     * @return Wounds|MeasurementWithBonus
      */
     public function toWounds(WoundsBonus $bonus)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus);
     }
 
     /**
      * @param Wounds $wounds
-     * @return WoundsBonus
+     * @return WoundsBonus|AbstractBonus
      */
     public function toBonus(Wounds $wounds)
     {
@@ -46,7 +49,6 @@ class WoundsTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     *
      * @return WoundsBonus
      */
     protected function createBonus($bonusValue)
@@ -57,7 +59,6 @@ class WoundsTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Wounds
      */
     protected function convertToMeasurement($value, $unit)

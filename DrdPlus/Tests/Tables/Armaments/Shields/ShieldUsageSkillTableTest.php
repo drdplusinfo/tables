@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
-use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
-use DrdPlus\Tests\Tables\Armaments\Partials\AbstractMissingArmamentSkillTableTest;
+use DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable;
+use DrdPlus\Tests\Tables\Armaments\Partials\AbstractArmamentSkillTableTest;
 
-class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
+class ShieldUsageSkillTableTest extends AbstractArmamentSkillTableTest
 {
     /**
      * @test
@@ -12,7 +12,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_negative_rank()
     {
-        (new MissingShieldSkillTable())->getCoverMalusForSkillRank(-2);
+        (new ShieldUsageSkillTable())->getCoverMalusForSkillRank(-2);
     }
 
     /**
@@ -21,7 +21,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_not_use_higher_rank_than_three()
     {
-        (new MissingShieldSkillTable())->getRestrictionBonusForSkillRank(8);
+        (new ShieldUsageSkillTable())->getRestrictionBonusForSkillRank(8);
     }
 
     /**
@@ -29,7 +29,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_header()
     {
-        self::assertSame([['skill_rank', 'restriction_bonus', 'cover']], (new MissingShieldSkillTable())->getHeader());
+        self::assertSame([['skill_rank', 'restriction_bonus', 'cover_malus']], (new ShieldUsageSkillTable())->getHeader());
     }
 
     /**
@@ -37,7 +37,7 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_restriction_bonus_for_skill_rank()
     {
-        self::assertSame(1, (new MissingShieldSkillTable())->getRestrictionBonusForSkillRank(1));
+        self::assertSame(1, (new ShieldUsageSkillTable())->getRestrictionBonusForSkillRank(1));
     }
 
     /**
@@ -45,6 +45,6 @@ class MissingShieldSkillTableTest extends AbstractMissingArmamentSkillTableTest
      */
     public function I_can_get_cover_for_skill_rank()
     {
-        self::assertSame(0, (new MissingShieldSkillTable())->getCoverMalusForSkillRank(3));
+        self::assertSame(0, (new ShieldUsageSkillTable())->getCoverMalusForSkillRank(3));
     }
 }

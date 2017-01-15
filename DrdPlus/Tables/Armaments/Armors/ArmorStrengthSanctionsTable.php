@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\Armaments\Armors;
 use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
 
+/**
+ * See PPH page 91 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_postihu_za_zbroj
+ */
 class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
 {
     protected function getDataFileName()
@@ -15,6 +18,9 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     const AGILITY_SANCTION = 'agility_sanction';
     const CAN_MOVE = 'can_move';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

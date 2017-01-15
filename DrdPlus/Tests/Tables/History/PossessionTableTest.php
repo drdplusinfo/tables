@@ -2,11 +2,10 @@
 namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Tables\History\PossessionTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
-use Granam\Tests\Tools\TestWithMockery;
 
-class PossessionTableTest extends TestWithMockery implements TableTestInterface
+class PossessionTableTest extends TableTest
 {
     /**
      * @test

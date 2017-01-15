@@ -15,7 +15,7 @@ use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
-use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorWearingSkillTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
@@ -39,7 +39,7 @@ use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
 use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
 use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
 use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
-use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
@@ -53,7 +53,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
-use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillTable;
+use DrdPlus\Tables\Armaments\Weapons\WeaponSkillTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
@@ -301,15 +301,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return MissingArmorSkillTable
+     * @return ArmorWearingSkillTable
      */
-    public function getMissingArmorSkillTable()
+    public function getArmorWearingSkillTable()
     {
-        if (!array_key_exists(MissingArmorSkillTable::class, $this->tables)) {
-            $this->tables[MissingArmorSkillTable::class] = new MissingArmorSkillTable();
+        if (!array_key_exists(ArmorWearingSkillTable::class, $this->tables)) {
+            $this->tables[ArmorWearingSkillTable::class] = new ArmorWearingSkillTable();
         }
 
-        return $this->tables[MissingArmorSkillTable::class];
+        return $this->tables[ArmorWearingSkillTable::class];
     }
 
     /**
@@ -337,15 +337,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return MissingWeaponSkillTable
+     * @return WeaponSkillTable
      */
-    public function getMissingWeaponSkillTable()
+    public function getWeaponSkillTable()
     {
-        if (!array_key_exists(MissingWeaponSkillTable::class, $this->tables)) {
-            $this->tables[MissingWeaponSkillTable::class] = new MissingWeaponSkillTable();
+        if (!array_key_exists(WeaponSkillTable::class, $this->tables)) {
+            $this->tables[WeaponSkillTable::class] = new WeaponSkillTable();
         }
 
-        return $this->tables[MissingWeaponSkillTable::class];
+        return $this->tables[WeaponSkillTable::class];
     }
 
     /**
@@ -373,15 +373,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return MissingShieldSkillTable
+     * @return ShieldUsageSkillTable
      */
-    public function getMissingShieldSkillTable()
+    public function getShieldUsageSkillTable()
     {
-        if (!array_key_exists(MissingShieldSkillTable::class, $this->tables)) {
-            $this->tables[MissingShieldSkillTable::class] = new MissingShieldSkillTable();
+        if (!array_key_exists(ShieldUsageSkillTable::class, $this->tables)) {
+            $this->tables[ShieldUsageSkillTable::class] = new ShieldUsageSkillTable();
         }
 
-        return $this->tables[MissingShieldSkillTable::class];
+        return $this->tables[ShieldUsageSkillTable::class];
     }
 
     /**
@@ -903,9 +903,9 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getBodyArmorsTable(),
             $this->getHelmsTable(),
             $this->getArmorStrengthSanctionsTable(),
-            $this->getMissingArmorSkillTable(),
+            $this->getArmorWearingSkillTable(),
             $this->getShieldsTable(),
-            $this->getMissingShieldSkillTable(),
+            $this->getShieldUsageSkillTable(),
             $this->getAxesTable(),
             $this->getKnifesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
@@ -924,7 +924,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getMeleeWeaponStrengthSanctionsTable(),
             $this->getShieldStrengthSanctionsTable(),
             $this->getRangedWeaponStrengthSanctionsTable(),
-            $this->getMissingWeaponSkillTable(),
+            $this->getWeaponSkillTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),
             $this->getMovementTypesTable(),
@@ -1173,10 +1173,10 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getProtectiveArmamentMissingSkillTableByCode(ProtectiveArmamentCode $protectiveArmamentCode)
     {
         if ($protectiveArmamentCode instanceof ArmorCode) {
-            return $this->getMissingArmorSkillTable();
+            return $this->getArmorWearingSkillTable();
         }
         if ($protectiveArmamentCode instanceof ShieldCode) {
-            return $this->getMissingShieldSkillTable();
+            return $this->getShieldUsageSkillTable();
         }
         throw new UnknownProtectiveArmament("Unknown type of protective armament {$protectiveArmamentCode}");
     }

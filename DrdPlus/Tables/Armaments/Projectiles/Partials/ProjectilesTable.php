@@ -12,6 +12,7 @@ use Granam\Tools\ValueDescriber;
 /**
  * Note: Every projectile considered as with cover of 0 (if you are so despair you have to cover by a sling stone for
  * example).
+ * See PPH page 88 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_strelnych_a_vrhacich_zbrani
  */
 abstract class ProjectilesTable extends AbstractArmamentsTable implements WoundingArmamentsTable
 {

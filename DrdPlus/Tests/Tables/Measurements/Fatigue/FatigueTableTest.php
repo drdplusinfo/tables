@@ -1,14 +1,13 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements\Derived\Fatigue;
+namespace DrdPlus\Tests\Tables\Measurements\Fatigue;
 
 use DrdPlus\Tables\Measurements\Fatigue\Fatigue;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueBonus;
 use DrdPlus\Tables\Measurements\Fatigue\FatigueTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 
-class FatigueTableTest extends TestWithMockery implements MeasurementTableTest
+class FatigueTableTest extends MeasurementTableTest
 {
     /** @var  WoundsTable */
     private $woundsTable;

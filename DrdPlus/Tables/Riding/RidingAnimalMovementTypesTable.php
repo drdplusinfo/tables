@@ -10,6 +10,10 @@ use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 121 right column, @link
+ * https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu_jezdeckych_zvirat_a_leteckych_nestvur
+ */
 class RidingAnimalMovementTypesTable extends AbstractFileTable
 {
     /**
@@ -39,12 +43,14 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
         return __DIR__ . '/data/riding_animal_movement_types.csv';
     }
 
+    const MOVEMENT_TYPE = 'movement_type';
+
     /**
      * @return array|string[]
      */
     protected function getRowsHeader()
     {
-        return ['movement_type'];
+        return [self::MOVEMENT_TYPE];
     }
 
     const BONUS_TO_MOVEMENT_SPEED = MovementTypesTable::BONUS_TO_MOVEMENT_SPEED;

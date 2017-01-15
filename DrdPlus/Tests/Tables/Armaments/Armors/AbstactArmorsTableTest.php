@@ -2,10 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-abstract class AbstractArmorsTableTest extends TestWithMockery implements TableTestInterface
+abstract class AbstractArmorsTableTest extends TableTest
 {
     /**
      * @test

@@ -2,10 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-abstract class AbstractStrengthSanctionsTableTest extends TestWithMockery implements TableTestInterface
+abstract class AbstractStrengthSanctionsTableTest extends TableTest
 {
     /**
      * @test

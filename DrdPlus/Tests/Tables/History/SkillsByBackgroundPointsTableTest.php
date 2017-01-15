@@ -4,10 +4,10 @@ namespace DrdPlus\Tests\Tables\History;
 use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Tables\History\SkillsByBackgroundPointsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
 
-class SkillsByBackgroundPointsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class SkillsByBackgroundPointsTableTest extends TableTest
 {
 
     /**

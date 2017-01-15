@@ -4,10 +4,9 @@ namespace DrdPlus\Tests\Tables\Riding;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Riding\Ride;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class RidesByMovementTypeTableTest extends TestWithMockery implements TableTestInterface
+class RidesByMovementTypeTableTest extends TableTest
 {
     /**
      * @test

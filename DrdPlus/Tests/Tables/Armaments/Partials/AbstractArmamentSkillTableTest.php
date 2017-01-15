@@ -1,10 +1,9 @@
 <?php
 namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-abstract class AbstractMissingArmamentSkillTableTest extends TestWithMockery implements TableTestInterface
+abstract class AbstractArmamentSkillTableTest extends TableTest
 {
     /**
      * @test

@@ -8,7 +8,7 @@ use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\IntegerInterface;
 
 /**
- * PPH page 163
+ * See PPH page 163, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rychlosti
  */
 class SpeedTable extends AbstractMeasurementFileTable
 {
@@ -17,11 +17,17 @@ class SpeedTable extends AbstractMeasurementFileTable
         parent::__construct(new DummyEvaluator());
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/speed.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeader()
     {
         return [Speed::M_PER_ROUND, Speed::KM_PER_HOUR];
@@ -60,7 +66,6 @@ class SpeedTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Speed
      */
     protected function convertToMeasurement($value, $unit)

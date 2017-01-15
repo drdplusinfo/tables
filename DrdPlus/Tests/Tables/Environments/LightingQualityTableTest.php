@@ -3,10 +3,9 @@ namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Codes\Environment\LightConditionsCode;
 use DrdPlus\Tables\Environments\LightingQualityTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class LightingQualityTableTest extends TestWithMockery implements TableTestInterface
+class LightingQualityTableTest extends TableTest
 {
     /**
      * @test

@@ -2,20 +2,18 @@
 namespace DrdPlus\Tests\Tables\Measurements\BaseOfWounds;
 
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerObject;
-use Granam\Tests\Tools\TestWithMockery;
 
-class BaseOfWoundsTableTest extends TestWithMockery
+class BaseOfWoundsTableTest extends TableTest
 {
 
     /**
      * @test
      */
-    public function I_get_empty_arrays_as_headers()
+    public function I_can_get_header()
     {
-        $baseOfWoundsTable = new BaseOfWoundsTable();
-
-        self::assertEquals([], $baseOfWoundsTable->getHeader());
+        self::assertEquals([], (new BaseOfWoundsTable())->getHeader());
     }
 
     /**

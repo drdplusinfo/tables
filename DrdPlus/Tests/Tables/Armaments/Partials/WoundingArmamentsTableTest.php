@@ -2,9 +2,9 @@
 namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Armaments\Partials\WoundingArmamentsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 
-abstract class WoundingArmamentsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+abstract class WoundingArmamentsTableTest extends TableTest
 {
 
     /**
@@ -19,14 +19,6 @@ abstract class WoundingArmamentsTableTest extends \PHPUnit_Framework_TestCase im
             $this->assembleIndexedValues($this->provideArmamentAndNameWithValue()),
             $weaponlikeTable->getIndexedValues()
         );
-    }
-
-    /**
-     * @return string|WoundingArmamentsTable
-     */
-    protected function getSutClass()
-    {
-        return preg_replace('~[\\\]Tests([\\\].+)Test$~', '$1', get_called_class());
     }
 
     private function assembleIndexedValues(array $values)

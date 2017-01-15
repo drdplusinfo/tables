@@ -7,7 +7,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
- * PPH, page 161
+ * See PPH page 161, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rychlosti
  */
 class TimeTable extends AbstractMeasurementFileTable
 {
@@ -16,11 +16,17 @@ class TimeTable extends AbstractMeasurementFileTable
         parent::__construct(new DummyEvaluator());
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/time.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeader()
     {
         return [Time::ROUND, Time::MINUTE, Time::HOUR, Time::DAY, Time::MONTH, Time::YEAR];
@@ -61,7 +67,6 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Time
      */
     protected function convertToMeasurement($value, $unit)
@@ -71,7 +76,6 @@ class TimeTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     *
      * @return TimeBonus
      */
     protected function createBonus($bonusValue)

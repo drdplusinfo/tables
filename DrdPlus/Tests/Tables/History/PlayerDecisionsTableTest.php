@@ -1,10 +1,11 @@
 <?php
-namespace DrdPlus\Tables\History;
+namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\History\FateCode;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tables\History\PlayerDecisionsTable;
+use DrdPlus\Tests\Tables\TableTest;
 
-class PlayerDecisionsTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class PlayerDecisionsTableTest extends TableTest
 {
     /**
      * @test

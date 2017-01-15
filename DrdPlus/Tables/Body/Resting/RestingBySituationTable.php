@@ -6,16 +6,27 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 118 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_odpocinku_podle_situace
+ */
 class RestingBySituationTable extends AbstractFileTableWithPercents
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/resting_by_situation.csv';
     }
 
+    const SITUATION = 'situation';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['situation'];
+        return [self::SITUATION];
     }
 
     /**
@@ -25,7 +36,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
      * @throws \DrdPlus\Tables\Body\Resting\Exceptions\UnknownCodeOfRestingInfluence
      * @throws \DrdPlus\Tables\Body\Resting\Exceptions\UnexpectedRestingSituationPercents
      */
-    public function getRestingBonusBySituation($situationCode, RestingSituationPercents $restingSituationPercents)
+    public function getRestingMalusBySituation($situationCode, RestingSituationPercents $restingSituationPercents)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

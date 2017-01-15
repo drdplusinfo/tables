@@ -6,9 +6,8 @@ use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 
-class WeightTableTest extends TestWithMockery implements MeasurementTableTest
+class WeightTableTest extends MeasurementTableTest
 {
 
     /**
@@ -159,7 +158,7 @@ class WeightTableTest extends TestWithMockery implements MeasurementTableTest
 
     /**
      * @param int $bonusValue
-     * @return Weight
+     * @return Weight|\Mockery\MockInterface
      */
     private function createWeight($bonusValue)
     {

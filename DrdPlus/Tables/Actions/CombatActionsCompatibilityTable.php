@@ -6,6 +6,10 @@ use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 102 @link https://pph.drdplus.jaroslavtyc.com/#bojove_akce
+ * and PPH page 107 @link https://pph.drdplus.jaroslavtyc.com/#dalsi_bojove_akce
+ */
 class CombatActionsCompatibilityTable extends AbstractFileTable
 {
     /**
@@ -16,6 +20,9 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
         return __DIR__ . '/data/combat_actions_compatibility.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
@@ -47,6 +54,9 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
 
     const ACTION = 'action';
 
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
         return [self::ACTION];

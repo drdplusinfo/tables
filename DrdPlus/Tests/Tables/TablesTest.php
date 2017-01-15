@@ -18,18 +18,19 @@ use DrdPlus\Codes\Partials\AbstractCode;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
-use DrdPlus\Tables\Armaments\Armors\MissingArmorSkillTable;
+use DrdPlus\Tables\Armaments\Armors\ArmorWearingSkillTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
 use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
 use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
-use DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Tests\Tools\TestWithMockery;
 
 class TablesTest extends TestWithMockery
@@ -380,9 +381,9 @@ class TablesTest extends TestWithMockery
     public function provideProtectiveArmamentCodeAndExpectedSanctionsTable()
     {
         return [
-            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), MissingArmorSkillTable::class],
-            [HelmCode::getIt(HelmCode::GREAT_HELM), MissingArmorSkillTable::class],
-            [ShieldCode::getIt(ShieldCode::BUCKLER), MissingShieldSkillTable::class],
+            [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorWearingSkillTable::class],
+            [HelmCode::getIt(HelmCode::GREAT_HELM), ArmorWearingSkillTable::class],
+            [ShieldCode::getIt(ShieldCode::BUCKLER), ShieldUsageSkillTable::class],
         ];
     }
 
@@ -432,5 +433,20 @@ class TablesTest extends TestWithMockery
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
         (new Tables())->getProtectiveArmamentsTable($protectiveArmamentCode);
+    }
+
+    /**
+     * @test
+     */
+    public function Every_table_is_tested_by_default_test()
+    {
+        foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
+            $expectedTableTestClass = str_replace('\Tables\\', '\Tests\Tables\\', $expectedTableClass) . 'Test';
+            self::assertTrue(class_exists($expectedTableTestClass), 'Missing test for table ' . $expectedTableClass);
+            self::assertTrue(
+                is_a($expectedTableTestClass, TableTest::class, true),
+                "Table test {$expectedTableTestClass} should extends " . TableTest::class
+            );
+        }
     }
 }

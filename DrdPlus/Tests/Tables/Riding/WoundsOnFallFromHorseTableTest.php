@@ -5,10 +5,9 @@ use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Tables\Riding\WoundsOnFallFromHorseTable;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class WoundsOnFallFromHorseTableTest extends TestWithMockery implements TableTestInterface
+class WoundsOnFallFromHorseTableTest extends TableTest
 {
     /**
      * @test

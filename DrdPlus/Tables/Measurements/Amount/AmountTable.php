@@ -8,7 +8,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
- * PPH page 164, top
+ * See PPH page 164 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_poctu
  */
 class AmountTable extends AbstractMeasurementFileTable
 {
@@ -61,6 +61,7 @@ class AmountTable extends AbstractMeasurementFileTable
     {
         $this->checkUnitExistence($unit);
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Amount($value, Amount::AMOUNT, $this);
     }
 

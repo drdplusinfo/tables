@@ -9,10 +9,9 @@ use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Tables;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class CombatActionsWithWeaponTypeCompatibilityTableTest extends TestWithMockery implements TableTestInterface
+class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
 {
     /**
      * @test

@@ -11,6 +11,9 @@ use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 29 top,@link https://pph.drdplus.jaroslavtyc.com/#tabulka_ras
+ */
 class RacesTable extends AbstractFileTable
 {
 

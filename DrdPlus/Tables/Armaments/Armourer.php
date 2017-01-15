@@ -658,7 +658,7 @@ class Armourer extends StrictObject
      */
     public function getFightNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -671,13 +671,13 @@ class Armourer extends StrictObject
      */
     public function getAttackNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
      * Gives malus to cover with a weapon or a shield according to given skill rank.
      * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not
-     * have maximal skill). Correct is @see \DrdPlus\Tables\Armaments\Shields\MissingShieldSkillTable
+     * have maximal skill). Correct is @see \DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable
      * Note about shield: shield is always used as a shield for cover, even if is used for desperate attack.
      *
      * @param PositiveInteger $weaponTypeSkillRank
@@ -688,12 +688,12 @@ class Armourer extends StrictObject
     public function getCoverMalusForSkillRank(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
     {
         if ($weaponOrShield->isWeapon()) {
-            return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
+            return $this->tables->getWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
         }
         assert($weaponOrShield->isShield());
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->tables->getMissingShieldSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getShieldUsageSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -706,7 +706,7 @@ class Armourer extends StrictObject
      */
     public function getBaseOfWoundsMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getMissingWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     // missing shield-specific skill

@@ -8,6 +8,10 @@ use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 102 @link https://pph.drdplus.jaroslavtyc.com/#bojove_akce
+ * and PPH page 107 @link https://pph.drdplus.jaroslavtyc.com/#dalsi_bojove_akce
+ */
 class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
 {
     /**

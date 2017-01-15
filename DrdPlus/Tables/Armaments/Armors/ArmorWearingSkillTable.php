@@ -2,16 +2,20 @@
 namespace DrdPlus\Tables\Armaments\Armors;
 
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
+use Granam\Integer\PositiveInteger;
 
-class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable implements MissingProtectiveArmamentSkill
+/**
+ * See PPH page 147 left column, @link https://pph.drdplus.jaroslavtyc.com/#noseni_zbroje
+ */
+class ArmorWearingSkillTable extends AbstractArmamentSkillTable implements MissingProtectiveArmamentSkill
 {
     /**
      * @return string
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/missing_armor_skill.csv';
+        return __DIR__ . '/data/armor_wearing_skill.csv';
     }
 
     /**
@@ -23,7 +27,7 @@ class MissingArmorSkillTable extends AbstractMissingArmamentSkillTable implement
     }
 
     /**
-     * @param $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType

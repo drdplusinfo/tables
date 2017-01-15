@@ -5,10 +5,9 @@ use DrdPlus\Codes\Environment\LightSourceCode;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class PowerOfLightSourcesTableTest extends TestWithMockery implements TableTestInterface
+class PowerOfLightSourcesTableTest extends TableTest
 {
     /**
      * @testF

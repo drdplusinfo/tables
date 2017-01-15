@@ -3,10 +3,9 @@ namespace DrdPlus\Tests\Tables\Attacks\Partials;
 
 use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-abstract class AbstractAttackNumberByDistanceTableTest extends TestWithMockery implements TableTestInterface
+abstract class AbstractAttackNumberByDistanceTableTest extends TableTest
 {
     /**
      * @test

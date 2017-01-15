@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\Races;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 130 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rozsahu_zraku
+ */
 class SightRangesTable extends AbstractFileTable
 {
     /**

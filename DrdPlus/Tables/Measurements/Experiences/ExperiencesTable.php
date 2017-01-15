@@ -7,7 +7,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 
 /**
- * PPH page 44, top right
+ * See PPH page 44 top right, @link https://pph.drdplus.jaroslavtyc.com/#postup_na_vyssi_uroven
  */
 class ExperiencesTable extends AbstractTable
 {
@@ -20,16 +20,26 @@ class ExperiencesTable extends AbstractTable
         $this->woundsTable = $woundsTable;
     }
 
+    /**
+     * @return \string[][]
+     */
     public function getIndexedValues()
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->woundsTable->getIndexedValues();
     }
 
+    /**
+     * @return array|\string[][]
+     */
     protected function getRowsHeader()
     {
         return $this->woundsTable->getRowsHeader();
     }
 
+    /**
+     * @return array|\string[]
+     */
     protected function getColumnsHeader()
     {
         return $this->woundsTable->getColumnsHeader();
@@ -37,6 +47,7 @@ class ExperiencesTable extends AbstractTable
 
     /**
      * Gives highest level possible, independently on any previous level.
+     *
      * @param Experiences $experiences
      * @return Level
      */
@@ -56,6 +67,7 @@ class ExperiencesTable extends AbstractTable
             );
             /**
              * avoiding standard bonus round-up, which is unacceptable for experiences to level conversion;
+             *
              * @see \DrdPlus\Tables\Measurements\Partials\AbstractFileTable::determineBonus
              */
         } while ($woundsBonus->getWounds()->getValue() > $experiences->getValue());
@@ -76,6 +88,7 @@ class ExperiencesTable extends AbstractTable
 
     /**
      * Leveling sequentially from very first level up to highest possible until all experiences are spent.
+     *
      * @param Experiences $experiences
      * @return Level
      */
@@ -99,6 +112,7 @@ class ExperiencesTable extends AbstractTable
     /**
      * Casting level to experiences is mostly lossy conversion!
      * Gives experiences needed from previous (current -1) to given level.
+     *
      * @param Level $level
      * @return Experiences
      */
@@ -124,6 +138,7 @@ class ExperiencesTable extends AbstractTable
     /**
      * Casting level to experiences is mostly lossy conversion!
      * Gives all experiences needed to achieve all levels sequentially up to given.
+     *
      * @param Level $level
      * @return Experiences
      */

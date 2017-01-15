@@ -1,18 +1,18 @@
 <?php
-namespace DrdPlus\Tests\Tables\Measurements\Derived\Experiences;
+namespace DrdPlus\Tests\Tables\Measurements\Experiences;
 
 use DrdPlus\Tables\Measurements\Experiences\Experiences;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Experiences\Level;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class ExperiencesTableTest extends TestWithMockery
+class ExperiencesTableTest extends TableTest
 {
     /**
      * @test
      */
-    public function I_get_headers_same_as_from_wounds_table()
+    public function I_can_get_header()
     {
         $experiencesTable = new ExperiencesTable($woundsTable = new WoundsTable());
 

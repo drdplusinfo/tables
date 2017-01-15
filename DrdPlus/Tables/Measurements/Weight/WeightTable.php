@@ -10,7 +10,7 @@ use DrdPlus\Calculations\SumAndRound;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * PPH page 164, bottom
+ * See PPH page 164 bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_hmotnosti
  */
 class WeightTable extends AbstractMeasurementFileTable
 {
@@ -87,6 +87,7 @@ class WeightTable extends AbstractMeasurementFileTable
 
     /**
      * Affects activities using strength, agility or knack, see PPH page 113, right column, bottom.
+     *
      * @param Strength $strength
      * @param Weight $cargoWeight
      * @return int negative number or zero

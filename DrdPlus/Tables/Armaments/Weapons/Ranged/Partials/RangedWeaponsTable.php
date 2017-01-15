@@ -14,6 +14,9 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
 {
     const RANGE = 'range';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

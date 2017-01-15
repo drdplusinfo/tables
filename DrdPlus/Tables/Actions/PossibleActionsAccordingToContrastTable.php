@@ -48,6 +48,11 @@ class PossibleActionsAccordingToContrastTable extends AbstractFileTable
         return $this->getPossibility($contrast, self::POSSIBLE_ACTIONS_EXAMPLE);
     }
 
+    /**
+     * @param PositiveInteger $contrast
+     * @param string $actionName
+     * @return string
+     */
     private function getPossibility(PositiveInteger $contrast, $actionName)
     {
         $contrastValue = $contrast->getValue();

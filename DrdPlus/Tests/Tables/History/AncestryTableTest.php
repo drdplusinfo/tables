@@ -3,11 +3,10 @@ namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\History\AncestryCode;
 use DrdPlus\Tables\History\AncestryTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
-use Granam\Tests\Tools\TestWithMockery;
 
-class AncestryTableTest extends TestWithMockery implements TableTestInterface
+class AncestryTableTest extends TableTest
 {
     /**
      * @test

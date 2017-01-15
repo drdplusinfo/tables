@@ -3,10 +3,10 @@ namespace DrdPlus\Tests\Tables\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Tables\Actions\PossibleActionsAccordingToContrastTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
 
-class PossibleActionsAccordingToContrastTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class PossibleActionsAccordingToContrastTableTest extends TableTest
 {
     /**
      * @test

@@ -5,9 +5,8 @@ use DrdPlus\Tables\Measurements\Amount\Amount;
 use DrdPlus\Tables\Measurements\Amount\AmountBonus;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
 use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
-use Granam\Tests\Tools\TestWithMockery;
 
-class AmountTableTest extends TestWithMockery implements MeasurementTableTest
+class AmountTableTest extends MeasurementTableTest
 {
 
     /**

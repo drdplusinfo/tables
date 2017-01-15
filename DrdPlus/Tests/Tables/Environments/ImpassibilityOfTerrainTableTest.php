@@ -5,9 +5,9 @@ use DrdPlus\Tables\Environments\TerrainDifficultyPercents;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 
-class ImpassibilityOfTerrainTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class ImpassibilityOfTerrainTableTest extends TableTest
 {
     /**
      * @test

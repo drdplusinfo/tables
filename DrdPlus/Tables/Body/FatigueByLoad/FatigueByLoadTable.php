@@ -6,6 +6,9 @@ use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;
 
+/**
+ * See PPH page 114 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_unavy_za_nalozen
+ */
 class FatigueByLoadTable extends AbstractFileTable
 {
     /**
@@ -16,6 +19,11 @@ class FatigueByLoadTable extends AbstractFileTable
         return __DIR__ . '/data/fatigue_by_load.csv';
     }
 
+    const MISSING_STRENGTH_UP_TO = 'missing_strength_up_to';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
         return ['missing_strength_up_to'];
@@ -24,11 +32,14 @@ class FatigueByLoadTable extends AbstractFileTable
     const LOAD = 'load';
     const WEARIES_LIKE = 'wearies_like';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
             self::LOAD => self::STRING,
-            self::WEARIES_LIKE => self::STRING
+            self::WEARIES_LIKE => self::STRING,
         ];
     }
 

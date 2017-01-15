@@ -6,16 +6,27 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 81 left column top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_leceni_podle_podminek
+ */
 class HealingByConditionsTable extends AbstractFileTableWithPercents
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
 
+    const SITUATION = 'situation';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['situation'];
+        return [self::SITUATION];
     }
 
     /**

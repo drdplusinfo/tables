@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\Environments;
 use DrdPlus\Codes\Environment\LightConditionsCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 127 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_kvality_osvetleni
+ */
 class LightingQualityTable extends AbstractFileTable
 {
     /**
@@ -17,7 +20,7 @@ class LightingQualityTable extends AbstractFileTable
     const QUALITY = 'quality';
 
     /**
-     * @return array
+     * @return array|string[]
      */
     protected function getExpectedDataHeaderNamesToTypes()
     {
@@ -27,7 +30,7 @@ class LightingQualityTable extends AbstractFileTable
     const LIGHT_CONDITIONS = 'light_conditions';
 
     /**
-     * @return array
+     * @return array|string[]
      */
     protected function getRowsHeader()
     {

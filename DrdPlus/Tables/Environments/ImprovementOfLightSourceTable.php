@@ -4,6 +4,9 @@ namespace DrdPlus\Tables\Environments;
 use DrdPlus\Codes\Environment\LightSourceEnvironmentCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 128 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zvyseni_sily_zdroje
+ */
 class ImprovementOfLightSourceTable extends AbstractFileTable
 {
     /**
@@ -16,6 +19,9 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
 
     const IMPROVEMENT_OF_LIGHT_SOURCE = 'improvement_of_light_source';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [self::IMPROVEMENT_OF_LIGHT_SOURCE => self::POSITIVE_INTEGER];
@@ -23,6 +29,9 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
 
     const ENVIRONMENT = 'environment';
 
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
         return [self::ENVIRONMENT];

@@ -4,7 +4,11 @@ namespace DrdPlus\Tables\Races;
 use DrdPlus\Codes\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
+/**
+ * See PPH page 29 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_pohlavi
+ */
 class FemaleModifiersTable extends AbstractFileTable
 {
     /**
@@ -40,6 +44,9 @@ class FemaleModifiersTable extends AbstractFileTable
         return [RacesTable::RACE];
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getHumanModifiers()
     {
         return $this->getRaceModifiers(RaceCode::HUMAN);
@@ -48,115 +55,146 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @param string $race
      * @return array|int[]
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
     private function getRaceModifiers($race)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([$race]);
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getElfModifiers()
     {
         return $this->getRaceModifiers(RaceCode::ELF);
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getDwarfModifiers()
     {
         return $this->getRaceModifiers(RaceCode::DWARF);
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getHobbitModifiers()
     {
         return $this->getRaceModifiers(RaceCode::HOBBIT);
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getKrollModifiers()
     {
         return $this->getRaceModifiers(RaceCode::KROLL);
     }
 
+    /**
+     * @return array|\int[]
+     */
     public function getOrcModifiers()
     {
         return $this->getRaceModifiers(RaceCode::ORC);
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getStrength($raceCode)
+    public function getStrength(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::STRENGTH);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::STRENGTH);
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
+     * @param string $propertyName
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\UnknownRace
      */
-    public function getAgility($raceCode)
+    private function getProperty(RaceCode $raceCode, $propertyName)
     {
-        return $this->getValue([$raceCode], PropertyCode::AGILITY);
+        try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->getValue($raceCode, $propertyName);
+        } catch (RequiredRowNotFound $requiredRowNotFound) {
+            throw new Exceptions\UnknownRace("Unsupported race $raceCode");
+        }
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getKnack($raceCode)
+    public function getAgility(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::KNACK);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::AGILITY);
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getWill($raceCode)
+    public function getKnack(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::WILL);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::KNACK);
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getIntelligence($raceCode)
+    public function getWill(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::INTELLIGENCE);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::WILL);
     }
 
     /**
-     * @param string $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getCharisma($raceCode)
+    public function getIntelligence(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::CHARISMA);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::INTELLIGENCE);
     }
 
     /**
-     * @param $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getWeightBonus($raceCode)
+    public function getCharisma(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::WEIGHT);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::CHARISMA);
     }
 
     /**
-     * @param $raceCode
-     *
+     * @param RaceCode $raceCode
      * @return int
      */
-    public function getSize($raceCode)
+    public function getWeightBonus(RaceCode $raceCode)
     {
-        return $this->getValue([$raceCode], PropertyCode::SIZE);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::WEIGHT);
+    }
+
+    /**
+     * @param RaceCode $raceCode
+     * @return int
+     */
+    public function getSize(RaceCode $raceCode)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getProperty($raceCode, PropertyCode::SIZE);
     }
 }

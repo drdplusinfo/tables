@@ -2,17 +2,23 @@
 namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
-use DrdPlus\Tables\Armaments\Partials\AbstractMissingArmamentSkillTable;
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
 use Granam\Integer\PositiveInteger;
 
-class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implements MissingProtectiveArmamentSkill
+/**
+ * See PPH page 148 left column, @link https://pph.drdplus.jaroslavtyc.com/#pouzivani_stitu
+ */
+class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements MissingProtectiveArmamentSkill
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/missing_shield_skill.csv';
     }
 
-    const COVER = 'cover';
+    const COVER_MALUS = 'cover_malus';
 
     /**
      * @return array|string[]
@@ -21,7 +27,7 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implemen
     {
         return [
             self::RESTRICTION_BONUS => self::POSITIVE_INTEGER,
-            self::COVER => self::NEGATIVE_INTEGER,
+            self::COVER_MALUS => self::NEGATIVE_INTEGER,
         ];
     }
 
@@ -48,7 +54,7 @@ class MissingShieldSkillTable extends AbstractMissingArmamentSkillTable implemen
     public function getCoverMalusForSkillRank($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueForSkillRank($skillRank, self::COVER);
+        return $this->getValueForSkillRank($skillRank, self::COVER_MALUS);
     }
 
 }

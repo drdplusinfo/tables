@@ -4,10 +4,9 @@ namespace DrdPlus\Tests\Tables\Body\Resting;
 use DrdPlus\Codes\Body\RestConditionsCode;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Body\Resting\RestingSituationPercents;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class RestingBySituationTableTest extends TestWithMockery implements TableTestInterface
+class RestingBySituationTableTest extends TableTest
 {
     /**
      * @test
@@ -52,7 +51,7 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTestIn
         $restingBySituationTable = new RestingBySituationTable();
         self::assertSame(
             $expectedRestingBonus,
-            $restingBySituationTable->getRestingBonusBySituation(
+            $restingBySituationTable->getRestingMalusBySituation(
                 $situationCode,
                 $this->createRestingSituationPercents($percentsOfSituation)
             )
@@ -99,7 +98,7 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTestIn
      */
     public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
     {
-        (new RestingBySituationTable())->getRestingBonusBySituation(
+        (new RestingBySituationTable())->getRestingMalusBySituation(
             RestConditionsCode::IMPAIRED_CONDITIONS,
             new RestingSituationPercents(101)
         );
@@ -112,6 +111,6 @@ class RestingBySituationTableTest extends TestWithMockery implements TableTestIn
      */
     public function I_can_not_get_bonus_for_unknown_situation()
     {
-        (new RestingBySituationTable())->getRestingBonusBySituation('arrested', $this->createRestingSituationPercents(0));
+        (new RestingBySituationTable())->getRestingMalusBySituation('arrested', $this->createRestingSituationPercents(0));
     }
 }

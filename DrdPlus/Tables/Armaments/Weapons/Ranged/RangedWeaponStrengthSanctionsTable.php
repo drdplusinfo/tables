@@ -6,9 +6,15 @@ use DrdPlus\Tables\Armaments\Partials\WeaponStrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength;
 use Granam\Integer\IntegerInterface;
 
+/**
+ * See PPH page 95 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_postihu_za_strelne_zbrane
+ */
 class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     implements WeaponStrengthSanctionsInterface
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/range_weapon_strength_sanctions.csv';
@@ -22,6 +28,9 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     const BASE_OF_WOUNDS = 'base_of_wounds';
     const CAN_USE_WEAPON = 'can_use_weapon';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

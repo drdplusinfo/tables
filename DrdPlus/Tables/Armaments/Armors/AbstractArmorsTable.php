@@ -11,6 +11,9 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
 
     const PROTECTION = 'protection';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
@@ -40,6 +43,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     protected function getValueFor($armorCode, $valueName)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([$armorCode], $valueName);
         } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound $exception) {
             throw new UnknownArmor(

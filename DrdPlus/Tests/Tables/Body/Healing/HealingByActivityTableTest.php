@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Codes\Body\ActivityAffectingHealingCode;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 
-class HealingByActivityTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class HealingByActivityTableTest extends TableTest
 {
     /**
      * @test

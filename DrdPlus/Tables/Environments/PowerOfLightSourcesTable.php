@@ -5,6 +5,9 @@ use DrdPlus\Codes\Environment\LightSourceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
+/**
+ * See PPH page 127 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_sily_svetelnych_zdroju
+ */
 class PowerOfLightSourcesTable extends AbstractFileTable
 {
     /**
@@ -18,7 +21,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
     const POWER = 'power';
 
     /**
-     * @return array
+     * @return array|string[]
      */
     protected function getExpectedDataHeaderNamesToTypes()
     {
@@ -28,7 +31,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
     const LIGHT_SOURCE = 'light_source';
 
     /**
-     * @return array
+     * @return array|string[]
      */
     protected function getRowsHeader()
     {
@@ -52,7 +55,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
      */
     public function calculateLightingQualityInDistance(LightSourceCode $lightSourceCode, Distance $distance)
     {
-        return $this->getPowerOfLightSource($lightSourceCode) - 2*$distance->getBonus()->getValue();
+        return $this->getPowerOfLightSource($lightSourceCode) - 2 * $distance->getBonus()->getValue();
     }
 
 }

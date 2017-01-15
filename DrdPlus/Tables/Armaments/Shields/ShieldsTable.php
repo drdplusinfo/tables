@@ -8,18 +8,32 @@ use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
+/**
+ * See PPH page 86 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_stitu
+ */
 class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, MeleeWeaponlikesTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/shields.csv';
     }
 
+    const SHIELD = 'shield';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['shield'];
+        return [self::SHIELD];
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

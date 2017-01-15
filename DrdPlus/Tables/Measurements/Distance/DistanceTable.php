@@ -1,13 +1,15 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
+use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * PPH page 162, top
+ * See PPH page 162 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_vzdalenosti
  */
 class DistanceTable extends AbstractMeasurementFileTable
 {
@@ -16,11 +18,17 @@ class DistanceTable extends AbstractMeasurementFileTable
         parent::__construct(new DummyEvaluator());
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/distance.csv';
     }
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeader()
     {
         return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
@@ -28,8 +36,7 @@ class DistanceTable extends AbstractMeasurementFileTable
 
     /**
      * @param DistanceBonus $distanceBonus
-     *
-     * @return Distance
+     * @return Distance|MeasurementWithBonus
      */
     public function toDistance(DistanceBonus $distanceBonus)
     {
@@ -39,7 +46,7 @@ class DistanceTable extends AbstractMeasurementFileTable
 
     /**
      * @param Distance $distance
-     * @return DistanceBonus
+     * @return DistanceBonus|AbstractBonus
      */
     public function toBonus(Distance $distance)
     {
@@ -49,21 +56,21 @@ class DistanceTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return Distance
      */
     protected function convertToMeasurement($value, $unit)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Distance($value, $unit, $this);
     }
 
     /**
      * @param int $bonusValue
-     *
      * @return DistanceBonus
      */
     protected function createBonus($bonusValue)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new DistanceBonus($bonusValue, $this);
     }
 

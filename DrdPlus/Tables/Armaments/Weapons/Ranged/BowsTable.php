@@ -6,8 +6,14 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use Granam\String\StringInterface;
 
+/**
+ * See PPH page 88 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_strelnych_a_vrhacich_zbrani
+ */
 class BowsTable extends RangedWeaponsTable
 {
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/bows.csv';
@@ -15,6 +21,9 @@ class BowsTable extends RangedWeaponsTable
 
     const MAXIMAL_APPLICABLE_STRENGTH = 'maximal_applicable_strength';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [

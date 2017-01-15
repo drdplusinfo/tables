@@ -5,10 +5,9 @@ use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class CombatActionsCompatibilityTableTest extends TestWithMockery implements TableTestInterface
+class CombatActionsCompatibilityTableTest extends TableTest
 {
     /**
      * @test

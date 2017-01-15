@@ -3,9 +3,9 @@ namespace DrdPlus\Tests\Tables\Races;
 
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Races\SightRangesTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
+use DrdPlus\Tests\Tables\TableTest;
 
-class SightRangesTableTest extends \PHPUnit_Framework_TestCase implements TableTestInterface
+class SightRangesTableTest extends TableTest
 {
     /**
      * @test

@@ -4,10 +4,9 @@ namespace DrdPlus\Tests\Tables\Body\Healing;
 use DrdPlus\Codes\Body\ConditionsAffectingHealingCode;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\Healing\HealingConditionsPercents;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class HealingByConditionsTableTest extends TestWithMockery implements TableTestInterface
+class HealingByConditionsTableTest extends TableTest
 {
     /**
      * @test

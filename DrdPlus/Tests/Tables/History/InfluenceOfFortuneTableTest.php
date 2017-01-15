@@ -3,10 +3,9 @@ namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\History\InfluenceOfFortuneTable;
-use DrdPlus\Tests\Tables\TableTestInterface;
-use Granam\Tests\Tools\TestWithMockery;
+use DrdPlus\Tests\Tables\TableTest;
 
-class InfluenceOfFortuneTableTest extends TestWithMockery implements TableTestInterface
+class InfluenceOfFortuneTableTest extends TableTest
 {
     /**
      * @test

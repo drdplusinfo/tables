@@ -5,6 +5,9 @@ use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use Granam\Float\Tools\ToFloat;
 
+/**
+ * See PPH page 104 left column bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_oprav_za_vzdalenost
+ */
 class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
 {
     /**
