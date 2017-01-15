@@ -59,7 +59,7 @@ class SkillsByBackgroundPointsTableTest extends \PHPUnit_Framework_TestCase impl
         $getGroupSkillPoints = 'get' . ucfirst($skillGroup) . 'SkillPoints';
         $groupSkillPoints = $backgroundSkillsTable->$getGroupSkillPoints(
             new PositiveIntegerObject($backgroundSkillPoints),
-            $professionCode
+            ProfessionCode::getIt($professionCode)
         );
         self::assertSame($expectedSkillPoints, $groupSkillPoints);
 
