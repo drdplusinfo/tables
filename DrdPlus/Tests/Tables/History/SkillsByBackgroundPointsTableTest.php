@@ -36,13 +36,13 @@ class SkillsByBackgroundPointsTableTest extends TableTest
      * @dataProvider provideSkillPointToProfession
      * @param int $backgroundSkillPoints
      * @param string $professionCode
-     * @param string $skillGroup
+     * @param string $skillType
      * @param int $expectedSkillPoints
      */
     public function I_can_get_skills_for_each_profession(
         $backgroundSkillPoints,
         $professionCode,
-        $skillGroup,
+        $skillType,
         $expectedSkillPoints
     )
     {
@@ -52,18 +52,18 @@ class SkillsByBackgroundPointsTableTest extends TableTest
             $backgroundSkillsTable->getSkillPoints(
                 new PositiveIntegerObject($backgroundSkillPoints),
                 ProfessionCode::getIt($professionCode),
-                $skillGroup
+                SkillTypeCode::getIt($skillType)
             )
         );
 
-        $getGroupSkillPoints = 'get' . ucfirst($skillGroup) . 'SkillPoints';
+        $getGroupSkillPoints = 'get' . ucfirst($skillType) . 'SkillPoints';
         $groupSkillPoints = $backgroundSkillsTable->$getGroupSkillPoints(
             new PositiveIntegerObject($backgroundSkillPoints),
             ProfessionCode::getIt($professionCode)
         );
         self::assertSame($expectedSkillPoints, $groupSkillPoints);
 
-        $getProfessionGroupSkillPoints = 'get' . ucfirst($professionCode) . ucfirst($skillGroup) . 'SkillPoints';
+        $getProfessionGroupSkillPoints = 'get' . ucfirst($professionCode) . ucfirst($skillType) . 'SkillPoints';
         $professionGroupSkillPoints = $backgroundSkillsTable->$getProfessionGroupSkillPoints(
             new PositiveIntegerObject($backgroundSkillPoints)
         );
