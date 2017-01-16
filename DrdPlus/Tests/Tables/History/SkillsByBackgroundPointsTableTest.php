@@ -51,7 +51,7 @@ class SkillsByBackgroundPointsTableTest extends TableTest
             $expectedSkillPoints,
             $backgroundSkillsTable->getSkillPoints(
                 new PositiveIntegerObject($backgroundSkillPoints),
-                $professionCode,
+                ProfessionCode::getIt($professionCode),
                 $skillGroup
             )
         );

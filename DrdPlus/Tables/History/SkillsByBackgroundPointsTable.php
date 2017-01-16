@@ -5,10 +5,9 @@ use DrdPlus\Codes\ProfessionCode;
 use DrdPlus\Codes\Skills\SkillTypeCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;
+use Granam\String\StringInterface;
 
-/**
- * See PPH page 39, bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_dovednosti
- */
+/** see PPH page 39, bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_dovednosti */
 class SkillsByBackgroundPointsTable extends AbstractFileTable
 {
     /**
@@ -114,17 +113,17 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
 
     /**
      * @param PositiveInteger $backgroundPoints
-     * @param $professionName
-     * @param $skillType
+     * @param ProfessionCode $professionCode
+     * @param string|StringInterface $skillType
      * @return int
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getSkillPoints(PositiveInteger $backgroundPoints, $professionName, $skillType)
+    public function getSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode, $skillType)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($backgroundPoints, "$professionName $skillType");
+        return $this->getValue($backgroundPoints, "$professionCode $skillType");
     }
 
     /**
@@ -136,20 +135,20 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getFighterPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::FIGHTER);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::FIGHTER));
     }
 
     /**
      * @param PositiveInteger $backgroundPoints
-     * @param $professionName
+     * @param ProfessionCode $professionCode
      * @return int
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getPsychicalSkillPoints(PositiveInteger $backgroundPoints, $professionName)
+    public function getPsychicalSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode)
     {
-        return $this->getSkillPoints($backgroundPoints, $professionName, SkillTypeCode::PSYCHICAL);
+        return $this->getSkillPoints($backgroundPoints, $professionCode, SkillTypeCode::PSYCHICAL);
     }
 
     /**
@@ -161,20 +160,20 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getFighterCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::FIGHTER);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::FIGHTER));
     }
 
     /**
      * @param PositiveInteger $backgroundPoints
-     * @param $professionName
+     * @param ProfessionCode $professionCode
      * @return int
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getCombinedSkillPoints(PositiveInteger $backgroundPoints, $professionName)
+    public function getCombinedSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode)
     {
-        return $this->getSkillPoints($backgroundPoints, $professionName, SkillTypeCode::COMBINED);
+        return $this->getSkillPoints($backgroundPoints, $professionCode, SkillTypeCode::COMBINED);
     }
 
     /**
@@ -198,7 +197,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getThiefPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::THIEF);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THIEF));
     }
 
     /**
@@ -210,7 +209,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getThiefCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::THIEF);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THIEF));
     }
 
     /**
@@ -234,7 +233,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getRangerPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::RANGER);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::RANGER));
     }
 
     /**
@@ -246,7 +245,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getRangerCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::RANGER);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::RANGER));
     }
 
     /**
@@ -270,7 +269,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getWizardPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::WIZARD);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::WIZARD));
     }
 
     /**
@@ -282,7 +281,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getWizardCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::WIZARD);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::WIZARD));
     }
 
     /**
@@ -306,7 +305,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getTheurgistPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::THEURGIST);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THEURGIST));
     }
 
     /**
@@ -318,7 +317,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getTheurgistCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::THEURGIST);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THEURGIST));
     }
 
     /**
@@ -342,7 +341,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getPriestPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::PRIEST);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::PRIEST));
     }
 
     /**
@@ -354,7 +353,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getPriestCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::PRIEST);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::PRIEST));
     }
 
     /**
@@ -378,7 +377,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getCommonerPsychicalSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::COMMONER);
+        return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::COMMONER));
     }
 
     /**
@@ -390,7 +389,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      */
     public function getCommonerCombinedSkillPoints(PositiveInteger $backgroundPoints)
     {
-        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::COMMONER);
+        return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::COMMONER));
     }
 
 }
