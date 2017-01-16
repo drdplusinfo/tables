@@ -5,6 +5,8 @@ use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound;
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
  * See PPH page 102 @link https://pph.drdplus.jaroslavtyc.com/#bojove_akce
@@ -63,21 +65,25 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
     }
 
     /**
-     * @param string $someAction
-     * @param string $anotherAction
+     * @param CombatActionCode $someAction
+     * @param CombatActionCode $anotherAction
      * @return bool
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
-     * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
-     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
+     * @throws \DrdPlus\Tables\Actions\Exceptions\UnknownCombatAction
      */
-    public function canCombineTwoActions($someAction, $anotherAction)
+    public function canCombineTwoActions(CombatActionCode $someAction, CombatActionCode $anotherAction)
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($someAction, $anotherAction);
+        try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            return $this->getValue($someAction, $anotherAction);
+        } catch (RequiredRowNotFound $requiredRowNotFound) {
+            throw new Exceptions\UnknownCombatAction("Unsupported combat action {$someAction}");
+        } catch (RequiredColumnNotFound $requiredColumnNotFound) {
+            throw new Exceptions\UnknownCombatAction("Unsupported combat action {$anotherAction}");
+        }
     }
 
     /**
-     * @param array|string[] $actions
+     * @param array|CombatActionCode[] $actions
      * @return bool
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound

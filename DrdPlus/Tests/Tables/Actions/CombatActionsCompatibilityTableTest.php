@@ -73,9 +73,16 @@ class CombatActionsCompatibilityTableTest extends TableTest
      */
     public function Combinations_are_same_from_both_sides()
     {
-        $codes = CombatActionCode::getPossibleValues();
-        $codes = array_merge($codes, MeleeCombatActionCode::getMeleeOnlyCombatActionCodes());
-        $codes = array_merge($codes, RangedCombatActionCode::getRangedOnlyCombatActionCodes());
+        $codes = [];
+        foreach (CombatActionCode::getPossibleValues() as $meleeOnlyCombatActionCode) {
+            $codes[] = CombatActionCode::getIt($meleeOnlyCombatActionCode);
+        }
+        foreach (MeleeCombatActionCode::getMeleeOnlyCombatActionCodes() as $meleeOnlyCombatActionCode) {
+            $codes[] = MeleeCombatActionCode::getIt($meleeOnlyCombatActionCode);
+        }
+        foreach (RangedCombatActionCode::getRangedOnlyCombatActionCodes() as $rangedOnlyCombatActionCode) {
+            $codes[] = RangedCombatActionCode::getIt($rangedOnlyCombatActionCode);
+        }
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();
         foreach ($codes as $someCode) {
             foreach ($codes as $anotherCode) {
@@ -95,12 +102,12 @@ class CombatActionsCompatibilityTableTest extends TableTest
     {
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();
         self::assertTrue($combatActionsCompatibilityTable->canCombineTwoActions(
-            CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
-            CombatActionCode::MOVE
+            CombatActionCode::getIt(CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY),
+            CombatActionCode::getIt(CombatActionCode::MOVE)
         ));
         self::assertFalse($combatActionsCompatibilityTable->canCombineTwoActions(
-            CombatActionCode::GETTING_UP,
-            CombatActionCode::LAYING
+            CombatActionCode::getIt(CombatActionCode::GETTING_UP),
+            CombatActionCode::getIt(CombatActionCode::LAYING)
         ));
     }
 
@@ -110,17 +117,19 @@ class CombatActionsCompatibilityTableTest extends TableTest
     public function I_can_find_out_easily_if_any_actions_can_be_combined()
     {
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();
-        self::assertTrue($combatActionsCompatibilityTable->canCombineActions([MeleeCombatActionCode::COVER_OF_ALLY]));
+        self::assertTrue($combatActionsCompatibilityTable->canCombineActions(
+            [MeleeCombatActionCode::getIt(MeleeCombatActionCode::COVER_OF_ALLY)]
+        ));
         self::assertTrue($combatActionsCompatibilityTable->canCombineActions([
-            CombatActionCode::MOVE,
-            CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
-            MeleeCombatActionCode::RETREAT,
+            CombatActionCode::getIt(CombatActionCode::MOVE),
+            CombatActionCode::getIt(CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY),
+            MeleeCombatActionCode::getIt(MeleeCombatActionCode::RETREAT),
         ]));
         self::assertFalse($combatActionsCompatibilityTable->canCombineActions([
-            CombatActionCode::MOVE,
-            CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY,
-            MeleeCombatActionCode::RETREAT,
-            RangedCombatActionCode::AIMED_SHOT,
+            CombatActionCode::getIt(CombatActionCode::MOVE),
+            CombatActionCode::getIt(CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY),
+            MeleeCombatActionCode::getIt(MeleeCombatActionCode::RETREAT),
+            RangedCombatActionCode::getIt(RangedCombatActionCode::AIMED_SHOT),
         ]));
     }
 
