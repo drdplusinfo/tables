@@ -49,6 +49,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotProlongActivityPerDayWithLimitedTime
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\NotApplicableOnShorterThanDay
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
@@ -92,6 +93,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     private function getBonusAdjustmentForHoursPerDay($hoursPerDay)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([ToInteger::toInteger($hoursPerDay)], self::ADJUSTMENT_HEADER);
         } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment(

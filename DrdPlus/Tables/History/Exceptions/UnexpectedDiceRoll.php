@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\History\Exceptions;
 
-class UnexpectedDiceRoll extends \InvalidArgumentException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredDataNotFound;
+
+class UnexpectedDiceRoll extends RequiredDataNotFound implements Logic
 {
 
 }

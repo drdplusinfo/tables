@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Races\Exceptions;
 
-class UnknownRace extends \LogicException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownRace extends RequiredRowNotFound implements Logic
 {
 
 }

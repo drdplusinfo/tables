@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\History\Exceptions;
 
-class UnknownFate extends \InvalidArgumentException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownFate extends RequiredRowNotFound implements Logic
 {
 
 }

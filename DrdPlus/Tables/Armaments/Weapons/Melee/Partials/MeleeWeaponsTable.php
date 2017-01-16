@@ -47,6 +47,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     private function getValueOf($weaponlikeCode, $valueName)
     {
         try {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue([$weaponlikeCode], $valueName);
         } catch (RequiredRowNotFound $exception) {
             throw new UnknownMeleeWeapon(

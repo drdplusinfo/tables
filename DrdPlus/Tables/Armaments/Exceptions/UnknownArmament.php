@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Armaments\Exceptions;
 
-class UnknownArmament extends \InvalidArgumentException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownArmament extends RequiredRowNotFound implements Logic
 {
 
 }

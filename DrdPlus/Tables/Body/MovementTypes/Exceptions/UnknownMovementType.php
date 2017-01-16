@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes\Exceptions;
 
-class UnknownMovementType extends \InvalidArgumentException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownMovementType extends RequiredRowNotFound implements Logic
 {
 
 }

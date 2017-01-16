@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\Environments\Exceptions;
 
-class UnknownTerrainCode extends \LogicException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownTerrainCode extends RequiredRowNotFound implements Logic
 {
 
 }

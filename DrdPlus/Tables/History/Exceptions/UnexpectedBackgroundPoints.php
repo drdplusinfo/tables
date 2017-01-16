@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\History\Exceptions;
 
-class UnexpectedBackgroundPoints extends \LogicException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnexpectedBackgroundPoints extends RequiredRowNotFound implements Logic
 {
 
 }

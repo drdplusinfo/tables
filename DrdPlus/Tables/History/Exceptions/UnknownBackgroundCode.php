@@ -1,7 +1,9 @@
 <?php
 namespace DrdPlus\Tables\History\Exceptions;
 
-class UnknownBackgroundCode extends \LogicException implements Logic
+use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+
+class UnknownBackgroundCode extends RequiredRowNotFound implements Logic
 {
 
 }
