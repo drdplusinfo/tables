@@ -122,4 +122,75 @@ class SkillsByBackgroundPointsTableTest extends TableTest
         return self::$expectedSkillPoints[$rowIndex][$columnIndex];
     }
 
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints
+     * @expectedExceptionMessageRegExp ~9~
+     */
+    public function I_can_not_get_skill_points_for_invalid_background_points()
+    {
+        (new SkillsByBackgroundPointsTable())->getSkillPoints(
+            new PositiveIntegerObject(9),
+            ProfessionCode::getIt(ProfessionCode::FIGHTER),
+            SkillTypeCode::getIt(SkillTypeCode::COMBINED)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnexpectedProfessionAndSkillTypeCombination
+     * @expectedExceptionMessageRegExp ~baker~
+     */
+    public function I_can_not_get_skill_points_for_unknown_profession()
+    {
+        (new SkillsByBackgroundPointsTable())->getSkillPoints(
+            new PositiveIntegerObject(6),
+            $this->createProfessionCode('baker'),
+            SkillTypeCode::getIt(SkillTypeCode::COMBINED)
+        );
+    }
+
+    /**
+     * @param string $value
+     * @return ProfessionCode|\Mockery\MockInterface
+     */
+    private function createProfessionCode($value)
+    {
+        $professionCode = $this->mockery(ProfessionCode::class);
+        $professionCode->shouldReceive('getValue')
+            ->andReturn($value);
+        $professionCode->shouldReceive('__toString')
+            ->andReturn((string)$value);
+
+        return $professionCode;
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnexpectedProfessionAndSkillTypeCombination
+     * @expectedExceptionMessageRegExp ~godlike~
+     */
+    public function I_can_not_get_skill_points_for_unknown_skill_type()
+    {
+        (new SkillsByBackgroundPointsTable())->getSkillPoints(
+            new PositiveIntegerObject(7),
+            ProfessionCode::getIt(ProfessionCode::PRIEST),
+            $this->createSkillType('godlike')
+        );
+    }
+
+    /**
+     * @param string $value
+     * @return SkillTypeCode|\Mockery\MockInterface
+     */
+    private function createSkillType($value)
+    {
+        $skillTypeCode = $this->mockery(SkillTypeCode::class);
+        $skillTypeCode->shouldReceive('getValue')
+            ->andReturn($value);
+        $skillTypeCode->shouldReceive('__toString')
+            ->andReturn((string)$value);
+
+        return $skillTypeCode;
+    }
 }
