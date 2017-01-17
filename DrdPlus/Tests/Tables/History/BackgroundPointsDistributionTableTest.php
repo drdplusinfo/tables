@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\History\AncestryCode;
-use DrdPlus\Codes\History\BackgroundCode;
+use DrdPlus\Codes\History\ExceptionalityCode;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tests\Tables\TableTest;
@@ -40,7 +40,7 @@ class BackgroundPointsDistributionTableTest extends TableTest
         self::assertSame(
             $maxPointsIfNotLimited,
             (new BackgroundPointsDistributionTable())->getMaxPointsToDistribute(
-                BackgroundCode::getIt($backgroundValue),
+                ExceptionalityCode::getIt($backgroundValue),
                 $this->createAncestryTable($ancestryCode, $maxPointsFromAncestryToNotBeLimited),
                 $ancestryCode
             )
@@ -51,7 +51,7 @@ class BackgroundPointsDistributionTableTest extends TableTest
                     ? ($pointsForAncestry + 3)
                     : $maxPointsIfNotLimited,
                 (new BackgroundPointsDistributionTable())->getMaxPointsToDistribute(
-                    BackgroundCode::getIt($backgroundValue),
+                    ExceptionalityCode::getIt($backgroundValue),
                     $this->createAncestryTable($ancestryCode, $pointsForAncestry),
                     $ancestryCode
                 )
@@ -62,9 +62,9 @@ class BackgroundPointsDistributionTableTest extends TableTest
     public function provideBackgroundAndAncestryAndExpectedMaxPoints()
     {
         return [
-            [BackgroundCode::ANCESTRY, 8, 8, false],
-            [BackgroundCode::POSSESSION, 8, 5, true],
-            [BackgroundCode::SKILLS, 8, 5, true],
+            [ExceptionalityCode::ANCESTRY, 8, 8, false],
+            [ExceptionalityCode::POSSESSION, 8, 5, true],
+            [ExceptionalityCode::SKILLS, 8, 5, true],
         ];
     }
 
@@ -93,13 +93,13 @@ class BackgroundPointsDistributionTableTest extends TableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownBackgroundCode
-     * @expectedExceptionMessageRegExp ~constructed~
+     * @expectedException \DrdPlus\Tables\History\Exceptions\UnknownExceptionalityCode
+     * @expectedExceptionMessageRegExp ~happy~
      */
     public function I_can_not_get_max_points_for_unknown_background()
     {
         (new BackgroundPointsDistributionTable())->getMaxPointsToDistribute(
-            $this->createBackgroundCode('constructed'),
+            $this->createExceptionalityCode('happy'),
             new AncestryTable(),
             AncestryCode::getIt(AncestryCode::FOUNDLING)
         );
@@ -107,16 +107,16 @@ class BackgroundPointsDistributionTableTest extends TableTest
 
     /**
      * @param string $value
-     * @return \Mockery\MockInterface|BackgroundCode
+     * @return \Mockery\MockInterface|ExceptionalityCode
      */
-    private function createBackgroundCode($value)
+    private function createExceptionalityCode($value)
     {
-        $backgroundCode = $this->mockery(BackgroundCode::class);
-        $backgroundCode->shouldReceive('getValue')
+        $exceptionalityCode = $this->mockery(ExceptionalityCode::class);
+        $exceptionalityCode->shouldReceive('getValue')
             ->andReturn($value);
-        $backgroundCode->shouldReceive('__toString')
+        $exceptionalityCode->shouldReceive('__toString')
             ->andReturn((string)$value);
 
-        return $backgroundCode;
+        return $exceptionalityCode;
     }
 }

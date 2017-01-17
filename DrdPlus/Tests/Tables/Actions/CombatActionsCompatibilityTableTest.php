@@ -53,8 +53,8 @@ class CombatActionsCompatibilityTableTest extends TableTest
     public function I_can_get_compatibility_to_all_combat_actions()
     {
         $actions = CombatActionCode::getPossibleValues();
-        $actions = array_merge($actions, MeleeCombatActionCode::getMeleeOnlyCombatActionCodes());
-        $actions = array_merge($actions, RangedCombatActionCode::getRangedOnlyCombatActionCodes());
+        $actions = array_merge($actions, MeleeCombatActionCode::getMeleeOnlyCombatActionValues());
+        $actions = array_merge($actions, RangedCombatActionCode::getRangedOnlyCombatActionValues());
         sort($actions);
         $compatibilities = (new CombatActionsCompatibilityTable())->getHeader()[0];
         array_shift($compatibilities); // remove rows header
@@ -77,10 +77,10 @@ class CombatActionsCompatibilityTableTest extends TableTest
         foreach (CombatActionCode::getPossibleValues() as $meleeOnlyCombatActionCode) {
             $codes[] = CombatActionCode::getIt($meleeOnlyCombatActionCode);
         }
-        foreach (MeleeCombatActionCode::getMeleeOnlyCombatActionCodes() as $meleeOnlyCombatActionCode) {
+        foreach (MeleeCombatActionCode::getMeleeOnlyCombatActionValues() as $meleeOnlyCombatActionCode) {
             $codes[] = MeleeCombatActionCode::getIt($meleeOnlyCombatActionCode);
         }
-        foreach (RangedCombatActionCode::getRangedOnlyCombatActionCodes() as $rangedOnlyCombatActionCode) {
+        foreach (RangedCombatActionCode::getRangedOnlyCombatActionValues() as $rangedOnlyCombatActionCode) {
             $codes[] = RangedCombatActionCode::getIt($rangedOnlyCombatActionCode);
         }
         $combatActionsCompatibilityTable = new CombatActionsCompatibilityTable();

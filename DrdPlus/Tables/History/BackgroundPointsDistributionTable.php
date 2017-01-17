@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\History;
 
 use DrdPlus\Codes\History\AncestryCode;
-use DrdPlus\Codes\History\BackgroundCode;
+use DrdPlus\Codes\History\ExceptionalityCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
@@ -44,23 +44,23 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
     }
 
     /**
-     * @param BackgroundCode $backgroundCode
+     * @param ExceptionalityCode $exceptionalityCode
      * @param AncestryTable $ancestryTable
      * @param AncestryCode $ancestryCode
      * @return int
-     * @throws \DrdPlus\Tables\History\Exceptions\UnknownBackgroundCode
+     * @throws \DrdPlus\Tables\History\Exceptions\UnknownExceptionalityCode
      */
     public function getMaxPointsToDistribute(
-        BackgroundCode $backgroundCode,
+        ExceptionalityCode $exceptionalityCode,
         AncestryTable $ancestryTable,
         AncestryCode $ancestryCode
     )
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $row = $this->getRow($backgroundCode);
+            $row = $this->getRow($exceptionalityCode);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
-            throw new Exceptions\UnknownBackgroundCode("Given background {$backgroundCode} is not known");
+            throw new Exceptions\UnknownExceptionalityCode("Given exceptionality {$exceptionalityCode} is not known");
         }
         $maxPointsToDistribute = $row[self::MAX_POINTS];
         $moreThanAncestryUpTo = $row[self::MORE_THAN_FOR_ANCESTRY_UP_TO];
