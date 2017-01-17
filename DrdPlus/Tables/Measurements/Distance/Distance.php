@@ -61,7 +61,7 @@ class Distance extends AbstractMeasurementWithBonus
      * @param $fromUnit
      * @param $toUnit
      * @return float
-     * @throws UnknownUnit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */

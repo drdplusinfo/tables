@@ -42,7 +42,7 @@ class BowsTable extends RangedWeaponsTable
     /**
      * @param string|StringInterface|RangedWeaponCode $bowCode
      * @return int
-     * @throws Exceptions\UnknownBow
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      */
     public function getMaximalApplicableStrengthOf($bowCode)
     {

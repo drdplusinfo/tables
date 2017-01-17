@@ -32,7 +32,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -46,7 +46,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -64,7 +64,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -76,7 +76,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -88,7 +88,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */

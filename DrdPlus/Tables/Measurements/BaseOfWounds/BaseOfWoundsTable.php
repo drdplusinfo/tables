@@ -108,7 +108,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      *
      * @param array|int|IntegerInterface[] $bonuses
      * @return int
-     * @throws Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
      */
     public function sumBonuses(array $bonuses)
     {
@@ -280,8 +280,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @param int|IntegerInterface $rowIndex
      * @param int|IntegerInterface $columnIndex
      * @return string
-     * @throws Exceptions\NoRowExistsOnProvidedIndex
-     * @throws Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      */
     public function getValue($rowIndex, $columnIndex)
     {
@@ -307,7 +307,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @param int|IntegerInterface $strength
      * @param int|IntegerInterface $weaponBaseOfWounds
      * @return int
-     * @throws Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
      */
     public function calculateBaseOfWounds($strength, $weaponBaseOfWounds)
     {

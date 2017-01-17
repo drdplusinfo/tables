@@ -31,7 +31,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
     /**
      * @param Distance $distance
      * @return int
-     * @throws Exceptions\DistanceOutOfKnownValues
+     * @throws \DrdPlus\Tables\Attacks\Exceptions\DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(Distance $distance)
     {

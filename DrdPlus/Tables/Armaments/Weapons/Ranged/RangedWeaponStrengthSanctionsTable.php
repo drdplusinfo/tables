@@ -64,7 +64,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -78,7 +78,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -96,7 +96,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -108,7 +108,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -120,7 +120,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -132,7 +132,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -144,7 +144,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -156,7 +156,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int|IntegerInterface $missingStrength
      * @return int
-     * @throws CanNotUseWeaponBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */

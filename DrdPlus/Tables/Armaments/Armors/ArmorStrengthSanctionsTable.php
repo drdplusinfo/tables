@@ -61,7 +61,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseArmorBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -75,7 +75,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
      * @return int
-     * @throws CanNotUseArmorBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
@@ -93,7 +93,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @param int $missingStrength
      * @return int
-     * @throws CanNotUseArmorBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */

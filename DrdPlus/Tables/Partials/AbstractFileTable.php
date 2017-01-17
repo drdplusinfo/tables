@@ -264,7 +264,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @param $columnIndex
      * @return mixed
-     * @throws Exceptions\UnknownFetchedColumn
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownFetchedColumn
      */
     private function getColumnType($columnIndex)
     {

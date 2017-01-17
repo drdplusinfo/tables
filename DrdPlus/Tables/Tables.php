@@ -969,7 +969,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param ArmamentCode $armamentCode
      * @return WeaponlikeTable|AbstractArmorsTable|ProjectilesTable
-     * @throws UnknownArmament
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
     public function getArmamentsTableByArmamentCode(ArmamentCode $armamentCode)
     {
@@ -1004,7 +1004,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @return MeleeWeaponlikesTable
-     * @throws UnknownMeleeWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
     public function getMeleeWeaponlikeTableByMeleeWeaponlikeCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
@@ -1057,7 +1057,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param RangedWeaponCode $rangeWeaponCode
      * @return BowsTable|CrossbowsTable|ThrowingWeaponsTable
-     * @throws UnknownRangedWeapon
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     public function getRangedWeaponsTableByRangedWeaponCode(RangedWeaponCode $rangeWeaponCode)
     {
@@ -1097,7 +1097,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param ArmorCode $armorCode
      * @return AbstractArmorsTable
-     * @throws UnknownArmor
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
     public function getArmorsTableByArmorCode(ArmorCode $armorCode)
     {
@@ -1114,9 +1114,9 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param ArmamentCode $armamentCode
      * @return StrengthSanctionsInterface
-     * @throws UnknownArmament
-     * @throws UnknownMeleeWeaponlike
-     * @throws UnknownWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
     public function getArmamentStrengthSanctionsTableByCode(ArmamentCode $armamentCode)
     {
@@ -1133,8 +1133,8 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param WeaponlikeCode $weaponlikeCode
      * @return WeaponStrengthSanctionsInterface
-     * @throws UnknownWeaponlike
-     * @throws UnknownMeleeWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
     public function getWeaponlikeStrengthSanctionsTableByCode(WeaponlikeCode $weaponlikeCode)
     {
@@ -1151,7 +1151,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @return AbstractMeleeWeaponlikeStrengthSanctionsTable
-     * @throws UnknownMeleeWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
     public function getMeleeWeaponlikeStrengthSanctionsTableByCode(MeleeWeaponlikeCode $meleeWeaponlikeCode)
     {
@@ -1168,7 +1168,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param ProtectiveArmamentCode $protectiveArmamentCode
      * @return MissingProtectiveArmamentSkill
-     * @throws UnknownProtectiveArmament
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
     public function getProtectiveArmamentMissingSkillTableByCode(ProtectiveArmamentCode $protectiveArmamentCode)
     {
@@ -1184,7 +1184,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     /**
      * @param ProtectiveArmamentCode $protectiveArmamentCode
      * @return UnwieldyTable
-     * @throws UnknownProtectiveArmament
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
     public function getProtectiveArmamentsTable(ProtectiveArmamentCode $protectiveArmamentCode)
     {
