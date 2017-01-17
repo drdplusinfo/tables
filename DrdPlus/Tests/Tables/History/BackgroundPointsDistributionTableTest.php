@@ -76,7 +76,7 @@ class BackgroundPointsDistributionTableTest extends TableTest
     private function createAncestryTable(AncestryCode $ancestryCode, $points)
     {
         $ancestryTable = $this->mockery(AncestryTable::class);
-        $ancestryTable->shouldReceive('getBackgroundPointsByAncestry')
+        $ancestryTable->shouldReceive('getBackgroundPointsByAncestryCode')
             ->with($ancestryCode)
             ->andReturn($points);
 

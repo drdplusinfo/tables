@@ -68,7 +68,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
             return $maxPointsToDistribute;
         }
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $backgroundPointsForAncestry = $ancestryTable->getBackgroundPointsByAncestry($ancestryCode);
+        $backgroundPointsForAncestry = $ancestryTable->getBackgroundPointsByAncestryCode($ancestryCode);
         if ($backgroundPointsForAncestry + $moreThanAncestryUpTo >= $maxPointsToDistribute) {
             return $maxPointsToDistribute;
         }

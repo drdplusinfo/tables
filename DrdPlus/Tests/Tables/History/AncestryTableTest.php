@@ -28,11 +28,11 @@ class AncestryTableTest extends TableTest
         $expectedAncestryCode = AncestryCode::getIt($expectedAncestryValue);
         self::assertSame(
             $expectedAncestryCode,
-            $ancestryTable->getAncestryByBackgroundPoints(new PositiveIntegerObject($backgroundPoints))
+            $ancestryTable->getAncestryCodeByBackgroundPoints(new PositiveIntegerObject($backgroundPoints))
         );
         self::assertSame(
             $backgroundPoints,
-            $ancestryTable->getBackgroundPointsByAncestry($expectedAncestryCode)
+            $ancestryTable->getBackgroundPointsByAncestryCode($expectedAncestryCode)
         );
     }
 
@@ -58,7 +58,7 @@ class AncestryTableTest extends TableTest
      */
     public function I_can_not_get_ancestry_by_invalid_background_points()
     {
-        (new AncestryTable())->getAncestryByBackgroundPoints(new PositiveIntegerObject(9));
+        (new AncestryTable())->getAncestryCodeByBackgroundPoints(new PositiveIntegerObject(9));
     }
 
     /**
@@ -68,7 +68,7 @@ class AncestryTableTest extends TableTest
      */
     public function I_can_not_get_background_points_by_unknown_ancestry()
     {
-        (new AncestryTable())->getBackgroundPointsByAncestry($this->createAncestryCode('king kong'));
+        (new AncestryTable())->getBackgroundPointsByAncestryCode($this->createAncestryCode('king kong'));
     }
 
     /**

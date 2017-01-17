@@ -42,7 +42,7 @@ class AncestryTable extends AbstractFileTable
      * @return AncestryCode
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints
      */
-    public function getAncestryByBackgroundPoints(PositiveInteger $backgroundPoints)
+    public function getAncestryCodeByBackgroundPoints(PositiveInteger $backgroundPoints)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -59,7 +59,7 @@ class AncestryTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnknownAncestryCode
      */
-    public function getBackgroundPointsByAncestry(AncestryCode $ancestryCode)
+    public function getBackgroundPointsByAncestryCode(AncestryCode $ancestryCode)
     {
         foreach ($this->getIndexedValues() as $points => $wrappedAncestry) {
             $currentAncestry = end($wrappedAncestry);
