@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body;
 
+use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Properties\Body\Height;
 use DrdPlus\Tables\Body\CorrectionByHeightTable;
 use DrdPlus\Tests\Tables\TableTest;
@@ -23,10 +24,9 @@ class CorrectionByHeightTableTest extends TableTest
      */
     public function I_can_get_correction_by_height($height, $expectedCorrection)
     {
-        self::assertSame(
-            $expectedCorrection,
-            (new CorrectionByHeightTable())->getCorrectionByHeight($this->createHeight($height))
-        );
+        $correction = (new CorrectionByHeightTable())->getCorrectionByHeight($this->createHeight($height));
+        self::assertSame($expectedCorrection, $correction);
+        self::assertSame(SumAndRound::ceiledThird($height) - 2, $correction);
     }
 
     public function provideHeightAndExpectedCorrection()
