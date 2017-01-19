@@ -147,7 +147,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         if (!array_key_exists(0, $rawData) || !array_key_exists($columnIndex, $rawData[0])) {
             throw new Exceptions\DataAreCorrupted(
-                "Missing header cell[$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
+                "Missing header cell [$columnIndex] with expected value " . ValueDescriber::describe($expectedHeaderValue)
             );
         }
         if ($rawData[0][$columnIndex] !== $expectedHeaderValue) {
@@ -162,7 +162,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $columnsHeaderValues = [];
         $expectedColumnsHeader = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
-        // only header-column-only will be skipped, therefore row headers acting as column headers will be involved
+        // just header-column will be skipped, therefore row headers acting as column headers will be involved
         $indexShift = count($this->getRowsHeader()) - count($this->getRowHeadersUsedAsColumnHeaderAsWell());
         $expectedColumnIndexes = array_keys($expectedColumnsHeader);
         foreach ($expectedColumnIndexes as $expectedColumnIndex) {
@@ -214,6 +214,7 @@ abstract class AbstractFileTable extends AbstractTable
 
     /**
      * @return array
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
      */
     private function getNormalizedExpectedColumnsHeader()
     {
@@ -234,6 +235,11 @@ abstract class AbstractFileTable extends AbstractTable
     /** @return string[] */
     abstract protected function getExpectedDataHeaderNamesToTypes();
 
+    /**
+     * @param string $scalarType
+     * @return string
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
+     */
     private function normalizeScalarType($scalarType)
     {
         switch (strtolower($scalarType)) {
@@ -265,6 +271,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @param $columnIndex
      * @return mixed
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownFetchedColumn
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
      */
     private function getColumnType($columnIndex)
     {
@@ -279,6 +286,11 @@ abstract class AbstractFileTable extends AbstractTable
         return $header[$columnIndex]['type'];
     }
 
+    /**
+     * @param $value
+     * @param string $type
+     * @return bool|float|int|string
+     */
     private function normalizeValueForType($value, $type)
     {
         $value = trim($value);
