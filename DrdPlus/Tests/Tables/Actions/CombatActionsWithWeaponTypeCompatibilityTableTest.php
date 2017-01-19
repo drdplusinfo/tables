@@ -47,7 +47,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
                     'aimed_shot',
                 ],
             ],
-            $current = (new CombatActionsWithWeaponTypeCompatibilityTable((new Tables())->getArmourer()))->getHeader(),
+            $current = (new CombatActionsWithWeaponTypeCompatibilityTable(Tables::getIt()->getArmourer()))->getHeader(),
             implode(',', array_diff($expected[0], $current[0]))
         );
     }
@@ -57,7 +57,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
      */
     public function Pool_of_actions_is_same_as_from_combat_actions_compatibility_table()
     {
-        $current = (new CombatActionsWithWeaponTypeCompatibilityTable((new Tables())->getArmourer()))->getHeader()[0];
+        $current = (new CombatActionsWithWeaponTypeCompatibilityTable(Tables::getIt()->getArmourer()))->getHeader()[0];
         array_shift($current); // remove rows header name
         sort($current);
         $shouldBe = (new CombatActionsCompatibilityTable())->getHeader()[0];

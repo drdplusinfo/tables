@@ -954,7 +954,7 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_can_find_out_if_can_hold_weapon_by_two_hands()
     {
-        $armourer = new Armourer(new Tables());
+        $armourer = new Armourer(Tables::getIt());
         // ranged
         self::assertTrue($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::LIGHT_CROSSBOW)));
         self::assertFalse($armourer->canHoldItByTwoHands(RangedWeaponCode::getIt(RangedWeaponCode::MINICROSSBOW)));
@@ -980,7 +980,7 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_can_find_out_if_can_hold_one_handed_weapon_by_two_hands()
     {
-        $armourer = new Armourer(new Tables());
+        $armourer = new Armourer(Tables::getIt());
         // one handed melee weapons longer than 1
         self::assertTrue($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::SHORT_SWORD)));
         self::assertTrue($armourer->canHoldItByOneHandAsWellAsTwoHands(MeleeWeaponCode::getIt(MeleeWeaponCode::AXE)));
@@ -1277,7 +1277,7 @@ class ArmourerTest extends TestWithMockery
      */
     public function I_get_cover_of_two_for_every_ranged_weapon_and_zero_for_projectile()
     {
-        $armourer = new Armourer(new Tables());
+        $armourer = new Armourer(Tables::getIt());
         foreach (RangedWeaponCode::getPossibleValues() as $rangedWeaponCode) {
             $rangedWeapon = RangedWeaponCode::getIt($rangedWeaponCode);
             if ($rangedWeapon->isProjectile()) {

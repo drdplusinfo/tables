@@ -100,6 +100,24 @@ use Granam\Strict\Object\StrictObject;
 
 class Tables extends StrictObject implements \IteratorAggregate
 {
+    private static $tablesInstance;
+
+    /**
+     * @return Tables
+     */
+    public static function getIt()
+    {
+        if (self::$tablesInstance === null) {
+            self::$tablesInstance = new Tables();
+        }
+
+        return self::$tablesInstance;
+    }
+
+    protected function __construct()
+    {
+    }
+
     /**
      * @var array|Table[]
      */

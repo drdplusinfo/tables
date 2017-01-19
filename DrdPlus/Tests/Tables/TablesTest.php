@@ -40,7 +40,7 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_any_table()
     {
-        $tables = new Tables();
+        $tables = Tables::getIt();
         foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
             $baseName = preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);
             $getTable = "get{$baseName}";
@@ -60,7 +60,7 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_iterate_through_tables()
     {
-        $tables = new Tables();
+        $tables = Tables::getIt();
         $fetchedTableClasses = [];
         foreach ($tables as $table) {
             $fetchedTableClasses[] = get_class($table);
@@ -119,7 +119,7 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_armourer()
     {
-        $tables = new Tables();
+        $tables = Tables::getIt();
         self::assertInstanceOf(Armourer::class, $armourer = $tables->getArmourer());
         self::assertSame($armourer, $tables->getArmourer(), 'Expected the same instance of ' . Armourer::class);
     }
@@ -132,7 +132,7 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_every_armament_table_by_armament_code(ArmamentCode $armamentCode, $expectedTableClass)
     {
-        self::assertInstanceOf($expectedTableClass, (new Tables())->getArmamentsTableByArmamentCode($armamentCode));
+        self::assertInstanceOf($expectedTableClass, Tables::getIt()->getArmamentsTableByArmamentCode($armamentCode));
     }
 
     public function provideArmamentCodeAndExpectedTableClass()
@@ -195,7 +195,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ArmamentCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
-        (new Tables())->getArmamentsTableByArmamentCode($armamentCode);
+        Tables::getIt()->getArmamentsTableByArmamentCode($armamentCode);
     }
 
     /**
@@ -206,7 +206,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
-        (new Tables())->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode);
+        Tables::getIt()->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode);
     }
 
     /**
@@ -217,7 +217,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        (new Tables())->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode);
+        Tables::getIt()->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode);
     }
 
     /**
@@ -229,7 +229,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var MeleeWeaponCode $meleeWeaponCode */
         $meleeWeaponCode = $this->createMeleeWeaponCode('denigration', 'poisonous language');
-        (new Tables())->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
+        Tables::getIt()->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
     }
 
     /**
@@ -269,7 +269,7 @@ class TablesTest extends TestWithMockery
     {
         self::assertInstanceOf(
             $expectedTableClass,
-            (new Tables())->getArmamentStrengthSanctionsTableByCode($armamentCode)
+            Tables::getIt()->getArmamentStrengthSanctionsTableByCode($armamentCode)
         );
     }
 
@@ -292,7 +292,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ArmorCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
-        (new Tables())->getArmamentStrengthSanctionsTableByCode($armamentCode);
+        Tables::getIt()->getArmamentStrengthSanctionsTableByCode($armamentCode);
     }
 
     /**
@@ -303,7 +303,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
-        (new Tables())->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode);
+        Tables::getIt()->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode);
     }
 
     /**
@@ -314,7 +314,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
-        (new Tables())->getMeleeWeaponlikeStrengthSanctionsTableByCode($meleeWeaponlikeCode);
+        Tables::getIt()->getMeleeWeaponlikeStrengthSanctionsTableByCode($meleeWeaponlikeCode);
     }
 
     /**
@@ -326,7 +326,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var RangedWeaponCode $rangeWeaponCode */
         $rangeWeaponCode = $this->createRangedWeaponCode('wallop', 'bio weapons');
-        (new Tables())->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode);
+        Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode);
     }
 
     /**
@@ -358,7 +358,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ArmorCode $armorCode */
         $armorCode = $this->mockery(ArmorCode::class);
-        (new Tables())->getArmorsTableByArmorCode($armorCode);
+        Tables::getIt()->getArmorsTableByArmorCode($armorCode);
     }
 
     /**
@@ -374,7 +374,7 @@ class TablesTest extends TestWithMockery
     {
         self::assertInstanceOf(
             $expectedTableClass,
-            (new Tables())->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
+            Tables::getIt()->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
         );
     }
 
@@ -395,7 +395,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
-        (new Tables())->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode);
+        Tables::getIt()->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode);
     }
 
     /**
@@ -411,7 +411,7 @@ class TablesTest extends TestWithMockery
     {
         self::assertInstanceOf(
             $expectedTableClass,
-            (new Tables())->getProtectiveArmamentsTable($protectiveArmamentCode)
+            Tables::getIt()->getProtectiveArmamentsTable($protectiveArmamentCode)
         );
     }
 
@@ -432,7 +432,7 @@ class TablesTest extends TestWithMockery
     {
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
-        (new Tables())->getProtectiveArmamentsTable($protectiveArmamentCode);
+        Tables::getIt()->getProtectiveArmamentsTable($protectiveArmamentCode);
     }
 
     /**
