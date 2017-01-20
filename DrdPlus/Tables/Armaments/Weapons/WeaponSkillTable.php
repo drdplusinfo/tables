@@ -2,6 +2,7 @@
 namespace DrdPlus\Tables\Armaments\Weapons;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
+use Granam\Integer\PositiveInteger;
 use Granam\Integer\Tools\ToInteger;
 
 /**
@@ -37,7 +38,7 @@ class WeaponSkillTable extends AbstractArmamentSkillTable
     }
 
     /**
-     * @param int $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return array
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
@@ -49,7 +50,7 @@ class WeaponSkillTable extends AbstractArmamentSkillTable
     }
 
     /**
-     * @param int $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
@@ -60,7 +61,7 @@ class WeaponSkillTable extends AbstractArmamentSkillTable
     }
 
     /**
-     * @param int $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
@@ -71,7 +72,7 @@ class WeaponSkillTable extends AbstractArmamentSkillTable
     }
 
     /**
-     * @param int $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
@@ -82,7 +83,7 @@ class WeaponSkillTable extends AbstractArmamentSkillTable
     }
 
     /**
-     * @param int $skillRank
+     * @param int|PositiveInteger $skillRank
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
