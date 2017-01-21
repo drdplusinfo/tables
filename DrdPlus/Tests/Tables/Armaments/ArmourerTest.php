@@ -761,8 +761,12 @@ class ArmourerTest extends TestWithMockery
             ->andReturn((string)$value);
         if ($inMeters !== false) {
             $maximalRange->shouldReceive('getInMeters')
-                ->with($distanceTable)
-                ->andReturn($inMeters);
+                ->with($this->type(Tables::class))
+                ->andReturnUsing(function (Tables $tables) use ($inMeters, $distanceTable) {
+                    self::assertSame($distanceTable, $tables->getDistanceTable());
+
+                    return $inMeters;
+                });
         }
 
         return $maximalRange;

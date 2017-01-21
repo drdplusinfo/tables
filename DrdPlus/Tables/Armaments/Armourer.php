@@ -26,6 +26,9 @@ class Armourer extends StrictObject
      */
     private $tables;
 
+    /**
+     * @param Tables $tables
+     */
     public function __construct(Tables $tables)
     {
         $this->tables = $tables;
@@ -384,7 +387,7 @@ class Armourer extends StrictObject
             throw new Exceptions\DistanceIsOutOfMaximalRange(
                 "Given distance {$distance->getBonus()} ({$distance->getMeters()} meters)"
                 . " is out of maximal range {$currentMaximalRange}"
-                . ' ('. $currentMaximalRange->getInMeters($this->tables->getDistanceTable()) . ' meters)'
+                . ' ('. $currentMaximalRange->getInMeters($this->tables) . ' meters)'
             );
         }
         if ($currentEncounterRange->getValue() > $currentMaximalRange->getValue()) {
