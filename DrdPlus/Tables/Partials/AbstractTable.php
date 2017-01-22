@@ -155,6 +155,7 @@ abstract class AbstractTable extends StrictObject implements Table
             if (!array_key_exists($stringRowIndex, $values)) {
                 throw new Exceptions\RequiredRowNotFound(
                     'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
+                    . ', possible indexes are ' . implode(',', array_keys($values))
                 );
             }
             $values = $values[$stringRowIndex];

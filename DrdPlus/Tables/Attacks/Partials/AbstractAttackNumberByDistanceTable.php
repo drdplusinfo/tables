@@ -28,7 +28,7 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
     /**
      * Values may be already ordered from file, but have to be sure.
      *
-     * @return array|\string[][]
+     * @return array
      */
     protected function getOrderedByDistanceAsc()
     {

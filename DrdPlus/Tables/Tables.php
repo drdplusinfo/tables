@@ -58,6 +58,7 @@ use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\ThrowingWeaponsTable;
+use DrdPlus\Tables\Attacks\CombatCharacteristicsTable;
 use DrdPlus\Tables\Body\CorrectionByHeightTable;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
@@ -913,6 +914,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return CombatCharacteristicsTable
+     */
+    public function getCombatCharacteristicsTable()
+    {
+        if (!array_key_exists(CombatCharacteristicsTable::class, $this->tables)) {
+            $this->tables[CombatCharacteristicsTable::class] = new CombatCharacteristicsTable();
+        }
+
+        return $this->tables[CombatCharacteristicsTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -983,6 +996,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getBackgroundPointsDistributionTable(),
             $this->getPossessionTable(),
             $this->getCorrectionByHeightTable(),
+            $this->getCombatCharacteristicsTable(),
         ]);
     }
 
