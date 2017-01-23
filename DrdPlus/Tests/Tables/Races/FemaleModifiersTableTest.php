@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Races;
 
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Codes\RaceCode;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tests\Tables\TableTest;

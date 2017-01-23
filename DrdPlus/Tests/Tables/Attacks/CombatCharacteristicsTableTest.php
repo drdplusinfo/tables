@@ -2,7 +2,7 @@
 namespace DrdPlus\Tests\Tables\Attacks;
 
 use DrdPlus\Codes\CombatCharacteristicCode;
-use DrdPlus\Codes\PropertyCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Base\Knack;
 use DrdPlus\Properties\Combat\Attack;
