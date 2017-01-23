@@ -375,7 +375,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\DistanceIsOutOfMaximalRange
      * @throws \DrdPlus\Tables\Armaments\Exceptions\EncounterRangeCanNotBeGreaterThanMaximalRange
-     * @throws \DrdPlus\Tables\Attacks\Exceptions\DistanceOutOfKnownValues
+     * @throws \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(
         Distance $distance,

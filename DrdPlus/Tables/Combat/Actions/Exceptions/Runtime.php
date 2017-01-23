@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Actions\Exceptions;
+namespace DrdPlus\Tables\Combat\Actions\Exceptions;
 
 interface Runtime extends Exception, \DrdPlus\Tables\Exceptions\Runtime
 {

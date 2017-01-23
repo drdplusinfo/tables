@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Attacks;
+namespace DrdPlus\Tests\Tables\Combat\Attacks;
 
-use DrdPlus\Tables\Attacks\AttackNumberByDistanceTable;
-use DrdPlus\Tests\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTableTest;
+use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
+use DrdPlus\Tests\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTableTest;
 
 class AttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
 {

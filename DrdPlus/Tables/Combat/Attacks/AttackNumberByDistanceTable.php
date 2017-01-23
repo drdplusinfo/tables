@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Attacks;
+namespace DrdPlus\Tables\Combat\Attacks;
 
-use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use Granam\Float\Tools\ToFloat;
 

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Tables\Attacks;
+namespace DrdPlus\Tests\Tables\Combat;
 
 use DrdPlus\Codes\CombatCharacteristicCode;
 use DrdPlus\Codes\Properties\PropertyCode;
@@ -8,7 +8,7 @@ use DrdPlus\Properties\Base\Knack;
 use DrdPlus\Properties\Combat\Attack;
 use DrdPlus\Properties\Combat\DefenseNumber;
 use DrdPlus\Properties\Combat\Shooting;
-use DrdPlus\Tables\Attacks\CombatCharacteristicsTable;
+use DrdPlus\Tables\Combat\CombatCharacteristicsTable;
 use DrdPlus\Tests\Tables\TableTest;
 
 class CombatCharacteristicsTableTest extends TableTest

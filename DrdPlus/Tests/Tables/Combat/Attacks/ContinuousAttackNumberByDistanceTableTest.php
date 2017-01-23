@@ -1,11 +1,11 @@
 <?php
-namespace DrdPlus\Tests\Tables\Attacks;
+namespace DrdPlus\Tests\Tables\Combat\Attacks;
 
-use DrdPlus\Tables\Attacks\ContinuousAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
-use DrdPlus\Tests\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTableTest;
+use DrdPlus\Tests\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTableTest;
 use DrdPlus\Calculations\SumAndRound;
 
 class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
@@ -38,7 +38,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Attacks\Exceptions\DistanceOutOfKnownValues
+     * @expectedException \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      * @expectedExceptionMessageRegExp ~999999 m~
      */
     public function I_can_not_get_attack_number_modifier_with_enormous_distance()

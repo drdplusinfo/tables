@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Attacks\Partials;
+namespace DrdPlus\Tables\Combat\Attacks\Partials;
 
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Partials\AbstractFileTable;

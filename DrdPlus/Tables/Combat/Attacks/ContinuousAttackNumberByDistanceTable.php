@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tables\Attacks;
+namespace DrdPlus\Tables\Combat\Attacks;
 
-use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use Granam\Float\Tools\ToFloat;
 
@@ -31,7 +31,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
     /**
      * @param Distance $distance
      * @return int
-     * @throws \DrdPlus\Tables\Attacks\Exceptions\DistanceOutOfKnownValues
+     * @throws \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(Distance $distance)
     {

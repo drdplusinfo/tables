@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Actions;
+namespace DrdPlus\Tables\Combat\Actions;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;

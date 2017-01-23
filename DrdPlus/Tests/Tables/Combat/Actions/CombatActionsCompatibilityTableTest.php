@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Actions;
+namespace DrdPlus\Tests\Tables\Combat\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
-use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
+use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tests\Tables\TableTest;
 
 class CombatActionsCompatibilityTableTest extends TableTest

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Actions;
+namespace DrdPlus\Tables\Combat\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
@@ -68,7 +68,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
      * @param CombatActionCode $someAction
      * @param CombatActionCode $anotherAction
      * @return bool
-     * @throws \DrdPlus\Tables\Actions\Exceptions\UnknownCombatAction
+     * @throws \DrdPlus\Tables\Combat\Actions\Exceptions\UnknownCombatAction
      */
     public function canCombineTwoActions(CombatActionCode $someAction, CombatActionCode $anotherAction)
     {

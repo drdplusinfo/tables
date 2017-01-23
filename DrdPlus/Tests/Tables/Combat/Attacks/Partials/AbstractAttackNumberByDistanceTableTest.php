@@ -1,7 +1,7 @@
 <?php
-namespace DrdPlus\Tests\Tables\Attacks\Partials;
+namespace DrdPlus\Tests\Tables\Combat\Attacks\Partials;
 
-use DrdPlus\Tables\Attacks\Partials\AbstractAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tests\Tables\TableTest;
 

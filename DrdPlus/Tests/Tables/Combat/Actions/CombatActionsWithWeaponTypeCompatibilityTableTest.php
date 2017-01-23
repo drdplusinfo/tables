@@ -1,12 +1,12 @@
 <?php
-namespace DrdPlus\Tests\Tables\Actions;
+namespace DrdPlus\Tests\Tables\Combat\Actions;
 
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
-use DrdPlus\Tables\Actions\CombatActionsCompatibilityTable;
-use DrdPlus\Tables\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
+use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
+use DrdPlus\Tables\Combat\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;

@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Attacks;
+namespace DrdPlus\Tables\Combat;
 
 use DrdPlus\Codes\CombatCharacteristicCode;
 use DrdPlus\Codes\Properties\PropertyCode;
