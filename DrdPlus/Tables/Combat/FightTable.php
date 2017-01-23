@@ -41,12 +41,12 @@ class FightTable extends AbstractTable
     public function getIndexedValues()
     {
         return [
-            ProfessionCode::FIGHTER => [PropertyCode::AGILITY, false],
-            ProfessionCode::THIEF => [PropertyCode::KNACK, PropertyCode::AGILITY],
-            ProfessionCode::RANGER => [PropertyCode::KNACK, PropertyCode::AGILITY],
-            ProfessionCode::WIZARD => [PropertyCode::INTELLIGENCE, PropertyCode::AGILITY],
-            ProfessionCode::THEURGIST => [PropertyCode::INTELLIGENCE, PropertyCode::AGILITY],
-            ProfessionCode::PRIEST => [PropertyCode::CHARISMA, PropertyCode::AGILITY],
+            ProfessionCode::FIGHTER => [self::FIRST_PROPERTY => PropertyCode::AGILITY, self::SECOND_PROPERTY => false],
+            ProfessionCode::THIEF => [self::FIRST_PROPERTY => PropertyCode::KNACK, self::SECOND_PROPERTY => PropertyCode::AGILITY],
+            ProfessionCode::RANGER => [self::FIRST_PROPERTY => PropertyCode::KNACK, self::SECOND_PROPERTY => PropertyCode::AGILITY],
+            ProfessionCode::WIZARD => [self::FIRST_PROPERTY => PropertyCode::INTELLIGENCE, self::SECOND_PROPERTY => PropertyCode::AGILITY],
+            ProfessionCode::THEURGIST => [self::FIRST_PROPERTY => PropertyCode::INTELLIGENCE, self::SECOND_PROPERTY => PropertyCode::AGILITY],
+            ProfessionCode::PRIEST => [self::FIRST_PROPERTY => PropertyCode::CHARISMA, self::SECOND_PROPERTY => PropertyCode::AGILITY],
         ];
     }
 

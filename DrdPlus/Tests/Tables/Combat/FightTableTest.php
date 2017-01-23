@@ -2,7 +2,11 @@
 namespace DrdPlus\Tests\Tables\Combat;
 
 use DrdPlus\Codes\ProfessionCode;
+use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
+use DrdPlus\Properties\Base\Charisma;
+use DrdPlus\Properties\Base\Intelligence;
+use DrdPlus\Properties\Base\Knack;
 use DrdPlus\Properties\Body\Height;
 use DrdPlus\Properties\Combat\BaseProperties;
 use DrdPlus\Properties\Combat\Fight;
@@ -23,31 +27,63 @@ class FightTableTest extends TableTest
 
     /**
      * @test
+     * @dataProvider provideProfessionAndProperties
+     * @param string $professionName
+     * @param string $firstProperty
+     * @param string $secondProperty
      */
-    public function I_can_get_fight()
+    public function I_can_get_fight_and_its_settings($professionName, $firstProperty, $secondProperty)
     {
-        $directFight = new Fight($profession = ProfessionCode::getIt(ProfessionCode::FIGHTER),
-            $baseProperties = $this->createBaseProperties(123),
+        $directFight = new Fight($professionCode = ProfessionCode::getIt($professionName),
+            $baseProperties = $this->createBaseProperties(),
             $height = $this->createHeight(),
             $tables = $this->createTables(987));
-        $fightByTable = (new FightTable())->getFightForProfession(
-            $profession, $baseProperties, $height, $tables
+        $fightTable = new FightTable();
+        $fightByTable = $fightTable->getFightForProfession(
+            $professionCode, $baseProperties, $height, $tables
         );
         self::assertInstanceOf(Fight::class, $fightByTable);
         self::assertSame($directFight->getValue(), $fightByTable->getValue());
+
+        $fightSettings = $fightTable->getRow($professionCode);
+        self::assertSame($firstProperty, $fightSettings['first_property']);
+        self::assertSame($secondProperty, $fightSettings['second_property']);
+    }
+
+    public function provideProfessionAndProperties()
+    {
+        return [
+            [ProfessionCode::FIGHTER, PropertyCode::AGILITY, false],
+            [ProfessionCode::THIEF, PropertyCode::KNACK, PropertyCode::AGILITY],
+            [ProfessionCode::RANGER, PropertyCode::KNACK, PropertyCode::AGILITY],
+            [ProfessionCode::WIZARD, PropertyCode::INTELLIGENCE, PropertyCode::AGILITY],
+            [ProfessionCode::THEURGIST, PropertyCode::INTELLIGENCE, PropertyCode::AGILITY],
+            [ProfessionCode::PRIEST, PropertyCode::CHARISMA, PropertyCode::AGILITY],
+        ];
     }
 
     /**
-     * @param int $agilityValue
      * @return \Mockery\MockInterface|BaseProperties
      */
-    private function createBaseProperties($agilityValue)
+    private function createBaseProperties()
     {
         $baseProperties = $this->mockery(BaseProperties::class);
         $baseProperties->shouldReceive('getAgility')
             ->andReturn($agility = $this->mockery(Agility::class));
         $agility->shouldReceive('getValue')
-            ->andReturn($agilityValue);
+            ->andReturn(123);
+        $baseProperties->shouldReceive('getKnack')
+            ->andReturn($knack = $this->mockery(Knack::class));
+        $knack->shouldReceive('getValue')
+            ->andReturn(456);
+        $baseProperties->shouldReceive('getIntelligence')
+            ->andReturn($intelligence = $this->mockery(Intelligence::class));
+        $intelligence->shouldReceive('getValue')
+            ->andReturn(789);
+        $baseProperties->shouldReceive('getCharisma')
+            ->andReturn($charisma = $this->mockery(Charisma::class));
+        $charisma->shouldReceive('getValue')
+            ->andReturn(753);
 
         return $baseProperties;
     }
@@ -74,5 +110,4 @@ class FightTableTest extends TableTest
 
         return $tables;
     }
-
 }
