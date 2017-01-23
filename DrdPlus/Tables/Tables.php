@@ -66,6 +66,7 @@ use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
 use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\FightTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
@@ -926,6 +927,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return FightTable
+     */
+    public function getFightTable()
+    {
+        if (!array_key_exists(FightTable::class, $this->tables)) {
+            $this->tables[FightTable::class] = new FightTable();
+        }
+
+        return $this->tables[FightTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -997,6 +1010,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getPossessionTable(),
             $this->getCorrectionByHeightTable(),
             $this->getCombatCharacteristicsTable(),
+            $this->getFightTable(),
         ]);
     }
 
