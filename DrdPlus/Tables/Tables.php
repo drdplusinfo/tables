@@ -12,6 +12,7 @@ use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Tables\Body\WoundAndFatigueBoundariesTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
@@ -939,6 +940,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return WoundAndFatigueBoundariesTable
+     */
+    public function getWoundAndFatigueBoundariesTable()
+    {
+        if (!array_key_exists(WoundAndFatigueBoundariesTable::class, $this->tables)) {
+            $this->tables[WoundAndFatigueBoundariesTable::class] = new WoundAndFatigueBoundariesTable();
+        }
+
+        return $this->tables[WoundAndFatigueBoundariesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -1011,6 +1024,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCorrectionByHeightTable(),
             $this->getCombatCharacteristicsTable(),
             $this->getFightTable(),
+            $this->getWoundAndFatigueBoundariesTable(),
         ]);
     }
 
