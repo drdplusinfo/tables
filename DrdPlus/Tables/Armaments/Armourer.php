@@ -502,7 +502,7 @@ class Armourer extends StrictObject
         if (!($weaponlikeCode instanceof RangedWeaponCode)) {
             /** note: melee weapon length in meters is half of weapon length, see PPH page 85 right column */
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return new EncounterRange(0);
+            return EncounterRange::getIt(0);
         }
         $encounterRange = $this->getRangeOfRangedWeapon($weaponlikeCode);
         $encounterRange += $this->getEncounterRangeMalusByStrength($weaponlikeCode, $currentStrength);
@@ -510,7 +510,7 @@ class Armourer extends StrictObject
         $encounterRange += $this->getEncounterRangeBonusBySpeed($weaponlikeCode, $currentSpeed);
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return new EncounterRange($encounterRange);
+        return EncounterRange::getIt($encounterRange);
     }
 
     /**
@@ -599,12 +599,12 @@ class Armourer extends StrictObject
         $encounterRange = $this->getEncounterRangeWithWeaponlike($weaponlikeCode, $currentStrength, $currentSpeed);
         if ($weaponlikeCode->isMelee()) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return MaximalRange::createForMeleeWeapon($encounterRange); // that is without change and that is zero
+            return MaximalRange::getItForMeleeWeapon($encounterRange); // that is without change and that is zero
         }
 
         assert($weaponlikeCode->isRanged());
 
-        return MaximalRange::createForRangedWeapon($encounterRange);
+        return MaximalRange::getItForRangedWeapon($encounterRange);
     }
 
     // armor-specific usage affected by strength

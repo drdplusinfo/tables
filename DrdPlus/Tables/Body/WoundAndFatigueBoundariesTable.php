@@ -52,7 +52,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
      */
     public function getWoundBoundary(Toughness $toughness, Tables $tables)
     {
-        return new WoundBoundary($toughness, $tables);
+        return WoundBoundary::getIt($toughness, $tables);
     }
 
     /**
@@ -62,7 +62,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
      */
     public function getFatigueBoundary(Endurance $endurance, Tables $tables)
     {
-        return new FatigueBoundary($endurance, $tables);
+        return FatigueBoundary::getIt($endurance, $tables);
     }
 
 }

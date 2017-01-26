@@ -4,7 +4,9 @@
   "type": "project",
   "description": "Drd+ tables and their units conversion",
   "autoload": {
-    "psr-4": { "DrdPlus\\": "DrdPlus/" }
+    "psr-4": {
+      "DrdPlus\\": "DrdPlus/"
+    }
   },
   "require": {
     "php": ">=5.6.0",

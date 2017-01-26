@@ -6,7 +6,7 @@ use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Base\Knack;
 use DrdPlus\Properties\Combat\Attack;
-use DrdPlus\Properties\Combat\DefenseNumber;
+use DrdPlus\Properties\Combat\Defense;
 use DrdPlus\Properties\Combat\Shooting;
 use DrdPlus\Tables\Combat\CombatCharacteristicsTable;
 use DrdPlus\Tests\Tables\TableTest;
@@ -33,7 +33,7 @@ class CombatCharacteristicsTableTest extends TableTest
         $agility = $this->createAgility(123);
         $attack = $combatCharacteristicsTable->getAttack($agility);
         self::assertInstanceOf(Attack::class, $attack);
-        self::assertSame((new Attack($agility))->getValue(), $attack->getValue());
+        self::assertSame(Attack::getIt($agility)->getValue(), $attack->getValue());
         self::assertSame(
             ['property' => PropertyCode::AGILITY, 'divide_by' => 2, 'round_up' => false, 'round_down' => true],
             $combatCharacteristicsTable->getRow(CombatCharacteristicCode::ATTACK)
@@ -61,8 +61,8 @@ class CombatCharacteristicsTableTest extends TableTest
         $combatCharacteristicsTable = new CombatCharacteristicsTable();
         $agility = $this->createAgility(123);
         $defense = $combatCharacteristicsTable->getDefense($agility);
-        self::assertInstanceOf(DefenseNumber::class, $defense);
-        self::assertSame((new DefenseNumber($agility))->getValue(), $defense->getValue());
+        self::assertInstanceOf(Defense::class, $defense);
+        self::assertSame(Defense::getIt($agility)->getValue(), $defense->getValue());
         self::assertSame(
             ['property' => PropertyCode::AGILITY, 'divide_by' => 2, 'round_up' => true, 'round_down' => false],
             $combatCharacteristicsTable->getRow(CombatCharacteristicCode::DEFENSE)
@@ -78,7 +78,7 @@ class CombatCharacteristicsTableTest extends TableTest
         $knack = $this->createKnack(123);
         $shooting = $combatCharacteristicsTable->getShooting($knack);
         self::assertInstanceOf(Shooting::class, $shooting);
-        self::assertSame((new Shooting($knack))->getValue(), $shooting->getValue());
+        self::assertSame(Shooting::getIt($knack)->getValue(), $shooting->getValue());
         self::assertSame(
             ['property' => PropertyCode::KNACK, 'divide_by' => 2, 'round_up' => false, 'round_down' => true],
             $combatCharacteristicsTable->getRow(CombatCharacteristicCode::SHOOTING)

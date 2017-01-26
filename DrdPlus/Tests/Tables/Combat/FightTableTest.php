@@ -34,7 +34,7 @@ class FightTableTest extends TableTest
      */
     public function I_can_get_fight_and_its_settings($professionName, $firstProperty, $secondProperty)
     {
-        $directFight = new Fight($professionCode = ProfessionCode::getIt($professionName),
+        $directFight = Fight::getIt($professionCode = ProfessionCode::getIt($professionName),
             $baseProperties = $this->createBaseProperties(),
             $height = $this->createHeight(),
             $tables = $this->createTables(987));

@@ -20,6 +20,7 @@ abstract class TableTest extends TestWithMockery
         self::assertNotEmpty(
             $docComment,
             'Missing annotation with PPH reference for table ' . self::getSutClass()
+            . " in format \n/**\n * See PPH page ?, @link \n */"
         );
         self::assertRegExp(
             '~\s+[Ss]ee PPH page \d+(,? ((left|right) column|top|bottom))?~',

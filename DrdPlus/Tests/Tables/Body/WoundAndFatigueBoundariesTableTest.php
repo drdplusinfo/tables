@@ -36,7 +36,7 @@ class WoundAndFatigueBoundariesTableTest extends TableTest
         );
         self::assertInstanceOf(WoundBoundary::class, $woundBoundary);
         self::assertSame(123, $woundBoundary->getValue());
-        $expectedWoundBoundary = new WoundBoundary($toughness, $tables);
+        $expectedWoundBoundary = WoundBoundary::getIt($toughness, $tables);
         self::assertSame($expectedWoundBoundary->getValue(), $woundBoundary->getValue());
 
         $settings = $woundAndFatigueBoundariesTable->getRow(PropertyCode::WOUND_BOUNDARY);
@@ -95,7 +95,7 @@ class WoundAndFatigueBoundariesTableTest extends TableTest
         );
         self::assertInstanceOf(FatigueBoundary::class, $fatigueBoundary);
         self::assertSame(7854, $fatigueBoundary->getValue());
-        $expectedFatigueBoundary = new FatigueBoundary($endurance, $tables);
+        $expectedFatigueBoundary = FatigueBoundary::getIt($endurance, $tables);
         self::assertSame($expectedFatigueBoundary->getValue(), $fatigueBoundary->getValue());
 
         $settings = $woundAndFatigueBoundariesTable->getRow(PropertyCode::FATIGUE_BOUNDARY);

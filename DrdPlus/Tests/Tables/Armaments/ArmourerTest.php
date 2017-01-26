@@ -931,7 +931,7 @@ class ArmourerTest extends TestWithMockery
 
         self::assertInstanceOf(MaximalRange::class, $maximalRange);
         self::assertSame(
-            MaximalRange::createForRangedWeapon(new EncounterRange($expectedEncounterRange))->getValue(),
+            MaximalRange::getItForRangedWeapon(EncounterRange::getIt($expectedEncounterRange))->getValue(),
             $maximalRange->getValue()
         );
     }
@@ -949,7 +949,7 @@ class ArmourerTest extends TestWithMockery
                 $this->createSpeed()
             );
             self::assertInstanceOf(MaximalRange::class, $maximalRange);
-            self::assertSame(MaximalRange::createForMeleeWeapon(new EncounterRange(0))->getValue(), $maximalRange->getValue());
+            self::assertSame(MaximalRange::getItForMeleeWeapon(EncounterRange::getIt(0))->getValue(), $maximalRange->getValue());
         }
     }
 

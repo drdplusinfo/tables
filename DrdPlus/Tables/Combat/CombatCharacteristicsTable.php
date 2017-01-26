@@ -6,7 +6,7 @@ use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Base\Knack;
 use DrdPlus\Properties\Combat\Attack;
-use DrdPlus\Properties\Combat\DefenseNumber;
+use DrdPlus\Properties\Combat\Defense;
 use DrdPlus\Properties\Combat\Shooting;
 use DrdPlus\Tables\Partials\AbstractTable;
 
@@ -63,18 +63,18 @@ class CombatCharacteristicsTable extends AbstractTable
      */
     public function getAttack(Agility $agility)
     {
-        return new Attack($agility);
+        return Attack::getIt($agility);
     }
 
     /**
-     * As you can see DefenseNumber can be created safely directly, without this table.
+     * As you can see Defense can be created safely directly, without this table.
      *
      * @param Agility $agility
-     * @return DefenseNumber
+     * @return Defense
      */
     public function getDefense(Agility $agility)
     {
-        return new DefenseNumber($agility);
+        return Defense::getIt($agility);
     }
 
     /**
@@ -85,7 +85,7 @@ class CombatCharacteristicsTable extends AbstractTable
      */
     public function getShooting(Knack $knack)
     {
-        return new Shooting($knack);
+        return Shooting::getIt($knack);
     }
 
 }

@@ -65,7 +65,7 @@ class FightTable extends AbstractTable
     )
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return new Fight($professionCode, $baseProperties, $height, $tables);
+        return Fight::getIt($professionCode, $baseProperties, $height, $tables);
     }
 
 }
