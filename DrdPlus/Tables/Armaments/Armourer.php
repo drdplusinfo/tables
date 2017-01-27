@@ -365,12 +365,11 @@ class Armourer extends StrictObject
     }
 
     /**
-     * Distance modifier can be solved very roughly by a simple table or more precisely with continual values by a calculation.
-     * This uses that calculation.
-     * See PPH page 104 left column.
+     * Distance modifier can be solved very roughly by a simple table or more precisely with continual values by a
+     * calculation. This uses that calculation. See PPH page 104 left column.
      *
      * @param EncounterRange $currentEncounterRange
-     * @param Distance $distance
+     * @param Distance $targetSize
      * @param MaximalRange $currentMaximalRange
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\DistanceIsOutOfMaximalRange
@@ -378,16 +377,16 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(
-        Distance $distance,
+        Distance $targetSize,
         EncounterRange $currentEncounterRange,
         MaximalRange $currentMaximalRange
     )
     {
-        if ($distance->getBonus()->getValue() > $currentMaximalRange->getValue()) { // comparing distance bonuses in fact
+        if ($targetSize->getBonus()->getValue() > $currentMaximalRange->getValue()) { // comparing distance bonuses in fact
             throw new Exceptions\DistanceIsOutOfMaximalRange(
-                "Given distance {$distance->getBonus()} ({$distance->getMeters()} meters)"
+                "Given distance {$targetSize->getBonus()} ({$targetSize->getMeters()} meters)"
                 . " is out of maximal range {$currentMaximalRange}"
-                . ' ('. $currentMaximalRange->getInMeters($this->tables) . ' meters)'
+                . ' (' . $currentMaximalRange->getInMeters($this->tables) . ' meters)'
             );
         }
         if ($currentEncounterRange->getValue() > $currentMaximalRange->getValue()) {
@@ -396,12 +395,23 @@ class Armourer extends StrictObject
             );
         }
         $attackNumberModifier = $this->tables->getContinuousAttackNumberByDistanceTable()
-            ->getAttackNumberModifierByDistance($distance);
-        if ($distance->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
-            $attackNumberModifier += $currentEncounterRange->getValue() - $distance->getBonus()->getValue(); // always negative
+            ->getAttackNumberModifierByDistance($targetSize);
+        if ($targetSize->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
+            $attackNumberModifier += $currentEncounterRange->getValue() - $targetSize->getBonus()->getValue(); // always negative
         }
 
         return $attackNumberModifier;
+    }
+
+    /**
+     * See PPH page 104 right column top, @link https://pph.drdplus.jaroslavtyc.com/#oprava_za_velikost
+     *
+     * @param Size $targetSize
+     * @return int
+     */
+    public function getAttackNumberModifierBySize(Size $targetSize)
+    {
+        return SumAndRound::half($targetSize->getValue());
     }
 
     /**

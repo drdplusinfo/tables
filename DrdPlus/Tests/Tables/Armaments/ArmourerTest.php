@@ -84,11 +84,18 @@ class ArmourerTest extends TestWithMockery
     }
 
     /**
+     * @param $value
      * @return \Mockery\MockInterface|Size
      */
-    private function createSize()
+    private function createSize($value = null)
     {
-        return $this->mockery(Size::class);
+        $size = $this->mockery(Size::class);
+        if ($value !== null) {
+            $size->shouldReceive('getValue')
+                ->andReturn($value);
+        }
+
+        return $size;
     }
 
     private function I_can_find_out_if_can_use_range_weapon()
@@ -801,6 +808,31 @@ class ArmourerTest extends TestWithMockery
             $this->createEncounterRange(123),
             $this->createMaximalRange(456, 6655443322, $distanceTable)
         );
+    }
+
+    /**
+     * @test
+     * @dataProvider provideSizeAndExpectedAttackModifier
+     * @param $sizeValue
+     * @param $expectedModifier
+     */
+    public function I_can_get_attack_number_modifier_by_target_size($sizeValue, $expectedModifier)
+    {
+        self::assertSame(
+            $expectedModifier,
+            (new Armourer($this->createTables()))->getAttackNumberModifierBySize($this->createSize($sizeValue))
+        );
+    }
+
+    public function provideSizeAndExpectedAttackModifier()
+    {
+        return [
+            [-5, -3],
+            [0, 0],
+            [1, 1],
+            [2, 1],
+            [5, 3],
+        ];
     }
 
     /**
