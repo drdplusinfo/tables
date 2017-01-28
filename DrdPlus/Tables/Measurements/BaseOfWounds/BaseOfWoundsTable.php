@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Table;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
@@ -104,11 +105,12 @@ class BaseOfWoundsTable extends StrictObject implements Table
 
     /**
      * If gets two bonuses to sum, returns "base of wounds" + 5 according to note about bonuses summation.
-     * See note on PPH page 164, bottom.
+     * See note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu
      *
      * @param array|int|IntegerInterface[] $bonuses
      * @return int
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
     public function sumBonuses(array $bonuses)
     {
@@ -304,12 +306,13 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * @param int|IntegerInterface $strength
+     * @param Strength $strength
      * @param int|IntegerInterface $weaponBaseOfWounds
      * @return int
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
-    public function calculateBaseOfWounds($strength, $weaponBaseOfWounds)
+    public function calculateBaseOfWounds(Strength $strength, $weaponBaseOfWounds)
     {
         return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
     }

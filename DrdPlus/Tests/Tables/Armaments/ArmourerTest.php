@@ -1776,7 +1776,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getBaseOfWoundsTable')
             ->andReturn($baseOfWoundsTable = $this->mockery(BaseOfWoundsTable::class));
         $baseOfWoundsTable->shouldReceive('calculateBaseOfWounds')
-            ->with(789, $currentStrength)
+            ->with($currentStrength, 789)
             ->andReturn(456);
         $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());

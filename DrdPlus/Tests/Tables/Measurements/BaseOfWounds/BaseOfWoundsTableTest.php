@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\BaseOfWounds;
 
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerObject;
@@ -67,11 +68,11 @@ class BaseOfWoundsTableTest extends TableTest
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(-5, -5));
-        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(new IntegerObject(0), new IntegerObject(0)));
-        self::assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(20, 20));
-        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(new IntegerObject(-5), 20));
-        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(20, -5));
+        self::assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), -5));
+        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(0), new IntegerObject(0)));
+        self::assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), 20));
+        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), 20));
+        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), -5));
         self::assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
         self::assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, new IntegerObject(-3), 10]));
         for ($bonus = -5; $bonus <= 20; $bonus++) {
