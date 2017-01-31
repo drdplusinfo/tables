@@ -75,6 +75,7 @@ use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Combat\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
+use DrdPlus\Tables\Environments\SurfacesTable;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
@@ -965,6 +966,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return SurfacesTable
+     */
+    public function getSurfacesTable()
+    {
+        if (!array_key_exists(SurfacesTable::class, $this->tables)) {
+            $this->tables[SurfacesTable::class] = new SurfacesTable();
+        }
+
+        return $this->tables[SurfacesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -1039,6 +1052,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getFightTable(),
             $this->getWoundAndFatigueBoundariesTable(),
             $this->getAspectsOfVisageTable(),
+            $this->getSurfacesTable(),
         ]);
     }
 
