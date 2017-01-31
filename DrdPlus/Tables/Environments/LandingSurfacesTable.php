@@ -9,14 +9,14 @@ use Granam\Integer\PositiveInteger;
 /**
  * See PPH page 119 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_povrchu
  */
-class SurfacesTable extends AbstractFileTable
+class LandingSurfacesTable extends AbstractFileTable
 {
     /**
      * @return string
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/surfaces.csv';
+        return __DIR__ . '/data/landing_surfaces.csv';
     }
 
     const POWER_OF_WOUND_MODIFIER = 'power_of_wound_modifier';

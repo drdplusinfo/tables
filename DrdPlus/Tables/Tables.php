@@ -13,6 +13,7 @@ use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Body\AspectsOfVisageTable;
+use DrdPlus\Tables\Body\Jumping\JumpsAndFallsTable;
 use DrdPlus\Tables\Body\WoundAndFatigueBoundariesTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
@@ -75,7 +76,7 @@ use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Combat\Actions\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
-use DrdPlus\Tables\Environments\SurfacesTable;
+use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
@@ -966,15 +967,27 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return SurfacesTable
+     * @return LandingSurfacesTable
      */
-    public function getSurfacesTable()
+    public function getLandingSurfacesTable()
     {
-        if (!array_key_exists(SurfacesTable::class, $this->tables)) {
-            $this->tables[SurfacesTable::class] = new SurfacesTable();
+        if (!array_key_exists(LandingSurfacesTable::class, $this->tables)) {
+            $this->tables[LandingSurfacesTable::class] = new LandingSurfacesTable();
         }
 
-        return $this->tables[SurfacesTable::class];
+        return $this->tables[LandingSurfacesTable::class];
+    }
+
+    /**
+     * @return JumpsAndFallsTable
+     */
+    public function getJumpsAndFallsTable()
+    {
+        if (!array_key_exists(JumpsAndFallsTable::class, $this->tables)) {
+            $this->tables[JumpsAndFallsTable::class] = new JumpsAndFallsTable();
+        }
+
+        return $this->tables[JumpsAndFallsTable::class];
     }
 
     /**
@@ -1052,7 +1065,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getFightTable(),
             $this->getWoundAndFatigueBoundariesTable(),
             $this->getAspectsOfVisageTable(),
-            $this->getSurfacesTable(),
+            $this->getLandingSurfacesTable(),
+            $this->getJumpsAndFallsTable(),
         ]);
     }
 

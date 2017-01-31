@@ -8,11 +8,6 @@ abstract class TableTest extends TestWithMockery
     /**
      * @test
      */
-    abstract public function I_can_get_header();
-
-    /**
-     * @test
-     */
     public function I_can_get_to_rules_both_by_page_reference_and_direct_link()
     {
         $reflectionClass = new \ReflectionClass(self::getSutClass());

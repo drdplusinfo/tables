@@ -3,11 +3,11 @@ namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Tables\Environments\SurfacesTable;
+use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
 
-class SurfacesTableTest extends TableTest
+class LandingSurfacesTableTest extends TableTest
 {
     /**
      * @test
@@ -16,7 +16,7 @@ class SurfacesTableTest extends TableTest
     {
         self::assertSame(
             [['surface', 'power_of_wound_modifier', 'agility_multiplier_protection', 'armor_max_protection']],
-            (new SurfacesTable())->getHeader()
+            (new LandingSurfacesTable())->getHeader()
         );
     }
 
@@ -37,7 +37,7 @@ class SurfacesTableTest extends TableTest
     {
         self::assertSame(
             $expectedPowerOfWoundModifier,
-            (new SurfacesTable())->getPowerOfWoundModifier(
+            (new LandingSurfacesTable())->getPowerOfWoundModifier(
                 LandingSurfaceCode::getIt($landingSurfaceValue),
                 Agility::getIt($agilityValue),
                 new PositiveIntegerObject($armorProtectionValue)
