@@ -56,20 +56,33 @@ class JumpsAndFallsTable extends AbstractFileTable
 
     /**
      * @param JumpTypeCode $jumpTypeCode
-     * @param JumpMovementCode $jumpMovementCode
+     * @param Distance $ranDistance
      * @return int
      */
-    public function getModifierToJump(JumpTypeCode $jumpTypeCode, JumpMovementCode $jumpMovementCode)
+    public function getModifierToJump(JumpTypeCode $jumpTypeCode, Distance $ranDistance)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue($jumpTypeCode, $jumpMovementCode);
+        return $this->getValue($jumpTypeCode, $this->getJumpMovementCodeByRanDistance($ranDistance));
+    }
+
+    /**
+     * @param Distance $ranDistance
+     * @return string
+     */
+    private function getJumpMovementCodeByRanDistance(Distance $ranDistance)
+    {
+        if ($ranDistance->getMeters() >= 5) {
+            return JumpMovementCode::FLYING_JUMP;
+        }
+
+        return JumpMovementCode::STANDING_JUMP;
     }
 
     /**
      * @param Speed $speed
      * @param Athletics $athletics
      * @param JumpTypeCode $jumpTypeCode
-     * @param JumpMovementCode $jumpMovementCode
+     * @param Distance $ranDistance
      * @param Roll1d6 $roll1D6
      * @return int
      */
@@ -77,11 +90,11 @@ class JumpsAndFallsTable extends AbstractFileTable
         Speed $speed,
         Athletics $athletics,
         JumpTypeCode $jumpTypeCode,
-        JumpMovementCode $jumpMovementCode,
+        Distance $ranDistance,
         Roll1d6 $roll1D6
     )
     {
-        return $this->getModifierToJump($jumpTypeCode, $jumpMovementCode)
+        return $this->getModifierToJump($jumpTypeCode, $ranDistance)
             + SumAndRound::half($speed->getValue())
             + $athletics->getAthleticsBonus()->getValue()
             + $roll1D6->getValue();

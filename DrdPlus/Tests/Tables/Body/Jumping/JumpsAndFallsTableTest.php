@@ -3,7 +3,6 @@ namespace DrdPlus\Tests\Tables\Body\Jumping;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
-use DrdPlus\Codes\JumpMovementCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Body\Weight;
@@ -25,28 +24,31 @@ class JumpsAndFallsTableTest extends TableTest
      * @test
      * @dataProvider provideValuesForModifierToJump
      * @param string $jumpType
-     * @param string $jumpMovement
+     * @param float $ranDistance
      * @param int $expectedModifierToJump
      */
-    public function I_can_get_modifier_to_jump($jumpType, $jumpMovement, $expectedModifierToJump)
+    public function I_can_get_modifier_to_jump($jumpType, $ranDistance, $expectedModifierToJump)
     {
         self::assertSame(
             $expectedModifierToJump,
             (new JumpsAndFallsTable())
-                ->getModifierToJump(JumpTypeCode::getIt($jumpType), JumpMovementCode::getIt($jumpMovement))
+                ->getModifierToJump(JumpTypeCode::getIt($jumpType), $this->createDistance($ranDistance))
         );
     }
 
     public function provideValuesForModifierToJump()
     {
         return [
-            [JumpTypeCode::HIGH_JUMP, JumpMovementCode::STANDING_JUMP, -6],
-            [JumpTypeCode::BROAD_JUMP, JumpMovementCode::STANDING_JUMP, -3],
-            [JumpTypeCode::HIGH_JUMP, JumpMovementCode::FLYING_JUMP, 3],
-            [JumpTypeCode::BROAD_JUMP, JumpMovementCode::FLYING_JUMP, 6],
+            [JumpTypeCode::HIGH_JUMP, 4.9, -6],
+            [JumpTypeCode::HIGH_JUMP, 5, 3],
+            [JumpTypeCode::BROAD_JUMP, 0, -3],
+            [JumpTypeCode::BROAD_JUMP, 5.1, 6],
         ];
     }
 
+    /**
+     * @test
+     */
     public function I_can_get_length_of_jump()
     {
         self::assertSame(
@@ -56,7 +58,7 @@ class JumpsAndFallsTableTest extends TableTest
                     $this->createSpeed(123),
                     $this->createAthletics(456),
                     JumpTypeCode::getIt(JumpTypeCode::BROAD_JUMP),
-                    JumpMovementCode::getIt(JumpMovementCode::STANDING_JUMP),
+                    $this->createDistance(0),
                     $this->createRoll1d6(789)
                 )
         );
@@ -82,7 +84,9 @@ class JumpsAndFallsTableTest extends TableTest
     private function createAthletics($value)
     {
         $athletics = $this->mockery(Athletics::class);
-        $athletics->shouldReceive('getValue')
+        $athletics->shouldReceive('getAthleticsBonus')
+            ->andReturn($athleticsBonus = $this->mockery(PositiveInteger::class));
+        $athleticsBonus->shouldReceive('getValue')
             ->andReturn($value);
 
         return $athletics;
@@ -159,7 +163,7 @@ class JumpsAndFallsTableTest extends TableTest
     }
 
     /**
-     * @param int $meters
+     * @param float $meters
      * @return \Mockery\MockInterface|Distance
      */
     private function createDistance($meters)
