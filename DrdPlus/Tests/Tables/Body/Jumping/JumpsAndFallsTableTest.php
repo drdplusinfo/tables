@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tests\Tables\Body\Jumping;
+namespace DrdPlus\Tests\Tables\Environments;
 
 use Drd\DiceRoll\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
@@ -8,7 +8,7 @@ use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Body\Weight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
-use DrdPlus\Tables\Body\Jumping\JumpsAndFallsTable;
+use DrdPlus\Tables\Environments\JumpsAndFallsTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
