@@ -117,6 +117,7 @@ class JumpsAndFallsTableTest extends TableTest
      * @param int $expectedPowerOfWound
      * @param int $powerOfWoundAsWounds
      * @param int $agilityValue
+     * @param int $athleticsValue
      * @param int $agilityAsWounds
      * @param int $expectedWounds
      */
@@ -130,6 +131,7 @@ class JumpsAndFallsTableTest extends TableTest
         $expectedPowerOfWound,
         $powerOfWoundAsWounds,
         $agilityValue,
+        $athleticsValue,
         $agilityAsWounds,
         $expectedWounds
     )
@@ -141,9 +143,10 @@ class JumpsAndFallsTableTest extends TableTest
                 $this->createRoll1d6($roll1d6),
                 $itIsControlledJump,
                 $agility = $this->createAgility($agilityValue),
+                $this->createAthletics($athleticsValue),
                 $landingSurfaceCode = $this->createLandingSurfaceCode('foo'),
                 $armorProtection = new PositiveIntegerObject($armorProtectionValue),
-                $this->createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $agilityValue, $agilityAsWounds),
+                $this->createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $agilityValue + $athleticsValue, $agilityAsWounds),
                 $this->createLandingSurfacesTable($landingSurfaceCode, $agility, $armorProtection, $modifierFromLandingSurface)
             );
         self::assertInstanceOf(Wounds::class, $wounds);
@@ -152,13 +155,13 @@ class JumpsAndFallsTableTest extends TableTest
 
     public function provideValuesForWoundsFromJumpOrFall()
     {
-        // distance, weight, $roll, is controlled, armor, surface modifier, expected power of wound, powerOfWoundAsWounds, agility, agilityAsWounds, expected wounds
+        // distance, weight, $roll, is controlled, armor, surface modifier, expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
         return [
-            [111, 222, 333, false, 444, -550, 0, 123, 555, 124 /* higher bonus from agility than wounds */, 0],
-            [111, 222, 333, false, 444, -550, 0, 124, 555, 123 /* higher wounds than bonus from agility */, 1],
-            [111, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 124, 0],
-            [111, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 124, 0],
-            [111, 222, 333, false, 444, -999 /* very high bonus from surface */, 0, 123, 555, 123, 0],
+            [111, 222, 333, false, 444, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
+            [111, 222, 333, false, 444, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 666, 124, 0],
+            [111, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 666, 124, 0],
+            [111, 222, 333, false, 444, -999 /* very high bonus from surface */, 0, 123, 555, 666, 123, 0],
         ];
     }
 
@@ -219,22 +222,22 @@ class JumpsAndFallsTableTest extends TableTest
     /**
      * @param int $expectedPowerOfWound
      * @param int $powerOfWoundAsWounds
-     * @param int $expectedAgilityValue
+     * @param int $expectedAgilityAndAthleticsValue
      * @param int $agilityAsWounds
      * @return \Mockery\MockInterface|WoundsTable
      */
-    private function createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $expectedAgilityValue, $agilityAsWounds)
+    private function createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $expectedAgilityAndAthleticsValue, $agilityAsWounds)
     {
         $woundsTable = $this->mockery(WoundsTable::class);
         $woundsTable->shouldReceive('toWounds')
             ->with($this->type(WoundsBonus::class))
             ->andReturnUsing(function (WoundsBonus $woundsBonus)
-            use ($expectedPowerOfWound, $powerOfWoundAsWounds, $expectedAgilityValue, $agilityAsWounds) {
+            use ($expectedPowerOfWound, $powerOfWoundAsWounds, $expectedAgilityAndAthleticsValue, $agilityAsWounds) {
                 $wounds = $this->mockery(Wounds::class);
                 if ($woundsBonus->getValue() === $expectedPowerOfWound) {
                     $wounds->shouldReceive('getValue')
                         ->andReturn($powerOfWoundAsWounds);
-                } else if ($woundsBonus->getValue() === $expectedAgilityValue) {
+                } else if ($woundsBonus->getValue() === $expectedAgilityAndAthleticsValue) {
                     $wounds->shouldReceive('getValue')
                         ->andReturn($agilityAsWounds);
                 } else {

@@ -105,6 +105,7 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
      * @param Agility $agility
+     * @param Athletics $athletics
      * @param WoundsTable $woundsTable
      * @param LandingSurfaceCode $landingSurfaceCode
      * @param PositiveInteger $armorProtection
@@ -117,6 +118,7 @@ class JumpsAndFallsTable extends AbstractFileTable
         Roll1d6 $roll1D6,
         $itIsControlledJump,
         Agility $agility,
+        Athletics $athletics,
         LandingSurfaceCode $landingSurfaceCode,
         PositiveInteger $armorProtection,
         WoundsTable $woundsTable,
@@ -133,8 +135,11 @@ class JumpsAndFallsTable extends AbstractFileTable
             $powerOfWound = 0;
         }
         $convertedPowerOfWounds = (new WoundsBonus($powerOfWound, $woundsTable))->getWounds()->getValue();
-        $convertedAgility = (new WoundsBonus($agility->getValue(), $woundsTable))->getWounds()->getValue();
-        $woundsValue = $convertedPowerOfWounds - $convertedAgility;
+        $convertedAgilityAndAthletics = (new WoundsBonus(
+            $agility->getValue() + $athletics->getAthleticsBonus()->getValue(),
+            $woundsTable)
+        )->getWounds()->getValue();
+        $woundsValue = $convertedPowerOfWounds - $convertedAgilityAndAthletics;
         if ($woundsValue < 0) {
             $woundsValue = 0;
         }
