@@ -1600,7 +1600,7 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
-        $tables->shouldReceive('getWeaponSkillTable')
+        $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
         $missingWeaponSkillTable->shouldReceive('getFightNumberMalusForSkillRank')
             ->with(123)
@@ -1630,7 +1630,7 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
-        $tables->shouldReceive('getWeaponSkillTable')
+        $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
         $missingWeaponSkillTable->shouldReceive('getAttackNumberMalusForSkillRank')
             ->with(123)
@@ -1645,7 +1645,7 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
 
-        $tables->shouldReceive('getWeaponSkillTable')
+        $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
         $missingWeaponSkillTable->shouldReceive('getCoverMalusForSkillRank')
             ->with(123)
@@ -1679,7 +1679,7 @@ class ArmourerTest extends TestWithMockery
     {
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
-        $tables->shouldReceive('getWeaponSkillTable')
+        $tables->shouldReceive('getMissingWeaponSkillTable')
             ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
         $missingWeaponSkillTable->shouldReceive('getBaseOfWoundsMalusForSkillRank')
             ->with(123)

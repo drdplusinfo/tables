@@ -664,7 +664,7 @@ class Armourer extends StrictObject
      */
     public function getFightNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -677,7 +677,7 @@ class Armourer extends StrictObject
      */
     public function getAttackNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     /**
@@ -694,7 +694,7 @@ class Armourer extends StrictObject
     public function getCoverMalusForSkillRank(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
     {
         if ($weaponOrShield->isWeapon()) {
-            return $this->tables->getWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
+            return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
         }
         assert($weaponOrShield->isShield());
 
@@ -712,7 +712,7 @@ class Armourer extends StrictObject
      */
     public function getBaseOfWoundsMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
     {
-        return $this->tables->getWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
+        return $this->tables->getMissingWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
 
     // missing shield-specific skill

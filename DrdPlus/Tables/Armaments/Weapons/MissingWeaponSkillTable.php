@@ -8,7 +8,7 @@ use Granam\Integer\Tools\ToInteger;
 /**
  * See PPH page 145, @link https://pph.drdplus.jaroslavtyc.com/#boj_se_zbrani
  */
-class WeaponSkillTable extends AbstractArmamentSkillTable
+class MissingWeaponSkillTable extends AbstractArmamentSkillTable
 {
     /**
      * @return string

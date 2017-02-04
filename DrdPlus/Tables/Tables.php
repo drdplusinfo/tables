@@ -56,7 +56,7 @@ use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\VoulgesAndTridentsTable;
-use DrdPlus\Tables\Armaments\Weapons\WeaponSkillTable;
+use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
@@ -362,15 +362,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return WeaponSkillTable
+     * @return MissingWeaponSkillTable
      */
-    public function getWeaponSkillTable()
+    public function getMissingWeaponSkillTable()
     {
-        if (!array_key_exists(WeaponSkillTable::class, $this->tables)) {
-            $this->tables[WeaponSkillTable::class] = new WeaponSkillTable();
+        if (!array_key_exists(MissingWeaponSkillTable::class, $this->tables)) {
+            $this->tables[MissingWeaponSkillTable::class] = new MissingWeaponSkillTable();
         }
 
-        return $this->tables[WeaponSkillTable::class];
+        return $this->tables[MissingWeaponSkillTable::class];
     }
 
     /**
@@ -1033,7 +1033,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getMeleeWeaponStrengthSanctionsTable(),
             $this->getShieldStrengthSanctionsTable(),
             $this->getRangedWeaponStrengthSanctionsTable(),
-            $this->getWeaponSkillTable(),
+            $this->getMissingWeaponSkillTable(),
             $this->getHealingByActivityTable(),
             $this->getHealingByConditionsTable(),
             $this->getMovementTypesTable(),
