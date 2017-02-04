@@ -56,7 +56,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
      */
     public function getSpeedMalusOnTerrain(
-        $terrainCode,
+        TerrainCode $terrainCode,
         SpeedTable $speedTable,
         TerrainDifficultyPercents $difficultyPercents
     )
@@ -67,14 +67,14 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     }
 
     /**
-     * @param $terrainCode
+     * @param TerrainCode $terrainCode
      * @param TerrainDifficultyPercents $difficultyPercents
      * @return int
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
      * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
      */
     private function getSpeedMalusValueForTerrain(
-        $terrainCode,
+        TerrainCode $terrainCode,
         TerrainDifficultyPercents $difficultyPercents
     )
     {
@@ -87,12 +87,12 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     }
 
     /**
-     * @param $terrainCode
+     * @param TerrainCode $terrainCode
      * @return array|\int[]
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
      * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
      */
-    public function getSpeedMalusValuesRangeForTerrain($terrainCode)
+    public function getSpeedMalusValuesRangeForTerrain(TerrainCode $terrainCode)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

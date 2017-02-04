@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
+use DrdPlus\Codes\Environment\TerrainCode;
 use DrdPlus\Tables\Environments\TerrainDifficultyPercents;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
@@ -62,7 +63,7 @@ class ImpassibilityOfTerrainTableTest extends TableTest
     {
         self::assertSame(
             ['impassibility_of_terrain_from' => $expectedMalusFrom, 'impassibility_of_terrain_to' => $expectedMalusTo],
-            (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain($terrainCode)
+            (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain(TerrainCode::getIt($terrainCode))
         );
     }
 
@@ -90,7 +91,7 @@ class ImpassibilityOfTerrainTableTest extends TableTest
     public function I_can_get_malus_providing_difficulty_for_every_terrain($difficultyInPercents, $terrainCode, $expectedMalus)
     {
         $speedMalusOnTerrain = (new ImpassibilityOfTerrainTable())->getSpeedMalusOnTerrain(
-            $terrainCode,
+            TerrainCode::getIt($terrainCode),
             new SpeedTable(),
             new TerrainDifficultyPercents($difficultyInPercents)
         );
@@ -153,13 +154,13 @@ class ImpassibilityOfTerrainTableTest extends TableTest
         $impassibilityOfTerrainTable = new ImpassibilityOfTerrainTable();
         $speedTable = new SpeedTable();
         $jungleAlmostSixthBonus = $impassibilityOfTerrainTable->getSpeedMalusOnTerrain(
-            'jungle',
+            TerrainCode::getIt(TerrainCode::JUNGLE),
             $speedTable,
             new TerrainDifficultyPercents(8)
         );
         self::assertSame(-6, $jungleAlmostSixthBonus->getValue());
         $jungleSixthBonus = $impassibilityOfTerrainTable->getSpeedMalusOnTerrain(
-            'jungle',
+            TerrainCode::getIt(TerrainCode::JUNGLE),
             $speedTable,
             new TerrainDifficultyPercents(9)
         );
@@ -173,16 +174,21 @@ class ImpassibilityOfTerrainTableTest extends TableTest
      */
     public function I_can_not_get_values_for_unknown_terrain()
     {
-        (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain('seabed');
+        (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain($this->createTerrainCode('seabed'));
     }
 
     /**
-     * @test
-     * @expectedException \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
-     * @expectedExceptionMessageRegExp ~array~
+     * @param $value
+     * @return \Mockery\MockInterface|TerrainCode
      */
-    public function I_can_not_get_values_for_incorrectly_formatted_terrain()
+    private function createTerrainCode($value)
     {
-        (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain(['forrest']);
+        $terrainCode = $this->mockery(TerrainCode::class);
+        $terrainCode->shouldReceive('getValue')
+            ->andReturn($value);
+        $terrainCode->shouldReceive('__toString')
+            ->andReturn((string)$value);
+
+        return $terrainCode;
     }
 }
