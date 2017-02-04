@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Environments;
 
+use DrdPlus\Codes\Environment\TerrainCode;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
@@ -47,7 +48,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     }
 
     /**
-     * @param $terrainCode
+     * @param TerrainCode $terrainCode
      * @param SpeedTable $speedTable
      * @param TerrainDifficultyPercents $difficultyPercents
      * @return SpeedBonus
@@ -60,7 +61,8 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         TerrainDifficultyPercents $difficultyPercents
     )
     {
-        // value is zero or negative, so bonus is de facto malus
+        // value is zero or negative, so bonus is malus in fact
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new SpeedBonus($this->getSpeedMalusValueForTerrain($terrainCode, $difficultyPercents), $speedTable);
     }
 
@@ -76,7 +78,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         TerrainDifficultyPercents $difficultyPercents
     )
     {
-        // value is zero or negative, so bonus is de facto malus
+        // value is zero or negative, so bonus is malus in fact
         $range = $this->getSpeedMalusValuesRangeForTerrain($terrainCode);
         $difference = $range[self::IMPASSIBILITY_OF_TERRAIN_TO] - $range[self::IMPASSIBILITY_OF_TERRAIN_FROM];
         $addition = $difference * $difficultyPercents->getRate();

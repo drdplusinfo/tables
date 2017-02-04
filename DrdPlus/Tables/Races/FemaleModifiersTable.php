@@ -59,7 +59,7 @@ class FemaleModifiersTable extends AbstractFileTable
     private function getRaceModifiers($race)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getRow([$race]);
+        return $this->getRow($race);
     }
 
     /**

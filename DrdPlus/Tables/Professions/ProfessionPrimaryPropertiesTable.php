@@ -51,7 +51,7 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
         try {
             $primaryProperties = [];
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            foreach ($this->getRow([$professionCode]) as $primaryPropertyValue) {
+            foreach ($this->getRow($professionCode) as $primaryPropertyValue) {
                 if ($primaryPropertyValue !== '') {
                     $primaryProperties[] = PropertyCode::getIt($primaryPropertyValue);
                 }

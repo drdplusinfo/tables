@@ -46,7 +46,7 @@ class MissingWeaponSkillTable extends AbstractArmamentSkillTable
     public function getMalusesForWeaponSkill($skillRank)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getRow([ToInteger::toPositiveInteger($skillRank)]);
+        return $this->getRow(ToInteger::toPositiveInteger($skillRank));
     }
 
     /**
