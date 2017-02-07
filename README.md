@@ -5,7 +5,7 @@
 [![License](https://poser.pugx.org/drd-plus/tables/license)](https://packagist.org/packages/drd-plus/tables)
 
 ### Warning about JumpsAndFallsTable
-JumpsAndFallsTable automatically lowers wounds from fall (or jump) by an armour protection, despite rules
+[JumpsAndFallsTable](./DrdPlus/Tables/Environments/JumpsAndFallsTable.php) automatically lowers wounds from fall (or jump) by an armour protection, despite rules
 which DM should decide about portion of reduced damage by himself.
 
 Over sixty tables used for calculation and information in DrD+.
