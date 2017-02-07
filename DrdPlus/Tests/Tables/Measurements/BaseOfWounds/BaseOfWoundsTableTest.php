@@ -73,9 +73,8 @@ class BaseOfWoundsTableTest extends TableTest
         $baseOfWoundsTable = new BaseOfWoundsTable();
         $strength = Strength::getIt($strengthValue);
         $weaponBaseOfWounds = new IntegerObject($weaponBaseOfWoundsValue);
-        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->calculateBaseOfWounds($strength, $weaponBaseOfWounds));
-        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumBonuses([$strength, $weaponBaseOfWounds]) - 5);
         self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->getBaseOfWounds($strength, $weaponBaseOfWounds));
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumBonuses([$strength, $weaponBaseOfWounds]) - 5);
     }
 
     public function provideStrengthAndWeaponBaseOfWoundsAndExpectedBaseOfWounds()
@@ -95,7 +94,7 @@ class BaseOfWoundsTableTest extends TableTest
      * @dataProvider provideValueOutOfRange
      * @param int $strengthValue
      */
-    public function I_have_to_let_calculate_base_of_wounds_for_strength_out_of_range($strengthValue)
+    public function I_can_not_get_base_of_wounds_for_strength_out_of_range($strengthValue)
     {
         (new BaseOfWoundsTable())->getBaseOfWounds(Strength::getIt($strengthValue), new IntegerObject(0));
     }
@@ -114,7 +113,7 @@ class BaseOfWoundsTableTest extends TableTest
      * @dataProvider provideValueOutOfRange
      * @param int $weaponBaseOfWounds
      */
-    public function I_have_to_let_calculate_base_of_wounds_for_weapon_base_of_wounds_out_of_range($weaponBaseOfWounds)
+    public function I_can_not_get_base_of_wounds_for_weapon_base_of_wounds_out_of_range($weaponBaseOfWounds)
     {
         (new BaseOfWoundsTable())->getBaseOfWounds(Strength::getIt(0), new IntegerObject($weaponBaseOfWounds));
     }
@@ -164,7 +163,7 @@ class BaseOfWoundsTableTest extends TableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      * @expectedExceptionMessageRegExp ~9999~
      */
     public function I_can_not_intersect_bonuses_if_first_is_out_of_range()
@@ -174,7 +173,7 @@ class BaseOfWoundsTableTest extends TableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      * @expectedExceptionMessageRegExp ~8765~
      */
     public function I_can_not_intersect_bonuses_if_second_is_out_of_range()

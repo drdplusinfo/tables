@@ -106,11 +106,13 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * Returns "base of wounds" + 5 for every partial sum according to note about bonuses summation.
      * See note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu
+     * Warning - the result depends on the SEQUENCE of given bonuses.
      *
      * @param array|int|IntegerInterface[] $bonuses
      * @return int
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
     public function sumBonuses(array $bonuses)
     {
@@ -120,7 +122,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $secondBonus = ToInteger::toInteger($secondBonus);
             $intersection = $this->getBonusesIntersection([$firstBonus, $secondBonus]);
-            $sum = $intersection + 5; // see note on PPH page 164, bottom
+            /** see note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu */
+            $sum = $intersection + 5;
             if (count($bonuses) === 0) {
                 return $sum;
             }
@@ -140,7 +143,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @param array|int[]|IntegerInterface[] $bonuses
      * @return int summarized bonuses
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
     public function getBonusesIntersection(array $bonuses)
     {
@@ -151,7 +155,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
             $secondBonus = ToInteger::toInteger($secondBonus);
             $columnRank = $this->getColumnRank($firstBonus);
             $rowRank = $this->getRowRank($secondBonus);
-            $sumBonus = $this->locateBonus($columnRank, $rowRank);
+            $sumBonus = $this->getBonuses()[$rowRank][$columnRank];
             if (count($bonuses) === 0) { // noting more to count
                 return $sumBonus;
             }
@@ -168,14 +172,14 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @param int $bonus
      * @return int
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      */
     private function getColumnRank($bonus)
     {
         if (array_key_exists($bonus, $this->getAxisX())) {
             return $this->getAxisX()[$bonus];
         }
-        throw new Exceptions\BonusToIntersectIsOutOfKnownValues(
+        throw new Exceptions\NoColumnExistsOnProvidedIndex(
             "Can not intersect bonus of value {$bonus} because it is out of table values"
         );
     }
@@ -216,14 +220,14 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @param int $bonus
      * @return int
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
     private function getRowRank($bonus)
     {
         if (array_key_exists($bonus, $this->getAxisY())) {
             return $this->getAxisY()[$bonus];
         }
-        throw new Exceptions\BonusToIntersectIsOutOfKnownValues(
+        throw new Exceptions\NoRowExistsOnProvidedIndex(
             "Can not intersect bonus of value {$bonus} because it is out of table values"
         );
     }
@@ -238,16 +242,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
         }
 
         return $this->axisY;
-    }
-
-    /**
-     * @param int $columnRank
-     * @param int $rowRank
-     * @return int
-     */
-    private function locateBonus($columnRank, $rowRank)
-    {
-        return $this->getBonuses()[$rowRank][$columnRank];
     }
 
     /**
@@ -276,33 +270,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
         }
 
         return $rankedBonuses; // indexed as row index => column index => bonus
-    }
-
-    /**
-     * @param Strength $strength
-     * @param IntegerInterface $weaponBaseOfWounds
-     * @return string
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
-     */
-    public function getBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
-    {
-        $values = $this->getValues();
-        $strengthAsColumnIndex = array_search($strength->getValue(), $values[0], true);
-        if ($strengthAsColumnIndex === false) {
-            throw new Exceptions\NoColumnExistsOnProvidedIndex(
-                "Given strength {$strength} is out of known values, use base of wounds calculation instead"
-            );
-        }
-        $weaponBaseOfWoundsValue = $weaponBaseOfWounds->getValue();
-        foreach ($values as $rowIndex => $row) {
-            if ($row[0] === $weaponBaseOfWoundsValue) {
-                return $values[$strengthAsColumnIndex][$rowIndex];
-            }
-        }
-        throw new Exceptions\NoRowExistsOnProvidedIndex(
-            "Given weapon base of wounds {$weaponBaseOfWounds} is out of known values, use base of wounds calculation instead"
-        );
     }
 
     /**
@@ -337,11 +304,12 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @param Strength $strength
      * @param IntegerInterface $weaponBaseOfWounds
      * @return int
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
-     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
-    public function calculateBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
+    public function getBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
     }
 

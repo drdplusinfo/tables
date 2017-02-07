@@ -1777,7 +1777,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getBaseOfWoundsTable')
             ->andReturn($baseOfWoundsTable = $this->mockery(BaseOfWoundsTable::class));
         /** @noinspection PhpUnusedParameterInspection */
-        $baseOfWoundsTable->shouldReceive('calculateBaseOfWounds')
+        $baseOfWoundsTable->shouldReceive('getBaseOfWounds')
             ->with($currentStrength, $this->type(IntegerInterface::class))
             ->andReturnUsing(function (Strength $currentStrength, IntegerInterface $weaponBaseOfWounds) {
                 self::assertSame(789, $weaponBaseOfWounds->getValue());

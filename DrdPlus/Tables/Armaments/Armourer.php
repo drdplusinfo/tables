@@ -778,7 +778,7 @@ class Armourer extends StrictObject
     {
         // weapon base of wounds has to be summed with strength via bonus summing, see PPH page 92 right column
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $baseOfWounds = $this->tables->getBaseOfWoundsTable()->calculateBaseOfWounds(
+        $baseOfWounds = $this->tables->getBaseOfWoundsTable()->getBaseOfWounds(
             $this->getApplicableStrength($weaponlikeCode, $currentStrength),
             new IntegerObject($this->getWoundsOfWeaponlike($weaponlikeCode))
         );
