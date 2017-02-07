@@ -33,7 +33,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     private $axisY;
 
     /**
-     * @return array|null|\string[][]
+     * @return array|null|\string[][]|\int[][]
      */
     public function getValues()
     {
@@ -104,7 +104,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * If gets two bonuses to sum, returns "base of wounds" + 5 according to note about bonuses summation.
+     * Returns "base of wounds" + 5 for every partial sum according to note about bonuses summation.
      * See note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu
      *
      * @param array|int|IntegerInterface[] $bonuses
@@ -279,6 +279,33 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
+     * @param Strength $strength
+     * @param IntegerInterface $weaponBaseOfWounds
+     * @return string
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
+     */
+    public function getBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
+    {
+        $values = $this->getValues();
+        $strengthAsColumnIndex = array_search($strength->getValue(), $values[0], true);
+        if ($strengthAsColumnIndex === false) {
+            throw new Exceptions\NoColumnExistsOnProvidedIndex(
+                "Given strength {$strength} is out of known values, use base of wounds calculation instead"
+            );
+        }
+        $weaponBaseOfWoundsValue = $weaponBaseOfWounds->getValue();
+        foreach ($values as $rowIndex => $row) {
+            if ($row[0] === $weaponBaseOfWoundsValue) {
+                return $values[$strengthAsColumnIndex][$rowIndex];
+            }
+        }
+        throw new Exceptions\NoRowExistsOnProvidedIndex(
+            "Given weapon base of wounds {$weaponBaseOfWounds} is out of known values, use base of wounds calculation instead"
+        );
+    }
+
+    /**
      * @param int|IntegerInterface $rowIndex
      * @param int|IntegerInterface $columnIndex
      * @return string
@@ -289,30 +316,31 @@ class BaseOfWoundsTable extends StrictObject implements Table
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $integerRowIndex = ToInteger::toInteger($rowIndex);
-        if (!array_key_exists($integerRowIndex, $this->getValues())) {
+        $values = $this->getValues();
+        if (!array_key_exists($integerRowIndex, $values)) {
             throw new Exceptions\NoRowExistsOnProvidedIndex(
                 'No row exists for given row index ' . ValueDescriber::describe($rowIndex)
             );
         }
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $integerColumnIndex = ToInteger::toInteger($columnIndex);
-        if (!array_key_exists($integerColumnIndex, $this->getValues()[$integerRowIndex])) {
+        if (!array_key_exists($integerColumnIndex, $values[$integerRowIndex])) {
             throw new Exceptions\NoColumnExistsOnProvidedIndex(
                 'No column exists for given column index ' . ValueDescriber::describe($columnIndex)
             );
         }
 
-        return $this->getValues()[$integerRowIndex][$integerColumnIndex];
+        return $values[$integerRowIndex][$integerColumnIndex];
     }
 
     /**
      * @param Strength $strength
-     * @param int|IntegerInterface $weaponBaseOfWounds
+     * @param IntegerInterface $weaponBaseOfWounds
      * @return int
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\SumOfBonusesResultsIntoNull
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\BonusToIntersectIsOutOfKnownValues
      */
-    public function calculateBaseOfWounds(Strength $strength, $weaponBaseOfWounds)
+    public function calculateBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
     {
         return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
     }

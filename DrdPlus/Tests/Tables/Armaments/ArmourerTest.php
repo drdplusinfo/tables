@@ -30,6 +30,7 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Tables;
+use Granam\Integer\IntegerInterface;
 use Granam\Integer\PositiveInteger;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -1775,9 +1776,14 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(789);
         $tables->shouldReceive('getBaseOfWoundsTable')
             ->andReturn($baseOfWoundsTable = $this->mockery(BaseOfWoundsTable::class));
+        /** @noinspection PhpUnusedParameterInspection */
         $baseOfWoundsTable->shouldReceive('calculateBaseOfWounds')
-            ->with($currentStrength, 789)
-            ->andReturn(456);
+            ->with($currentStrength, $this->type(IntegerInterface::class))
+            ->andReturnUsing(function (Strength $currentStrength, IntegerInterface $weaponBaseOfWounds) {
+                self::assertSame(789, $weaponBaseOfWounds->getValue());
+
+                return 456;
+            });
         $tables->shouldReceive('getWeaponlikeStrengthSanctionsTableByCode')
             ->andReturn($meleeWeaponSanctionsTable = $this->createMeleeWeaponSanctionsTable());
         $tables->shouldReceive('getArmamentsTableByArmamentCode')

@@ -16,6 +16,7 @@ use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Calculations\SumAndRound;
+use Granam\Integer\IntegerObject;
 use Granam\Integer\PositiveInteger;
 use Granam\Strict\Object\StrictObject;
 
@@ -779,7 +780,7 @@ class Armourer extends StrictObject
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $baseOfWounds = $this->tables->getBaseOfWoundsTable()->calculateBaseOfWounds(
             $this->getApplicableStrength($weaponlikeCode, $currentStrength),
-            $this->getWoundsOfWeaponlike($weaponlikeCode)
+            new IntegerObject($this->getWoundsOfWeaponlike($weaponlikeCode))
         );
         $baseOfWounds += $this->getBaseOfWoundsMalusByStrengthWithWeaponlike($weaponlikeCode, $currentStrength);
 

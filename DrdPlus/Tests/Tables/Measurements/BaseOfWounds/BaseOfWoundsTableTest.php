@@ -63,18 +63,79 @@ class BaseOfWoundsTableTest extends TableTest
 
     /**
      * @test
+     * @dataProvider provideStrengthAndWeaponBaseOfWoundsAndExpectedBaseOfWounds
+     * @param int $strengthValue
+     * @param int $weaponBaseOfWoundsValue
+     * @param int $expectedBaseOfWounds
      */
-    public function I_can_calculate_base_of_wounds()
+    public function I_can_get_and_calculate_base_of_wounds($strengthValue, $weaponBaseOfWoundsValue, $expectedBaseOfWounds)
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
+        $strength = Strength::getIt($strengthValue);
+        $weaponBaseOfWounds = new IntegerObject($weaponBaseOfWoundsValue);
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->calculateBaseOfWounds($strength, $weaponBaseOfWounds));
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumBonuses([$strength, $weaponBaseOfWounds]) - 5);
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->getBaseOfWounds($strength, $weaponBaseOfWounds));
+    }
 
-        self::assertSame(-4, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), -5));
-        self::assertSame(1, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(0), new IntegerObject(0)));
-        self::assertSame(21, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), 20));
-        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(-5), 20));
-        self::assertSame(15, $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(20), -5));
-        self::assertSame(15, $baseOfWoundsTable->getBonusesIntersection([20, -5]));
-        self::assertSame(7, $baseOfWoundsTable->getBonusesIntersection([-5, -4, new IntegerObject(-3), 10]));
+    public function provideStrengthAndWeaponBaseOfWoundsAndExpectedBaseOfWounds()
+    {
+        return [
+            [-5, -5, -4],
+            [0, 0, 1],
+            [20, 20, 21],
+            [-5, 20, 15],
+            [20, -5, 15],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @dataProvider provideValueOutOfRange
+     * @param int $strengthValue
+     */
+    public function I_have_to_let_calculate_base_of_wounds_for_strength_out_of_range($strengthValue)
+    {
+        (new BaseOfWoundsTable())->getBaseOfWounds(Strength::getIt($strengthValue), new IntegerObject(0));
+    }
+
+    public function provideValueOutOfRange()
+    {
+        return [
+            [-6],
+            [21],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
+     * @dataProvider provideValueOutOfRange
+     * @param int $weaponBaseOfWounds
+     */
+    public function I_have_to_let_calculate_base_of_wounds_for_weapon_base_of_wounds_out_of_range($weaponBaseOfWounds)
+    {
+        (new BaseOfWoundsTable())->getBaseOfWounds(Strength::getIt(0), new IntegerObject($weaponBaseOfWounds));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_calculate_even_complex_bonuses_intersection()
+    {
+        self::assertSame(
+            7,
+            (new BaseOfWoundsTable())->getBonusesIntersection([-5, -4, new IntegerObject(-3), 10])
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_same_value_as_single_bonus_intersection()
+    {
+        $baseOfWoundsTable = new BaseOfWoundsTable();
         for ($bonus = -5; $bonus <= 20; $bonus++) {
             self::assertSame($bonus, $baseOfWoundsTable->getBonusesIntersection([$bonus]));
         }
