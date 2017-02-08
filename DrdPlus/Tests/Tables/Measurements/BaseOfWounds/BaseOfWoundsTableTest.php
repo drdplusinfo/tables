@@ -68,7 +68,7 @@ class BaseOfWoundsTableTest extends TableTest
      * @param int $weaponBaseOfWoundsValue
      * @param int $expectedBaseOfWounds
      */
-    public function I_can_get_and_calculate_base_of_wounds($strengthValue, $weaponBaseOfWoundsValue, $expectedBaseOfWounds)
+    public function I_can_get_base_of_wounds($strengthValue, $weaponBaseOfWoundsValue, $expectedBaseOfWounds)
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
         $strength = Strength::getIt($strengthValue);
@@ -81,6 +81,11 @@ class BaseOfWoundsTableTest extends TableTest
     {
         return [
             [-5, -5, -4],
+            [-4, -5, -3],
+            [-3, -5, -3],
+            [-2, -5, -2],
+            [-1, -5, -2],
+            [0, -5, -1],
             [0, 0, 1],
             [20, 20, 21],
             [-5, 20, 15],
