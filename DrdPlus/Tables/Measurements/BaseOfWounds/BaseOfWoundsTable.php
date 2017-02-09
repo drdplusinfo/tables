@@ -138,7 +138,8 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * Warning - the result depends on the SEQUENCE of given bonuses.
+     * Warning - the result of more thant two bonuses depends on the SEQUENCE of given bonuses
+     * (sequence of pairs respectively).
      *
      * @param array|int[]|IntegerInterface[] $bonuses
      * @return int summarized bonuses
@@ -149,24 +150,37 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function getBonusesIntersection(array $bonuses)
     {
         while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $firstBonus = ToInteger::toInteger($firstBonus);
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $secondBonus = ToInteger::toInteger($secondBonus);
-            $columnRank = $this->getColumnRank($firstBonus);
-            $rowRank = $this->getRowRank($secondBonus);
-            $sumBonus = $this->getBonuses()[$rowRank][$columnRank];
+            $bonusesSum = $this->getBonusesSum($firstBonus, $secondBonus);
             if (count($bonuses) === 0) { // noting more to count
-                return $sumBonus;
+                return $bonusesSum;
             }
-            // warning - the result is dependent on the sequence of bonuses
-            array_unshift($bonuses, $sumBonus); // add the sum to the beginning and run another sum-iteration
+            // warning - the result is dependent on the sequence of bonuses if more than two
+            array_unshift($bonuses, $bonusesSum); // add the sum to the beginning and run another sum-iteration
         }
         if ($firstBonus !== null) {
             return $firstBonus; // the first if single bonus
         }
 
         throw new Exceptions\SumOfBonusesResultsIntoNull('Sum of ' . count($bonuses) . ' bonuses resulted into NULL');
+    }
+
+    /**
+     * @param $firstBonus
+     * @param $secondBonus
+     * @return int
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
+     * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
+     */
+    private function getBonusesSum($firstBonus, $secondBonus)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $firstBonus = ToInteger::toInteger($firstBonus);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $secondBonus = ToInteger::toInteger($secondBonus);
+        $columnRank = $this->getColumnRank($firstBonus);
+        $rowRank = $this->getRowRank($secondBonus);
+
+        return $this->getBonuses()[$rowRank][$columnRank];
     }
 
     /**
