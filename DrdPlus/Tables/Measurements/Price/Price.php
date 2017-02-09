@@ -13,12 +13,19 @@ class Price extends AbstractMeasurement
     /**
      * @param float $value
      * @param string $unit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function __construct($value, $unit)
     {
         parent::__construct($value, $unit);
     }
 
+    /**
+     * @return array|string[]
+     */
     public function getPossibleUnits()
     {
         return [self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN];
@@ -26,7 +33,7 @@ class Price extends AbstractMeasurement
 
     /**
      * @return int
-     * @noinspection PhpInconsistentReturnPointsInspection
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     public function getCopperCoins()
     {
@@ -44,7 +51,7 @@ class Price extends AbstractMeasurement
 
     /**
      * @return float
-     * @noinspection PhpInconsistentReturnPointsInspection
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     public function getSilverCoins()
     {
@@ -62,7 +69,7 @@ class Price extends AbstractMeasurement
 
     /**
      * @return float
-     * @noinspection PhpInconsistentReturnPointsInspection
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     public function getGoldCoins()
     {

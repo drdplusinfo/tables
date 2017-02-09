@@ -24,6 +24,7 @@ class Distance extends AbstractMeasurementWithBonus
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function __construct($value, $unit, DistanceTable $distanceTable)
     {
