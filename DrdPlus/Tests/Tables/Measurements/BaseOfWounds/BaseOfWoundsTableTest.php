@@ -68,13 +68,14 @@ class BaseOfWoundsTableTest extends TableTest
      * @param int $weaponBaseOfWoundsValue
      * @param int $expectedBaseOfWounds
      */
-    public function I_can_get_base_of_wounds($strengthValue, $weaponBaseOfWoundsValue, $expectedBaseOfWounds)
+    public function I_can_get_predefined_as_well_as_calculate_base_of_wounds($strengthValue, $weaponBaseOfWoundsValue, $expectedBaseOfWounds)
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
         $strength = Strength::getIt($strengthValue);
         $weaponBaseOfWounds = new IntegerObject($weaponBaseOfWoundsValue);
         self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->getBaseOfWounds($strength, $weaponBaseOfWounds));
         self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumBonuses([$strength, $weaponBaseOfWounds]) - 5);
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->calculateBaseOfWounds($strength, $weaponBaseOfWounds));
     }
 
     public function provideStrengthAndWeaponBaseOfWoundsAndExpectedBaseOfWounds()
@@ -114,6 +115,20 @@ class BaseOfWoundsTableTest extends TableTest
 
     /**
      * @test
+     * @dataProvider provideValueOutOfRange
+     * @param int $strengthValue
+     */
+    public function I_can_calculate_base_of_wounds_for_strength_even_out_of_range_of_table($strengthValue)
+    {
+        $baseOfWoundsTable = new BaseOfWoundsTable();
+        self::assertLessThanOrEqual(
+            $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt($strengthValue + 1), new IntegerObject(0)),
+            $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt($strengthValue), new IntegerObject(0))
+        );
+    }
+
+    /**
+     * @test
      * @expectedException \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      * @dataProvider provideValueOutOfRange
      * @param int $weaponBaseOfWounds
@@ -121,6 +136,20 @@ class BaseOfWoundsTableTest extends TableTest
     public function I_can_not_get_base_of_wounds_for_weapon_base_of_wounds_out_of_range($weaponBaseOfWounds)
     {
         (new BaseOfWoundsTable())->getBaseOfWounds(Strength::getIt(0), new IntegerObject($weaponBaseOfWounds));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideValueOutOfRange
+     * @param int $weaponBaseOfWounds
+     */
+    public function I_can_calculate_base_of_wounds_for_weapon_base_of_wounds_even_out_of_range_of_table($weaponBaseOfWounds)
+    {
+        $baseOfWoundsTable = new BaseOfWoundsTable();
+        self::assertLessThanOrEqual(
+            $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(0), new IntegerObject($weaponBaseOfWounds + 1)),
+            $baseOfWoundsTable->calculateBaseOfWounds(Strength::getIt(0), new IntegerObject($weaponBaseOfWounds))
+        );
     }
 
     /**

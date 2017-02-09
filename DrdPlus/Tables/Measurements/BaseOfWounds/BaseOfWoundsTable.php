@@ -1,10 +1,12 @@
 <?php
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
+use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Table;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
+use Granam\Number\NumberInterface;
 use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 
@@ -325,6 +327,44 @@ class BaseOfWoundsTable extends StrictObject implements Table
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
+    }
+
+    /**
+     * @param Strength $strength
+     * @param IntegerInterface $weaponBaseOfWounds
+     * @return int
+     */
+    public function calculateBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds)
+    {
+        $strengthAsValue = $this->calculateValueFromBonus($strength->getValue());
+        $weaponBaseOfWoundsAsValue = $this->calculateValueFromBonus($weaponBaseOfWounds->getValue());
+        $sumAsBonus = $this->calculateBonus($strengthAsValue + $weaponBaseOfWoundsAsValue);
+
+        /** @link https://pph.drdplus.jaroslavtyc.com/#vypocet_zakladu_zraneni */
+        return $sumAsBonus - 5;
+    }
+
+    /**
+     * @param int $bonus
+     * @return float
+     */
+    private function calculateValueFromBonus($bonus)
+    {
+        return pow(10, $bonus / 20 + 0.5);  // intentionally no rounding
+    }
+
+    /**
+     * @param number|NumberInterface $value
+     * @return int
+     */
+    private function calculateBonus($value)
+    {
+        /**
+         * Because doubled bonus = bonus + 6 and ten-multiply bonus = bonus + 20
+         *
+         * @link https://pph.drdplus.jaroslavtyc.com/#scitani_a_odcitani
+         */
+        return SumAndRound::round(20 * log10($value) - 10);
     }
 
     /**
