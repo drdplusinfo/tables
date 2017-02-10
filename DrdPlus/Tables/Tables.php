@@ -84,7 +84,7 @@ use DrdPlus\Tables\History\InfluenceOfFortuneTable;
 use DrdPlus\Tables\History\PlayerDecisionsTable;
 use DrdPlus\Tables\History\PossessionTable;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
-use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
+use DrdPlus\Tables\Riding\RidingAnimalsAndFlyingBeastsMovementTypesTable;
 use DrdPlus\Tables\Riding\RidingAnimalsTable;
 use DrdPlus\Tables\Riding\WoundsOnFallFromHorseTable;
 use DrdPlus\Tables\Measurements\Amount\AmountTable;
@@ -698,18 +698,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return RidingAnimalMovementTypesTable
+     * @return RidingAnimalsAndFlyingBeastsMovementTypesTable
      */
-    public function getRidingAnimalMovementTypesTable()
+    public function getRidingAnimalsAndFlyingBeastsMovementTypesTable()
     {
-        if (!array_key_exists(RidingAnimalMovementTypesTable::class, $this->tables)) {
-            $this->tables[RidingAnimalMovementTypesTable::class] = new RidingAnimalMovementTypesTable(
+        if (!array_key_exists(RidingAnimalsAndFlyingBeastsMovementTypesTable::class, $this->tables)) {
+            $this->tables[RidingAnimalsAndFlyingBeastsMovementTypesTable::class] = new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $this->getSpeedTable(),
                 $this->getMovementTypesTable()
             );
         }
 
-        return $this->tables[RidingAnimalMovementTypesTable::class];
+        return $this->tables[RidingAnimalsAndFlyingBeastsMovementTypesTable::class];
     }
 
     /**
@@ -1043,7 +1043,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getFatigueByLoadTable(),
             $this->getRestingBySituationTable(),
             $this->getRidesByMovementTypeTable(),
-            $this->getRidingAnimalMovementTypesTable(),
+            $this->getRidingAnimalsAndFlyingBeastsMovementTypesTable(),
             $this->getRidingAnimalsTable(),
             $this->getWoundsOnFallFromHorseTable(),
             $this->getCombatActionsCompatibilityTable(),

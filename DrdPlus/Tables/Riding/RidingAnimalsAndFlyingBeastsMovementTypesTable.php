@@ -14,7 +14,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
  * See PPH page 121 right column, @link
  * https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu_jezdeckych_zvirat_a_leteckych_nestvur
  */
-class RidingAnimalMovementTypesTable extends AbstractFileTable
+class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
 {
     /**
      * @var SpeedTable
@@ -40,7 +40,7 @@ class RidingAnimalMovementTypesTable extends AbstractFileTable
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/riding_animal_movement_types.csv';
+        return __DIR__ . '/data/riding_animals_and_flying_beasts_movement_types.csv';
     }
 
     const MOVEMENT_TYPE = 'movement_type';

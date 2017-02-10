@@ -4,14 +4,14 @@ namespace DrdPlus\Tests\Tables\Riding;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
-use DrdPlus\Tables\Riding\RidingAnimalMovementTypesTable;
+use DrdPlus\Tables\Riding\RidingAnimalsAndFlyingBeastsMovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\TableTest;
 
-class RidingAnimalMovementTypesTableTest extends TableTest
+class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
 {
     /**
      * @test
@@ -22,7 +22,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
             [
                 ['movement_type', 'bonus_to_movement_speed', 'fatigue_like']
             ],
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getHeader()
@@ -36,28 +36,28 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertSame(
             [
-                RidingAnimalMovementTypesTable::STILL => [
-                    RidingAnimalMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 0,
-                    RidingAnimalMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::WAITING,
+                RidingAnimalsAndFlyingBeastsMovementTypesTable::STILL => [
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 0,
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::WAITING,
                 ],
-                RidingAnimalMovementTypesTable::GAIT => [
-                    RidingAnimalMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 23,
-                    RidingAnimalMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::WALK,
+                RidingAnimalsAndFlyingBeastsMovementTypesTable::GAIT => [
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 23,
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::WALK,
                 ],
-                RidingAnimalMovementTypesTable::TROT => [
-                    RidingAnimalMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 27,
-                    RidingAnimalMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::RUSH,
+                RidingAnimalsAndFlyingBeastsMovementTypesTable::TROT => [
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 27,
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::RUSH,
                 ],
-                RidingAnimalMovementTypesTable::CANTER => [
-                    RidingAnimalMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 34,
-                    RidingAnimalMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::RUN,
+                RidingAnimalsAndFlyingBeastsMovementTypesTable::CANTER => [
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 34,
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::RUN,
                 ],
-                RidingAnimalMovementTypesTable::GALLOP => [
-                    RidingAnimalMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 39,
-                    RidingAnimalMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::SPRINT,
+                RidingAnimalsAndFlyingBeastsMovementTypesTable::GALLOP => [
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::BONUS_TO_MOVEMENT_SPEED => 39,
+                    RidingAnimalsAndFlyingBeastsMovementTypesTable::FATIGUE_LIKE => MovementTypesTable::SPRINT,
                 ],
             ],
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getIndexedValues()
@@ -74,7 +74,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus($expectedSpeedBonus, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonus(RidingAnimalMovementCode::getIt($ridingAnimalMovement))
@@ -96,7 +96,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus(0, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusWhenStill()
@@ -110,7 +110,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus(23, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnGait()
@@ -124,7 +124,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus(27, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnTrot()
@@ -138,7 +138,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus(34, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnCanter()
@@ -152,7 +152,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new SpeedBonus(39, $speedTable = new SpeedTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getSpeedBonusOnGallop()
@@ -169,7 +169,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             $period,
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt($movementCode))
@@ -193,7 +193,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new Time(1, Time::HOUR, new TimeTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnGait()
@@ -207,7 +207,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new Time(0.5, Time::HOUR, new TimeTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnTrot()
@@ -221,7 +221,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new Time(5, Time::MINUTE, new TimeTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnCanter()
@@ -235,7 +235,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
     {
         self::assertEquals(
             new Time(2, Time::ROUND, new TimeTable()),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getPeriodForPointOfFatigueOnGallop()
@@ -254,7 +254,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
 
         self::assertEquals(
             $movementTypesTable->getMaximumTimeBonusToSprint($endurance),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable,
                 new MovementTypesTable($speedTable, $timeTable)
             ))->getMaximumTimeBonusToGallop($endurance)
@@ -286,7 +286,7 @@ class RidingAnimalMovementTypesTableTest extends TableTest
 
         self::assertEquals(
             $movementTypesTable->getRequiredTimeBonusToWalkAfterFullSprint($endurance),
-            (new RidingAnimalMovementTypesTable(
+            (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
             ))->getRequiredTimeBonusToWalkAfterFullGallop($endurance)
