@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Partials;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Tests\Tools\TestWithMockery;
 
-class AbstractFileTableTest extends TestWithMockery
+final class AbstractFileTableTest extends TestWithMockery
 {
     /**
      * @test
