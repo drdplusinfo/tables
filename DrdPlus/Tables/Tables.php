@@ -75,8 +75,10 @@ use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Combat\Actions\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Environments\MalusesToAutomaticSearchingTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
+use DrdPlus\Tables\Environments\StealthinessTable;
 use DrdPlus\Tables\History\AncestryTable;
 use DrdPlus\Tables\History\BackgroundPointsDistributionTable;
 use DrdPlus\Tables\History\BackgroundPointsTable;
@@ -991,6 +993,30 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return MalusesToAutomaticSearchingTable
+     */
+    public function getMalusesToAutomaticSearchingTable()
+    {
+        if (!array_key_exists(MalusesToAutomaticSearchingTable::class, $this->tables)) {
+            $this->tables[MalusesToAutomaticSearchingTable::class] = new MalusesToAutomaticSearchingTable();
+        }
+
+        return $this->tables[MalusesToAutomaticSearchingTable::class];
+    }
+
+    /**
+     * @return StealthinessTable
+     */
+    public function getStealthinessTable()
+    {
+        if (!array_key_exists(StealthinessTable::class, $this->tables)) {
+            $this->tables[StealthinessTable::class] = new StealthinessTable();
+        }
+
+        return $this->tables[StealthinessTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -1067,6 +1093,8 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getAspectsOfVisageTable(),
             $this->getLandingSurfacesTable(),
             $this->getJumpsAndFallsTable(),
+            $this->getMalusesToAutomaticSearchingTable(),
+            $this->getStealthinessTable(),
         ]);
     }
 
