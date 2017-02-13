@@ -16,7 +16,7 @@
     "granam/integer": "dev-master",
     "granam/number": "dev-master",
     "granam/boolean": "dev-master",
-    "drd/dice-roll": "dev-master",
+    "drd/dice-rolls": "dev-master",
     "drd-plus/codes": "dev-master",
     "drd-plus/properties": "dev-master",
     "drd-plus/calculations": "dev-master"

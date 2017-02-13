@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Amount;
 
-use Drd\DiceRoll\Templates\Rollers\Roller1d6;
+use Drd\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;

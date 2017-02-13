@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
-use Drd\DiceRoll\Templates\Rolls\Roll1d6;
+use Drd\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;

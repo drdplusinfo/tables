@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Tools;
 
-use Drd\DiceRoll\Templates\Rollers\Roller1d6;
+use Drd\DiceRolls\Templates\Rollers\Roller1d6;
 
 class DiceChanceEvaluator implements EvaluatorInterface
 {

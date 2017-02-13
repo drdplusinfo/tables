@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
-use Drd\DiceRoll\Templates\Rollers\Roller1d6;
+use Drd\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 use Granam\Integer\IntegerObject;
 use Granam\Tests\Tools\TestWithMockery;
