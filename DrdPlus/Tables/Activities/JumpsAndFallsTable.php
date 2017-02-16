@@ -1,5 +1,5 @@
 <?php
-namespace DrdPlus\Tables\Environments;
+namespace DrdPlus\Tables\Activities;
 
 use Drd\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Calculations\SumAndRound;
@@ -10,6 +10,7 @@ use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Body\Weight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
+use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;

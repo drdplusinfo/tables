@@ -13,7 +13,7 @@ use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Tables\Body\AspectsOfVisageTable;
-use DrdPlus\Tables\Environments\JumpsAndFallsTable;
+use DrdPlus\Tables\Activities\JumpsAndFallsTable;
 use DrdPlus\Tables\Body\WoundAndFatigueBoundariesTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
