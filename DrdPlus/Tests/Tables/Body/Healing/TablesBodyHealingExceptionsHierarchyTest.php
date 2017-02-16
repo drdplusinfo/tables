@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Body\MovementTypes;
+namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Tables\Table;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class TablesBodyHealingExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     /**
      * @return string

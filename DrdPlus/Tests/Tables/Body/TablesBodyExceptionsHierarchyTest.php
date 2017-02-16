@@ -1,10 +1,10 @@
 <?php
-namespace DrdPlus\Tests\Tables\Body\FatigueByLoad;
+namespace DrdPlus\Tests\Tables\Body;
 
 use DrdPlus\Tables\Table;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class TablesBodyExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
     /**
      * @return string

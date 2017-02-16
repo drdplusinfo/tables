@@ -3,10 +3,13 @@ namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Measurements\Measurement;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
-use Granam\Tests\Exceptions\Tools\AbstractExceptionsHierarchyTest;
+use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
-class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
+class TablesMeasurementsPartialsExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
+    /**
+     * @return string
+     */
     protected function getTestedNamespace()
     {
         $abstractTableReflection = new \ReflectionClass(AbstractMeasurement::class);
@@ -14,6 +17,9 @@ class ExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
         return $abstractTableReflection->getNamespaceName();
     }
 
+    /**
+     * @return string
+     */
     protected function getRootNamespace()
     {
         $measurementReflection = new \ReflectionClass(Measurement::class);

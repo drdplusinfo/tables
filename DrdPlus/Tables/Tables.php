@@ -12,6 +12,7 @@ use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Tables\Activities\CatchQualitiesTable;
 use DrdPlus\Tables\Body\AspectsOfVisageTable;
 use DrdPlus\Tables\Activities\JumpsAndFallsTable;
 use DrdPlus\Tables\Body\WoundAndFatigueBoundariesTable;
@@ -1017,6 +1018,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return CatchQualitiesTable
+     */
+    public function getCatchQualitiesTable()
+    {
+        if (!array_key_exists(CatchQualitiesTable::class, $this->tables)) {
+            $this->tables[CatchQualitiesTable::class] = new CatchQualitiesTable();
+        }
+
+        return $this->tables[CatchQualitiesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -1095,6 +1108,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getJumpsAndFallsTable(),
             $this->getMalusesToAutomaticSearchingTable(),
             $this->getStealthinessTable(),
+            $this->getCatchQualitiesTable(),
         ]);
     }
 
