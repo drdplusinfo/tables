@@ -2,8 +2,9 @@
 namespace DrdPlus\Tests\Tables;
 
 use DrdPlus\Tables\Table;
+use PHPUnit\Framework\TestCase;
 
-class EveryTableTest extends \PHPUnit_Framework_TestCase
+class EveryTableTest extends TestCase
 {
     /**
      * @test

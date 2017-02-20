@@ -2,8 +2,9 @@
 namespace DrdPlus\Tests\Tables\Partials;
 
 use DrdPlus\Tables\Partials\Percents;
+use PHPUnit\Framework\TestCase;
 
-abstract class PercentsTest extends \PHPUnit_Framework_TestCase
+abstract class PercentsTest extends TestCase
 {
     /**
      * @test

@@ -3,8 +3,9 @@ namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Tables\Riding\Ride;
 use Granam\Integer\IntegerInterface;
+use PHPUnit\Framework\TestCase;
 
-class RideTest extends \PHPUnit_Framework_TestCase
+class RideTest extends TestCase
 {
     /**
      * @test
