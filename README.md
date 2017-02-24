@@ -8,6 +8,8 @@
 [JumpsAndFallsTable](./DrdPlus/Tables/Environments/JumpsAndFallsTable.php) automatically lowers wounds from fall (or jump) by an armour protection, despite rules
 which DM should decide about portion of reduced damage by himself.
 
+### Description
+
 Over sixty tables used for calculation and information in DrD+.
 
 - Table is optional. Measurement is what made it real.
