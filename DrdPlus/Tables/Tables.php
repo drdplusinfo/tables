@@ -75,7 +75,7 @@ use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
-use DrdPlus\Tables\Combat\Actions\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Activities\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tables\Environments\MalusesToAutomaticSearchingTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;

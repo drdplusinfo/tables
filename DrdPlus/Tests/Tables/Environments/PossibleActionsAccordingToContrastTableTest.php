@@ -1,8 +1,8 @@
 <?php
-namespace DrdPlus\Tests\Tables\Combat\Actions;
+namespace DrdPlus\Tests\Tables\Activities;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
-use DrdPlus\Tables\Combat\Actions\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Activities\PossibleActionsAccordingToContrastTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
 
@@ -73,13 +73,13 @@ class PossibleActionsAccordingToContrastTableTest extends TableTest
     public function provideContrastAndExpectedFightType()
     {
         return [
-            [0,'common'],
-            [1,CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
-            [2,CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
-            [3,CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
-            [4,CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
-            [5,CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
-            [6,CombatActionCode::BLINDFOLD_FIGHT]
+            [0, 'common'],
+            [1, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
+            [2, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
+            [3, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
+            [4, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
+            [5, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
+            [6, CombatActionCode::BLINDFOLD_FIGHT],
         ];
     }
 }
