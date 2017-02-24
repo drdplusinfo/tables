@@ -61,7 +61,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      *
      * @param Time $originalActivityTime
      * @param int $hoursPerDay
-     * @param bool $activityIsNotLimitedByTime = false
+     * @param bool $activityIsNotLimitedByTime
      * @return Time
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotProlongActivityPerDayWithLimitedTime
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\NotApplicableOnShorterThanDay
@@ -71,7 +71,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function adjustBy(Time $originalActivityTime, $hoursPerDay, $activityIsNotLimitedByTime = false)
+    public function adjustBy(Time $originalActivityTime, $hoursPerDay, $activityIsNotLimitedByTime)
     {
         $inDays = $originalActivityTime->findDays();
         if (($inDays !== null && $inDays->getValue() < 1)

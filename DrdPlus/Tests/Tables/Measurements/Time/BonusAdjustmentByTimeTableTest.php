@@ -70,7 +70,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_less_than_a_day()
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustBy(new Time(0.9, Time::DAY, new TimeTable()), 15);
+        $bonusAdjustmentByTimeTable->adjustBy(new Time(0.9, Time::DAY, new TimeTable()), 15, false);
     }
 
     /**
@@ -103,10 +103,10 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable($timeTable);
         $original = new Time(10, Time::DAY, $timeTable);
         try {
-            $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 10);
+            $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 10, false);
             self::assertGreaterThan($original->getValue(), $lessTimePerDay->getValue());
 
-            $same = $bonusAdjustmentByTimeTable->adjustBy($original, 12);
+            $same = $bonusAdjustmentByTimeTable->adjustBy($original, 12, false);
             self::assertSame($original->getValue(), $same->getValue());
 
             $moreTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 20, true /* unlimited */);
@@ -114,6 +114,6 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         } catch (\Exception $exception) {
             self::fail('No exceptions has been expected so far: ' . $exception->getTraceAsString());
         }
-        $bonusAdjustmentByTimeTable->adjustBy($original, 13);
+        $bonusAdjustmentByTimeTable->adjustBy($original, 13, false);
     }
 }
