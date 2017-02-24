@@ -16,32 +16,48 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      */
     private $timeTable;
 
+    /**
+     * @param TimeTable $timeTable
+     */
     public function __construct(TimeTable $timeTable)
     {
         $this->timeTable = $timeTable;
     }
 
+    /**
+     * @return string
+     */
     protected function getDataFileName()
     {
         return __DIR__ . '/data/bonus_adjustment_by_time.csv';
     }
 
+    const HOURS_OF_ACTIVITY_PER_DAY = 'hours_of_activity_per_day';
+
+    /**
+     * @return array|string[]
+     */
     protected function getRowsHeader()
     {
-        return ['hours_of_activity_per_day'];
+        return [self::HOURS_OF_ACTIVITY_PER_DAY];
     }
 
-    const ADJUSTMENT_HEADER = 'adjustment';
+    const ADJUSTMENT = 'adjustment';
 
+    /**
+     * @return array|string[]
+     */
     protected function getExpectedDataHeaderNamesToTypes()
     {
         return [
-            self::ADJUSTMENT_HEADER => self::INTEGER
+            self::ADJUSTMENT => self::INTEGER,
         ];
     }
 
     /**
-     * Warning! Only activity with unlimited maximal time can get bonus by slowing down, other activities can get only malus by speeding up.
+     * Warning! Only activity with unlimited maximal time can get bonus by taking more time (slowing down),
+     * other activities can get only malus by speeding up.
+     *
      * @param Time $originalActivityTime
      * @param int $hoursPerDay
      * @param bool $activityIsNotLimitedByTime = false
@@ -94,7 +110,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return $this->getValue([ToInteger::toInteger($hoursPerDay)], self::ADJUSTMENT_HEADER);
+            return $this->getValue([ToInteger::toInteger($hoursPerDay)], self::ADJUSTMENT);
         } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnexpectedHoursPerDayForTimeBonusAdjustment(
                 'Expected 1 to 24 hours of activity per day, got ' . ValueDescriber::describe($hoursPerDay)

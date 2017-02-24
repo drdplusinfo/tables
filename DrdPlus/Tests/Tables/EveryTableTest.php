@@ -9,7 +9,7 @@ class EveryTableTest extends TestCase
     /**
      * @test
      */
-    public function All_tables_have_table_interface()
+    public function It_has_table_interface()
     {
         self::assertTrue(method_exists(Table::class, 'getIndexedValues'));
         self::assertTrue(method_exists(Table::class, 'getValues'));
@@ -22,6 +22,9 @@ class EveryTableTest extends TestCase
         }
     }
 
+    /**
+     * @return array|string[]
+     */
     public static function getTableClasses()
     {
         $tablesReflection = new \ReflectionClass(Table::class);
@@ -31,7 +34,12 @@ class EveryTableTest extends TestCase
         return self::scanForTables($rootDir, $rootNamespace);
     }
 
-    private static function scanForTables($rootDir, $rootNamespace)
+    /**
+     * @param string $rootDir
+     * @param string $rootNamespace
+     * @return array
+     */
+    private static function scanForTables(string $rootDir, string $rootNamespace)
     {
         $tableClasses = [];
         foreach (scandir($rootDir) as $fileOrDir) {
