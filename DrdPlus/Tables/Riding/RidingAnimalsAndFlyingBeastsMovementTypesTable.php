@@ -11,8 +11,7 @@ use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 121 right column, @link
- * https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu_jezdeckych_zvirat_a_leteckych_nestvur
+ * See PPH page 121 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu_jezdeckych_zvirat_a_leteckych_nestvur
  */
 class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
 {

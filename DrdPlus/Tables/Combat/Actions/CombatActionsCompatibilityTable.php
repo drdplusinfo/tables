@@ -9,8 +9,8 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
- * See PPH page 102 @link https://pph.drdplus.jaroslavtyc.com/#bojove_akce
- * and PPH page 107 @link https://pph.drdplus.jaroslavtyc.com/#dalsi_bojove_akce
+ * See PPH page 102, @link https://pph.drdplus.jaroslavtyc.com/#bojove_akce
+ * and PPH page 107, @link https://pph.drdplus.jaroslavtyc.com/#dalsi_bojove_akce
  */
 class CombatActionsCompatibilityTable extends AbstractFileTable
 {

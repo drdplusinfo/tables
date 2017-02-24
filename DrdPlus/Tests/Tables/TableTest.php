@@ -17,8 +17,10 @@ abstract class TableTest extends TestWithMockery
             'Missing annotation with PPH reference for table ' . self::getSutClass()
             . " in format \n/**\n * See PPH page ?, @link \n */"
         );
-        self::assertRegExp(
-            '~\s+[Ss]ee PPH page \d+(,? ((left|right) column|top|bottom))?~',
+        self::assertRegExp(<<<'REGEXP'
+~\s+[Ss]ee PPH page \d+(,? ((left|right) column( top| bottom)?|top|bottom)( \(table without name\))?)?, @link https://pph\.drdplus\.jaroslavtyc\.com/.+~
+REGEXP
+            ,
             $docComment,
             'Missing PPH page reference for table ' . self::getSutClass()
         );

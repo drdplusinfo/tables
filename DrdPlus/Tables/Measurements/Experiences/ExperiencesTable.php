@@ -7,7 +7,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 
 /**
- * See PPH page 44 top right, @link https://pph.drdplus.jaroslavtyc.com/#postup_na_vyssi_uroven
+ * See PPH page 44 right column top, @link https://pph.drdplus.jaroslavtyc.com/#postup_na_vyssi_uroven
  */
 class ExperiencesTable extends AbstractTable
 {

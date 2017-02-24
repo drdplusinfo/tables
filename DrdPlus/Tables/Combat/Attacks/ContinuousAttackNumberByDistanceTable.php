@@ -6,7 +6,8 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use Granam\Float\Tools\ToFloat;
 
 /**
- * Data are calculated as -((Distance bonus / 2) - 9), see PPH page 104
+ * Data are calculated as -((Distance bonus / 2) - 9),
+ * see PPH page 104, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_oprav_za_vzdalenost
  */
 class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
 {
