@@ -2,11 +2,11 @@
 namespace DrdPlus\Tests\Tables\Activities;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
-use DrdPlus\Tables\Activities\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Activities\PossibleActivitiesAccordingToContrastTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveIntegerObject;
 
-class PossibleActionsAccordingToContrastTableTest extends TableTest
+class PossibleActivitiesAccordingToContrastTableTest extends TableTest
 {
     /**
      * @test
@@ -15,11 +15,11 @@ class PossibleActionsAccordingToContrastTableTest extends TableTest
     {
         self::assertSame(
             [[
-                PossibleActionsAccordingToContrastTable::CONTRAST,
-                PossibleActionsAccordingToContrastTable::POSSIBLE_ACTIONS_EXAMPLE,
-                PossibleActionsAccordingToContrastTable::FIGHT_TYPE_BY_CONTRAST,
+                PossibleActivitiesAccordingToContrastTable::CONTRAST,
+                PossibleActivitiesAccordingToContrastTable::POSSIBLE_ACTIVITIES_EXAMPLE,
+                PossibleActivitiesAccordingToContrastTable::FIGHT_TYPE_BY_CONTRAST,
             ]],
-            (new PossibleActionsAccordingToContrastTable())->getHeader()
+            (new PossibleActivitiesAccordingToContrastTable())->getHeader()
         );
     }
 
@@ -31,7 +31,7 @@ class PossibleActionsAccordingToContrastTableTest extends TableTest
      */
     public function I_can_get_possible_actions_example($contrastValue, array $expectedActionExamples)
     {
-        $possibleActionsAccordingToLighting = new PossibleActionsAccordingToContrastTable();
+        $possibleActionsAccordingToLighting = new PossibleActivitiesAccordingToContrastTable();
         $possibleActionsExample = $possibleActionsAccordingToLighting
             ->getPossibleActionsExample(new PositiveIntegerObject($contrastValue));
         foreach ($expectedActionExamples as $expectedActionExample) {
@@ -63,7 +63,7 @@ class PossibleActionsAccordingToContrastTableTest extends TableTest
      */
     public function I_can_get_light_type_by_contrast($contrastValue, $expectedFightType)
     {
-        $possibleActionsAccordingToLighting = new PossibleActionsAccordingToContrastTable();
+        $possibleActionsAccordingToLighting = new PossibleActivitiesAccordingToContrastTable();
         self::assertSame(
             $expectedFightType,
             $possibleActionsAccordingToLighting->getFightTypeByContrast(new PositiveIntegerObject($contrastValue))

@@ -7,17 +7,17 @@ use Granam\Integer\PositiveInteger;
 /**
  * See PPH page 129, left column (table without name), @link https://pph.drdplus.jaroslavtyc.com/#tabulka_moznych_cinnosti_podle_kontrastu
  */
-class PossibleActionsAccordingToContrastTable extends AbstractFileTable
+class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
 {
     /**
      * @return string
      */
     protected function getDataFileName()
     {
-        return __DIR__ . '/data/possible_actions_according_to_contrast.csv';
+        return __DIR__ . '/data/possible_activities_according_to_contrast.csv';
     }
 
-    const POSSIBLE_ACTIONS_EXAMPLE = 'possible_actions_example';
+    const POSSIBLE_ACTIVITIES_EXAMPLE = 'possible_activities_example';
     const FIGHT_TYPE_BY_CONTRAST = 'fight_type_by_contrast';
 
     /**
@@ -25,7 +25,7 @@ class PossibleActionsAccordingToContrastTable extends AbstractFileTable
      */
     protected function getExpectedDataHeaderNamesToTypes()
     {
-        return [self::POSSIBLE_ACTIONS_EXAMPLE => self::STRING, self::FIGHT_TYPE_BY_CONTRAST => self::STRING];
+        return [self::POSSIBLE_ACTIVITIES_EXAMPLE => self::STRING, self::FIGHT_TYPE_BY_CONTRAST => self::STRING];
     }
 
     const CONTRAST = 'contrast';
@@ -45,7 +45,7 @@ class PossibleActionsAccordingToContrastTable extends AbstractFileTable
     public function getPossibleActionsExample(PositiveInteger $contrast)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPossibility($contrast, self::POSSIBLE_ACTIONS_EXAMPLE);
+        return $this->getPossibility($contrast, self::POSSIBLE_ACTIVITIES_EXAMPLE);
     }
 
     /**

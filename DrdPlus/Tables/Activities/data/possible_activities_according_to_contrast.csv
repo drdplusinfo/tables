@@ -1,4 +1,4 @@
-contrast,possible_actions_example,fight_type_by_contrast
+contrast,possible_activities_example,fight_type_by_contrast
 0,all,common
 1,"reading, sewing",fight_in_reduced_visibility
 2,"very problematic reading, can not recognize a color",fight_in_reduced_visibility

@@ -75,7 +75,7 @@ use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
 use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
-use DrdPlus\Tables\Activities\PossibleActionsAccordingToContrastTable;
+use DrdPlus\Tables\Activities\PossibleActivitiesAccordingToContrastTable;
 use DrdPlus\Tables\Environments\MalusesToAutomaticSearchingTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
@@ -802,15 +802,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return PossibleActionsAccordingToContrastTable
+     * @return PossibleActivitiesAccordingToContrastTable
      */
-    public function getPossibleActionsAccordingToContrastTable()
+    public function getPossibleActivitiesAccordingToContrastTable()
     {
-        if (!array_key_exists(PossibleActionsAccordingToContrastTable::class, $this->tables)) {
-            $this->tables[PossibleActionsAccordingToContrastTable::class] = new PossibleActionsAccordingToContrastTable();
+        if (!array_key_exists(PossibleActivitiesAccordingToContrastTable::class, $this->tables)) {
+            $this->tables[PossibleActivitiesAccordingToContrastTable::class] = new PossibleActivitiesAccordingToContrastTable();
         }
 
-        return $this->tables[PossibleActionsAccordingToContrastTable::class];
+        return $this->tables[PossibleActivitiesAccordingToContrastTable::class];
     }
 
     /**
@@ -1090,7 +1090,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getLightingQualityTable(),
             $this->getPowerOfLightSourcesTable(),
             $this->getImprovementOfLightSourceTable(),
-            $this->getPossibleActionsAccordingToContrastTable(),
+            $this->getPossibleActivitiesAccordingToContrastTable(),
             $this->getSightRangesTable(),
             $this->getProfessionPrimaryPropertiesTable(),
             $this->getBackgroundPointsTable(),
