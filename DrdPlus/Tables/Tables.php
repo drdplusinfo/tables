@@ -77,6 +77,7 @@ use DrdPlus\Tables\Environments\ImprovementOfLightSourceTable;
 use DrdPlus\Tables\Environments\LightingQualityTable;
 use DrdPlus\Tables\Activities\PossibleActivitiesAccordingToContrastTable;
 use DrdPlus\Tables\Environments\MalusesToAutomaticSearchingTable;
+use DrdPlus\Tables\Environments\MaterialResistancesTable;
 use DrdPlus\Tables\Environments\PowerOfLightSourcesTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Environments\StealthinessTable;
@@ -1030,6 +1031,18 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
+     * @return MaterialResistancesTable
+     */
+    public function getMaterialResistancesTable()
+    {
+        if (!array_key_exists(MaterialResistancesTable::class, $this->tables)) {
+            $this->tables[MaterialResistancesTable::class] = new MaterialResistancesTable();
+        }
+
+        return $this->tables[MaterialResistancesTable::class];
+    }
+
+    /**
      * @return \ArrayObject
      */
     public function getIterator()
@@ -1109,6 +1122,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getMalusesToAutomaticSearchingTable(),
             $this->getStealthinessTable(),
             $this->getCatchQualitiesTable(),
+            $this->getMaterialResistancesTable(),
         ]);
     }
 
