@@ -1,9 +1,11 @@
 <?php
 namespace DrdPlus\Tests\Tables\Environments;
 
+use Drd\DiceRolls\Templates\Rolls\Roll2d6DrdPlus;
 use DrdPlus\Codes\Environment\MaterialCode;
 use DrdPlus\Tables\Environments\MaterialResistancesTable;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\Integer\IntegerObject;
 
 class MaterialResistancesTableTest extends TableTest
 {
@@ -57,5 +59,53 @@ class MaterialResistancesTableTest extends TableTest
             ->andReturn($value);
 
         return $materialCode;
+    }
+
+    /**
+     * @test
+     * @dataProvider provideValuesToDamageSomething
+     * @param string $materialName
+     * @param int $powerOfDestruction
+     * @param int $roll
+     * @param bool $hasItBeenDamaged
+     */
+    public function I_can_find_out_if_something_has_been_damaged(
+        string $materialName,
+        int $powerOfDestruction,
+        int $roll,
+        bool $hasItBeenDamaged
+    )
+    {
+        $materialResistancesTable = new MaterialResistancesTable();
+        self::assertSame(
+            $hasItBeenDamaged,
+            $materialResistancesTable->hasItBeenDamaged(
+                MaterialCode::getIt($materialName),
+                new IntegerObject($powerOfDestruction),
+                $this->createRoll2d6DrdPlus($roll)
+            )
+        );
+    }
+
+    public function provideValuesToDamageSomething()
+    {
+        return [
+            [MaterialCode::BAKED_CAY, 10, 7, false], // one less
+            [MaterialCode::BAKED_CAY, 10, 8, false], // equal
+            [MaterialCode::BAKED_CAY, 10, 9, true],
+        ];
+    }
+
+    /**
+     * @param $value
+     * @return \Mockery\MockInterface|Roll2d6DrdPlus
+     */
+    private function createRoll2d6DrdPlus($value)
+    {
+        $roll = $this->mockery(Roll2d6DrdPlus::class);
+        $roll->shouldReceive('getValue')
+            ->andReturn($value);
+
+        return $roll;
     }
 }

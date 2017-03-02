@@ -1,9 +1,11 @@
 <?php
 namespace DrdPlus\Tables\Environments;
 
+use Drd\DiceRolls\Templates\Rolls\Roll2d6DrdPlus;
 use DrdPlus\Codes\Environment\MaterialCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\Integer\IntegerInterface;
 
 /**
  * See PPH page 133 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_odolnosti_materialu
@@ -45,7 +47,7 @@ class MaterialResistancesTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownMaterialToGetResistanceFor
      */
-    public function getResistanceOfMaterial(MaterialCode $materialCode)
+    public function getResistanceOfMaterial(MaterialCode $materialCode): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -55,6 +57,23 @@ class MaterialResistancesTable extends AbstractFileTable
                 "Given '{$materialCode}' material is unknown"
             );
         }
+    }
+
+    /**
+     * @param MaterialCode $materialCode
+     * @param IntegerInterface $powerOfDestruction
+     * @param Roll2d6DrdPlus $roll2D6DrdPlus
+     * @return bool
+     * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownMaterialToGetResistanceFor
+     */
+    public function hasItBeenDamaged(
+        MaterialCode $materialCode,
+        IntegerInterface $powerOfDestruction,
+        Roll2d6DrdPlus $roll2D6DrdPlus
+    ): bool
+    {
+        return $this->getResistanceOfMaterial($materialCode)
+            < ($powerOfDestruction->getValue() + $roll2D6DrdPlus->getValue());
     }
 
 }
