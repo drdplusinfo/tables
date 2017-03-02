@@ -4,6 +4,8 @@ namespace DrdPlus\Tables\Measurements\Time;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 use Granam\Integer\Tools\ToInteger;
+use Granam\Scalar\Tools\ToString;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 class Time extends AbstractMeasurement implements MeasurementWithBonus
@@ -79,15 +81,15 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getRounds()
     {
-        return $this->getIn(self::ROUND);
+        return $this->getInUnit(self::ROUND);
     }
 
     /**
-     * @param string $unit
+     * @param string|StringInterface $unit
      * @return Time
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
-    public function getIn($unit)
+    public function getInUnit($unit)
     {
         $inDifferentUnit = $this->findIn($unit);
         if ($inDifferentUnit !== null) {
@@ -100,12 +102,13 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     }
 
     /**
-     * @param string $unit
+     * @param string|StringInterface $unit
      * @return Time|null
      */
     public function findIn($unit)
     {
-        if ($unit === $this->getUnit()) {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (ToString::toString($unit) === $this->getUnit()) {
             return clone $this;
         }
         $bonus = $this->timeTable->toBonus($this);
@@ -130,7 +133,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getMinutes()
     {
-        return $this->getIn(self::MINUTE);
+        return $this->getInUnit(self::MINUTE);
     }
 
     /**
@@ -147,7 +150,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getHours()
     {
-        return $this->getIn(self::HOUR);
+        return $this->getInUnit(self::HOUR);
     }
 
     /**
@@ -164,7 +167,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getDays()
     {
-        return $this->getIn(self::DAY);
+        return $this->getInUnit(self::DAY);
     }
 
     /**
@@ -181,7 +184,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getMonths()
     {
-        return $this->getIn(self::MONTH);
+        return $this->getInUnit(self::MONTH);
     }
 
     /**
@@ -198,7 +201,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getYears()
     {
-        return $this->getIn(self::YEAR);
+        return $this->getInUnit(self::YEAR);
     }
 
 }

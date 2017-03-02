@@ -22,9 +22,9 @@ class BonusAdjustmentByTimeTableTest extends TableTest
      * @dataProvider provideOriginalActivityTime
      * @param Time $originalActivityTime
      * @param int $hoursPerDay
-     * @param Time $expectedAdjusted
+     * @param Time $expectedAdjustment
      */
-    public function I_can_use_it(Time $originalActivityTime, $hoursPerDay, Time $expectedAdjusted)
+    public function I_can_use_it(Time $originalActivityTime, int $hoursPerDay, Time $expectedAdjustment)
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
         $originalActivityTimeBonusValue = $originalActivityTime->getBonus()->getValue();
@@ -35,10 +35,10 @@ class BonusAdjustmentByTimeTableTest extends TableTest
             'Original activity should remains untouched'
         );
         self::assertSame(
-            $expectedAdjusted->getIn($adjustedTime->getUnit())->getValue(),
+            $expectedAdjustment->getInUnit($adjustedTime->getUnit())->getValue(),
             $adjustedTime->getValue(),
-            'Was checking ' . $originalActivityTime->getValue() . ' ' . $originalActivityTime->getUnit() . '(s)'
-            . ' adjusted by ' . $hoursPerDay . ' hour(s) per day'
+            "Failed check of {$originalActivityTime->getValue()} {$originalActivityTime->getUnit()}"
+            . " adjusted by {$hoursPerDay} hours per day"
         );
     }
 

@@ -3,6 +3,7 @@ namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\Integer\PositiveInteger;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
 
@@ -60,7 +61,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * other activities can get only malus by speeding up.
      *
      * @param Time $originalActivityTime
-     * @param int $hoursPerDay
+     * @param int |PositiveInteger $hoursPerDay
      * @param bool $activityIsNotLimitedByTime
      * @return Time
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotProlongActivityPerDayWithLimitedTime
@@ -71,7 +72,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function adjustBy(Time $originalActivityTime, $hoursPerDay, $activityIsNotLimitedByTime)
+    public function adjustBy(Time $originalActivityTime, $hoursPerDay, bool $activityIsNotLimitedByTime)
     {
         $inDays = $originalActivityTime->findDays();
         if (($inDays !== null && $inDays->getValue() < 1)
@@ -82,6 +83,8 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
                 . $originalActivityTime->getValue() . ' ' . $originalActivityTime->getUnit() . '(s)'
             );
         }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $hoursPerDay = ToInteger::toPositiveInteger($hoursPerDay);
         if (!$activityIsNotLimitedByTime && $hoursPerDay > Time::HOURS_PER_DAY) {
             throw new Exceptions\CanNotProlongActivityPerDayWithLimitedTime(
                 'Got request to prolong activity by ' . $hoursPerDay . ' hours per day with original activity time '
