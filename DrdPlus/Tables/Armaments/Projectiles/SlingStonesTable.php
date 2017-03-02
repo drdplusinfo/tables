@@ -8,7 +8,7 @@ use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
  */
 class SlingStonesTable extends ProjectilesTable
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/sling_stones.csv';
     }

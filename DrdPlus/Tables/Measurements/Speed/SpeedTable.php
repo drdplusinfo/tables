@@ -20,7 +20,7 @@ class SpeedTable extends AbstractMeasurementFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/speed.csv';
     }

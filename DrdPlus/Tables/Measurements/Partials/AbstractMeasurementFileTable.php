@@ -38,7 +38,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @return array|string[][]
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         if ($this->indexedValues === null) {
             try {
@@ -56,7 +56,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @return array|string[][]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
             ['bonus'],
@@ -66,7 +66,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @return array|\string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return $this->getExpectedDataHeader();
     }
@@ -79,7 +79,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @return string
      */
-    abstract protected function getDataFileName();
+    abstract protected function getDataFileName(): string;
 
     /**
      * @param int $bonusValue

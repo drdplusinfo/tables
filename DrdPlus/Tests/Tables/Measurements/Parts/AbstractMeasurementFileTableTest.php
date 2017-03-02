@@ -312,7 +312,13 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
     private $dataFileName;
     private $dataHeader;
 
-    public static function getIt($dataFileName, $units = [], EvaluatorInterface $evaluator = null)
+    /**
+     * @param $dataFileName
+     * @param array $units
+     * @param EvaluatorInterface|\Mockery\MockInterface|null $evaluator
+     * @return static
+     */
+    public static function getIt(string $dataFileName, array $units = [], EvaluatorInterface $evaluator = null)
     {
         $evaluator = $evaluator ?: \Mockery::mock(EvaluatorInterface::class);
 
@@ -321,6 +327,11 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
         return new static($evaluator, $dataFileName, $units);
     }
 
+    /**
+     * @param EvaluatorInterface $evaluator
+     * @param bool $dataFileName
+     * @param array $units
+     */
     public function __construct(EvaluatorInterface $evaluator, $dataFileName = false, $units = [])
     {
         $this->dataFileName = $dataFileName;
@@ -328,12 +339,12 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
         parent::__construct($evaluator);
     }
 
-    public function getValues()
+    public function getValues(): array
     {
         return [];
     }
 
-    public function getHeader()
+    public function getHeader(): array
     {
         return [];
     }
@@ -349,7 +360,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return $this->dataFileName;
     }
@@ -357,7 +368,6 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     *
      * @return array
      */
     protected function convertToMeasurement($value, $unit)
@@ -367,7 +377,6 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     *
      * @return AbstractBonus
      */
     protected function createBonus($bonusValue)
@@ -377,6 +386,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
 
     /**
      * Just making it public.
+     *
      * @param AbstractBonus $bonus
      * @param null $unit
      * @return array (differs from parent, @see \DrdPlus\Tests\Tables\Measurements\Partials\TestOfAbstractTable::convertToMeasurement for exact return value)
@@ -416,19 +426,19 @@ class BonusForTestOfAbstractTable extends AbstractBonus
 
 class WithLessColumnHeaderRowsThenRowHeader extends AbstractTable
 {
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
-            ['foo', 'bar']
+            ['foo', 'bar'],
         ];
     }
 
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return ['baz'];
     }
 
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         throw new \LogicException;
     }

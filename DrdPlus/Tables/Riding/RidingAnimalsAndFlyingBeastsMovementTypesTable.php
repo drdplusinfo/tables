@@ -37,7 +37,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/riding_animals_and_flying_beasts_movement_types.csv';
     }
@@ -47,7 +47,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::MOVEMENT_TYPE];
     }
@@ -58,7 +58,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::BONUS_TO_MOVEMENT_SPEED => self::INTEGER,

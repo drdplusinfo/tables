@@ -11,7 +11,7 @@ class SabersAndBowieKnifesTable extends MeleeWeaponsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/sabers_and_bowie_knifes.csv';
     }

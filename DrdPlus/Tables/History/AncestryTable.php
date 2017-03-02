@@ -14,7 +14,7 @@ class AncestryTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/ancestry.csv';
     }
@@ -24,7 +24,7 @@ class AncestryTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::ANCESTRY => self::STRING];
     }
@@ -32,7 +32,7 @@ class AncestryTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [BackgroundPointsTable::BACKGROUND_POINTS];
     }

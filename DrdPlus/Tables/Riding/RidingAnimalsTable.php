@@ -14,7 +14,7 @@ class RidingAnimalsTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/riding_animals.csv';
     }
@@ -24,7 +24,7 @@ class RidingAnimalsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::ANIMAL];
     }
@@ -32,7 +32,7 @@ class RidingAnimalsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             RidingAnimalPropertyCode::SPEED => self::INTEGER,

@@ -16,7 +16,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/shields.csv';
     }
@@ -26,7 +26,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SHIELD];
     }
@@ -34,7 +34,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,

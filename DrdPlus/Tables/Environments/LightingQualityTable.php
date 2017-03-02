@@ -12,7 +12,7 @@ class LightingQualityTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/lighting_quality.csv';
     }
@@ -22,7 +22,7 @@ class LightingQualityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::QUALITY => self::INTEGER];
     }
@@ -32,7 +32,7 @@ class LightingQualityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::LIGHT_CONDITIONS];
     }

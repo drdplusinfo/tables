@@ -12,7 +12,7 @@ class PlayerDecisionsTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/player_decisions.csv';
     }
@@ -24,7 +24,7 @@ class PlayerDecisionsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::POINTS_TO_PRIMARY_PROPERTIES => self::POSITIVE_INTEGER,
@@ -38,7 +38,7 @@ class PlayerDecisionsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::FATE];
     }

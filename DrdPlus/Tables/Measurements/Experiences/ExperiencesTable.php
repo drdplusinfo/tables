@@ -23,7 +23,7 @@ class ExperiencesTable extends AbstractTable
     /**
      * @return \string[][]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->woundsTable->getIndexedValues();
@@ -32,7 +32,7 @@ class ExperiencesTable extends AbstractTable
     /**
      * @return array|\string[][]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return $this->woundsTable->getRowsHeader();
     }
@@ -40,7 +40,7 @@ class ExperiencesTable extends AbstractTable
     /**
      * @return array|\string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return $this->woundsTable->getColumnsHeader();
     }

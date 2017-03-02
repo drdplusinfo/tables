@@ -19,14 +19,14 @@ class RacesTable extends AbstractFileTable
 
     /** @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/races.csv';
     }
 
     /** @return array|string
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             PropertyCode::STRENGTH => self::INTEGER,
@@ -53,7 +53,7 @@ class RacesTable extends AbstractFileTable
 
     /** @return array
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::RACE, self::SUBRACE];
     }

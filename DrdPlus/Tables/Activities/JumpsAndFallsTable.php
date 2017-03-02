@@ -26,7 +26,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/jumps_and_falls.csv';
     }
@@ -34,7 +34,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             JumpMovementCode::STANDING_JUMP => self::INTEGER,
@@ -47,7 +47,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
             self::JUMP_TYPE,

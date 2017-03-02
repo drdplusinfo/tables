@@ -14,7 +14,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
@@ -24,7 +24,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SITUATION];
     }

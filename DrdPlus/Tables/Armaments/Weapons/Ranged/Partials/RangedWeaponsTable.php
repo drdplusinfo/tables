@@ -17,7 +17,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,

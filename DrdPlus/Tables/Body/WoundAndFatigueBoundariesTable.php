@@ -19,7 +19,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::BOUNDARY];
     }
@@ -29,7 +29,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return [self::PROPERTY];
     }
@@ -37,7 +37,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
     /**
      * @return array
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         return [
             PropertyCode::WOUND_BOUNDARY => [self::PROPERTY => PropertyCode::TOUGHNESS],

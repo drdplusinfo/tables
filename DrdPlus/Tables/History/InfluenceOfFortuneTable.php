@@ -16,7 +16,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/influence_of_fortune.csv';
     }
@@ -37,7 +37,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::PRIMARY_PROPERTY_ON_1 => self::POSITIVE_INTEGER,
@@ -60,7 +60,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::FATE];
     }

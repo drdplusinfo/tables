@@ -15,7 +15,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/range_weapon_strength_sanctions.csv';
     }
@@ -31,7 +31,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::MISSING_STRENGTH => self::POSITIVE_INTEGER,

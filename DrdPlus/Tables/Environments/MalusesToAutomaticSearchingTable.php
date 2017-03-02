@@ -13,7 +13,7 @@ class MalusesToAutomaticSearchingTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/maluses_to_automatic_searching.csv';
     }
@@ -23,7 +23,7 @@ class MalusesToAutomaticSearchingTable extends AbstractFileTable
     /**
      * @return string[]|array
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::MALUS => self::NEGATIVE_INTEGER];
     }
@@ -33,7 +33,7 @@ class MalusesToAutomaticSearchingTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::AT_THE_SAME_TIME_WITH];
     }

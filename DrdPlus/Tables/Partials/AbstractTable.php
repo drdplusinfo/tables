@@ -19,18 +19,19 @@ abstract class AbstractTable extends StrictObject implements Table
     /**
      * @return array|\string[][]
      */
-    public function getValues()
+    public function getValues(): array
     {
         if ($this->valuesInFlatStructure === null) {
-            $this->valuesInFlatStructure = $this->toFlatStructure(
-                $this->getIndexedValues(), true // keys to values
-            );
+            $this->valuesInFlatStructure = $this->toFlatStructure($this->getIndexedValues(), true /* keys to values */);
         }
 
         return $this->valuesInFlatStructure;
     }
 
-    public function getHeader()
+    /**
+     * @return array
+     */
+    public function getHeader(): array
     {
         if ($this->headerInFlatStructure === null) {
             $this->headerInFlatStructure = $this->createHeader();
@@ -77,7 +78,12 @@ abstract class AbstractTable extends StrictObject implements Table
         return $header;
     }
 
-    private function toFlatStructure(array $values, $convertTopKeysToValues = false)
+    /**
+     * @param array $values
+     * @param bool $convertTopKeysToValues
+     * @return array
+     */
+    private function toFlatStructure(array $values, bool $convertTopKeysToValues = false): array
     {
         $inFlatStructure = [];
         foreach ($values as $key => $wrappedValues) {
@@ -107,14 +113,14 @@ abstract class AbstractTable extends StrictObject implements Table
      *
      * @return array|\ArrayObject|string[]|string[][]
      */
-    abstract protected function getRowsHeader();
+    abstract protected function getRowsHeader(): array;
 
     /**
      * Names of all those columns where data itself lays (mostly all except first one).
      *
      * @return array|\ArrayObject|string[]|string[][][]
      */
-    abstract protected function getColumnsHeader();
+    abstract protected function getColumnsHeader(): array;
 
     /**
      * @param array|string|int|ScalarInterface $rowIndexes
@@ -139,7 +145,7 @@ abstract class AbstractTable extends StrictObject implements Table
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRow($singleRowIndexes)
+    public function getRow($singleRowIndexes): array
     {
         /** @noinspection ArrayCastingEquivalentInspection */
         $arraySingleRowIndexes = is_array($singleRowIndexes)

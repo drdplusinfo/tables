@@ -13,7 +13,7 @@ class BackgroundPointsTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/background_points.csv';
     }
@@ -23,7 +23,7 @@ class BackgroundPointsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::BACKGROUND_POINTS => self::POSITIVE_INTEGER,
@@ -33,7 +33,7 @@ class BackgroundPointsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
             PlayerDecisionsTable::FATE,

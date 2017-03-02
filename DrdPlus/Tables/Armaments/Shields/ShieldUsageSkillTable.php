@@ -13,7 +13,7 @@ class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements Missin
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/missing_shield_skill.csv';
     }
@@ -23,7 +23,7 @@ class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements Missin
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::RESTRICTION_BONUS => self::POSITIVE_INTEGER,

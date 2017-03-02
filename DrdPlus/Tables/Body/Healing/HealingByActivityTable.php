@@ -13,7 +13,7 @@ class HealingByActivityTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/healing_by_activity.csv';
     }
@@ -23,7 +23,7 @@ class HealingByActivityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::BONUS => self::INTEGER];
     }
@@ -33,7 +33,7 @@ class HealingByActivityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SITUATION];
     }

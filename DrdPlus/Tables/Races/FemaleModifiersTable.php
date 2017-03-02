@@ -14,7 +14,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/female_modifiers.csv';
     }
@@ -22,7 +22,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|string
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             PropertyCode::STRENGTH => self::INTEGER,
@@ -39,7 +39,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [RacesTable::RACE];
     }

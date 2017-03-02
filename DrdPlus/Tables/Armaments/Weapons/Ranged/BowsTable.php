@@ -14,7 +14,7 @@ class BowsTable extends RangedWeaponsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/bows.csv';
     }
@@ -24,7 +24,7 @@ class BowsTable extends RangedWeaponsTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,
@@ -53,7 +53,7 @@ class BowsTable extends RangedWeaponsTable
         }
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['weapon'];
     }

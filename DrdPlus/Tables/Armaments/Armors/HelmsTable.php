@@ -9,7 +9,7 @@ class HelmsTable extends AbstractArmorsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/helms.csv';
     }
@@ -19,7 +19,7 @@ class HelmsTable extends AbstractArmorsTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::HELM];
     }

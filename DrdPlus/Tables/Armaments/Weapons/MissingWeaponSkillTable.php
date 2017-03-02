@@ -13,7 +13,7 @@ class MissingWeaponSkillTable extends AbstractArmamentSkillTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/missing_weapon_skill.csv';
     }
@@ -26,7 +26,7 @@ class MissingWeaponSkillTable extends AbstractArmamentSkillTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::SKILL_RANK => self::POSITIVE_INTEGER,

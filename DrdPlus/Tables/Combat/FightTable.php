@@ -19,7 +19,7 @@ class FightTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::PROFESSION];
     }
@@ -30,7 +30,7 @@ class FightTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return [self::FIRST_PROPERTY, self::SECOND_PROPERTY];
     }
@@ -38,7 +38,7 @@ class FightTable extends AbstractTable
     /**
      * @return array
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         return [
             ProfessionCode::FIGHTER => [self::FIRST_PROPERTY => PropertyCode::AGILITY, self::SECOND_PROPERTY => false],

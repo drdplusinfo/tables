@@ -14,7 +14,7 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/wounds_on_fall_from_horse.csv';
     }
@@ -22,7 +22,7 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['activity'];
     }
@@ -33,7 +33,7 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::WOUNDS_MODIFICATION => self::INTEGER, self::ADDITIONAL => self::BOOLEAN];
     }

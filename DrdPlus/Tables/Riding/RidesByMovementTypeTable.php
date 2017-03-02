@@ -12,7 +12,7 @@ class RidesByMovementTypeTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/rides.csv';
     }
@@ -20,7 +20,7 @@ class RidesByMovementTypeTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['movement_type'];
     }
@@ -31,7 +31,7 @@ class RidesByMovementTypeTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::RIDE => self::INTEGER, self::ADDITIONAL => self::BOOLEAN];
     }

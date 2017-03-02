@@ -18,7 +18,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/impassibility_of_terrain.csv';
     }
@@ -28,7 +28,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::TERRAIN];
     }
@@ -39,7 +39,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::IMPASSIBILITY_OF_TERRAIN_FROM => self::INTEGER,

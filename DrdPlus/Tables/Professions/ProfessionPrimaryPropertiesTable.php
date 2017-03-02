@@ -15,7 +15,7 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/profession_primary_properties.csv';
     }
@@ -26,7 +26,7 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::FIRST_PRIMARY_PROPERTY => self::STRING, self::SECOND_PRIMARY_PROPERTY => self::STRING];
     }
@@ -36,7 +36,7 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::PROFESSION];
     }

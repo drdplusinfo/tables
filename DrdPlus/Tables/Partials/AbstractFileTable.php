@@ -27,7 +27,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @return array|string[][]|string[][][]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         if ($this->indexedValues === null) {
             $this->loadData();
@@ -39,7 +39,7 @@ abstract class AbstractFileTable extends AbstractTable
     /**
      * @return array|string[][]|string[][][]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         if ($this->columnsHeader === null) {
             $this->loadData();
@@ -55,7 +55,7 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /** @return string */
-    abstract protected function getDataFileName();
+    abstract protected function getDataFileName(): string;
 
     private function fetchDataFromFile($dataSourceFile)
     {
@@ -233,7 +233,7 @@ abstract class AbstractFileTable extends AbstractTable
     }
 
     /** @return string[] */
-    abstract protected function getExpectedDataHeaderNamesToTypes();
+    abstract protected function getExpectedDataHeaderNamesToTypes(): array;
 
     /**
      * @param string $scalarType

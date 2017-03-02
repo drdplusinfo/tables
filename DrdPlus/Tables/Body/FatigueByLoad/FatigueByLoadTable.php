@@ -14,7 +14,7 @@ class FatigueByLoadTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/fatigue_by_load.csv';
     }
@@ -24,7 +24,7 @@ class FatigueByLoadTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['missing_strength_up_to'];
     }
@@ -35,7 +35,7 @@ class FatigueByLoadTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::LOAD => self::STRING,

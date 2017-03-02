@@ -17,7 +17,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/combat_actions_compatibility.csv';
     }
@@ -25,7 +25,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             CombatActionCode::MOVE => self::BOOLEAN,
@@ -59,7 +59,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::ACTION];
     }

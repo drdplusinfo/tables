@@ -13,7 +13,7 @@ class ArmorWearingSkillTable extends AbstractArmamentSkillTable implements Missi
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/armor_wearing_skill.csv';
     }
@@ -21,7 +21,7 @@ class ArmorWearingSkillTable extends AbstractArmamentSkillTable implements Missi
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::RESTRICTION_BONUS => self::POSITIVE_INTEGER];
     }

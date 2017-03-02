@@ -14,7 +14,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/resting_by_situation.csv';
     }
@@ -24,7 +24,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SITUATION];
     }

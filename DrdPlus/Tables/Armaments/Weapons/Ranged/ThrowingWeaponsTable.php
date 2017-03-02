@@ -11,7 +11,7 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/throwing_weapons.csv';
     }
@@ -21,7 +21,7 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::WEAPON];
     }

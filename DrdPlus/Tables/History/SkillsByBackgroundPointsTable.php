@@ -19,7 +19,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
     /**
      * @return array|string[][][]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         if ($this->originalColumnsHeader === null) {
             $simplifiedColumnsHeader = parent::getColumnsHeader();
@@ -59,7 +59,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         $professionsWithSkillTypes = [];
         foreach (ProfessionCode::getPossibleValues() as $professionCode) {
@@ -74,7 +74,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [BackgroundPointsTable::BACKGROUND_POINTS];
     }
@@ -82,7 +82,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/skills_by_background_points.csv';
     }

@@ -23,7 +23,7 @@ class AspectsOfVisageTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::ASPECT_OF_VISAGE];
     }
@@ -37,7 +37,7 @@ class AspectsOfVisageTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return [
             self::FIRST_PROPERTY,
@@ -51,7 +51,7 @@ class AspectsOfVisageTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         return [
             PropertyCode::BEAUTY => [

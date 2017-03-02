@@ -30,7 +30,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/combat_actions_with_weapon_type_compatibility.csv';
     }
@@ -38,7 +38,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             CombatActionCode::MOVE => self::BOOLEAN,
@@ -72,7 +72,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::ATTACK_WITH_WEAPON_TYPE];
     }

@@ -121,22 +121,22 @@ final class AbstractFileTableTest extends TestWithMockery
 class TableWithWrongFileReference extends AbstractFileTable
 {
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return 'non existing filename';
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [];
     }
 
-    public function getHeader()
+    public function getHeader(): array
     {
         return [];
     }
@@ -165,7 +165,7 @@ class TableWithEmptyFile extends TableWithWrongFileReference
         }
     }
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return $this->dataFileName;
     }
@@ -174,19 +174,19 @@ class TableWithEmptyFile extends TableWithWrongFileReference
 class TableWithMissingHeaderRow extends TableWithEmptyFile
 {
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, 'foo');
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [999 => ['foo']];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [];
     }
@@ -195,19 +195,19 @@ class TableWithMissingHeaderRow extends TableWithEmptyFile
 class TableWithMissingHeaderColumn extends TableWithEmptyFile
 {
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, 'foo');
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [999 => 'foo'];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [];
     }
@@ -216,19 +216,19 @@ class TableWithMissingHeaderColumn extends TableWithEmptyFile
 class TableWithUnexpectedDataHeaderValue extends TableWithEmptyFile
 {
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, 'invalid header');
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['expected header'];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [];
     }
@@ -242,12 +242,12 @@ class TableWithPublicHeaders extends TableWithEmptyFile
         file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 123]));
     }
 
-    public function getRowsHeader()
+    public function getRowsHeader(): array
     {
         return ['foo'];
     }
 
-    public function getExpectedDataHeaderNamesToTypes()
+    public function getExpectedDataHeaderNamesToTypes(): array
     {
         return ['bar' => self::INTEGER];
     }
@@ -255,19 +255,19 @@ class TableWithPublicHeaders extends TableWithEmptyFile
 
 class TableWithUnknownColumnScalarType extends TableWithEmptyFile
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['foo'];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return ['bar' => 'unknown type'];
     }
@@ -275,38 +275,38 @@ class TableWithUnknownColumnScalarType extends TableWithEmptyFile
 
 class TableWithEmptyRowsHeader extends TableWithEmptyFile
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return ['foo' => self::STRING, 'bar' => self::STRING];
     }
 }
 class TableWithMissingExpectedDataHeader extends TableWithEmptyFile
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
 
         return $this->dataFileName;
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return ['foo' => self::STRING /* bar is missing */];
     }

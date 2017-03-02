@@ -12,7 +12,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/possible_activities_according_to_contrast.csv';
     }
@@ -23,7 +23,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::POSSIBLE_ACTIVITIES_EXAMPLE => self::STRING, self::FIGHT_TYPE_BY_CONTRAST => self::STRING];
     }
@@ -33,7 +33,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::CONTRAST];
     }

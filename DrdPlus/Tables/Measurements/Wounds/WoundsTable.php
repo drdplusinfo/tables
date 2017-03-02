@@ -20,7 +20,7 @@ class WoundsTable extends AbstractMeasurementFileTable
         parent::__construct(new DiceChanceEvaluator(Roller1d6::getIt()));
     }
 
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/wounds.csv';
     }

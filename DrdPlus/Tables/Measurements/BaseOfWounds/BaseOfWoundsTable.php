@@ -37,7 +37,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @return array|null|\string[][]|\int[][]
      */
-    public function getValues()
+    public function getValues(): array
     {
         if ($this->values === null) {
             $this->loadValues();
@@ -92,7 +92,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @return array|null|\string[][]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         return $this->getValues();
     }
@@ -100,7 +100,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     /**
      * @return array
      */
-    public function getHeader()
+    public function getHeader(): array
     {
         return [];
     }

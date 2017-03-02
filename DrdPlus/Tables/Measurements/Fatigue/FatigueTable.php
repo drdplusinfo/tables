@@ -29,7 +29,7 @@ class FatigueTable extends AbstractTable
     /**
      * @return array|\string[][]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->woundsTable->getIndexedValues();
@@ -38,7 +38,7 @@ class FatigueTable extends AbstractTable
     /**
      * @return array|\string[][]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return $this->woundsTable->getRowsHeader();
     }
@@ -46,7 +46,7 @@ class FatigueTable extends AbstractTable
     /**
      * @return array|\string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return $this->woundsTable->getColumnsHeader();
     }

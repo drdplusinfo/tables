@@ -28,7 +28,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/bonus_adjustment_by_time.csv';
     }
@@ -38,7 +38,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::HOURS_OF_ACTIVITY_PER_DAY];
     }
@@ -48,7 +48,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::ADJUSTMENT => self::INTEGER,

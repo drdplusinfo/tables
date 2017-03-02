@@ -14,7 +14,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/background_points_distribution.csv';
     }
@@ -25,7 +25,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::MAX_POINTS => self::POSITIVE_INTEGER,
@@ -38,7 +38,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::BACKGROUND];
     }

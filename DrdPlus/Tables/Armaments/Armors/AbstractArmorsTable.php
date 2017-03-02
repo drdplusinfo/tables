@@ -14,7 +14,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,

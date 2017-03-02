@@ -21,7 +21,7 @@ class DistanceTable extends AbstractMeasurementFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/distance.csv';
     }

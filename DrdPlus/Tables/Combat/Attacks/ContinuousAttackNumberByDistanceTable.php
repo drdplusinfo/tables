@@ -14,7 +14,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/continuous_attack_number_by_distance.csv';
     }
@@ -24,7 +24,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::DISTANCE_IN_METERS];
     }

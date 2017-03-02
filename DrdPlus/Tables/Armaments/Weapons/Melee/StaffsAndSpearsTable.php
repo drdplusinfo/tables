@@ -12,7 +12,7 @@ class StaffsAndSpearsTable extends MeleeWeaponsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/staffs_and_spears.csv';
     }

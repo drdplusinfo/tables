@@ -12,7 +12,7 @@ class MacesAndClubsTable extends MeleeWeaponsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/maces_and_clubs.csv';
     }

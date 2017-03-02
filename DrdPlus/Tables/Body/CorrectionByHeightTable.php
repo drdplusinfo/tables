@@ -16,7 +16,7 @@ class CorrectionByHeightTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/correction_by_height.csv';
     }
@@ -26,7 +26,7 @@ class CorrectionByHeightTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::CORRECTION => self::INTEGER];
     }
@@ -34,7 +34,7 @@ class CorrectionByHeightTable extends AbstractFileTable
     /**
      * @return array
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [PropertyCode::HEIGHT];
     }

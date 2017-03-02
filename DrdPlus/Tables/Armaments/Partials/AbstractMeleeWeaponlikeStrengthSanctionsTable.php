@@ -6,7 +6,7 @@ use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingS
 abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     implements WeaponStrengthSanctionsInterface
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/melee_weaponlike_strength_sanctions.csv';
     }
@@ -17,7 +17,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
     const BASE_OF_WOUNDS = 'base_of_wounds';
     const CAN_USE_ARMAMENT = 'can_use_armament';
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::MISSING_STRENGTH => self::POSITIVE_INTEGER,

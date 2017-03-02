@@ -9,7 +9,7 @@ abstract class AbstractStrengthSanctionsTable extends AbstractFileTable implemen
 {
     const MISSING_STRENGTH = 'missing_strength';
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::MISSING_STRENGTH];
     }

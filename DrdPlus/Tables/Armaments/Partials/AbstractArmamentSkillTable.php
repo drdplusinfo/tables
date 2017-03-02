@@ -11,7 +11,7 @@ abstract class AbstractArmamentSkillTable extends AbstractFileTable
 {
     const SKILL_RANK = 'skill_rank';
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SKILL_RANK];
     }

@@ -11,7 +11,7 @@ abstract class AbstractFileTableWithPercents extends AbstractFileTable
     const BONUS_TO = 'bonus_to';
     const CAN_BE_MORE = 'can_be_more';
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::BONUS_FROM => self::INTEGER,

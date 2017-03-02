@@ -13,7 +13,7 @@ class StealthinessTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/stealthiness.csv';
     }
@@ -23,7 +23,7 @@ class StealthinessTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::STEALTHINESS => self::POSITIVE_INTEGER,
@@ -35,7 +35,7 @@ class StealthinessTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::SITUATION];
     }

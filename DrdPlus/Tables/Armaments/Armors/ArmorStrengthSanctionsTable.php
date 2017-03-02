@@ -9,7 +9,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
  */
 class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
 {
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/armor_strength_sanctions.csv';
     }
@@ -21,7 +21,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::MISSING_STRENGTH => self::POSITIVE_INTEGER,

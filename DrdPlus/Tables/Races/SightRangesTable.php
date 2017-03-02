@@ -12,7 +12,7 @@ class SightRangesTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/sight_ranges.csv';
     }
@@ -24,7 +24,7 @@ class SightRangesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::MAXIMAL_LIGHTING => self::INTEGER,
@@ -38,7 +38,7 @@ class SightRangesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
             self::RACE,

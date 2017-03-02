@@ -9,12 +9,12 @@ use Granam\Tools\ValueDescriber;
 
 abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikesTable
 {
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['weapon'];
     }
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,

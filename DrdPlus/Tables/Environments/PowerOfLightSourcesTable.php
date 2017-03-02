@@ -13,7 +13,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/power_of_light_sources.csv';
     }
@@ -23,7 +23,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::POWER => self::INTEGER];
     }
@@ -33,7 +33,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::LIGHT_SOURCE];
     }

@@ -8,21 +8,21 @@ interface Table
      *
      * @return array|\ArrayAccess|string[][]|string[][][]
      */
-    public function getIndexedValues();
+    public function getIndexedValues(): array;
 
     /**
      * Same values but in simplified structure of two-level array only.
      *
      * @return array|\ArrayAccess|string[][]
      */
-    public function getValues();
+    public function getValues(): array;
 
     /**
      * Simplified structure of header names in two-level array.
      *
      * @return array|\ArrayAccess|string[][]
      */
-    public function getHeader();
+    public function getHeader(): array;
 
     /**
      * @param int|string|array $rowIndexes

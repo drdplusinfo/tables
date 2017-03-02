@@ -5,7 +5,6 @@ use DrdPlus\Codes\CombatCharacteristicCode;
 use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Body\Size;
 use DrdPlus\Properties\Combat\Attack;
 use DrdPlus\Properties\Combat\Defense;
 use DrdPlus\Properties\Combat\Shooting;
@@ -21,7 +20,7 @@ class CombatCharacteristicsTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::CHARACTERISTIC];
     }
@@ -34,7 +33,7 @@ class CombatCharacteristicsTable extends AbstractTable
     /**
      * @return array|string[]
      */
-    protected function getColumnsHeader()
+    protected function getColumnsHeader(): array
     {
         return [
             self::PROPERTY,
@@ -47,7 +46,7 @@ class CombatCharacteristicsTable extends AbstractTable
     /**
      * @return array|string[][]
      */
-    public function getIndexedValues()
+    public function getIndexedValues(): array
     {
         return [
             CombatCharacteristicCode::ATTACK => [self::PROPERTY => PropertyCode::AGILITY, self::DIVIDE_BY => 2, self::ROUND_UP => false, self::ROUND_DOWN => true],
@@ -71,12 +70,11 @@ class CombatCharacteristicsTable extends AbstractTable
      * As you can see Defense can be created safely directly, without this table.
      *
      * @param Agility $agility
-     * @param Size $size
      * @return Defense
      */
-    public function getDefense(Agility $agility, Size $size)
+    public function getDefense(Agility $agility)
     {
-        return Defense::getIt($agility, $size);
+        return Defense::getIt($agility);
     }
 
     /**

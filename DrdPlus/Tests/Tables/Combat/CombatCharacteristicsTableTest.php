@@ -5,7 +5,6 @@ use DrdPlus\Codes\CombatCharacteristicCode;
 use DrdPlus\Codes\Properties\PropertyCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Body\Size;
 use DrdPlus\Properties\Combat\Attack;
 use DrdPlus\Properties\Combat\Defense;
 use DrdPlus\Properties\Combat\Shooting;
@@ -55,29 +54,15 @@ class CombatCharacteristicsTableTest extends TableTest
     }
 
     /**
-     * @param $value
-     * @return Size|\Mockery\MockInterface
-     */
-    private function createSize($value)
-    {
-        $size = $this->mockery(Size::class);
-        $size->shouldReceive('getValue')
-            ->andReturn($value);
-
-        return $size;
-    }
-
-    /**
      * @test
      */
     public function I_get_expected_defense_and_values()
     {
         $combatCharacteristicsTable = new CombatCharacteristicsTable();
         $agility = $this->createAgility(123);
-        $size = $this->createSize(0);
-        $defense = $combatCharacteristicsTable->getDefense($agility, $size);
+        $defense = $combatCharacteristicsTable->getDefense($agility);
         self::assertInstanceOf(Defense::class, $defense);
-        self::assertSame(Defense::getIt($agility, $size)->getValue(), $defense->getValue());
+        self::assertSame(Defense::getIt($agility)->getValue(), $defense->getValue());
         self::assertSame(
             ['property' => PropertyCode::AGILITY, 'divide_by' => 2, 'round_up' => true, 'round_down' => false],
             $combatCharacteristicsTable->getRow(CombatCharacteristicCode::DEFENSE)

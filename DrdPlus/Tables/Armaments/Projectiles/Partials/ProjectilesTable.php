@@ -18,7 +18,7 @@ abstract class ProjectilesTable extends AbstractArmamentsTable implements Woundi
 {
     const RANGE = 'range';
 
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::OFFENSIVENESS => self::INTEGER,
@@ -29,7 +29,7 @@ abstract class ProjectilesTable extends AbstractArmamentsTable implements Woundi
         ];
     }
 
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return ['projectile'];
     }

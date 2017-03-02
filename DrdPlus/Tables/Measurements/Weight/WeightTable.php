@@ -22,7 +22,7 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/weight.csv';
     }

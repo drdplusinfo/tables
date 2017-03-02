@@ -13,7 +13,7 @@ class CatchQualitiesTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/catch_qualities.csv';
     }
@@ -24,7 +24,7 @@ class CatchQualitiesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::CATCH_QUALITY => self::POSITIVE_INTEGER,
@@ -37,7 +37,7 @@ class CatchQualitiesTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [
             self::FOOD_TYPE,

@@ -12,7 +12,7 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/improvement_of_light_source.csv';
     }
@@ -22,7 +22,7 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [self::IMPROVEMENT_OF_LIGHT_SOURCE => self::POSITIVE_INTEGER];
     }
@@ -32,7 +32,7 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::ENVIRONMENT];
     }

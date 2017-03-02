@@ -9,7 +9,7 @@ class BodyArmorsTable extends AbstractArmorsTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/body_armors.csv';
     }
@@ -19,7 +19,7 @@ class BodyArmorsTable extends AbstractArmorsTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeaderNamesToTypes()
+    protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return [
             self::REQUIRED_STRENGTH => self::INTEGER,
@@ -35,7 +35,7 @@ class BodyArmorsTable extends AbstractArmorsTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::BODY_ARMOR];
     }

@@ -13,7 +13,7 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
     /**
      * @return string
      */
-    protected function getDataFileName()
+    protected function getDataFileName(): string
     {
         return __DIR__ . '/data/attack_number_by_distance.csv';
     }
@@ -23,7 +23,7 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
     /**
      * @return array|string[]
      */
-    protected function getRowsHeader()
+    protected function getRowsHeader(): array
     {
         return [self::DISTANCE_IN_METERS_FROM];
     }
