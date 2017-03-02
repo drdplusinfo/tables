@@ -28,7 +28,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
         $originalActivityTimeBonusValue = $originalActivityTime->getBonus()->getValue();
-        $adjustedTime = $bonusAdjustmentByTimeTable->adjustBy($originalActivityTime, $hoursPerDay, true /* unlimited duration */);
+        $adjustedTime = $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($originalActivityTime, $hoursPerDay, true /* unlimited duration */);
         self::assertSame(
             $originalActivityTimeBonusValue,
             $originalActivityTime->getBonus()->getValue(),
@@ -51,6 +51,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
             [new Time(5, Time::DAY, $timeTable), 12 /* hour of activity per day */, new Time(5, Time::DAY, $timeTable) /* expected duration */],
             [new Time(100, Time::DAY, $timeTable), 24 /* hour of activity per day */, new Time(50, Time::DAY, $timeTable) /* expected duration */],
 
+            /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_s_malirem */
             [new Time(1, Time::MONTH, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
             [new Time(2, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(2.5, Time::MONTH, $timeTable) /* expected duration */],
             [new Time(5, Time::MONTH, $timeTable), 5 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
@@ -58,7 +59,9 @@ class BonusAdjustmentByTimeTableTest extends TableTest
             [new Time(120, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
 
             [new Time(1, Time::YEAR, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
-            [new Time(10, Time::YEAR, $timeTable), 20 /* hour of activity per day */, new Time(80, Time::MONTH, $timeTable) /* expected duration */],
+            /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_se_slouhou_mocneho_theurga */
+            [new Time(2, Time::YEAR, $timeTable), 3 /* hours of activity per day */, new Time(8, Time::YEAR, $timeTable) /* expected duration */],
+            [new Time(10, Time::YEAR, $timeTable), 20 /* hours of activity per day */, new Time(80, Time::MONTH, $timeTable) /* expected duration */],
         ];
     }
 
@@ -70,7 +73,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_less_than_a_day()
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustBy(new Time(0.9, Time::DAY, new TimeTable()), 15, false);
+        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(0.9, Time::DAY, new TimeTable()), 15, false);
     }
 
     /**
@@ -82,7 +85,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_by_non_sense_hours_of_daily_activity($nonSenseHours)
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustBy(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours, true);
+        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours, true);
     }
 
     public function provideNonSenseHours()
@@ -103,17 +106,75 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable($timeTable);
         $original = new Time(10, Time::DAY, $timeTable);
         try {
-            $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 10, false);
+            $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($original, 10, false);
             self::assertGreaterThan($original->getValue(), $lessTimePerDay->getValue());
 
-            $same = $bonusAdjustmentByTimeTable->adjustBy($original, 12, false);
+            $same = $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($original, 12, false);
             self::assertSame($original->getValue(), $same->getValue());
 
-            $moreTimePerDay = $bonusAdjustmentByTimeTable->adjustBy($original, 20, true /* unlimited */);
+            $moreTimePerDay = $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($original, 20, true /* unlimited */);
             self::assertLessThan($original->getValue(), $moreTimePerDay->getValue());
         } catch (\Exception $exception) {
             self::fail('No exceptions has been expected so far: ' . $exception->getTraceAsString());
         }
-        $bonusAdjustmentByTimeTable->adjustBy($original, 13, false);
+        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($original, 13, false);
+    }
+
+    /**
+     * @test
+     * @dataProvider provideActivityTimesForTempo
+     * @param Time $standardActivityTime
+     * @param Time $currentActivityTime
+     * @param int $expectedMalus
+     */
+    public function I_can_get_malus_for_tempo(Time $standardActivityTime, Time $currentActivityTime, int $expectedMalus)
+    {
+        $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
+        self::assertSame(
+            $expectedMalus,
+            $bonusAdjustmentByTimeTable->getMalusForTempo($standardActivityTime, $currentActivityTime)
+        );
+    }
+
+    public function provideActivityTimesForTempo()
+    {
+        $timeTable = new TimeTable();
+
+        return [
+            /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
+            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::MINUTE, $timeTable), -8],
+            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::YEAR, $timeTable), 0], // bonus can not occurs, only maluses
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider provideActivityTimesForBonusAdjustment
+     * @param Time $standardActivityTime
+     * @param Time $currentActivityTime
+     * @param int $expectedBonusAdjustment
+     */
+    public function I_can_get_bonus_adjustment_for_changed_speed(
+        Time $standardActivityTime,
+        Time $currentActivityTime,
+        int $expectedBonusAdjustment
+    )
+    {
+        $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
+        self::assertSame(
+            $expectedBonusAdjustment,
+            $bonusAdjustmentByTimeTable->getBonusAdjustmentForChangedSpeed($standardActivityTime, $currentActivityTime)
+        );
+    }
+
+    public function provideActivityTimesForBonusAdjustment()
+    {
+        $timeTable = new TimeTable();
+
+        return [
+            /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
+            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::MINUTE, $timeTable), -8],
+            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::YEAR, $timeTable), 100],
+        ];
     }
 }

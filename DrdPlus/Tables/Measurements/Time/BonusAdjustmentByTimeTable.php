@@ -72,7 +72,11 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function adjustBy(Time $originalActivityTime, $hoursPerDay, bool $activityIsNotLimitedByTime)
+    public function adjustTimeByHoursPerDay(
+        Time $originalActivityTime,
+        $hoursPerDay,
+        bool $activityIsNotLimitedByTime
+    ): Time
     {
         $inDays = $originalActivityTime->findDays();
         if (($inDays !== null && $inDays->getValue() < 1)
@@ -110,7 +114,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    private function getBonusAdjustmentForHoursPerDay($hoursPerDay)
+    private function getBonusAdjustmentForHoursPerDay(int $hoursPerDay): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -121,6 +125,33 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
                 . ' From what universe you came from?'
             );
         }
+    }
+
+    /**
+     * @param Time $standardTimeFoActivity
+     * @param Time $realTimeOfActivity
+     * @return int
+     */
+    public function getMalusForTempo(Time $standardTimeFoActivity, Time $realTimeOfActivity): int
+    {
+        $malus = $this->getBonusAdjustmentForChangedSpeed($standardTimeFoActivity, $realTimeOfActivity);
+        if ($malus > 0) {
+            return 0;
+        }
+
+        return $malus;
+    }
+
+    /**
+     * Warning: only few activities can get bonus for prolonging (like thief and his pick-lock)
+     *
+     * @param Time $standardTimeFoActivity
+     * @param Time $realTimeOfActivity
+     * @return int
+     */
+    public function getBonusAdjustmentForChangedSpeed(Time $standardTimeFoActivity, Time $realTimeOfActivity): int
+    {
+        return $realTimeOfActivity->getBonus()->getValue() - $standardTimeFoActivity->getBonus()->getValue();
     }
 
 }
