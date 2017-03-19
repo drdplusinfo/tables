@@ -125,7 +125,7 @@ abstract class AbstractTable extends StrictObject implements Table
     /**
      * @param array|string|int|ScalarInterface $rowIndexes
      * @param string|StringInterface $columnIndex
-     * @return int|float|string|bool
+     * @return int|float|string|bool|array
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
