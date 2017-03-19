@@ -58,7 +58,7 @@ final class AbstractFileTableTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
+     * @expectedException \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
      */
     public function I_can_not_use_table_with_unknown_column_type()
     {

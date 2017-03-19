@@ -14,6 +14,7 @@ abstract class AbstractFileTable extends AbstractTable
     const FLOAT = 'float';
     const BOOLEAN = 'boolean';
     const STRING = 'string';
+    const ARRAY = 'array';
 
     /** @var array|string[][]|string[][][] */
     private $indexedValues;
@@ -57,7 +58,7 @@ abstract class AbstractFileTable extends AbstractTable
     /** @return string */
     abstract protected function getDataFileName(): string;
 
-    private function fetchDataFromFile($dataSourceFile)
+    private function fetchDataFromFile(string $dataSourceFile): array
     {
         $resource = fopen($dataSourceFile, 'rb');
         if (!$resource) {
@@ -78,7 +79,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $data;
     }
 
-    private function normalizeAndIndex(array $rawData)
+    private function normalizeAndIndex(array $rawData): array
     {
         $rowsHeader = $this->parseRowsHeader($rawData);
         $this->columnsHeader = $this->parseColumnsHeader($rawData);
@@ -90,7 +91,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $indexed;
     }
 
-    private function cutOffRowsHeader(array $values)
+    private function cutOffRowsHeader(array $values): array
     {
         $rowHeadersUsedAsColumnHeaderAsWell = $this->getRowHeadersUsedAsColumnHeaderAsWell();
         $rowIndexes = array_keys($values);
@@ -107,7 +108,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $values; // pure values without header
     }
 
-    private function parseRowsHeader(array $data)
+    private function parseRowsHeader(array $data): array
     {
         $rowsHeaderNamesRow = $this->parseRowsHeaderNames($data);
         if (count($rowsHeaderNamesRow) === 0) {
@@ -132,7 +133,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $rowsHeaderValues;
     }
 
-    private function parseRowsHeaderNames(array $rawData)
+    private function parseRowsHeaderNames(array $rawData): array
     {
         $rowsHeaderNames = [];
         foreach ($this->getRowsHeader() as $expectedColumnIndex => $expectedHeaderValue) {
@@ -158,7 +159,7 @@ abstract class AbstractFileTable extends AbstractTable
         }
     }
 
-    private function parseColumnsHeader(array $rawData)
+    private function parseColumnsHeader(array $rawData): array
     {
         $columnsHeaderValues = [];
         $expectedColumnsHeader = $this->getNormalizedExpectedColumnsHeader(); // the very first rows of data
@@ -175,7 +176,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $columnsHeaderValues;
     }
 
-    private function getRowHeadersUsedAsColumnHeaderAsWell()
+    private function getRowHeadersUsedAsColumnHeaderAsWell(): array
     {
         $rowHeadersUsedAsColumnHeaderAsWell = [];
         foreach ($this->getRowsHeader() as $rowHeader) {
@@ -190,14 +191,14 @@ abstract class AbstractFileTable extends AbstractTable
         return $rowHeadersUsedAsColumnHeaderAsWell;
     }
 
-    private function cutOffColumnsHeader(array $rawData)
+    private function cutOffColumnsHeader(array $rawData): array
     {
         unset($rawData[0]);
 
         return array_values($rawData); // fixing row numeric indexes sequence ([1=>foo, 3=>bar] = [0=>foo, 1=>bar])
     }
 
-    private function formatValues(array $data)
+    private function formatValues(array $data): array
     {
         return array_map(
             function (array $row) {
@@ -214,9 +215,9 @@ abstract class AbstractFileTable extends AbstractTable
 
     /**
      * @return array
-     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
      */
-    private function getNormalizedExpectedColumnsHeader()
+    private function getNormalizedExpectedColumnsHeader(): array
     {
         if ($this->normalizedExpectedColumnHeader === null) {
             $this->normalizedExpectedColumnHeader = [];
@@ -224,7 +225,7 @@ abstract class AbstractFileTable extends AbstractTable
             foreach ($this->getExpectedDataHeaderNamesToTypes() as $headerName => $columnScalarType) {
                 $this->normalizedExpectedColumnHeader[$columnIndex++] = [
                     'value' => $headerName,
-                    'type' => $this->normalizeScalarType($columnScalarType),
+                    'type' => $this->normalizeType($columnScalarType),
                 ];
             }
         }
@@ -236,13 +237,13 @@ abstract class AbstractFileTable extends AbstractTable
     abstract protected function getExpectedDataHeaderNamesToTypes(): array;
 
     /**
-     * @param string $scalarType
+     * @param string $type
      * @return string
-     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
      */
-    private function normalizeScalarType($scalarType)
+    private function normalizeType(string $type)
     {
-        switch (strtolower($scalarType)) {
+        switch (strtolower($type)) {
             case self::INTEGER :
                 return self::INTEGER;
             case self::POSITIVE_INTEGER :
@@ -255,9 +256,11 @@ abstract class AbstractFileTable extends AbstractTable
                 return self::FLOAT;
             case self::STRING :
                 return self::STRING;
+            case self::ARRAY :
+                return self::ARRAY;
             default :
-                throw new Exceptions\UnknownScalarTypeForColumn(
-                    'Unknown scalar type ' . ValueDescriber::describe($scalarType)
+                throw new Exceptions\UnknownTypeForColumn(
+                    'Unknown type ' . ValueDescriber::describe($type)
                 );
         }
     }
@@ -271,7 +274,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @param $columnIndex
      * @return mixed
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownFetchedColumn
-     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownScalarTypeForColumn
+     * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
      */
     private function getColumnType($columnIndex)
     {
@@ -291,38 +294,48 @@ abstract class AbstractFileTable extends AbstractTable
      * @param string $type
      * @return bool|float|int|string
      */
-    private function normalizeValueForType($value, $type)
+    private function normalizeValueForType($value, string $type)
     {
         $value = trim($value);
         switch ($type) {
             case self::BOOLEAN :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 return ToBoolean::toBoolean($value, false /* not strict */);
             case self::INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 return $value === '' ? false : ToInteger::toInteger($this->normalizeMinus($value));
             case self::POSITIVE_INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 return $value === '' ? false : ToInteger::toPositiveInteger($this->normalizeMinus($value));
             case self::NEGATIVE_INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 return $value === '' ? false : ToInteger::toNegativeInteger($this->normalizeMinus($value));
             case self::FLOAT :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
+            case self::ARRAY :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return $value === '' ? [] : array_map(function (string $item) {
+                    return trim($item);
+                }, explode(',', $value));
             default : // string
                 return $value;
         }
     }
 
-    private function normalizeMinus($value)
+    private function normalizeMinus($value): string
     {
         return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
     }
 
-    private function indexValues(array $values, array $rowsHeader, array $columnsHeader)
+    private function indexValues(array $values, array $rowsHeader, array $columnsHeader): array
     {
         $indexedRows = $this->indexByRowsHeader($values, $rowsHeader);
 
         return $this->indexByColumnsHeader($indexedRows, $columnsHeader, $this->countDept($rowsHeader));
     }
 
-    private function countDept(array $rowsHeader)
+    private function countDept(array $rowsHeader): int
     {
         $depth = 1; // always at least 1
         $value = current($rowsHeader);
@@ -333,7 +346,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $depth;
     }
 
-    private function indexByRowsHeader(array $toIndex, array $rowKeys)
+    private function indexByRowsHeader(array $toIndex, array $rowKeys): array
     {
         if (count($rowKeys) === 0) {
             return $toIndex;
@@ -351,7 +364,7 @@ abstract class AbstractFileTable extends AbstractTable
         return $indexed;
     }
 
-    private function indexByColumnsHeader(array $toIndex, array $columnKeys, $stepsToBottom)
+    private function indexByColumnsHeader(array $toIndex, array $columnKeys, $stepsToBottom): array
     {
         $indexed = [];
         foreach ($toIndex as $rowKeyOrColumnIndex => $rowOrFinalValue) {
