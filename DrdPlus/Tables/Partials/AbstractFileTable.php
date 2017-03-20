@@ -213,6 +213,55 @@ abstract class AbstractFileTable extends AbstractTable
         );
     }
 
+    private function parseRowValue($value, $columnIndex)
+    {
+        return $this->normalizeValueForType($value, $this->getColumnType($columnIndex));
+    }
+
+    /**
+     * @param $value
+     * @param string $type
+     * @return bool|float|int|string
+     */
+    private function normalizeValueForType($value, string $type)
+    {
+        $value = trim($value);
+        switch ($type) {
+            case self::BOOLEAN :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return ToBoolean::toBoolean($value, false /* not strict */);
+            case self::INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return $value === '' ? false : ToInteger::toInteger($this->normalizeMinus($value));
+            case self::POSITIVE_INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return $value === '' ? false : ToInteger::toPositiveInteger($this->normalizeMinus($value));
+            case self::NEGATIVE_INTEGER :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return $value === '' ? false : ToInteger::toNegativeInteger($this->normalizeMinus($value));
+            case self::FLOAT :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
+            case self::ARRAY :
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+                return array_map(
+                        function (string $item) {
+                            return trim($item);
+                        },
+                        $value !== ''
+                            ? explode(';', $value)
+                            : []
+                    );
+            default : // string
+                return $value;
+        }
+    }
+
+    private function normalizeMinus($value): string
+    {
+        return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
+    }
+
     /**
      * @return array
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
@@ -265,11 +314,6 @@ abstract class AbstractFileTable extends AbstractTable
         }
     }
 
-    private function parseRowValue($value, $columnIndex)
-    {
-        return $this->normalizeValueForType($value, $this->getColumnType($columnIndex));
-    }
-
     /**
      * @param $columnIndex
      * @return mixed
@@ -287,45 +331,6 @@ abstract class AbstractFileTable extends AbstractTable
         }
 
         return $header[$columnIndex]['type'];
-    }
-
-    /**
-     * @param $value
-     * @param string $type
-     * @return bool|float|int|string
-     */
-    private function normalizeValueForType($value, string $type)
-    {
-        $value = trim($value);
-        switch ($type) {
-            case self::BOOLEAN :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return ToBoolean::toBoolean($value, false /* not strict */);
-            case self::INTEGER :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return $value === '' ? false : ToInteger::toInteger($this->normalizeMinus($value));
-            case self::POSITIVE_INTEGER :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return $value === '' ? false : ToInteger::toPositiveInteger($this->normalizeMinus($value));
-            case self::NEGATIVE_INTEGER :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return $value === '' ? false : ToInteger::toNegativeInteger($this->normalizeMinus($value));
-            case self::FLOAT :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return $value === '' ? false : ToFloat::toFloat($this->normalizeMinus($value));
-            case self::ARRAY :
-                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-                return $value === '' ? [] : array_map(function (string $item) {
-                    return trim($item);
-                }, explode(',', $value));
-            default : // string
-                return $value;
-        }
-    }
-
-    private function normalizeMinus($value): string
-    {
-        return str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
     }
 
     private function indexValues(array $values, array $rowsHeader, array $columnsHeader): array
@@ -368,7 +373,7 @@ abstract class AbstractFileTable extends AbstractTable
     {
         $indexed = [];
         foreach ($toIndex as $rowKeyOrColumnIndex => $rowOrFinalValue) {
-            if (!is_array($rowOrFinalValue)) {
+            if (!is_array($rowOrFinalValue) || $stepsToBottom === 0 /* we are at bottom already */) {
                 $columnKey = $columnKeys[$rowKeyOrColumnIndex];
                 $indexed[$columnKey] = $rowOrFinalValue;
             } else {

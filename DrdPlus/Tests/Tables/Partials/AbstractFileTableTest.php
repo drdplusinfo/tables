@@ -8,6 +8,22 @@ final class AbstractFileTableTest extends TestWithMockery
 {
     /**
      * @test
+     */
+    public function I_can_use_array_as_data_type()
+    {
+        $table = new TableWithArrayForTests();
+        self::assertSame([
+            'foo_FOO' => [
+                'bar' => ['bar_BAR', 'Foo', 'Bar', 'Baz', 'Qux'],
+                'baz' => 'baz_BAZ',
+            ],
+        ],
+            $table->getIndexedValues()
+        );
+    }
+
+    /**
+     * @test
      * @expectedException \DrdPlus\Tables\Partials\Exceptions\CanNotReadFile
      */
     public function I_am_stopped_if_datafile_has_not_been_read()
@@ -141,6 +157,47 @@ class TableWithWrongFileReference extends AbstractFileTable
         return [];
     }
 
+}
+
+class TableWithArrayForTests extends AbstractFileTable
+{
+    protected $dataFileName;
+
+    public function __construct()
+    {
+        $this->dataFileName = $this->createDataFileName();
+        file_put_contents($this->dataFileName, "foo,bar,baz\nfoo_FOO,bar_BAR;Foo;Bar;Baz;Qux,baz_BAZ");
+    }
+
+    protected function getExpectedDataHeaderNamesToTypes(): array
+    {
+        return [
+            'bar' => self::ARRAY,
+            'baz' => self::STRING,
+        ];
+    }
+
+    protected function getRowsHeader(): array
+    {
+        return ['foo'];
+    }
+
+    protected function createDataFileName()
+    {
+        return tempnam(sys_get_temp_dir(), preg_replace('~^.*[\\\](\w+)$~', '$1', __CLASS__));
+    }
+
+    public function __destruct()
+    {
+        if (file_exists($this->dataFileName)) {
+            unlink($this->dataFileName);
+        }
+    }
+
+    protected function getDataFileName(): string
+    {
+        return $this->dataFileName;
+    }
 }
 
 class TableWithEmptyFile extends TableWithWrongFileReference
