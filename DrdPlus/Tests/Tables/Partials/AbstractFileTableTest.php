@@ -131,6 +131,16 @@ final class AbstractFileTableTest extends TestWithMockery
         $table = new TableWithMissingExpectedDataHeader();
         $table->getIndexedValues();
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Partials\Exceptions\ExpectedDataHeaderNamesToTypesAreEmpty
+     */
+    public function I_can_not_create_table_with_empty_expected_header_record()
+    {
+        $table = new TableWithEmptyExpectedDataHeader();
+        $table->getIndexedValues();
+    }
 }
 
 /** inner */
@@ -366,5 +376,24 @@ class TableWithMissingExpectedDataHeader extends TableWithEmptyFile
     protected function getExpectedDataHeaderNamesToTypes(): array
     {
         return ['foo' => self::STRING /* bar is missing */];
+    }
+}
+class TableWithEmptyExpectedDataHeader extends TableWithEmptyFile
+{
+    protected function getDataFileName(): string
+    {
+        file_put_contents($this->dataFileName, implode(',', ['foo', 'bar']) . "\n" . implode(',', ['baz', 'qux']));
+
+        return $this->dataFileName;
+    }
+
+    protected function getRowsHeader(): array
+    {
+        return [];
+    }
+
+    protected function getExpectedDataHeaderNamesToTypes(): array
+    {
+        return [];
     }
 }
