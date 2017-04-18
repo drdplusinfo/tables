@@ -3,6 +3,7 @@ namespace DrdPlus\Tests\Tables\Measurements;
 
 use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use Granam\Integer\IntegerObject;
 use Granam\Tests\Tools\TestWithMockery;
 
 abstract class AbstractTestOfBonus extends TestWithMockery
@@ -12,9 +13,15 @@ abstract class AbstractTestOfBonus extends TestWithMockery
      */
     public function I_can_create_bonus()
     {
-        $sut = $this->createSut($value = 123);
+        $sut = $this->createSut(123);
         self::assertInstanceOf(Bonus::class, $sut);
-        self::assertSame($value, $sut->getValue());
+        self::assertSame(123, $sut->getValue());
+
+        $sut = $this->createSut('456');
+        self::assertSame(456, $sut->getValue());
+
+        $sut = $this->createSut(new IntegerObject(789));
+        self::assertSame(789, $sut->getValue());
     }
 
     /**
