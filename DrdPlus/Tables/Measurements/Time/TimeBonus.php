@@ -2,6 +2,8 @@
 namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use Granam\Integer\IntegerInterface;
+use Granam\String\StringInterface;
 
 class TimeBonus extends AbstractBonus
 {
@@ -11,8 +13,9 @@ class TimeBonus extends AbstractBonus
     private $timeTable;
 
     /**
-     * @param int $value
+     * @param int|IntegerInterface $value
      * @param TimeTable $timeTable
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function __construct($value, TimeTable $timeTable)
     {
@@ -21,7 +24,7 @@ class TimeBonus extends AbstractBonus
     }
 
     /**
-     * @param string|null $wantedUnit
+     * @param string|StringInterface|null $wantedUnit
      * @return Time|null
      */
     public function findTime($wantedUnit = null)
@@ -33,11 +36,11 @@ class TimeBonus extends AbstractBonus
     }
 
     /**
-     * @param string|null $wantedUnit
+     * @param string|StringInterface|null $wantedUnit
      * @return Time
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getTime($wantedUnit = null)
+    public function getTime($wantedUnit = null): Time
     {
         $time = $this->findTime($wantedUnit);
         if ($time !== null) {
@@ -45,7 +48,7 @@ class TimeBonus extends AbstractBonus
         }
         throw new Exceptions\CanNotConvertThatBonusToTime(
             'Can not convert time bonus ' . $this->getValue() . ' into time with unit '
-            . ($wantedUnit !== null ? $wantedUnit : '"any possible"')
+            . ($wantedUnit ?? '"any possible"')
         );
     }
 
