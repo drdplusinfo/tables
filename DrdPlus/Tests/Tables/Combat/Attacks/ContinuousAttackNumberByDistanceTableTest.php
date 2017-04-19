@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Combat\Attacks;
 
+use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -23,7 +24,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
         );
     }
 
-    public function provideDistanceAndExpectedModifier()
+    public function provideDistanceAndExpectedModifier(): array
     {
         $testValues = [];
         $distanceTable = new DistanceTable();
@@ -44,7 +45,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
     public function I_can_not_get_attack_number_modifier_with_enormous_distance()
     {
         (new ContinuousAttackNumberByDistanceTable())
-            ->getAttackNumberModifierByDistance(new Distance(999999, Distance::M, new DistanceTable()));
+            ->getAttackNumberModifierByDistance(new Distance(999999, DistanceCode::M, new DistanceTable()));
     }
 
 }

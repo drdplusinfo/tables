@@ -12,7 +12,7 @@ class SpeedTest extends AbstractTestOfMeasurement
         return Speed::M_PER_ROUND;
     }
 
-    protected function getAllUnits()
+    protected function getAllUnits(): array
     {
         return [Speed::M_PER_ROUND, Speed::KM_PER_HOUR];
     }

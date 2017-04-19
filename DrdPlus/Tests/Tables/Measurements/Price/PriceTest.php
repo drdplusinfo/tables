@@ -12,7 +12,7 @@ class PriceTest extends AbstractTestOfMeasurement
         return Price::COPPER_COIN;
     }
 
-    public function getAllUnits()
+    public function getAllUnits(): array
     {
         return [Price::COPPER_COIN, Price::SILVER_COIN, Price::GOLD_COIN];
     }

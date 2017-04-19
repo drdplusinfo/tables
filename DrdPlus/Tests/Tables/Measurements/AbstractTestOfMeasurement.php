@@ -81,9 +81,9 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     }
 
     /**
-     * @return string[]
+     * @return array|string[]
      */
-    protected function getAllUnits()
+    protected function getAllUnits(): array
     {
         return [$this->getDefaultUnit()];
     }

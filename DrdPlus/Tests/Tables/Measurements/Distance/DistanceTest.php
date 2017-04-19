@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Distance;
 
+use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
@@ -15,21 +16,21 @@ class DistanceTest extends AbstractTestOfMeasurement
     {
         $distanceTable = new DistanceTable();
 
-        $inKm = new Distance($value = 123, $unit = Distance::KM, $distanceTable);
+        $inKm = new Distance($value = 123, $unit = DistanceCode::KM, $distanceTable);
         self::assertSame((float)$value, $inKm->getValue());
         self::assertSame($unit, $inKm->getUnit());
         self::assertSame((float)$value, $inKm->getKilometers());
         self::assertSame((float)($value * 1000), $inKm->getMeters());
         self::assertSame(102, $inKm->getBonus()->getValue());
 
-        $inM = new Distance($value = 456, $unit = Distance::M, $distanceTable);
+        $inM = new Distance($value = 456, $unit = DistanceCode::M, $distanceTable);
         self::assertSame((float)$value, $inM->getValue());
         self::assertSame($unit, $inM->getUnit());
         self::assertSame((float)$value, $inM->getMeters());
         self::assertSame((float)($value / 1000), $inM->getKilometers());
         self::assertSame(53, $inM->getBonus()->getValue());
 
-        $inLightYears = new Distance($value = 1, $unit = Distance::LIGHT_YEAR, $distanceTable);
+        $inLightYears = new Distance($value = 1, $unit = DistanceCode::LIGHT_YEAR, $distanceTable);
         self::assertSame((float)$value, $inLightYears->getValue());
         self::assertSame((float)$value, $inLightYears->getLightYears());
         self::assertSame($unit, $inLightYears->getUnit());
@@ -53,12 +54,12 @@ class DistanceTest extends AbstractTestOfMeasurement
 
     protected function getDefaultUnit()
     {
-        return Distance::M;
+        return DistanceCode::M;
     }
 
-    public function getAllUnits()
+    public function getAllUnits(): array
     {
-        return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
+        return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
     }
 
 }

@@ -34,7 +34,7 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
      * @return int
      * @throws \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      */
-    public function getAttackNumberModifierByDistance(Distance $distance)
+    public function getAttackNumberModifierByDistance(Distance $distance): int
     {
         $distanceInMeters = $distance->getMeters();
         $orderedByDistanceDesc = $this->getOrderedByDistanceAsc();

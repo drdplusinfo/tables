@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
+use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -31,7 +32,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
+        return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
     }
 
     /**
@@ -80,7 +81,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function sizeToDistanceBonus($size)
+    public function sizeToDistanceBonus($size): DistanceBonus
     {
         return $this->createBonus(ToInteger::toInteger($size) + 12);
     }

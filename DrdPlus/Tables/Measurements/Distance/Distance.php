@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
+use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Float\Tools\ToFloat;
@@ -8,10 +9,6 @@ use Granam\Tools\ValueDescriber;
 
 class Distance extends AbstractMeasurementWithBonus
 {
-    const M = 'm';
-    const KM = 'km';
-    const LIGHT_YEAR = 'light_year';
-
     /**
      * @var DistanceTable
      */
@@ -37,13 +34,13 @@ class Distance extends AbstractMeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [self::M, self::KM, self::LIGHT_YEAR];
+        return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
     }
 
     /**
      * @return DistanceBonus
      */
-    public function getBonus()
+    public function getBonus(): DistanceBonus
     {
         return $this->distanceTable->toBonus($this);
     }
@@ -51,10 +48,10 @@ class Distance extends AbstractMeasurementWithBonus
     /**
      * @return float
      */
-    public function getMeters()
+    public function getMeters(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::M);
+        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), DistanceCode::M);
     }
 
     /**
@@ -66,15 +63,15 @@ class Distance extends AbstractMeasurementWithBonus
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
-    private function getValueInDifferentUnit($value, $fromUnit, $toUnit)
+    private function getValueInDifferentUnit($value, $fromUnit, $toUnit): float
     {
         if ($fromUnit === $toUnit) {
             return ToFloat::toFloat($value);
         }
-        if ($fromUnit === self::M && $toUnit === self::KM) {
+        if ($fromUnit === DistanceCode::M && $toUnit === DistanceCode::KM) {
             return $value / 1000;
         }
-        if ($fromUnit === self::KM && $toUnit === self::M) {
+        if ($fromUnit === DistanceCode::KM && $toUnit === DistanceCode::M) {
             return $value * 1000;
         }
         throw new UnknownUnit(
@@ -86,19 +83,19 @@ class Distance extends AbstractMeasurementWithBonus
     /**
      * @return float
      */
-    public function getKilometers()
+    public function getKilometers(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::KM);
+        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), DistanceCode::KM);
     }
 
     /**
      * @return float
      */
-    public function getLightYears()
+    public function getLightYears(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::LIGHT_YEAR);
+        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), DistanceCode::LIGHT_YEAR);
     }
 
 }

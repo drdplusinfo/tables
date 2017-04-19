@@ -14,7 +14,7 @@ class TimeTest extends AbstractTestOfMeasurement
         return TimeCode::ROUND;
     }
 
-    protected function getAllUnits()
+    protected function getAllUnits(): array
     {
         return [
             TimeCode::ROUND,
