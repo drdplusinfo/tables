@@ -5,6 +5,7 @@ use DrdPlus\Codes\DistanceCode;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Float\Tools\ToFloat;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 class Distance extends AbstractMeasurementWithBonus
@@ -16,7 +17,7 @@ class Distance extends AbstractMeasurementWithBonus
 
     /**
      * @param float $value
-     * @param string $unit
+     * @param string|StringInterface $unit
      * @param DistanceTable $distanceTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
@@ -98,4 +99,11 @@ class Distance extends AbstractMeasurementWithBonus
         return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), DistanceCode::LIGHT_YEAR);
     }
 
+    /**
+     * @return DistanceCode
+     */
+    public function getUnitCode(): DistanceCode
+    {
+        return DistanceCode::getIt($this->getUnit());
+    }
 }

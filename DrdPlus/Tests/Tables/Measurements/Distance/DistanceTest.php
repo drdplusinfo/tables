@@ -62,4 +62,17 @@ class DistanceTest extends AbstractTestOfMeasurement
         return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
     }
 
+    /**
+     * @test
+     */
+    public function I_can_get_unit_as_a_code_instance()
+    {
+        $distanceTable = new DistanceTable();
+
+        foreach ($this->getAllUnits() as $unitName) {
+            $distance = new Distance(123.456, $unitName, $distanceTable);
+            self::assertSame(DistanceCode::getIt($unitName), $distance->getUnitCode());
+        }
+    }
+
 }
