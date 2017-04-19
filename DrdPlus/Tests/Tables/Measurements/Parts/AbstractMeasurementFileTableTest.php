@@ -352,7 +352,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
     /**
      * @return \string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return $this->dataHeader;
     }
@@ -370,7 +370,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
      * @param string $unit
      * @return array
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement($value, $unit): array
     {
         return [$unit => $value];
     }
@@ -389,9 +389,10 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
      *
      * @param AbstractBonus $bonus
      * @param null $unit
-     * @return array (differs from parent, @see \DrdPlus\Tests\Tables\Measurements\Partials\TestOfAbstractTable::convertToMeasurement for exact return value)
+     * @return array (differs from parent,
+     * @see \DrdPlus\Tests\Tables\Measurements\Partials\TestOfAbstractTable::convertToMeasurement for exact return value)
      */
-    public function toMeasurement(AbstractBonus $bonus, $unit = null)
+    public function toMeasurement(AbstractBonus $bonus, $unit = null): array
     {
         return parent::toMeasurement($bonus, $unit);
     }

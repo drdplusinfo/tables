@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Riding;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
@@ -20,7 +21,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     {
         self::assertSame(
             [
-                ['movement_type', 'bonus_to_movement_speed', 'fatigue_like']
+                ['movement_type', 'bonus_to_movement_speed', 'fatigue_like'],
             ],
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
@@ -81,7 +82,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
         );
     }
 
-    public function provideMovementAndExpectedBonus()
+    public function provideMovementAndExpectedBonus(): array
     {
         return [
             [RidingAnimalMovementCode::STILL, 0],
@@ -176,13 +177,13 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
         );
     }
 
-    public function provideMovementAndExpectedPeriodOfFatigue()
+    public function provideMovementAndExpectedPeriodOfFatigue(): array
     {
         $movementTypesTable = new MovementTypesTable(new SpeedTable(), new TimeTable());
 
         return [
             [RidingAnimalMovementCode::CANTER, $movementTypesTable->getPeriodForPointOfFatigueOnRun()],
-            [RidingAnimalMovementCode::GALLOP, $movementTypesTable->getPeriodForPointOfFatigueOnSprint()]
+            [RidingAnimalMovementCode::GALLOP, $movementTypesTable->getPeriodForPointOfFatigueOnSprint()],
         ];
     }
 
@@ -192,7 +193,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_gait()
     {
         self::assertEquals(
-            new Time(1, Time::HOUR, new TimeTable()),
+            new Time(1, TimeCode::HOUR, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -206,7 +207,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_trot()
     {
         self::assertEquals(
-            new Time(0.5, Time::HOUR, new TimeTable()),
+            new Time(0.5, TimeCode::HOUR, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -220,7 +221,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_canter()
     {
         self::assertEquals(
-            new Time(5, Time::MINUTE, new TimeTable()),
+            new Time(5, TimeCode::MINUTE, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -234,7 +235,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_gallop()
     {
         self::assertEquals(
-            new Time(2, Time::ROUND, new TimeTable()),
+            new Time(2, TimeCode::ROUND, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())

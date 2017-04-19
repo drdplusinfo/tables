@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
@@ -10,18 +11,18 @@ class TimeTest extends AbstractTestOfMeasurement
 
     protected function getDefaultUnit()
     {
-        return Time::ROUND;
+        return TimeCode::ROUND;
     }
 
     protected function getAllUnits()
     {
         return [
-            Time::ROUND,
-            Time::MINUTE,
-            Time::HOUR,
-            Time::DAY,
-            Time::MONTH,
-            Time::YEAR,
+            TimeCode::ROUND,
+            TimeCode::MINUTE,
+            TimeCode::HOUR,
+            TimeCode::DAY,
+            TimeCode::MONTH,
+            TimeCode::YEAR,
         ];
     }
 
@@ -47,8 +48,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToRoundsConversion()
     {
         return [
-            [10, Time::DAY],
-            [100, Time::YEAR],
+            [10, TimeCode::DAY],
+            [100, TimeCode::YEAR],
         ];
     }
 
@@ -74,8 +75,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToMinutesConversion()
     {
         return [
-            [10, Time::DAY],
-            [100, Time::YEAR],
+            [10, TimeCode::DAY],
+            [100, TimeCode::YEAR],
         ];
     }
 
@@ -101,8 +102,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToHoursConversion()
     {
         return [
-            [1, Time::ROUND],
-            [100, Time::YEAR],
+            [1, TimeCode::ROUND],
+            [100, TimeCode::YEAR],
         ];
     }
 
@@ -128,8 +129,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToDaysConversion()
     {
         return [
-            [1, Time::ROUND],
-            [100, Time::YEAR],
+            [1, TimeCode::ROUND],
+            [100, TimeCode::YEAR],
         ];
     }
 
@@ -155,9 +156,9 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToMonthsConversion()
     {
         return [
-            [1, Time::ROUND],
-            [20, Time::MINUTE],
-            [100, Time::YEAR],
+            [1, TimeCode::ROUND],
+            [20, TimeCode::MINUTE],
+            [100, TimeCode::YEAR],
         ];
     }
 
@@ -183,8 +184,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToYearsConversion()
     {
         return [
-            [1, Time::ROUND],
-            [12, Time::MINUTE],
+            [1, TimeCode::ROUND],
+            [12, TimeCode::MINUTE],
         ];
     }
 
@@ -193,18 +194,19 @@ class TimeTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_hours_per_day_as_constant()
     {
-        self::assertSame((new Time(1, Time::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
+        self::assertSame((new Time(1, TimeCode::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
     }
 
     /**
      * This tests equals to that on PPH page 11 right column
+     *
      * @test
      */
     public function I_get_zero_as_bonus_for_one_round()
     {
         self::assertSame(
             0,
-            (new Time(1, Time::ROUND, new TimeTable()))->getBonus()->getValue(),
+            (new Time(1, TimeCode::ROUND, new TimeTable()))->getBonus()->getValue(),
             'First available bonus should be taken if more than single one matches the value'
         );
     }

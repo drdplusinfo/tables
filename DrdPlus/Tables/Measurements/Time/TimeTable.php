@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -27,9 +28,9 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
-        return [Time::ROUND, Time::MINUTE, Time::HOUR, Time::DAY, Time::MONTH, Time::YEAR];
+        return [TimeCode::ROUND, TimeCode::MINUTE, TimeCode::HOUR, TimeCode::DAY, TimeCode::MONTH, TimeCode::YEAR];
     }
 
     /**
@@ -39,7 +40,7 @@ class TimeTable extends AbstractMeasurementFileTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
-    public function toTime(TimeBonus $timeBonus, $wantedUnit = null)
+    public function toTime(TimeBonus $timeBonus, $wantedUnit = null): Time
     {
         return $this->toMeasurement($timeBonus, $wantedUnit);
     }
@@ -47,10 +48,10 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param TimeBonus $timeBonus
      * @param null $wantedUnit
-     * @return true
+     * @return bool
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
-    public function hasTimeFor(TimeBonus $timeBonus, $wantedUnit = null)
+    public function hasTimeFor(TimeBonus $timeBonus, $wantedUnit = null): bool
     {
         return $this->hasMeasurementFor($timeBonus, $wantedUnit);
     }
@@ -59,7 +60,7 @@ class TimeTable extends AbstractMeasurementFileTable
      * @param Time $time
      * @return TimeBonus|AbstractBonus
      */
-    public function toBonus(Time $time)
+    public function toBonus(Time $time): TimeBonus
     {
         return $this->measurementToBonus($time);
     }
@@ -69,7 +70,7 @@ class TimeTable extends AbstractMeasurementFileTable
      * @param string $unit
      * @return Time
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement($value, $unit): Time
     {
         return new Time($value, $unit, $this);
     }
@@ -77,8 +78,9 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param int $bonusValue
      * @return TimeBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus($bonusValue): TimeBonus
     {
         return new TimeBonus($bonusValue, $this);
     }

@@ -25,7 +25,7 @@ class WoundsTable extends AbstractMeasurementFileTable
         return __DIR__ . '/data/wounds.csv';
     }
 
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return [Wounds::WOUNDS];
     }

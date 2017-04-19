@@ -97,6 +97,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
         }
         $bonusAdjustment = $this->getBonusAdjustmentForHoursPerDay($hoursPerDay);
         $finalBonusValue = $originalActivityTime->getBonus()->getValue() + $bonusAdjustment;
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $finalBonus = new TimeBonus($finalBonusValue, $this->timeTable);
         $finalTime = $finalBonus->findTime($originalActivityTime->getUnit());
         if ($finalTime !== null) {

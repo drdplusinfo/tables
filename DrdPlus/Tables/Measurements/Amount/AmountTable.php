@@ -28,7 +28,7 @@ class AmountTable extends AbstractMeasurementFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return [Amount::AMOUNT];
     }

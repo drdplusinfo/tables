@@ -47,7 +47,7 @@ class Amount extends AbstractMeasurementWithBonus
     /**
      * @return array|string[]
      */
-    public function getPossibleUnits()
+    public function getPossibleUnits(): array
     {
         return [self::AMOUNT];
     }

@@ -26,7 +26,7 @@ class Price extends AbstractMeasurement
     /**
      * @return array|string[]
      */
-    public function getPossibleUnits()
+    public function getPossibleUnits(): array
     {
         return [self::COPPER_COIN, self::SILVER_COIN, self::GOLD_COIN];
     }

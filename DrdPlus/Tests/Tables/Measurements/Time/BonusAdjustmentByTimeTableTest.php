@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Tables\Measurements\Time\BonusAdjustmentByTimeTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
@@ -42,26 +43,26 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         );
     }
 
-    public function provideOriginalActivityTime()
+    public function provideOriginalActivityTime(): array
     {
         $timeTable = new TimeTable();
 
         return [
-            [new Time(1, Time::DAY, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::DAY, $timeTable) /* expected duration */],
-            [new Time(5, Time::DAY, $timeTable), 12 /* hour of activity per day */, new Time(5, Time::DAY, $timeTable) /* expected duration */],
-            [new Time(100, Time::DAY, $timeTable), 24 /* hour of activity per day */, new Time(50, Time::DAY, $timeTable) /* expected duration */],
+            [new Time(1, TimeCode::DAY, $timeTable), 1 /* hour of activity per day */, new Time(12, TimeCode::DAY, $timeTable) /* expected duration */],
+            [new Time(5, TimeCode::DAY, $timeTable), 12 /* hour of activity per day */, new Time(5, TimeCode::DAY, $timeTable) /* expected duration */],
+            [new Time(100, TimeCode::DAY, $timeTable), 24 /* hour of activity per day */, new Time(50, TimeCode::DAY, $timeTable) /* expected duration */],
 
             /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_s_malirem */
-            [new Time(1, Time::MONTH, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
-            [new Time(2, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(2.5, Time::MONTH, $timeTable) /* expected duration */],
-            [new Time(5, Time::MONTH, $timeTable), 5 /* hour of activity per day */, new Time(12, Time::MONTH, $timeTable) /* expected duration */],
-            [new Time(12, Time::MONTH, $timeTable), 2 /* hour of activity per day */, new Time(6.3, Time::YEAR, $timeTable) /* expected duration */],
-            [new Time(120, Time::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
+            [new Time(1, TimeCode::MONTH, $timeTable), 1 /* hour of activity per day */, new Time(12, TimeCode::MONTH, $timeTable) /* expected duration */],
+            [new Time(2, TimeCode::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(2.5, TimeCode::MONTH, $timeTable) /* expected duration */],
+            [new Time(5, TimeCode::MONTH, $timeTable), 5 /* hour of activity per day */, new Time(12, TimeCode::MONTH, $timeTable) /* expected duration */],
+            [new Time(12, TimeCode::MONTH, $timeTable), 2 /* hour of activity per day */, new Time(6.3, TimeCode::YEAR, $timeTable) /* expected duration */],
+            [new Time(120, TimeCode::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(12, TimeCode::YEAR, $timeTable) /* expected duration */],
 
-            [new Time(1, Time::YEAR, $timeTable), 1 /* hour of activity per day */, new Time(12, Time::YEAR, $timeTable) /* expected duration */],
+            [new Time(1, TimeCode::YEAR, $timeTable), 1 /* hour of activity per day */, new Time(12, TimeCode::YEAR, $timeTable) /* expected duration */],
             /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_se_slouhou_mocneho_theurga */
-            [new Time(2, Time::YEAR, $timeTable), 3 /* hours of activity per day */, new Time(8, Time::YEAR, $timeTable) /* expected duration */],
-            [new Time(10, Time::YEAR, $timeTable), 20 /* hours of activity per day */, new Time(80, Time::MONTH, $timeTable) /* expected duration */],
+            [new Time(2, TimeCode::YEAR, $timeTable), 3 /* hours of activity per day */, new Time(8, TimeCode::YEAR, $timeTable) /* expected duration */],
+            [new Time(10, TimeCode::YEAR, $timeTable), 20 /* hours of activity per day */, new Time(80, TimeCode::MONTH, $timeTable) /* expected duration */],
         ];
     }
 
@@ -73,7 +74,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_less_than_a_day()
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(0.9, Time::DAY, new TimeTable()), 15, false);
+        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(0.9, TimeCode::DAY, new TimeTable()), 15, false);
     }
 
     /**
@@ -85,10 +86,10 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_by_non_sense_hours_of_daily_activity($nonSenseHours)
     {
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
-        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(10, Time::DAY, new TimeTable()), $nonSenseHours, true);
+        $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(10, TimeCode::DAY, new TimeTable()), $nonSenseHours, true);
     }
 
-    public function provideNonSenseHours()
+    public function provideNonSenseHours(): array
     {
         return [
             [0],
@@ -104,7 +105,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     {
         $timeTable = new TimeTable();
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable($timeTable);
-        $original = new Time(10, Time::DAY, $timeTable);
+        $original = new Time(10, TimeCode::DAY, $timeTable);
         try {
             $lessTimePerDay = $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay($original, 10, false);
             self::assertGreaterThan($original->getValue(), $lessTimePerDay->getValue());
@@ -136,16 +137,16 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         );
     }
 
-    public function provideActivityTimesForTempo()
+    public function provideActivityTimesForTempo(): array
     {
         $timeTable = new TimeTable();
 
         return [
             /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
-            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::MINUTE, $timeTable), -8],
-            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::YEAR, $timeTable), 0], // bonus can not occurs, only maluses
+            [new Time(25, TimeCode::MINUTE, $timeTable), new Time(10, TimeCode::MINUTE, $timeTable), -8],
+            [new Time(25, TimeCode::MINUTE, $timeTable), new Time(10, TimeCode::YEAR, $timeTable), 0], // bonus can not occurs, only maluses
             /** @link https://pph.drdplus.jaroslavtyc.com/#obecny_priklad_zkraceni_doby_cinnosti_na_polovinu */
-            [new Time(10, Time::HOUR, $timeTable), new Time(5, Time::HOUR, $timeTable), -6],
+            [new Time(10, TimeCode::HOUR, $timeTable), new Time(5, TimeCode::HOUR, $timeTable), -6],
         ];
     }
 
@@ -169,14 +170,14 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         );
     }
 
-    public function provideActivityTimesForBonusAdjustment()
+    public function provideActivityTimesForBonusAdjustment(): array
     {
         $timeTable = new TimeTable();
 
         return [
             /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
-            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::MINUTE, $timeTable), -8],
-            [new Time(25, Time::MINUTE, $timeTable), new Time(10, Time::YEAR, $timeTable), 100],
+            [new Time(25, TimeCode::MINUTE, $timeTable), new Time(10, TimeCode::MINUTE, $timeTable), -8],
+            [new Time(25, TimeCode::MINUTE, $timeTable), new Time(10, TimeCode::YEAR, $timeTable), 100],
         ];
     }
 }

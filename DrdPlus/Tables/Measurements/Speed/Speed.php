@@ -29,7 +29,7 @@ class Speed extends AbstractMeasurementWithBonus
     /**
      * @return array|string[]
      */
-    public function getPossibleUnits()
+    public function getPossibleUnits(): array
     {
         return [self::M_PER_ROUND, self::KM_PER_HOUR];
     }

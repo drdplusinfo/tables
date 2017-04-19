@@ -74,7 +74,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     /**
      * @return \string[]
      */
-    abstract protected function getExpectedDataHeader();
+    abstract protected function getExpectedDataHeader(): array;
 
     /**
      * @return string

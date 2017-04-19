@@ -30,7 +30,7 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return [Weight::KG];
     }

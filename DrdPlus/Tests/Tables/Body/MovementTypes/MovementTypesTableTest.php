@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\MovementTypes;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
@@ -105,17 +106,17 @@ class MovementTypesTableTest extends TableTest
         }
     }
 
-    public function provideTypeAndExpectedBonusAndPeriod()
+    public function provideTypeAndExpectedBonusAndPeriod(): array
     {
         $timeTable = new TimeTable();
         $speedTable = new SpeedTable();
 
         return [
             [MovementTypeCode::WAITING, new SpeedBonus(0, $speedTable), false],
-            [MovementTypeCode::WALK, new SpeedBonus(23, $speedTable), new Time(1, Time::HOUR, $timeTable)],
-            [MovementTypeCode::RUSH, new SpeedBonus(26, $speedTable), new Time(0.5, Time::HOUR, $timeTable)],
-            [MovementTypeCode::RUN, new SpeedBonus(32, $speedTable), new Time(5, Time::MINUTE, $timeTable)],
-            [MovementTypeCode::SPRINT, new SpeedBonus(36, $speedTable), new Time(2, Time::ROUND, $timeTable)],
+            [MovementTypeCode::WALK, new SpeedBonus(23, $speedTable), new Time(1, TimeCode::HOUR, $timeTable)],
+            [MovementTypeCode::RUSH, new SpeedBonus(26, $speedTable), new Time(0.5, TimeCode::HOUR, $timeTable)],
+            [MovementTypeCode::RUN, new SpeedBonus(32, $speedTable), new Time(5, TimeCode::MINUTE, $timeTable)],
+            [MovementTypeCode::SPRINT, new SpeedBonus(36, $speedTable), new Time(2, TimeCode::ROUND, $timeTable)],
         ];
     }
 
@@ -170,7 +171,7 @@ class MovementTypesTableTest extends TableTest
     public function I_can_get_period_for_point_fatigue_on_walk_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(1, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk());
+        self::assertEquals(new Time(1, TimeCode::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnWalk());
     }
 
     /**
@@ -179,7 +180,7 @@ class MovementTypesTableTest extends TableTest
     public function I_can_get_period_for_point_fatigue_on_rush_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(0.5, Time::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush());
+        self::assertEquals(new Time(0.5, TimeCode::HOUR, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRush());
     }
 
     /**
@@ -188,7 +189,7 @@ class MovementTypesTableTest extends TableTest
     public function I_can_get_period_for_point_fatigue_on_run_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(5, Time::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun());
+        self::assertEquals(new Time(5, TimeCode::MINUTE, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnRun());
     }
 
     /**
@@ -197,7 +198,7 @@ class MovementTypesTableTest extends TableTest
     public function I_can_get_period_for_point_fatigue_on_sprint_by_simple_getter()
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
-        self::assertEquals(new Time(2, Time::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint());
+        self::assertEquals(new Time(2, TimeCode::ROUND, $this->timeTable), $movementTypesTable->getPeriodForPointOfFatigueOnSprint());
     }
 
     /**

@@ -35,7 +35,7 @@ class Distance extends AbstractMeasurementWithBonus
     /**
      * @return string[]
      */
-    public function getPossibleUnits()
+    public function getPossibleUnits(): array
     {
         return [self::M, self::KM, self::LIGHT_YEAR];
     }

@@ -29,7 +29,7 @@ class DistanceTable extends AbstractMeasurementFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return [Distance::M, Distance::KM, Distance::LIGHT_YEAR];
     }

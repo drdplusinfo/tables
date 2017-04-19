@@ -9,11 +9,11 @@ interface Measurement extends NumberInterface
     /**
      * @return string
      */
-    public function getUnit();
+    public function getUnit(): string;
 
     /**
      * @return array|string[]
      */
-    public function getPossibleUnits();
+    public function getPossibleUnits(): array;
 
 }

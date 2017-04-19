@@ -88,7 +88,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusWhenStill()
+    public function getSpeedBonusWhenStill(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(self::STILL));
@@ -97,7 +97,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnGait()
+    public function getSpeedBonusOnGait(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::GAIT));
@@ -106,7 +106,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnTrot()
+    public function getSpeedBonusOnTrot(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::TROT));
@@ -115,7 +115,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnCanter()
+    public function getSpeedBonusOnCanter(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::CANTER));
@@ -124,7 +124,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnGallop()
+    public function getSpeedBonusOnGallop(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::GALLOP));
@@ -146,7 +146,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
      * @return string
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    private function getFatigueLike(RidingAnimalMovementCode $ridingAnimalMovementCode)
+    private function getFatigueLike(RidingAnimalMovementCode $ridingAnimalMovementCode): string
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$ridingAnimalMovementCode->getValue()], self::FATIGUE_LIKE);
@@ -155,7 +155,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnGait()
+    public function getPeriodForPointOfFatigueOnGait(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::GAIT));
@@ -164,7 +164,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnTrot()
+    public function getPeriodForPointOfFatigueOnTrot(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::TROT));
@@ -173,7 +173,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnCanter()
+    public function getPeriodForPointOfFatigueOnCanter(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::CANTER));
@@ -182,7 +182,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnGallop()
+    public function getPeriodForPointOfFatigueOnGallop(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(RidingAnimalMovementCode::getIt(RidingAnimalMovementCode::GALLOP));
@@ -193,7 +193,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getMaximumTimeBonusToGallop(Endurance $endurance)
+    public function getMaximumTimeBonusToGallop(Endurance $endurance): TimeBonus
     {
         return $this->movementTypesTable->getMaximumTimeBonusToSprint($endurance);
     }
@@ -203,7 +203,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getRequiredTimeBonusToWalkAfterFullGallop(Endurance $endurance)
+    public function getRequiredTimeBonusToWalkAfterFullGallop(Endurance $endurance): TimeBonus
     {
         return $this->movementTypesTable->getRequiredTimeBonusToWalkAfterFullSprint($endurance);
     }

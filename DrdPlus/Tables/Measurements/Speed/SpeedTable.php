@@ -28,7 +28,7 @@ class SpeedTable extends AbstractMeasurementFileTable
     /**
      * @return array|string[]
      */
-    protected function getExpectedDataHeader()
+    protected function getExpectedDataHeader(): array
     {
         return [Speed::M_PER_ROUND, Speed::KM_PER_HOUR];
     }

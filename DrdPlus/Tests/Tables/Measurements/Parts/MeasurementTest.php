@@ -53,7 +53,7 @@ class DeAbstractedMeasurement extends AbstractMeasurement
     /**
      * @return array|string[]
      */
-    public function getPossibleUnits()
+    public function getPossibleUnits(): array
     {
         return [self::POSSIBLE_UNIT];
     }

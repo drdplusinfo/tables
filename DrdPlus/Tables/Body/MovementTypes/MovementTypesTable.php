@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes;
 
+use DrdPlus\Codes\TimeCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
@@ -101,7 +102,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnWaiting()
+    public function getSpeedBonusOnWaiting(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(self::WAITING);
@@ -110,7 +111,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnWalk()
+    public function getSpeedBonusOnWalk(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(self::WALK);
@@ -119,7 +120,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnRush()
+    public function getSpeedBonusOnRush(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(self::RUSH);
@@ -128,7 +129,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnRun()
+    public function getSpeedBonusOnRun(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(self::RUN);
@@ -137,7 +138,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return SpeedBonus
      */
-    public function getSpeedBonusOnSprint()
+    public function getSpeedBonusOnSprint(): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSpeedBonus(self::SPRINT);
@@ -154,17 +155,17 @@ class MovementTypesTable extends AbstractFileTable
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $hours = $this->getValue([$movementType], self::HOURS_PER_POINT_OF_FATIGUE);
             if ($hours !== false) {
-                return new Time($hours, Time::HOUR, $this->timeTable);
+                return new Time($hours, TimeCode::HOUR, $this->timeTable);
             }
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $minutes = $this->getValue([$movementType], self::MINUTES_PER_POINT_OF_FATIGUE);
             if ($minutes !== false) {
-                return new Time($minutes, Time::MINUTE, $this->timeTable);
+                return new Time($minutes, TimeCode::MINUTE, $this->timeTable);
             }
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $rounds = $this->getValue([$movementType], self::ROUNDS_PER_POINT_OF_FATIGUE);
             if ($rounds !== false) {
-                return new Time($rounds, Time::ROUND, $this->timeTable);
+                return new Time($rounds, TimeCode::ROUND, $this->timeTable);
             }
 
             return false;
@@ -178,7 +179,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnWalk()
+    public function getPeriodForPointOfFatigueOnWalk(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(MovementTypeCode::WALK);
@@ -187,7 +188,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnRush()
+    public function getPeriodForPointOfFatigueOnRush(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUSH);
@@ -196,7 +197,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnRun()
+    public function getPeriodForPointOfFatigueOnRun(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUN);
@@ -205,7 +206,7 @@ class MovementTypesTable extends AbstractFileTable
     /**
      * @return Time
      */
-    public function getPeriodForPointOfFatigueOnSprint()
+    public function getPeriodForPointOfFatigueOnSprint(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPeriodForPointOfFatigue(MovementTypeCode::SPRINT);
@@ -216,8 +217,9 @@ class MovementTypesTable extends AbstractFileTable
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getMaximumTimeBonusToSprint(Endurance $endurance)
+    public function getMaximumTimeBonusToSprint(Endurance $endurance): TimeBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new TimeBonus($endurance->getValue(), $this->timeTable);
     }
 
@@ -226,8 +228,9 @@ class MovementTypesTable extends AbstractFileTable
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getRequiredTimeBonusToWalkAfterFullSprint(Endurance $endurance)
+    public function getRequiredTimeBonusToWalkAfterFullSprint(Endurance $endurance): TimeBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new TimeBonus($endurance->getValue() + 20, $this->timeTable);
     }
 
