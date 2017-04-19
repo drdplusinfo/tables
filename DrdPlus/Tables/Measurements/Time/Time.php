@@ -45,6 +45,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     }
 
     /**
+     * @return TimeCode
+     */
+    public function getUnitCode(): TimeCode
+    {
+        return TimeCode::getIt($this->getUnit());
+    }
+
+    /**
      * @return string[]
      */
     public function getPossibleUnits(): array

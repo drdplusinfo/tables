@@ -210,4 +210,15 @@ class TimeTest extends AbstractTestOfMeasurement
             'First available bonus should be taken if more than single one matches the value'
         );
     }
+
+    /**
+     * @test
+     */
+    public function I_can_get_unit_as_code()
+    {
+        $day = new Time(1, TimeCode::DAY, new TimeTable());
+        self::assertSame(TimeCode::getIt(TimeCode::DAY), $day->getUnitCode());
+        $year = new Time(1, TimeCode::YEAR, new TimeTable());
+        self::assertSame(TimeCode::getIt(TimeCode::YEAR), $year->getUnitCode());
+    }
 }
