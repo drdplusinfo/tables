@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Riding;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
@@ -193,7 +193,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_gait()
     {
         self::assertEquals(
-            new Time(1, TimeCode::HOUR, new TimeTable()),
+            new Time(1, TimeUnitCode::HOUR, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -207,7 +207,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_trot()
     {
         self::assertEquals(
-            new Time(0.5, TimeCode::HOUR, new TimeTable()),
+            new Time(0.5, TimeUnitCode::HOUR, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -221,7 +221,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_canter()
     {
         self::assertEquals(
-            new Time(5, TimeCode::MINUTE, new TimeTable()),
+            new Time(5, TimeUnitCode::MINUTE, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())
@@ -235,7 +235,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     public function I_can_get_period_of_point_of_fatigue_for_gallop()
     {
         self::assertEquals(
-            new Time(2, TimeCode::ROUND, new TimeTable()),
+            new Time(2, TimeUnitCode::ROUND, new TimeTable()),
             (new RidingAnimalsAndFlyingBeastsMovementTypesTable(
                 $speedTable = new SpeedTable(),
                 new MovementTypesTable($speedTable, new TimeTable())

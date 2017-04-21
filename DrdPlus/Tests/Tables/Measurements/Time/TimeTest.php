@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
@@ -11,18 +11,18 @@ class TimeTest extends AbstractTestOfMeasurement
 
     protected function getDefaultUnit()
     {
-        return TimeCode::ROUND;
+        return TimeUnitCode::ROUND;
     }
 
     protected function getAllUnits(): array
     {
         return [
-            TimeCode::ROUND,
-            TimeCode::MINUTE,
-            TimeCode::HOUR,
-            TimeCode::DAY,
-            TimeCode::MONTH,
-            TimeCode::YEAR,
+            TimeUnitCode::ROUND,
+            TimeUnitCode::MINUTE,
+            TimeUnitCode::HOUR,
+            TimeUnitCode::DAY,
+            TimeUnitCode::MONTH,
+            TimeUnitCode::YEAR,
         ];
     }
 
@@ -48,8 +48,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToRoundsConversion()
     {
         return [
-            [10, TimeCode::DAY],
-            [100, TimeCode::YEAR],
+            [10, TimeUnitCode::DAY],
+            [100, TimeUnitCode::YEAR],
         ];
     }
 
@@ -75,8 +75,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToMinutesConversion()
     {
         return [
-            [10, TimeCode::DAY],
-            [100, TimeCode::YEAR],
+            [10, TimeUnitCode::DAY],
+            [100, TimeUnitCode::YEAR],
         ];
     }
 
@@ -102,8 +102,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToHoursConversion()
     {
         return [
-            [1, TimeCode::ROUND],
-            [100, TimeCode::YEAR],
+            [1, TimeUnitCode::ROUND],
+            [100, TimeUnitCode::YEAR],
         ];
     }
 
@@ -129,8 +129,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToDaysConversion()
     {
         return [
-            [1, TimeCode::ROUND],
-            [100, TimeCode::YEAR],
+            [1, TimeUnitCode::ROUND],
+            [100, TimeUnitCode::YEAR],
         ];
     }
 
@@ -156,9 +156,9 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToMonthsConversion()
     {
         return [
-            [1, TimeCode::ROUND],
-            [20, TimeCode::MINUTE],
-            [100, TimeCode::YEAR],
+            [1, TimeUnitCode::ROUND],
+            [20, TimeUnitCode::MINUTE],
+            [100, TimeUnitCode::YEAR],
         ];
     }
 
@@ -184,8 +184,8 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToYearsConversion()
     {
         return [
-            [1, TimeCode::ROUND],
-            [12, TimeCode::MINUTE],
+            [1, TimeUnitCode::ROUND],
+            [12, TimeUnitCode::MINUTE],
         ];
     }
 
@@ -194,7 +194,7 @@ class TimeTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_hours_per_day_as_constant()
     {
-        self::assertSame((new Time(1, TimeCode::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
+        self::assertSame((new Time(1, TimeUnitCode::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
     }
 
     /**
@@ -206,7 +206,7 @@ class TimeTest extends AbstractTestOfMeasurement
     {
         self::assertSame(
             0,
-            (new Time(1, TimeCode::ROUND, new TimeTable()))->getBonus()->getValue(),
+            (new Time(1, TimeUnitCode::ROUND, new TimeTable()))->getBonus()->getValue(),
             'First available bonus should be taken if more than single one matches the value'
         );
     }
@@ -216,9 +216,9 @@ class TimeTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_unit_as_code()
     {
-        $day = new Time(1, TimeCode::DAY, new TimeTable());
-        self::assertSame(TimeCode::getIt(TimeCode::DAY), $day->getUnitCode());
-        $year = new Time(1, TimeCode::YEAR, new TimeTable());
-        self::assertSame(TimeCode::getIt(TimeCode::YEAR), $year->getUnitCode());
+        $day = new Time(1, TimeUnitCode::DAY, new TimeTable());
+        self::assertSame(TimeUnitCode::getIt(TimeUnitCode::DAY), $day->getUnitCode());
+        $year = new Time(1, TimeUnitCode::YEAR, new TimeTable());
+        self::assertSame(TimeUnitCode::getIt(TimeUnitCode::YEAR), $year->getUnitCode());
     }
 }

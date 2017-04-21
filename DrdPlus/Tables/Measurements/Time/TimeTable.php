@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -30,7 +30,7 @@ class TimeTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [TimeCode::ROUND, TimeCode::MINUTE, TimeCode::HOUR, TimeCode::DAY, TimeCode::MONTH, TimeCode::YEAR];
+        return [TimeUnitCode::ROUND, TimeUnitCode::MINUTE, TimeUnitCode::HOUR, TimeUnitCode::DAY, TimeUnitCode::MONTH, TimeUnitCode::YEAR];
     }
 
     /**

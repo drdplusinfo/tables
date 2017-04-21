@@ -1,14 +1,13 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Codes\SpeedUnitCode;
+use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Speed extends AbstractMeasurementWithBonus
 {
-
-    const M_PER_ROUND = 'm/round';
-    const KM_PER_HOUR = 'km/h';
 
     /**
      * @var SpeedTable
@@ -19,6 +18,10 @@ class Speed extends AbstractMeasurementWithBonus
      * @param float $value
      * @param SpeedTable $speedTable
      * @param string $unit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function __construct($value, $unit, SpeedTable $speedTable)
     {
@@ -31,53 +34,60 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [self::M_PER_ROUND, self::KM_PER_HOUR];
+        return [SpeedUnitCode::METER_PER_ROUND, SpeedUnitCode::KILOMETER_PER_HOUR];
     }
 
     /**
      * @return float
      */
-    public function getMetersPerRound()
+    public function getMetersPerRound(): float
     {
-        return $this->convertTo(self::M_PER_ROUND);
+        return $this->convertTo(SpeedUnitCode::METER_PER_ROUND);
     }
 
     /**
      * @param string $wantedUnit
-     *
      * @return float
      */
-    private function convertTo($wantedUnit)
+    private function convertTo($wantedUnit): float
     {
         if ($this->getUnit() === $wantedUnit) {
             return $this->getValue();
         }
 
-        return $this->getBonus()->getSpeed(self::KM_PER_HOUR)->getValue();
+        return $this->getBonus()->getSpeed(SpeedUnitCode::KILOMETER_PER_HOUR)->getValue();
     }
 
     /**
      * @return float
      */
-    public function getKilometersPerHour()
+    public function getKilometersPerHour(): float
     {
-        return $this->convertTo(self::KM_PER_HOUR);
+        return $this->convertTo(SpeedUnitCode::KILOMETER_PER_HOUR);
     }
 
     /**
      * @return SpeedBonus
      */
-    public function getBonus()
+    public function getBonus(): SpeedBonus
     {
         return $this->speedTable->toBonus($this);
     }
 
     /**
      * @param DistanceTable $distanceTable
-     * @return \DrdPlus\Tables\Measurements\Distance\Distance
+     * @return Distance
      */
-    public function getDistancePerRound(DistanceTable $distanceTable)
+    public function getDistancePerRound(DistanceTable $distanceTable): Distance
     {
         return $this->getBonus()->getDistancePerRound($distanceTable);
+    }
+
+    /**
+     * @return SpeedUnitCode
+     */
+    public function getUnitCode(): SpeedUnitCode
+    {
+        return SpeedUnitCode::getIt($this->getUnit());
     }
 }

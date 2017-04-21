@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Body\MovementTypes;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
@@ -155,17 +155,17 @@ class MovementTypesTable extends AbstractFileTable
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $hours = $this->getValue([$movementType], self::HOURS_PER_POINT_OF_FATIGUE);
             if ($hours !== false) {
-                return new Time($hours, TimeCode::HOUR, $this->timeTable);
+                return new Time($hours, TimeUnitCode::HOUR, $this->timeTable);
             }
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $minutes = $this->getValue([$movementType], self::MINUTES_PER_POINT_OF_FATIGUE);
             if ($minutes !== false) {
-                return new Time($minutes, TimeCode::MINUTE, $this->timeTable);
+                return new Time($minutes, TimeUnitCode::MINUTE, $this->timeTable);
             }
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $rounds = $this->getValue([$movementType], self::ROUNDS_PER_POINT_OF_FATIGUE);
             if ($rounds !== false) {
-                return new Time($rounds, TimeCode::ROUND, $this->timeTable);
+                return new Time($rounds, TimeUnitCode::ROUND, $this->timeTable);
             }
 
             return false;

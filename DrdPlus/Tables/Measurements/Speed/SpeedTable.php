@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Codes\SpeedUnitCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -30,7 +31,7 @@ class SpeedTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [Speed::M_PER_ROUND, Speed::KM_PER_HOUR];
+        return [SpeedUnitCode::METER_PER_ROUND, SpeedUnitCode::KILOMETER_PER_HOUR];
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 use Granam\Integer\Tools\ToInteger;
@@ -35,7 +35,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getValue()
     {
-        if ($this->getUnit() === TimeCode::ROUND) {
+        if ($this->getUnit() === TimeUnitCode::ROUND) {
             // only rounds are always integer
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return ToInteger::toInteger(parent::getValue());
@@ -45,11 +45,11 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     }
 
     /**
-     * @return TimeCode
+     * @return TimeUnitCode
      */
-    public function getUnitCode(): TimeCode
+    public function getUnitCode(): TimeUnitCode
     {
-        return TimeCode::getIt($this->getUnit());
+        return TimeUnitCode::getIt($this->getUnit());
     }
 
     /**
@@ -57,7 +57,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [TimeCode::ROUND, TimeCode::MINUTE, TimeCode::HOUR, TimeCode::DAY, TimeCode::MONTH, TimeCode::YEAR];
+        return [TimeUnitCode::ROUND, TimeUnitCode::MINUTE, TimeUnitCode::HOUR, TimeUnitCode::DAY, TimeUnitCode::MONTH, TimeUnitCode::YEAR];
     }
 
     /**
@@ -73,7 +73,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findRounds()
     {
-        return $this->findIn(TimeCode::ROUND);
+        return $this->findIn(TimeUnitCode::ROUND);
     }
 
     /**
@@ -82,7 +82,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getRounds(): Time
     {
-        return $this->getInUnit(TimeCode::ROUND);
+        return $this->getInUnit(TimeUnitCode::ROUND);
     }
 
     /**
@@ -125,7 +125,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findMinutes()
     {
-        return $this->findIn(TimeCode::MINUTE);
+        return $this->findIn(TimeUnitCode::MINUTE);
     }
 
     /**
@@ -134,7 +134,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getMinutes(): Time
     {
-        return $this->getInUnit(TimeCode::MINUTE);
+        return $this->getInUnit(TimeUnitCode::MINUTE);
     }
 
     /**
@@ -142,7 +142,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findHours()
     {
-        return $this->findIn(TimeCode::HOUR);
+        return $this->findIn(TimeUnitCode::HOUR);
     }
 
     /**
@@ -151,7 +151,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getHours(): Time
     {
-        return $this->getInUnit(TimeCode::HOUR);
+        return $this->getInUnit(TimeUnitCode::HOUR);
     }
 
     /**
@@ -159,7 +159,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findDays()
     {
-        return $this->findIn(TimeCode::DAY);
+        return $this->findIn(TimeUnitCode::DAY);
     }
 
     /**
@@ -168,7 +168,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getDays(): Time
     {
-        return $this->getInUnit(TimeCode::DAY);
+        return $this->getInUnit(TimeUnitCode::DAY);
     }
 
     /**
@@ -176,7 +176,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findMonths()
     {
-        return $this->findIn(TimeCode::MONTH);
+        return $this->findIn(TimeUnitCode::MONTH);
     }
 
     /**
@@ -185,7 +185,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getMonths(): Time
     {
-        return $this->getInUnit(TimeCode::MONTH);
+        return $this->getInUnit(TimeUnitCode::MONTH);
     }
 
     /**
@@ -193,7 +193,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function findYears()
     {
-        return $this->findIn(TimeCode::YEAR);
+        return $this->findIn(TimeUnitCode::YEAR);
     }
 
     /**
@@ -202,7 +202,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      */
     public function getYears(): Time
     {
-        return $this->getInUnit(TimeCode::YEAR);
+        return $this->getInUnit(TimeUnitCode::YEAR);
     }
 
 }

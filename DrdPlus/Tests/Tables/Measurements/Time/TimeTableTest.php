@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
@@ -17,7 +17,7 @@ class TimeTableTest extends MeasurementTableTest
         $timeTable = new TimeTable();
 
         self::assertEquals(
-            [array_merge(['bonus'], TimeCode::getPossibleValues())],
+            [array_merge(['bonus'], TimeUnitCode::getPossibleValues())],
             $timeTable->getHeader()
         );
     }
@@ -49,15 +49,15 @@ class TimeTableTest extends MeasurementTableTest
     {
         $timeTable = new TimeTable();
 
-        self::assertSame(0, $timeTable->toBonus(new Time(1, TimeCode::ROUND, $timeTable))->getValue());
-        self::assertSame(4, $timeTable->toBonus(new Time(2, TimeCode::ROUND, $timeTable))->getValue());
-        self::assertSame(39, $timeTable->toBonus(new Time(90, TimeCode::ROUND, $timeTable))->getValue());
+        self::assertSame(0, $timeTable->toBonus(new Time(1, TimeUnitCode::ROUND, $timeTable))->getValue());
+        self::assertSame(4, $timeTable->toBonus(new Time(2, TimeUnitCode::ROUND, $timeTable))->getValue());
+        self::assertSame(39, $timeTable->toBonus(new Time(90, TimeUnitCode::ROUND, $timeTable))->getValue());
 
-        self::assertSame(16, $timeTable->toBonus(new Time(1, TimeCode::MINUTE, $timeTable))->getValue());
-        self::assertSame(51, $timeTable->toBonus(new Time(1, TimeCode::HOUR, $timeTable))->getValue());
-        self::assertSame(73, $timeTable->toBonus(new Time(1, TimeCode::DAY, $timeTable))->getValue());
-        self::assertSame(102, $timeTable->toBonus(new Time(1, TimeCode::MONTH, $timeTable))->getValue());
-        self::assertSame(124, $timeTable->toBonus(new Time(1, TimeCode::YEAR, $timeTable))->getValue());
+        self::assertSame(16, $timeTable->toBonus(new Time(1, TimeUnitCode::MINUTE, $timeTable))->getValue());
+        self::assertSame(51, $timeTable->toBonus(new Time(1, TimeUnitCode::HOUR, $timeTable))->getValue());
+        self::assertSame(73, $timeTable->toBonus(new Time(1, TimeUnitCode::DAY, $timeTable))->getValue());
+        self::assertSame(102, $timeTable->toBonus(new Time(1, TimeUnitCode::MONTH, $timeTable))->getValue());
+        self::assertSame(124, $timeTable->toBonus(new Time(1, TimeUnitCode::YEAR, $timeTable))->getValue());
     }
 
     /**
@@ -89,7 +89,7 @@ class TimeTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_low_value_to_bonus()
     {
         $timeTable = new TimeTable();
-        $timeTable->toBonus(new Time(0, TimeCode::ROUND, $timeTable))->getValue();
+        $timeTable->toBonus(new Time(0, TimeUnitCode::ROUND, $timeTable))->getValue();
     }
 
     /**
@@ -99,6 +99,6 @@ class TimeTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_high_value_to_bonus()
     {
         $timeTable = new TimeTable();
-        $timeTable->toBonus(new Time(91, TimeCode::ROUND, $timeTable))->getValue();
+        $timeTable->toBonus(new Time(91, TimeUnitCode::ROUND, $timeTable))->getValue();
     }
 }

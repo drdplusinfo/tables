@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\FatigueByLoad;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Body\FatigueByLoad\AthleticsInterface;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
@@ -106,18 +106,18 @@ class FatigueByLoadTableTest extends TableTest
             [-1, 1, null],
             [-6, 3, null],
             [3, 3, null],
-            [1, 0, new Time(1, TimeCode::HOUR, $timeTable)],
-            [4, 3, new Time(1, TimeCode::HOUR, $timeTable)],
-            [4, 2, new Time(1, TimeCode::HOUR, $timeTable)],
-            [6, 0, new Time(1, TimeCode::HOUR, $timeTable)],
-            [7, 0, new Time(0.5, TimeCode::HOUR, $timeTable)],
-            [8, 1, new Time(0.5, TimeCode::HOUR, $timeTable)],
-            [12, 0, new Time(0.5, TimeCode::HOUR, $timeTable)],
-            [17, 0, new Time(5, TimeCode::MINUTE, $timeTable)],
-            [20, 3, new Time(5, TimeCode::MINUTE, $timeTable)],
-            [18, 0, new Time(2, TimeCode::ROUND, $timeTable)],
-            [21, 0, new Time(2, TimeCode::ROUND, $timeTable)],
-            [24, 3, new Time(2, TimeCode::ROUND, $timeTable)],
+            [1, 0, new Time(1, TimeUnitCode::HOUR, $timeTable)],
+            [4, 3, new Time(1, TimeUnitCode::HOUR, $timeTable)],
+            [4, 2, new Time(1, TimeUnitCode::HOUR, $timeTable)],
+            [6, 0, new Time(1, TimeUnitCode::HOUR, $timeTable)],
+            [7, 0, new Time(0.5, TimeUnitCode::HOUR, $timeTable)],
+            [8, 1, new Time(0.5, TimeUnitCode::HOUR, $timeTable)],
+            [12, 0, new Time(0.5, TimeUnitCode::HOUR, $timeTable)],
+            [17, 0, new Time(5, TimeUnitCode::MINUTE, $timeTable)],
+            [20, 3, new Time(5, TimeUnitCode::MINUTE, $timeTable)],
+            [18, 0, new Time(2, TimeUnitCode::ROUND, $timeTable)],
+            [21, 0, new Time(2, TimeUnitCode::ROUND, $timeTable)],
+            [24, 3, new Time(2, TimeUnitCode::ROUND, $timeTable)],
         ];
     }
 

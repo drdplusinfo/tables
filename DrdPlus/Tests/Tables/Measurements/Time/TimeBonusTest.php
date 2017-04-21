@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeCode;
+use DrdPlus\Codes\TimeUnitCode;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfBonus;
@@ -16,10 +16,10 @@ class TimeBonusTest extends AbstractTestOfBonus
     {
         $timeBonus = new TimeBonus(0, new TimeTable());
         try {
-            self::assertNull($timeBonus->findTime(TimeCode::YEAR));
+            self::assertNull($timeBonus->findTime(TimeUnitCode::YEAR));
         } catch (\Exception $exception) {
             self::fail('No exception should happen so far ' . $exception->getTraceAsString());
         }
-        $timeBonus->getTime(TimeCode::YEAR);
+        $timeBonus->getTime(TimeUnitCode::YEAR);
     }
 }
