@@ -28,6 +28,17 @@ class TimeTest extends AbstractTestOfMeasurement
 
     /**
      * @test
+     */
+    public function I_can_use_local_constants_instead_of_those_from_unit_code_class()
+    {
+        $timeConstants = (new \ReflectionClass(Time::class))->getConstants();
+        $timeUnitConstants = (new \ReflectionClass(TimeUnitCode::class))->getConstants();
+        self::assertCount(0, array_diff($timeUnitConstants, $timeConstants));
+        self::assertCount(0, array_diff(array_keys($timeUnitConstants), array_keys($timeConstants)));
+    }
+
+    /**
+     * @test
      * @dataProvider provideUnsupportedUnitToRoundsConversion
      * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      * @param $value

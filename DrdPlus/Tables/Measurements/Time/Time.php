@@ -13,6 +13,13 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
 {
     const HOURS_PER_DAY = 12.0;
 
+    const ROUND = TimeUnitCode::ROUND;
+    const MINUTE = TimeUnitCode::MINUTE;
+    const HOUR = TimeUnitCode::HOUR;
+    const DAY = TimeUnitCode::DAY;
+    const MONTH = TimeUnitCode::MONTH;
+    const YEAR = TimeUnitCode::YEAR;
+
     /**
      * @var TimeTable
      */
