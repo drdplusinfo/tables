@@ -45,7 +45,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
     public function I_can_not_get_attack_number_modifier_with_enormous_distance()
     {
         (new ContinuousAttackNumberByDistanceTable())
-            ->getAttackNumberModifierByDistance(new Distance(999999, DistanceCode::M, new DistanceTable()));
+            ->getAttackNumberModifierByDistance(new Distance(999999, DistanceCode::METER, new DistanceTable()));
     }
 
 }

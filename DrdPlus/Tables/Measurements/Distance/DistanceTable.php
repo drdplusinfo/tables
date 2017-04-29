@@ -32,7 +32,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
+        return [DistanceCode::METER, DistanceCode::KILOMETER, DistanceCode::LIGHT_YEAR];
     }
 
     /**
@@ -59,7 +59,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      * @param string $unit
      * @return Distance
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement($value, $unit): Distance
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Distance($value, $unit, $this);
@@ -69,7 +69,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      * @param int $bonusValue
      * @return DistanceBonus
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus($bonusValue): DistanceBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new DistanceBonus($bonusValue, $this);

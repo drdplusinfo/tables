@@ -16,14 +16,14 @@ class DistanceTest extends AbstractTestOfMeasurement
     {
         $distanceTable = new DistanceTable();
 
-        $inKm = new Distance($value = 123, $unit = DistanceCode::KM, $distanceTable);
+        $inKm = new Distance($value = 123, $unit = DistanceCode::KILOMETER, $distanceTable);
         self::assertSame((float)$value, $inKm->getValue());
         self::assertSame($unit, $inKm->getUnit());
         self::assertSame((float)$value, $inKm->getKilometers());
         self::assertSame((float)($value * 1000), $inKm->getMeters());
         self::assertSame(102, $inKm->getBonus()->getValue());
 
-        $inM = new Distance($value = 456, $unit = DistanceCode::M, $distanceTable);
+        $inM = new Distance($value = 456, $unit = DistanceCode::METER, $distanceTable);
         self::assertSame((float)$value, $inM->getValue());
         self::assertSame($unit, $inM->getUnit());
         self::assertSame((float)$value, $inM->getMeters());
@@ -54,12 +54,12 @@ class DistanceTest extends AbstractTestOfMeasurement
 
     protected function getDefaultUnit()
     {
-        return DistanceCode::M;
+        return DistanceCode::METER;
     }
 
     public function getAllUnits(): array
     {
-        return [DistanceCode::M, DistanceCode::KM, DistanceCode::LIGHT_YEAR];
+        return [DistanceCode::METER, DistanceCode::KILOMETER, DistanceCode::LIGHT_YEAR];
     }
 
     /**
