@@ -34,7 +34,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [SpeedUnitCode::METERS_PER_ROUND, SpeedUnitCode::KILOMETERS_PER_HOUR];
+        return [SpeedUnitCode::METER_PER_ROUND, SpeedUnitCode::KILOMETER_PER_HOUR];
     }
 
     /**
@@ -42,7 +42,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getMetersPerRound(): float
     {
-        return $this->convertTo(SpeedUnitCode::METERS_PER_ROUND);
+        return $this->convertTo(SpeedUnitCode::METER_PER_ROUND);
     }
 
     /**
@@ -55,7 +55,7 @@ class Speed extends AbstractMeasurementWithBonus
             return $this->getValue();
         }
 
-        return $this->getBonus()->getSpeed(SpeedUnitCode::KILOMETERS_PER_HOUR)->getValue();
+        return $this->getBonus()->getSpeed(SpeedUnitCode::KILOMETER_PER_HOUR)->getValue();
     }
 
     /**
@@ -63,7 +63,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getKilometersPerHour(): float
     {
-        return $this->convertTo(SpeedUnitCode::KILOMETERS_PER_HOUR);
+        return $this->convertTo(SpeedUnitCode::KILOMETER_PER_HOUR);
     }
 
     /**

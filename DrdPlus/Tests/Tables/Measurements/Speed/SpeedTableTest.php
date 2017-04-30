@@ -45,22 +45,22 @@ class SpeedTableTest extends MeasurementTableTest
     public function I_can_convert_value_to_bonus()
     {
         $speedTable = new SpeedTable();
-        self::assertSame(-20, $speedTable->toBonus(new Speed(0.1, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue());
+        self::assertSame(-20, $speedTable->toBonus(new Speed(0.1, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue());
 
-        self::assertSame(0, $speedTable->toBonus(new Speed(1, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue());
+        self::assertSame(0, $speedTable->toBonus(new Speed(1, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue());
 
-        self::assertSame(40, $speedTable->toBonus(new Speed(104, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue()); // 40 is the closest bonus
-        self::assertSame(41, $speedTable->toBonus(new Speed(105, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
-        self::assertSame(41, $speedTable->toBonus(new Speed(106, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue()); // 41 is the closest bonus (higher in this case)
+        self::assertSame(40, $speedTable->toBonus(new Speed(104, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue()); // 40 is the closest bonus
+        self::assertSame(41, $speedTable->toBonus(new Speed(105, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
+        self::assertSame(41, $speedTable->toBonus(new Speed(106, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue()); // 41 is the closest bonus (higher in this case)
 
-        self::assertSame(40, $speedTable->toBonus(new Speed(37, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable))->getValue()); // 40 is the closest bonus
-        self::assertSame(41, $speedTable->toBonus(new Speed(38, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable))->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
-        self::assertSame(41, $speedTable->toBonus(new Speed(38, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable))->getValue()); // 41 is the closest bonus (higher in this case)
+        self::assertSame(40, $speedTable->toBonus(new Speed(37, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable))->getValue()); // 40 is the closest bonus
+        self::assertSame(41, $speedTable->toBonus(new Speed(38, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable))->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
+        self::assertSame(41, $speedTable->toBonus(new Speed(38, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable))->getValue()); // 41 is the closest bonus (higher in this case)
 
-        self::assertSame(59, $speedTable->toBonus(new Speed(900, SpeedUnitCode::METERS_PER_ROUND, $speedTable))->getValue());
+        self::assertSame(59, $speedTable->toBonus(new Speed(900, SpeedUnitCode::METER_PER_ROUND, $speedTable))->getValue());
 
-        self::assertSame(99, $speedTable->toBonus(new Speed(32000, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable))->getValue());
-        self::assertSame(99, $speedTable->toBonus(new Speed(32000, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable))->getValue());
+        self::assertSame(99, $speedTable->toBonus(new Speed(32000, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable))->getValue());
+        self::assertSame(99, $speedTable->toBonus(new Speed(32000, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable))->getValue());
     }
 
     /**
@@ -80,7 +80,7 @@ class SpeedTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_low_value_to_bonus()
     {
         $speedTable = new SpeedTable();
-        $speedTable->toBonus(new Speed(0.09, SpeedUnitCode::METERS_PER_ROUND, $speedTable));
+        $speedTable->toBonus(new Speed(0.09, SpeedUnitCode::METER_PER_ROUND, $speedTable));
     }
 
     /**
@@ -90,6 +90,6 @@ class SpeedTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_high_value_to_bonus()
     {
         $speedTable = new SpeedTable();
-        $speedTable->toBonus(new Speed(32001, SpeedUnitCode::KILOMETERS_PER_HOUR, $speedTable));
+        $speedTable->toBonus(new Speed(32001, SpeedUnitCode::KILOMETER_PER_HOUR, $speedTable));
     }
 }

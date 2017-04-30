@@ -31,7 +31,7 @@ class SpeedTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [SpeedUnitCode::METERS_PER_ROUND, SpeedUnitCode::KILOMETERS_PER_HOUR];
+        return [SpeedUnitCode::METER_PER_ROUND, SpeedUnitCode::KILOMETER_PER_HOUR];
     }
 
     /**
