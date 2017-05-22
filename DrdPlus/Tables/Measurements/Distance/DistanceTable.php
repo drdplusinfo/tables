@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
-use DrdPlus\Codes\DistanceCode;
+use DrdPlus\Codes\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -32,7 +32,7 @@ class DistanceTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [DistanceCode::METER, DistanceCode::KILOMETER, DistanceCode::LIGHT_YEAR];
+        return [DistanceUnitCode::METER, DistanceUnitCode::KILOMETER, DistanceUnitCode::LIGHT_YEAR];
     }
 
     /**

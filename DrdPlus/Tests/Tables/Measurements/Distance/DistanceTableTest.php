@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Distance;
 
-use DrdPlus\Codes\DistanceCode;
+use DrdPlus\Codes\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
@@ -64,20 +64,20 @@ class DistanceTableTest extends MeasurementTableTest
         $distanceTable = new DistanceTable();
 
         // 0.01 matches more bonuses - the lowest is taken
-        $distance = new Distance(0.01, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(0.01, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(-40, $distance->getBonus()->getValue());
 
-        $distance = new Distance(1, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(1, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(0, $distance->getBonus()->getValue());
 
-        $distance = new Distance(104, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(104, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(40, $distance->getBonus()->getValue()); // 40 is the closest bonus
-        $distance = new Distance(105, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(105, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(41, $distance->getBonus()->getValue()); // 40 and 41 are closest bonuses, 41 is taken because higher
-        $distance = new Distance(106, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(106, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(41, $distance->getBonus()->getValue()); // 41 is the closest bonus (higher in this case)
 
-        $distance = new Distance(900, DistanceCode::KILOMETER, $distanceTable);
+        $distance = new Distance(900, DistanceUnitCode::KILOMETER, $distanceTable);
         self::assertSame(119, $distance->getBonus()->getValue());
     }
 
@@ -88,7 +88,7 @@ class DistanceTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_low_value_to_bonus()
     {
         $distanceTable = new DistanceTable();
-        $distance = new Distance(0.009, DistanceCode::METER, $distanceTable);
+        $distance = new Distance(0.009, DistanceUnitCode::METER, $distanceTable);
         $distance->getBonus();
     }
 
@@ -99,7 +99,7 @@ class DistanceTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_high_value_to_bonus()
     {
         $distanceTable = new DistanceTable();
-        $distance = new Distance(901, DistanceCode::KILOMETER, $distanceTable);
+        $distance = new Distance(901, DistanceUnitCode::KILOMETER, $distanceTable);
         $distance->getBonus();
     }
 
