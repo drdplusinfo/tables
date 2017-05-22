@@ -106,7 +106,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * Returns "base of wounds" + 5 for every partial sum according to note about bonuses summation.
+     * Usable for sum of values, represented by bonuses, like distances 0 and 0 (1 meter) = 6 (2 meters).
      * See note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu
      * Warning - the result depends on the SEQUENCE of given bonuses.
      *
@@ -116,7 +116,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
-    public function sumBonuses(array $bonuses)
+    public function sumValuesViaBonuses(array $bonuses): int
     {
         while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

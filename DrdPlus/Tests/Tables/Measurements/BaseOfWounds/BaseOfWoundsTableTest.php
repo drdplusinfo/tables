@@ -74,7 +74,7 @@ class BaseOfWoundsTableTest extends TableTest
         $strength = Strength::getIt($strengthValue);
         $weaponBaseOfWounds = new IntegerObject($weaponBaseOfWoundsValue);
         self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->getBaseOfWounds($strength, $weaponBaseOfWounds));
-        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumBonuses([$strength, $weaponBaseOfWounds]) - 5);
+        self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->sumValuesViaBonuses([$strength, $weaponBaseOfWounds]) - 5);
         self::assertSame($expectedBaseOfWounds, $baseOfWoundsTable->calculateBaseOfWounds($strength, $weaponBaseOfWounds));
     }
 
@@ -218,14 +218,14 @@ class BaseOfWoundsTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_sum_bonuses() // like weights
+    public function I_can_sum_values_via_their_bonuses() // like weights
     {
         $baseOfWoundsTable = new BaseOfWoundsTable();
 
-        self::assertSame(123, $baseOfWoundsTable->sumBonuses([123]));
-        self::assertSame(5, $baseOfWoundsTable->sumBonuses([-5, new IntegerObject(-5), -5]));
-        self::assertSame(14, $baseOfWoundsTable->sumBonuses([new IntegerObject(-5), new IntegerObject(0), new IntegerObject(10)]));
-        self::assertSame(13, $baseOfWoundsTable->sumBonuses([-5, -4, new IntegerObject(-3), -2, new IntegerObject(-1), 0]));
+        self::assertSame(123, $baseOfWoundsTable->sumValuesViaBonuses([123]));
+        self::assertSame(5, $baseOfWoundsTable->sumValuesViaBonuses([-5, new IntegerObject(-5), -5]));
+        self::assertSame(14, $baseOfWoundsTable->sumValuesViaBonuses([new IntegerObject(-5), new IntegerObject(0), new IntegerObject(10)]));
+        self::assertSame(13, $baseOfWoundsTable->sumValuesViaBonuses([-5, -4, new IntegerObject(-3), -2, new IntegerObject(-1), 0]));
     }
 
     /**
@@ -236,7 +236,7 @@ class BaseOfWoundsTableTest extends TableTest
      */
     public function I_can_not_sum_nothing_or_null_as_first_bonus(array $bonuses)
     {
-        (new BaseOfWoundsTable())->sumBonuses($bonuses);
+        (new BaseOfWoundsTable())->sumValuesViaBonuses($bonuses);
     }
 
     /**
