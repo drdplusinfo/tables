@@ -42,7 +42,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function getRequiredStrengthForArmament(ArmamentCode $armamentCode)
+    public function getRequiredStrengthForArmament(ArmamentCode $armamentCode): int
     {
         return $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getRequiredStrengthOf($armamentCode);
     }
@@ -55,7 +55,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
-    public function getLengthOfWeaponOrShield(WeaponlikeCode $weaponlikeCode)
+    public function getLengthOfWeaponOrShield(WeaponlikeCode $weaponlikeCode): int
     {
         if ($weaponlikeCode instanceof MeleeWeaponlikeCode) {
             return $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($weaponlikeCode)
@@ -72,7 +72,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getWoundsOfWeaponlike(WeaponlikeCode $weaponlikeCode)
+    public function getWoundsOfWeaponlike(WeaponlikeCode $weaponlikeCode): int
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getWoundsOf($weaponlikeCode);
     }
@@ -84,7 +84,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getWoundsTypeOfWeaponlike(WeaponlikeCode $weaponlikeCode)
+    public function getWoundsTypeOfWeaponlike(WeaponlikeCode $weaponlikeCode): int
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getWoundsTypeOf($weaponlikeCode);
     }
@@ -96,7 +96,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getCoverOfWeaponOrShield(WeaponlikeCode $weaponOrShield)
+    public function getCoverOfWeaponOrShield(WeaponlikeCode $weaponOrShield): int
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponOrShield)->getCoverOf($weaponOrShield);
     }
@@ -108,7 +108,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getOffensivenessOfWeaponlike(WeaponlikeCode $weaponlikeCode)
+    public function getOffensivenessOfWeaponlike(WeaponlikeCode $weaponlikeCode): int
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getOffensivenessOf($weaponlikeCode);
     }
@@ -118,7 +118,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function getWeightOfArmament(ArmamentCode $armamentCode)
+    public function getWeightOfArmament(ArmamentCode $armamentCode): int
     {
         return $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getWeightOf($armamentCode);
     }
@@ -128,7 +128,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function isTwoHandedOnly(WeaponlikeCode $weaponlikeCode)
+    public function isTwoHandedOnly(WeaponlikeCode $weaponlikeCode): bool
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOf($weaponlikeCode);
     }
@@ -140,7 +140,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function isOneHandedOnly(WeaponlikeCode $weaponlikeCode)
+    public function isOneHandedOnly(WeaponlikeCode $weaponlikeCode): bool
     {
         return !$this->canHoldItByTwoHands($weaponlikeCode);
     }
@@ -153,7 +153,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function canHoldItByTwoHands(WeaponlikeCode $weaponToHoldByTwoHands)
+    public function canHoldItByTwoHands(WeaponlikeCode $weaponToHoldByTwoHands): bool
     {
         return
             // shooting weapons are two-handed (except minicrossbow), projectiles are not
@@ -169,7 +169,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function canHoldItByOneHand(WeaponlikeCode $weaponToHoldByTwoHands)
+    public function canHoldItByOneHand(WeaponlikeCode $weaponToHoldByTwoHands): bool
     {
         return !$this->isTwoHandedOnly($weaponToHoldByTwoHands); // shooting weapons are two-handed (except minicrossbow), projectiles are not
     }
@@ -182,7 +182,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode)
+    public function canHoldItByOneHandAsWellAsTwoHands(WeaponlikeCode $weaponlikeCode): bool
     {
         return $this->canHoldItByOneHand($weaponlikeCode) && $this->canHoldItByTwoHands($weaponlikeCode);
     }
@@ -196,7 +196,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function getRestrictionOfProtectiveArmament(ProtectiveArmamentCode $protectiveArmamentCode)
+    public function getRestrictionOfProtectiveArmament(ProtectiveArmamentCode $protectiveArmamentCode): int
     {
         return $this->tables->getProtectiveArmamentsTable($protectiveArmamentCode)
             ->getRestrictionOf($protectiveArmamentCode);
@@ -209,7 +209,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getRangeOfRangedWeapon(RangedWeaponCode $rangedWeaponCode)
+    public function getRangeOfRangedWeapon(RangedWeaponCode $rangedWeaponCode): int
     {
         return $this->tables->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode)->getRangeOf($rangedWeaponCode);
     }
@@ -221,7 +221,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getOffensivenessModifierOfProjectile(ProjectileCode $projectileCode)
+    public function getOffensivenessModifierOfProjectile(ProjectileCode $projectileCode): int
     {
         return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getOffensivenessOf($projectileCode);
     }
@@ -370,7 +370,7 @@ class Armourer extends StrictObject
      * calculation. This uses that calculation. See PPH page 104 left column.
      *
      * @param EncounterRange $currentEncounterRange
-     * @param Distance $targetSize
+     * @param Distance $targetDistance
      * @param MaximalRange $currentMaximalRange
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\DistanceIsOutOfMaximalRange
@@ -378,14 +378,14 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      */
     public function getAttackNumberModifierByDistance(
-        Distance $targetSize,
+        Distance $targetDistance,
         EncounterRange $currentEncounterRange,
         MaximalRange $currentMaximalRange
-    )
+    ): int
     {
-        if ($targetSize->getBonus()->getValue() > $currentMaximalRange->getValue()) { // comparing distance bonuses in fact
+        if ($targetDistance->getBonus()->getValue() > $currentMaximalRange->getValue()) { // comparing distance bonuses in fact
             throw new Exceptions\DistanceIsOutOfMaximalRange(
-                "Given distance {$targetSize->getBonus()} ({$targetSize->getMeters()} meters)"
+                "Given distance {$targetDistance->getBonus()} ({$targetDistance->getMeters()} meters)"
                 . " is out of maximal range {$currentMaximalRange}"
                 . ' (' . $currentMaximalRange->getInMeters($this->tables) . ' meters)'
             );
@@ -396,9 +396,9 @@ class Armourer extends StrictObject
             );
         }
         $attackNumberModifier = $this->tables->getContinuousAttackNumberByDistanceTable()
-            ->getAttackNumberModifierByDistance($targetSize);
-        if ($targetSize->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
-            $attackNumberModifier += $currentEncounterRange->getValue() - $targetSize->getBonus()->getValue(); // always negative
+            ->getAttackNumberModifierByDistance($targetDistance);
+        if ($targetDistance->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
+            $attackNumberModifier += $currentEncounterRange->getValue() - $targetDistance->getBonus()->getValue(); // always negative
         }
 
         return $attackNumberModifier;
