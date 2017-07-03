@@ -231,7 +231,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWoundsModifierOfProjectile(ProjectileCode $projectileCode)
+    public function getWoundsModifierOfProjectile(ProjectileCode $projectileCode): int
     {
         return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getWoundsOf($projectileCode);
     }
@@ -241,7 +241,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWoundsTypeOfProjectile(ProjectileCode $projectileCode)
+    public function getWoundsTypeOfProjectile(ProjectileCode $projectileCode): int
     {
         return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getWoundsTypeOf($projectileCode);
     }
@@ -251,7 +251,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getRangeModifierOfProjectile(ProjectileCode $projectileCode)
+    public function getRangeModifierOfProjectile(ProjectileCode $projectileCode): int
     {
         return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getRangeOf($projectileCode);
     }
@@ -267,7 +267,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getApplicableStrength(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getApplicableStrength(WeaponlikeCode $weaponlikeCode, Strength $currentStrength): Strength
     {
         if (!$weaponlikeCode->isShootingWeapon()) {
             return $currentStrength;
@@ -297,7 +297,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function canUseArmament(ArmamentCode $armamentCode, Strength $currentStrength, Size $bodySize)
+    public function canUseArmament(ArmamentCode $armamentCode, Strength $currentStrength, Size $bodySize): bool
     {
         return $this->tables->getArmamentStrengthSanctionsTableByCode($armamentCode)->canUseIt(
             $this->getMissingStrengthForArmament($armamentCode, $currentStrength, $bodySize)
@@ -313,7 +313,11 @@ class Armourer extends StrictObject
      * @return int positive number
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function getMissingStrengthForArmament(ArmamentCode $armamentCode, Strength $currentStrength, Size $bodySize)
+    public function getMissingStrengthForArmament(
+        ArmamentCode $armamentCode,
+        Strength $currentStrength,
+        Size $bodySize
+    ): int
     {
         $requiredStrength = $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getRequiredStrengthOf($armamentCode);
         $missingStrength = $requiredStrength - $currentStrength->getValue();
@@ -340,7 +344,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getFightNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponOrShield, Strength $currentStrength)
+    public function getFightNumberMalusByStrengthWithWeaponOrShield(
+        WeaponlikeCode $weaponOrShield,
+        Strength $currentStrength
+    ): int
     {
         return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponOrShield)->getFightNumberSanction(
             $this->getMissingStrengthForArmament($weaponOrShield, $currentStrength, Size::getIt(0))
@@ -358,7 +365,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
-    public function getAttackNumberMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getAttackNumberMalusByStrengthWithWeaponlike(
+        WeaponlikeCode $weaponlikeCode,
+        Strength $currentStrength
+    ): int
     {
         return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getAttackNumberSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
@@ -410,7 +420,7 @@ class Armourer extends StrictObject
      * @param Size $targetSize
      * @return int
      */
-    public function getAttackNumberModifierBySize(Size $targetSize)
+    public function getAttackNumberModifierBySize(Size $targetSize): int
     {
         return SumAndRound::half($targetSize->getValue());
     }
@@ -427,7 +437,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getDefenseNumberMalusByStrengthWithWeaponOrShield(WeaponlikeCode $weaponOrShield, Strength $currentStrength)
+    public function getDefenseNumberMalusByStrengthWithWeaponOrShield(
+        WeaponlikeCode $weaponOrShield,
+        Strength $currentStrength
+    ): int
     {
         if ($weaponOrShield instanceof RangedWeaponCode && $weaponOrShield->isMelee()) {
             // spear can be used more effectively to cover as a melee weapon
@@ -451,7 +464,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
-    public function getBaseOfWoundsMalusByStrengthWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getBaseOfWoundsMalusByStrengthWithWeaponlike(
+        WeaponlikeCode $weaponlikeCode,
+        Strength $currentStrength
+    ): int
     {
         return $this->tables->getWeaponlikeStrengthSanctionsTableByCode($weaponlikeCode)->getBaseOfWoundsSanction(
             $this->getMissingStrengthForArmament($weaponlikeCode, $currentStrength, Size::getIt(0))
@@ -468,7 +484,10 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsByStrengthWithRangedWeapon(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsByStrengthWithRangedWeapon(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength
+    ): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getRangedWeaponStrengthSanctionsTable()->getLoadingInRounds(
@@ -484,7 +503,10 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    public function getLoadingInRoundsMalusByStrengthWithRangedWeapon(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
+    public function getLoadingInRoundsMalusByStrengthWithRangedWeapon(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength
+    ): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getRangedWeaponStrengthSanctionsTable()->getLoadingInRoundsSanction(
@@ -508,7 +530,7 @@ class Armourer extends StrictObject
         WeaponlikeCode $weaponlikeCode,
         Strength $currentStrength,
         Speed $currentSpeed
-    )
+    ): EncounterRange
     {
         if (!($weaponlikeCode instanceof RangedWeaponCode)) {
             /** note: melee weapon length in meters is half of weapon length, see PPH page 85 right column */
@@ -532,7 +554,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      */
-    private function getEncounterRangeMalusByStrength(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
+    private function getEncounterRangeMalusByStrength(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength
+    ): int
     {
         if (!$rangedWeaponCode->isBow() && !$rangedWeaponCode->isThrowingWeapon()) {
             return 0;
@@ -560,7 +585,10 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    private function getEncounterRangeBonusByStrength(RangedWeaponCode $rangedWeaponCode, Strength $currentStrength)
+    private function getEncounterRangeBonusByStrength(
+        RangedWeaponCode $rangedWeaponCode,
+        Strength $currentStrength
+    ): int
     {
         if (!$rangedWeaponCode->isBow()) {
             return 0;
@@ -580,7 +608,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      */
-    private function getEncounterRangeBonusBySpeed(RangedWeaponCode $rangedWeaponCode, Speed $speed)
+    private function getEncounterRangeBonusBySpeed(RangedWeaponCode $rangedWeaponCode, Speed $speed): int
     {
         if (!$rangedWeaponCode->isThrowingWeapon()) {
             return 0;
@@ -605,7 +633,11 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      */
-    public function getMaximalRangeWithWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength, Speed $currentSpeed)
+    public function getMaximalRangeWithWeaponlike(
+        WeaponlikeCode $weaponlikeCode,
+        Strength $currentStrength,
+        Speed $currentSpeed
+    ): MaximalRange
     {
         $encounterRange = $this->getEncounterRangeWithWeaponlike($weaponlikeCode, $currentStrength, $currentSpeed);
         if ($weaponlikeCode->isMelee()) {
@@ -628,7 +660,11 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function getAgilityMalusByStrengthWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
+    public function getAgilityMalusByStrengthWithArmor(
+        ArmorCode $armorCode,
+        Strength $currentStrength,
+        Size $bodySize
+    ): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getArmorStrengthSanctionsTable()->getAgilityMalus(
@@ -646,7 +682,11 @@ class Armourer extends StrictObject
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionDescriptionByStrengthWithArmor(ArmorCode $armorCode, Strength $currentStrength, Size $bodySize)
+    public function getSanctionDescriptionByStrengthWithArmor(
+        ArmorCode $armorCode,
+        Strength $currentStrength,
+        Size $bodySize
+    ): int
     {
         return $this->tables->getArmorStrengthSanctionsTable()->getSanctionDescription(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
@@ -663,7 +703,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getFightNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
+    public function getFightNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank): int
     {
         return $this->tables->getMissingWeaponSkillTable()->getFightNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
@@ -676,7 +716,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getAttackNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
+    public function getAttackNumberMalusForSkillRank(PositiveInteger $weaponTypeSkillRank): int
     {
         return $this->tables->getMissingWeaponSkillTable()->getAttackNumberMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
@@ -692,7 +732,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getCoverMalusForSkillRank(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield)
+    public function getCoverMalusForSkillRank(PositiveInteger $weaponTypeSkillRank, WeaponlikeCode $weaponOrShield): int
     {
         if ($weaponOrShield->isWeapon()) {
             return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
@@ -711,7 +751,7 @@ class Armourer extends StrictObject
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Partials\Exceptions\UnexpectedSkillRank
      */
-    public function getBaseOfWoundsMalusForSkillRank(PositiveInteger $weaponTypeSkillRank)
+    public function getBaseOfWoundsMalusForSkillRank(PositiveInteger $weaponTypeSkillRank): int
     {
         return $this->tables->getMissingWeaponSkillTable()->getBaseOfWoundsMalusForSkillRank($weaponTypeSkillRank->getValue());
     }
@@ -729,7 +769,7 @@ class Armourer extends StrictObject
     public function getProtectiveArmamentRestrictionBonusForSkillRank(
         ProtectiveArmamentCode $protectiveArmamentCode,
         PositiveInteger $protectiveArmamentSkillRank
-    )
+    ): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getProtectiveArmamentMissingSkillTableByCode($protectiveArmamentCode)
@@ -748,7 +788,7 @@ class Armourer extends StrictObject
     public function getProtectiveArmamentRestrictionForSkillRank(
         ProtectiveArmamentCode $protectiveArmamentCode,
         PositiveInteger $protectiveArmamentSkillRank
-    )
+    ): int
     {
         $restriction = $this->getRestrictionOfProtectiveArmament($protectiveArmamentCode)
             + $this->getProtectiveArmamentRestrictionBonusForSkillRank($protectiveArmamentCode, $protectiveArmamentSkillRank);
@@ -774,7 +814,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      */
-    public function getBaseOfWoundsUsingWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength)
+    public function getBaseOfWoundsUsingWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength): int
     {
         // weapon base of wounds has to be summed with strength via bonus summing, see PPH page 92 right column
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -797,7 +837,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, $holdsWeaponByTwoHands)
+    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, $holdsWeaponByTwoHands): int
     {
         if (!$holdsWeaponByTwoHands) {
             return 0;
