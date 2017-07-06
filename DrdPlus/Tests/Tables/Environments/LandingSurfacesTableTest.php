@@ -37,7 +37,7 @@ class LandingSurfacesTableTest extends TableTest
     {
         self::assertSame(
             $expectedPowerOfWoundModifier,
-            (new LandingSurfacesTable())->getPowerOfWoundModifier(
+            (new LandingSurfacesTable())->getWoundsModifier(
                 LandingSurfaceCode::getIt($landingSurfaceValue),
                 Agility::getIt($agilityValue),
                 new PositiveIntegerObject($armorProtectionValue)

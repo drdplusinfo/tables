@@ -51,11 +51,11 @@ class LandingSurfacesTable extends AbstractFileTable
      * @param PositiveInteger $armorProtection
      * @return int
      */
-    public function getPowerOfWoundModifier(
+    public function getWoundsModifier(
         LandingSurfaceCode $landingSurfaceCode,
         Agility $agility,
         PositiveInteger $armorProtection
-    )
+    ): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $row = $this->getRow($landingSurfaceCode);

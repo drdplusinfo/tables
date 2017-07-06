@@ -265,7 +265,7 @@ class JumpsAndFallsTableTest extends TableTest
     )
     {
         $landingSurfacesTable = $this->mockery(LandingSurfacesTable::class);
-        $landingSurfacesTable->shouldReceive('getPowerOfWoundModifier')
+        $landingSurfacesTable->shouldReceive('getWoundsModifier')
             ->with($landingSurfaceCode, $agility, $armorProtection)
             ->andReturn($modifier);
 

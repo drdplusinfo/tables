@@ -59,7 +59,7 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @param Distance $ranDistance
      * @return int
      */
-    public function getModifierToJump(JumpTypeCode $jumpTypeCode, Distance $ranDistance)
+    public function getModifierToJump(JumpTypeCode $jumpTypeCode, Distance $ranDistance): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($jumpTypeCode, $this->getJumpMovementCodeByRanDistance($ranDistance));
@@ -69,7 +69,7 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @param Distance $ranDistance
      * @return string
      */
-    private function getJumpMovementCodeByRanDistance(Distance $ranDistance)
+    private function getJumpMovementCodeByRanDistance(Distance $ranDistance): string
     {
         if ($ranDistance->getMeters() >= 5) {
             return JumpMovementCode::FLYING_JUMP;
@@ -92,7 +92,7 @@ class JumpsAndFallsTable extends AbstractFileTable
         JumpTypeCode $jumpTypeCode,
         Distance $ranDistance,
         Roll1d6 $roll1D6
-    )
+    ): int
     {
         return $this->getModifierToJump($jumpTypeCode, $ranDistance)
             + SumAndRound::half($speed->getValue())
@@ -117,21 +117,21 @@ class JumpsAndFallsTable extends AbstractFileTable
         Distance $distance,
         Weight $bodyWeight,
         Roll1d6 $roll1D6,
-        $itIsControlledJump,
+        bool $itIsControlledJump,
         Agility $agility,
         Athletics $athletics,
         LandingSurfaceCode $landingSurfaceCode,
         PositiveInteger $armorProtection,
         WoundsTable $woundsTable,
         LandingSurfacesTable $landingSurfacesTable
-    )
+    ): Wounds
     {
         $meters = $distance->getMeters();
         if ($itIsControlledJump) {
             $meters -= 2;
         }
         $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
-        $powerOfWound += $landingSurfacesTable->getPowerOfWoundModifier($landingSurfaceCode, $agility, $armorProtection);
+        $powerOfWound += $landingSurfacesTable->getWoundsModifier($landingSurfaceCode, $agility, $armorProtection);
         if ($powerOfWound < 0) {
             $powerOfWound = 0;
         }
