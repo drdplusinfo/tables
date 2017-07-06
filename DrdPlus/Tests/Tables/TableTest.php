@@ -18,7 +18,7 @@ abstract class TableTest extends TestWithMockery
             . " in format \n/**\n * See PPH page ?, @link \n */"
         );
         self::assertRegExp(<<<'REGEXP'
-~\s+[Ss]ee PPH page \d+(,? ((left|right) column( top| bottom)?|top|bottom)( \(table without name\))?)?, @link https://pph\.drdplus\.jaroslavtyc\.com/.+~
+~\s+[Ss]ee PPH page \d+(,? ((left|right) column( top| bottom)?|top|bottom)( \(table without name\))?)?, @link https://pph\.drdplus\.info/.+~
 REGEXP
             ,
             $docComment,

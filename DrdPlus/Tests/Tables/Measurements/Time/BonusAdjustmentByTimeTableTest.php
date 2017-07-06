@@ -52,7 +52,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
             [new Time(5, TimeUnitCode::DAY, $timeTable), 12 /* hour of activity per day */, new Time(5, TimeUnitCode::DAY, $timeTable) /* expected duration */],
             [new Time(100, TimeUnitCode::DAY, $timeTable), 24 /* hour of activity per day */, new Time(50, TimeUnitCode::DAY, $timeTable) /* expected duration */],
 
-            /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_s_malirem */
+            /** @link https://pph.drdlus.info/#priklad_s_casem_s_malirem */
             [new Time(1, TimeUnitCode::MONTH, $timeTable), 1 /* hour of activity per day */, new Time(12, TimeUnitCode::MONTH, $timeTable) /* expected duration */],
             [new Time(2, TimeUnitCode::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(2.5, TimeUnitCode::MONTH, $timeTable) /* expected duration */],
             [new Time(5, TimeUnitCode::MONTH, $timeTable), 5 /* hour of activity per day */, new Time(12, TimeUnitCode::MONTH, $timeTable) /* expected duration */],
@@ -60,7 +60,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
             [new Time(120, TimeUnitCode::MONTH, $timeTable), 10 /* hour of activity per day */, new Time(12, TimeUnitCode::YEAR, $timeTable) /* expected duration */],
 
             [new Time(1, TimeUnitCode::YEAR, $timeTable), 1 /* hour of activity per day */, new Time(12, TimeUnitCode::YEAR, $timeTable) /* expected duration */],
-            /** @link https://pph.drdlus.jaroslavtyc.com/#priklad_s_casem_se_slouhou_mocneho_theurga */
+            /** @link https://pph.drdlus.info/#priklad_s_casem_se_slouhou_mocneho_theurga */
             [new Time(2, TimeUnitCode::YEAR, $timeTable), 3 /* hours of activity per day */, new Time(8, TimeUnitCode::YEAR, $timeTable) /* expected duration */],
             [new Time(10, TimeUnitCode::YEAR, $timeTable), 20 /* hours of activity per day */, new Time(80, TimeUnitCode::MONTH, $timeTable) /* expected duration */],
         ];

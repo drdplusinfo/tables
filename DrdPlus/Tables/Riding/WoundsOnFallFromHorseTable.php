@@ -53,9 +53,9 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
      */
     public function getWoundsOnFallFromHorse(
         RidingAnimalMovementCode $ridingAnimalMovementCode,
-        $jumping,
+        bool $jumping,
         WoundsTable $woundsTable
-    )
+    ): WoundsBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new WoundsBonus(

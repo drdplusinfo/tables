@@ -12,7 +12,7 @@ class LandingSurfacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         self::assertSame(
             [['surface', 'power_of_wound_modifier', 'agility_multiplier_protection', 'armor_max_protection']],
@@ -33,7 +33,7 @@ class LandingSurfacesTableTest extends TableTest
         $agilityValue,
         $armorProtectionValue,
         $expectedPowerOfWoundModifier
-    )
+    ): void
     {
         self::assertSame(
             $expectedPowerOfWoundModifier,
@@ -45,7 +45,7 @@ class LandingSurfacesTableTest extends TableTest
         );
     }
 
-    public function provideValuesToGetPowerOfWoundModifier()
+    public function provideValuesToGetPowerOfWoundModifier(): array
     {
         return [
             [LandingSurfaceCode::DEEP_POWDER, 9999, 888888, -15],
