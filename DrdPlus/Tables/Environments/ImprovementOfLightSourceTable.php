@@ -5,7 +5,7 @@ use DrdPlus\Codes\Environment\LightSourceEnvironmentCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 128 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zvyseni_sily_zdroje
+ * See PPH page 128 left column, @link https://pph.drdplus.info/#tabulka_zvyseni_sily_zdroje
  */
 class ImprovementOfLightSourceTable extends AbstractFileTable
 {

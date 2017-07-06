@@ -9,7 +9,7 @@ use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\IntegerInterface;
 
 /**
- * See PPH page 163, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rychlosti
+ * See PPH page 163, @link https://pph.drdplus.info/#tabulka_rychlosti
  */
 class SpeedTable extends AbstractMeasurementFileTable
 {

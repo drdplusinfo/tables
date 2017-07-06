@@ -11,7 +11,7 @@ use DrdPlus\Properties\Combat\Shooting;
 use DrdPlus\Tables\Partials\AbstractTable;
 
 /**
- * See PPH page 34 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_bojovych_charakteristik
+ * See PPH page 34 left column, @link https://pph.drdplus.info/#tabulka_bojovych_charakteristik
  */
 class CombatCharacteristicsTable extends AbstractTable
 {

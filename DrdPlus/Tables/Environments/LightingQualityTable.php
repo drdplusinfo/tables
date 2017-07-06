@@ -5,7 +5,7 @@ use DrdPlus\Codes\Environment\LightConditionsCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 127 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_kvality_osvetleni
+ * See PPH page 127 right column, @link https://pph.drdplus.info/#tabulka_kvality_osvetleni
  */
 class LightingQualityTable extends AbstractFileTable
 {

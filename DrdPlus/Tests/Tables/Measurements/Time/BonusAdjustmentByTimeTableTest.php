@@ -142,10 +142,10 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         $timeTable = new TimeTable();
 
         return [
-            /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
+            /** @link https://pph.drdplus.info/#priklad_casu_s_rychlym_odemcenim_zamku */
             [new Time(25, TimeUnitCode::MINUTE, $timeTable), new Time(10, TimeUnitCode::MINUTE, $timeTable), -8],
             [new Time(25, TimeUnitCode::MINUTE, $timeTable), new Time(10, TimeUnitCode::YEAR, $timeTable), 0], // bonus can not occurs, only maluses
-            /** @link https://pph.drdplus.jaroslavtyc.com/#obecny_priklad_zkraceni_doby_cinnosti_na_polovinu */
+            /** @link https://pph.drdplus.info/#obecny_priklad_zkraceni_doby_cinnosti_na_polovinu */
             [new Time(10, TimeUnitCode::HOUR, $timeTable), new Time(5, TimeUnitCode::HOUR, $timeTable), -6],
         ];
     }
@@ -175,7 +175,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
         $timeTable = new TimeTable();
 
         return [
-            /** @link https://pph.drdplus.jaroslavtyc.com/#priklad_casu_s_rychlym_odemcenim_zamku */
+            /** @link https://pph.drdplus.info/#priklad_casu_s_rychlym_odemcenim_zamku */
             [new Time(25, TimeUnitCode::MINUTE, $timeTable), new Time(10, TimeUnitCode::MINUTE, $timeTable), -8],
             [new Time(25, TimeUnitCode::MINUTE, $timeTable), new Time(10, TimeUnitCode::YEAR, $timeTable), 100],
         ];

@@ -7,7 +7,7 @@ use DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingS
 use Granam\Integer\IntegerInterface;
 
 /**
- * See PPH page 95 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_postihu_za_strelne_zbrane
+ * See PPH page 95 right column, @link https://pph.drdplus.info/#tabulka_postihu_za_strelne_zbrane
  */
 class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     implements WeaponStrengthSanctionsInterface

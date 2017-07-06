@@ -10,7 +10,7 @@ use DrdPlus\Calculations\SumAndRound;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * See PPH page 164 bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_hmotnosti
+ * See PPH page 164 bottom, @link https://pph.drdplus.info/#tabulka_hmotnosti
  */
 class WeightTable extends AbstractMeasurementFileTable
 {

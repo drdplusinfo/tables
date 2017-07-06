@@ -8,7 +8,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 129 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_hlavnich_vlastnosti_povolani
+ * See PPH page 129 right column, @link https://pph.drdplus.info/#tabulka_hlavnich_vlastnosti_povolani
  */
 class ProfessionPrimaryPropertiesTable extends AbstractFileTable
 {

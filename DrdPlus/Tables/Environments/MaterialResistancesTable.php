@@ -8,7 +8,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Integer\IntegerInterface;
 
 /**
- * See PPH page 133 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_odolnosti_materialu
+ * See PPH page 133 right column, @link https://pph.drdplus.info/#tabulka_odolnosti_materialu
  */
 class MaterialResistancesTable extends AbstractFileTable
 {

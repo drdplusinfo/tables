@@ -14,7 +14,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 112 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_druhu_pohybu
+ * See PPH page 112 right column, @link https://pph.drdplus.info/#tabulka_druhu_pohybu
  */
 class MovementTypesTable extends AbstractFileTable
 {

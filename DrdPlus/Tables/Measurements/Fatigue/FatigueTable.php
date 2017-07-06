@@ -8,7 +8,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 
 /**
  * Note: fatigue table is equal to wounds table.
- * See PPH page 165 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zraneni_a_unavy
+ * See PPH page 165 top, @link https://pph.drdplus.info/#tabulka_zraneni_a_unavy
  */
 class FatigueTable extends AbstractTable
 {

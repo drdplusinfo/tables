@@ -9,7 +9,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 86 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_stitu
+ * See PPH page 86 right column, @link https://pph.drdplus.info/#tabulka_stitu
  */
 class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, MeleeWeaponlikesTable
 {

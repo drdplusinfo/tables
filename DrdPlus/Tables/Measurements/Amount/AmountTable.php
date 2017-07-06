@@ -8,7 +8,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
- * See PPH page 164 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_poctu
+ * See PPH page 164 top, @link https://pph.drdplus.info/#tabulka_poctu
  */
 class AmountTable extends AbstractMeasurementFileTable
 {

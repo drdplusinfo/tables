@@ -9,7 +9,7 @@ use Granam\Tools\ValueDescriber;
 
 /**
  * Applicable only for time bonus for days, months and years,
- * see PPH page 65 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_opravy_bonusu_za_cas
+ * see PPH page 65 left column, @link https://pph.drdplus.info/#tabulka_opravy_bonusu_za_cas
  */
 class BonusAdjustmentByTimeTable extends AbstractFileTable
 {

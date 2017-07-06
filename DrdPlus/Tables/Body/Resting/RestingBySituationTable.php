@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 118 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_odpocinku_podle_situace
+ * See PPH page 118 right column, @link https://pph.drdplus.info/#tabulka_odpocinku_podle_situace
  */
 class RestingBySituationTable extends AbstractFileTableWithPercents
 {

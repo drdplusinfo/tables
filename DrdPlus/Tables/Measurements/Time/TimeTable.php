@@ -8,7 +8,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 
 /**
- * See PPH page 161, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rychlosti
+ * See PPH page 161, @link https://pph.drdplus.info/#tabulka_rychlosti
  */
 class TimeTable extends AbstractMeasurementFileTable
 {

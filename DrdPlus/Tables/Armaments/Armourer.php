@@ -415,7 +415,7 @@ class Armourer extends StrictObject
     }
 
     /**
-     * See PPH page 104 right column top, @link https://pph.drdplus.jaroslavtyc.com/#oprava_za_velikost
+     * See PPH page 104 right column top, @link https://pph.drdplus.info/#oprava_za_velikost
      *
      * @param Size $targetSize
      * @return int

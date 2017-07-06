@@ -2,7 +2,7 @@
 namespace DrdPlus\Tables\Armaments\Armors;
 
 /**
- * See PPH page 90 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zbroji_a_prileb
+ * See PPH page 90 left column, @link https://pph.drdplus.info/#tabulka_zbroji_a_prileb
  */
 class BodyArmorsTable extends AbstractArmorsTable
 {

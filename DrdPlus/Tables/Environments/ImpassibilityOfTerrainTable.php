@@ -11,7 +11,7 @@ use Granam\Scalar\Tools\Exceptions\WrongParameterType;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 113 right column top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_neschudnosti_terenu
+ * See PPH page 113 right column top, @link https://pph.drdplus.info/#tabulka_neschudnosti_terenu
  */
 class ImpassibilityOfTerrainTable extends AbstractFileTable
 {

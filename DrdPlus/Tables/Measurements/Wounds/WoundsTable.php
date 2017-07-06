@@ -9,7 +9,7 @@ use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 
 /**
  * Note: fatigue table is equal to wounds table.
- * See PPH page 165 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zraneni_a_unavy
+ * See PPH page 165 top, @link https://pph.drdplus.info/#tabulka_zraneni_a_unavy
  * Bonus can be calculated as 20*log(value)-10 and value as 10**(bonus/20 + 0.5),
  * but few values where rounded in the resulting table.
  */

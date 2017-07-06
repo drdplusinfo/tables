@@ -10,7 +10,7 @@ use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Tables;
 
 /**
- * See PPH page 34 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_boje
+ * See PPH page 34 left column, @link https://pph.drdplus.info/#tabulka_boje
  */
 class FightTable extends AbstractTable
 {

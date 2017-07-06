@@ -6,7 +6,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
- * See PPH page 136 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_nenapadnosti
+ * See PPH page 136 right column, @link https://pph.drdplus.info/#tabulka_nenapadnosti
  */
 class StealthinessTable extends AbstractFileTable
 {

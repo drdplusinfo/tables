@@ -6,7 +6,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 147 left column, @link https://pph.drdplus.jaroslavtyc.com/#noseni_zbroje
+ * See PPH page 147 left column, @link https://pph.drdplus.info/#noseni_zbroje
  */
 class ArmorWearingSkillTable extends AbstractArmamentSkillTable implements MissingProtectiveArmamentSkill
 {

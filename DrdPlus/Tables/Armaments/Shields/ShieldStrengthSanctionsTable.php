@@ -5,7 +5,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractMeleeWeaponlikeStrengthSanctionsTa
 
 /**
  * Note: shield uses same sanctions as a melee weapon.
- * See PPH page 93 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_postihu_za_zbran
+ * See PPH page 93 left column, @link https://pph.drdplus.info/#tabulka_postihu_za_zbran
  */
 class ShieldStrengthSanctionsTable extends AbstractMeleeWeaponlikeStrengthSanctionsTable
 {

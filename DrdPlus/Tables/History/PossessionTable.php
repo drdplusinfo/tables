@@ -6,7 +6,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 38 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_majetku
+ * See PPH page 38 right column, @link https://pph.drdplus.info/#tabulka_majetku
  */
 class PossessionTable extends AbstractFileTable
 {

@@ -8,7 +8,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Integer\PositiveInteger;
 
-/** see PPH page 39, bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_dovednosti */
+/** see PPH page 39, bottom, @link https://pph.drdplus.info/#tabulka_dovednosti */
 class SkillsByBackgroundPointsTable extends AbstractFileTable
 {
     /**

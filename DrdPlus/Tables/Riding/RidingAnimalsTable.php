@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Calculations\SumAndRound;
 
 /**
- * See PPH page 122 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_jezdeckych_zvirat
+ * See PPH page 122 left column, @link https://pph.drdplus.info/#tabulka_jezdeckych_zvirat
  */
 class RidingAnimalsTable extends AbstractFileTable
 {

@@ -7,7 +7,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 122 right column bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_zraneni_pri_padu_z_kone
+ * See PPH page 122 right column bottom, @link https://pph.drdplus.info/#tabulka_zraneni_pri_padu_z_kone
  */
 class WoundsOnFallFromHorseTable extends AbstractFileTable
 {

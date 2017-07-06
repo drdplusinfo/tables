@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
- * See PPH page 29 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_pohlavi
+ * See PPH page 29 left column, @link https://pph.drdplus.info/#tabulka_pohlavi
  */
 class FemaleModifiersTable extends AbstractFileTable
 {

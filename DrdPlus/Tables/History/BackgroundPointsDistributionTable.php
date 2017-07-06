@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
- * See PPH page 38 left column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rozdeleni_bodu_zazemi
+ * See PPH page 38 left column, @link https://pph.drdplus.info/#tabulka_rozdeleni_bodu_zazemi
  */
 class BackgroundPointsDistributionTable extends AbstractFileTable
 {

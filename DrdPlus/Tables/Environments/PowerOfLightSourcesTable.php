@@ -6,7 +6,7 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 127 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_sily_svetelnych_zdroju
+ * See PPH page 127 right column, @link https://pph.drdplus.info/#tabulka_sily_svetelnych_zdroju
  */
 class PowerOfLightSourcesTable extends AbstractFileTable
 {

@@ -14,7 +14,7 @@ use DrdPlus\Properties\Derived\Dignity;
 use DrdPlus\Tables\Partials\AbstractTable;
 
 /**
- * See PPH page 41 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_aspektu_vzhledu
+ * See PPH page 41 right column, @link https://pph.drdplus.info/#tabulka_aspektu_vzhledu
  */
 class AspectsOfVisageTable extends AbstractTable
 {

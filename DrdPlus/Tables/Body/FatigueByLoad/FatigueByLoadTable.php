@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * See PPH page 114 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_unavy_za_nalozen
+ * See PPH page 114 right column, @link https://pph.drdplus.info/#tabulka_unavy_za_nalozen
  */
 class FatigueByLoadTable extends AbstractFileTable
 {

@@ -5,7 +5,7 @@ use DrdPlus\Codes\History\FateCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
- * See PPH page 30, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_rozhodnuti_hrace
+ * See PPH page 30, @link https://pph.drdplus.info/#tabulka_rozhodnuti_hrace
  */
 class PlayerDecisionsTable extends AbstractFileTable
 {

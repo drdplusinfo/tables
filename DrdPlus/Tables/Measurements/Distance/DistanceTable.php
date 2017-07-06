@@ -10,7 +10,7 @@ use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * See PPH page 162 top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_vzdalenosti
+ * See PPH page 162 top, @link https://pph.drdplus.info/#tabulka_vzdalenosti
  */
 class DistanceTable extends AbstractMeasurementFileTable
 {

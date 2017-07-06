@@ -6,7 +6,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\IntegerInterface;
 
 /**
- * See PPH page 132 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_ulovku
+ * See PPH page 132 right column, @link https://pph.drdplus.info/#tabulka_ulovku
  */
 class CatchQualitiesTable extends AbstractFileTable
 {

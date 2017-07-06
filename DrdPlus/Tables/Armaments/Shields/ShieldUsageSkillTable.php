@@ -6,7 +6,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractArmamentSkillTable;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 148 left column, @link https://pph.drdplus.jaroslavtyc.com/#pouzivani_stitu
+ * See PPH page 148 left column, @link https://pph.drdplus.info/#pouzivani_stitu
  */
 class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements MissingProtectiveArmamentSkill
 {

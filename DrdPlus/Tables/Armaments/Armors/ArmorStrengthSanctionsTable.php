@@ -5,7 +5,7 @@ use DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength;
 use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
 
 /**
- * See PPH page 91 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_postihu_za_zbroj
+ * See PPH page 91 right column, @link https://pph.drdplus.info/#tabulka_postihu_za_zbroj
  */
 class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
 {

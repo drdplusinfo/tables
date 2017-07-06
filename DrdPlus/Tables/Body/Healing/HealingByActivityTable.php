@@ -6,7 +6,7 @@ use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 81 left column top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_leceni_podle_cinnosti_postavy
+ * See PPH page 81 left column top, @link https://pph.drdplus.info/#tabulka_leceni_podle_cinnosti_postavy
  */
 class HealingByActivityTable extends AbstractFileTable
 {

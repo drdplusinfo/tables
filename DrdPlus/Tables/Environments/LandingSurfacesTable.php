@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 119 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_povrchu
+ * See PPH page 119 right column, @link https://pph.drdplus.info/#tabulka_povrchu
  */
 class LandingSurfacesTable extends AbstractFileTable
 {

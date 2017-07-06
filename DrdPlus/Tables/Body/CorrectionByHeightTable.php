@@ -7,9 +7,9 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 
 /**
- * See PPH page 40 right column bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_oprav_za_vysku
- * for speed @link https://pph.drdplus.jaroslavtyc.com/#oprava_rychlosti_za_vysku
- * and for fight @link https://pph.drdplus.jaroslavtyc.com/#oprava_boje_za_vysku
+ * See PPH page 40 right column bottom, @link https://pph.drdplus.info/#tabulka_oprav_za_vysku
+ * for speed @link https://pph.drdplus.info/#oprava_rychlosti_za_vysku
+ * and for fight @link https://pph.drdplus.info/#oprava_boje_za_vysku
  */
 class CorrectionByHeightTable extends AbstractFileTable
 {

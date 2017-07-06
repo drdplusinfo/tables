@@ -10,7 +10,7 @@ use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Tables;
 
 /**
- * See PPH page 41 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_meze_zraneni_a_unavy
+ * See PPH page 41 right column, @link https://pph.drdplus.info/#tabulka_meze_zraneni_a_unavy
  */
 class WoundAndFatigueBoundariesTable extends AbstractTable
 {

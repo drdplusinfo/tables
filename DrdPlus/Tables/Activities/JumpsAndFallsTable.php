@@ -19,7 +19,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 119 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_skoku
+ * See PPH page 119 right column, @link https://pph.drdplus.info/#tabulka_skoku
  */
 class JumpsAndFallsTable extends AbstractFileTable
 {

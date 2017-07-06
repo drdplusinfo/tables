@@ -6,7 +6,7 @@ use Granam\Integer\PositiveInteger;
 use Granam\Integer\Tools\ToInteger;
 
 /**
- * See PPH page 145, @link https://pph.drdplus.jaroslavtyc.com/#boj_se_zbrani
+ * See PPH page 145, @link https://pph.drdplus.info/#boj_se_zbrani
  */
 class MissingWeaponSkillTable extends AbstractArmamentSkillTable
 {

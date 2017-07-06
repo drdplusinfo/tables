@@ -9,7 +9,7 @@ use Granam\Integer\Tools\ToInteger;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 30 right column, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_vlivu_nahody
+ * See PPH page 30 right column, @link https://pph.drdplus.info/#tabulka_vlivu_nahody
  */
 class InfluenceOfFortuneTable extends AbstractFileTable
 {

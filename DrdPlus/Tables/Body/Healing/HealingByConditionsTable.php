@@ -7,7 +7,7 @@ use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 81 left column top, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_leceni_podle_podminek
+ * See PPH page 81 left column top, @link https://pph.drdplus.info/#tabulka_leceni_podle_podminek
  */
 class HealingByConditionsTable extends AbstractFileTableWithPercents
 {

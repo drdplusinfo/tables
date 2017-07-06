@@ -11,7 +11,7 @@ use Granam\Strict\Object\StrictObject;
 use Granam\Tools\ValueDescriber;
 
 /**
- * See PPH page 165 bottom, @link https://pph.drdplus.jaroslavtyc.com/#tabulka_pro_vypocet_zz
+ * See PPH page 165 bottom, @link https://pph.drdplus.info/#tabulka_pro_vypocet_zz
  * Technical note: base of wounds is special table, without standard interface.
  */
 class BaseOfWoundsTable extends StrictObject implements Table
@@ -107,7 +107,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
 
     /**
      * Usable for sum of values, represented by bonuses, like distances 0 and 0 (1 meter) = 6 (2 meters).
-     * See note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu
+     * See note on PPH page 164, bottom, @link https://pph.drdplus.info/#soucet_bonusu
      * Warning - the result depends on the SEQUENCE of given bonuses.
      *
      * @param array|int|IntegerInterface[] $bonuses
@@ -124,7 +124,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $secondBonus = ToInteger::toInteger($secondBonus);
             $intersection = $this->getBonusesIntersection([$firstBonus, $secondBonus]);
-            /** see note on PPH page 164, bottom, @link https://pph.drdplus.jaroslavtyc.com/#soucet_bonusu */
+            /** see note on PPH page 164, bottom, @link https://pph.drdplus.info/#soucet_bonusu */
             $sum = $intersection + 5;
             if (count($bonuses) === 0) {
                 return $sum;
@@ -340,7 +340,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         $weaponBaseOfWoundsAsValue = $this->calculateValueFromBonus($weaponBaseOfWounds->getValue());
         $sumAsBonus = $this->calculateBonus($strengthAsValue + $weaponBaseOfWoundsAsValue);
 
-        /** @link https://pph.drdplus.jaroslavtyc.com/#vypocet_zakladu_zraneni */
+        /** @link https://pph.drdplus.info/#vypocet_zakladu_zraneni */
         return $sumAsBonus - 5;
     }
 
@@ -362,7 +362,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         /**
          * Because doubled bonus = bonus + 6 and ten-multiply bonus = bonus + 20
          *
-         * @link https://pph.drdplus.jaroslavtyc.com/#scitani_a_odcitani
+         * @link https://pph.drdplus.info/#scitani_a_odcitani
          */
         return SumAndRound::round(20 * log10($value) - 10);
     }

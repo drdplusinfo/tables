@@ -5,7 +5,7 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\PositiveInteger;
 
 /**
- * See PPH page 129, left column (table without name), @link https://pph.drdplus.jaroslavtyc.com/#tabulka_moznych_cinnosti_podle_kontrastu
+ * See PPH page 129, left column (table without name), @link https://pph.drdplus.info/#tabulka_moznych_cinnosti_podle_kontrastu
  */
 class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
 {
