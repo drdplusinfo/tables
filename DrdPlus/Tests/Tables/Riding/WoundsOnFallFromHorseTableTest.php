@@ -70,7 +70,7 @@ class WoundsOnFallFromHorseTableTest extends TableTest
         $woundsTable = new WoundsTable();
         self::assertEquals(
             new WoundsBonus($expectedWoundsBonus, $woundsTable),
-            (new WoundsOnFallFromHorseTable())->getWoundsOnFallFromHorse(
+            (new WoundsOnFallFromHorseTable())->getWoundsAdditionOnFallFromHorse(
                 RidingAnimalMovementCode::getIt($activity),
                 $jumping,
                 $woundsTable

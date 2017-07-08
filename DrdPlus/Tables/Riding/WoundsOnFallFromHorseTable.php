@@ -51,7 +51,7 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
      * @param WoundsTable $woundsTable
      * @return WoundsBonus
      */
-    public function getWoundsOnFallFromHorse(
+    public function getWoundsAdditionOnFallFromHorse(
         RidingAnimalMovementCode $ridingAnimalMovementCode,
         bool $jumping,
         WoundsTable $woundsTable
