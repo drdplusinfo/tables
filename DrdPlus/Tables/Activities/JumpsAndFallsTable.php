@@ -101,7 +101,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     }
 
     /**
-     * @param Distance $distance
+     * @param Distance $fallHeight
      * @param Weight $bodyWeight
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
@@ -114,7 +114,7 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @return Wounds
      */
     public function getWoundsFromJumpOrFall(
-        Distance $distance,
+        Distance $fallHeight,
         Weight $bodyWeight,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
@@ -126,7 +126,7 @@ class JumpsAndFallsTable extends AbstractFileTable
         LandingSurfacesTable $landingSurfacesTable
     ): Wounds
     {
-        $meters = $distance->getMeters();
+        $meters = $fallHeight->getMeters();
         if ($itIsControlledJump) {
             $meters -= 2;
         }

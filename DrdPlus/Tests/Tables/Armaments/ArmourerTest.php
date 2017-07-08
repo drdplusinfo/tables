@@ -15,13 +15,18 @@ use DrdPlus\Properties\Combat\MaximalRange;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armourer;
+use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
+use DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
+use DrdPlus\Tables\Armaments\Weapons\MissingWeaponSkillTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
+use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
@@ -876,7 +881,7 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(123); // base range
 
         $tables->shouldReceive('getBowsTable')
-            ->andReturn($bowsTable = $this->createRangedWeaponsTable());
+            ->andReturn($bowsTable = $this->createBowsTable());
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($bow)
             ->andReturn(333); // bonus to range
@@ -894,6 +899,14 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(-258); // malus to range
 
         return [$bow, $tables, Strength::getIt(456), 789, 123 - 258 + 333];
+    }
+
+    /**
+     * @return \Mockery\MockInterface|BowsTable
+     */
+    private function createBowsTable()
+    {
+        return $this->mockery(BowsTable::class);
     }
 
     /**
@@ -1545,7 +1558,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $bow = $this->createRangedWeaponCode('foo', 'bow');
         $tables->shouldReceive('getBowsTable')
-            ->andReturn($bowsTable = $this->createRangedWeaponsTable());
+            ->andReturn($bowsTable = $this->createBowsTable());
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($bow)
             ->andReturn(4);
@@ -1556,7 +1569,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $anotherBow = $this->createRangedWeaponCode('bar', 'bow');
         $tables->shouldReceive('getBowsTable')
-            ->andReturn($bowsTable = $this->createRangedWeaponsTable());
+            ->andReturn($bowsTable = $this->createBowsTable());
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($anotherBow)
             ->andReturn(6);
@@ -1569,7 +1582,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $crossbow = $this->createRangedWeaponCode('foo', 'crossbow');
         $tables->shouldReceive('getCrossbowsTable')
-            ->andReturn($crossbowsTable = $this->createRangedWeaponsTable());
+            ->andReturn($crossbowsTable = $this->createCrossbowsTable());
         $crossbowsTable->shouldReceive('getRequiredStrengthOf')
             ->with($crossbow)
             ->andReturn(123);
@@ -1589,6 +1602,14 @@ class ArmourerTest extends TestWithMockery
         );
     }
 
+    /**
+     * @return \Mockery\MockInterface|CrossbowsTable
+     */
+    private function createCrossbowsTable()
+    {
+        return $this->mockery(CrossbowsTable::class);
+    }
+
     // MISSING WEAPON SKILL
 
     /**
@@ -1599,7 +1620,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
-            ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
+            ->andReturn($missingWeaponSkillTable = $this->mockery(MissingWeaponSkillTable::class));
         $missingWeaponSkillTable->shouldReceive('getFightNumberMalusForSkillRank')
             ->with(123)
             ->andReturn(125);
@@ -1629,7 +1650,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
-            ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
+            ->andReturn($missingWeaponSkillTable = $this->mockery(MissingWeaponSkillTable::class));
         $missingWeaponSkillTable->shouldReceive('getAttackNumberMalusForSkillRank')
             ->with(123)
             ->andReturn(5702);
@@ -1644,7 +1665,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
 
         $tables->shouldReceive('getMissingWeaponSkillTable')
-            ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
+            ->andReturn($missingWeaponSkillTable = $this->mockery(MissingWeaponSkillTable::class));
         $missingWeaponSkillTable->shouldReceive('getCoverMalusForSkillRank')
             ->with(123)
             ->andReturn(98432);
@@ -1657,8 +1678,8 @@ class ArmourerTest extends TestWithMockery
         );
 
         $tables->shouldReceive('getShieldUsageSkillTable')
-            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getCoverMalusForSkillRank')
+            ->andReturn($shieldUsageSkillTable = $this->mockery(ShieldUsageSkillTable::class));
+        $shieldUsageSkillTable->shouldReceive('getCoverMalusForSkillRank')
             ->with(456)
             ->andReturn(1249);
         self::assertSame(
@@ -1678,7 +1699,7 @@ class ArmourerTest extends TestWithMockery
         $tables = $this->createTables();
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getMissingWeaponSkillTable')
-            ->andReturn($missingWeaponSkillTable = $this->mockery(\stdClass::class));
+            ->andReturn($missingWeaponSkillTable = $this->mockery(MissingWeaponSkillTable::class));
         $missingWeaponSkillTable->shouldReceive('getBaseOfWoundsMalusForSkillRank')
             ->with(123)
             ->andReturn(112);
@@ -1695,8 +1716,8 @@ class ArmourerTest extends TestWithMockery
         $shield = $this->createShield();
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
-            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
+            ->andReturn($shieldUsageSkillTable = $this->mockery(ShieldUsageSkillTable::class));
+        $shieldUsageSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn(4441);
         self::assertSame(
@@ -1723,8 +1744,8 @@ class ArmourerTest extends TestWithMockery
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
-            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
-        $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
+            ->andReturn($shieldUsageSkillTable = $this->mockery(ShieldUsageSkillTable::class));
+        $shieldUsageSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn(7);
 
@@ -1749,7 +1770,7 @@ class ArmourerTest extends TestWithMockery
         $skillRank = $this->createPositiveInteger(123);
         $tables->shouldReceive('getProtectiveArmamentMissingSkillTableByCode')
             ->with($shield)
-            ->andReturn($missingShieldSkillTable = $this->mockery(\stdClass::class));
+            ->andReturn($missingShieldSkillTable = $this->mockery(MissingProtectiveArmamentSkill::class));
         $missingShieldSkillTable->shouldReceive('getRestrictionBonusForSkillRank')
             ->with(123)
             ->andReturn(789);
