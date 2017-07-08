@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeUnitCode;
+use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfBonus;

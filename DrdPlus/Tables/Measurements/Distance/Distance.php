@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Distance;
 
-use DrdPlus\Codes\DistanceUnitCode;
+use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Float\Tools\ToFloat;

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Measurements\Speed;
 
-use DrdPlus\Codes\SpeedUnitCode;
+use DrdPlus\Codes\Units\SpeedUnitCode;
 use DrdPlus\Tables\Measurements\Speed\Speed;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;

@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\MovementTypes;
 
-use DrdPlus\Codes\TimeUnitCode;
+use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;

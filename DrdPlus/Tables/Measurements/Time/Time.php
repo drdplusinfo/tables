@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Time;
 
-use DrdPlus\Codes\TimeUnitCode;
+use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 use Granam\Integer\Tools\ToInteger;

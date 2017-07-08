@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Speed;
 
-use DrdPlus\Codes\SpeedUnitCode;
+use DrdPlus\Codes\Units\SpeedUnitCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;

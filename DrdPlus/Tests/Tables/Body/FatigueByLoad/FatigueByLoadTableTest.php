@@ -1,7 +1,7 @@
 <?php
 namespace DrdPlus\Tests\Tables\Body\FatigueByLoad;
 
-use DrdPlus\Codes\TimeUnitCode;
+use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Tables\Body\FatigueByLoad\AthleticsInterface;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
