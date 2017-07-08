@@ -8,6 +8,8 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Speed extends AbstractMeasurementWithBonus
 {
+    const METER_PER_ROUND = SpeedUnitCode::METER_PER_ROUND;
+    const KILOMETER_PER_HOUR = SpeedUnitCode::KILOMETER_PER_HOUR;
 
     /**
      * @var SpeedTable
@@ -34,7 +36,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [SpeedUnitCode::METER_PER_ROUND, SpeedUnitCode::KILOMETER_PER_HOUR];
+        return [self::METER_PER_ROUND, self::KILOMETER_PER_HOUR];
     }
 
     /**
@@ -42,7 +44,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getMetersPerRound(): float
     {
-        return $this->convertTo(SpeedUnitCode::METER_PER_ROUND);
+        return $this->convertTo(self::METER_PER_ROUND);
     }
 
     /**
@@ -55,7 +57,7 @@ class Speed extends AbstractMeasurementWithBonus
             return $this->getValue();
         }
 
-        return $this->getBonus()->getSpeed(SpeedUnitCode::KILOMETER_PER_HOUR)->getValue();
+        return $this->getBonus()->getSpeed(self::KILOMETER_PER_HOUR)->getValue();
     }
 
     /**
@@ -63,7 +65,7 @@ class Speed extends AbstractMeasurementWithBonus
      */
     public function getKilometersPerHour(): float
     {
-        return $this->convertTo(SpeedUnitCode::KILOMETER_PER_HOUR);
+        return $this->convertTo(self::KILOMETER_PER_HOUR);
     }
 
     /**

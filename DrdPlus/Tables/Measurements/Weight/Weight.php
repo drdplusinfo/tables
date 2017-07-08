@@ -1,12 +1,12 @@
 <?php
 namespace DrdPlus\Tables\Measurements\Weight;
 
-use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Codes\Units\WeightUnitCode;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Weight extends AbstractMeasurementWithBonus
 {
-    const KG = 'kg';
+    const KG = WeightUnitCode::KG;
 
     /**
      * @var WeightTable
@@ -28,9 +28,9 @@ class Weight extends AbstractMeasurementWithBonus
     }
 
     /**
-     * @return AbstractBonus
+     * @return WeightBonus
      */
-    public function getBonus()
+    public function getBonus(): WeightBonus
     {
         return $this->weightTable->toBonus($this);
     }
@@ -38,9 +38,16 @@ class Weight extends AbstractMeasurementWithBonus
     /**
      * @return float
      */
-    public function getKilograms()
+    public function getKilograms(): float
     {
         return $this->getValue();
     }
 
+    /**
+     * @return WeightUnitCode
+     */
+    public function getUnitCode(): WeightUnitCode
+    {
+        return WeightUnitCode::getIt($this->getUnit());
+    }
 }
