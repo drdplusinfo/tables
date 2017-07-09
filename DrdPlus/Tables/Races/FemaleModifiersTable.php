@@ -31,7 +31,7 @@ class FemaleModifiersTable extends AbstractFileTable
             PropertyCode::WILL => self::INTEGER,
             PropertyCode::INTELLIGENCE => self::INTEGER,
             PropertyCode::CHARISMA => self::INTEGER,
-            PropertyCode::WEIGHT => self::INTEGER,
+            PropertyCode::BODY_WEIGHT => self::INTEGER,
             PropertyCode::SIZE => self::INTEGER,
         ];
     }
@@ -47,7 +47,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getHumanModifiers()
+    public function getHumanModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::HUMAN);
     }
@@ -56,7 +56,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param string $race
      * @return array|int[]
      */
-    private function getRaceModifiers($race)
+    private function getRaceModifiers(string $race): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow($race);
@@ -65,7 +65,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getElfModifiers()
+    public function getElfModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::ELF);
     }
@@ -73,7 +73,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getDwarfModifiers()
+    public function getDwarfModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::DWARF);
     }
@@ -81,7 +81,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getHobbitModifiers()
+    public function getHobbitModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::HOBBIT);
     }
@@ -89,7 +89,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getKrollModifiers()
+    public function getKrollModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::KROLL);
     }
@@ -97,7 +97,7 @@ class FemaleModifiersTable extends AbstractFileTable
     /**
      * @return array|\int[]
      */
-    public function getOrcModifiers()
+    public function getOrcModifiers(): array
     {
         return $this->getRaceModifiers(RaceCode::ORC);
     }
@@ -106,7 +106,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getStrength(RaceCode $raceCode)
+    public function getStrength(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::STRENGTH);
@@ -118,7 +118,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\Races\Exceptions\UnknownRace
      */
-    private function getProperty(RaceCode $raceCode, $propertyName)
+    private function getProperty(RaceCode $raceCode, $propertyName): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -132,7 +132,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getAgility(RaceCode $raceCode)
+    public function getAgility(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::AGILITY);
@@ -142,7 +142,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getKnack(RaceCode $raceCode)
+    public function getKnack(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::KNACK);
@@ -152,7 +152,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getWill(RaceCode $raceCode)
+    public function getWill(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::WILL);
@@ -162,7 +162,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getIntelligence(RaceCode $raceCode)
+    public function getIntelligence(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::INTELLIGENCE);
@@ -172,7 +172,7 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getCharisma(RaceCode $raceCode)
+    public function getCharisma(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::CHARISMA);
@@ -182,17 +182,17 @@ class FemaleModifiersTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getWeightBonus(RaceCode $raceCode)
+    public function getWeightBonus(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getProperty($raceCode, PropertyCode::WEIGHT);
+        return $this->getProperty($raceCode, PropertyCode::BODY_WEIGHT);
     }
 
     /**
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getSize(RaceCode $raceCode)
+    public function getSize(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getProperty($raceCode, PropertyCode::SIZE);

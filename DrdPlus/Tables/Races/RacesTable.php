@@ -61,7 +61,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonHumanModifiers()
+    public function getCommonHumanModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HUMAN, SubRaceCode::COMMON]);
@@ -70,7 +70,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getHighlanderModifiers()
+    public function getHighlanderModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HUMAN, SubRaceCode::HIGHLANDER]);
@@ -79,7 +79,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonElfModifiers()
+    public function getCommonElfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::COMMON]);
@@ -88,7 +88,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getDarkElfModifiers()
+    public function getDarkElfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::DARK]);
@@ -97,7 +97,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getGreenElfModifiers()
+    public function getGreenElfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ELF, SubRaceCode::GREEN]);
@@ -106,7 +106,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonDwarfModifiers()
+    public function getCommonDwarfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::COMMON]);
@@ -115,7 +115,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getMountainDwarfModifiers()
+    public function getMountainDwarfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::MOUNTAIN]);
@@ -124,7 +124,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getWoodDwarfModifiers()
+    public function getWoodDwarfModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::DWARF, SubRaceCode::WOOD]);
@@ -133,7 +133,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonHobbitModifiers()
+    public function getCommonHobbitModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::HOBBIT, SubRaceCode::COMMON]);
@@ -142,7 +142,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonKrollModifiers()
+    public function getCommonKrollModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::KROLL, SubRaceCode::COMMON]);
@@ -151,7 +151,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getWildKrollModifiers()
+    public function getWildKrollModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::KROLL, SubRaceCode::WILD]);
@@ -160,7 +160,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getCommonOrcModifiers()
+    public function getCommonOrcModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::COMMON]);
@@ -169,7 +169,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getGoblinModifiers()
+    public function getGoblinModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::GOBLIN]);
@@ -178,7 +178,7 @@ class RacesTable extends AbstractFileTable
     /** @return array|\mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    public function getSkurutModifiers()
+    public function getSkurutModifiers(): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getRow([RaceCode::ORC, SubRaceCode::SKURUT]);
@@ -189,7 +189,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::STRENGTH);
     }
@@ -200,7 +200,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleStrength($raceCode, $subraceCode) + $femaleModifiersTable->getStrength($raceCode);
     }
@@ -209,7 +209,7 @@ class RacesTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @param SubraceCode $subraceCode
      * @param string $propertyName
-     * @return int
+     * @return int|float|string|bool
      */
     private function getProperty(RaceCode $raceCode, SubRaceCode $subraceCode, $propertyName)
     {
@@ -222,7 +222,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGILITY);
     }
@@ -233,7 +233,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleAgility($raceCode, $subraceCode) + $femaleModifiersTable->getAgility($raceCode);
     }
@@ -243,7 +243,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::KNACK);
     }
@@ -254,7 +254,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleKnack($raceCode, $subraceCode) + $femaleModifiersTable->getKnack($raceCode);
     }
@@ -264,7 +264,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleWill(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleWill(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::WILL);
     }
@@ -275,7 +275,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleWill($raceCode, $subraceCode) + $femaleModifiersTable->getWill($raceCode);
     }
@@ -285,7 +285,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::INTELLIGENCE);
     }
@@ -296,7 +296,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleIntelligence($raceCode, $subraceCode) + $femaleModifiersTable->getIntelligence($raceCode);
     }
@@ -306,7 +306,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::CHARISMA);
     }
@@ -317,7 +317,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleCharisma($raceCode, $subraceCode) + $femaleModifiersTable->getCharisma($raceCode);
     }
@@ -327,7 +327,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getToughness(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getToughness(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::TOUGHNESS);
     }
@@ -337,7 +337,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return float
      */
-    public function getHeightInCm(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getHeightInCm(RaceCode $raceCode, SubRaceCode $subraceCode): float
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::HEIGHT_IN_CM);
     }
@@ -357,7 +357,7 @@ class RacesTable extends AbstractFileTable
         GenderCode $genderCode,
         FemaleModifiersTable $femaleModifiersTable,
         WeightTable $weightTable
-    )
+    ): float
     {
         switch ($genderCode) {
             case GenderCode::MALE :
@@ -376,7 +376,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return float
      */
-    public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subraceCode): float
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::WEIGHT_IN_KG);
     }
@@ -393,7 +393,7 @@ class RacesTable extends AbstractFileTable
         $subraceCode,
         FemaleModifiersTable $femaleModifiersTable,
         WeightTable $weightTable
-    )
+    ): float
     {
         $maleWeightValue = $this->getMaleWeightInKg($raceCode, $subraceCode);
         $maleWeightBonus = $weightTable->toBonus(new Weight($maleWeightValue, Weight::KG, $weightTable));
@@ -410,7 +410,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getMaleSize(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getMaleSize(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::SIZE);
     }
@@ -421,7 +421,7 @@ class RacesTable extends AbstractFileTable
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      */
-    public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
     }
@@ -434,7 +434,7 @@ class RacesTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
      */
-    public function getSize(RaceCode $raceCode, SubRaceCode $subraceCode, GenderCode $genderCode, FemaleModifiersTable $femaleModifiersTable)
+    public function getSize(RaceCode $raceCode, SubRaceCode $subraceCode, GenderCode $genderCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         switch ($genderCode) {
             case GenderCode::MALE :
@@ -454,7 +454,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return string
      */
-    public function getRemarkableSense(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getRemarkableSense(RaceCode $raceCode, SubRaceCode $subraceCode): string
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::REMARKABLE_SENSE);
     }
@@ -464,7 +464,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return bool
      */
-    public function hasInfravision(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function hasInfravision(RaceCode $raceCode, SubRaceCode $subraceCode): bool
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::INFRAVISION);
     }
@@ -474,7 +474,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return bool
      */
-    public function hasNativeRegeneration(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function hasNativeRegeneration(RaceCode $raceCode, SubRaceCode $subraceCode): bool
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::NATIVE_REGENERATION);
     }
@@ -484,7 +484,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return int
      */
-    public function getSenses(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getSenses(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::SENSES);
     }
@@ -494,7 +494,7 @@ class RacesTable extends AbstractFileTable
      * @param SubraceCode $subraceCode
      * @return bool
      */
-    public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subraceCode): bool
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
     }
@@ -504,9 +504,9 @@ class RacesTable extends AbstractFileTable
      *
      * @param RaceCode $raceCode
      * @param SubraceCode $subraceCode
-     * @return bool
+     * @return int
      */
-    public function getAge(RaceCode $raceCode, SubRaceCode $subraceCode)
+    public function getAge(RaceCode $raceCode, SubRaceCode $subraceCode): int
     {
         return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGE);
     }

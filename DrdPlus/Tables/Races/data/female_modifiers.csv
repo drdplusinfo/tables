@@ -1,4 +1,4 @@
-race,strength,agility,knack,will,intelligence,charisma,weight,size
+race,strength,agility,knack,will,intelligence,charisma,body_weight,size
 human,−1,0,0,0,0,1,−1,−1
 elf,−1,0,1,0,−1,1,−1,−1
 dwarf,0,0,−1,0,1,0,0,0

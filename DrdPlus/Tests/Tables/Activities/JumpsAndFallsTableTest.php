@@ -5,7 +5,7 @@ use Drd\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Body\Weight;
+use DrdPlus\Properties\Body\BodyWeight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Activities\JumpsAndFallsTable;
@@ -27,7 +27,7 @@ class JumpsAndFallsTableTest extends TableTest
      * @param float $ranDistance
      * @param int $expectedModifierToJump
      */
-    public function I_can_get_modifier_to_jump($jumpType, $ranDistance, $expectedModifierToJump)
+    public function I_can_get_modifier_to_jump($jumpType, $ranDistance, $expectedModifierToJump): void
     {
         self::assertSame(
             $expectedModifierToJump,
@@ -36,7 +36,7 @@ class JumpsAndFallsTableTest extends TableTest
         );
     }
 
-    public function provideValuesForModifierToJump()
+    public function provideValuesForModifierToJump(): array
     {
         return [
             [JumpTypeCode::HIGH_JUMP, 4.9, -6],
@@ -49,7 +49,7 @@ class JumpsAndFallsTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_length_of_jump()
+    public function I_can_get_length_of_jump(): void
     {
         self::assertSame(
             62 /* 123 / 2 */ - 3 + 456 + 789,
@@ -134,7 +134,7 @@ class JumpsAndFallsTableTest extends TableTest
         $athleticsValue,
         $agilityAsWounds,
         $expectedWounds
-    )
+    ): void
     {
         $wounds = (new JumpsAndFallsTable())
             ->getWoundsFromJumpOrFall(
@@ -153,7 +153,7 @@ class JumpsAndFallsTableTest extends TableTest
         self::assertSame($expectedWounds, $wounds->getValue());
     }
 
-    public function provideValuesForWoundsFromJumpOrFall()
+    public function provideValuesForWoundsFromJumpOrFall(): array
     {
         // distance, weight, $roll, is controlled, armor, surface modifier, expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
         return [
@@ -180,11 +180,11 @@ class JumpsAndFallsTableTest extends TableTest
 
     /**
      * @param int $value
-     * @return \Mockery\MockInterface|Weight
+     * @return \Mockery\MockInterface|BodyWeight
      */
     private function createWeight($value)
     {
-        $weight = $this->mockery(Weight::class);
+        $weight = $this->mockery(BodyWeight::class);
         $weight->shouldReceive('getValue')
             ->andReturn($value);
 

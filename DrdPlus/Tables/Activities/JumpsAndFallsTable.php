@@ -7,7 +7,7 @@ use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpMovementCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Body\Weight;
+use DrdPlus\Properties\Body\BodyWeight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
@@ -102,7 +102,7 @@ class JumpsAndFallsTable extends AbstractFileTable
 
     /**
      * @param Distance $fallHeight
-     * @param Weight $bodyWeight
+     * @param BodyWeight $bodyWeight
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
      * @param Agility $agility
@@ -115,7 +115,7 @@ class JumpsAndFallsTable extends AbstractFileTable
      */
     public function getWoundsFromJumpOrFall(
         Distance $fallHeight,
-        Weight $bodyWeight,
+        BodyWeight $bodyWeight,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
         Agility $agility,

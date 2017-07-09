@@ -11,10 +11,10 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         self::assertEquals(
-            [['race', 'strength', 'agility', 'knack', 'will', 'intelligence', 'charisma', 'weight', 'size']],
+            [['race', 'strength', 'agility', 'knack', 'will', 'intelligence', 'charisma', 'body_weight', 'size']],
             $this->getFemaleModifiersTable()->getHeader()
         );
     }
@@ -22,7 +22,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_human_female_modifiers()
+    public function I_can_get_human_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -32,7 +32,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => 0,
                 PropertyCode::INTELLIGENCE => 0,
                 PropertyCode::CHARISMA => 1,
-                PropertyCode::WEIGHT => -1,
+                PropertyCode::BODY_WEIGHT => -1,
                 PropertyCode::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getHumanModifiers()
@@ -44,7 +44,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @return FemaleModifiersTable
      */
-    protected function getFemaleModifiersTable()
+    protected function getFemaleModifiersTable(): FemaleModifiersTable
     {
         if (self::$femaleModifiersTable === null) {
             self::$femaleModifiersTable = new FemaleModifiersTable();
@@ -56,7 +56,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_elf_female_modifiers()
+    public function I_can_get_elf_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -66,7 +66,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => 0,
                 PropertyCode::INTELLIGENCE => -1,
                 PropertyCode::CHARISMA => 1,
-                PropertyCode::WEIGHT => -1,
+                PropertyCode::BODY_WEIGHT => -1,
                 PropertyCode::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getElfModifiers()
@@ -76,7 +76,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_dwarf_female_modifiers()
+    public function I_can_get_dwarf_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -86,7 +86,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => 0,
                 PropertyCode::INTELLIGENCE => 1,
                 PropertyCode::CHARISMA => 0,
-                PropertyCode::WEIGHT => 0,
+                PropertyCode::BODY_WEIGHT => 0,
                 PropertyCode::SIZE => 0,
             ],
             $this->getFemaleModifiersTable()->getDwarfModifiers()
@@ -96,7 +96,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_hobbit_female_modifiers()
+    public function I_can_get_hobbit_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -106,7 +106,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => 0,
                 PropertyCode::INTELLIGENCE => 0,
                 PropertyCode::CHARISMA => 1,
-                PropertyCode::WEIGHT => -1,
+                PropertyCode::BODY_WEIGHT => -1,
                 PropertyCode::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getHobbitModifiers()
@@ -116,7 +116,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_kroll_female_modifiers()
+    public function I_can_get_kroll_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -126,7 +126,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => -1,
                 PropertyCode::INTELLIGENCE => 0,
                 PropertyCode::CHARISMA => 1,
-                PropertyCode::WEIGHT => -1,
+                PropertyCode::BODY_WEIGHT => -1,
                 PropertyCode::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getKrollModifiers()
@@ -136,7 +136,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_orc_female_modifiers()
+    public function I_can_get_orc_female_modifiers(): void
     {
         self::assertEquals(
             [
@@ -146,7 +146,7 @@ class FemaleModifiersTableTest extends TableTest
                 PropertyCode::WILL => 1,
                 PropertyCode::INTELLIGENCE => 0,
                 PropertyCode::CHARISMA => 0,
-                PropertyCode::WEIGHT => -1,
+                PropertyCode::BODY_WEIGHT => -1,
                 PropertyCode::SIZE => -1,
             ],
             $this->getFemaleModifiersTable()->getOrcModifiers()
@@ -156,7 +156,7 @@ class FemaleModifiersTableTest extends TableTest
     /**
      * @test
      */
-    public function I_got_expected_values()
+    public function I_got_expected_values(): void
     {
         self::assertEquals(
             [
@@ -167,7 +167,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => 0,
                     PropertyCode::INTELLIGENCE => 0,
                     PropertyCode::CHARISMA => 1,
-                    PropertyCode::WEIGHT => -1,
+                    PropertyCode::BODY_WEIGHT => -1,
                     PropertyCode::SIZE => -1,
                 ],
                 RaceCode::ELF => [
@@ -177,7 +177,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => 0,
                     PropertyCode::INTELLIGENCE => -1,
                     PropertyCode::CHARISMA => 1,
-                    PropertyCode::WEIGHT => -1,
+                    PropertyCode::BODY_WEIGHT => -1,
                     PropertyCode::SIZE => -1,
                 ],
                 RaceCode::DWARF => [
@@ -187,7 +187,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => 0,
                     PropertyCode::INTELLIGENCE => 1,
                     PropertyCode::CHARISMA => 0,
-                    PropertyCode::WEIGHT => 0,
+                    PropertyCode::BODY_WEIGHT => 0,
                     PropertyCode::SIZE => 0,
                 ],
                 RaceCode::HOBBIT => [
@@ -197,7 +197,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => 0,
                     PropertyCode::INTELLIGENCE => 0,
                     PropertyCode::CHARISMA => 1,
-                    PropertyCode::WEIGHT => -1,
+                    PropertyCode::BODY_WEIGHT => -1,
                     PropertyCode::SIZE => -1,
                 ],
                 RaceCode::KROLL => [
@@ -207,7 +207,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => -1,
                     PropertyCode::INTELLIGENCE => 0,
                     PropertyCode::CHARISMA => 1,
-                    PropertyCode::WEIGHT => -1,
+                    PropertyCode::BODY_WEIGHT => -1,
                     PropertyCode::SIZE => -1,
                 ],
                 RaceCode::ORC => [
@@ -217,7 +217,7 @@ class FemaleModifiersTableTest extends TableTest
                     PropertyCode::WILL => 1,
                     PropertyCode::INTELLIGENCE => 0,
                     PropertyCode::CHARISMA => 0,
-                    PropertyCode::WEIGHT => -1,
+                    PropertyCode::BODY_WEIGHT => -1,
                     PropertyCode::SIZE => -1,
                 ],
             ],
@@ -231,14 +231,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $strength
      */
-    public function I_can_get_female_strength_of_any_race($raceCode, $strength)
+    public function I_can_get_female_strength_of_any_race(string $raceCode, int $strength): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($strength, $table->getStrength(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToStrength()
+    public function raceToStrength(): array
     {
         return [
             [RaceCode::HUMAN, -1],
@@ -256,14 +256,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $agility
      */
-    public function I_can_get_female_agility_of_any_race($raceCode, $agility)
+    public function I_can_get_female_agility_of_any_race($raceCode, $agility): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($agility, $table->getAgility(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToAgility()
+    public function raceToAgility(): array
     {
         return [
             [RaceCode::HUMAN, 0],
@@ -281,14 +281,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $knack
      */
-    public function I_can_get_female_knack_of_any_race($raceCode, $knack)
+    public function I_can_get_female_knack_of_any_race(string $raceCode, int $knack): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($knack, $table->getKnack(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToKnack()
+    public function raceToKnack(): array
     {
         return [
             [RaceCode::HUMAN, 0],
@@ -306,14 +306,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $will
      */
-    public function I_can_get_female_will_of_any_race($raceCode, $will)
+    public function I_can_get_female_will_of_any_race($raceCode, $will): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($will, $table->getWill(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToWill()
+    public function raceToWill(): array
     {
         return [
             [RaceCode::HUMAN, 0],
@@ -331,14 +331,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $intelligence
      */
-    public function I_can_get_female_intelligence_of_any_race($raceCode, $intelligence)
+    public function I_can_get_female_intelligence_of_any_race($raceCode, $intelligence): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($intelligence, $table->getIntelligence(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToIntelligence()
+    public function raceToIntelligence(): array
     {
         return [
             [RaceCode::HUMAN, 0],
@@ -356,14 +356,14 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $charisma
      */
-    public function I_can_get_female_charisma_of_any_race($raceCode, $charisma)
+    public function I_can_get_female_charisma_of_any_race($raceCode, $charisma): void
     {
         $table = new FemaleModifiersTable();
 
         self::assertSame($charisma, $table->getCharisma(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToCharisma()
+    public function raceToCharisma(): array
     {
         return [
             [RaceCode::HUMAN, 1],
@@ -381,7 +381,7 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $charisma
      */
-    public function I_can_get_female_weight_simple_bonus_of_any_race($raceCode, $charisma)
+    public function I_can_get_female_weight_simple_bonus_of_any_race($raceCode, $charisma): void
     {
         $table = new FemaleModifiersTable();
 
@@ -390,7 +390,7 @@ class FemaleModifiersTableTest extends TableTest
         self::assertSame($table->getStrength(RaceCode::getIt($raceCode)), $table->getWeightBonus(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToWeight()
+    public function raceToWeight(): array
     {
         return [
             [RaceCode::HUMAN, -1],
@@ -408,7 +408,7 @@ class FemaleModifiersTableTest extends TableTest
      * @param string $raceCode
      * @param int $size
      */
-    public function I_can_get_female_size_of_any_race($raceCode, $size)
+    public function I_can_get_female_size_of_any_race($raceCode, $size): void
     {
         $table = new FemaleModifiersTable();
 
@@ -417,7 +417,7 @@ class FemaleModifiersTableTest extends TableTest
         self::assertSame($table->getStrength(RaceCode::getIt($raceCode)), $table->getSize(RaceCode::getIt($raceCode)));
     }
 
-    public function raceToSize()
+    public function raceToSize(): array
     {
         return [
             [RaceCode::HUMAN, -1],
