@@ -127,12 +127,13 @@ class JumpsAndFallsTable extends AbstractFileTable
         if ($itIsControlledJump) {
             $meters -= 2;
         }
-        $powerOfWound = SumAndRound::round($meters) + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
+        $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
         $powerOfWound += $tables->getLandingSurfacesTable()->getWoundsModifier($landingSurfaceCode, $agility, $effectiveArmorProtection);
         if ($powerOfWound < 0) {
             $powerOfWound = 0;
         }
-        $convertedPowerOfWounds = (new WoundsBonus($powerOfWound, $tables->getWoundsTable()))->getWounds()->getValue();
+        $convertedPowerOfWounds = (new WoundsBonus(SumAndRound::round($powerOfWound), $tables->getWoundsTable()))
+            ->getWounds()->getValue();
         $convertedAgilityAndAthletics = (new WoundsBonus(
             $agility->getValue() + $athletics->getAthleticsBonus()->getValue(),
             $tables->getWoundsTable())

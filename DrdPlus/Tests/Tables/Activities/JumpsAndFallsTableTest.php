@@ -181,6 +181,8 @@ class JumpsAndFallsTableTest extends TableTest
             [111.3, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 666, 124, 0],
             [111.4, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 666, 124, 0],
             [111.5, 222, 333, false, 444, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
+            [-0.5, 80, 1, false, 0, -35, 1 /* +1 because 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
+            [-0.6, 80, 1, false, 0, -35, 0 /* because 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
         ];
     }
 
