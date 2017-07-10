@@ -6,6 +6,8 @@ use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
+use Granam\Integer\IntegerInterface;
+use Granam\Number\NumberInterface;
 
 /**
  * Note: fatigue table is equal to wounds table.
@@ -34,8 +36,12 @@ class WoundsTable extends AbstractMeasurementFileTable
      * @param WoundsBonus $bonus
      * @return Wounds|MeasurementWithBonus
      */
-    public function toWounds(WoundsBonus $bonus)
+    public function toWounds(WoundsBonus $bonus): Wounds
     {
+        if ($bonus->getValue() < -21) {
+            return new Wounds(0, $this);
+        }
+
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus);
     }
@@ -44,26 +50,26 @@ class WoundsTable extends AbstractMeasurementFileTable
      * @param Wounds $wounds
      * @return WoundsBonus|AbstractBonus
      */
-    public function toBonus(Wounds $wounds)
+    public function toBonus(Wounds $wounds): WoundsBonus
     {
         return $this->measurementToBonus($wounds);
     }
 
     /**
-     * @param int $bonusValue
+     * @param int|IntegerInterface $bonusValue
      * @return WoundsBonus
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus($bonusValue): WoundsBonus
     {
         return new WoundsBonus($bonusValue, $this);
     }
 
     /**
-     * @param float $value
+     * @param float|NumberInterface $value
      * @param string $unit
      * @return Wounds
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement($value, $unit): Wounds
     {
         return new Wounds($value, $this, $unit);
     }

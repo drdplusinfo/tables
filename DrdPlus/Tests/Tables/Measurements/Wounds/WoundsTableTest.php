@@ -48,12 +48,35 @@ class WoundsTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     */
+    public function I_get_zero_wounds_for_bonus_so_low_so_its_out_of_range()
+    {
+        $woundsTable = new WoundsTable();
+        $attempt = 1;
+        $maxAttempts = 10000;
+        do {
+            $zeroOrOne = $woundsTable->toWounds(new WoundsBonus(-20, $woundsTable))->getValue();
+            if ($zeroOrOne === 1) {
+                break;
+            }
+        } while ($attempt++ < $maxAttempts);
+        self::assertLessThan($maxAttempts, $attempt);
+        self::assertSame(1, $zeroOrOne);
+
+        $wounds = $woundsTable->toWounds(new WoundsBonus(-21, $woundsTable));
+        self::assertSame(0, $wounds->getValue());
+        $wounds = $woundsTable->toWounds(new WoundsBonus(-22, $woundsTable));
+        self::assertSame(0, $wounds->getValue());
+        $wounds = $woundsTable->toWounds(new WoundsBonus(-999, $woundsTable));
+        self::assertSame(0, $wounds->getValue());
+    }
+
+    /**
+     * @test
      */
     public function I_can_not_use_too_low_bonus_to_value()
     {
-        $woundsTable = new WoundsTable();
-        $woundsTable->toWounds(new WoundsBonus(-22, $woundsTable));
+        self::assertFalse(false, 'Wounds table has a comfort to turn too low bonus to zero without loosing information');
     }
 
     /**

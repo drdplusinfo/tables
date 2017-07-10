@@ -25,7 +25,7 @@ class WoundsBonus extends AbstractBonus
     /**
      * @return Wounds
      */
-    public function getWounds()
+    public function getWounds(): Wounds
     {
         return $this->woundsTable->toWounds($this);
     }

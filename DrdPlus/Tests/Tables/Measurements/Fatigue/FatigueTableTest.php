@@ -89,12 +89,13 @@ class FatigueTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
      */
     public function I_can_not_use_too_low_bonus_to_value()
     {
-        $fatigueTable = new FatigueTable($this->woundsTable);
-        $fatigueTable->toFatigue(new FatigueBonus(-22, $fatigueTable));
+        self::assertFalse(
+            false,
+            'It is built on shoulders of wounds table, which has a comfort to turn too low bonus to zero without loosing information'
+        );
     }
 
     /**
