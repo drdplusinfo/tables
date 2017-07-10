@@ -30,7 +30,7 @@ class WoundsOnFallFromHorseTableTest extends TableTest
         self::assertSame(
             [
                 WoundsOnFallFromHorseTable::STILL => [
-                    WoundsOnFallFromHorseTable::WOUNDS_MODIFICATION => -3,
+                    WoundsOnFallFromHorseTable::WOUNDS_MODIFICATION => 0,
                     WoundsOnFallFromHorseTable::ADDITIONAL => false,
                 ],
                 RidingAnimalMovementCode::GAIT => [
@@ -65,7 +65,7 @@ class WoundsOnFallFromHorseTableTest extends TableTest
      * @param $jumping
      * @param $expectedWoundsBonus
      */
-    public function I_can_get_wounds_on_fall_from_horse($activity, $jumping, $expectedWoundsBonus)
+    public function I_can_get_wounds_on_fall_from_horse(string $activity, bool $jumping, int $expectedWoundsBonus)
     {
         $woundsTable = new WoundsTable();
         self::assertEquals(
@@ -78,10 +78,11 @@ class WoundsOnFallFromHorseTableTest extends TableTest
         );
     }
 
-    public function provideFallAndExpectedWounds()
+    public function provideFallAndExpectedWounds(): array
     {
         return [
-            [WoundsOnFallFromHorseTable::STILL, true, 0],
+            [WoundsOnFallFromHorseTable::STILL, false, 0],
+            [WoundsOnFallFromHorseTable::STILL, true, 3],
             [WoundsOnFallFromHorseTable::GALLOP, false, 12]
         ];
     }
