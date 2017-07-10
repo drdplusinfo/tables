@@ -176,11 +176,11 @@ class JumpsAndFallsTableTest extends TableTest
     {
         // distance, weight, $roll, is controlled, armor, surface modifier, expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
         return [
-            [111, 222, 333, false, 444, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
-            [111, 222, 333, false, 444, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
-            [111, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 666, 124, 0],
-            [111, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 666, 124, 0],
-            [111, 222, 333, false, 444, -999 /* very high bonus from surface */, 0, 123, 555, 666, 123, 0],
+            [111.1, 222, 333, false, 444, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
+            [111.2, 222, 333, false, 444, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.3, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 666, 124, 0],
+            [111.4, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 666, 124, 0],
+            [111.5, 222, 333, false, 444, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
         ];
     }
 
@@ -260,7 +260,10 @@ class JumpsAndFallsTableTest extends TableTest
                     $wounds->shouldReceive('getValue')
                         ->andReturn($agilityAsWounds);
                 } else {
-                    self::fail('Unexpected value of wounds bonus ' . var_export($woundsBonus->getValue(), true));
+                    self::fail(
+                        'Unexpected value of wounds bonus ' . var_export($woundsBonus->getValue(), true)
+                        . ', expected one of ' . $expectedPowerOfWound . ' or ' . $expectedAgilityAndAthleticsValue
+                    );
                 }
 
                 return $wounds;
