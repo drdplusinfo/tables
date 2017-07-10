@@ -39,7 +39,7 @@ abstract class AbstractBonus extends StrictObject implements Bonus
     /**
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return (string)$this->getValue();
     }

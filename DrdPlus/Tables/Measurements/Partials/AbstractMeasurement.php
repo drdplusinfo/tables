@@ -55,7 +55,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
      * @param string $unit
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    protected function checkUnit($unit)
+    protected function checkUnit(string $unit): void
     {
         if (!in_array($unit, $this->getPossibleUnits(), true)) {
             throw new UnknownUnit('Unknown unit ' . ValueDescriber::describe($unit));
@@ -81,7 +81,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     /**
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return (string)$this->getValue() . ' ' . $this->getUnit();
     }

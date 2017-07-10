@@ -73,8 +73,7 @@ class PriceTest extends AbstractTestOfMeasurement
 /** inner */
 class BrokenPriceMeasurement extends Price
 {
-    protected function checkUnit($unit)
+    protected function checkUnit(string $unit): void
     {
-        return true;
     }
 }
