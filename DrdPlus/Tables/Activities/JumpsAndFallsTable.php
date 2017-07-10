@@ -10,12 +10,11 @@ use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Properties\Body\BodyWeight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
-use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
-use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 
 /**
@@ -107,10 +106,9 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @param bool $itIsControlledJump
      * @param Agility $agility
      * @param Athletics $athletics
-     * @param WoundsTable $woundsTable
      * @param LandingSurfaceCode $landingSurfaceCode
-     * @param PositiveInteger $armorProtection
-     * @param LandingSurfacesTable $landingSurfacesTable
+     * @param PositiveInteger $effectiveArmorProtection
+     * @param Tables $tables
      * @return Wounds
      */
     public function getWoundsFromJumpOrFall(
@@ -121,9 +119,8 @@ class JumpsAndFallsTable extends AbstractFileTable
         Agility $agility,
         Athletics $athletics,
         LandingSurfaceCode $landingSurfaceCode,
-        PositiveInteger $armorProtection,
-        WoundsTable $woundsTable,
-        LandingSurfacesTable $landingSurfacesTable
+        PositiveInteger $effectiveArmorProtection,
+        Tables $tables
     ): Wounds
     {
         $meters = $fallHeight->getMeters();
@@ -131,20 +128,20 @@ class JumpsAndFallsTable extends AbstractFileTable
             $meters -= 2;
         }
         $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
-        $powerOfWound += $landingSurfacesTable->getWoundsModifier($landingSurfaceCode, $agility, $armorProtection);
+        $powerOfWound += $tables->getLandingSurfacesTable()->getWoundsModifier($landingSurfaceCode, $agility, $effectiveArmorProtection);
         if ($powerOfWound < 0) {
             $powerOfWound = 0;
         }
-        $convertedPowerOfWounds = (new WoundsBonus($powerOfWound, $woundsTable))->getWounds()->getValue();
+        $convertedPowerOfWounds = (new WoundsBonus($powerOfWound, $tables->getWoundsTable()))->getWounds()->getValue();
         $convertedAgilityAndAthletics = (new WoundsBonus(
             $agility->getValue() + $athletics->getAthleticsBonus()->getValue(),
-            $woundsTable)
+            $tables->getWoundsTable())
         )->getWounds()->getValue();
         $woundsValue = $convertedPowerOfWounds - $convertedAgilityAndAthletics;
         if ($woundsValue < 0) {
             $woundsValue = 0;
         }
 
-        return new Wounds($woundsValue, $woundsTable);
+        return new Wounds($woundsValue, $tables->getWoundsTable());
     }
 }

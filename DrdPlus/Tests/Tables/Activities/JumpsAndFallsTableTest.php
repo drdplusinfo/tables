@@ -14,6 +14,7 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
@@ -146,11 +147,29 @@ class JumpsAndFallsTableTest extends TableTest
                 $this->createAthletics($athleticsValue),
                 $landingSurfaceCode = $this->createLandingSurfaceCode('foo'),
                 $armorProtection = new PositiveIntegerObject($armorProtectionValue),
-                $this->createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $agilityValue + $athleticsValue, $agilityAsWounds),
-                $this->createLandingSurfacesTable($landingSurfaceCode, $agility, $armorProtection, $modifierFromLandingSurface)
+                $this->createTables(
+                    $this->createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $agilityValue + $athleticsValue, $agilityAsWounds),
+                    $this->createLandingSurfacesTable($landingSurfaceCode, $agility, $armorProtection, $modifierFromLandingSurface)
+                )
             );
         self::assertInstanceOf(Wounds::class, $wounds);
         self::assertSame($expectedWounds, $wounds->getValue());
+    }
+
+    /**
+     * @param WoundsTable $woundsTable
+     * @param LandingSurfacesTable $landingSurfacesTable
+     * @return Tables|\Mockery\MockInterface
+     */
+    private function createTables(WoundsTable $woundsTable, LandingSurfacesTable $landingSurfacesTable): Tables
+    {
+        $tables = $this->mockery(Tables::class);
+        $tables->shouldReceive('getWoundsTable')
+            ->andReturn($woundsTable);
+        $tables->shouldReceive('getLandingSurfacesTable')
+            ->andReturn($landingSurfacesTable);
+
+        return $tables;
     }
 
     public function provideValuesForWoundsFromJumpOrFall(): array
