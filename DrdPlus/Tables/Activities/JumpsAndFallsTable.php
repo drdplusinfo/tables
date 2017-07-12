@@ -107,7 +107,9 @@ class JumpsAndFallsTable extends AbstractFileTable
      * @param Agility $agility
      * @param Athletics $athletics
      * @param LandingSurfaceCode $landingSurfaceCode
-     * @param PositiveInteger $effectiveArmorProtection
+     * @param PositiveInteger $bodyArmorProtection
+     * @param bool $hitToHead
+     * @param PositiveInteger $helmProtection
      * @param Tables $tables
      * @return Wounds
      */
@@ -119,7 +121,9 @@ class JumpsAndFallsTable extends AbstractFileTable
         Agility $agility,
         Athletics $athletics,
         LandingSurfaceCode $landingSurfaceCode,
-        PositiveInteger $effectiveArmorProtection,
+        PositiveInteger $bodyArmorProtection,
+        bool $hitToHead,
+        PositiveInteger $helmProtection,
         Tables $tables
     ): Wounds
     {
@@ -128,7 +132,17 @@ class JumpsAndFallsTable extends AbstractFileTable
             $meters -= 2;
         }
         $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
-        $powerOfWound += $tables->getLandingSurfacesTable()->getWoundsModifier($landingSurfaceCode, $agility, $effectiveArmorProtection);
+        $armorProtection = $bodyArmorProtection;
+        if ($hitToHead) {
+            /** same as @link https://pph.drdplus.info/#zraneni */
+            $powerOfWound += 2;
+            $armorProtection = $helmProtection;
+        }
+        $powerOfWound += $tables->getLandingSurfacesTable()->getWoundsModifier(
+            $landingSurfaceCode,
+            $agility,
+            $armorProtection
+        );
         if ($powerOfWound < 0) {
             $powerOfWound = 0;
         }

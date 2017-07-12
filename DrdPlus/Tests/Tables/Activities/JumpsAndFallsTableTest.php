@@ -113,7 +113,9 @@ class JumpsAndFallsTableTest extends TableTest
      * @param int $bodyWeight
      * @param int $roll1d6
      * @param bool $itIsControlledJump
-     * @param int $armorProtectionValue
+     * @param int $bodyArmorProtectionValue
+     * @param bool $hitToHead
+     * @param int $helmProtection
      * @param int $modifierFromLandingSurface
      * @param int $expectedPowerOfWound
      * @param int $powerOfWoundAsWounds
@@ -126,8 +128,10 @@ class JumpsAndFallsTableTest extends TableTest
         $distanceInMeters,
         $bodyWeight,
         $roll1d6,
-        $itIsControlledJump,
-        $armorProtectionValue,
+        bool $itIsControlledJump,
+        int $bodyArmorProtectionValue,
+        bool $hitToHead,
+        int $helmProtectionValue,
         $modifierFromLandingSurface,
         $expectedPowerOfWound,
         $powerOfWoundAsWounds,
@@ -146,10 +150,17 @@ class JumpsAndFallsTableTest extends TableTest
                 $agility = $this->createAgility($agilityValue),
                 $this->createAthletics($athleticsValue),
                 $landingSurfaceCode = $this->createLandingSurfaceCode('foo'),
-                $armorProtection = new PositiveIntegerObject($armorProtectionValue),
+                $bodyArmorProtection = new PositiveIntegerObject($bodyArmorProtectionValue),
+                $hitToHead,
+                $helmProtection = new PositiveIntegerObject($helmProtectionValue),
                 $this->createTables(
                     $this->createWoundsTable($expectedPowerOfWound, $powerOfWoundAsWounds, $agilityValue + $athleticsValue, $agilityAsWounds),
-                    $this->createLandingSurfacesTable($landingSurfaceCode, $agility, $armorProtection, $modifierFromLandingSurface)
+                    $this->createLandingSurfacesTable(
+                        $landingSurfaceCode,
+                        $agility,
+                        $hitToHead ? $helmProtection : $bodyArmorProtection,
+                        $modifierFromLandingSurface
+                    )
                 )
             );
         self::assertInstanceOf(Wounds::class, $wounds);
@@ -174,15 +185,17 @@ class JumpsAndFallsTableTest extends TableTest
 
     public function provideValuesForWoundsFromJumpOrFall(): array
     {
-        // distance, weight, $roll, is controlled, armor, surface modifier, expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
+        // distance, weight, $roll, is controlled, body armor, hit to head, helm protection, surface modifier,
+        // expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
         return [
-            [111.1, 222, 333, false, 444, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
-            [111.2, 222, 333, false, 444, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
-            [111.3, 222, 333, true /* controlled jump */, 444, -548, 0, 123, 555, 666, 124, 0],
-            [111.4, 222, 333, false /* fall */, 444, -548, 2, 123, 555, 666, 124, 0],
-            [111.5, 222, 333, false, 444, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
-            [-0.5, 80, 1, false, 0, -35, 1 /* +1 because 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
-            [-0.6, 80, 1, false, 0, -35, 0 /* because 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
+            [111.1, 222, 333, false, 444, false, 999, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
+            [111.2, 222, 333, false, 444, false, 999, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.2, 222, 333, false, 444, true /* hit to head */, 444 /* helm */, -550, 2 /* base of wounds */, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.3, 222, 333, true /* controlled jump */, 444, false, 0, -548, 0, 123, 555, 666, 124, 0],
+            [111.4, 222, 333, false /* fall */, 444, false, 0, -548, 2, 123, 555, 666, 124, 0],
+            [111.5, 222, 333, false, 444, false, 0, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
+            [-0.5, 80, 1, false, 0, false, 0, -35, 1 /* +1 because 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
+            [-0.6, 80, 1, false, 0, false, 0, -35, 0 /* because 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
         ];
     }
 
