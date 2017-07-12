@@ -130,7 +130,7 @@ class JumpsAndFallsTableTest extends TableTest
     public function I_can_get_wounds_from_jump_or_fall(
         float $distanceInMeters,
         int $bodyWeight,
-        int $itemsWeightBonus,
+        int $itemsWeightBonus = null,
         int $roll1d6,
         bool $itIsControlledJump,
         int $bodyArmorProtectionValue,
@@ -149,7 +149,7 @@ class JumpsAndFallsTableTest extends TableTest
             ->getWoundsFromJumpOrFall(
                 $this->createDistance($distanceInMeters),
                 $this->createBodyWeight($bodyWeight),
-                $this->createWeight($itemsWeightBonus),
+                $itemsWeightBonus !== null ? $this->createWeight($itemsWeightBonus) : null,
                 $this->createRoll1d6($roll1d6),
                 $itIsControlledJump,
                 $agility = $this->createAgility($agilityValue),
@@ -195,11 +195,11 @@ class JumpsAndFallsTableTest extends TableTest
         return [
             [111.1, 222, 0, 333, false, 444, false, 999, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
             [111.1, 222, 987, 333, false, 444, false, 999, -550, 987 /* items weight */, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
-            [111.2, 222, 0, 333, false, 444, false, 999, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
-            [111.2, 222, 0, 333, false, 444, true /* hit to head */, 444 /* helm */, -550, 2 /* base of wounds */, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.2, 222, null, 333, false, 444, false, 999, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.2, 222, -5 /* ignored */, 333, false, 444, true /* hit to head */, 444 /* helm */, -550, 2 /* base of wounds */, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
             [111.3, 222, 0, 333, true /* controlled jump */, 444, false, 0, -548, 0, 123, 555, 666, 124, 0],
-            [111.4, 222, 0, 333, false /* fall */, 444, false, 0, -548, 2, 123, 555, 666, 124, 0],
-            [111.5, 222, 0, 333, false, 444, false, 0, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
+            [111.4, 222, null, 333, false /* fall */, 444, false, 0, -548, 2, 123, 555, 666, 124, 0],
+            [111.5, 222, -999 /* ignored */, 333, false, 444, false, 0, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
             [-0.5, 80, 0, 1, false, 0, false, 0, -35, 1 /* +1 because int - 0.5 = 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
             [-0.6, 80, 0, 1, false, 0, false, 0, -35, 0 /* because int - 0.6 = 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
         ];

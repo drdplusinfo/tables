@@ -103,7 +103,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     /**
      * @param Distance $fallHeight
      * @param BodyWeight $bodyWeight
-     * @param Weight $weightOfItemsOverwhelmedBy
+     * @param Weight|null $weightOfItemsOverwhelmedBy
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
      * @param Agility $agility
@@ -118,7 +118,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     public function getWoundsFromJumpOrFall(
         Distance $fallHeight,
         BodyWeight $bodyWeight,
-        Weight $weightOfItemsOverwhelmedBy,
+        Weight $weightOfItemsOverwhelmedBy = null,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
         Agility $agility,
@@ -134,7 +134,10 @@ class JumpsAndFallsTable extends AbstractFileTable
         if ($itIsControlledJump) {
             $meters -= 2;
         }
-        $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) + $weightOfItemsOverwhelmedBy->getBonus()->getValue() - 5 + $roll1D6->getValue();
+        $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
+        if ($weightOfItemsOverwhelmedBy && $weightOfItemsOverwhelmedBy->getBonus()->getValue() > 0 /* ignore negative values */) {
+            $powerOfWound += $weightOfItemsOverwhelmedBy->getBonus()->getValue();
+        }
         $armorProtection = $bodyArmorProtection;
         if ($hitToHead) {
             /** same as @link https://pph.drdplus.info/#zraneni */
