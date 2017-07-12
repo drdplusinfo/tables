@@ -1,6 +1,7 @@
 <?php
 namespace DrdPlus\Tables\Environments;
 
+use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Tables\Partials\AbstractFileTable;
@@ -61,8 +62,11 @@ class LandingSurfacesTable extends AbstractFileTable
         $row = $this->getRow($landingSurfaceCode);
         $powerOfWoundModifier = $row[self::POWER_OF_WOUND_MODIFIER];
         $agilityMultiplierBonus = $row[self::AGILITY_MULTIPLIER_PROTECTION];
-        if ($agilityMultiplierBonus) {
+        if ($agilityMultiplierBonus && $agility->getValue() > 0) {
             $powerOfWoundModifier -= $agilityMultiplierBonus * $agility->getValue();
+        } else {
+            // third of negative agility is used - and yes, it INCREASES wounds (minus minus = plus)
+            $powerOfWoundModifier -= SumAndRound::round($agilityMultiplierBonus * $agility->getValue() / 3);
         }
         $armorMaxProtection = $row[self::ARMOR_MAX_PROTECTION];
         if ($armorMaxProtection) {

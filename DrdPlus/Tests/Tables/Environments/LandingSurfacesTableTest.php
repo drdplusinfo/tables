@@ -23,16 +23,16 @@ class LandingSurfacesTableTest extends TableTest
     /**
      * @test
      * @dataProvider provideValuesToGetPowerOfWoundModifier
-     * @param int $landingSurfaceValue
+     * @param string $landingSurfaceValue
      * @param int $agilityValue
      * @param int $armorProtectionValue
      * @param int $expectedPowerOfWoundModifier
      */
     public function I_can_get_power_of_wound_modifier(
-        $landingSurfaceValue,
-        $agilityValue,
-        $armorProtectionValue,
-        $expectedPowerOfWoundModifier
+        string $landingSurfaceValue,
+        int $agilityValue,
+        int $armorProtectionValue,
+        int $expectedPowerOfWoundModifier
     ): void
     {
         self::assertSame(
@@ -50,7 +50,7 @@ class LandingSurfacesTableTest extends TableTest
         return [
             [LandingSurfaceCode::DEEP_POWDER, 9999, 888888, -15],
             [LandingSurfaceCode::WATER, 0, 987654321, -15],
-            [LandingSurfaceCode::WATER, -5, 987654321, 0],
+            [LandingSurfaceCode::WATER, -5, 987654321, -10 /* -15 - 3 * -5 / 3 = -15 - -5 = -10 */],
             [LandingSurfaceCode::WATER, 8, 987654321, -39],
             [LandingSurfaceCode::SHARP_ROCKS_OR_POINTED_PALES, 99999, 0, 15],
             [LandingSurfaceCode::SHARP_ROCKS_OR_POINTED_PALES, 99999, 8, 7],
