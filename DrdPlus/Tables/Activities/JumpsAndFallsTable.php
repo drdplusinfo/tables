@@ -11,6 +11,7 @@ use DrdPlus\Properties\Body\BodyWeight;
 use DrdPlus\Properties\Derived\Athletics;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Partials\AbstractFileTable;
@@ -102,6 +103,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     /**
      * @param Distance $fallHeight
      * @param BodyWeight $bodyWeight
+     * @param Weight $weightOfItemsOverwhelmedBy
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
      * @param Agility $agility
@@ -116,6 +118,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     public function getWoundsFromJumpOrFall(
         Distance $fallHeight,
         BodyWeight $bodyWeight,
+        Weight $weightOfItemsOverwhelmedBy,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
         Agility $agility,
@@ -131,7 +134,7 @@ class JumpsAndFallsTable extends AbstractFileTable
         if ($itIsControlledJump) {
             $meters -= 2;
         }
-        $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) - 5 + $roll1D6->getValue();
+        $powerOfWound = $meters + SumAndRound::half($bodyWeight->getValue()) + $weightOfItemsOverwhelmedBy->getBonus()->getValue() - 5 + $roll1D6->getValue();
         $armorProtection = $bodyArmorProtection;
         if ($hitToHead) {
             /** same as @link https://pph.drdplus.info/#zraneni */

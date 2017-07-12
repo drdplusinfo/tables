@@ -11,6 +11,8 @@ use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Activities\JumpsAndFallsTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
@@ -109,13 +111,14 @@ class JumpsAndFallsTableTest extends TableTest
     /**
      * @test
      * @dataProvider provideValuesForWoundsFromJumpOrFall
-     * @param int $distanceInMeters
+     * @param float $distanceInMeters
      * @param int $bodyWeight
+     * @param int $itemsWeightBonus
      * @param int $roll1d6
      * @param bool $itIsControlledJump
      * @param int $bodyArmorProtectionValue
      * @param bool $hitToHead
-     * @param int $helmProtection
+     * @param int $helmProtectionValue
      * @param int $modifierFromLandingSurface
      * @param int $expectedPowerOfWound
      * @param int $powerOfWoundAsWounds
@@ -125,26 +128,28 @@ class JumpsAndFallsTableTest extends TableTest
      * @param int $expectedWounds
      */
     public function I_can_get_wounds_from_jump_or_fall(
-        $distanceInMeters,
-        $bodyWeight,
-        $roll1d6,
+        float $distanceInMeters,
+        int $bodyWeight,
+        int $itemsWeightBonus,
+        int $roll1d6,
         bool $itIsControlledJump,
         int $bodyArmorProtectionValue,
         bool $hitToHead,
         int $helmProtectionValue,
-        $modifierFromLandingSurface,
-        $expectedPowerOfWound,
-        $powerOfWoundAsWounds,
-        $agilityValue,
-        $athleticsValue,
-        $agilityAsWounds,
-        $expectedWounds
+        int $modifierFromLandingSurface,
+        int $expectedPowerOfWound,
+        int $powerOfWoundAsWounds,
+        int $agilityValue,
+        int $athleticsValue,
+        int $agilityAsWounds,
+        int $expectedWounds
     ): void
     {
         $wounds = (new JumpsAndFallsTable())
             ->getWoundsFromJumpOrFall(
                 $this->createDistance($distanceInMeters),
-                $this->createWeight($bodyWeight),
+                $this->createBodyWeight($bodyWeight),
+                $this->createWeight($itemsWeightBonus),
                 $this->createRoll1d6($roll1d6),
                 $itIsControlledJump,
                 $agility = $this->createAgility($agilityValue),
@@ -185,17 +190,18 @@ class JumpsAndFallsTableTest extends TableTest
 
     public function provideValuesForWoundsFromJumpOrFall(): array
     {
-        // distance, weight, $roll, is controlled, body armor, hit to head, helm protection, surface modifier,
+        // distance, weight, itemsWeightBonus, roll, isControlled, bodyArmor, hitToHead, helm protection, surface modifier,
         // expected power of wound, powerOfWoundAsWounds, agility, athletics, agilityAsWounds, expected wounds
         return [
-            [111.1, 222, 333, false, 444, false, 999, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
-            [111.2, 222, 333, false, 444, false, 999, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
-            [111.2, 222, 333, false, 444, true /* hit to head */, 444 /* helm */, -550, 2 /* base of wounds */, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
-            [111.3, 222, 333, true /* controlled jump */, 444, false, 0, -548, 0, 123, 555, 666, 124, 0],
-            [111.4, 222, 333, false /* fall */, 444, false, 0, -548, 2, 123, 555, 666, 124, 0],
-            [111.5, 222, 333, false, 444, false, 0, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
-            [-0.5, 80, 1, false, 0, false, 0, -35, 1 /* +1 because 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
-            [-0.6, 80, 1, false, 0, false, 0, -35, 0 /* because 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
+            [111.1, 222, 0, 333, false, 444, false, 999, -550, 0, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
+            [111.1, 222, 987, 333, false, 444, false, 999, -550, 987 /* items weight */, 123, 555, 666, 124 /* higher bonus from agility than wounds */, 0],
+            [111.2, 222, 0, 333, false, 444, false, 999, -550, 0, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.2, 222, 0, 333, false, 444, true /* hit to head */, 444 /* helm */, -550, 2 /* base of wounds */, 124, 555, 666, 123 /* higher wounds than bonus from agility */, 1],
+            [111.3, 222, 0, 333, true /* controlled jump */, 444, false, 0, -548, 0, 123, 555, 666, 124, 0],
+            [111.4, 222, 0, 333, false /* fall */, 444, false, 0, -548, 2, 123, 555, 666, 124, 0],
+            [111.5, 222, 0, 333, false, 444, false, 0, -500, 51 /* +1 because of rounded distance */, 123, 555, 666, 50, 73],
+            [-0.5, 80, 0, 1, false, 0, false, 0, -35, 1 /* +1 because int - 0.5 = 0.5 is rounded to 1 */, 123, 555, 666, 50, 73],
+            [-0.6, 80, 0, 1, false, 0, false, 0, -35, 0 /* because int - 0.6 = 0.4 is rounded to 0 */, 123, 555, 666, 50, 73],
         ];
     }
 
@@ -203,7 +209,7 @@ class JumpsAndFallsTableTest extends TableTest
      * @param float $meters
      * @return \Mockery\MockInterface|Distance
      */
-    private function createDistance($meters)
+    private function createDistance($meters): Distance
     {
         $distance = $this->mockery(Distance::class);
         $distance->shouldReceive('getMeters')
@@ -216,11 +222,26 @@ class JumpsAndFallsTableTest extends TableTest
      * @param int $value
      * @return \Mockery\MockInterface|BodyWeight
      */
-    private function createWeight($value)
+    private function createBodyWeight($value): BodyWeight
     {
         $weight = $this->mockery(BodyWeight::class);
         $weight->shouldReceive('getValue')
             ->andReturn($value);
+
+        return $weight;
+    }
+
+    /**
+     * @param int $itemsWeightBonus
+     * @return \Mockery\MockInterface|Weight
+     */
+    private function createWeight(int $itemsWeightBonus): Weight
+    {
+        $weight = $this->mockery(Weight::class);
+        $weight->shouldReceive('getBonus')
+            ->andReturn($weightBonus = $this->mockery(WeightBonus::class));
+        $weightBonus->shouldReceive('getValue')
+            ->andReturn($itemsWeightBonus);
 
         return $weight;
     }
