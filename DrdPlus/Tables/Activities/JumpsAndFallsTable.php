@@ -144,11 +144,11 @@ class JumpsAndFallsTable extends AbstractFileTable
             $powerOfWound += 2;
             $armorProtection = $helmProtection;
         }
-        $powerOfWound += $tables->getLandingSurfacesTable()->getWoundsModifier(
+        $powerOfWound += $tables->getLandingSurfacesTable()->getBaseOfWoundsModifier(
             $landingSurfaceCode,
             $agility,
             $armorProtection
-        );
+        )->getValue();
         if ($powerOfWound < 0) {
             $powerOfWound = 0;
         }

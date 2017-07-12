@@ -5,6 +5,7 @@ use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\Integer\IntegerWithHistory;
 use Granam\Integer\PositiveIntegerObject;
 
 class LandingSurfacesTableTest extends TableTest
@@ -35,14 +36,18 @@ class LandingSurfacesTableTest extends TableTest
         int $expectedPowerOfWoundModifier
     ): void
     {
+        $baseOfWoundsModifier = (new LandingSurfacesTable())->getBaseOfWoundsModifier(
+            LandingSurfaceCode::getIt($landingSurfaceValue),
+            Agility::getIt($agilityValue),
+            new PositiveIntegerObject($armorProtectionValue)
+        );
         self::assertSame(
             $expectedPowerOfWoundModifier,
-            (new LandingSurfacesTable())->getWoundsModifier(
-                LandingSurfaceCode::getIt($landingSurfaceValue),
-                Agility::getIt($agilityValue),
-                new PositiveIntegerObject($armorProtectionValue)
-            )
+            $baseOfWoundsModifier->getValue()
         );
+        self::assertInstanceOf(IntegerWithHistory::class, $baseOfWoundsModifier);
+        $history = $baseOfWoundsModifier->getHistory();
+        self::assertNotEmpty($history);
     }
 
     public function provideValuesToGetPowerOfWoundModifier(): array

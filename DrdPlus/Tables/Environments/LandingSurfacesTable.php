@@ -1,10 +1,10 @@
 <?php
 namespace DrdPlus\Tables\Environments;
 
-use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Properties\Base\Agility;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use Granam\Integer\IntegerWithHistory;
 use Granam\Integer\PositiveInteger;
 
 /**
@@ -50,34 +50,77 @@ class LandingSurfacesTable extends AbstractFileTable
      * @param LandingSurfaceCode $landingSurfaceCode
      * @param Agility $agility
      * @param PositiveInteger $armorProtection
-     * @return int
+     * @return IntegerWithHistory
      */
-    public function getWoundsModifier(
+    public function getBaseOfWoundsModifier(
         LandingSurfaceCode $landingSurfaceCode,
         Agility $agility,
         PositiveInteger $armorProtection
-    ): int
+    ): IntegerWithHistory
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $row = $this->getRow($landingSurfaceCode);
-        $powerOfWoundModifier = $row[self::POWER_OF_WOUND_MODIFIER];
+        $baseOfWoundsModifier = $this->createBaseOfWoundsModifier($row);
         $agilityMultiplierBonus = $row[self::AGILITY_MULTIPLIER_PROTECTION];
-        if ($agilityMultiplierBonus && $agility->getValue() > 0) {
-            $powerOfWoundModifier -= $agilityMultiplierBonus * $agility->getValue();
-        } else {
-            // third of negative agility is used - and yes, it INCREASES wounds (minus minus = plus)
-            $powerOfWoundModifier -= SumAndRound::round($agilityMultiplierBonus * $agility->getValue() / 3);
+        if ($agilityMultiplierBonus) {
+            if ($agility->getValue() > 0) {
+                $baseOfWoundsModifier = $this->lowerByPositiveAgility(
+                    $baseOfWoundsModifier,
+                    $agility,
+                    $agilityMultiplierBonus
+                );
+            } elseif ($agility->getValue() < 0) {
+                $baseOfWoundsModifier = $this->increaseByNegativeAgility($baseOfWoundsModifier, $agility);
+            }
         }
         $armorMaxProtection = $row[self::ARMOR_MAX_PROTECTION];
         if ($armorMaxProtection) {
             if ($armorProtection->getValue() > $armorMaxProtection) {
-                $powerOfWoundModifier -= $armorMaxProtection;
+                $baseOfWoundsModifier = $this->lowerByArmorMaximalProtection($armorMaxProtection, $baseOfWoundsModifier);
             } else {
-                $powerOfWoundModifier -= $armorProtection->getValue();
+                $baseOfWoundsModifier = $this->lowerByArmor($armorProtection, $baseOfWoundsModifier);
             }
         }
 
-        return $powerOfWoundModifier;
+        return $baseOfWoundsModifier;
     }
 
+    private function createBaseOfWoundsModifier(array $row): IntegerWithHistory
+    {
+        return new IntegerWithHistory($row[self::POWER_OF_WOUND_MODIFIER]);
+    }
+
+    private function lowerByPositiveAgility(
+        IntegerWithHistory $baseOfWoundsModifier,
+        Agility $agility,
+        int $agilityMultiplierBonus
+    ): IntegerWithHistory
+    {
+        return $baseOfWoundsModifier->sub($agilityMultiplierBonus * $agility->getValue());
+    }
+
+    private function increaseByNegativeAgility(
+        IntegerWithHistory $baseOfWoundsModifier,
+        Agility $agility
+    ): IntegerWithHistory
+    {
+        // yes, it INCREASES wounds (minus minus = plus) and yes, only by agility value itself, without multiplier
+        return $baseOfWoundsModifier->sub($agility->getValue());
+    }
+
+    private function lowerByArmorMaximalProtection(
+        int $armorMaximalProtection,
+        IntegerWithHistory $baseOfWoundsModifier
+    ): IntegerWithHistory
+    {
+        return $baseOfWoundsModifier->sub($armorMaximalProtection);
+    }
+
+    private function lowerByArmor(
+        PositiveInteger $armorProtection,
+        IntegerWithHistory $baseOfWoundsModifier
+    ): IntegerWithHistory
+    {
+        return $baseOfWoundsModifier->sub($armorProtection);
+    }
 }

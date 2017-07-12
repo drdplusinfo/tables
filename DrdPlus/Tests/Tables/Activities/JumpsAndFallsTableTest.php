@@ -18,6 +18,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\Integer\IntegerWithHistory;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
 
@@ -319,13 +320,13 @@ class JumpsAndFallsTableTest extends TableTest
         LandingSurfaceCode $landingSurfaceCode,
         Agility $agility,
         PositiveInteger $armorProtection,
-        $modifier
+        int $modifier
     )
     {
         $landingSurfacesTable = $this->mockery(LandingSurfacesTable::class);
-        $landingSurfacesTable->shouldReceive('getWoundsModifier')
+        $landingSurfacesTable->shouldReceive('getBaseOfWoundsModifier')
             ->with($landingSurfaceCode, $agility, $armorProtection)
-            ->andReturn($modifier);
+            ->andReturn(new IntegerWithHistory($modifier));
 
         return $landingSurfacesTable;
     }
