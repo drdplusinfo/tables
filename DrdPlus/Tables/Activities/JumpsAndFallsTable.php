@@ -150,7 +150,7 @@ class JumpsAndFallsTable extends AbstractFileTable
             $armorProtection
         )->getValue();
         if ($powerOfWound < 0) {
-            $powerOfWound = 0;
+            $powerOfWound = 0;// TODO really?
         }
         $convertedPowerOfWounds = (new WoundsBonus(SumAndRound::round($powerOfWound), $tables->getWoundsTable()))
             ->getWounds()->getValue();
