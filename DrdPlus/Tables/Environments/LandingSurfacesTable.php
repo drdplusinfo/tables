@@ -21,7 +21,7 @@ class LandingSurfacesTable extends AbstractFileTable
     }
 
     const POWER_OF_WOUND_MODIFIER = 'power_of_wound_modifier';
-    const AGILITY_MULTIPLIER_PROTECTION = 'agility_multiplier_protection';
+    const AGILITY_MULTIPLIER = 'agility_multiplier';
     const ARMOR_MAX_PROTECTION = 'armor_max_protection';
 
     /**
@@ -31,7 +31,7 @@ class LandingSurfacesTable extends AbstractFileTable
     {
         return [
             self::POWER_OF_WOUND_MODIFIER => self::INTEGER,
-            self::AGILITY_MULTIPLIER_PROTECTION => self::POSITIVE_INTEGER,
+            self::AGILITY_MULTIPLIER => self::POSITIVE_INTEGER,
             self::ARMOR_MAX_PROTECTION => self::POSITIVE_INTEGER,
         ];
     }
@@ -61,7 +61,7 @@ class LandingSurfacesTable extends AbstractFileTable
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $row = $this->getRow($landingSurfaceCode);
         $baseOfWoundsModifier = $this->createBaseOfWoundsModifier($row);
-        $agilityMultiplierBonus = $row[self::AGILITY_MULTIPLIER_PROTECTION];
+        $agilityMultiplierBonus = $row[self::AGILITY_MULTIPLIER];
         if ($agilityMultiplierBonus) {
             if ($agility->getValue() > 0) {
                 $baseOfWoundsModifier = $this->lowerByPositiveAgility(

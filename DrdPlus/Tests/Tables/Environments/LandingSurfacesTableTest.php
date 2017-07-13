@@ -12,17 +12,6 @@ class LandingSurfacesTableTest extends TableTest
 {
     /**
      * @test
-     */
-    public function I_can_get_header(): void
-    {
-        self::assertSame(
-            [['surface', 'power_of_wound_modifier', 'agility_multiplier_protection', 'armor_max_protection']],
-            (new LandingSurfacesTable())->getHeader()
-        );
-    }
-
-    /**
-     * @test
      * @dataProvider provideValuesToGetPowerOfWoundModifier
      * @param string $landingSurfaceValue
      * @param int $agilityValue
