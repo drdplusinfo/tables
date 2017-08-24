@@ -233,9 +233,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_strength_of_any_race(string $raceCode, int $strength): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($strength, $table->getStrength(RaceCode::getIt($raceCode)));
+        self::assertSame($strength, $femaleModifiersTable->getStrength(RaceCode::getIt($raceCode)));
     }
 
     public function raceToStrength(): array
@@ -258,9 +258,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_agility_of_any_race($raceCode, $agility): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($agility, $table->getAgility(RaceCode::getIt($raceCode)));
+        self::assertSame($agility, $femaleModifiersTable->getAgility(RaceCode::getIt($raceCode)));
     }
 
     public function raceToAgility(): array
@@ -283,9 +283,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_knack_of_any_race(string $raceCode, int $knack): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($knack, $table->getKnack(RaceCode::getIt($raceCode)));
+        self::assertSame($knack, $femaleModifiersTable->getKnack(RaceCode::getIt($raceCode)));
     }
 
     public function raceToKnack(): array
@@ -308,9 +308,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_will_of_any_race($raceCode, $will): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($will, $table->getWill(RaceCode::getIt($raceCode)));
+        self::assertSame($will, $femaleModifiersTable->getWill(RaceCode::getIt($raceCode)));
     }
 
     public function raceToWill(): array
@@ -333,9 +333,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_intelligence_of_any_race($raceCode, $intelligence): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($intelligence, $table->getIntelligence(RaceCode::getIt($raceCode)));
+        self::assertSame($intelligence, $femaleModifiersTable->getIntelligence(RaceCode::getIt($raceCode)));
     }
 
     public function raceToIntelligence(): array
@@ -358,9 +358,9 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_charisma_of_any_race($raceCode, $charisma): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($charisma, $table->getCharisma(RaceCode::getIt($raceCode)));
+        self::assertSame($charisma, $femaleModifiersTable->getCharisma(RaceCode::getIt($raceCode)));
     }
 
     public function raceToCharisma(): array
@@ -383,11 +383,14 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_weight_simple_bonus_of_any_race($raceCode, $charisma): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($charisma, $table->getWeightBonus(RaceCode::getIt($raceCode)));
+        self::assertSame($charisma, $femaleModifiersTable->getWeightBonus(RaceCode::getIt($raceCode)));
         // weight modifier has to be same as strength modifier
-        self::assertSame($table->getStrength(RaceCode::getIt($raceCode)), $table->getWeightBonus(RaceCode::getIt($raceCode)));
+        self::assertSame(
+            $femaleModifiersTable->getStrength(RaceCode::getIt($raceCode)),
+            $femaleModifiersTable->getWeightBonus(RaceCode::getIt($raceCode))
+        );
     }
 
     public function raceToWeight(): array
@@ -410,11 +413,14 @@ class FemaleModifiersTableTest extends TableTest
      */
     public function I_can_get_female_size_of_any_race($raceCode, $size): void
     {
-        $table = new FemaleModifiersTable();
+        $femaleModifiersTable = new FemaleModifiersTable();
 
-        self::assertSame($size, $table->getSize(RaceCode::getIt($raceCode)));
+        self::assertSame($size, $femaleModifiersTable->getSize(RaceCode::getIt($raceCode)));
         // size modifier has to be same as strength modifier
-        self::assertSame($table->getStrength(RaceCode::getIt($raceCode)), $table->getSize(RaceCode::getIt($raceCode)));
+        self::assertSame(
+            $femaleModifiersTable->getStrength(RaceCode::getIt($raceCode)),
+            $femaleModifiersTable->getSize(RaceCode::getIt($raceCode))
+        );
     }
 
     public function raceToSize(): array
@@ -427,5 +433,20 @@ class FemaleModifiersTableTest extends TableTest
             [RaceCode::KROLL, -1],
             [RaceCode::ORC, -1],
         ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownRace
+     * @expectedExceptionMessageRegExp ~money money money~
+     */
+    public function I_can_not_get_property_for_unknown_race()
+    {
+        $femaleModifiersTable = new FemaleModifiersTable();
+        $raceCode = $this->mockery(RaceCode::class);
+        $raceCode->shouldReceive('getValue')->andReturn('tax_collector');
+        $raceCode->shouldReceive('__toString')->andReturn('money money money');
+        /** @var RaceCode $raceCode */
+        $femaleModifiersTable->getStrength($raceCode);
     }
 }

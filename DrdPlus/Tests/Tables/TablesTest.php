@@ -9,6 +9,7 @@ use DrdPlus\Codes\Armaments\DartCode;
 use DrdPlus\Codes\Armaments\HelmCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
+use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
@@ -90,7 +91,7 @@ class TablesTest extends TestWithMockery
     private function scanForTables($rootDir, $rootNamespace)
     {
         $tableClasses = [];
-        foreach (scandir($rootDir) as $folder) {
+        foreach (scandir($rootDir, SCANDIR_SORT_NONE) as $folder) {
             $folderFullPath = $rootDir . DIRECTORY_SEPARATOR . $folder;
             if ($folder !== '.' && $folder !== '..') {
                 if (is_dir($folderFullPath)) {
@@ -448,5 +449,21 @@ class TablesTest extends TestWithMockery
                 "Table test {$expectedTableTestClass} should extends " . TableTest::class
             );
         }
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
+     * @expectedExceptionMessageRegExp ~foo~
+     */
+    public function I_can_not_get_projectiles_table_for_unknown_projectile()
+    {
+        $projectile = $this->mockery(ProjectileCode::class);
+        $projectile->shouldReceive('isArrow')->andReturn(false);
+        $projectile->shouldReceive('isDart')->andReturn(false);
+        $projectile->shouldReceive('isSlingStone')->andReturn(false);
+        $projectile->shouldReceive('__toString')->andReturn('foo');
+        /** @var ProjectileCode $projectile */
+        Tables::getIt()->getProjectilesTableByProjectiveCode($projectile);
     }
 }

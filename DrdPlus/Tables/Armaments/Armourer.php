@@ -8,6 +8,7 @@ use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Codes\ItemHoldingCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
 use DrdPlus\Properties\Combat\EncounterRange;
@@ -857,6 +858,69 @@ class Armourer extends StrictObject
         }
 
         return 2;
+    }
+
+    /**
+     * @param WeaponlikeCode $weaponOrShield
+     * @param ItemHoldingCode $holding
+     * @param Strength $strengthOfMainHand
+     * @return Strength
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByOneHand
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
+     */
+    public function getStrengthForWeaponOrShield(
+        WeaponlikeCode $weaponOrShield,
+        ItemHoldingCode $holding,
+        Strength $strengthOfMainHand
+    ): Strength
+    {
+        if ($holding->holdsByTwoHands()) {
+            if ($this->isOneHandedOnly($weaponOrShield)) {
+                throw new Exceptions\CanNotHoldWeaponByTwoHands(
+                    "Weapon {$weaponOrShield} can not be hold {$holding}, because is single-handed only"
+                );
+            }
+            if ($this->isTwoHandedOnly($weaponOrShield)) {
+                // it is both-hands only weapon, can NOT count +2 bonus
+                return $strengthOfMainHand;
+            }
+
+            // if one-handed is kept by both hands, the required strength is lower (fighter strength is higher respectively)
+            return $this->getStrengthForOneHandedWeaponHoldByTwoHands($strengthOfMainHand);
+        }
+        if ($this->isTwoHandedOnly($weaponOrShield)) {
+            throw new Exceptions\CanNotHoldWeaponByOneHand(
+                "Weapon {$weaponOrShield} can not be hold {$holding}, because is two-handed only"
+            );
+        }
+        if ($holding->holdsByOffhand()) {
+            return $this->getStrengthOfOffhand($strengthOfMainHand);
+        }
+
+        return $strengthOfMainHand; // hold by main hand
+    }
+
+    /**
+     * Your less-dominant hand is weaker (try it)
+     *
+     * @param Strength $strengthOfMainHand
+     * @return Strength
+     */
+    public function getStrengthOfOffhand(Strength $strengthOfMainHand): Strength
+    {
+        return $strengthOfMainHand->sub(2);
+    }
+
+    /**
+     * Warning! Only if you hold SINGLE-handed weapons by both hands, you will get bonus to strength.
+     *
+     * @param Strength $strengthOfMainHand
+     * @return Strength
+     */
+    public function getStrengthForOneHandedWeaponHoldByTwoHands(Strength $strengthOfMainHand): Strength
+    {
+        return $strengthOfMainHand->add(2);
     }
 
 }

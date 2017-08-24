@@ -8,6 +8,8 @@ use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
+use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Codes\ItemHoldingCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
 use DrdPlus\Properties\Combat\EncounterRange;
@@ -1885,6 +1887,97 @@ class ArmourerTest extends TestWithMockery
             ->with($dagger)
             ->andReturn(0);
         self::assertSame(0, (new Armourer($tables))->getBaseOfWoundsBonusForHolding($dagger, true));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideWeaponlikeToGetStrengthForIt
+     * @param WeaponlikeCode $weaponlikeCode
+     * @param ItemHoldingCode $itemHoldingCode
+     * @param Strength $strengthOfMainHand
+     * @param int $expectedStrength
+     */
+    public function I_can_get_strength_for_weapon_or_shield(
+        WeaponlikeCode $weaponlikeCode,
+        ItemHoldingCode $itemHoldingCode,
+        Strength $strengthOfMainHand,
+        int $expectedStrength
+    )
+    {
+        $armourer = new Armourer(Tables::getIt());
+        $strengthForWeaponlike = $armourer->getStrengthForWeaponOrShield(
+            $weaponlikeCode,
+            $itemHoldingCode,
+            $strengthOfMainHand
+        );
+        self::assertInstanceOf(Strength::class, $strengthForWeaponlike);
+        self::assertSame($expectedStrength, $strengthForWeaponlike->getValue());
+    }
+
+    public function provideWeaponlikeToGetStrengthForIt(): array
+    {
+        return [
+            [
+                MeleeWeaponCode::getIt(MeleeWeaponCode::AXE),
+                ItemHoldingCode::getIt(ItemHoldingCode::MAIN_HAND),
+                Strength::getIt(123),
+                123,
+            ],
+            [
+                ShieldCode::getIt(ShieldCode::BUCKLER),
+                ItemHoldingCode::getIt(ItemHoldingCode::OFFHAND),
+                Strength::getIt(456),
+                454, // -2
+            ],
+            [
+                ShieldCode::getIt(ShieldCode::PAVISE),
+                ItemHoldingCode::getIt(ItemHoldingCode::MAIN_HAND),
+                Strength::getIt(456),
+                456,
+            ],
+            [
+                MeleeWeaponCode::getIt(MeleeWeaponCode::PIKE),
+                ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS),
+                Strength::getIt(789),
+                789,
+            ],
+            [
+                MeleeWeaponCode::getIt(MeleeWeaponCode::LONG_SWORD),
+                ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS),
+                Strength::getIt(987),
+                989, // +2
+            ],
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
+     * @expectedExceptionMessageRegExp ~pavise~
+     */
+    public function I_can_not_get_strength_for_single_handed_only_weaponlike_when_holding_by_two_hands()
+    {
+        // its quite strange, but currently every shield, including monstrous pavise, is single-handed only
+        (new Armourer(Tables::getIt()))->getStrengthForWeaponOrShield(
+            ShieldCode::getIt(ShieldCode::PAVISE),
+            ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS),
+            Strength::getIt(123)
+        );
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByOneHand
+     * @expectedExceptionMessageRegExp ~long_bow~
+     */
+    public function I_can_not_get_strength_for_two_handed_only_weaponlike_when_holding_by_one_hand()
+    {
+        // its quite strange, but currently every shield, including monstrous pavise, is single-handed only
+        (new Armourer(Tables::getIt()))->getStrengthForWeaponOrShield(
+            RangedWeaponCode::getIt(RangedWeaponCode::LONG_BOW),
+            ItemHoldingCode::getIt(ItemHoldingCode::MAIN_HAND),
+            Strength::getIt(123)
+        );
     }
 
 }

@@ -36,6 +36,7 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
         uksort($values, function ($oneDistanceInMeters, $anotherDistanceInMeters) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $oneDistanceInMeters = ToFloat::toPositiveFloat($oneDistanceInMeters);
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $anotherDistanceInMeters = ToFloat::toPositiveFloat($anotherDistanceInMeters);
             if ($oneDistanceInMeters < $anotherDistanceInMeters) {
                 return -1; // lowest first
@@ -44,7 +45,9 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
                 return 1;
             }
 
+            // @codeCoverageIgnoreStart
             return 0;
+            // @codeCoverageIgnoreEnds
         });
 
         return $values;
