@@ -8,7 +8,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTes
 
 class CrossbowsTableTest extends RangedWeaponsTableTest
 {
-    protected function getRowHeaderName()
+    protected function getRowHeaderName(): string
     {
         return 'weapon';
     }

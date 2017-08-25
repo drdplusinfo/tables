@@ -82,10 +82,10 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
 
     /**
      * @param string|StringInterface $weaponlikeCode
-     * @return int
+     * @return int|false
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getRequiredStrengthOf($weaponlikeCode): int
+    public function getRequiredStrengthOf($weaponlikeCode)
     {
         return $this->getValueOf($weaponlikeCode, self::REQUIRED_STRENGTH);
     }

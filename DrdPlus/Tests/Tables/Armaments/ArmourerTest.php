@@ -1331,7 +1331,7 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer(Tables::getIt());
         foreach (RangedWeaponCode::getPossibleValues() as $rangedWeaponCode) {
             $rangedWeapon = RangedWeaponCode::getIt($rangedWeaponCode);
-            if ($rangedWeapon->isProjectile()) {
+            if ($rangedWeaponCode === RangedWeaponCode::SAND || $rangedWeapon->isProjectile()) {
                 self::assertSame(0, $armourer->getCoverOfWeaponOrShield($rangedWeapon));
             } else {
                 self::assertSame(

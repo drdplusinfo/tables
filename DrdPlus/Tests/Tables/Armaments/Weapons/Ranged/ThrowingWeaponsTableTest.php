@@ -8,7 +8,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTes
 
 class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
 {
-    protected function getRowHeaderName()
+    protected function getRowHeaderName(): string
     {
         return 'weapon';
     }
@@ -16,6 +16,16 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
     public function provideArmamentAndNameWithValue(): array
     {
         return [
+            // unarmed
+            [RangedWeaponCode::SAND, RangedWeaponsTable::REQUIRED_STRENGTH, false],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::OFFENSIVENESS, 0],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::WOUNDS, -20],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::RANGE, 1],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::COVER, 0],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::WEIGHT, 0.0],
+            [RangedWeaponCode::SAND, RangedWeaponsTable::TWO_HANDED, false],
+
             [RangedWeaponCode::ROCK, RangedWeaponsTable::REQUIRED_STRENGTH, -2],
             [RangedWeaponCode::ROCK, RangedWeaponsTable::OFFENSIVENESS, 2],
             [RangedWeaponCode::ROCK, RangedWeaponsTable::WOUNDS, -2],

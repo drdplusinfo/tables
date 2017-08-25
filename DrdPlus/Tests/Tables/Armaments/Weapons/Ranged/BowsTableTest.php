@@ -20,7 +20,7 @@ class BowsTableTest extends RangedWeaponsTableTest
         );
     }
 
-    protected function getRowHeaderName()
+    protected function getRowHeaderName(): string
     {
         return 'weapon';
     }

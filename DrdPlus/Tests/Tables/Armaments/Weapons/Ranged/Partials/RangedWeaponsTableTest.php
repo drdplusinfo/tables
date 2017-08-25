@@ -23,7 +23,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     /**
      * @return string
      */
-    abstract protected function getRowHeaderName();
+    abstract protected function getRowHeaderName(): string;
 
     /**
      * @test
@@ -32,7 +32,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
-    public function I_can_not_get_value_of_unknown_melee_weapon($valueName)
+    public function I_can_not_get_value_of_unknown_melee_weapon(string $valueName)
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $sutClass = self::getSutClass();
@@ -51,7 +51,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             [RangedWeaponsTable::RANGE],
             [RangedWeaponsTable::COVER],
             [RangedWeaponsTable::WEIGHT],
-            [RangedWeaponsTable::TWO_HANDED, false],
+            [RangedWeaponsTable::TWO_HANDED],
         ];
     }
 
