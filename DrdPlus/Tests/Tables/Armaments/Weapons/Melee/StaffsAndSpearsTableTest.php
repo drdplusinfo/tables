@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class StaffsAndSpearsTableTest extends MeleeWeaponsTableTest
 {
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::LIGHT_SPEAR, MeleeWeaponsTable::REQUIRED_STRENGTH, 1],

@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class KnifesAndDaggersTableTest extends MeleeWeaponsTableTest
 {
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::KNIFE, MeleeWeaponsTable::REQUIRED_STRENGTH, -3],

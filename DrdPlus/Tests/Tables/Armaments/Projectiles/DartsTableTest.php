@@ -13,7 +13,7 @@ class DartsTableTest extends ProjectilesTableTest
         return 'projectile';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [DartCode::BASIC_DART, DartsTable::OFFENSIVENESS, 0],

@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
 {
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::REQUIRED_STRENGTH, 2],

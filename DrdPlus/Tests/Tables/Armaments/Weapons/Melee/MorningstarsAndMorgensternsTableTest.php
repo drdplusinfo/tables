@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
 {
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],

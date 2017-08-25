@@ -9,10 +9,10 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class UnarmedTableTest extends MeleeWeaponsTableTest
 {
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
-            [MeleeWeaponCode::HAND, MeleeWeaponsTable::REQUIRED_STRENGTH, -5],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::REQUIRED_STRENGTH, false],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::LENGTH, 0],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::OFFENSIVENESS, 0],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::WOUNDS, -2],

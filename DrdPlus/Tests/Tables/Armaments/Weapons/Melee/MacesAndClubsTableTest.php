@@ -10,7 +10,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 class MacesAndClubsTableTest extends MeleeWeaponsTableTest
 {
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::REQUIRED_STRENGTH, 1],

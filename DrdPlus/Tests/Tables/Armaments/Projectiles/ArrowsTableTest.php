@@ -8,12 +8,12 @@ use DrdPlus\Tests\Tables\Armaments\Projectiles\Partials\ProjectilesTableTest;
 
 class ArrowsTableTest extends ProjectilesTableTest
 {
-    protected function getRowHeaderName()
+    protected function getRowHeaderName(): string
     {
         return 'projectile';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [ArrowCode::BASIC_ARROW, ArrowsTable::OFFENSIVENESS, 0],

@@ -10,7 +10,7 @@ use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 class AxesTableTest extends MeleeWeaponsTableTest
 {
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],

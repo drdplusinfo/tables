@@ -22,10 +22,10 @@ class ShieldsTableTest extends WeaponlikeTableTest
         );
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
-            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::REQUIRED_STRENGTH, -5],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::REQUIRED_STRENGTH, false],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::LENGTH, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::RESTRICTION, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
@@ -122,6 +122,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
     {
         $shieldsTable = new ShieldsTable();
         $unarmedTable = new UnarmedTable();
+        self::assertFalse($shieldsTable->getRequiredStrengthOf(ShieldCode::WITHOUT_SHIELD));
         self::assertSame(
             $shieldsTable->getRequiredStrengthOf(ShieldCode::WITHOUT_SHIELD),
             $unarmedTable->getRequiredStrengthOf(MeleeWeaponCode::HAND)

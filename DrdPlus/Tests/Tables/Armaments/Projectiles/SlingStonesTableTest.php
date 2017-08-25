@@ -13,7 +13,7 @@ class SlingStonesTableTest extends ProjectilesTableTest
         return 'projectile';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [SlingStoneCode::SLING_STONE_LIGHT, SlingStonesTable::OFFENSIVENESS, 0],

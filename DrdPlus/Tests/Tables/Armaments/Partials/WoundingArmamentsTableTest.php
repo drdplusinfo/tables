@@ -38,7 +38,7 @@ abstract class WoundingArmamentsTableTest extends TableTest
     /**
      * @return array|mixed[][]
      */
-    abstract public function provideArmamentAndNameWithValue();
+    abstract public function provideArmamentAndNameWithValue(): array;
 
     /**
      * @test
@@ -63,12 +63,12 @@ abstract class WoundingArmamentsTableTest extends TableTest
     protected function assembleValueGetter($valueName)
     {
         return 'get' . implode(
-            array_map(
-                function ($namePart) {
-                    return ucfirst($namePart);
-                },
-                explode('_', $valueName)
-            )
-        ) . 'Of';
+                array_map(
+                    function ($namePart) {
+                        return ucfirst($namePart);
+                    },
+                    explode('_', $valueName)
+                )
+            ) . 'Of';
     }
 }

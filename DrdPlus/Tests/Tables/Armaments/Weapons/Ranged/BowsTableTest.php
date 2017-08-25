@@ -25,7 +25,7 @@ class BowsTableTest extends RangedWeaponsTableTest
         return 'weapon';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [RangedWeaponCode::SHORT_BOW, BowsTable::REQUIRED_STRENGTH, -1],

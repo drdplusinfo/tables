@@ -13,7 +13,7 @@ class ThrowingWeaponsTableTest extends RangedWeaponsTableTest
         return 'weapon';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [RangedWeaponCode::ROCK, RangedWeaponsTable::REQUIRED_STRENGTH, -2],

@@ -13,7 +13,7 @@ class CrossbowsTableTest extends RangedWeaponsTableTest
         return 'weapon';
     }
 
-    public function provideArmamentAndNameWithValue()
+    public function provideArmamentAndNameWithValue(): array
     {
         return [
             [RangedWeaponCode::MINICROSSBOW, RangedWeaponsTable::REQUIRED_STRENGTH, -3],
