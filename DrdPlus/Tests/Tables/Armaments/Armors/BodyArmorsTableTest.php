@@ -10,7 +10,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         $armorsTable = new BodyArmorsTable();
         self::assertSame(
@@ -19,29 +19,29 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
         );
     }
 
-    public function provideArmorAndValue()
+    public function provideArmorAndValue(): array
     {
         return [
             [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::REQUIRED_STRENGTH, false],
-            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::RESTRICTION, 0],
             [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::PROTECTION, 0],
-            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::WEIGHT, false],
-            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::ROUNDS_TO_PUT_ON, false],
+            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::WEIGHT, 0.0],
+            [BodyArmorCode::WITHOUT_ARMOR, BodyArmorsTable::ROUNDS_TO_PUT_ON, 0],
 
             [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::REQUIRED_STRENGTH, -2],
-            [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::RESTRICTION, 0],
             [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::PROTECTION, 2],
             [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::WEIGHT, 4.0],
             [BodyArmorCode::PADDED_ARMOR, BodyArmorsTable::ROUNDS_TO_PUT_ON, 1],
 
             [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::REQUIRED_STRENGTH, 1],
-            [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::RESTRICTION, 0],
             [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::PROTECTION, 3],
             [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::WEIGHT, 6.0],
             [BodyArmorCode::LEATHER_ARMOR, BodyArmorsTable::ROUNDS_TO_PUT_ON, 1],
 
             [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::REQUIRED_STRENGTH, 3],
-            [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::RESTRICTION, false],
+            [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::RESTRICTION, 0],
             [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::PROTECTION, 4],
             [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::WEIGHT, 8.0],
             [BodyArmorCode::HOBNAILED_ARMOR, BodyArmorsTable::ROUNDS_TO_PUT_ON, 2],
@@ -79,14 +79,10 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     {
         $bodyArmorsTable = new BodyArmorsTable();
         foreach (BodyArmorCode::getPossibleValues() as $bodyArmorCode) {
-            if ($bodyArmorCode === BodyArmorCode::WITHOUT_ARMOR) {
-                self::assertFalse($bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode));
-            } else {
-                self::assertSame(
-                    SumAndRound::ceiledThird($bodyArmorsTable->getProtectionOf($bodyArmorCode)),
-                    $bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode)
-                );
-            }
+            self::assertSame(
+                SumAndRound::ceiledThird($bodyArmorsTable->getProtectionOf($bodyArmorCode)),
+                $bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode)
+            );
         }
     }
 }

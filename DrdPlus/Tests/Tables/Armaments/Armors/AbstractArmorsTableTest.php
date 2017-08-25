@@ -34,8 +34,7 @@ abstract class AbstractArmorsTableTest extends TableTest
     private function assembleIndexedValues(array $values)
     {
         $indexedValues = [];
-        foreach ($values as $row) {
-            list($armor, $parameterName, $parameterValue) = $row;
+        foreach ($values as [$armor, $parameterName, $parameterValue]) {
             if (!array_key_exists($armor, $indexedValues)) {
                 $indexedValues[$armor] = [];
             }
@@ -48,7 +47,7 @@ abstract class AbstractArmorsTableTest extends TableTest
     /**
      * @return string
      */
-    protected function getRowHeaderName()
+    protected function getRowHeaderName(): string
     {
         $sutClass = self::getSutClass();
         $baseName = preg_replace('~(?:.+[\\\])?(\w+)~', '$1', $sutClass);
@@ -70,7 +69,7 @@ abstract class AbstractArmorsTableTest extends TableTest
      * @param string $valueName
      * @param mixed $expectedValue
      */
-    public function I_can_get_values_for_every_armor($armorCode, $valueName, $expectedValue)
+    public function I_can_get_values_for_every_armor(string $armorCode, string $valueName, $expectedValue)
     {
         $sutClass = self::getSutClass();
         /** @var AbstractArmorsTable $armorsTable */
@@ -83,10 +82,15 @@ abstract class AbstractArmorsTableTest extends TableTest
                 },
                 explode('_', $valueName)
             )) . 'Of';
-        self::assertSame($value, $armorsTable->$getValueNameOf($armorCode));
+        self::assertSame(
+            $value,
+            $valueFromSpecificGetter = $armorsTable->$getValueNameOf($armorCode),
+            'Generic getter gives ' . var_export($value, true) . " for '{$valueName}', but specific getter gives "
+            . var_export($valueFromSpecificGetter, true)
+        );
     }
 
-    abstract public function provideArmorAndValue();
+    abstract public function provideArmorAndValue(): array;
 
     /**
      * @test

@@ -5,6 +5,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikesTable
@@ -29,22 +30,22 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getOffensivenessOf($weaponlikeCode)
+    public function getOffensivenessOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::OFFENSIVENESS);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @param string $valueName
-     * @return float|int|string
+     * @return float|int|string|false
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    private function getValueOf($weaponlikeCode, $valueName)
+    private function getValueOf($weaponlikeCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -57,28 +58,28 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWoundsOf($weaponlikeCode)
+    public function getWoundsOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::WOUNDS);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWoundsTypeOf($weaponlikeCode)
+    public function getWoundsTypeOf($weaponlikeCode): string
     {
         return $this->getValueOf($weaponlikeCode, self::WOUNDS_TYPE);
     }
 
     /**
-     * @param string $weaponlikeCode
-     * @return int
+     * @param string|StringInterface $weaponlikeCode
+     * @return int|false
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
     public function getRequiredStrengthOf($weaponlikeCode)
@@ -87,41 +88,41 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getLengthOf($weaponlikeCode)
+    public function getLengthOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::LENGTH);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getCoverOf($weaponlikeCode)
+    public function getCoverOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::COVER);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getWeightOf($weaponlikeCode)
+    public function getWeightOf($weaponlikeCode): float
     {
         return $this->getValueOf($weaponlikeCode, self::WEIGHT);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getTwoHandedOf($weaponlikeCode)
+    public function getTwoHandedOf($weaponlikeCode): bool
     {
         return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
     }

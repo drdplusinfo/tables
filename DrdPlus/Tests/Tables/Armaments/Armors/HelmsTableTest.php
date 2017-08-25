@@ -6,21 +6,21 @@ use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 
 class HelmsTableTest extends AbstractArmorsTableTest
 {
-    public function provideArmorAndValue()
+    public function provideArmorAndValue(): array
     {
         return [
             [HelmCode::WITHOUT_HELM, AbstractArmorsTable::REQUIRED_STRENGTH, false],
-            [HelmCode::WITHOUT_HELM, AbstractArmorsTable::RESTRICTION, false],
+            [HelmCode::WITHOUT_HELM, AbstractArmorsTable::RESTRICTION, 0],
             [HelmCode::WITHOUT_HELM, AbstractArmorsTable::PROTECTION, 0],
-            [HelmCode::WITHOUT_HELM, AbstractArmorsTable::WEIGHT, false],
+            [HelmCode::WITHOUT_HELM, AbstractArmorsTable::WEIGHT, 0.0],
 
             [HelmCode::LEATHER_CAP, AbstractArmorsTable::REQUIRED_STRENGTH, 0],
-            [HelmCode::LEATHER_CAP, AbstractArmorsTable::RESTRICTION, false],
+            [HelmCode::LEATHER_CAP, AbstractArmorsTable::RESTRICTION, 0],
             [HelmCode::LEATHER_CAP, AbstractArmorsTable::PROTECTION, 1],
             [HelmCode::LEATHER_CAP, AbstractArmorsTable::WEIGHT, 0.3],
 
             [HelmCode::CHAINMAIL_HOOD, AbstractArmorsTable::REQUIRED_STRENGTH, 2],
-            [HelmCode::CHAINMAIL_HOOD, AbstractArmorsTable::RESTRICTION, false],
+            [HelmCode::CHAINMAIL_HOOD, AbstractArmorsTable::RESTRICTION, 0],
             [HelmCode::CHAINMAIL_HOOD, AbstractArmorsTable::PROTECTION, 2],
             [HelmCode::CHAINMAIL_HOOD, AbstractArmorsTable::WEIGHT, 1.2],
 

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
@@ -82,10 +84,10 @@ class Armourer extends StrictObject
      * Even shield can ba used as weapon, just quite ineffective.
      *
      * @param WeaponlikeCode $weaponlikeCode
-     * @return int
+     * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getWoundsTypeOfWeaponlike(WeaponlikeCode $weaponlikeCode): int
+    public function getWoundsTypeOfWeaponlike(WeaponlikeCode $weaponlikeCode): string
     {
         return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getWoundsTypeOf($weaponlikeCode);
     }
@@ -116,10 +118,10 @@ class Armourer extends StrictObject
 
     /**
      * @param ArmamentCode $armamentCode
-     * @return int
+     * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function getWeightOfArmament(ArmamentCode $armamentCode): int
+    public function getWeightOfArmament(ArmamentCode $armamentCode): float
     {
         return $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getWeightOf($armamentCode);
     }
@@ -239,10 +241,10 @@ class Armourer extends StrictObject
 
     /**
      * @param ProjectileCode $projectileCode
-     * @return int
+     * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWoundsTypeOfProjectile(ProjectileCode $projectileCode): int
+    public function getWoundsTypeOfProjectile(ProjectileCode $projectileCode): string
     {
         return $this->tables->getProjectilesTableByProjectiveCode($projectileCode)->getWoundsTypeOf($projectileCode);
     }
@@ -321,6 +323,9 @@ class Armourer extends StrictObject
     ): int
     {
         $requiredStrength = $this->tables->getArmamentsTableByArmamentCode($armamentCode)->getRequiredStrengthOf($armamentCode);
+        if ($requiredStrength === false) { // no strength is required, like for a hand
+            return 0;
+        }
         $missingStrength = $requiredStrength - $currentStrength->getValue();
         if ($armamentCode instanceof ArmorCode) {
             // only armor weight is related to body size

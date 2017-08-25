@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Projectiles\Partials;
 
 use DrdPlus\Codes\Armaments\ProjectileCode;
@@ -35,11 +37,11 @@ abstract class ProjectilesTable extends AbstractArmamentsTable implements Woundi
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getOffensivenessOf($weaponlikeCode)
+    public function getOffensivenessOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::OFFENSIVENESS);
     }
@@ -50,7 +52,7 @@ abstract class ProjectilesTable extends AbstractArmamentsTable implements Woundi
      * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    protected function getValueOf($projectileCode, $valueName)
+    protected function getValueOf($projectileCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -63,41 +65,41 @@ abstract class ProjectilesTable extends AbstractArmamentsTable implements Woundi
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWoundsOf($weaponlikeCode)
+    public function getWoundsOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::WOUNDS);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWoundsTypeOf($weaponlikeCode)
+    public function getWoundsTypeOf($weaponlikeCode): string
     {
         return $this->getValueOf($weaponlikeCode, self::WOUNDS_TYPE);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getRangeOf($weaponlikeCode)
+    public function getRangeOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::RANGE);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      */
-    public function getWeightOf($weaponlikeCode)
+    public function getWeightOf($weaponlikeCode): float
     {
         return $this->getValueOf($weaponlikeCode, self::WEIGHT);
     }

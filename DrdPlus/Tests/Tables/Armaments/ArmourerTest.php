@@ -159,16 +159,16 @@ class ArmourerTest extends TestWithMockery
     /**
      * @test
      * @dataProvider provideBodySizeAndStrength
-     * @param int $requiredStrength
+     * @param int|bool $requiredStrength
      * @param int $bodySize
      * @param int $strength
-     * @param mixed $expectedMissingStrength
+     * @param int $expectedMissingStrength
      */
     public function I_can_get_missing_strength_and_sanction_values_for_body_armor_and_helm(
         $requiredStrength,
-        $bodySize,
-        $strength,
-        $expectedMissingStrength
+        int $bodySize,
+        int $strength,
+        int $expectedMissingStrength
     )
     {
         $armourer = new Armourer($tables = $this->createTables());
@@ -222,9 +222,11 @@ class ArmourerTest extends TestWithMockery
 
     public function provideBodySizeAndStrength(): array
     {
+        // required strength, bodySize, strength, expected missing strength
         return [
             [123, 11, 65, 69],
-            [0, 33, 88, 0], // no required strength results into zero missing strength
+            [-50, 33, 5, 0], // negative missing strength results into zero missing strength
+            [false, 60, -500, 0], // no required strength results into zero missing strength
         ];
     }
 
@@ -1268,8 +1270,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponsTable());
         $staffsAndSpearsTable->shouldReceive('getWoundsTypeOf')
             ->with($staff)
-            ->andReturn(678);
-        self::assertSame(678, (new Armourer($tables))->getWoundsTypeOfWeaponlike($staff));
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsTypeOfWeaponlike($staff));
     }
 
     /**
@@ -1284,8 +1286,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($throwingWeaponsTable = $this->createRangedWeaponsTable());
         $throwingWeaponsTable->shouldReceive('getWoundsTypeOf')
             ->with($shuriken)
-            ->andReturn(567);
-        self::assertSame(567, (new Armourer($tables))->getWoundsTypeOfWeaponlike($shuriken));
+            ->andReturn('bar');
+        self::assertSame('bar', (new Armourer($tables))->getWoundsTypeOfWeaponlike($shuriken));
     }
 
     /**
@@ -1300,8 +1302,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($shieldsTable = $this->createShieldsTable());
         $shieldsTable->shouldReceive('getWoundsTypeOf')
             ->with($shield)
-            ->andReturn(345);
-        self::assertSame(345, (new Armourer($tables))->getWoundsTypeOfWeaponlike($shield));
+            ->andReturn('foo');
+        self::assertSame('foo', (new Armourer($tables))->getWoundsTypeOfWeaponlike($shield));
     }
 
     /**
@@ -1353,8 +1355,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($swordsTable = $this->createMeleeWeaponsTable());
         $swordsTable->shouldReceive('getWeightOf')
             ->with($escalatorlibur)
-            ->andReturn(123);
-        self::assertSame(123, (new Armourer($tables))->getWeightOfArmament($escalatorlibur));
+            ->andReturn(123.456);
+        self::assertSame(123.456, (new Armourer($tables))->getWeightOfArmament($escalatorlibur));
     }
 
     /**
@@ -1514,8 +1516,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($projectilesTable = $this->createProjectilesTable());
         $projectilesTable->shouldReceive('getWoundsTypeOf')
             ->with($projectileCode)
-            ->andReturn(984153);
-        self::assertSame(984153, (new Armourer($tables))->getWoundsTypeOfProjectile($projectileCode));
+            ->andReturn('ouch');
+        self::assertSame('ouch', (new Armourer($tables))->getWoundsTypeOfProjectile($projectileCode));
     }
 
     /**
@@ -1546,8 +1548,8 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($projectilesTable = $this->createProjectilesTable());
         $projectilesTable->shouldReceive('getWeightOf')
             ->with($projectileCode)
-            ->andReturn(123);
-        self::assertSame(123, (new Armourer($tables))->getWeightOfArmament($projectileCode));
+            ->andReturn(123.456);
+        self::assertSame(123.456, (new Armourer($tables))->getWeightOfArmament($projectileCode));
     }
 
     // strength effect

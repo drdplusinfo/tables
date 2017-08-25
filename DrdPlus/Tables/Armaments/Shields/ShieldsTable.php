@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Shields;
 
 use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
@@ -6,6 +8,7 @@ use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 /**
@@ -50,8 +53,8 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     }
 
     /**
-     * @param string $shieldCode
-     * @return int
+     * @param string|StringInterface $shieldCode
+     * @return int|false
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
     public function getRequiredStrengthOf($shieldCode)
@@ -60,12 +63,12 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     }
 
     /**
-     * @param string $shieldCode
+     * @param string|StringInterface $shieldCode
      * @param string $valueName
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    private function getValueOf($shieldCode, $valueName)
+    private function getValueOf($shieldCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -78,81 +81,81 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getLengthOf($weaponlikeCode)
+    public function getLengthOf($weaponlikeCode): int
     {
         return $this->getValueOf($weaponlikeCode, self::LENGTH);
     }
 
     /**
-     * @param string $shieldCode
+     * @param string|StringInterface $shieldCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getRestrictionOf($shieldCode)
+    public function getRestrictionOf($shieldCode): int
     {
         return $this->getValueOf($shieldCode, self::RESTRICTION);
     }
 
     /**
-     * @param string $shieldCode
+     * @param string|StringInterface $shieldCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getOffensivenessOf($shieldCode)
+    public function getOffensivenessOf($shieldCode): int
     {
         return $this->getValueOf($shieldCode, self::OFFENSIVENESS);
     }
 
     /**
-     * @param string $shieldCode
+     * @param string|StringInterface $shieldCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getWoundsOf($shieldCode)
+    public function getWoundsOf($shieldCode): int
     {
         return $this->getValueOf($shieldCode, self::WOUNDS);
     }
 
     /**
-     * @param string $shieldCode
-     * @return int
+     * @param string|StringInterface $shieldCode
+     * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getWoundsTypeOf($shieldCode)
+    public function getWoundsTypeOf($shieldCode): string
     {
         return $this->getValueOf($shieldCode, self::WOUNDS_TYPE);
     }
 
     /**
-     * @param string $shieldCode
+     * @param string|StringInterface $shieldCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getCoverOf($shieldCode)
+    public function getCoverOf($shieldCode): int
     {
         return $this->getValueOf($shieldCode, self::COVER);
     }
 
     /**
-     * @param string $shieldCode
-     * @return int
+     * @param string|StringInterface $shieldCode
+     * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getWeightOf($shieldCode)
+    public function getWeightOf($shieldCode): float
     {
         return $this->getValueOf($shieldCode, self::WEIGHT);
     }
 
     /**
-     * @param string $weaponlikeCode
+     * @param string|StringInterface $weaponlikeCode
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getTwoHandedOf($weaponlikeCode)
+    public function getTwoHandedOf($weaponlikeCode): bool
     {
         return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
     }

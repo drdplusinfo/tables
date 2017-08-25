@@ -4,6 +4,7 @@ namespace DrdPlus\Tables\Armaments\Armors;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 abstract class AbstractArmorsTable extends AbstractArmamentsTable implements UnwieldyTable
@@ -25,7 +26,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     }
 
     /**
-     * @param string $armorCode
+     * @param string|StringInterface $armorCode
      * @return int|false
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
@@ -35,12 +36,12 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     }
 
     /**
-     * @param string $armorCode
+     * @param string|StringInterface $armorCode
      * @param $valueName
      * @return bool|float|int|string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    protected function getValueFor($armorCode, $valueName)
+    protected function getValueFor($armorCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -53,31 +54,31 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     }
 
     /**
-     * @param string $armorCode
-     * @return int|false
+     * @param string|StringInterface $armorCode
+     * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    public function getRestrictionOf($armorCode)
+    public function getRestrictionOf($armorCode): int
     {
         return $this->getValueFor($armorCode, self::RESTRICTION);
     }
 
     /**
-     * @param string $armorCode
-     * @return int|false
+     * @param string|StringInterface $armorCode
+     * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    public function getProtectionOf($armorCode)
+    public function getProtectionOf($armorCode): int
     {
         return $this->getValueFor($armorCode, self::PROTECTION);
     }
 
     /**
-     * @param string $armorCode
-     * @return int|false
+     * @param string|StringInterface $armorCode
+     * @return float
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    public function getWeightOf($armorCode)
+    public function getWeightOf($armorCode): float
     {
         return $this->getValueFor($armorCode, self::WEIGHT);
     }
