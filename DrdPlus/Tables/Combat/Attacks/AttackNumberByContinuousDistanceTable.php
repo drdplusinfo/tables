@@ -9,14 +9,16 @@ use Granam\Float\Tools\ToFloat;
  * Data are calculated as -((Distance bonus / 2) - 9),
  * see PPH page 104, @link https://pph.drdplus.info/#tabulka_oprav_za_vzdalenost
  */
-class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
+class AttackNumberByContinuousDistanceTable extends AbstractAttackNumberByDistanceTable
 {
+    const DISTANCE_WITH_NO_IMPACT_TO_ATTACK_NUMBER = 8; // meters
+
     /**
      * @return string
      */
     protected function getDataFileName(): string
     {
-        return __DIR__ . '/data/continuous_attack_number_by_distance.csv';
+        return __DIR__ . '/data/attack_number_by_continuous_distance.csv';
     }
 
     const DISTANCE_IN_METERS = 'distance_in_meters';
@@ -37,10 +39,10 @@ class ContinuousAttackNumberByDistanceTable extends AbstractAttackNumberByDistan
     public function getAttackNumberModifierByDistance(Distance $distance): int
     {
         $distanceInMeters = $distance->getMeters();
-        $orderedByDistanceDesc = $this->getOrderedByDistanceAsc();
-        foreach ($orderedByDistanceDesc as $distanceInMetersTo => $row) {
+        $orderedByDistanceAsc = $this->getOrderedByDistanceAsc();
+        foreach ($orderedByDistanceAsc as $distanceInMetersUpTo => $row) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            if ($distanceInMeters <= ToFloat::toPositiveFloat($distanceInMetersTo)) { // including
+            if ($distanceInMeters <= ToFloat::toPositiveFloat($distanceInMetersUpTo)) { // including
                 return $row[self::RANGED_ATTACK_NUMBER_MODIFIER];
             }
         }

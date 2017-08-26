@@ -69,7 +69,7 @@ use DrdPlus\Tables\Body\Healing\HealingByActivityTable;
 use DrdPlus\Tables\Body\Healing\HealingByConditionsTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Body\Resting\RestingBySituationTable;
-use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\AttackNumberByContinuousDistanceTable;
 use DrdPlus\Tables\Combat\FightTable;
 use DrdPlus\Tables\Environments\ImpassibilityOfTerrainTable;
 use DrdPlus\Tables\Combat\Attacks\AttackNumberByDistanceTable;
@@ -654,15 +654,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return ContinuousAttackNumberByDistanceTable
+     * @return AttackNumberByContinuousDistanceTable
      */
-    public function getContinuousAttackNumberByDistanceTable(): ContinuousAttackNumberByDistanceTable
+    public function getAttackNumberByContinuousDistanceTable(): AttackNumberByContinuousDistanceTable
     {
-        if (!array_key_exists(ContinuousAttackNumberByDistanceTable::class, $this->tables)) {
-            $this->tables[ContinuousAttackNumberByDistanceTable::class] = new ContinuousAttackNumberByDistanceTable();
+        if (!array_key_exists(AttackNumberByContinuousDistanceTable::class, $this->tables)) {
+            $this->tables[AttackNumberByContinuousDistanceTable::class] = new AttackNumberByContinuousDistanceTable();
         }
 
-        return $this->tables[ContinuousAttackNumberByDistanceTable::class];
+        return $this->tables[AttackNumberByContinuousDistanceTable::class];
     }
 
     /**
@@ -1091,7 +1091,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getMovementTypesTable(),
             $this->getImpassibilityOfTerrainTable(),
             $this->getAttackNumberByDistanceTable(),
-            $this->getContinuousAttackNumberByDistanceTable(),
+            $this->getAttackNumberByContinuousDistanceTable(),
             $this->getFatigueByLoadTable(),
             $this->getRestingBySituationTable(),
             $this->getRidesByMovementTypeTable(),

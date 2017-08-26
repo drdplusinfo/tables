@@ -23,14 +23,14 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
      * @param Distance $distance
      * @return int
      */
-    abstract public function getAttackNumberModifierByDistance(Distance $distance);
+    abstract public function getAttackNumberModifierByDistance(Distance $distance): int;
 
     /**
      * Values may be already ordered from file, but have to be sure.
      *
      * @return array
      */
-    protected function getOrderedByDistanceAsc()
+    protected function getOrderedByDistanceAsc(): array
     {
         $values = $this->getIndexedValues();
         uksort($values, function ($oneDistanceInMeters, $anotherDistanceInMeters) {
@@ -38,16 +38,8 @@ abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
             $oneDistanceInMeters = ToFloat::toPositiveFloat($oneDistanceInMeters);
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $anotherDistanceInMeters = ToFloat::toPositiveFloat($anotherDistanceInMeters);
-            if ($oneDistanceInMeters < $anotherDistanceInMeters) {
-                return -1; // lowest first
-            }
-            if ($oneDistanceInMeters > $anotherDistanceInMeters) {
-                return 1;
-            }
 
-            // @codeCoverageIgnoreStart
-            return 0;
-            // @codeCoverageIgnoreEnds
+            return $oneDistanceInMeters <=> $anotherDistanceInMeters; // lowest first
         });
 
         return $values;

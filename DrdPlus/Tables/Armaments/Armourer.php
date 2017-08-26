@@ -411,7 +411,7 @@ class Armourer extends StrictObject
                 "Got encounter range {$currentEncounterRange} greater than given maximal range {$currentMaximalRange}"
             );
         }
-        $attackNumberModifier = $this->tables->getContinuousAttackNumberByDistanceTable()
+        $attackNumberModifier = $this->tables->getAttackNumberByContinuousDistanceTable()
             ->getAttackNumberModifierByDistance($targetDistance);
         if ($targetDistance->getBonus()->getValue() > $currentEncounterRange->getValue()) { // comparing distance bonuses in fact
             $attackNumberModifier += $currentEncounterRange->getValue() - $targetDistance->getBonus()->getValue(); // always negative
@@ -730,7 +730,7 @@ class Armourer extends StrictObject
     /**
      * Gives malus to cover with a weapon or a shield according to given skill rank.
      * Warning: PPH gives you invalid info about cover with shield malus on PPH page 86 right column (-2 if you do not
-     * have maximal skill). Correct is @see \DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable
+     * have maximal skill). Correct is @see ShieldUsageSkillTable
      * Note about shield: shield is always used as a shield for cover, even if is used for desperate attack.
      *
      * @param PositiveInteger $weaponTypeSkillRank

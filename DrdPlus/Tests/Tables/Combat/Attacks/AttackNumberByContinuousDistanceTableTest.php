@@ -2,14 +2,14 @@
 namespace DrdPlus\Tests\Tables\Combat\Attacks;
 
 use DrdPlus\Codes\Units\DistanceUnitCode;
-use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\AttackNumberByContinuousDistanceTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTableTest;
 use DrdPlus\Calculations\SumAndRound;
 
-class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
+class AttackNumberByContinuousDistanceTableTest extends AbstractAttackNumberByDistanceTableTest
 {
     /**
      * @test
@@ -20,7 +20,7 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
             [
                 ['distance_in_meters', 'distance_bonus', 'ranged_attack_number_modifier'],
             ],
-            (new ContinuousAttackNumberByDistanceTable())->getHeader()
+            (new AttackNumberByContinuousDistanceTable())->getHeader()
         );
     }
 
@@ -44,8 +44,25 @@ class ContinuousAttackNumberByDistanceTableTest extends AbstractAttackNumberByDi
      */
     public function I_can_not_get_attack_number_modifier_with_enormous_distance()
     {
-        (new ContinuousAttackNumberByDistanceTable())
+        (new AttackNumberByContinuousDistanceTable())
             ->getAttackNumberModifierByDistance(new Distance(999999, DistanceUnitCode::METER, new DistanceTable()));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_use_constant_with_distance_not_affecting_attack_number()
+    {
+        self::assertSame(
+            0,
+            (new AttackNumberByContinuousDistanceTable())->getAttackNumberModifierByDistance(
+                new Distance(
+                    AttackNumberByContinuousDistanceTable::DISTANCE_WITH_NO_IMPACT_TO_ATTACK_NUMBER,
+                    Distance::METER,
+                    new DistanceTable()
+                )
+            )
+        );
     }
 
 }

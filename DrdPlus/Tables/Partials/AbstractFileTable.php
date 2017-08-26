@@ -297,7 +297,7 @@ abstract class AbstractFileTable extends AbstractTable
      * @return string
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnknownTypeForColumn
      */
-    private function normalizeType(string $type)
+    private function normalizeType(string $type): string
     {
         switch (strtolower($type)) {
             case self::INTEGER :
@@ -369,7 +369,6 @@ abstract class AbstractFileTable extends AbstractTable
             if (is_int($keyPartsOrRowIndex)) { // last key pointing to row index
                 $indexed[$keyPart] = $toIndex[$keyPartsOrRowIndex];
             } else {
-                $indexed[$keyPart] = [];
                 $indexed[$keyPart] = $this->indexByRowsHeader($toIndex, $keyPartsOrRowIndex);
             }
         }

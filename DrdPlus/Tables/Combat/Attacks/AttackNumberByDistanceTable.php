@@ -32,7 +32,7 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
      * @param Distance $distance
      * @return int
      */
-    public function getAttackNumberModifierByDistance(Distance $distance)
+    public function getAttackNumberModifierByDistance(Distance $distance): int
     {
         $distanceInMeters = $distance->getMeters();
         $orderedByDistanceDesc = $this->getOrderedByDistanceAsc();

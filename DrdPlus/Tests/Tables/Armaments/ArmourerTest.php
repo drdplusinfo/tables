@@ -31,7 +31,7 @@ use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\CrossbowsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
-use DrdPlus\Tables\Combat\Attacks\ContinuousAttackNumberByDistanceTable;
+use DrdPlus\Tables\Combat\Attacks\AttackNumberByContinuousDistanceTable;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -690,8 +690,8 @@ class ArmourerTest extends TestWithMockery
     {
         $armourer = new Armourer($tables = $this->createTables());
         $distance = $this->createDistanceWithBonus(123);
-        $tables->shouldReceive('getContinuousAttackNumberByDistanceTable')
-            ->andReturn($continuousAttackNumberByDistanceTable = $this->mockery(ContinuousAttackNumberByDistanceTable::class));
+        $tables->shouldReceive('getAttackNumberByContinuousDistanceTable')
+            ->andReturn($continuousAttackNumberByDistanceTable = $this->mockery(AttackNumberByContinuousDistanceTable::class));
         $continuousAttackNumberByDistanceTable->shouldReceive('getAttackNumberModifierByDistance')
             ->with($distance)
             ->andReturn(112233);
@@ -702,7 +702,7 @@ class ArmourerTest extends TestWithMockery
                 $this->createEncounterRange(456),
                 $this->createMaximalRange(789)
             ),
-            'Should match to modification from' . ContinuousAttackNumberByDistanceTable::class
+            'Should match to modification from' . AttackNumberByContinuousDistanceTable::class
         );
 
         self::assertSame(
