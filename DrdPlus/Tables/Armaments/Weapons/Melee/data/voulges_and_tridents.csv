@@ -1,4 +1,4 @@
-weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed
+weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed_only
 pitchfork,0,3,2,2,stab,3,1.5,1
 light_voulge,2,4,4,4,cut,3,2,1
 light_trident,5,4,3,6,stab,4,2.5,1

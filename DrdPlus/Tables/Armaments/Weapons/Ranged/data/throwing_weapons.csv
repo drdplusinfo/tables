@@ -1,4 +1,4 @@
-weapon,required_strength,offensiveness,wounds,wounds_type,range,cover,weight,two_handed
+weapon,required_strength,offensiveness,wounds,wounds_type,range,cover,weight,two_handed_only
 sand,,0,-20,stab,1,0,0.0,0
 rock,-2,2,-2,crush,20,2,0.3,0
 throwing_dagger,0,0,1,stab,14,2,0.2,0

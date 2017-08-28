@@ -28,7 +28,7 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
             self::RANGE => self::INTEGER,
             self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
-            self::TWO_HANDED => self::BOOLEAN,
+            self::TWO_HANDED_ONLY => self::BOOLEAN,
         ];
     }
 
@@ -127,9 +127,9 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    public function getTwoHandedOf($weaponlikeCode): bool
+    public function getTwoHandedOnlyOf($weaponlikeCode): bool
     {
-        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
+        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED_ONLY);
     }
 
 }

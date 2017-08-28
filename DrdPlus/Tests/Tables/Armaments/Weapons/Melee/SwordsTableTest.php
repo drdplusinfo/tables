@@ -20,7 +20,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::SHORT_SWORD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::SHORT_SWORD, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::SHORT_SWORD, MeleeWeaponsTable::WEIGHT, 1.3],
-            [MeleeWeaponCode::SHORT_SWORD, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::SHORT_SWORD, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::HANGER, MeleeWeaponsTable::REQUIRED_STRENGTH, 4],
             [MeleeWeaponCode::HANGER, MeleeWeaponsTable::LENGTH, 1],
@@ -29,7 +29,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HANGER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::HANGER, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::HANGER, MeleeWeaponsTable::WEIGHT, 1.5],
-            [MeleeWeaponCode::HANGER, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HANGER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::LENGTH, 2],
@@ -38,7 +38,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::WEIGHT, 1.8],
-            [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::GLAIVE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::REQUIRED_STRENGTH, 7],
             [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::LENGTH, 3],
@@ -47,7 +47,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::WEIGHT, 2.0],
-            [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::LONG_SWORD, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
             
             [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::REQUIRED_STRENGTH, 8],
             [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::LENGTH, 2],
@@ -56,7 +56,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::COVER, 5],
             [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::WEIGHT, 2.2],
-            [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::ONE_AND_HALF_HANDED_SWORD, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::REQUIRED_STRENGTH, 10],
             [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::LENGTH, 2],
@@ -65,7 +65,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::WEIGHT, 2.5],
-            [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::BARBARIAN_SWORD, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::REQUIRED_STRENGTH, 12],
             [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::LENGTH, 3],
@@ -74,7 +74,7 @@ class SwordsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::WEIGHT, 4.0],
-            [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::TWO_HANDED_SWORD, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
         ];
     }
 

@@ -1,4 +1,4 @@
-weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed
+weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed_only
 machete,2,1,2,2,cut,2,1,0
 light_saber,3,2,3,1,cut,3,1.2,0
 bowie_knife,3,1,2,3,cut,3,1.2,0

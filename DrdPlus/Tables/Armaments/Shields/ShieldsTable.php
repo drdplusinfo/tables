@@ -3,6 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Shields;
 
+use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownShield;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
@@ -48,7 +49,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
             self::WOUNDS_TYPE => self::STRING,
             self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
-            self::TWO_HANDED => self::BOOLEAN,
+            self::TWO_HANDED_ONLY => self::BOOLEAN,
         ];
     }
 
@@ -151,13 +152,13 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
     }
 
     /**
-     * @param string|StringInterface $weaponlikeCode
+     * @param string|ShieldCode $shieldCode
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownShield
      */
-    public function getTwoHandedOf($weaponlikeCode): bool
+    public function getTwoHandedOnlyOf($shieldCode): bool
     {
-        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
+        return $this->getValueOf($shieldCode, self::TWO_HANDED_ONLY);
     }
 
 }

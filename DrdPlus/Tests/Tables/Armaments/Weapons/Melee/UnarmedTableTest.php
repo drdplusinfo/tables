@@ -19,7 +19,7 @@ class UnarmedTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HAND, MeleeWeaponsTable::WEIGHT, 0.0],
-            [MeleeWeaponCode::HAND, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HAND, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::REQUIRED_STRENGTH, -4],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::LENGTH, 0],
@@ -28,7 +28,7 @@ class UnarmedTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::WEIGHT, 0.2],
-            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HOBNAILED_GLOVE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::REQUIRED_STRENGTH, -5],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::LENGTH, 0],
@@ -37,7 +37,7 @@ class UnarmedTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::LEG, MeleeWeaponsTable::WEIGHT, 0.0],
-            [MeleeWeaponCode::LEG, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::LEG, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::REQUIRED_STRENGTH, -4],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::LENGTH, 0],
@@ -46,7 +46,7 @@ class UnarmedTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::COVER, 0],
             [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::WEIGHT, 0.4],
-            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HOBNAILED_BOOT, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
         ];
     }
 

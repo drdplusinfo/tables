@@ -10,17 +10,6 @@ use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;
 
 class ShieldsTableTest extends WeaponlikeTableTest
 {
-    /**
-     * @test
-     */
-    public function I_can_get_header()
-    {
-        $shieldsTable = new ShieldsTable();
-        self::assertSame(
-            [['shield', 'required_strength', 'length', 'restriction', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight', 'two_handed']],
-            $shieldsTable->getHeader()
-        );
-    }
 
     public function provideArmamentAndNameWithValue(): array
     {
@@ -34,7 +23,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             // note: shield provides another cover per round, therefore WITHOUT shield this fades
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::COVER, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WEIGHT, 0.0],
-            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
 
             [ShieldCode::BUCKLER, ShieldsTable::REQUIRED_STRENGTH, -3],
             [ShieldCode::BUCKLER, ShieldsTable::LENGTH, 0],
@@ -44,7 +33,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::BUCKLER, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [ShieldCode::BUCKLER, ShieldsTable::COVER, 2],
             [ShieldCode::BUCKLER, ShieldsTable::WEIGHT, 0.8],
-            [ShieldCode::BUCKLER, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::BUCKLER, ShieldsTable::TWO_HANDED_ONLY, false],
 
             [ShieldCode::SMALL_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 1],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::LENGTH, 0],
@@ -54,7 +43,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::COVER, 4],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WEIGHT, 1.5],
-            [ShieldCode::SMALL_SHIELD, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
 
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 5],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::LENGTH, 0],
@@ -64,7 +53,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::COVER, 5],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WEIGHT, 2.5],
-            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
 
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::REQUIRED_STRENGTH, 9],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::LENGTH, 0],
@@ -74,7 +63,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::COVER, 6],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WEIGHT, 4.0],
-            [ShieldCode::HEAVY_SHIELD, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
 
             [ShieldCode::PAVISE, ShieldsTable::REQUIRED_STRENGTH, 13],
             [ShieldCode::PAVISE, ShieldsTable::LENGTH, 0],
@@ -84,7 +73,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::PAVISE, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [ShieldCode::PAVISE, ShieldsTable::COVER, 7],
             [ShieldCode::PAVISE, ShieldsTable::WEIGHT, 6.0],
-            [ShieldCode::PAVISE, ShieldsTable::TWO_HANDED, false],
+            [ShieldCode::PAVISE, ShieldsTable::TWO_HANDED_ONLY, false],
         ];
     }
 
@@ -111,7 +100,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldsTable::WOUNDS_TYPE],
             [ShieldsTable::COVER],
             [ShieldsTable::WEIGHT],
-            [ShieldsTable::TWO_HANDED, false],
+            [ShieldsTable::TWO_HANDED_ONLY, false],
         ];
     }
 
@@ -136,8 +125,8 @@ class ShieldsTableTest extends WeaponlikeTableTest
             $unarmedTable->getLengthOf(MeleeWeaponCode::HAND)
         );
         self::assertSame(
-            $shieldsTable->getTwoHandedOf(ShieldCode::WITHOUT_SHIELD),
-            $unarmedTable->getTwoHandedOf(MeleeWeaponCode::HAND)
+            $shieldsTable->getTwoHandedOnlyOf(ShieldCode::WITHOUT_SHIELD),
+            $unarmedTable->getTwoHandedOnlyOf(MeleeWeaponCode::HAND)
         );
         self::assertSame(
             $shieldsTable->getCoverOf(ShieldCode::WITHOUT_SHIELD),

@@ -1,4 +1,4 @@
-weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed
+weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed_only
 light_morgenstern,3,2,2,3,crush,2,2,0
 morgenstern,7,3,2,6,crush,3,2.5,0
 heavy_morgenstern,11,3,3,9,crush,3,3,0

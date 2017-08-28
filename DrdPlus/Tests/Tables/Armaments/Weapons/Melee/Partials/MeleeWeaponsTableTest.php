@@ -15,7 +15,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         /** @var MeleeWeaponsTable $meleeWeaponsTable */
         $meleeWeaponsTable = new $sutClass();
         self::assertSame(
-            [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight', 'two_handed']],
+            [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight', 'two_handed_only']],
             $meleeWeaponsTable->getHeader()
         );
     }

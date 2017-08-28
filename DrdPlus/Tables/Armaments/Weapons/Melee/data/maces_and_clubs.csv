@@ -1,4 +1,4 @@
-weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed
+weapon,required_strength,length,offensiveness,wounds,wounds_type,cover,weight,two_handed_only
 cudgel,1,1,1,2,crush,1,0.4,0
 club,3,1,2,3,crush,2,1,0
 hobnailed_club,5,1,2,5,crush,2,2,0

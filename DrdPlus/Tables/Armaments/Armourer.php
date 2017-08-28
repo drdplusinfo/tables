@@ -133,7 +133,7 @@ class Armourer extends StrictObject
      */
     public function isTwoHandedOnly(WeaponlikeCode $weaponlikeCode): bool
     {
-        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOf($weaponlikeCode);
+        return $this->tables->getWeaponlikeTableByWeaponlikeCode($weaponlikeCode)->getTwoHandedOnlyOf($weaponlikeCode);
     }
 
     /**

@@ -25,7 +25,7 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
             self::WOUNDS_TYPE => self::STRING,
             self::COVER => self::INTEGER,
             self::WEIGHT => self::FLOAT,
-            self::TWO_HANDED => self::BOOLEAN,
+            self::TWO_HANDED_ONLY => self::BOOLEAN,
         ];
     }
 
@@ -122,9 +122,9 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
-    public function getTwoHandedOf($weaponlikeCode): bool
+    public function getTwoHandedOnlyOf($weaponlikeCode): bool
     {
-        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED);
+        return $this->getValueOf($weaponlikeCode, self::TWO_HANDED_ONLY);
     }
 
 }

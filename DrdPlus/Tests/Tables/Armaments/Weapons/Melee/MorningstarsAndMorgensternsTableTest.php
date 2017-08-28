@@ -19,7 +19,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::WEIGHT, 2.0],
-            [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::LIGHT_MORGENSTERN, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::REQUIRED_STRENGTH, 7],
             [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::LENGTH, 3],
@@ -28,7 +28,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::WEIGHT, 2.5],
-            [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::MORGENSTERN, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::REQUIRED_STRENGTH, 11],
             [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::LENGTH, 3],
@@ -37,7 +37,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::WEIGHT, 3.0],
-            [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HEAVY_MORGENSTERN, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::REQUIRED_STRENGTH, 2],
             [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::LENGTH, 4],
@@ -46,7 +46,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::WEIGHT, 2.0],
-            [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::TWO_HANDED, true],
+            [MeleeWeaponCode::FLAIL, MeleeWeaponsTable::TWO_HANDED_ONLY, true],
 
             [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::LENGTH, 4],
@@ -55,7 +55,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::WEIGHT, 3.0],
-            [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::TWO_HANDED, true],
+            [MeleeWeaponCode::MORNINGSTAR, MeleeWeaponsTable::TWO_HANDED_ONLY, true],
 
             [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::REQUIRED_STRENGTH, 7],
             [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::LENGTH, 4],
@@ -64,7 +64,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::WEIGHT, 4.0],
-            [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::TWO_HANDED, true],
+            [MeleeWeaponCode::HOBNAILED_FLAIL, MeleeWeaponsTable::TWO_HANDED_ONLY, true],
 
             [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::REQUIRED_STRENGTH, 11],
             [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::LENGTH, 4],
@@ -73,7 +73,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
             [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::WEIGHT, 5.0],
-            [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::TWO_HANDED, true],
+            [MeleeWeaponCode::HEAVY_MORNINGSTAR, MeleeWeaponsTable::TWO_HANDED_ONLY, true],
         ];
     }
 

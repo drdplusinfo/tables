@@ -19,7 +19,7 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::WEIGHT, 1.0],
-            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::MACHETE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],
             [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::LENGTH, 2],
@@ -28,7 +28,7 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::WEIGHT, 1.2],
-            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::LIGHT_SABER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::REQUIRED_STRENGTH, 3],
             [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::LENGTH, 1],
@@ -37,7 +37,7 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::WEIGHT, 1.2],
-            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::BOWIE_KNIFE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::SABER, MeleeWeaponsTable::LENGTH, 2],
@@ -46,7 +46,7 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::SABER, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::SABER, MeleeWeaponsTable::WEIGHT, 1.5],
-            [MeleeWeaponCode::SABER, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::SABER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::REQUIRED_STRENGTH, 9],
             [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::LENGTH, 2],
@@ -55,7 +55,7 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::COVER, 4],
             [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::WEIGHT, 2.0],
-            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::HEAVY_SABER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
         ];
     }
 

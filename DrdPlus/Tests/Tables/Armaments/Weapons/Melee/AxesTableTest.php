@@ -20,7 +20,7 @@ class AxesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::WEIGHT, 1.0],
-            [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::LIGHT_AXE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 6],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::LENGTH, 2],
@@ -29,7 +29,7 @@ class AxesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::AXE, MeleeWeaponsTable::WEIGHT, 2.0],
-            [MeleeWeaponCode::AXE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::AXE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 9],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::LENGTH, 3],
@@ -38,7 +38,7 @@ class AxesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::WEIGHT, 2.5],
-            [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::WAR_AXE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
 
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::REQUIRED_STRENGTH, 12],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::LENGTH, 3],
@@ -47,7 +47,7 @@ class AxesTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CUT],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::WEIGHT, 3.0],
-            [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::TWO_HANDED, false],
+            [MeleeWeaponCode::TWO_HANDED_AXE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
         ];
     }
 

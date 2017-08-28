@@ -6,19 +6,6 @@ use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;
 
 abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
 {
-    /**
-     * @test
-     */
-    public function I_can_get_header()
-    {
-        $sutClass = self::getSutClass();
-        /** @var RangedWeaponsTable $shootingArmamentsTable */
-        $shootingArmamentsTable = new $sutClass();
-        self::assertSame(
-            [[$this->getRowHeaderName(), 'required_strength', 'offensiveness', 'wounds', 'wounds_type', 'range', 'cover', 'weight', 'two_handed']],
-            $shootingArmamentsTable->getHeader()
-        );
-    }
 
     /**
      * @return string
@@ -51,7 +38,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             [RangedWeaponsTable::RANGE],
             [RangedWeaponsTable::COVER],
             [RangedWeaponsTable::WEIGHT],
-            [RangedWeaponsTable::TWO_HANDED],
+            [RangedWeaponsTable::TWO_HANDED_ONLY],
         ];
     }
 

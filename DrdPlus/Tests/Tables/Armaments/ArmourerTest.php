@@ -1369,7 +1369,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($fork)
             ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponsTable());
-        $staffsAndSpearsTable->shouldReceive('getTwoHandedOf')
+        $staffsAndSpearsTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($fork)
             ->andReturn(true);
         self::assertTrue((new Armourer($tables))->isTwoHandedOnly($fork));
@@ -1386,7 +1386,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($fork)
             ->andReturn($staffsAndSpearsTable = $this->createMeleeWeaponsTable());
-        $staffsAndSpearsTable->shouldReceive('getTwoHandedOf')
+        $staffsAndSpearsTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($fork)
             ->andReturn(true); // only two-handed
         self::assertFalse((new Armourer($tables))->isOneHandedOnly($fork), 'Fork has to be hold by both hands');
@@ -1395,7 +1395,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($shortSword)
             ->andReturn($swordsTable = $this->createMeleeWeaponsTable());
-        $swordsTable->shouldReceive('getTwoHandedOf')
+        $swordsTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($shortSword)
             ->andReturn(false); // is not two-handed only
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
@@ -1410,7 +1410,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($stiletto)
             ->andReturn($knifesAndDaggersTable = $this->createMeleeWeaponsTable());
-        $knifesAndDaggersTable->shouldReceive('getTwoHandedOf')
+        $knifesAndDaggersTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($stiletto)
             ->andReturn(false); // is not two-handed only
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
@@ -1837,7 +1837,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($bow)
             ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
-        $rangedWeaponsTable->shouldReceive('getTwoHandedOf')
+        $rangedWeaponsTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($bow)
             ->andReturn(true);
         self::assertSame(0, $armourer->getBaseOfWoundsBonusForHolding($bow, true));
@@ -1846,7 +1846,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($pike)
             ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
-        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($pike)
             ->andReturn(true);
         self::assertSame(0, $armourer->getBaseOfWoundsBonusForHolding($pike, true));
@@ -1855,7 +1855,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($shortSword)
             ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
-        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($shortSword)
             ->andReturn(false);
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
@@ -1879,7 +1879,7 @@ class ArmourerTest extends TestWithMockery
         $tables->shouldReceive('getWeaponlikeTableByWeaponlikeCode')
             ->with($dagger)
             ->andReturn($meleeWeaponlikesTable = $this->createMeleeWeaponlikesTable());
-        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOf')
+        $meleeWeaponlikesTable->shouldReceive('getTwoHandedOnlyOf')
             ->with($dagger)
             ->andReturn(false);
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
