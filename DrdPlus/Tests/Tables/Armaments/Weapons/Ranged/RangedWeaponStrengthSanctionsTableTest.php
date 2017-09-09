@@ -6,7 +6,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tests\Tables\Armaments\Partials\AbstractStrengthSanctionsTableTest;
 
-class RangedWeaponStrengthTableTest extends AbstractStrengthSanctionsTableTest
+class RangedWeaponStrengthSanctionsTableTest extends AbstractStrengthSanctionsTableTest
 {
     /**
      * @test
