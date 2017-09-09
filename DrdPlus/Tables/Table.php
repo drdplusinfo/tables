@@ -27,10 +27,10 @@ interface Table
     public function getHeader(): array;
 
     /**
-     * @param int|string|array $rowIndexes
+     * @param int|string|array $singleRowIndexes
      * @param string|int $columnIndex
      * @return bool|int|float|string
      */
-    public function getValue($rowIndexes, $columnIndex);
+    public function getValue($singleRowIndexes, $columnIndex);
 
 }

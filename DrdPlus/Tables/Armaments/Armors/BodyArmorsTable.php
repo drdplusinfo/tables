@@ -3,6 +3,8 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use Granam\String\StringInterface;
+
 /**
  * See PPH page 90 left column, @link https://pph.drdplus.info/#tabulka_zbroji_a_prileb
  */
@@ -43,11 +45,11 @@ class BodyArmorsTable extends AbstractArmorsTable
     }
 
     /**
-     * @param string $armorCode
+     * @param string|StringInterface $armorCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    public function getRoundsToPutOnOf($armorCode)
+    public function getRoundsToPutOnOf($armorCode): int
     {
         return $this->getValueFor($armorCode, self::ROUNDS_TO_PUT_ON);
     }

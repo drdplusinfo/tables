@@ -10,6 +10,7 @@ use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
@@ -56,12 +57,25 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     }
 
     /**
-     * @param string|StringInterface|RangedWeaponCode $rangedWeaponCode
+     * @param string|StringInterface $rangedWeaponCode
      * @param string $valueName
      * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
     protected function getValueOf($rangedWeaponCode, string $valueName)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->customRangedWeapons[ToString::toString($rangedWeaponCode)][$valueName]
+            ?? $this->getStandardValueOf($rangedWeaponCode, $valueName);
+    }
+
+    /**
+     * @param string|StringInterface|RangedWeaponCode $rangedWeaponCode
+     * @param string $valueName
+     * @return float|int|string|bool
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
+     */
+    private function getStandardValueOf($rangedWeaponCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

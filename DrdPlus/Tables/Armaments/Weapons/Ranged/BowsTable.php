@@ -59,7 +59,7 @@ class BowsTable extends RangedWeaponsTable
     }
 
     /**
-     * @param RangedWeaponCode $rangedWeaponCode you need a code even for a custom weapon, so prove now
+     * @param RangedWeaponCode $bowCode you need a code even for a custom weapon, so prove now
      * @param int $requiredStrength
      * @param int $lengthInMeters
      * @param int $offensiveness
@@ -71,7 +71,7 @@ class BowsTable extends RangedWeaponsTable
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\NewRangedWeaponIsNotOfRequiredType
      */
     public function addNewBow(
-        RangedWeaponCode $rangedWeaponCode,
+        RangedWeaponCode $bowCode,
         int $requiredStrength,
         int $lengthInMeters,
         int $offensiveness,
@@ -84,7 +84,7 @@ class BowsTable extends RangedWeaponsTable
     {
         $this->addNewRangedWeapon(
             WeaponCategoryCode::BOW,
-            $rangedWeaponCode,
+            $bowCode,
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

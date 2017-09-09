@@ -23,7 +23,7 @@ class CrossbowsTable extends RangedWeaponsTable
     }
 
     /**
-     * @param RangedWeaponCode $rangedWeaponCode you need a code even for a custom weapon, so prove now
+     * @param RangedWeaponCode $crossbowCode you need a code even for a custom weapon, so prove now
      * @param int $requiredStrength
      * @param int $lengthInMeters
      * @param int $offensiveness
@@ -35,7 +35,7 @@ class CrossbowsTable extends RangedWeaponsTable
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\NewRangedWeaponIsNotOfRequiredType
      */
     public function addNewCrossbow(
-        RangedWeaponCode $rangedWeaponCode,
+        RangedWeaponCode $crossbowCode,
         int $requiredStrength,
         int $lengthInMeters,
         int $offensiveness,
@@ -48,7 +48,7 @@ class CrossbowsTable extends RangedWeaponsTable
     {
         $this->addNewRangedWeapon(
             WeaponCategoryCode::CROSSBOW,
-            $rangedWeaponCode,
+            $crossbowCode,
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

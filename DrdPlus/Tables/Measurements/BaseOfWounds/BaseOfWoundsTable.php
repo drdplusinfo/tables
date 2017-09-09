@@ -295,20 +295,20 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * @param int|IntegerInterface $rowIndex
+     * @param int|IntegerInterface $singleRowIndex
      * @param int|IntegerInterface $columnIndex
      * @return int
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      */
-    public function getValue($rowIndex, $columnIndex): int
+    public function getValue($singleRowIndex, $columnIndex): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $integerRowIndex = ToInteger::toInteger($rowIndex);
+        $integerRowIndex = ToInteger::toInteger($singleRowIndex);
         $values = $this->getValues();
         if (!array_key_exists($integerRowIndex, $values)) {
             throw new Exceptions\NoRowExistsOnProvidedIndex(
-                'No row exists for given row index ' . ValueDescriber::describe($rowIndex)
+                'No row exists for given row index ' . ValueDescriber::describe($singleRowIndex)
             );
         }
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

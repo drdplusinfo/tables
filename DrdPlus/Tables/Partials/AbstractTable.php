@@ -125,7 +125,7 @@ abstract class AbstractTable extends StrictObject implements Table
     abstract protected function getColumnsHeader(): array;
 
     /**
-     * @param array|string|int|ScalarInterface $rowIndexes
+     * @param array|string|int|ScalarInterface $singleRowIndexes
      * @param string|StringInterface $columnIndex
      * @return int|float|string|bool|array
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
@@ -133,15 +133,15 @@ abstract class AbstractTable extends StrictObject implements Table
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getValue($rowIndexes, $columnIndex)
+    public function getValue($singleRowIndexes, $columnIndex)
     {
-        $row = $this->getRow($rowIndexes);
+        $row = $this->getRow($singleRowIndexes);
 
         return $this->getValueInRow($row, $columnIndex);
     }
 
     /**
-     * @param array|string|ScalarInterface $singleRowIndexes
+     * @param array|string|int|ScalarInterface $singleRowIndexes
      * @return array|mixed[]
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
