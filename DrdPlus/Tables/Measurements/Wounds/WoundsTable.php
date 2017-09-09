@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Wounds;
 
 use Drd\DiceRolls\Templates\Rollers\Roller1d6;
@@ -6,8 +8,6 @@ use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
-use Granam\Integer\IntegerInterface;
-use Granam\Number\NumberInterface;
 
 /**
  * Note: fatigue table is equal to wounds table.
@@ -56,22 +56,22 @@ class WoundsTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param int|IntegerInterface $bonusValue
-     * @return WoundsBonus
+     * @param int $bonusValue
+     * @return AbstractBonus
      */
-    protected function createBonus($bonusValue): WoundsBonus
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         return new WoundsBonus($bonusValue, $this);
     }
 
     /**
-     * @param float|NumberInterface $value
+     * @param float $value
      * @param string $unit
-     * @return Wounds
+     * @return Wounds|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit): Wounds
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
-        return new Wounds($value, $this, $unit);
+        return new Wounds($value, $this);
     }
 
 }

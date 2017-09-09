@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Amount;
 
 use Drd\DiceRolls\Templates\Rollers\Roller1d6;
@@ -37,7 +39,7 @@ class AmountTable extends AbstractMeasurementFileTable
      * @param AmountBonus $bonus
      * @return Amount|MeasurementWithBonus
      */
-    public function toAmount(AmountBonus $bonus)
+    public function toAmount(AmountBonus $bonus): Amount
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus);
@@ -47,7 +49,7 @@ class AmountTable extends AbstractMeasurementFileTable
      * @param Amount $amount
      * @return AmountBonus|AbstractBonus
      */
-    public function toBonus(Amount $amount)
+    public function toBonus(Amount $amount): AmountBonus
     {
         return $this->measurementToBonus($amount);
     }
@@ -55,9 +57,9 @@ class AmountTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return Amount
+     * @return Amount|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
         $this->checkUnitExistence($unit);
 
@@ -66,10 +68,10 @@ class AmountTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param $bonusValue
-     * @return AmountBonus
+     * @param int|$bonusValue
+     * @return AmountBonus|AbstractBonus
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         return new AmountBonus($bonusValue, $this);
     }

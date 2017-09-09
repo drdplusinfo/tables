@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Speed;
 
 use DrdPlus\Codes\Units\SpeedUnitCode;
@@ -6,7 +8,6 @@ use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use Granam\Integer\IntegerInterface;
 
 /**
  * See PPH page 163, @link https://pph.drdplus.info/#tabulka_rychlosti
@@ -35,11 +36,10 @@ class SpeedTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param int|IntegerInterface $bonusValue
-     * @return SpeedBonus
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     * @param int$bonusValue
+     * @return SpeedBonus|AbstractBonus
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         return new SpeedBonus($bonusValue, $this);
     }
@@ -48,10 +48,11 @@ class SpeedTable extends AbstractMeasurementFileTable
      * @param SpeedBonus $bonus
      * @param string|null $wantedUnit
      * @return Speed|MeasurementWithBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    public function toSpeed(SpeedBonus $bonus, $wantedUnit = null)
+    public function toSpeed(SpeedBonus $bonus, string $wantedUnit = null)
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->toMeasurement($bonus, $wantedUnit);
     }
 
@@ -59,7 +60,7 @@ class SpeedTable extends AbstractMeasurementFileTable
      * @param Speed $speed
      * @return SpeedBonus|AbstractBonus
      */
-    public function toBonus(Speed $speed)
+    public function toBonus(Speed $speed): SpeedBonus
     {
         return $this->measurementToBonus($speed);
     }
@@ -67,11 +68,10 @@ class SpeedTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return Speed
+     * @return Speed|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
         return new Speed($value, $unit, $this);
     }
-
 }

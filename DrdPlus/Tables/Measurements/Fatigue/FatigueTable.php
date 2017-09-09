@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Fatigue;
 
 use DrdPlus\Tables\Partials\AbstractTable;
@@ -58,7 +60,7 @@ class FatigueTable extends AbstractTable
     public function toBonus(Fatigue $fatigue)
     {
         return new FatigueBonus(
-            $this->woundsTable->toBonus(new Wounds($fatigue->getValue(), $this->woundsTable, Wounds::WOUNDS))->getValue(),
+            $this->woundsTable->toBonus(new Wounds($fatigue->getValue(), $this->woundsTable))->getValue(),
             $this
         );
     }

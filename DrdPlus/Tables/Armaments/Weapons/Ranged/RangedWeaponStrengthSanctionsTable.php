@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Tables\Armaments\Partials\AbstractStrengthSanctionsTable;
@@ -51,7 +53,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseIt($missingStrength)
+    public function canUseIt($missingStrength): bool
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
@@ -68,7 +70,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getFightNumberSanction($missingStrength)
+    public function getFightNumberSanction($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::FIGHT_NUMBER);
     }
@@ -77,7 +79,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @param int|IntegerInterface $missingStrength
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
-     * @return int
+     * @return int|bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
@@ -100,7 +102,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getDefenseNumberSanction($missingStrength)
+    public function getDefenseNumberSanction($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::DEFENSE_NUMBER);
     }
@@ -112,7 +114,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingInRounds($missingStrength)
+    public function getLoadingInRounds($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::LOADING_IN_ROUNDS);
     }
@@ -124,7 +126,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingInRoundsSanction($missingStrength)
+    public function getLoadingInRoundsSanction($missingStrength): int
     {
         return max($this->getLoadingInRounds($missingStrength) - 1, 0);
     }
@@ -136,7 +138,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAttackNumberSanction($missingStrength)
+    public function getAttackNumberSanction($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::ATTACK_NUMBER);
     }
@@ -148,7 +150,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getEncounterRangeSanction($missingStrength)
+    public function getEncounterRangeSanction($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::ENCOUNTER_RANGE);
     }
@@ -160,7 +162,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getBaseOfWoundsSanction($missingStrength)
+    public function getBaseOfWoundsSanction($missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::BASE_OF_WOUNDS);
     }

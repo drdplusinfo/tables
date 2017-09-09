@@ -1,12 +1,16 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Weight;
 
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use DrdPlus\Calculations\SumAndRound;
+use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 
 /**
@@ -52,10 +56,10 @@ class WeightTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     * @return WeightBonus
+     * @return WeightBonus|AbstractBonus
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         return new WeightBonus($bonusValue, $this);
     }
@@ -63,20 +67,20 @@ class WeightTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return Weight
+     * @return Weight|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit)
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
         return new Weight($value, Weight::KG, $this);
     }
 
     /**
-     * @param int $simplifiedBonus
+     * @param int|IntegerInterface $simplifiedBonus
      * @return WeightBonus
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
-    public function getBonusFromSimplifiedBonus($simplifiedBonus)
+    public function getBonusFromSimplifiedBonus($simplifiedBonus): WeightBonus
     {
         try {
             return $this->createBonus(ToInteger::toInteger($simplifiedBonus) + 12);
@@ -93,7 +97,7 @@ class WeightTable extends AbstractMeasurementFileTable
      * @return int negative number or zero
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
-    public function getMalusFromLoad(Strength $strength, Weight $cargoWeight)
+    public function getMalusFromLoad(Strength $strength, Weight $cargoWeight): int
     {
         $requiredStrength = $cargoWeight->getBonus()->getValue();
         $missingStrength = $requiredStrength - $strength->getValue();

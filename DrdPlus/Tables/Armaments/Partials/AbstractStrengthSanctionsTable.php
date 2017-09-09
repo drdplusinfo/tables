@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Partials;
 
 use DrdPlus\Tables\Partials\AbstractFileTable;
@@ -20,7 +22,7 @@ abstract class AbstractStrengthSanctionsTable extends AbstractFileTable implemen
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionsForMissingStrength($missingStrength)
+    public function getSanctionsForMissingStrength($missingStrength): array
     {
         $missingStrength = ToInteger::toInteger($missingStrength);
         $currentRow = [];

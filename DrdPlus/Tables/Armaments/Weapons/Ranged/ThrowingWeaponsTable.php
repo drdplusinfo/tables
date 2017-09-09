@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
@@ -15,15 +17,4 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
     {
         return __DIR__ . '/data/throwing_weapons.csv';
     }
-
-    const WEAPON = 'weapon';
-
-    /**
-     * @return array|string[]
-     */
-    protected function getRowsHeader(): array
-    {
-        return [self::WEAPON];
-    }
-
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Distance;
 
 use DrdPlus\Codes\Units\DistanceUnitCode;
@@ -57,9 +59,9 @@ class DistanceTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return Distance
+     * @return Distance|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit): Distance
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Distance($value, $unit, $this);
@@ -67,9 +69,9 @@ class DistanceTable extends AbstractMeasurementFileTable
 
     /**
      * @param int $bonusValue
-     * @return DistanceBonus
+     * @return DistanceBonus|AbstractBonus
      */
-    protected function createBonus($bonusValue): DistanceBonus
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new DistanceBonus($bonusValue, $this);
@@ -85,5 +87,4 @@ class DistanceTable extends AbstractMeasurementFileTable
     {
         return $this->createBonus(ToInteger::toInteger($size) + 12);
     }
-
 }

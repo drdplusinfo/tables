@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Experiences;
 
 use DrdPlus\Tables\Partials\AbstractTable;
@@ -63,7 +65,7 @@ class ExperiencesTable extends AbstractTable
         $experiencesValue = $experiences->getValue();
         do {
             $woundsBonus = $this->woundsTable->toBonus(
-                new Wounds($experiencesValue--, $this->woundsTable, Wounds::WOUNDS)
+                new Wounds($experiencesValue--, $this->woundsTable)
             );
             /**
              * avoiding standard bonus round-up, which is unacceptable for experiences to level conversion;

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tests\Tables;
 
 use DrdPlus\Tables\Table;
@@ -42,7 +44,7 @@ class EveryTableTest extends TestCase
     private static function scanForTables(string $rootDir, string $rootNamespace)
     {
         $tableClasses = [];
-        foreach (scandir($rootDir) as $fileOrDir) {
+        foreach (scandir($rootDir, SCANDIR_SORT_NONE) as $fileOrDir) {
             $fullPath = $rootDir . DIRECTORY_SEPARATOR . $fileOrDir;
             if ($fileOrDir !== '.' && $fileOrDir !== '..') {
                 if (is_dir($fullPath)) {

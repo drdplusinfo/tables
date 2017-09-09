@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
+use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -20,7 +23,7 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
     protected function tearDown()
     {
         parent::tearDown();
-        if (file_exists($this->tempFilename)) {
+        if ($this->tempFilename && file_exists($this->tempFilename)) {
             unlink($this->tempFilename);
         }
     }
@@ -230,14 +233,14 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
             new BonusForTestOfAbstractTable($bonusValue2),
             null /* auto-select unit*/
         );
-        self::assertSame(2.0, current($measurementFromSecondRow));
-        self::assertSame($unit1, key($measurementFromSecondRow));
+        self::assertSame(2.0, $measurementFromSecondRow->getValue());
+        self::assertSame($unit1, $measurementFromSecondRow->getUnit());
         $measurementFromThirdRow = $table->toMeasurement(
             new BonusForTestOfAbstractTable($bonusValue3),
             null /* auto-select unit*/
         );
-        self::assertSame(30.0, current($measurementFromThirdRow));
-        self::assertSame($unit2, key($measurementFromThirdRow));
+        self::assertSame(30.0, $measurementFromThirdRow->getValue());
+        self::assertSame($unit2, $measurementFromThirdRow->getUnit());
     }
 
     /**
@@ -259,9 +262,9 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
         $table = TestOfAbstractTable::getIt($filename, [$unit], $this->createOneToOneEvaluator($valuesToEvaluate));
         foreach ($bonusValues as $chance => $bonusValue) {
             $bonus = new BonusForTestOfAbstractTable($bonusValue);
-            self::assertSame(
+            self::assertEquals(
             /** @see \DrdPlus\Tests\Tables\Measurements\TestOfAbstractTable::convertToMeasurement */
-                [$unit => $chance],
+                new JustSomeMeasurementWithBonus($chance, $unit),
                 $table->toMeasurement($bonus, $unit)
             );
         }
@@ -368,18 +371,18 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return array
+     * @return MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit): array
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
-        return [$unit => $value];
+        return new JustSomeMeasurementWithBonus($value, $unit);
     }
 
     /**
      * @param int $bonusValue
      * @return AbstractBonus
      */
-    protected function createBonus($bonusValue)
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
         return new BonusForTestOfAbstractTable($bonusValue);
     }
@@ -388,11 +391,10 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
      * Just making it public.
      *
      * @param AbstractBonus $bonus
-     * @param null $unit
-     * @return array (differs from parent,
-     * @see \DrdPlus\Tests\Tables\Measurements\Partials\TestOfAbstractTable::convertToMeasurement for exact return value)
+     * @param string|null $unit
+     * @return MeasurementWithBonus
      */
-    public function toMeasurement(AbstractBonus $bonus, $unit = null): array
+    public function toMeasurement(AbstractBonus $bonus, string $unit = null): MeasurementWithBonus
     {
         return parent::toMeasurement($bonus, $unit);
     }
@@ -442,6 +444,45 @@ class WithLessColumnHeaderRowsThenRowHeader extends AbstractTable
     public function getIndexedValues(): array
     {
         throw new \LogicException;
+    }
+
+}
+class JustSomeMeasurementWithBonus implements MeasurementWithBonus
+{
+    /** @var float */
+    private $value;
+    /** @var string */
+    private $unit;
+
+    public function __construct(float $value, string $unit)
+    {
+        $this->value = $value;
+        $this->unit = $unit;
+    }
+
+    public function getUnit(): string
+    {
+        return $this->unit;
+    }
+
+    public function getPossibleUnits(): array
+    {
+        return [$this->unit];
+    }
+
+    public function getBonus(): Bonus
+    {
+        return new BonusForTestOfAbstractTable(0);
+    }
+
+    public function getValue(): float
+    {
+        return $this->value;
+    }
+
+    public function __toString(): string
+    {
+        return '';
     }
 
 }

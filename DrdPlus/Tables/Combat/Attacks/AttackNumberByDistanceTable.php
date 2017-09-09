@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Combat\Attacks;
 
 use DrdPlus\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTable;
@@ -36,7 +38,7 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
     {
         $distanceInMeters = $distance->getMeters();
         $orderedByDistanceDesc = $this->getOrderedByDistanceAsc();
-        $attackNumberModifierCandidate = null;
+        $attackNumberModifierCandidate = 0;
         foreach ($orderedByDistanceDesc as $distanceInMetersFrom => $row) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             if ($distanceInMeters >= ToFloat::toPositiveFloat($distanceInMetersFrom)) {

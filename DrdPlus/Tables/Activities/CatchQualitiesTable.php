@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Activities;
 
 use DrdPlus\Codes\FoodTypeCode;
@@ -48,7 +50,7 @@ class CatchQualitiesTable extends AbstractFileTable
      * @param IntegerInterface $catchQuality
      * @return int
      */
-    public function getHealingAndRestByCatchQuality(IntegerInterface $catchQuality)
+    public function getHealingAndRestByCatchQuality(IntegerInterface $catchQuality): int
     {
         $healingAndRest = -7;
         $catchQualityValue = $catchQuality->getValue();
@@ -66,7 +68,7 @@ class CatchQualitiesTable extends AbstractFileTable
      * @param IntegerInterface $catchQuality
      * @return array|FoodTypeCode[]
      */
-    public function getPossibleFoodTypesByCatchQuality(IntegerInterface $catchQuality)
+    public function getPossibleFoodTypesByCatchQuality(IntegerInterface $catchQuality): array
     {
         $possibleFoodTypes = [];
         $catchQualityValue = $catchQuality->getValue();

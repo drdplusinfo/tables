@@ -1,15 +1,24 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
+use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Body\WeightInKg;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikesTable
 {
+
+    private $customMeleeWeapons = [];
+
     protected function getRowsHeader(): array
     {
         return ['weapon'];
@@ -30,6 +39,57 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     }
 
     /**
+     * @param string $meleeCategoryName
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param int $requiredStrength
+     * @param int $lengthInMeters
+     * @param int $offensiveness
+     * @param int $wounds
+     * @param WoundTypeCode $woundTypeCode
+     * @param int $cover
+     * @param WeightInKg $weightInKg
+     * @param bool $twoHandedOnly
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
+     */
+    protected function addNewMeleeWeapon(
+        string $meleeCategoryName,
+        MeleeWeaponCode $meleeWeaponCode,
+        int $requiredStrength,
+        int $lengthInMeters,
+        int $offensiveness,
+        int $wounds,
+        WoundTypeCode $woundTypeCode,
+        int $cover,
+        WeightInKg $weightInKg,
+        bool $twoHandedOnly
+    )
+    {
+        /** like @see MeleeWeaponCode::isAxe() */
+        $isType = 'is' . ucfirst($meleeCategoryName);
+        /** like @see MeleeWeaponCode::getAxeCodes() */
+        $getTypeCodes = 'get' . ucfirst($meleeCategoryName) . 'Codes';
+        if (!is_callable([$meleeWeaponCode, $isType]) || !$meleeWeaponCode->$isType()
+            || !is_callable(get_class($meleeWeaponCode) . '::' . $getTypeCodes)
+            || !in_array($meleeWeaponCode->getValue(), $meleeWeaponCode::$getTypeCodes(), true)
+        ) {
+            throw new Exceptions\NewMeleeWeaponIsNotOfRequiredType(
+                "Expected new melee weapon to be '$meleeCategoryName' type, got {$meleeWeaponCode}"
+                . ' with possible values ' . var_export($meleeWeaponCode::getPossibleValues(), true)
+            );
+        }
+        $this->customMeleeWeapons[$meleeWeaponCode->getValue()] = [
+            self::REQUIRED_STRENGTH => $requiredStrength,
+            self::LENGTH => $lengthInMeters,
+            self::OFFENSIVENESS => $offensiveness,
+            self::WOUNDS => $wounds,
+            self::WOUNDS_TYPE => $woundTypeCode,
+            self::COVER => $cover,
+            self::WEIGHT => $weightInKg,
+            self::TWO_HANDED_ONLY => $twoHandedOnly,
+        ];
+    }
+
+    /**
      * @param string|StringInterface $weaponlikeCode
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
@@ -42,10 +102,23 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     /**
      * @param string|StringInterface $weaponlikeCode
      * @param string $valueName
-     * @return float|int|string|false
+     * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
     private function getValueOf($weaponlikeCode, string $valueName)
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->customMeleeWeapons[ToString::toString($weaponlikeCode)][$valueName]
+            ?? $this->getStandardValueOf($weaponlikeCode, $valueName);
+    }
+
+    /**
+     * @param string|StringInterface $weaponlikeCode
+     * @param string $valueName
+     * @return float|int|string|false
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
+     */
+    private function getStandardValueOf($weaponlikeCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

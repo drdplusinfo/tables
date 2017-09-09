@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
@@ -34,16 +36,13 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $this->evaluator = $evaluator;
     }
 
-    /**
-     * @return array|string[][]
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
-     */
     public function getIndexedValues(): array
     {
         if ($this->indexedValues === null) {
             try {
                 $this->loadData();
             } catch (\DrdPlus\Tables\Measurements\Exceptions\Exception $loadingException) {
+                /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
                 throw new Exceptions\LoadingDataFailed(
                     $loadingException->getMessage(), $loadingException->getCode(), $loadingException
                 );
@@ -85,14 +84,14 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param int $bonusValue
      * @return AbstractBonus
      */
-    abstract protected function createBonus($bonusValue);
+    abstract protected function createBonus(int $bonusValue): AbstractBonus;
 
     /**
      * @param float $value
      * @param string $unit
      * @return MeasurementWithBonus
      */
-    abstract protected function convertToMeasurement($value, $unit);
+    abstract protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus;
 
     /**
      * @throws \DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead
@@ -109,12 +108,12 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @param $dataSourceFile
+     * @param string $dataSourceFile
      * @return array
      * @throws \DrdPlus\Tables\Measurements\Exceptions\FileCanNotBeRead
      * @throws \DrdPlus\Tables\Measurements\Exceptions\FileIsEmpty
      */
-    private function fetchDataFromFile($dataSourceFile)
+    private function fetchDataFromFile(string $dataSourceFile): array
     {
         $resource = fopen($dataSourceFile, 'rb');
         if (!$resource) {
@@ -142,7 +141,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired
      * @throws \DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile
      */
-    private function normalizeAndIndex(array $data)
+    private function normalizeAndIndex(array $data): array
     {
         $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
         if (!array_key_exists(0, $data) || $data[0] !== $expectedHeader) {
@@ -179,7 +178,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @return array|string[]
      * @throws \DrdPlus\Tables\Measurements\Exceptions\DataFromFileAreCorrupted
      */
-    private function formatRow(array $row, array $expectedHeader)
+    private function formatRow(array $row, array $expectedHeader): array
     {
         $indexedValues = array_combine($expectedHeader, $row);
         try {
@@ -203,21 +202,21 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return int
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    private function parseBonus($value)
+    private function parseBonus(string $value): int
     {
         return ToInteger::toInteger($this->parseNumber($value));
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return string
      */
-    private function parseNumber($value)
+    private function parseNumber(string $value): string
     {
         return str_replace(
             ['−' /* from ASCII 226 */, ','], // unified minus sign and float format (decimal delimiter)
@@ -227,52 +226,56 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @param $value
+     * @param string $value
      * @return bool|float|string
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
-    private function parseValue($value)
+    private function parseValue(string $value)
     {
         $value = trim($value);
         if ($value === '') {
             return false;
         }
         if ($this->isItDiceRollChance($value)) { // dice chance bonus, like 1/6
-            return $value;
+            return $value; // string
         }
 
         return ToFloat::toFloat($this->parseNumber($value));
     }
 
     /**
-     * @param $value
-     * @return int
+     * @param mixed $value
+     * @return bool
      */
-    private function isItDiceRollChance($value)
+    private function isItDiceRollChance($value): bool
     {
-        return preg_match('~^\d+/\d+$~', $value) > 0;
+        return preg_match('~^\d+/\d+$~', (string)$value) > 0;
     }
 
     /**
      * @param AbstractBonus $bonus
      * @param string|null $wantedUnit
      * @return MeasurementWithBonus
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    protected function toMeasurement(AbstractBonus $bonus, $wantedUnit = null)
+    protected function toMeasurement(AbstractBonus $bonus, string $wantedUnit = null): MeasurementWithBonus
     {
         $bonusValue = $bonus->getValue();
         $this->guardBonusExisting($bonusValue);
-        $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
+        $wantedUnit = $this->determineUnit($bonusValue, $wantedUnit);
         $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
         $wantedValue = $this->evaluate($rawValue);
 
         return $this->convertToMeasurement($wantedValue, $wantedUnit);
     }
 
-    private function guardBonusExisting($bonusValue)
+    /**
+     * @param int $bonusValue
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     */
+    private function guardBonusExisting(int $bonusValue)
     {
         if (!array_key_exists($bonusValue, $this->getIndexedValues())) {
             throw new Exceptions\UnknownBonus("Value to bonus {$bonusValue} is not defined.");
@@ -280,15 +283,17 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @param string|null $wantedUnit
      * @param int $bonusValue
+     * @param string|null $wantedUnit
      * @return mixed
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    private function determineUnit($wantedUnit, $bonusValue)
+    private function determineUnit(int $bonusValue, string $wantedUnit = null): string
     {
         if ($wantedUnit === null) {
             $this->guardBonusExisting($bonusValue);
+            /** @noinspection CallableParameterUseCaseInTypeContextInspection */
             $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
         } else {
             $this->checkUnitExistence($wantedUnit);
@@ -297,7 +302,11 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $wantedUnit;
     }
 
-    protected function checkUnitExistence($unit)
+    /**
+     * @param string $unit
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     */
+    protected function checkUnitExistence(string $unit)
     {
         if (!in_array($unit, $this->getExpectedDataHeader(), true)) {
             throw new UnknownUnit(
@@ -307,29 +316,26 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     }
 
     /**
-     * @param $bonusValue
-     * @param $wantedUnit
+     * @param int $bonusValue
+     * @param string $wantedUnit
      * @return bool
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
      */
-    private function hasValueByBonusValueAndUnit($bonusValue, $wantedUnit)
+    private function hasValueByBonusValueAndUnit(int $bonusValue, string $wantedUnit): bool
     {
-        return
-            array_key_exists($bonusValue, $this->getIndexedValues())
-            && array_key_exists($wantedUnit, $this->getIndexedValues()[$bonusValue]);
+        return ($this->getIndexedValues()[$bonusValue][$wantedUnit] ?? null) !== null;
     }
 
     /**
      * @param $rawValue
-     * @return float|int
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
+     * @return float
      */
-    private function evaluate($rawValue)
+    private function evaluate($rawValue): float
     {
         if (is_float($rawValue)) {
             return $rawValue;
         }
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->evaluator->evaluate($this->parseMaxRollToGetValue($rawValue));
     }
 
@@ -338,7 +344,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @return int
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
      */
-    private function parseMaxRollToGetValue($chance)
+    private function parseMaxRollToGetValue(string $chance): int
     {
         $chanceParts = explode('/', $chance);
         if (!array_key_exists(0, $chanceParts) || !array_key_exists(1, $chanceParts) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
@@ -354,14 +360,14 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param AbstractBonus $bonus
      * @param string|null $wantedUnit
      * @return bool
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    protected function hasMeasurementFor(AbstractBonus $bonus, $wantedUnit = null)
+    protected function hasMeasurementFor(AbstractBonus $bonus, string $wantedUnit = null): bool
     {
         $bonusValue = $bonus->getValue();
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $wantedUnit = $this->determineUnit($wantedUnit, $bonusValue);
+        $wantedUnit = $this->determineUnit($bonusValue, $wantedUnit);
 
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->hasValueByBonusValueAndUnit($bonusValue, $wantedUnit);
     }
 
@@ -369,16 +375,18 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param MeasurementWithBonus $measurement
      * @return AbstractBonus
      */
-    protected function measurementToBonus(MeasurementWithBonus $measurement)
+    protected function measurementToBonus(MeasurementWithBonus $measurement): AbstractBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->createBonus($this->determineBonusValue($measurement));
     }
 
     /**
      * @param MeasurementWithBonus $measurement
      * @return int
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
-    private function determineBonusValue(MeasurementWithBonus $measurement)
+    private function determineBonusValue(MeasurementWithBonus $measurement): int
     {
         $finds = $this->getBonusMatchingOrClosestTo($measurement);
         if (is_int($finds)) {
@@ -388,8 +396,14 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         return $this->getBonusClosestTo($measurement->getValue(), $finds['lower'], $finds['higher']);
     }
 
+    /**
+     * @param MeasurementWithBonus $measurement
+     * @return array|int|string
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
+     */
     private function getBonusMatchingOrClosestTo(MeasurementWithBonus $measurement)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $searchedValue = ToFloat::toFloat($measurement->getValue());
         $searchedUnit = $measurement->getUnit();
         $closest = ['lower' => [], 'higher' => []]; // value to bonuses
@@ -435,7 +449,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param array $closestHigher
      * @return int
      */
-    private function getBonusClosestTo($searchedValue, array $closestLower, array $closestHigher)
+    private function getBonusClosestTo(float $searchedValue, array $closestLower, array $closestHigher): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $searchedValue = ToFloat::toFloat($searchedValue);
@@ -449,30 +463,29 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
             // matched single table-value, maybe with more bonuses, the lowest bonus should be taken
             return min($bonuses); // PPH page 11, right column
-        } else {
-            // both table border-values are equally close to the value, we will choose from bonuses of both borders
-            $bonuses = array_merge(
-                count($closestLower) > 0
-                    ? current($closestLower)
-                    : []
-                ,
-                count($closestHigher) > 0
-                    ? current($closestHigher)
-                    : []
-            );
-
-            // matched two table-values, more bonuses for sure, the highest bonus should be taken
-            return max($bonuses); // PPH page 11, right column
         }
+        // both table border-values are equally close to the value, we will choose from bonuses of both borders
+        $bonuses = array_merge(
+            count($closestLower) > 0
+                ? current($closestLower)
+                : []
+            ,
+            count($closestHigher) > 0
+                ? current($closestHigher)
+                : []
+        );
+
+        // matched two table-values, more bonuses for sure, the highest bonus should be taken
+        return max($bonuses); // PPH page 11, right column
     }
 
     /**
-     * @param $toValue
-     * @param $firstValue
-     * @param $secondValue
-     * @return bool|int|float|string
+     * @param float $toValue
+     * @param float $firstValue
+     * @param float $secondValue
+     * @return number|false
      */
-    private function getCloserValue($toValue, $firstValue, $secondValue)
+    private function getCloserValue(float $toValue, float $firstValue, float $secondValue)
     {
         $firstDifference = $toValue - $firstValue;
         $secondDifference = $toValue - $secondValue;

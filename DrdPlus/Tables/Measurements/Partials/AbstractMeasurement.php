@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
@@ -42,7 +44,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
 
     /**
      * @param mixed $value
-     * @return number
+     * @return int|float
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
@@ -71,7 +73,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     }
 
     /**
-     * @return float
+     * @return int|float
      */
     public function getValue()
     {
@@ -81,7 +83,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     /**
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return (string)$this->getValue() . ' ' . $this->getUnit();
     }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
@@ -37,21 +39,22 @@ class TimeTable extends AbstractMeasurementFileTable
      * @param TimeBonus $timeBonus
      * @param string|null $wantedUnit
      * @return Time|MeasurementWithBonus
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnexpectedChanceNotation
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    public function toTime(TimeBonus $timeBonus, $wantedUnit = null): Time
+    public function toTime(TimeBonus $timeBonus, string $wantedUnit = null): Time
     {
         return $this->toMeasurement($timeBonus, $wantedUnit);
     }
 
     /**
      * @param TimeBonus $timeBonus
-     * @param null $wantedUnit
+     * @param string|null $wantedUnit = null
      * @return bool
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    public function hasTimeFor(TimeBonus $timeBonus, $wantedUnit = null): bool
+    public function hasTimeFor(TimeBonus $timeBonus, string $wantedUnit = null): bool
     {
         return $this->hasMeasurementFor($timeBonus, $wantedUnit);
     }
@@ -68,20 +71,20 @@ class TimeTable extends AbstractMeasurementFileTable
     /**
      * @param float $value
      * @param string $unit
-     * @return Time
+     * @return Time|MeasurementWithBonus
      */
-    protected function convertToMeasurement($value, $unit): Time
+    protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
         return new Time($value, $unit, $this);
     }
 
     /**
      * @param int $bonusValue
-     * @return TimeBonus
-     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     * @return TimeBonus|AbstractBonus
      */
-    protected function createBonus($bonusValue): TimeBonus
+    protected function createBonus(int $bonusValue): AbstractBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new TimeBonus($bonusValue, $this);
     }
 

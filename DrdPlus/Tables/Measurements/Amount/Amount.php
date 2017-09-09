@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tables\Measurements\Amount;
 
+use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
@@ -39,7 +42,7 @@ class Amount extends AbstractMeasurementWithBonus
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    protected function normalizeValue($value)
+    protected function normalizeValue($value): int
     {
         return ToInteger::toInteger($value);
     }
@@ -53,9 +56,9 @@ class Amount extends AbstractMeasurementWithBonus
     }
 
     /**
-     * @return AmountBonus
+     * @return AmountBonus|Bonus
      */
-    public function getBonus()
+    public function getBonus(): Bonus
     {
         return $this->amountTable->toBonus($this);
     }

@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Tables\Armaments\Weapons\Ranged\RangedWeaponStrengthSanctionsTable;
 use DrdPlus\Tests\Tables\Armaments\Partials\AbstractStrengthSanctionsTableTest;
 
-class RangedWeaponStrengthSanctionsTableTest extends AbstractStrengthSanctionsTableTest
+class RangedWeaponStrengthTableTest extends AbstractStrengthSanctionsTableTest
 {
     /**
      * @test
