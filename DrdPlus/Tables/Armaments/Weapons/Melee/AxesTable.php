@@ -48,8 +48,8 @@ class AxesTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::AXE,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::AXE),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

@@ -13,13 +13,18 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
      */
     public function I_can_get_header()
     {
-        $sutClass = self::getSutClass();
-        /** @var MeleeWeaponsTable $meleeWeaponsTable */
-        $meleeWeaponsTable = new $sutClass();
+        $meleeWeaponsTable = $this->createSut();
         self::assertSame(
             [['weapon', 'required_strength', 'length', 'offensiveness', 'wounds', 'wounds_type', 'cover', 'weight', 'two_handed_only']],
             $meleeWeaponsTable->getHeader()
         );
+    }
+
+    protected function createSut(): MeleeWeaponsTable
+    {
+        $sutClass = self::getSutClass();
+
+        return new $sutClass();
     }
 
     /**
@@ -32,9 +37,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
-        $sutClass = self::getSutClass();
-        /** @var MeleeWeaponsTable $meleeWeaponsTable */
-        $meleeWeaponsTable = new $sutClass();
+        $meleeWeaponsTable = $this->createSut();
         $meleeWeaponsTable->$getValueNameOf('skull_crasher');
     }
 
@@ -55,5 +58,4 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
      * @test
      */
     abstract public function I_can_get_every_weapon_by_weapon_codes_library();
-
 }

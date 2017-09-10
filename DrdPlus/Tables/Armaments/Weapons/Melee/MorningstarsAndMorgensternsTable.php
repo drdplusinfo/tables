@@ -48,8 +48,8 @@ class MorningstarsAndMorgensternsTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::MORNINGSTAR_AND_MORGENSTERN,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::MORNINGSTAR_AND_MORGENSTERN),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

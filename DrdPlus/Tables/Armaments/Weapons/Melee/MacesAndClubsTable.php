@@ -48,8 +48,8 @@ class MacesAndClubsTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::MACE_AND_CLUB,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::MACE_AND_CLUB),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

@@ -47,8 +47,8 @@ class CrossbowsTable extends RangedWeaponsTable
     )
     {
         $this->addNewRangedWeapon(
-            WeaponCategoryCode::CROSSBOW,
             $crossbowCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

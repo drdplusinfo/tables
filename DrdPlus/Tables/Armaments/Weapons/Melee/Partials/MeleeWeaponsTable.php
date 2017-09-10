@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Properties\Body\WeightInKg;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
@@ -39,8 +40,8 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     }
 
     /**
-     * @param string $meleeCategoryName
      * @param MeleeWeaponCode $meleeWeaponCode
+     * @param WeaponCategoryCode $meleeWeaponCategoryCode
      * @param int $requiredStrength
      * @param int $lengthInMeters
      * @param int $offensiveness
@@ -51,9 +52,9 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
      * @param bool $twoHandedOnly
      * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
      */
-    protected function addNewMeleeWeapon(
-        string $meleeCategoryName,
+    public function addNewMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
+        WeaponCategoryCode $meleeWeaponCategoryCode,
         int $requiredStrength,
         int $lengthInMeters,
         int $offensiveness,
@@ -65,18 +66,20 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
     )
     {
         /** like @see MeleeWeaponCode::isAxe() */
-        $isType = 'is' . ucfirst($meleeCategoryName);
+        $isType = 'is' . ucfirst($meleeWeaponCategoryCode->getValue());
         /** like @see MeleeWeaponCode::getAxeCodes() */
-        $getTypeCodes = 'get' . ucfirst($meleeCategoryName) . 'Codes';
+        $getTypeCodes = 'get' . ucfirst($meleeWeaponCategoryCode->getValue()) . 'Codes';
         if (!is_callable([$meleeWeaponCode, $isType]) || !$meleeWeaponCode->$isType()
             || !is_callable(get_class($meleeWeaponCode) . '::' . $getTypeCodes)
             || !in_array($meleeWeaponCode->getValue(), $meleeWeaponCode::$getTypeCodes(), true)
         ) {
             throw new Exceptions\NewMeleeWeaponIsNotOfRequiredType(
-                "Expected new melee weapon to be '$meleeCategoryName' type, got {$meleeWeaponCode}"
-                . ' with possible values ' . var_export($meleeWeaponCode::getPossibleValues(), true)
+                "Expected new melee weapon to be '$meleeWeaponCategoryCode' type, got '{$meleeWeaponCode}'"
+                . " with $meleeWeaponCategoryCode type values " . implode(',', $meleeWeaponCode::$getTypeCodes())
+                . ' and all possible values ' . implode(',', $meleeWeaponCode::getPossibleValues())
             );
         }
+        // TODO check conflicts
         $this->customMeleeWeapons[$meleeWeaponCode->getValue()] = [
             self::REQUIRED_STRENGTH => $requiredStrength,
             self::LENGTH => $lengthInMeters,

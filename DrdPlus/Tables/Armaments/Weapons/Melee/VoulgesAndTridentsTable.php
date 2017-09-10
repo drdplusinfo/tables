@@ -47,8 +47,8 @@ class VoulgesAndTridentsTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::VOULGE_AND_TRIDENT,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::VOULGE_AND_TRIDENT),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

@@ -83,8 +83,8 @@ class BowsTable extends RangedWeaponsTable
     )
     {
         $this->addNewRangedWeapon(
-            WeaponCategoryCode::BOW,
             $bowCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::BOW),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

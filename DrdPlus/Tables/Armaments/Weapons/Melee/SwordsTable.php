@@ -48,8 +48,8 @@ class SwordsTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::SWORD,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORD),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

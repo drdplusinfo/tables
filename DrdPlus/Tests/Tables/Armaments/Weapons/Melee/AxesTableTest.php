@@ -4,7 +4,9 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Body\WeightInKg;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
@@ -65,4 +67,24 @@ class AxesTableTest extends MeleeWeaponsTableTest
         }
     }
 
+    /**
+     * @test
+     */
+    public function I_can_add_new_axe()
+    {
+        $axesTable = new AxesTable();
+        MeleeWeaponCode::addNewMeleeWeaponCode('chopa', WeaponCategoryCode::getIt(WeaponCategoryCode::AXE), []);
+        $chopa = MeleeWeaponCode::getIt('chopa');
+        $axesTable->addNewAxe(
+            $chopa,
+            0,
+            1,
+            2,
+            3,
+            WoundTypeCode::getIt(WoundTypeCode::CUT),
+            4,
+            WeightInKg::getIt(5),
+            false
+        );
+    }
 }

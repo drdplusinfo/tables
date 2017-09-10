@@ -47,8 +47,8 @@ class SabersAndBowieKnifesTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::SABER_AND_BOWIE_KNIFE,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::SABER_AND_BOWIE_KNIFE),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

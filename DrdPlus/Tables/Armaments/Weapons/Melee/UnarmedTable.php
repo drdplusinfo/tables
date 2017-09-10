@@ -47,8 +47,8 @@ class UnarmedTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::UNARMED,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::UNARMED),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

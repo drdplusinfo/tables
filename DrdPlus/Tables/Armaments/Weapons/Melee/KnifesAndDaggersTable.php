@@ -47,8 +47,8 @@ class KnifesAndDaggersTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::KNIFE_AND_DAGGER,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::KNIFE_AND_DAGGER),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

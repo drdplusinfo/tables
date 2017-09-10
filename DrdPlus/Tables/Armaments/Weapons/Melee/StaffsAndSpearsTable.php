@@ -48,8 +48,8 @@ class StaffsAndSpearsTable extends MeleeWeaponsTable
     )
     {
         $this->addNewMeleeWeapon(
-            WeaponCategoryCode::STAFF_AND_SPEAR,
             $meleeWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::STAFF_AND_SPEAR),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,

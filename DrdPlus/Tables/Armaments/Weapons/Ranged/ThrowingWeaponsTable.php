@@ -47,8 +47,8 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
     )
     {
         $this->addNewRangedWeapon(
-            WeaponCategoryCode::THROWING_WEAPON,
             $throwingWeaponCode,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::THROWING_WEAPON),
             $requiredStrength,
             $lengthInMeters,
             $offensiveness,
