@@ -83,7 +83,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
     /**
      * @return string
      */
-    public function __toString(): string
+    public function __toString()
     {
         return (string)$this->getValue() . ' ' . $this->getUnit();
     }

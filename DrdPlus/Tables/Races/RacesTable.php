@@ -39,7 +39,7 @@ class RacesTable extends AbstractFileTable
             PropertyCode::CHARISMA => self::INTEGER,
             PropertyCode::TOUGHNESS => self::INTEGER,
             PropertyCode::HEIGHT_IN_CM => self::FLOAT,
-            PropertyCode::WEIGHT_IN_KG => self::FLOAT,
+            PropertyCode::BODY_WEIGHT_IN_KG => self::FLOAT,
             PropertyCode::SIZE => self::INTEGER,
             PropertyCode::SENSES => self::INTEGER,
             PropertyCode::REMARKABLE_SENSE => self::STRING,
@@ -380,7 +380,7 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subraceCode): float
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::WEIGHT_IN_KG);
+        return $this->getProperty($raceCode, $subraceCode, PropertyCode::BODY_WEIGHT_IN_KG);
     }
 
     /**
