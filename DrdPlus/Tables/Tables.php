@@ -120,7 +120,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public static function getIt(): Tables
     {
         if (self::$tablesInstance === null) {
-            self::$tablesInstance = new Tables();
+            self::$tablesInstance = new static();
         }
 
         return self::$tablesInstance;

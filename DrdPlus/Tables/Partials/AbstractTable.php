@@ -149,6 +149,25 @@ abstract class AbstractTable extends StrictObject implements Table
      */
     public function getRow($singleRowIndexes): array
     {
+        $row = $this->findRow($singleRowIndexes);
+        if ($row === null) {
+            throw new Exceptions\RequiredRowNotFound(
+                'Row has not been found by index(es) "' . ValueDescriber::describe($singleRowIndexes) . '"'
+                . ', possible indexes are ' . implode(',', array_keys($this->getIndexedValues()))
+            );
+        }
+
+        return $row;
+    }
+
+    /**
+     * @param array|string|int|ScalarInterface $singleRowIndexes
+     * @return array|mixed[]|null
+     * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
+     */
+    public function findRow($singleRowIndexes):? array
+    {
         /** @noinspection ArrayCastingEquivalentInspection */
         $arraySingleRowIndexes = is_array($singleRowIndexes)
             ? $singleRowIndexes
@@ -161,10 +180,7 @@ abstract class AbstractTable extends StrictObject implements Table
         foreach ($arraySingleRowIndexes as $rowIndex) {
             $stringRowIndex = ToString::toString($rowIndex);
             if (!array_key_exists($stringRowIndex, $values)) {
-                throw new Exceptions\RequiredRowNotFound(
-                    'Row has not been found by index ' . ValueDescriber::describe($rowIndex)
-                    . ', possible indexes are ' . implode(',', array_keys($values))
-                );
+                return null;
             }
             $values = $values[$stringRowIndex];
             if (!is_array(current($values))) { // flat array found

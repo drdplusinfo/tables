@@ -6,13 +6,15 @@ namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
-use DrdPlus\Properties\Body\WeightInKg;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
+use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
+use Granam\String\StringTools;
 use Granam\Tools\ValueDescriber;
 
 abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTable
@@ -51,32 +53,36 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
      * @param RangedWeaponCode $rangedWeaponCode
      * @param WeaponCategoryCode $rangedWeaponCategoryCode
      * @param int $requiredStrength
+     * @param DistanceBonus $range
      * @param int $offensiveness
-     * @param int $rangeInMeters
      * @param int $wounds
      * @param WoundTypeCode $woundTypeCode
      * @param int $cover
-     * @param WeightInKg $weightInKg
+     * @param Weight $weight
      * @param bool $twoHandedOnly
      * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\NewRangedWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\DifferentRangedWeaponIsUnderSameName
      */
     public function addNewRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
         WeaponCategoryCode $rangedWeaponCategoryCode,
         int $requiredStrength,
+        DistanceBonus $range,
         int $offensiveness,
-        int $rangeInMeters,
         int $wounds,
         WoundTypeCode $woundTypeCode,
         int $cover,
-        WeightInKg $weightInKg,
+        Weight $weight,
         bool $twoHandedOnly
     )
     {
         /** like @see RangedWeaponCode::isBow() */
-        $isType = 'is' . ucfirst($rangedWeaponCategoryCode->getValue());
+        $isType = StringTools::assembleMethodName(
+            str_replace('_and_', '_or_', $rangedWeaponCategoryCode->getValue()),
+            'is'
+        );
         /** like @see RangedWeaponCode::getBowValues() */
-        $getTypeCodes = 'get' . ucfirst($rangedWeaponCategoryCode->getValue()) . 'Codes';
+        $getTypeCodes = StringTools::assembleGetterForName($rangedWeaponCategoryCode->getValue()) . 'Values';
         if (!is_callable([$rangedWeaponCode, $isType]) || !$rangedWeaponCode->$isType()
             || !is_callable(get_class($rangedWeaponCode) . '::' . $getTypeCodes)
             || !in_array($rangedWeaponCode->getValue(), $rangedWeaponCode::$getTypeCodes(), true)
@@ -87,17 +93,26 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
                 . ' and all possible values ' . var_export($rangedWeaponCode::getPossibleValues(), true)
             );
         }
-        // TODO check conflicts
-        $this->customRangedWeapons[$rangedWeaponCode->getValue()] = [
+        $newRangedWeapon = [
             self::REQUIRED_STRENGTH => $requiredStrength,
             self::OFFENSIVENESS => $offensiveness,
-            self::RANGE => $rangeInMeters,
+            self::RANGE => $range->getValue(), // distance bonus in fact
             self::WOUNDS => $wounds,
-            self::WOUNDS_TYPE => $woundTypeCode,
+            self::WOUNDS_TYPE => $woundTypeCode->getValue(),
             self::COVER => $cover,
-            self::WEIGHT => $weightInKg,
+            self::WEIGHT => $weight->getKilograms(),
             self::TWO_HANDED_ONLY => $twoHandedOnly,
         ];
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $previousRangedWeapon = $this->findRow($rangedWeaponCode);
+        if ($previousRangedWeapon && $newRangedWeapon !== $previousRangedWeapon) {
+            throw new Exceptions\DifferentRangedWeaponIsUnderSameName(
+                "New ranged weapon {$rangedWeaponCode} can not be added as there is already a weapon under same name"
+                . ' but with different parameters: '
+                . ValueDescriber::describe(array_diff_assoc($previousRangedWeapon, $newRangedWeapon))
+            );
+        }
+        $this->customRangedWeapons[$rangedWeaponCode->getValue()] = $newRangedWeapon;
     }
 
     /**

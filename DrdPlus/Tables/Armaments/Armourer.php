@@ -5,11 +5,14 @@ namespace DrdPlus\Tables\Armaments;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
+use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Codes\ItemHoldingCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -17,6 +20,7 @@ use DrdPlus\Properties\Combat\EncounterRange;
 use DrdPlus\Properties\Combat\MaximalRange;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Calculations\SumAndRound;
 use Granam\Integer\IntegerObject;
@@ -926,6 +930,49 @@ class Armourer extends StrictObject
     public function getStrengthForOneHandedWeaponHoldByTwoHands(Strength $strengthOfMainHand): Strength
     {
         return $strengthOfMainHand->add(2);
+    }
+
+    /**
+     * @param MeleeWeaponCode $meleeWeaponCode
+     * @param WeaponCategoryCode $meleeWeaponCategoryCode
+     * @param int $requiredStrength
+     * @param int $lengthInMeters
+     * @param int $offensiveness
+     * @param int $wounds
+     * @param WoundTypeCode $woundTypeCode
+     * @param int $cover
+     * @param Weight $weight
+     * @param bool $twoHandedOnly
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\DifferentMeleeWeaponIsUnderSameName
+     */
+    public function addNewMeleeWeapon(
+        MeleeWeaponCode $meleeWeaponCode,
+        WeaponCategoryCode $meleeWeaponCategoryCode,
+        int $requiredStrength,
+        int $lengthInMeters,
+        int $offensiveness,
+        int $wounds,
+        WoundTypeCode $woundTypeCode,
+        int $cover,
+        Weight $weight,
+        bool $twoHandedOnly
+    )
+    {
+        $meleeWeaponTable = Tables::getIt()->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
+        $meleeWeaponTable->addNewMeleeWeapon(
+            $meleeWeaponCode,
+            $meleeWeaponCategoryCode,
+            $requiredStrength,
+            $lengthInMeters,
+            $offensiveness,
+            $wounds,
+            $woundTypeCode,
+            $cover,
+            $weight,
+            $twoHandedOnly
+        );
     }
 
 }
