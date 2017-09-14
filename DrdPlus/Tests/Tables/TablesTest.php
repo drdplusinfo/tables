@@ -43,6 +43,11 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_any_table()
     {
+        $reflectionClass = new \ReflectionClass(Tables::class);
+        $tablesInstance = $reflectionClass->getProperty('tablesInstance');
+        $tablesInstance->setAccessible(true);
+        $tablesInstance->setValue(null);
+        $tablesInstance->setAccessible(false);
         $tables = Tables::getIt();
         foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
             $baseName = preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);

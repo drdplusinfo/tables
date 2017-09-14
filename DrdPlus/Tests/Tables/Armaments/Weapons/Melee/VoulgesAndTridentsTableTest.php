@@ -85,8 +85,8 @@ class VoulgesAndTridentsTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $voulgesAndTridentsTable = new VoulgesAndTridentsTable();
-        foreach (MeleeWeaponCode::getVoulgeAndTridentCodes() as $voulgeAndTridentCode) {
-            $row = $voulgesAndTridentsTable->getRow([$voulgeAndTridentCode]);
+        foreach (MeleeWeaponCode::getVoulgeAndTridentValues(false /* without custom ones */) as $voulgeAndTridentValue) {
+            $row = $voulgesAndTridentsTable->getRow([$voulgeAndTridentValue]);
             self::assertNotEmpty($row);
         }
     }

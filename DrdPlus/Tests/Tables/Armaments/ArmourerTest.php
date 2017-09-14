@@ -10,7 +10,9 @@ use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
+use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Codes\ItemHoldingCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -38,6 +40,7 @@ use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
+use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\PositiveInteger;
@@ -1803,7 +1806,8 @@ class ArmourerTest extends TestWithMockery
         /** @noinspection PhpUnusedParameterInspection */
         $baseOfWoundsTable->shouldReceive('getBaseOfWounds')
             ->with($currentStrength, $this->type(IntegerInterface::class))
-            ->andReturnUsing(function (Strength $currentStrength, IntegerInterface $weaponBaseOfWounds) {
+            ->andReturnUsing(function (/** @noinspection PhpUnusedParameterInspection */
+                Strength $currentStrength, IntegerInterface $weaponBaseOfWounds) {
                 self::assertSame(789, $weaponBaseOfWounds->getValue());
 
                 return 456;
@@ -1984,4 +1988,65 @@ class ArmourerTest extends TestWithMockery
         );
     }
 
+    /**
+     * @test
+     */
+    public function I_can_add_new_melee_weapon()
+    {
+        $armourer = new Armourer(Tables::getIt());
+        $name = uniqid('rock&rock', true);
+        MeleeWeaponCode::addNewMeleeWeaponCode($name, WeaponCategoryCode::getIt(WeaponCategoryCode::UNARMED), []);
+        $rockAndRock = MeleeWeaponCode::getIt($name);
+        $armourer->addNewMeleeWeapon(
+            $rockAndRock,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::UNARMED),
+            $requiredStrength = 0,
+            $weaponLength = 1,
+            $offensiveness = 2,
+            $wounds = 3,
+            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::STAB),
+            $cover = 4,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            $twoHandedOnly = false
+        );
+        self::assertSame($requiredStrength, $armourer->getRequiredStrengthForArmament($rockAndRock));
+        self::assertSame($weaponLength, $armourer->getLengthOfWeaponOrShield($rockAndRock));
+        self::assertSame($offensiveness, $armourer->getOffensivenessOfWeaponlike($rockAndRock));
+        self::assertSame($wounds, $armourer->getWoundsOfWeaponlike($rockAndRock));
+        self::assertSame($woundTypeCode->getValue(), $armourer->getWoundsTypeOfWeaponlike($rockAndRock));
+        self::assertSame($cover, $armourer->getCoverOfWeaponOrShield($rockAndRock));
+        self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($rockAndRock));
+        self::assertSame($twoHandedOnly, $armourer->isTwoHandedOnly($rockAndRock));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_add_new_ranged_weapon()
+    {
+        $armourer = new Armourer(Tables::getIt());
+        $name = uniqid('hand ballista', true);
+        RangedWeaponCode::addNewRangedWeaponCode($name, WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW), []);
+        $handBallista = RangedWeaponCode::getIt($name);
+        $armourer->addNewRangedWeapon(
+            $handBallista,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW),
+            $requiredStrength = 0,
+            $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
+            $offensiveness = 2,
+            $wounds = 3,
+            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::STAB),
+            $cover = 4,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            $twoHandedOnly = false
+        );
+        self::assertSame($requiredStrength, $armourer->getRequiredStrengthForArmament($handBallista));
+        self::assertSame($range->getValue(), $armourer->getRangeOfRangedWeapon($handBallista));
+        self::assertSame($offensiveness, $armourer->getOffensivenessOfWeaponlike($handBallista));
+        self::assertSame($wounds, $armourer->getWoundsOfWeaponlike($handBallista));
+        self::assertSame($woundTypeCode->getValue(), $armourer->getWoundsTypeOfWeaponlike($handBallista));
+        self::assertSame($cover, $armourer->getCoverOfWeaponOrShield($handBallista));
+        self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($handBallista));
+        self::assertSame($twoHandedOnly, $armourer->isTwoHandedOnly($handBallista));
+    }
 }

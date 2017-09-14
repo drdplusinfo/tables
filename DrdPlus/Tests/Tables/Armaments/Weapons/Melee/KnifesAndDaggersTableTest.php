@@ -67,8 +67,8 @@ class KnifesAndDaggersTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $knifesAndDaggersTable = new KnifesAndDaggersTable();
-        foreach (MeleeWeaponCode::getKnifeAndDaggerCodes() as $knifeAndDaggerCode) {
-            $row = $knifesAndDaggersTable->getRow([$knifeAndDaggerCode]);
+        foreach (MeleeWeaponCode::getKnifeAndDaggerValues(false /* without custom ones */) as $knifeAndDaggerValue) {
+            $row = $knifesAndDaggersTable->getRow([$knifeAndDaggerValue]);
             self::assertNotEmpty($row);
         }
     }

@@ -72,7 +72,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
      * @return bool
      * @throws \DrdPlus\Tables\Combat\Actions\Exceptions\UnknownCombatAction
      */
-    public function canCombineTwoActions(CombatActionCode $someAction, CombatActionCode $anotherAction)
+    public function canCombineTwoActions(CombatActionCode $someAction, CombatActionCode $anotherAction): bool
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -91,7 +91,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function canCombineActions(array $actions)
+    public function canCombineActions(array $actions): bool
     {
         if (count($actions) < 2) {
             return true;

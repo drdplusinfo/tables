@@ -1,0 +1,64 @@
+<?php
+declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types of given parameters
+
+namespace DrdPlus\Tables\Armaments\Weapons;
+
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
+use DrdPlus\Codes\Armaments\WeaponCode;
+use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
+use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
+use Granam\String\StringTools;
+
+abstract class WeaponsTable extends AbstractArmamentsTable implements WeaponlikeTable
+{
+    private $customWeapons = [];
+
+    /**
+     * @param WeaponCode $weaponCode
+     * @param WeaponCategoryCode $weaponCategoryCode
+     * @param array $newWeaponParameters
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
+     */
+    protected function addNewCustomWeapon(
+        WeaponCode $weaponCode,
+        WeaponCategoryCode $weaponCategoryCode,
+        array $newWeaponParameters
+    )
+    {
+        /** like @see RangedWeaponCode::isBow() */
+        $isType = StringTools::assembleMethodName(str_replace('_and_', '_or_', $weaponCategoryCode->getValue()), 'is');
+        /** like @see RangedWeaponCode::getBowValues() */
+        $getTypeCodes = StringTools::assembleGetterForName($weaponCategoryCode->getValue()) . 'Values';
+        if (!method_exists($weaponCode, $isType) || !$weaponCode->$isType()
+            || !method_exists($weaponCode, $getTypeCodes)
+            || !in_array($weaponCode->getValue(), $weaponCode::$getTypeCodes(), true)
+        ) {
+            throw new Exceptions\NewWeaponIsNotOfRequiredType(
+                "Expected new weapon to be '$weaponCategoryCode' type, got {$weaponCode}"
+                . ' with values ' . implode(',', $weaponCode::getPossibleValues())
+            );
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $previousWeaponParameters = $this->findRow($weaponCode);
+        if ($previousWeaponParameters) {
+            if ($newWeaponParameters === $previousWeaponParameters) {
+                return;
+            }
+            throw new Exceptions\DifferentWeaponIsUnderSameName(
+                "New weapon {$weaponCode} can not be added as there is already a weapon under same name"
+                . ' but with different parameters: '
+                . var_export(array_diff_assoc($previousWeaponParameters, $newWeaponParameters), true)
+            );
+        }
+        $this->customWeapons[static::class][$weaponCode->getValue()] = $newWeaponParameters;
+    }
+
+    public function getIndexedValues(): array
+    {
+        $indexedValues = parent::getIndexedValues();
+
+        return array_merge($indexedValues, $this->customWeapons[static::class] ?? []);
+    }
+
+}

@@ -104,8 +104,8 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $macesAndClubsTable = new MacesAndClubsTable();
-        foreach (MeleeWeaponCode::getMaceAndClubCodes() as $maceAndClubCode) {
-            $row = $macesAndClubsTable->getRow([$maceAndClubCode]);
+        foreach (MeleeWeaponCode::getMaceAndClubValues(false /* without custom ones */) as $maceAndClubValue) {
+            $row = $macesAndClubsTable->getRow([$maceAndClubValue]);
             self::assertNotEmpty($row);
         }
     }

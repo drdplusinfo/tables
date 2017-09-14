@@ -7,6 +7,7 @@ use DrdPlus\Codes\Units\SpeedUnitCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
+use Granam\Number\NumberInterface;
 
 class Speed extends AbstractMeasurementWithBonus
 {
@@ -19,7 +20,7 @@ class Speed extends AbstractMeasurementWithBonus
     private $speedTable;
 
     /**
-     * @param float $value
+     * @param float|NumberInterface $value
      * @param SpeedTable $speedTable
      * @param string $unit
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit

@@ -109,10 +109,10 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     /**
      * @test
      */
-    public function I_can_add_new_melee_weapon_by_specific_method()
+    public function I_can_add_new_ranged_weapon_by_specific_method()
     {
         $sut = $this->createSut();
-        $name = uniqid('crasher', true);
+        $name = uniqid('nailer', true);
         $addNew = StringTools::assembleMethodName(
             str_replace('_and_', '_or_', $this->getRangedWeaponCategory()->getValue()),
             'addNew'
@@ -139,4 +139,119 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         self::assertSame($weight->getKilograms(), $sut->getWeightOf($nailer));
         self::assertSame($twoHandedOnly, $sut->getTwoHandedOnlyOf($nailer));
     }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @expectedExceptionMessageRegExp ~sword.+cake~
+     */
+    public function I_can_not_add_new_melee_weapon_with_unexpected_category()
+    {
+        $sut = $this->createSut();
+        $name = uniqid('cake', true);
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        $cake = RangedWeaponCode::getIt($name);
+        $sut->addNewRangedWeapon(
+            $cake,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORD), // intentionally melee
+            $requiredStrength = 0,
+            $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
+            $offensiveness = 2,
+            $wounds = 3,
+            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $cover = 4,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            $twoHandedOnly = false
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider provideNewWeaponSlightlyChangedParameters
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
+     * @param $templateRequiredStrength
+     * @param DistanceBonus $templateRange
+     * @param $templateOffensiveness
+     * @param $templateWounds
+     * @param WoundTypeCode $templateWoundTypeCode
+     * @param $templateCover
+     * @param $templateWeight
+     * @param bool $templateTwoHandedOnly
+     * @param $requiredStrength
+     * @param DistanceBonus $range
+     * @param $offensiveness
+     * @param $wounds
+     * @param WoundTypeCode $woundTypeCode
+     * @param $cover
+     * @param $weight
+     * @param bool $twoHandedOnly
+     */
+    public function I_can_not_add_same_named_weapon_with_different_parameters(
+        $templateRequiredStrength,
+        $templateRange,
+        $templateOffensiveness,
+        $templateWounds,
+        $templateWoundTypeCode,
+        $templateCover,
+        $templateWeight,
+        $templateTwoHandedOnly,
+        $requiredStrength,
+        $range,
+        $offensiveness,
+        $wounds,
+        $woundTypeCode,
+        $cover,
+        $weight,
+        $twoHandedOnly
+    )
+    {
+        $sut = $this->createSut();
+        $name = 'hailstone_' . static::getSutClass(); // unique per SUT
+        $addNew = StringTools::assembleMethodName(
+            str_replace('_and_', '_or_', $this->getRangedWeaponCategory()->getValue()),
+            'addNew'
+        );
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        $hailstone = RangedWeaponCode::getIt($name);
+        $sut->$addNew(
+            $hailstone,
+            $templateRequiredStrength,
+            $templateRange,
+            $templateOffensiveness,
+            $templateWounds,
+            $templateWoundTypeCode,
+            $templateCover,
+            $templateWeight,
+            $templateTwoHandedOnly
+        );
+        $sut->$addNew($hailstone, $requiredStrength, $range, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
+    }
+
+    public function provideNewWeaponSlightlyChangedParameters(): array
+    {
+        $template = [
+            'requiredStrength' => 0,
+            'range' => new DistanceBonus(1, Tables::getIt()->getDistanceTable()),
+            'offensiveness' => 2,
+            'wounds' => 3,
+            'woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::STAB),
+            'cover' => 4,
+            'weight' => new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            'twoHandedOnly' => false,
+        ];
+        $templateValues = array_values($template);
+
+        return [
+            array_merge($templateValues, array_values(array_merge($template, ['requiredStrength' => $template['requiredStrength'] + 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['range' => new DistanceBonus(2, Tables::getIt()->getDistanceTable())]))),
+            array_merge($templateValues, array_values(array_merge($template, ['offensiveness' => $template['offensiveness'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CRUSH)]))),
+            array_merge($templateValues, array_values(array_merge($template, ['cover' => $template['cover'] + 2]))),
+            array_merge($templateValues, array_values(array_merge($template, ['weight' => new Weight(3, Weight::KG, Tables::getIt()->getWeightTable())]))),
+            array_merge($templateValues, array_values(array_merge($template, ['twoHandedOnly' => !$template['twoHandedOnly']]))),
+        ];
+    }
+
 }

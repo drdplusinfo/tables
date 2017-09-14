@@ -20,6 +20,7 @@ use DrdPlus\Properties\Combat\EncounterRange;
 use DrdPlus\Properties\Combat\MaximalRange;
 use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Calculations\SumAndRound;
@@ -944,8 +945,8 @@ class Armourer extends StrictObject
      * @param Weight $weight
      * @param bool $twoHandedOnly
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\DifferentMeleeWeaponIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
     public function addNewMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
@@ -966,6 +967,49 @@ class Armourer extends StrictObject
             $meleeWeaponCategoryCode,
             $requiredStrength,
             $lengthInMeters,
+            $offensiveness,
+            $wounds,
+            $woundTypeCode,
+            $cover,
+            $weight,
+            $twoHandedOnly
+        );
+    }
+
+    /**
+     * @param RangedWeaponCode $rangedWeaponCode
+     * @param WeaponCategoryCode $rangedWeaponCategoryCode
+     * @param int $requiredStrength
+     * @param DistanceBonus $range
+     * @param int $offensiveness
+     * @param int $wounds
+     * @param WoundTypeCode $woundTypeCode
+     * @param int $cover
+     * @param Weight $weight
+     * @param bool $twoHandedOnly
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
+     */
+    public function addNewRangedWeapon(
+        RangedWeaponCode $rangedWeaponCode,
+        WeaponCategoryCode $rangedWeaponCategoryCode,
+        int $requiredStrength,
+        DistanceBonus $range,
+        int $offensiveness,
+        int $wounds,
+        WoundTypeCode $woundTypeCode,
+        int $cover,
+        Weight $weight,
+        bool $twoHandedOnly
+    )
+    {
+        $rangedWeaponTable = Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode);
+        $rangedWeaponTable->addNewRangedWeapon(
+            $rangedWeaponCode,
+            $rangedWeaponCategoryCode,
+            $requiredStrength,
+            $range,
             $offensiveness,
             $wounds,
             $woundTypeCode,

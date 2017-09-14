@@ -7,19 +7,15 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
-use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
+use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
-use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
-use Granam\String\StringTools;
 use Granam\Tools\ValueDescriber;
 
-abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements MeleeWeaponlikesTable
+abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlikesTable
 {
-
-    private $customMeleeWeapons = [];
 
     protected function getRowsHeader(): array
     {
@@ -51,8 +47,8 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\DifferentMeleeWeaponIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
     public function addNewMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
@@ -67,43 +63,20 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
         bool $twoHandedOnly
     )
     {
-        /** like @see MeleeWeaponCode::isAxe() */
-        $isType = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $meleeWeaponCategoryCode->getValue()),
-            'is'
+        $this->addNewCustomWeapon(
+            $meleeWeaponCode,
+            $meleeWeaponCategoryCode,
+            [
+                self::REQUIRED_STRENGTH => $requiredStrength,
+                self::LENGTH => $weaponLength,
+                self::OFFENSIVENESS => $offensiveness,
+                self::WOUNDS => $wounds,
+                self::WOUNDS_TYPE => $woundTypeCode->getValue(),
+                self::COVER => $cover,
+                self::WEIGHT => $weight->getKilograms(),
+                self::TWO_HANDED_ONLY => $twoHandedOnly,
+            ]
         );
-        /** like @see MeleeWeaponCode::getAxeCodes() */
-        $getTypeCodes = StringTools::assembleGetterForName($meleeWeaponCategoryCode->getValue()) . 'Codes';
-        if (!is_callable([$meleeWeaponCode, $isType]) || !$meleeWeaponCode->$isType()
-            || !is_callable(get_class($meleeWeaponCode) . '::' . $getTypeCodes)
-            || !in_array($meleeWeaponCode->getValue(), $meleeWeaponCode::$getTypeCodes(), true)
-        ) {
-            throw new Exceptions\NewMeleeWeaponIsNotOfRequiredType(
-                "Expected new melee weapon to be '$meleeWeaponCategoryCode' type, got '{$meleeWeaponCode}'"
-                . " with $meleeWeaponCategoryCode type values " . implode(',', $meleeWeaponCode::$getTypeCodes())
-                . ' and all possible values ' . implode(',', $meleeWeaponCode::getPossibleValues())
-            );
-        }
-        $newMeleeWeapon = [
-            self::REQUIRED_STRENGTH => $requiredStrength,
-            self::LENGTH => $weaponLength,
-            self::OFFENSIVENESS => $offensiveness,
-            self::WOUNDS => $wounds,
-            self::WOUNDS_TYPE => $woundTypeCode->getValue(),
-            self::COVER => $cover,
-            self::WEIGHT => $weight->getKilograms(),
-            self::TWO_HANDED_ONLY => $twoHandedOnly,
-        ];
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $previousMeleeWeapon = $this->findRow($meleeWeaponCode);
-        if ($previousMeleeWeapon && $newMeleeWeapon !== $previousMeleeWeapon) {
-            throw new Exceptions\DifferentMeleeWeaponIsUnderSameName(
-                "New melee weapon {$meleeWeaponCode} can not be added as there is already a weapon under same name"
-                . ' but with different parameters: '
-                . ValueDescriber::describe(array_diff_assoc($previousMeleeWeapon, $newMeleeWeapon))
-            );
-        }
-        $this->customMeleeWeapons[static::class][$meleeWeaponCode->getValue()] = $newMeleeWeapon;
     }
 
     /**
@@ -123,19 +96,6 @@ abstract class MeleeWeaponsTable extends AbstractArmamentsTable implements Melee
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      */
     private function getValueOf($weaponlikeCode, string $valueName)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->customMeleeWeapons[static::class][ToString::toString($weaponlikeCode)][$valueName]
-            ?? $this->getStandardValueOf($weaponlikeCode, $valueName);
-    }
-
-    /**
-     * @param string|StringInterface $weaponlikeCode
-     * @param string $valueName
-     * @return float|int|string|false
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
-     */
-    private function getStandardValueOf($weaponlikeCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

@@ -146,4 +146,163 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         self::assertSame($weight->getKilograms(), $sut->getWeightOf($crasher));
         self::assertSame($twoHandedOnly, $sut->getTwoHandedOnlyOf($crasher));
     }
+
+    /**
+     * @test
+     */
+    public function I_can_add_same_weapon_multiple_time_without_error()
+    {
+        $sut = $this->createSut();
+        $name = uniqid('cleaver', true);
+        $addNew = StringTools::assembleMethodName(
+            str_replace('_and_', '_or_', $this->getMeleeWeaponCategory()->getValue()),
+            'addNew'
+        );
+        MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
+        $cleaver = MeleeWeaponCode::getIt($name);
+        $requiredStrength = 0;
+        $weaponLength = 1;
+        $offensiveness = 2;
+        $wounds = 3;
+        $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT);
+        $cover = 4;
+        $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable());
+        $twoHandedOnly = false;
+        for ($attempt = 1; $attempt < 5; $attempt++) {
+            $sut->$addNew(
+                $cleaver,
+                $requiredStrength,
+                $weaponLength,
+                $offensiveness,
+                $wounds,
+                $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+                $cover,
+                $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+                $twoHandedOnly = false
+            );
+        }
+        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($cleaver));
+        self::assertSame($weaponLength, $sut->getLengthOf($cleaver));
+        self::assertSame($offensiveness, $sut->getOffensivenessOf($cleaver));
+        self::assertSame($wounds, $sut->getWoundsOf($cleaver));
+        self::assertSame($woundTypeCode->getValue(), $sut->getWoundsTypeOf($cleaver));
+        self::assertSame($cover, $sut->getCoverOf($cleaver));
+        self::assertSame($weight->getKilograms(), $sut->getWeightOf($cleaver));
+        self::assertSame($twoHandedOnly, $sut->getTwoHandedOnlyOf($cleaver));
+    }
+
+    /**
+     * @test
+     * @dataProvider provideNewWeaponSlightlyChangedParameters
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
+     *
+     * @param $templateRequiredStrength
+     * @param $templateWeaponLength
+     * @param $templateOffensiveness
+     * @param $templateWounds
+     * @param $templateWoundTypeCode
+     * @param $templateCover
+     * @param $templateWeight
+     * @param $templateTwoHandedOnly
+     * @param $requiredStrength
+     * @param $weaponLength
+     * @param $offensiveness
+     * @param $wounds
+     * @param $woundTypeCode
+     * @param $cover
+     * @param $weight
+     * @param $twoHandedOnly
+     */
+    public function I_can_not_add_same_named_weapon_with_different_parameters(
+        $templateRequiredStrength,
+        $templateWeaponLength,
+        $templateOffensiveness,
+        $templateWounds,
+        $templateWoundTypeCode,
+        $templateCover,
+        $templateWeight,
+        $templateTwoHandedOnly,
+        $requiredStrength,
+        $weaponLength,
+        $offensiveness,
+        $wounds,
+        $woundTypeCode,
+        $cover,
+        $weight,
+        $twoHandedOnly
+    )
+    {
+        $sut = $this->createSut();
+        $name = 'spoon_' . static::getSutClass(); // unique per SUT
+        $addNew = StringTools::assembleMethodName(
+            str_replace('_and_', '_or_', $this->getMeleeWeaponCategory()->getValue()),
+            'addNew'
+        );
+        MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
+        $spoon = MeleeWeaponCode::getIt($name);
+        $sut->$addNew(
+            $spoon,
+            $templateRequiredStrength,
+            $templateWeaponLength,
+            $templateOffensiveness,
+            $templateWounds,
+            $templateWoundTypeCode,
+            $templateCover,
+            $templateWeight,
+            $templateTwoHandedOnly
+        );
+        $sut->$addNew($spoon, $requiredStrength, $weaponLength, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
+    }
+
+    public function provideNewWeaponSlightlyChangedParameters(): array
+    {
+        $template = [
+            'requiredStrength' => 0,
+            'weaponLength' => 1,
+            'offensiveness' => 2,
+            'wounds' => 3,
+            'woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CUT),
+            'cover' => 4,
+            'weight' => new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            'twoHandedOnly' => false,
+        ];
+        $templateValues = array_values($template);
+
+        return [
+            array_merge($templateValues, array_values(array_merge($template, ['requiredStrength' => $template['requiredStrength'] + 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['weaponLength' => $template['weaponLength'] + 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['offensiveness' => $template['offensiveness'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
+            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CRUSH)]))),
+            array_merge($templateValues, array_values(array_merge($template, ['cover' => $template['cover'] + 2]))),
+            array_merge($templateValues, array_values(array_merge($template, ['weight' => new Weight(3, Weight::KG, Tables::getIt()->getWeightTable())]))),
+            array_merge($templateValues, array_values(array_merge($template, ['twoHandedOnly' => !$template['twoHandedOnly']]))),
+        ];
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @expectedExceptionMessageRegExp ~crossbow.+ham&axe~
+     */
+    public function I_can_not_add_new_melee_weapon_with_unexpected_category()
+    {
+        $sut = $this->createSut();
+        $name = uniqid('ham&axe', true);
+        MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
+        $hamAndAxe = MeleeWeaponCode::getIt($name);
+        $sut->addNewMeleeWeapon(
+            $hamAndAxe,
+            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW), // intentionally ranged
+            $requiredStrength = 0,
+            $weaponLength = 1,
+            $offensiveness = 2,
+            $wounds = 3,
+            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $cover = 4,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            $twoHandedOnly = false
+        );
+    }
 }

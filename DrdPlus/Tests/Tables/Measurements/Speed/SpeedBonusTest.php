@@ -3,11 +3,13 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Measurements\Speed;
 
+use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfBonus;
+use Mockery\MockInterface;
 
 class SpeedBonusTest extends AbstractTestOfBonus
 {
@@ -18,13 +20,22 @@ class SpeedBonusTest extends AbstractTestOfBonus
     {
         $speedBonus = new SpeedBonus(123, $this->createSpeedTable());
         $distanceTable = $this->createDistanceTable();
+        $distance = $this->createDistance();
         $distanceTable->shouldReceive('toDistance')
-            ->andReturnUsing(function (DistanceBonus $distanceBonus) {
+            ->andReturnUsing(function (DistanceBonus $distanceBonus) use ($distance) {
                 self::assertSame(123, $distanceBonus->getValue());
 
-                return 'foo';
+                return $distance;
             });
-        self::assertSame('foo', $speedBonus->getDistancePerRound($distanceTable));
+        self::assertSame($distance, $speedBonus->getDistancePerRound($distanceTable));
+    }
+
+    /**
+     * @return Distance|MockInterface
+     */
+    private function createDistance(): Distance
+    {
+        return $this->mockery(Distance::class);
     }
 
     /**

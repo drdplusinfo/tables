@@ -3,6 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Speed;
 
+use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
@@ -29,8 +30,10 @@ class SpeedBonus extends AbstractBonus
     /**
      * @param string|null $wantedUnit
      * @return Speed
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    public function getSpeed($wantedUnit = null)
+    public function getSpeed(string $wantedUnit = null): Speed
     {
         return $this->speedTable->toSpeed($this, $wantedUnit);
     }
@@ -39,7 +42,7 @@ class SpeedBonus extends AbstractBonus
      * @param DistanceTable $distanceTable
      * @return \DrdPlus\Tables\Measurements\Distance\Distance
      */
-    public function getDistancePerRound(DistanceTable $distanceTable)
+    public function getDistancePerRound(DistanceTable $distanceTable): Distance
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return (new DistanceBonus($this->getValue(), $distanceTable))->getDistance();

@@ -8,46 +8,10 @@ use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tests\Tables\TableTest;
+use Mockery\MockInterface;
 
 class CombatActionsCompatibilityTableTest extends TableTest
 {
-    /**
-     * @test
-     */
-    public function I_can_get_header()
-    {
-        self::assertSame(
-            [
-                [
-                    'action',
-                    'move',
-                    'run',
-                    'swap_weapons',
-                    'concentration_on_defense',
-                    'put_out_easily_accessible_item',
-                    'put_out_hardly_accessible_item',
-                    'laying',
-                    'sitting_or_on_kneels',
-                    'getting_up',
-                    'putting_on_armor',
-                    'putting_on_armor_with_help',
-                    'helping_to_put_on_armor',
-                    'attacked_from_behind',
-                    'blindfold_fight',
-                    'fight_in_reduced_visibility',
-                    'attack_on_disabled_opponent',
-                    'headless_attack',
-                    'cover_of_ally',
-                    'flat_attack',
-                    'pressure',
-                    'retreat',
-                    'handover_item',
-                    'aimed_shot',
-                ],
-            ],
-            (new CombatActionsCompatibilityTable())->getHeader()
-        );
-    }
 
     /**
      * @test
@@ -135,4 +99,40 @@ class CombatActionsCompatibilityTableTest extends TableTest
         ]));
     }
 
+    /**
+     * @test
+     * @dataProvider provideUnknownCombatActions
+     * @expectedException \DrdPlus\Tables\Combat\Actions\Exceptions\UnknownCombatAction
+     * @param string $someAction
+     * @param string $anotherAction
+     */
+    public function I_can_not_get_compatibility_of_unknown_actions(string $someAction, string $anotherAction)
+    {
+        $someActionCode = $this->createCombatActionCode($someAction);
+        $anotherActionCode = $this->createCombatActionCode($anotherAction);
+        (new CombatActionsCompatibilityTable())->canCombineTwoActions($someActionCode, $anotherActionCode);
+    }
+
+    /**
+     * @param string $value
+     * @return CombatActionCode|MockInterface
+     */
+    private function createCombatActionCode(string $value): CombatActionCode
+    {
+        $combatActionCode = $this->mockery(CombatActionCode::class);
+        $combatActionCode->shouldReceive('getValue')
+            ->andReturn($value);
+        $combatActionCode->shouldReceive('__toString')
+            ->andReturn($value);
+
+        return $combatActionCode;
+    }
+
+    public function provideUnknownCombatActions(): array
+    {
+        return [
+            [CombatActionCode::ATTACK_ON_DISABLED_OPPONENT, 'foo'],
+            ['bar', CombatActionCode::HANDOVER_ITEM],
+        ];
+    }
 }

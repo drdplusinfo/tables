@@ -54,6 +54,7 @@ class PossibleActivitiesAccordingToContrastTableTest extends TableTest
             [4, ['fast march in hills']],
             [5, ['walk in hills', 'run on road']],
             [6, ['walk on road']],
+            [999, ['walk on road']],
         ];
     }
 
@@ -82,6 +83,7 @@ class PossibleActivitiesAccordingToContrastTableTest extends TableTest
             [4, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
             [5, CombatActionCode::FIGHT_IN_REDUCED_VISIBILITY],
             [6, CombatActionCode::BLINDFOLD_FIGHT],
+            [999, CombatActionCode::BLINDFOLD_FIGHT],
         ];
     }
 }

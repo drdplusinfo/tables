@@ -67,8 +67,8 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $sabersAndBowieKnifesTable = new SabersAndBowieKnifesTable();
-        foreach (MeleeWeaponCode::getSaberAndBowieKnifeCodes() as $saberAndBowieKnifeCode) {
-            $row = $sabersAndBowieKnifesTable->getRow([$saberAndBowieKnifeCode]);
+        foreach (MeleeWeaponCode::getSaberAndBowieKnifeValues(false /* without custom ones */) as $saberAndBowieKnifeValue) {
+            $row = $sabersAndBowieKnifesTable->getRow([$saberAndBowieKnifeValue]);
             self::assertNotEmpty($row);
         }
     }

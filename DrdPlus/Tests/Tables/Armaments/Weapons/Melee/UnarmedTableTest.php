@@ -58,8 +58,8 @@ class UnarmedTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $unarmedTable = new UnarmedTable();
-        foreach (MeleeWeaponCode::getUnarmedCodes() as $unarmedCode) {
-            $row = $unarmedTable->getRow([$unarmedCode]);
+        foreach (MeleeWeaponCode::getUnarmedValues(false /* without custom ones */) as $unarmedValue) {
+            $row = $unarmedTable->getRow([$unarmedValue]);
             self::assertNotEmpty($row);
         }
     }

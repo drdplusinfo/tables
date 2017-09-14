@@ -7,22 +7,17 @@ use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
-use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
-use DrdPlus\Tables\Armaments\Partials\WeaponlikeTable;
+use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
-use Granam\Scalar\Tools\ToString;
 use Granam\String\StringInterface;
-use Granam\String\StringTools;
 use Granam\Tools\ValueDescriber;
 
-abstract class RangedWeaponsTable extends AbstractArmamentsTable implements WeaponlikeTable
+abstract class RangedWeaponsTable extends WeaponsTable
 {
     const RANGE = 'range';
     const WEAPON = 'weapon';
-
-    private $customRangedWeapons = [];
 
     /**
      * @return array|string[]
@@ -60,8 +55,8 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\NewRangedWeaponIsNotOfRequiredType
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\DifferentRangedWeaponIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
     public function addNewRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
@@ -76,43 +71,20 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
         bool $twoHandedOnly
     )
     {
-        /** like @see RangedWeaponCode::isBow() */
-        $isType = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $rangedWeaponCategoryCode->getValue()),
-            'is'
+        $this->addNewCustomWeapon(
+            $rangedWeaponCode,
+            $rangedWeaponCategoryCode,
+            [
+                self::REQUIRED_STRENGTH => $requiredStrength,
+                self::OFFENSIVENESS => $offensiveness,
+                self::RANGE => $range->getValue(), // distance bonus in fact
+                self::WOUNDS => $wounds,
+                self::WOUNDS_TYPE => $woundTypeCode->getValue(),
+                self::COVER => $cover,
+                self::WEIGHT => $weight->getKilograms(),
+                self::TWO_HANDED_ONLY => $twoHandedOnly,
+            ]
         );
-        /** like @see RangedWeaponCode::getBowValues() */
-        $getTypeCodes = StringTools::assembleGetterForName($rangedWeaponCategoryCode->getValue()) . 'Values';
-        if (!is_callable([$rangedWeaponCode, $isType]) || !$rangedWeaponCode->$isType()
-            || !is_callable(get_class($rangedWeaponCode) . '::' . $getTypeCodes)
-            || !in_array($rangedWeaponCode->getValue(), $rangedWeaponCode::$getTypeCodes(), true)
-        ) {
-            throw new Exceptions\NewRangedWeaponIsNotOfRequiredType(
-                "Expected new ranged weapon to be '$rangedWeaponCategoryCode' type, got {$rangedWeaponCode}"
-                . " with $rangedWeaponCode type values " . implode(',', $rangedWeaponCode::$getTypeCodes())
-                . ' and all possible values ' . var_export($rangedWeaponCode::getPossibleValues(), true)
-            );
-        }
-        $newRangedWeapon = [
-            self::REQUIRED_STRENGTH => $requiredStrength,
-            self::OFFENSIVENESS => $offensiveness,
-            self::RANGE => $range->getValue(), // distance bonus in fact
-            self::WOUNDS => $wounds,
-            self::WOUNDS_TYPE => $woundTypeCode->getValue(),
-            self::COVER => $cover,
-            self::WEIGHT => $weight->getKilograms(),
-            self::TWO_HANDED_ONLY => $twoHandedOnly,
-        ];
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $previousRangedWeapon = $this->findRow($rangedWeaponCode);
-        if ($previousRangedWeapon && $newRangedWeapon !== $previousRangedWeapon) {
-            throw new Exceptions\DifferentRangedWeaponIsUnderSameName(
-                "New ranged weapon {$rangedWeaponCode} can not be added as there is already a weapon under same name"
-                . ' but with different parameters: '
-                . ValueDescriber::describe(array_diff_assoc($previousRangedWeapon, $newRangedWeapon))
-            );
-        }
-        $this->customRangedWeapons[$rangedWeaponCode->getValue()] = $newRangedWeapon;
     }
 
     /**
@@ -126,25 +98,12 @@ abstract class RangedWeaponsTable extends AbstractArmamentsTable implements Weap
     }
 
     /**
-     * @param string|StringInterface $rangedWeaponCode
-     * @param string $valueName
-     * @return float|int|string|bool
-     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
-     */
-    protected function getValueOf($rangedWeaponCode, string $valueName)
-    {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->customRangedWeapons[ToString::toString($rangedWeaponCode)][$valueName]
-            ?? $this->getStandardValueOf($rangedWeaponCode, $valueName);
-    }
-
-    /**
      * @param string|StringInterface|RangedWeaponCode $rangedWeaponCode
      * @param string $valueName
      * @return float|int|string|bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      */
-    private function getStandardValueOf($rangedWeaponCode, string $valueName)
+    protected function getValueOf($rangedWeaponCode, string $valueName)
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

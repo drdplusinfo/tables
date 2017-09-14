@@ -86,8 +86,8 @@ class SwordsTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $swordsTable = new SwordsTable();
-        foreach (MeleeWeaponCode::getSwordCodes() as $swordCode) {
-            $row = $swordsTable->getRow([$swordCode]);
+        foreach (MeleeWeaponCode::getSwordValues(false /* without custom ones */) as $swordValue) {
+            $row = $swordsTable->getRow([$swordValue]);
             self::assertNotEmpty($row);
         }
     }

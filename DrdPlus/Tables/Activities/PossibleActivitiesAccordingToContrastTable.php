@@ -44,7 +44,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
      * @param PositiveInteger $contrast
      * @return string
      */
-    public function getPossibleActionsExample(PositiveInteger $contrast)
+    public function getPossibleActionsExample(PositiveInteger $contrast): string
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPossibility($contrast, self::POSSIBLE_ACTIVITIES_EXAMPLE);
@@ -55,7 +55,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
      * @param string $actionName
      * @return string
      */
-    private function getPossibility(PositiveInteger $contrast, $actionName)
+    private function getPossibility(PositiveInteger $contrast, string $actionName): string
     {
         $contrastValue = $contrast->getValue();
         if ($contrastValue > 6) {
@@ -70,7 +70,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
      * @param PositiveInteger $contrast
      * @return string
      */
-    public function getFightTypeByContrast(PositiveInteger $contrast)
+    public function getFightTypeByContrast(PositiveInteger $contrast): string
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getPossibility($contrast, self::FIGHT_TYPE_BY_CONTRAST);

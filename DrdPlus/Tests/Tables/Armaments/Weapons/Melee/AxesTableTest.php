@@ -62,8 +62,8 @@ class AxesTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $axesTable = new AxesTable();
-        foreach (MeleeWeaponCode::getAxeCodes() as $axeCode) {
-            $row = $axesTable->getRow([$axeCode]);
+        foreach (MeleeWeaponCode::getAxeValues(false /* without custom ones */) as $axeValue) {
+            $row = $axesTable->getRow([$axeValue]);
             self::assertNotEmpty($row);
         }
     }

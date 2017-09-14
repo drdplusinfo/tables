@@ -9,7 +9,6 @@ use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Calculations\SumAndRound;
-use Granam\Scalar\Tools\Exceptions\WrongParameterType;
 use Granam\Tools\ValueDescriber;
 
 /**
@@ -61,7 +60,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         TerrainCode $terrainCode,
         SpeedTable $speedTable,
         TerrainDifficultyPercents $difficultyPercents
-    )
+    ): SpeedBonus
     {
         // value is zero or negative, so bonus is malus in fact
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -78,7 +77,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
     private function getSpeedMalusValueForTerrain(
         TerrainCode $terrainCode,
         TerrainDifficultyPercents $difficultyPercents
-    )
+    ): int
     {
         // value is zero or negative, so bonus is malus in fact
         $range = $this->getSpeedMalusValuesRangeForTerrain($terrainCode);
@@ -92,19 +91,14 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
      * @param TerrainCode $terrainCode
      * @return array|\int[]
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode
-     * @throws \DrdPlus\Tables\Environments\Exceptions\InvalidTerrainCodeFormat
      */
-    public function getSpeedMalusValuesRangeForTerrain(TerrainCode $terrainCode)
+    public function getSpeedMalusValuesRangeForTerrain(TerrainCode $terrainCode): array
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getRow([$terrainCode]);
         } catch (RequiredRowNotFound $requiredRowDataNotFound) {
-            throw new Exceptions\UnknownTerrainCode('Unknown terrain code ' . ValueDescriber::describe($terrainCode));
-        } catch (WrongParameterType $wrongParameterType) {
-            throw new Exceptions\InvalidTerrainCodeFormat(
-                'Unexpected format of a terrain code: ' . ValueDescriber::describe($terrainCode)
-            );
+            throw new Exceptions\UnknownTerrainCode('Unknown terrain code "' . ValueDescriber::describe($terrainCode) . "'");
         }
     }
 
