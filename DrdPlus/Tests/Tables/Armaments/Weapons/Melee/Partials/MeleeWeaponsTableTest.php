@@ -6,6 +6,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
@@ -77,7 +78,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $sut->addNewMeleeWeapon(
             $chopa,
             $this->getMeleeWeaponCategory(),
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(0),
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
@@ -86,7 +87,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
-        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($chopa));
+        self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($chopa));
         self::assertSame($weaponLength, $sut->getLengthOf($chopa));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($chopa));
         self::assertSame($wounds, $sut->getWoundsOf($chopa));
@@ -128,7 +129,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $crasher = MeleeWeaponCode::getIt($name);
         $sut->$addNew(
             $crasher,
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(10),
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
@@ -137,7 +138,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
-        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($crasher));
+        self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($crasher));
         self::assertSame($weaponLength, $sut->getLengthOf($crasher));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($crasher));
         self::assertSame($wounds, $sut->getWoundsOf($crasher));
@@ -160,7 +161,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         );
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $cleaver = MeleeWeaponCode::getIt($name);
-        $requiredStrength = 0;
+        $requiredStrength = Strength::getIt(0);
         $weaponLength = 1;
         $offensiveness = 2;
         $wounds = 3;
@@ -181,7 +182,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
                 $twoHandedOnly = false
             );
         }
-        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($cleaver));
+        self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($cleaver));
         self::assertSame($weaponLength, $sut->getLengthOf($cleaver));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($cleaver));
         self::assertSame($wounds, $sut->getWoundsOf($cleaver));
@@ -242,7 +243,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $spoon = MeleeWeaponCode::getIt($name);
         $sut->$addNew(
             $spoon,
-            $templateRequiredStrength,
+            Strength::getIt($templateRequiredStrength),
             $templateWeaponLength,
             $templateOffensiveness,
             $templateWounds,
@@ -251,7 +252,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $templateWeight,
             $templateTwoHandedOnly
         );
-        $sut->$addNew($spoon, $requiredStrength, $weaponLength, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
+        $sut->$addNew($spoon, Strength::getIt($requiredStrength), $weaponLength, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
     }
 
     public function provideNewWeaponSlightlyChangedParameters(): array
@@ -295,7 +296,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $sut->addNewMeleeWeapon(
             $hamAndAxe,
             WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW), // intentionally ranged
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(0),
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,

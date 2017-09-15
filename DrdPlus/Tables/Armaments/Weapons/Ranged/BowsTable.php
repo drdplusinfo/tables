@@ -6,6 +6,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Ranged;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -61,7 +62,7 @@ class BowsTable extends RangedWeaponsTable
 
     /**
      * @param RangedWeaponCode $bowCode you need a code even for a custom weapon, so prove now
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param DistanceBonus $range
      * @param int $offensiveness
      * @param int $wounds
@@ -69,12 +70,12 @@ class BowsTable extends RangedWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\NewRangedWeaponIsNotOfRequiredType
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\Exceptions\DifferentRangedWeaponIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
     public function addNewBow(
         RangedWeaponCode $bowCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         DistanceBonus $range,
         int $offensiveness,
         int $wounds,

@@ -4,12 +4,9 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
-use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Measurements\Weight\Weight;
-use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
 class AxesTableTest extends MeleeWeaponsTableTest
@@ -66,34 +63,5 @@ class AxesTableTest extends MeleeWeaponsTableTest
             $row = $axesTable->getRow([$axeValue]);
             self::assertNotEmpty($row);
         }
-    }
-
-    /**
-     * @test
-     */
-    public function I_can_add_new_axe()
-    {
-        $axesTable = new AxesTable();
-        MeleeWeaponCode::addNewMeleeWeaponCode('chopa', WeaponCategoryCode::getIt(WeaponCategoryCode::AXE), []);
-        $chopa = MeleeWeaponCode::getIt('chopa');
-        $axesTable->addNewAxe(
-            $chopa,
-            $requiredStrength = 0,
-            $weaponLength = 1,
-            $offensiveness = 2,
-            $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
-            $cover = 4,
-            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
-            $twoHandedOnly = false
-        );
-        self::assertSame($requiredStrength, $axesTable->getRequiredStrengthOf($chopa));
-        self::assertSame($weaponLength, $axesTable->getLengthOf($chopa));
-        self::assertSame($offensiveness, $axesTable->getOffensivenessOf($chopa));
-        self::assertSame($wounds, $axesTable->getWoundsOf($chopa));
-        self::assertSame($woundTypeCode->getValue(), $axesTable->getWoundsTypeOf($chopa));
-        self::assertSame($cover, $axesTable->getCoverOf($chopa));
-        self::assertSame($weight->getKilograms(), $axesTable->getWeightOf($chopa));
-        self::assertSame($twoHandedOnly, $axesTable->getTwoHandedOnlyOf($chopa));
     }
 }

@@ -936,7 +936,7 @@ class Armourer extends StrictObject
     /**
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param WeaponCategoryCode $meleeWeaponCategoryCode
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param int $weaponLength
      * @param int $offensiveness
      * @param int $wounds
@@ -951,7 +951,7 @@ class Armourer extends StrictObject
     public function addNewMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
         WeaponCategoryCode $meleeWeaponCategoryCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         int $weaponLength,
         int $offensiveness,
         int $wounds,
@@ -979,7 +979,7 @@ class Armourer extends StrictObject
     /**
      * @param RangedWeaponCode $rangedWeaponCode
      * @param WeaponCategoryCode $rangedWeaponCategoryCode
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param DistanceBonus $range
      * @param int $offensiveness
      * @param int $wounds
@@ -994,7 +994,7 @@ class Armourer extends StrictObject
     public function addNewRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
         WeaponCategoryCode $rangedWeaponCategoryCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         DistanceBonus $range,
         int $offensiveness,
         int $wounds,

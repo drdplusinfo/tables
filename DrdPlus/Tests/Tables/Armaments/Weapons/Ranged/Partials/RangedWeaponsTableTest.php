@@ -6,6 +6,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Weight\Weight;
@@ -63,7 +64,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $sut->addNewRangedWeapon(
             $cannot,
             $this->getRangedWeaponCategory(),
-            $requiredStrength = 5,
+            $requiredStrength = Strength::getIt(5),
             $range = new DistanceBonus(1, Tables::getIt()->getDistanceTable()),
             $offensiveness = 4,
             $wounds = 3,
@@ -72,7 +73,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = true
         );
-        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($cannot));
+        self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($cannot));
         self::assertSame($range->getValue(), $sut->getRangeOf($cannot));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($cannot));
         self::assertSame($wounds, $sut->getWoundsOf($cannot));
@@ -121,7 +122,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $nailer = RangedWeaponCode::getIt($name);
         $sut->$addNew(
             $nailer,
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(9),
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
@@ -130,7 +131,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
-        self::assertSame($requiredStrength, $sut->getRequiredStrengthOf($nailer));
+        self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($nailer));
         self::assertSame($range->getValue(), $sut->getRangeOf($nailer));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($nailer));
         self::assertSame($wounds, $sut->getWoundsOf($nailer));
@@ -154,7 +155,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $sut->addNewRangedWeapon(
             $cake,
             WeaponCategoryCode::getIt(WeaponCategoryCode::SWORD), // intentionally melee
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(0),
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
@@ -215,7 +216,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $hailstone = RangedWeaponCode::getIt($name);
         $sut->$addNew(
             $hailstone,
-            $templateRequiredStrength,
+            Strength::getIt($templateRequiredStrength),
             $templateRange,
             $templateOffensiveness,
             $templateWounds,
@@ -224,7 +225,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $templateWeight,
             $templateTwoHandedOnly
         );
-        $sut->$addNew($hailstone, $requiredStrength, $range, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
+        $sut->$addNew($hailstone, Strength::getIt($requiredStrength), $range, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
     }
 
     public function provideNewWeaponSlightlyChangedParameters(): array

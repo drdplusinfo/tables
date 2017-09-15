@@ -6,6 +6,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -47,7 +48,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
     /**
      * @param RangedWeaponCode $rangedWeaponCode
      * @param WeaponCategoryCode $rangedWeaponCategoryCode
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param DistanceBonus $range
      * @param int $offensiveness
      * @param int $wounds
@@ -61,7 +62,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
     public function addNewRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
         WeaponCategoryCode $rangedWeaponCategoryCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         DistanceBonus $range,
         int $offensiveness,
         int $wounds,
@@ -75,7 +76,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
             $rangedWeaponCode,
             $rangedWeaponCategoryCode,
             [
-                self::REQUIRED_STRENGTH => $requiredStrength,
+                self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
                 self::OFFENSIVENESS => $offensiveness,
                 self::RANGE => $range->getValue(), // distance bonus in fact
                 self::WOUNDS => $wounds,

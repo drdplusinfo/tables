@@ -6,6 +6,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
@@ -39,7 +40,7 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
     /**
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param WeaponCategoryCode $meleeWeaponCategoryCode
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param int $weaponLength
      * @param int $offensiveness
      * @param int $wounds
@@ -53,7 +54,7 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
     public function addNewMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
         WeaponCategoryCode $meleeWeaponCategoryCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         int $weaponLength,
         int $offensiveness,
         int $wounds,
@@ -67,7 +68,7 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
             $meleeWeaponCode,
             $meleeWeaponCategoryCode,
             [
-                self::REQUIRED_STRENGTH => $requiredStrength,
+                self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
                 self::LENGTH => $weaponLength,
                 self::OFFENSIVENESS => $offensiveness,
                 self::WOUNDS => $wounds,

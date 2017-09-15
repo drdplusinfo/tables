@@ -6,6 +6,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 
@@ -24,7 +25,7 @@ class UnarmedTable extends MeleeWeaponsTable
 
     /**
      * @param MeleeWeaponCode $meleeWeaponCode you need a code even for a custom weapon, so prove now
-     * @param int $requiredStrength
+     * @param Strength $requiredStrength
      * @param int $weaponLength
      * @param int $offensiveness
      * @param int $wounds
@@ -32,12 +33,12 @@ class UnarmedTable extends MeleeWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\NewMeleeWeaponIsNotOfRequiredType
-     * @throws \DrdPlus\Tables\Armaments\Weapons\Melee\Partials\Exceptions\DifferentMeleeWeaponIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
+     * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
     public function addNewUnarmed(
         MeleeWeaponCode $meleeWeaponCode,
-        int $requiredStrength,
+        Strength $requiredStrength,
         int $weaponLength,
         int $offensiveness,
         int $wounds,

@@ -2050,7 +2050,7 @@ class ArmourerTest extends TestWithMockery
         $armourer->addNewMeleeWeapon(
             $rockAndRock,
             WeaponCategoryCode::getIt(WeaponCategoryCode::UNARMED),
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(8),
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
@@ -2059,7 +2059,7 @@ class ArmourerTest extends TestWithMockery
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
-        self::assertSame($requiredStrength, $armourer->getRequiredStrengthForArmament($rockAndRock));
+        self::assertSame($requiredStrength->getValue(), $armourer->getRequiredStrengthForArmament($rockAndRock));
         self::assertSame($weaponLength, $armourer->getLengthOfWeaponOrShield($rockAndRock));
         self::assertSame($offensiveness, $armourer->getOffensivenessOfWeaponlike($rockAndRock));
         self::assertSame($wounds, $armourer->getWoundsOfWeaponlike($rockAndRock));
@@ -2081,7 +2081,7 @@ class ArmourerTest extends TestWithMockery
         $armourer->addNewRangedWeapon(
             $handBallista,
             WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW),
-            $requiredStrength = 0,
+            $requiredStrength = Strength::getIt(0),
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
@@ -2090,7 +2090,7 @@ class ArmourerTest extends TestWithMockery
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
-        self::assertSame($requiredStrength, $armourer->getRequiredStrengthForArmament($handBallista));
+        self::assertSame($requiredStrength->getValue(), $armourer->getRequiredStrengthForArmament($handBallista));
         self::assertSame($range->getValue(), $armourer->getRangeOfRangedWeapon($handBallista));
         self::assertSame($offensiveness, $armourer->getOffensivenessOfWeaponlike($handBallista));
         self::assertSame($wounds, $armourer->getWoundsOfWeaponlike($handBallista));
