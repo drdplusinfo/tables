@@ -44,6 +44,7 @@ use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\PositiveInteger;
+use Granam\String\StringTools;
 use Granam\Tests\Tools\TestWithMockery;
 
 class ArmourerTest extends TestWithMockery
@@ -657,7 +658,7 @@ class ArmourerTest extends TestWithMockery
      * @param bool $isAlsoMeleeArmament
      * @return \Mockery\MockInterface|RangedWeaponCode
      */
-    private function createRangedWeaponCode($value, $matchingWeaponGroup, $isAlsoMeleeArmament = false)
+    private function createRangedWeaponCode($value, string $matchingWeaponGroup, $isAlsoMeleeArmament = false)
     {
         $code = $this->mockery(RangedWeaponCode::class);
         $code->shouldReceive('getValue')
@@ -665,7 +666,7 @@ class ArmourerTest extends TestWithMockery
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
         foreach ($this->getRangedWeaponGroups() as $weaponGroup) {
-            $code->shouldReceive('is' . ucfirst($weaponGroup))
+            $code->shouldReceive(StringTools::assembleMethodName($weaponGroup, 'is'))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
         $code->shouldReceive('isShootingWeapon')
@@ -680,12 +681,12 @@ class ArmourerTest extends TestWithMockery
 
     private function getRangedWeaponGroups(): array
     {
-        return ['bow', 'crossbow', 'throwingWeapon'];
+        return [WeaponCategoryCode::BOW, WeaponCategoryCode::CROSSBOW, WeaponCategoryCode::THROWING_WEAPON];
     }
 
     private function getShootingWeaponGroups(): array
     {
-        return ['bow', 'crossbow'];
+        return [WeaponCategoryCode::BOW, WeaponCategoryCode::CROSSBOW];
     }
 
     /**
@@ -852,22 +853,23 @@ class ArmourerTest extends TestWithMockery
      * @dataProvider provideWeaponsForRangeEncounter
      * @param RangedWeaponCode $rangedWeaponCode
      * @param Tables $tables
-     * @param int $strengthValue
+     * @param Strength $strength
      * @param int $speedValue
      * @param int $expectedEncounterRangeValue
      */
     public function I_can_get_encounter_range_of_any_range_weapon(
         RangedWeaponCode $rangedWeaponCode,
         Tables $tables,
-        $strengthValue,
-        $speedValue,
-        $expectedEncounterRangeValue
+        Strength $strength,
+        int $speedValue,
+        int $expectedEncounterRangeValue
     )
     {
         $armourer = new Armourer($tables);
         $encounterRangeWithWeaponlike = $armourer->getEncounterRangeWithWeaponlike(
             $rangedWeaponCode,
-            Strength::getIt($strengthValue), $this->createSpeed($speedValue)
+            $strength,
+            $this->createSpeed($speedValue)
         );
         self::assertInstanceOf(EncounterRange::class, $encounterRangeWithWeaponlike);
         self::assertSame($expectedEncounterRangeValue, $encounterRangeWithWeaponlike->getValue());
@@ -875,26 +877,28 @@ class ArmourerTest extends TestWithMockery
 
     public function provideWeaponsForRangeEncounter(): array
     {
-        return [$this->provideBowForRangeEncounter()];
+        return [
+            $this->provideBowForRangeEncounter(),
+            $this->provideCrossbowForRangeEncounter(),
+            $this->provideThrowingWeaponForRangeEncounter(),
+        ];
     }
 
     private function provideBowForRangeEncounter(): array
     {
         $tables = $this->createTables();
-        $bow = $this->createRangedWeaponCode('bar', 'bow');
+        $bow = $this->createRangedWeaponCode('bar', WeaponCategoryCode::BOW);
         $tables->shouldReceive('getRangedWeaponsTableByRangedWeaponCode')
             ->with($bow)
             ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
         $rangedWeaponsTable->shouldReceive('getRangeOf')
             ->with($bow)
-            ->andReturn(123); // base range
-
+            ->andReturn($baseRange = 123);
         $tables->shouldReceive('getBowsTable')
             ->andReturn($bowsTable = $this->createBowsTable());
         $bowsTable->shouldReceive('getMaximalApplicableStrengthOf')
             ->with($bow)
-            ->andReturn(333); // bonus to range
-
+            ->andReturn($bonusToRange = 333); // bonus to range
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
             ->with($bow)
             ->andReturn($rangedWeaponsTable);
@@ -905,9 +909,56 @@ class ArmourerTest extends TestWithMockery
             ->andReturn($rangeWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
         $rangeWeaponSanctionsTable->shouldReceive('getEncounterRangeSanction')
             ->with(544)
-            ->andReturn(-258); // malus to range
+            ->andReturn($malusToRange = -258); // malus to range
 
-        return [$bow, $tables, Strength::getIt(456), 789, 123 - 258 + 333];
+        return [$bow, $tables, Strength::getIt(456), 999 /* speed - whatever here */, $baseRange + $malusToRange + $bonusToRange /* expected encounter range value */];
+    }
+
+    private function provideCrossbowForRangeEncounter(): array
+    {
+        $tables = $this->createTables();
+        $crossbow = $this->createRangedWeaponCode('baz', WeaponCategoryCode::CROSSBOW);
+        $tables->shouldReceive('getRangedWeaponsTableByRangedWeaponCode')
+            ->with($crossbow)
+            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
+        $rangedWeaponsTable->shouldReceive('getRangeOf')
+            ->with($crossbow)
+            ->andReturn($encounterRange = 357);
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->with($crossbow)
+            ->andReturn($rangedWeaponsTable);
+        $rangedWeaponsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($crossbow)
+            ->andReturn(2000); // so missing strength would be (2000 - 444 = ) 1556
+        $tables->shouldReceive('getRangedWeaponStrengthSanctionsTable')
+            ->andReturn($rangeWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
+
+        return [$crossbow, $tables, Strength::getIt(444), 888 /* speed - whatever here */, $encounterRange /* there is no malus for missing strength for crossbows */];
+    }
+
+    private function provideThrowingWeaponForRangeEncounter(): array
+    {
+        $tables = $this->createTables();
+        $stone = $this->createRangedWeaponCode('bar', WeaponCategoryCode::THROWING_WEAPON);
+        $tables->shouldReceive('getRangedWeaponsTableByRangedWeaponCode')
+            ->with($stone)
+            ->andReturn($rangedWeaponsTable = $this->createRangedWeaponsTable());
+        $rangedWeaponsTable->shouldReceive('getRangeOf')
+            ->with($stone)
+            ->andReturn($baseRange = 100);
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->with($stone)
+            ->andReturn($rangedWeaponsTable);
+        $rangedWeaponsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($stone)
+            ->andReturn(222); // so missing strength would be (222 - 200 = ) 22
+        $tables->shouldReceive('getRangedWeaponStrengthSanctionsTable')
+            ->andReturn($rangeWeaponSanctionsTable = $this->createRangedWeaponSanctionsTable());
+        $rangeWeaponSanctionsTable->shouldReceive('getEncounterRangeSanction')
+            ->with(22)
+            ->andReturn($malusToRange = -15); // malus to range
+
+        return [$stone, $tables, Strength::getIt(200), $speed = 444 /* speed */, $baseRange + $malusToRange + ($speed / 2) /* expected encounter range value */];
     }
 
     /**
@@ -963,24 +1014,23 @@ class ArmourerTest extends TestWithMockery
      * @dataProvider provideWeaponsForRangeEncounter
      * @param RangedWeaponCode $rangedWeaponCode
      * @param Tables $tables
-     * @param int $strengthValue
+     * @param Strength $strength
      * @param int $speedValue
      * @param int $expectedEncounterRange
      */
     public function I_can_get_maximal_range_with_ranged_weapon(
         RangedWeaponCode $rangedWeaponCode,
         Tables $tables,
-        $strengthValue,
-        $speedValue,
-        $expectedEncounterRange
+        Strength $strength,
+        int $speedValue,
+        int $expectedEncounterRange
     )
     {
         $maximalRange = (new Armourer($tables))->getMaximalRangeWithWeaponlike(
             $rangedWeaponCode,
-            Strength::getIt($strengthValue),
+            $strength,
             $this->createSpeed($speedValue)
         );
-
         self::assertInstanceOf(MaximalRange::class, $maximalRange);
         self::assertSame(
             MaximalRange::getItForRangedWeapon(EncounterRange::getIt($expectedEncounterRange))->getValue(),

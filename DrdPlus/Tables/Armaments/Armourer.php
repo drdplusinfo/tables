@@ -571,7 +571,7 @@ class Armourer extends StrictObject
     ): int
     {
         if (!$rangedWeaponCode->isBow() && !$rangedWeaponCode->isThrowingWeapon()) {
-            return 0;
+            return 0; // like crossbow
         }
         $missingStrength = $this->getMissingStrengthForArmament(
             $rangedWeaponCode,
