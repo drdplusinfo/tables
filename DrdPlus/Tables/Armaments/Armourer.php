@@ -937,7 +937,7 @@ class Armourer extends StrictObject
      * @param MeleeWeaponCode $meleeWeaponCode
      * @param WeaponCategoryCode $meleeWeaponCategoryCode
      * @param int $requiredStrength
-     * @param int $lengthInMeters
+     * @param int $weaponLength
      * @param int $offensiveness
      * @param int $wounds
      * @param WoundTypeCode $woundTypeCode
@@ -952,7 +952,7 @@ class Armourer extends StrictObject
         MeleeWeaponCode $meleeWeaponCode,
         WeaponCategoryCode $meleeWeaponCategoryCode,
         int $requiredStrength,
-        int $lengthInMeters,
+        int $weaponLength,
         int $offensiveness,
         int $wounds,
         WoundTypeCode $woundTypeCode,
@@ -966,7 +966,7 @@ class Armourer extends StrictObject
             $meleeWeaponCode,
             $meleeWeaponCategoryCode,
             $requiredStrength,
-            $lengthInMeters,
+            $weaponLength,
             $offensiveness,
             $wounds,
             $woundTypeCode,
