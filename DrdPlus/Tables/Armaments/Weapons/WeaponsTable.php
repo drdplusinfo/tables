@@ -17,6 +17,7 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
      * @param WeaponCode $weaponCode
      * @param WeaponCategoryCode $weaponCategoryCode
      * @param array $newWeaponParameters
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -24,7 +25,7 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
         WeaponCode $weaponCode,
         WeaponCategoryCode $weaponCategoryCode,
         array $newWeaponParameters
-    )
+    ): bool
     {
         /** like @see RangedWeaponCode::isBow() */
         $isType = StringTools::assembleMethodName(str_replace('_and_', '_or_', $weaponCategoryCode->getValue()), 'is');
@@ -43,7 +44,7 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
         $previousWeaponParameters = $this->findRow($weaponCode);
         if ($previousWeaponParameters) {
             if ($newWeaponParameters === $previousWeaponParameters) {
-                return;
+                return false;
             }
             throw new Exceptions\DifferentWeaponIsUnderSameName(
                 "New weapon {$weaponCode} can not be added as there is already a weapon under same name"
@@ -52,6 +53,8 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
             );
         }
         $this->customWeapons[static::class][$weaponCode->getValue()] = $newWeaponParameters;
+
+        return true;
     }
 
     public function getIndexedValues(): array

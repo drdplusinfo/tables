@@ -70,6 +70,7 @@ class BowsTable extends RangedWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -83,9 +84,9 @@ class BowsTable extends RangedWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewRangedWeapon(
+        return $this->addNewRangedWeapon(
             $bowCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::BOW),
             $requiredStrength,

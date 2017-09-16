@@ -56,6 +56,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -70,9 +71,9 @@ abstract class RangedWeaponsTable extends WeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewCustomWeapon(
+        return $this->addNewCustomWeapon(
             $rangedWeaponCode,
             $rangedWeaponCategoryCode,
             [

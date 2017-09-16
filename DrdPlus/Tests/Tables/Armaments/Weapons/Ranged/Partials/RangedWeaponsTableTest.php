@@ -61,7 +61,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $name = uniqid('cannot', true);
         RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
         $cannot = RangedWeaponCode::getIt($name);
-        $sut->addNewRangedWeapon(
+        $added = $sut->addNewRangedWeapon(
             $cannot,
             $this->getRangedWeaponCategory(),
             $requiredStrength = Strength::getIt(5),
@@ -73,6 +73,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = true
         );
+        self::assertTrue($added);
         self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($cannot));
         self::assertSame($range->getValue(), $sut->getRangeOf($cannot));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($cannot));
@@ -120,7 +121,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         );
         RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
         $nailer = RangedWeaponCode::getIt($name);
-        $sut->$addNew(
+        $added = $sut->$addNew(
             $nailer,
             $requiredStrength = Strength::getIt(9),
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
@@ -131,6 +132,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
         );
+        self::assertTrue($added);
         self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($nailer));
         self::assertSame($range->getValue(), $sut->getRangeOf($nailer));
         self::assertSame($offensiveness, $sut->getOffensivenessOf($nailer));
@@ -214,7 +216,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         );
         RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
         $hailstone = RangedWeaponCode::getIt($name);
-        $sut->$addNew(
+        $added = $sut->$addNew(
             $hailstone,
             Strength::getIt($templateRequiredStrength),
             $templateRange,
@@ -225,6 +227,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $templateWeight,
             $templateTwoHandedOnly
         );
+        self::assertTrue($added);
         $sut->$addNew($hailstone, Strength::getIt($requiredStrength), $range, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
     }
 

@@ -34,6 +34,7 @@ class StaffsAndSpearsTable extends MeleeWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -47,9 +48,9 @@ class StaffsAndSpearsTable extends MeleeWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewMeleeWeapon(
+        return $this->addNewMeleeWeapon(
             $meleeWeaponCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::STAFF_AND_SPEAR),
             $requiredStrength,

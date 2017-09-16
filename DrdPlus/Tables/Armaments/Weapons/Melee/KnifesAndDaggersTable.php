@@ -33,6 +33,7 @@ class KnifesAndDaggersTable extends MeleeWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -46,9 +47,9 @@ class KnifesAndDaggersTable extends MeleeWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewMeleeWeapon(
+        return $this->addNewMeleeWeapon(
             $meleeWeaponCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::KNIFE_AND_DAGGER),
             $requiredStrength,

@@ -48,6 +48,7 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -62,9 +63,9 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewCustomWeapon(
+        return $this->addNewCustomWeapon(
             $meleeWeaponCode,
             $meleeWeaponCategoryCode,
             [

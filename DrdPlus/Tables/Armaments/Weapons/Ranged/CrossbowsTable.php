@@ -34,6 +34,7 @@ class CrossbowsTable extends RangedWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -47,9 +48,9 @@ class CrossbowsTable extends RangedWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewRangedWeapon(
+        return $this->addNewRangedWeapon(
             $crossbowCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW),
             $requiredStrength,

@@ -33,6 +33,7 @@ class VoulgesAndTridentsTable extends MeleeWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -46,9 +47,9 @@ class VoulgesAndTridentsTable extends MeleeWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewMeleeWeapon(
+        return $this->addNewMeleeWeapon(
             $meleeWeaponCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::VOULGE_AND_TRIDENT),
             $requiredStrength,

@@ -34,6 +34,7 @@ class MorningstarsAndMorgensternsTable extends MeleeWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
@@ -47,9 +48,9 @@ class MorningstarsAndMorgensternsTable extends MeleeWeaponsTable
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
-        $this->addNewMeleeWeapon(
+        return $this->addNewMeleeWeapon(
             $meleeWeaponCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::MORNINGSTAR_AND_MORGENSTERN),
             $requiredStrength,
