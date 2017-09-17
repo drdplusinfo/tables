@@ -944,6 +944,7 @@ class Armourer extends StrictObject
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
@@ -959,10 +960,11 @@ class Armourer extends StrictObject
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
         $meleeWeaponTable = Tables::getIt()->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
-        $meleeWeaponTable->addNewMeleeWeapon(
+
+        return $meleeWeaponTable->addNewMeleeWeapon(
             $meleeWeaponCode,
             $meleeWeaponCategoryCode,
             $requiredStrength,
@@ -987,6 +989,7 @@ class Armourer extends StrictObject
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
@@ -1002,10 +1005,11 @@ class Armourer extends StrictObject
         int $cover,
         Weight $weight,
         bool $twoHandedOnly
-    )
+    ): bool
     {
         $rangedWeaponTable = Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode);
-        $rangedWeaponTable->addNewRangedWeapon(
+
+        return $rangedWeaponTable->addNewRangedWeapon(
             $rangedWeaponCode,
             $rangedWeaponCategoryCode,
             $requiredStrength,
