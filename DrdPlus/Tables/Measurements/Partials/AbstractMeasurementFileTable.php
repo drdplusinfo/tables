@@ -451,9 +451,11 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function getBonusClosestTo(float $searchedValue, array $closestLower, array $closestHigher): int
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $searchedValue = ToFloat::toFloat($searchedValue);
-        $closerValue = $this->getCloserValue($searchedValue, key($closestLower), key($closestHigher));
+        $closerValue = $this->getCloserValue(
+            $searchedValue,
+            ToFloat::toFloat(key($closestLower)),
+            ToFloat::toFloat(key($closestHigher)) // because float keys have to be encoded as string, otherwise PHP will cast them silently to int
+        );
         if ($closerValue !== false) {
             if (array_key_exists("$closerValue", $closestLower)) {
                 $bonuses = $closestLower["$closerValue"];

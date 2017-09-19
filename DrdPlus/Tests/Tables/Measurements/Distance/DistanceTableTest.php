@@ -71,6 +71,8 @@ class DistanceTableTest extends MeasurementTableTest
 
         $distance = new Distance(1, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(0, $distance->getBonus()->getValue());
+        $distance = new Distance(1.5, DistanceUnitCode::METER, $distanceTable);
+        self::assertSame(4, $distance->getBonus()->getValue());
 
         $distance = new Distance(104, DistanceUnitCode::METER, $distanceTable);
         self::assertSame(40, $distance->getBonus()->getValue()); // 40 is the closest bonus
