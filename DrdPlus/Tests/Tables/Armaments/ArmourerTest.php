@@ -44,6 +44,7 @@ use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\PositiveInteger;
+use Granam\Integer\PositiveIntegerObject;
 use Granam\String\StringTools;
 use Granam\Tests\Tools\TestWithMockery;
 
@@ -2100,5 +2101,26 @@ class ArmourerTest extends TestWithMockery
         self::assertSame($cover, $armourer->getCoverOfWeaponOrShield($handBallista));
         self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($handBallista));
         self::assertSame($twoHandedOnly, $armourer->isTwoHandedOnly($handBallista));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_add_new_body_armor()
+    {
+        $armourer = new Armourer(Tables::getIt());
+        $name = uniqid('fur', true);
+        BodyArmorCode::addNewBodyArmorCode($name, []);
+        $fur = BodyArmorCode::getIt($name);
+        $added = $armourer->addNewBodyArmor(
+            $fur,
+            $requiredStrength = Strength::getIt(0),
+            $protection = -5,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+            $roundsToPutOn = new PositiveIntegerObject(6)
+        );
+        self::assertTrue($added);
+        self::assertSame($requiredStrength->getValue(), $armourer->getRequiredStrengthForArmament($fur));
+        self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($fur));
     }
 }

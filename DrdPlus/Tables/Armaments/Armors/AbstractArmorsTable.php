@@ -50,7 +50,7 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
             return $this->getValue([$armorCode], $valueName);
         } catch (\DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound $exception) {
             throw new UnknownArmor(
-                'Unknown armor code ' . ValueDescriber::describe($armorCode)
+                'Unknown armor code: ' . ValueDescriber::describe($armorCode)
             );
         }
     }

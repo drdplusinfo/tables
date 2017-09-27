@@ -5,6 +5,7 @@ namespace DrdPlus\Tables\Armaments;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
 use DrdPlus\Codes\Armaments\ArmorCode;
+use DrdPlus\Codes\Armaments\BodyArmorCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProjectileCode;
@@ -1020,6 +1021,32 @@ class Armourer extends StrictObject
             $cover,
             $weight,
             $twoHandedOnly
+        );
+    }
+
+    /**
+     * @param BodyArmorCode $bodyArmorCode
+     * @param Strength $requiredStrength
+     * @param int $protection
+     * @param Weight $weight
+     * @param PositiveInteger $roundsToPutOn
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
+     */
+    public function addNewBodyArmor(
+        BodyArmorCode $bodyArmorCode,
+        Strength $requiredStrength,
+        int $protection,
+        Weight $weight,
+        PositiveInteger $roundsToPutOn
+    ): bool
+    {
+        return Tables::getIt()->getBodyArmorsTable()->addNewBodyArmor(
+            $bodyArmorCode,
+            $requiredStrength,
+            $protection,
+            $weight,
+            $roundsToPutOn
         );
     }
 

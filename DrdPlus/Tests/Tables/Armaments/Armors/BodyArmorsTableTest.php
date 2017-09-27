@@ -4,8 +4,14 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Codes\Armaments\BodyArmorCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Calculations\SumAndRound;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use DrdPlus\Tables\Tables;
+use Granam\Integer\PositiveIntegerObject;
+use Granam\Tools\ValueDescriber;
+use Mockery\MockInterface;
 
 class BodyArmorsTableTest extends AbstractArmorsTableTest
 {
@@ -87,4 +93,104 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
             );
         }
     }
+
+    /**
+     * @test
+     */
+    public function I_can_add_custom_body_armor()
+    {
+        $bodyArmorCode = $this->createBodyArmorCode($name = uniqid('foo', true));
+        $requiredStrength = Strength::getIt(132);
+        $protection = 5267;
+        $weight = new Weight(54, Weight::KG, Tables::getIt()->getWeightTable());
+        $roundsToPutOn = new PositiveIntegerObject(55);
+        $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
+        for ($attempt = 1; $attempt < 3; $attempt++) {
+            $added = $bodyArmorsTable->addNewBodyArmor($bodyArmorCode, $requiredStrength, $protection, $weight, $roundsToPutOn);
+            if ($attempt === 1) {
+                self::assertTrue($added, 'Adding brand new body armor should return true');
+            } else {
+                self::assertFalse($added, 'Adding very same body armor should return false and skip it');
+            }
+            $indexedValues = $bodyArmorsTable->getIndexedValues();
+            self::assertTrue(
+                array_key_exists($name, $indexedValues),
+                "Expected '$name' as a key from new armor name in " . ValueDescriber::describe($indexedValues)
+            );
+            self::assertSame(132, $bodyArmorsTable->getRequiredStrengthOf($bodyArmorCode));
+            self::assertSame(5267, $bodyArmorsTable->getProtectionOf($bodyArmorCode));
+            self::assertSame(54.0, $bodyArmorsTable->getWeightOf($bodyArmorCode));
+            self::assertSame(55, $bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode));
+        }
+    }
+
+    /**
+     * @param string $name
+     * @return BodyArmorCode|MockInterface
+     */
+    private function createBodyArmorCode(string $name): BodyArmorCode
+    {
+        $bodyArmorCode = $this->mockery(BodyArmorCode::class);
+        $bodyArmorCode->shouldReceive('getValue')
+            ->andReturn($name);
+        $bodyArmorCode->shouldReceive('__toString')
+            ->andReturn($name);
+
+        return $bodyArmorCode;
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
+     * @dataProvider provideSlightlyDifferentArmorProperties
+     * @param int $strengthValue
+     * @param int $protectionValue
+     * @param int $weightValue
+     * @param int $roundsToPutOnValue
+     * @param int $newStrengthValue
+     * @param int $newProtectionValue
+     * @param int $newWeightValue
+     * @param int $newRoundsToPutOnValue
+     */
+    public function I_can_not_add_new_custom_body_armor_under_same_name_but_different_properties(
+        int $strengthValue,
+        int $protectionValue,
+        int $weightValue,
+        int $roundsToPutOnValue,
+        int $newStrengthValue,
+        int $newProtectionValue,
+        int $newWeightValue,
+        int $newRoundsToPutOnValue
+    )
+    {
+        $bodyArmorCode = $this->createBodyArmorCode(uniqid('bar', true));
+        $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
+        $added = $bodyArmorsTable->addNewBodyArmor(
+            $bodyArmorCode,
+            Strength::getIt($strengthValue),
+            $protectionValue,
+            new Weight($weightValue, Weight::KG, Tables::getIt()->getWeightTable()),
+            new PositiveIntegerObject($roundsToPutOnValue)
+        );
+        self::assertTrue($added, 'Adding brand new body armor should return true');
+        $bodyArmorsTable->addNewBodyArmor(
+            $bodyArmorCode,
+            Strength::getIt($newStrengthValue),
+            $newProtectionValue,
+            new Weight($newWeightValue, Weight::KG, Tables::getIt()->getWeightTable()),
+            new PositiveIntegerObject($newRoundsToPutOnValue)
+        );
+    }
+
+    public function provideSlightlyDifferentArmorProperties()
+    {
+
+        return [
+            [1, 20, 300, 4000, 2, 20, 300, 4000],
+            [1, 20, 300, 4000, 1, 21, 300, 4000],
+            [1, 20, 300, 4000, 1, 20, 301, 4000],
+            [1, 20, 300, 4000, 1, 20, 300, 3999],
+        ];
+    }
+
 }

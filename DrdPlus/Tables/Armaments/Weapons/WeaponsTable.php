@@ -41,15 +41,15 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
             );
         }
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $previousWeaponParameters = $this->findRow($weaponCode);
-        if ($previousWeaponParameters) {
-            if ($newWeaponParameters === $previousWeaponParameters) {
+        $previousParameters = $this->findRow($weaponCode);
+        if ($previousParameters) {
+            if ($newWeaponParameters === $previousParameters) {
                 return false;
             }
             throw new Exceptions\DifferentWeaponIsUnderSameName(
                 "New weapon {$weaponCode} can not be added as there is already a weapon under same name"
                 . ' but with different parameters: '
-                . var_export(array_diff_assoc($previousWeaponParameters, $newWeaponParameters), true)
+                . var_export(array_diff_assoc($previousParameters, $newWeaponParameters), true)
             );
         }
         $this->customWeapons[static::class][$weaponCode->getValue()] = $newWeaponParameters;

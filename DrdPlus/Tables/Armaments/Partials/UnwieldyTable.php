@@ -3,13 +3,15 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Partials;
 
+use Granam\String\StringInterface;
+
 interface UnwieldyTable extends HeavyBearablesTable
 {
     const RESTRICTION = 'restriction';
 
     /**
-     * @param string $coverCode
+     * @param string|StringInterface $coverCode
      * @return int
      */
-    public function getRestrictionOf($coverCode);
+    public function getRestrictionOf($coverCode): int;
 }

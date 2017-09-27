@@ -3,6 +3,10 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Codes\Armaments\BodyArmorCode;
+use DrdPlus\Properties\Base\Strength;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use Granam\Integer\PositiveInteger;
 use Granam\String\StringInterface;
 
 /**
@@ -10,6 +14,10 @@ use Granam\String\StringInterface;
  */
 class BodyArmorsTable extends AbstractArmorsTable
 {
+    private $customBodyArmors = [];
+
+    const ROUNDS_TO_PUT_ON = 'rounds_to_put_on';
+
     /**
      * @return string
      */
@@ -17,8 +25,6 @@ class BodyArmorsTable extends AbstractArmorsTable
     {
         return __DIR__ . '/data/body_armors.csv';
     }
-
-    const ROUNDS_TO_PUT_ON = 'rounds_to_put_on';
 
     /**
      * @return array|string[]
@@ -53,4 +59,52 @@ class BodyArmorsTable extends AbstractArmorsTable
     {
         return $this->getValueFor($armorCode, self::ROUNDS_TO_PUT_ON);
     }
+
+    public function getIndexedValues(): array
+    {
+        $indexedValues = parent::getIndexedValues();
+
+        return array_merge($indexedValues, $this->customBodyArmors);
+    }
+
+    /**
+     * @param BodyArmorCode $bodyArmorCode
+     * @param Strength $requiredStrength
+     * @param int $protection
+     * @param Weight $weight
+     * @param PositiveInteger $roundsToPutOn
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
+     */
+    public function addNewBodyArmor(
+        BodyArmorCode $bodyArmorCode,
+        Strength $requiredStrength,
+        int $protection,
+        Weight $weight,
+        PositiveInteger $roundsToPutOn
+    ): bool
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $previousParameters = $this->findRow($bodyArmorCode);
+        $newBodyArmorParameters = [
+            self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
+            self::PROTECTION => $protection,
+            self::WEIGHT => $weight->getKilograms(),
+            self::ROUNDS_TO_PUT_ON => $roundsToPutOn->getValue(),
+        ];
+        if ($previousParameters) {
+            if ($newBodyArmorParameters === $previousParameters) {
+                return false;
+            }
+            throw new Exceptions\DifferentBodyArmorIsUnderSameName(
+                "New body armor {$bodyArmorCode} can not be added as there is already an armor under same name"
+                . ' but with different properties: '
+                . var_export(array_diff_assoc($previousParameters, $newBodyArmorParameters), true)
+            );
+        }
+        $this->customBodyArmors[$bodyArmorCode->getValue()] = $newBodyArmorParameters;
+
+        return true;
+    }
+
 }
