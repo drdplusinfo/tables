@@ -2115,12 +2115,45 @@ class ArmourerTest extends TestWithMockery
         $added = $armourer->addNewBodyArmor(
             $fur,
             $requiredStrength = Strength::getIt(0),
+            $restriction = -15,
             $protection = -5,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $roundsToPutOn = new PositiveIntegerObject(6)
         );
         self::assertTrue($added);
         self::assertSame($requiredStrength->getValue(), $armourer->getRequiredStrengthForArmament($fur));
+        $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
+        self::assertSame($requiredStrength->getValue(), $bodyArmorsTable->getRequiredStrengthOf($fur));
+        self::assertSame($restriction, $bodyArmorsTable->getRestrictionOf($fur));
+        self::assertSame($protection, $bodyArmorsTable->getProtectionOf($fur));
         self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($fur));
+        self::assertSame($weight->getKilograms(), $bodyArmorsTable->getWeightOf($fur));
+        self::assertSame($roundsToPutOn->getValue(), $bodyArmorsTable->getRoundsToPutOnOf($fur));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_add_new_helm()
+    {
+        $armourer = new Armourer(Tables::getIt());
+        $name = uniqid('paper cap', true);
+        HelmCode::addNewHelmCode($name, []);
+        $paperCap = HelmCode::getIt($name);
+        $added = $armourer->addNewHelm(
+            $paperCap,
+            $requiredStrength = Strength::getIt(0),
+            $restriction = 123,
+            $protection = 456,
+            $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable())
+        );
+        self::assertTrue($added);
+        self::assertSame($requiredStrength->getValue(), $armourer->getRequiredStrengthForArmament($paperCap));
+        $helmsTable = Tables::getIt()->getHelmsTable();
+        self::assertSame($requiredStrength->getValue(), $helmsTable->getRequiredStrengthOf($paperCap));
+        self::assertSame($restriction, $helmsTable->getRestrictionOf($paperCap));
+        self::assertSame($protection, $helmsTable->getProtectionOf($paperCap));
+        self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($paperCap));
+        self::assertSame($weight->getKilograms(), $helmsTable->getWeightOf($paperCap));
     }
 }

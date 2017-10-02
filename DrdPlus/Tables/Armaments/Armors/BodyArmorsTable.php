@@ -70,6 +70,7 @@ class BodyArmorsTable extends AbstractArmorsTable
     /**
      * @param BodyArmorCode $bodyArmorCode
      * @param Strength $requiredStrength
+     * @param int $restriction
      * @param int $protection
      * @param Weight $weight
      * @param PositiveInteger $roundsToPutOn
@@ -79,6 +80,7 @@ class BodyArmorsTable extends AbstractArmorsTable
     public function addNewBodyArmor(
         BodyArmorCode $bodyArmorCode,
         Strength $requiredStrength,
+        int $restriction,
         int $protection,
         Weight $weight,
         PositiveInteger $roundsToPutOn
@@ -88,6 +90,7 @@ class BodyArmorsTable extends AbstractArmorsTable
         $previousParameters = $this->findRow($bodyArmorCode);
         $newBodyArmorParameters = [
             self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
+            self::RESTRICTION => $restriction,
             self::PROTECTION => $protection,
             self::WEIGHT => $weight->getKilograms(),
             self::ROUNDS_TO_PUT_ON => $roundsToPutOn->getValue(),

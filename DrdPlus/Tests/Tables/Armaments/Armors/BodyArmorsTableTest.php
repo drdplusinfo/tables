@@ -101,12 +101,13 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     {
         $bodyArmorCode = $this->createBodyArmorCode($name = uniqid('foo', true));
         $requiredStrength = Strength::getIt(132);
+        $restriction = 2;
         $protection = 5267;
         $weight = new Weight(54, Weight::KG, Tables::getIt()->getWeightTable());
         $roundsToPutOn = new PositiveIntegerObject(55);
         $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
         for ($attempt = 1; $attempt < 3; $attempt++) {
-            $added = $bodyArmorsTable->addNewBodyArmor($bodyArmorCode, $requiredStrength, $protection, $weight, $roundsToPutOn);
+            $added = $bodyArmorsTable->addNewBodyArmor($bodyArmorCode, $requiredStrength, $restriction, $protection, $weight, $roundsToPutOn);
             if ($attempt === 1) {
                 self::assertTrue($added, 'Adding brand new body armor should return true');
             } else {
@@ -144,20 +145,24 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
      * @expectedException \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
      * @dataProvider provideSlightlyDifferentArmorProperties
      * @param int $strengthValue
+     * @param int $restrictionValue
      * @param int $protectionValue
      * @param int $weightValue
      * @param int $roundsToPutOnValue
      * @param int $newStrengthValue
+     * @param int $newRestrictionValue
      * @param int $newProtectionValue
      * @param int $newWeightValue
      * @param int $newRoundsToPutOnValue
      */
     public function I_can_not_add_new_custom_body_armor_under_same_name_but_different_properties(
         int $strengthValue,
+        int $restrictionValue,
         int $protectionValue,
         int $weightValue,
         int $roundsToPutOnValue,
         int $newStrengthValue,
+        int $newRestrictionValue,
         int $newProtectionValue,
         int $newWeightValue,
         int $newRoundsToPutOnValue
@@ -168,6 +173,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
         $added = $bodyArmorsTable->addNewBodyArmor(
             $bodyArmorCode,
             Strength::getIt($strengthValue),
+            $restrictionValue,
             $protectionValue,
             new Weight($weightValue, Weight::KG, Tables::getIt()->getWeightTable()),
             new PositiveIntegerObject($roundsToPutOnValue)
@@ -176,6 +182,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
         $bodyArmorsTable->addNewBodyArmor(
             $bodyArmorCode,
             Strength::getIt($newStrengthValue),
+            $newRestrictionValue,
             $newProtectionValue,
             new Weight($newWeightValue, Weight::KG, Tables::getIt()->getWeightTable()),
             new PositiveIntegerObject($newRoundsToPutOnValue)
@@ -186,10 +193,11 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     {
 
         return [
-            [1, 20, 300, 4000, 2, 20, 300, 4000],
-            [1, 20, 300, 4000, 1, 21, 300, 4000],
-            [1, 20, 300, 4000, 1, 20, 301, 4000],
-            [1, 20, 300, 4000, 1, 20, 300, 3999],
+            [1, 20, 300, 4000, 50000, 2, 20, 300, 4000, 50000],
+            [1, 20, 300, 4000, 50000, 1, 21, 300, 4000, 50000],
+            [1, 20, 300, 4000, 50000, 1, 20, 301, 4000, 50000],
+            [1, 20, 300, 4000, 50000, 1, 20, 300, 3999, 50000],
+            [1, 20, 300, 4000, 50000, 1, 20, 300, 4000, 50001],
         ];
     }
 
