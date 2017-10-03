@@ -3,6 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Armors;
 
+use DrdPlus\Codes\Armaments\ArmorCode;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\UnwieldyTable;
@@ -13,6 +14,8 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
 {
 
     const PROTECTION = 'protection';
+
+    private $customArmors = [];
 
     /**
      * @return array|string[]
@@ -83,5 +86,37 @@ abstract class AbstractArmorsTable extends AbstractArmamentsTable implements Unw
     public function getWeightOf($armorCode): float
     {
         return $this->getValueFor($armorCode, self::WEIGHT);
+    }
+
+    public function getIndexedValues(): array
+    {
+        $indexedValues = parent::getIndexedValues();
+
+        return array_merge($indexedValues, $this->customArmors[static::class] ?? []);
+    }
+
+    /**
+     * @param ArmorCode $armorCode
+     * @param array $newParameters
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentArmorPartIsUnderSameName
+     */
+    protected function addCustomArmor(ArmorCode $armorCode, array $newParameters): bool
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $previousParameters = $this->findRow($armorCode);
+        if ($previousParameters) {
+            if ($newParameters === $previousParameters) {
+                return false;
+            }
+            throw new Exceptions\DifferentArmorPartIsUnderSameName(
+                "New armor part {$armorCode} can not be added as there is already an armor under same name"
+                . ' but with different parameters: '
+                . var_export(array_diff_assoc($previousParameters, $newParameters), true)
+            );
+        }
+        $this->customArmors[static::class][$armorCode->getValue()] = $newParameters;
+
+        return true;
     }
 }

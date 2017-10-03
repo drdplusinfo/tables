@@ -119,6 +119,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
                 "Expected '$name' as a key from new armor name in " . ValueDescriber::describe($indexedValues)
             );
             self::assertSame(132, $bodyArmorsTable->getRequiredStrengthOf($bodyArmorCode));
+            self::assertSame(2, $bodyArmorsTable->getRestrictionOf($bodyArmorCode));
             self::assertSame(5267, $bodyArmorsTable->getProtectionOf($bodyArmorCode));
             self::assertSame(54.0, $bodyArmorsTable->getWeightOf($bodyArmorCode));
             self::assertSame(55, $bodyArmorsTable->getRoundsToPutOnOf($bodyArmorCode));

@@ -86,28 +86,24 @@ class BodyArmorsTable extends AbstractArmorsTable
         PositiveInteger $roundsToPutOn
     ): bool
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $previousParameters = $this->findRow($bodyArmorCode);
-        $newBodyArmorParameters = [
-            self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
-            self::RESTRICTION => $restriction,
-            self::PROTECTION => $protection,
-            self::WEIGHT => $weight->getKilograms(),
-            self::ROUNDS_TO_PUT_ON => $roundsToPutOn->getValue(),
-        ];
-        if ($previousParameters) {
-            if ($newBodyArmorParameters === $previousParameters) {
-                return false;
-            }
+        try {
+            return $this->addCustomArmor(
+                $bodyArmorCode,
+                [
+                    self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
+                    self::RESTRICTION => $restriction,
+                    self::PROTECTION => $protection,
+                    self::WEIGHT => $weight->getKilograms(),
+                    self::ROUNDS_TO_PUT_ON => $roundsToPutOn->getValue(),
+                ]
+            );
+        } catch (Exceptions\DifferentArmorPartIsUnderSameName $differentArmorPartIsUnderSameName) {
             throw new Exceptions\DifferentBodyArmorIsUnderSameName(
-                "New body armor {$bodyArmorCode} can not be added as there is already an armor under same name"
-                . ' but with different properties: '
-                . var_export(array_diff_assoc($previousParameters, $newBodyArmorParameters), true)
+                $differentArmorPartIsUnderSameName->getMessage(),
+                $differentArmorPartIsUnderSameName->getCode(),
+                $differentArmorPartIsUnderSameName
             );
         }
-        $this->customBodyArmors[$bodyArmorCode->getValue()] = $newBodyArmorParameters;
-
-        return true;
     }
 
 }

@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Armaments\Armors\Exceptions;
 
-class DifferentBodyArmorIsUnderSameName extends DifferentArmorPartIsUnderSameName
+class DifferentArmorPartIsUnderSameName extends \LogicException implements Logic
 {
 
 }
