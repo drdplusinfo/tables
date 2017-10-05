@@ -850,9 +850,12 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, $holdsWeaponByTwoHands): int
+    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, bool $holdsWeaponByTwoHands): int
     {
         if (!$holdsWeaponByTwoHands) {
+            return 0;
+        }
+        if (!$weaponlikeCode->isMelee()) {
             return 0;
         }
 
@@ -862,11 +865,8 @@ class Armourer extends StrictObject
                 . ", got '{$weaponlikeCode}'"
             );
         }
-        if (!$weaponlikeCode->isMelee()) {
-            return 0;
-        }
         if (!$this->canHoldItByOneHandAsWellAsTwoHands($weaponlikeCode)) {
-            return 0;
+            return 0; // two-handed-only weapons do not get bonus for holding
         }
 
         return 2;
@@ -1080,4 +1080,25 @@ class Armourer extends StrictObject
         );
     }
 
+    /**
+     * @link https://pph.drdplus.info/#niceni
+     * There is NO malus for missing strength (we are not fighting, just smashing)
+     * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
+     * @param Strength $strength
+     * @param bool $weaponIsHoldByTwoHands
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
+     */
+    public function getPowerOfDestruction(
+        MeleeWeaponlikeCode $meleeWeaponlikeCode,
+        Strength $strength,
+        bool $weaponIsHoldByTwoHands
+    ): int
+    {
+        return $strength->getValue()
+            + $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getWoundsOf($meleeWeaponlikeCode)
+            + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponIsHoldByTwoHands);
+    }
 }
