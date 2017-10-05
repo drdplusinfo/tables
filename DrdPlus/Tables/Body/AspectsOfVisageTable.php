@@ -86,7 +86,7 @@ class AspectsOfVisageTable extends AbstractTable
      * @param Charisma $charisma
      * @return Beauty
      */
-    public function getBeauty(Agility $agility, Knack $knack, Charisma $charisma)
+    public function getBeauty(Agility $agility, Knack $knack, Charisma $charisma): Beauty
     {
         return Beauty::getIt($agility, $knack, $charisma);
     }
@@ -97,7 +97,7 @@ class AspectsOfVisageTable extends AbstractTable
      * @param Charisma $charisma
      * @return Dangerousness
      */
-    public function getDangerousness(Strength $strength, Will $will, Charisma $charisma)
+    public function getDangerousness(Strength $strength, Will $will, Charisma $charisma): Dangerousness
     {
         return Dangerousness::getIt($strength, $will, $charisma);
     }
@@ -108,7 +108,7 @@ class AspectsOfVisageTable extends AbstractTable
      * @param Charisma $charisma
      * @return Dignity
      */
-    public function getDignity(Intelligence $intelligence, Will $will, Charisma $charisma)
+    public function getDignity(Intelligence $intelligence, Will $will, Charisma $charisma): Dignity
     {
         return Dignity::getIt($intelligence, $will, $charisma);
     }

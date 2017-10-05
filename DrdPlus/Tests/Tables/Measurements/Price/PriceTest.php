@@ -9,7 +9,7 @@ use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
 class PriceTest extends AbstractTestOfMeasurement
 {
 
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return Price::COPPER_COIN;
     }

@@ -49,7 +49,7 @@ class UnarmedTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
             WeaponCategoryCode::getIt(WeaponCategoryCode::UNARMED),
             $requiredStrength,

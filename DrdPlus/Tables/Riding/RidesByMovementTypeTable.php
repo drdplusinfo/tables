@@ -40,15 +40,15 @@ class RidesByMovementTypeTable extends AbstractFileTable
 
     /**
      * @param RidingAnimalMovementCode $ridingAnimalMovementCode
-     * @param bool $jumping
+     * @param bool $isJumping
      * @return Ride
      */
-    public function getRideFor(RidingAnimalMovementCode $ridingAnimalMovementCode, $jumping)
+    public function getRideFor(RidingAnimalMovementCode $ridingAnimalMovementCode, bool $isJumping): Ride
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Ride(
             $this->getValue([$ridingAnimalMovementCode->getValue()], self::RIDE)
-            + ($jumping
+            + ($isJumping
                 ? $this->getValue([RidingAnimalMovementCode::JUMPING], self::RIDE)
                 : 0)
         );

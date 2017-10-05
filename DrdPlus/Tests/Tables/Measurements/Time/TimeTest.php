@@ -11,7 +11,7 @@ use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
 class TimeTest extends AbstractTestOfMeasurement
 {
 
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return TimeUnitCode::ROUND;
     }

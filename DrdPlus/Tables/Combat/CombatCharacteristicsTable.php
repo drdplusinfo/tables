@@ -63,7 +63,7 @@ class CombatCharacteristicsTable extends AbstractTable
      * @param Agility $agility
      * @return Attack
      */
-    public function getAttack(Agility $agility)
+    public function getAttack(Agility $agility): Attack
     {
         return Attack::getIt($agility);
     }
@@ -74,7 +74,7 @@ class CombatCharacteristicsTable extends AbstractTable
      * @param Agility $agility
      * @return Defense
      */
-    public function getDefense(Agility $agility)
+    public function getDefense(Agility $agility): Defense
     {
         return Defense::getIt($agility);
     }
@@ -85,7 +85,7 @@ class CombatCharacteristicsTable extends AbstractTable
      * @param Knack $knack
      * @return Shooting
      */
-    public function getShooting(Knack $knack)
+    public function getShooting(Knack $knack): Shooting
     {
         return Shooting::getIt($knack);
     }

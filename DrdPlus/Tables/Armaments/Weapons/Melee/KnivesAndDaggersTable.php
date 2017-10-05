@@ -13,14 +13,14 @@ use DrdPlus\Tables\Measurements\Weight\Weight;
 /**
  * See PPH page 85, @link https://pph.drdplus.info/#tabulka_zbrani_jednorucni_zbrane
  */
-class KnifesAndDaggersTable extends MeleeWeaponsTable
+class KnivesAndDaggersTable extends MeleeWeaponsTable
 {
     /**
      * @return string
      */
     protected function getDataFileName(): string
     {
-        return __DIR__ . '/data/knifes_and_daggers.csv';
+        return __DIR__ . '/data/knives_and_daggers.csv';
     }
 
     /**
@@ -49,9 +49,9 @@ class KnifesAndDaggersTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::KNIFE_AND_DAGGER),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::KNIVES_AND_DAGGERS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

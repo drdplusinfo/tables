@@ -49,9 +49,9 @@ class VoulgesAndTridentsTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::VOULGE_AND_TRIDENT),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::VOULGES_AND_TRIDENTS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

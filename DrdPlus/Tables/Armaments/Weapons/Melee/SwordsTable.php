@@ -50,9 +50,9 @@ class SwordsTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORD),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORDS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

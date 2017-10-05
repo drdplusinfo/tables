@@ -33,8 +33,7 @@ class HealingByActivityTableTest extends TableTest
     private function assembleIndexedValues(array $values)
     {
         $indexedValues = [];
-        foreach ($values as $row) {
-            list($bonus, $situation) = $row;
+        foreach ($values as [$bonus, $situation]) {
             $indexedValues[$situation] = ['bonus' => $bonus];
         }
 
@@ -61,7 +60,7 @@ class HealingByActivityTableTest extends TableTest
             [-4, ActivityAffectingHealingCode::LIGHT_ACTIVITY],
             [-6, ActivityAffectingHealingCode::NORMAL_ACTIVITY],
             [-8, ActivityAffectingHealingCode::TOILSOME_ACTIVITY],
-            [-10, ActivityAffectingHealingCode::VERY_HARD_ACTIVITY]
+            [-10, ActivityAffectingHealingCode::VERY_HARD_ACTIVITY],
         ];
     }
 

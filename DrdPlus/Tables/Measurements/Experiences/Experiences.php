@@ -27,10 +27,11 @@ class Experiences extends AbstractMeasurementWithBonus
 
     /**
      * @param mixed $value
-     *
      * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    protected function normalizeValue($value)
+    protected function normalizeValue($value): int
     {
         return ToInteger::toInteger($value);
     }
@@ -46,7 +47,7 @@ class Experiences extends AbstractMeasurementWithBonus
     /**
      * @return Level
      */
-    public function getLevel()
+    public function getLevel(): Level
     {
         return $this->getBonus();
     }
@@ -56,7 +57,7 @@ class Experiences extends AbstractMeasurementWithBonus
      *
      * @return Level
      */
-    public function getTotalLevel()
+    public function getTotalLevel(): Level
     {
         return $this->experiencesTable->toTotalLevel($this);
     }
@@ -64,7 +65,7 @@ class Experiences extends AbstractMeasurementWithBonus
     /**
      * @return Level
      */
-    public function getBonus()
+    public function getBonus(): Level
     {
         return $this->experiencesTable->toLevel($this);
     }

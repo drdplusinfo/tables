@@ -85,7 +85,7 @@ class MorningstarsAndMorgensternsTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $morningstarsAndMorgensternsTable = new MorningstarsAndMorgensternsTable();
-        foreach (MeleeWeaponCode::getMorningstarAndMorgensternValues(false /* without custom ones */) as $morningstarAndMorgensternValue) {
+        foreach (MeleeWeaponCode::getMorningstarsAndMorgensternsValues(false /* without custom ones */) as $morningstarAndMorgensternValue) {
             $row = $morningstarsAndMorgensternsTable->getRow([$morningstarAndMorgensternValue]);
             self::assertNotEmpty($row);
         }

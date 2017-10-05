@@ -50,9 +50,9 @@ class MorningstarsAndMorgensternsTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::MORNINGSTAR_AND_MORGENSTERN),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::MORNINGSTARS_AND_MORGENSTERNS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

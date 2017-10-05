@@ -38,7 +38,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
      * @throws \DrdPlus\Tables\Body\Resting\Exceptions\UnknownCodeOfRestingInfluence
      * @throws \DrdPlus\Tables\Body\Resting\Exceptions\UnexpectedRestingSituationPercents
      */
-    public function getRestingMalusBySituation($situationCode, RestingSituationPercents $restingSituationPercents)
+    public function getRestingMalusBySituation(string $situationCode, RestingSituationPercents $restingSituationPercents): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

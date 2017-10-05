@@ -16,5 +16,5 @@ interface MissingProtectiveArmamentSkill
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getRestrictionBonusForSkillRank($skillRank);
+    public function getRestrictionBonusForSkillRank($skillRank): int;
 }

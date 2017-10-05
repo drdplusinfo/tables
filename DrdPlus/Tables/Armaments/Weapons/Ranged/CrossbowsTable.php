@@ -50,9 +50,9 @@ class CrossbowsTable extends RangedWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewRangedWeapon(
+        return $this->addCustomRangedWeapon(
             $crossbowCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOWS),
             $requiredStrength,
             $range,
             $offensiveness,

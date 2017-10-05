@@ -35,7 +35,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @param array $simplifiedColumnsHeader
      * @return array
      */
-    private function getRebuiltOriginalColumnsHeader(array $simplifiedColumnsHeader)
+    private function getRebuiltOriginalColumnsHeader(array $simplifiedColumnsHeader): array
     {
         $originalColumnsHeader = [];
         $professionsPattern = implode(
@@ -96,7 +96,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getFighterPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getFighterPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::FIGHTER));
     }
@@ -106,7 +106,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @param ProfessionCode $professionCode
      * @return int
      */
-    public function getPhysicalSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode)
+    public function getPhysicalSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSkillPoints($backgroundPoints, $professionCode, SkillTypeCode::getIt(SkillTypeCode::PHYSICAL));
@@ -124,7 +124,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
         PositiveInteger $backgroundPoints,
         ProfessionCode $professionCode,
         SkillTypeCode $skillTypeCode
-    )
+    ): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -145,7 +145,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getFighterPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getFighterPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::FIGHTER));
     }
@@ -158,7 +158,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getPsychicalSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode)
+    public function getPsychicalSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSkillPoints($backgroundPoints, $professionCode, SkillTypeCode::getIt(SkillTypeCode::PSYCHICAL));
@@ -171,7 +171,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getFighterCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getFighterCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::FIGHTER));
     }
@@ -184,7 +184,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getCombinedSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode)
+    public function getCombinedSkillPoints(PositiveInteger $backgroundPoints, ProfessionCode $professionCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSkillPoints($backgroundPoints, $professionCode, SkillTypeCode::getIt(SkillTypeCode::COMBINED));
@@ -197,7 +197,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getThiefPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getThiefPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THIEF));
     }
@@ -209,7 +209,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getThiefPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getThiefPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THIEF));
     }
@@ -221,7 +221,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getThiefCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getThiefCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THIEF));
     }
@@ -233,7 +233,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRangerPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getRangerPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::RANGER));
     }
@@ -245,7 +245,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRangerPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getRangerPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::RANGER));
     }
@@ -257,7 +257,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getRangerCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getRangerCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::RANGER));
     }
@@ -269,7 +269,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getWizardPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getWizardPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::WIZARD));
     }
@@ -281,7 +281,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getWizardPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getWizardPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::WIZARD));
     }
@@ -293,7 +293,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getWizardCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getWizardCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::WIZARD));
     }
@@ -305,7 +305,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getTheurgistPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getTheurgistPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THEURGIST));
     }
@@ -317,7 +317,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getTheurgistPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getTheurgistPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THEURGIST));
     }
@@ -329,7 +329,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getTheurgistCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getTheurgistCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::THEURGIST));
     }
@@ -341,7 +341,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getPriestPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getPriestPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::PRIEST));
     }
@@ -353,7 +353,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getPriestPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getPriestPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::PRIEST));
     }
@@ -365,7 +365,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getPriestCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getPriestCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::PRIEST));
     }
@@ -377,7 +377,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getCommonerPhysicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getCommonerPhysicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPhysicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::COMMONER));
     }
@@ -389,7 +389,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getCommonerPsychicalSkillPoints(PositiveInteger $backgroundPoints)
+    public function getCommonerPsychicalSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getPsychicalSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::COMMONER));
     }
@@ -401,7 +401,7 @@ class SkillsByBackgroundPointsTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function getCommonerCombinedSkillPoints(PositiveInteger $backgroundPoints)
+    public function getCommonerCombinedSkillPoints(PositiveInteger $backgroundPoints): int
     {
         return $this->getCombinedSkillPoints($backgroundPoints, ProfessionCode::getIt(ProfessionCode::COMMONER));
     }

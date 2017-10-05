@@ -10,5 +10,5 @@ interface AthleticsInterface
     /**
      * @return IntegerInterface
      */
-    public function getAthleticsBonus();
+    public function getAthleticsBonus(): IntegerInterface;
 }

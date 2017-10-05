@@ -49,7 +49,7 @@ class RidingAnimalsTable extends AbstractFileTable
      * @param RidingAnimalCode $ridingAnimalCode
      * @return int
      */
-    public function getSpeed(RidingAnimalCode $ridingAnimalCode)
+    public function getSpeed(RidingAnimalCode $ridingAnimalCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::SPEED);
@@ -59,7 +59,7 @@ class RidingAnimalsTable extends AbstractFileTable
      * @param RidingAnimalCode $ridingAnimalCode
      * @return int
      */
-    public function getEndurance(RidingAnimalCode $ridingAnimalCode)
+    public function getEndurance(RidingAnimalCode $ridingAnimalCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::ENDURANCE);
@@ -69,7 +69,7 @@ class RidingAnimalsTable extends AbstractFileTable
      * @param RidingAnimalCode $ridingAnimalCode
      * @return int
      */
-    public function getMaximalLoad(RidingAnimalCode $ridingAnimalCode)
+    public function getMaximalLoad(RidingAnimalCode $ridingAnimalCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::MAXIMAL_LOAD);
@@ -79,7 +79,7 @@ class RidingAnimalsTable extends AbstractFileTable
      * @param RidingAnimalCode $ridingAnimalCode
      * @return int
      */
-    public function getMaximalLoadInKg(RidingAnimalCode $ridingAnimalCode)
+    public function getMaximalLoadInKg(RidingAnimalCode $ridingAnimalCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::MAXIMAL_LOAD_IN_KG);
@@ -87,31 +87,30 @@ class RidingAnimalsTable extends AbstractFileTable
 
     /**
      * @param RidingAnimalCode $ridingAnimalCode
-     * @param bool $jumpingAndDangerousMoves
+     * @param bool $isJumpingOrDoesDangerousMoves
      * @return int
      */
-    public function getDefianceOfDomesticated(
-        RidingAnimalCode $ridingAnimalCode, $jumpingAndDangerousMoves)
+    public function getDefianceOfDomesticated(RidingAnimalCode $ridingAnimalCode, bool $isJumpingOrDoesDangerousMoves): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return
             $this->getValue([$ridingAnimalCode->getValue()], RidingAnimalPropertyCode::DEFIANCE)
-            + ($jumpingAndDangerousMoves ? 2 : 0);
+            + ($isJumpingOrDoesDangerousMoves ? 2 : 0);
     }
 
     /**
      * @param RidingAnimalCode $ridingAnimalCode
      * @param DefianceOfWildPercents $defianceOfWildPercents
-     * @param bool $jumpingAndDangerousMoves
+     * @param bool $isJumpingOrDoesDangerousMoves
      * @return int
      */
     public function getDefianceOfWild(
         RidingAnimalCode $ridingAnimalCode,
         DefianceOfWildPercents $defianceOfWildPercents,
-        $jumpingAndDangerousMoves
-    )
+        bool $isJumpingOrDoesDangerousMoves
+    ): int
     {
-        $defianceOfDomesticated = $this->getDefianceOfDomesticated($ridingAnimalCode, $jumpingAndDangerousMoves);
+        $defianceOfDomesticated = $this->getDefianceOfDomesticated($ridingAnimalCode, $isJumpingOrDoesDangerousMoves);
         $additionForWild = SumAndRound::round(10 + (2 * $defianceOfWildPercents->getRate())); // 10..12
 
         return $defianceOfDomesticated + $additionForWild;

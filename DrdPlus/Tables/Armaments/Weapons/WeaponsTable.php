@@ -28,7 +28,15 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
     ): bool
     {
         /** like @see RangedWeaponCode::isBow() */
-        $isType = StringTools::assembleMethodName(str_replace('_and_', '_or_', $weaponCategoryCode->getValue()), 'is');
+        $isType = StringTools::assembleIsForName(
+            rtrim(
+                str_replace(
+                    ['knives', 's_and_', '_and_'], ['knife', '_or_', '_or_'],
+                    $weaponCategoryCode->getValue()
+                ),
+                's'
+            )
+        );
         /** like @see RangedWeaponCode::getBowValues() */
         $getTypeCodes = StringTools::assembleGetterForName($weaponCategoryCode->getValue()) . 'Values';
         if (!method_exists($weaponCode, $isType) || !$weaponCode->$isType()

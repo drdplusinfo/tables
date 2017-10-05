@@ -689,7 +689,7 @@ class Armourer extends StrictObject
      * @param ArmorCode $armorCode
      * @param Strength $currentStrength
      * @param Size $bodySize
-     * @return int
+     * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
@@ -699,7 +699,7 @@ class Armourer extends StrictObject
         ArmorCode $armorCode,
         Strength $currentStrength,
         Size $bodySize
-    ): int
+    ): string
     {
         return $this->tables->getArmorStrengthSanctionsTable()->getSanctionDescription(
             $this->getMissingStrengthForArmament($armorCode, $currentStrength, $bodySize)
@@ -951,7 +951,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
-    public function addNewMeleeWeapon(
+    public function addCustomMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
         WeaponCategoryCode $meleeWeaponCategoryCode,
         Strength $requiredStrength,
@@ -966,7 +966,7 @@ class Armourer extends StrictObject
     {
         $meleeWeaponTable = Tables::getIt()->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
 
-        return $meleeWeaponTable->addNewMeleeWeapon(
+        return $meleeWeaponTable->addCustomMeleeWeapon(
             $meleeWeaponCode,
             $meleeWeaponCategoryCode,
             $requiredStrength,
@@ -996,7 +996,7 @@ class Armourer extends StrictObject
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
-    public function addNewRangedWeapon(
+    public function addCustomRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
         WeaponCategoryCode $rangedWeaponCategoryCode,
         Strength $requiredStrength,
@@ -1011,7 +1011,7 @@ class Armourer extends StrictObject
     {
         $rangedWeaponTable = Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode);
 
-        return $rangedWeaponTable->addNewRangedWeapon(
+        return $rangedWeaponTable->addCustomRangedWeapon(
             $rangedWeaponCode,
             $rangedWeaponCategoryCode,
             $requiredStrength,
@@ -1035,7 +1035,7 @@ class Armourer extends StrictObject
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
      */
-    public function addNewBodyArmor(
+    public function addCustomBodyArmor(
         BodyArmorCode $bodyArmorCode,
         Strength $requiredStrength,
         int $restriction,
@@ -1044,7 +1044,7 @@ class Armourer extends StrictObject
         PositiveInteger $roundsToPutOn
     ): bool
     {
-        return Tables::getIt()->getBodyArmorsTable()->addNewBodyArmor(
+        return Tables::getIt()->getBodyArmorsTable()->addCustomBodyArmor(
             $bodyArmorCode,
             $requiredStrength,
             $restriction,
@@ -1061,9 +1061,9 @@ class Armourer extends StrictObject
      * @param int $protection
      * @param Weight $weight
      * @return bool
-     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
+     * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentHelmIsUnderSameName
      */
-    public function addNewHelm(
+    public function addCustomHelm(
         HelmCode $helmCode,
         Strength $requiredStrength,
         int $restriction,
@@ -1071,7 +1071,7 @@ class Armourer extends StrictObject
         Weight $weight
     ): bool
     {
-        return Tables::getIt()->getHelmsTable()->addNewHelm(
+        return Tables::getIt()->getHelmsTable()->addCustomHelm(
             $helmCode,
             $requiredStrength,
             $restriction,

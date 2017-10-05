@@ -27,11 +27,10 @@ abstract class AbstractTestOfBonus extends TestWithMockery
     }
 
     /**
-     * @param $value
-     *
+     * @param mixed $value
      * @return Bonus
      */
-    protected function createSut($value)
+    protected function createSut($value): Bonus
     {
         $bonusClass = $this->getBonusClass();
 

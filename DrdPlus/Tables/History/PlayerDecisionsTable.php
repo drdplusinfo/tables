@@ -49,7 +49,7 @@ class PlayerDecisionsTable extends AbstractFileTable
      * @param FateCode $fateCode
      * @return int
      */
-    public function getPointsToPrimaryProperties(FateCode $fateCode)
+    public function getPointsToPrimaryProperties(FateCode $fateCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($fateCode, self::POINTS_TO_PRIMARY_PROPERTIES);
@@ -59,7 +59,7 @@ class PlayerDecisionsTable extends AbstractFileTable
      * @param FateCode $fateCode
      * @return int
      */
-    public function getPointsToSecondaryProperties(FateCode $fateCode)
+    public function getPointsToSecondaryProperties(FateCode $fateCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($fateCode, self::POINTS_TO_SECONDARY_PROPERTIES);
@@ -69,7 +69,7 @@ class PlayerDecisionsTable extends AbstractFileTable
      * @param FateCode $fateCode
      * @return int
      */
-    public function getMaximumToSingleProperty(FateCode $fateCode)
+    public function getMaximumToSingleProperty(FateCode $fateCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($fateCode, self::MAXIMUM_TO_SINGLE_PROPERTY);

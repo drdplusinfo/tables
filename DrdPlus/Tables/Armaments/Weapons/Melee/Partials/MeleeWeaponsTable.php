@@ -52,7 +52,7 @@ abstract class MeleeWeaponsTable extends WeaponsTable implements MeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
-    public function addNewMeleeWeapon(
+    public function addCustomMeleeWeapon(
         MeleeWeaponCode $meleeWeaponCode,
         WeaponCategoryCode $meleeWeaponCategoryCode,
         Strength $requiredStrength,

@@ -21,7 +21,7 @@ class AttackNumberByDistanceTableTest extends AbstractAttackNumberByDistanceTabl
         );
     }
 
-    public function provideDistanceAndExpectedModifier()
+    public function provideDistanceAndExpectedModifier(): array
     {
         return [
             [0, 3],

@@ -15,16 +15,22 @@ class Wounds extends AbstractMeasurementWithBonus
      */
     private $woundsTable;
 
+    /**
+     * @param \Granam\Integer\IntegerInterface|int $value
+     * @param WoundsTable $woundsTable
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
     public function __construct($value, WoundsTable $woundsTable)
     {
         $this->woundsTable = $woundsTable;
-        parent::__construct($value, Wounds::WOUNDS);
+        parent::__construct($value, self::WOUNDS);
     }
 
     /**
      * @return int
      */
-    public function getValue()
+    public function getValue(): int
     {
         // turning float to integer (without value lost)
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -42,7 +48,7 @@ class Wounds extends AbstractMeasurementWithBonus
     /**
      * @return WoundsBonus
      */
-    public function getBonus()
+    public function getBonus(): WoundsBonus
     {
         return $this->woundsTable->toBonus($this);
     }

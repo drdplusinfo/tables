@@ -40,7 +40,7 @@ abstract class Percents extends StrictObject implements PositiveInteger
     /**
      * @return int
      */
-    public function getValue()
+    public function getValue(): int
     {
         return $this->value;
     }
@@ -48,7 +48,7 @@ abstract class Percents extends StrictObject implements PositiveInteger
     /**
      * @return float
      */
-    public function getRate()
+    public function getRate(): float
     {
         return (float)$this->getValue() / 100; // converting always to float because 0 / 100 is integer 0
     }

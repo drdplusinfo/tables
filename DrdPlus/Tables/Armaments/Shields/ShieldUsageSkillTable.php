@@ -40,7 +40,7 @@ class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements Missin
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getRestrictionBonusForSkillRank($skillRank)
+    public function getRestrictionBonusForSkillRank($skillRank): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);
@@ -53,7 +53,7 @@ class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements Missin
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getCoverMalusForSkillRank($skillRank)
+    public function getCoverMalusForSkillRank($skillRank): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::COVER_MALUS);

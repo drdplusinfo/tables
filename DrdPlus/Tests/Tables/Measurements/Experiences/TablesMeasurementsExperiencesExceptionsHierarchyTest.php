@@ -12,7 +12,7 @@ class TablesMeasurementsExperiencesExceptionsHierarchyTest extends AbstractExcep
     /**
      * @return string
      */
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
         $reflection = new \ReflectionClass(Experiences::class);
 
@@ -22,7 +22,7 @@ class TablesMeasurementsExperiencesExceptionsHierarchyTest extends AbstractExcep
     /**
      * @return string
      */
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $reflection = new \ReflectionClass(Measurement::class);
 

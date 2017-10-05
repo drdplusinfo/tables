@@ -75,7 +75,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $name = uniqid('chopa', true);
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $chopa = MeleeWeaponCode::getIt($name);
-        $sut->addNewMeleeWeapon(
+        $sut->addCustomMeleeWeapon(
             $chopa,
             $this->getMeleeWeaponCategory(),
             $requiredStrength = Strength::getIt(0),
@@ -106,9 +106,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $basename = preg_replace('~^.+\\\([^\\\]+)$~', '$1', $sutClass);
             $keyword = preg_replace('~Table$~', '', $basename);
             $categoryName = StringTools::camelCaseToSnakeCasedBasename($keyword);
-            $singular = rtrim(str_replace('s_', '_', $categoryName), 's');
-
-            $this->meleeWeaponCategory = WeaponCategoryCode::getIt($singular);
+            $this->meleeWeaponCategory = WeaponCategoryCode::getIt($categoryName);
         }
 
         return $this->meleeWeaponCategory;
@@ -121,12 +119,9 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = uniqid('crasher', true);
-        $addNew = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $this->getMeleeWeaponCategory()->getValue()),
-            'addNew'
-        );
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $crasher = MeleeWeaponCode::getIt($name);
+        $addNew = $this->assembleAddNewMethod();
         $added = $sut->$addNew(
             $crasher,
             $requiredStrength = Strength::getIt(10),
@@ -156,10 +151,6 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = uniqid('cleaver', true);
-        $addNew = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $this->getMeleeWeaponCategory()->getValue()),
-            'addNew'
-        );
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $cleaver = MeleeWeaponCode::getIt($name);
         $requiredStrength = Strength::getIt(0);
@@ -170,6 +161,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $cover = 4;
         $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable());
         $twoHandedOnly = false;
+        $addNew = $this->assembleAddNewMethod();
         for ($attempt = 1; $attempt < 5; $attempt++) {
             $added = $sut->$addNew(
                 $cleaver,
@@ -182,7 +174,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
                 $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
                 $twoHandedOnly = false
             );
-            if($attempt === 1) {
+            if ($attempt === 1) {
                 self::assertTrue($added);
             } else {
                 self::assertFalse($added);
@@ -202,7 +194,6 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
      * @test
      * @dataProvider provideNewWeaponSlightlyChangedParameters
      * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
-     *
      * @param $templateRequiredStrength
      * @param $templateWeaponLength
      * @param $templateOffensiveness
@@ -241,12 +232,9 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = 'spoon_' . static::getSutClass(); // unique per SUT
-        $addNew = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $this->getMeleeWeaponCategory()->getValue()),
-            'addNew'
-        );
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $spoon = MeleeWeaponCode::getIt($name);
+        $addNew = $this->assembleAddNewMethod();
         $added = $sut->$addNew(
             $spoon,
             Strength::getIt($templateRequiredStrength),
@@ -301,9 +289,9 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $name = uniqid('ham&axe', true);
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);
         $hamAndAxe = MeleeWeaponCode::getIt($name);
-        $sut->addNewMeleeWeapon(
+        $sut->addCustomMeleeWeapon(
             $hamAndAxe,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOW), // intentionally ranged
+            WeaponCategoryCode::getIt(WeaponCategoryCode::CROSSBOWS), // intentionally ranged
             $requiredStrength = Strength::getIt(0),
             $weaponLength = 1,
             $offensiveness = 2,

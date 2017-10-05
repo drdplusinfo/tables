@@ -23,10 +23,9 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
 
     /**
      * @param int $amount
-     *
      * @return Measurement
      */
-    protected function createSut($amount)
+    protected function createSut(int $amount): Measurement
     {
         $sutClass = self::getSutClass();
         $unit = $this->getDefaultUnit();
@@ -46,12 +45,12 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
      * @param Table $table
      * @return Measurement
      */
-    protected function createSutWithTable($sutClass, $amount, $unit, Table $table)
+    protected function createSutWithTable(string $sutClass, int $amount, string $unit, Table $table): Measurement
     {
         return new $sutClass($amount, $unit, $table);
     }
 
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return constant($this->getConstantAbsoluteName());
     }
@@ -74,10 +73,9 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
 
     /**
      * @param string $className
-     *
      * @return string
      */
-    protected function parseClassBaseName($className)
+    protected function parseClassBaseName(string $className): string
     {
         return preg_replace('~.+\\\(\w+)$~', '$1', $className);
     }
@@ -104,15 +102,15 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    protected function getTableClass()
+    protected function getTableClass():? string
     {
         $measurementClass = self::getSutClass();
         $tableClass = "{$measurementClass}Table";
 
         if (!class_exists($tableClass)) {
-            return false;
+            return null;
         }
 
         return $tableClass;

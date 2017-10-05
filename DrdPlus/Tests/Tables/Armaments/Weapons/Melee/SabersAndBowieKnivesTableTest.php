@@ -6,10 +6,10 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnivesTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
+class SabersAndBowieKnivesTableTest extends MeleeWeaponsTableTest
 {
     public function provideArmamentAndNameWithValue(): array
     {
@@ -66,9 +66,9 @@ class SabersAndBowieKnifesTableTest extends MeleeWeaponsTableTest
      */
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
-        $sabersAndBowieKnifesTable = new SabersAndBowieKnifesTable();
-        foreach (MeleeWeaponCode::getSaberAndBowieKnifeValues(false /* without custom ones */) as $saberAndBowieKnifeValue) {
-            $row = $sabersAndBowieKnifesTable->getRow([$saberAndBowieKnifeValue]);
+        $sabersAndBowieKnivesTable = new SabersAndBowieKnivesTable();
+        foreach (MeleeWeaponCode::getSabersAndBowieKnivesValues(false /* without custom ones */) as $saberAndBowieKnifeValue) {
+            $row = $sabersAndBowieKnivesTable->getRow([$saberAndBowieKnifeValue]);
             self::assertNotEmpty($row);
         }
     }

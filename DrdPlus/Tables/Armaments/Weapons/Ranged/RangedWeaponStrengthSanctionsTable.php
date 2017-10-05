@@ -53,7 +53,7 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseIt($missingStrength): bool
+    public function canUseIt(int $missingStrength): bool
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
@@ -64,13 +64,13 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getFightNumberSanction($missingStrength): int
+    public function getFightNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::FIGHT_NUMBER);
     }
@@ -96,25 +96,25 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getDefenseNumberSanction($missingStrength): int
+    public function getDefenseNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::DEFENSE_NUMBER);
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadingInRounds($missingStrength): int
+    public function getLoadingInRounds(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::LOADING_IN_ROUNDS);
     }
@@ -132,37 +132,37 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAttackNumberSanction($missingStrength): int
+    public function getAttackNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::ATTACK_NUMBER);
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getEncounterRangeSanction($missingStrength): int
+    public function getEncounterRangeSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::ENCOUNTER_RANGE);
     }
 
     /**
-     * @param int|IntegerInterface $missingStrength
+     * @param int $missingStrength
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getBaseOfWoundsSanction($missingStrength): int
+    public function getBaseOfWoundsSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::BASE_OF_WOUNDS);
     }

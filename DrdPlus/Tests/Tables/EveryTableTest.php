@@ -27,7 +27,7 @@ class EveryTableTest extends TestCase
     /**
      * @return array|string[]
      */
-    public static function getTableClasses()
+    public static function getTableClasses(): array
     {
         $tablesReflection = new \ReflectionClass(Table::class);
         $rootDir = dirname($tablesReflection->getFileName());
@@ -41,7 +41,7 @@ class EveryTableTest extends TestCase
      * @param string $rootNamespace
      * @return array
      */
-    private static function scanForTables(string $rootDir, string $rootNamespace)
+    private static function scanForTables(string $rootDir, string $rootNamespace): array
     {
         $tableClasses = [];
         foreach (scandir($rootDir, SCANDIR_SORT_NONE) as $fileOrDir) {

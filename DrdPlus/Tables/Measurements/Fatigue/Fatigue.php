@@ -27,10 +27,11 @@ class Fatigue extends AbstractMeasurementWithBonus
 
     /**
      * @param mixed $value
-     *
      * @return int
+     * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    protected function normalizeValue($value)
+    protected function normalizeValue($value): int
     {
         return ToInteger::toInteger($value);
     }
@@ -46,7 +47,7 @@ class Fatigue extends AbstractMeasurementWithBonus
     /**
      * @return FatigueBonus
      */
-    public function getBonus()
+    public function getBonus(): FatigueBonus
     {
         return $this->fatigueTable->toBonus($this);
     }

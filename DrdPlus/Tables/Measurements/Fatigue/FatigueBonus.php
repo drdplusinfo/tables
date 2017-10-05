@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Fatigue;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use Granam\Integer\IntegerInterface;
 
 class FatigueBonus extends AbstractBonus
 {
@@ -14,8 +15,9 @@ class FatigueBonus extends AbstractBonus
     private $fatigueTable;
 
     /**
-     * @param int $value
+     * @param int|IntegerInterface $value
      * @param FatigueTable $fatigueTable
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function __construct($value, FatigueTable $fatigueTable)
     {
@@ -26,7 +28,7 @@ class FatigueBonus extends AbstractBonus
     /**
      * @return Fatigue
      */
-    public function getFatigue()
+    public function getFatigue(): Fatigue
     {
         return $this->fatigueTable->toFatigue($this);
     }

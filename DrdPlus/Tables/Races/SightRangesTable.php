@@ -51,7 +51,7 @@ class SightRangesTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getMaximalLighting(RaceCode $raceCode)
+    public function getMaximalLighting(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($raceCode, self::MAXIMAL_LIGHTING);
@@ -61,7 +61,7 @@ class SightRangesTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getMinimalLighting(RaceCode $raceCode)
+    public function getMinimalLighting(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($raceCode, self::MINIMAL_LIGHTING);
@@ -71,7 +71,7 @@ class SightRangesTable extends AbstractFileTable
      * @param RaceCode $raceCode
      * @return int
      */
-    public function getAdaptability(RaceCode $raceCode)
+    public function getAdaptability(RaceCode $raceCode): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($raceCode, self::ADAPTABILITY);

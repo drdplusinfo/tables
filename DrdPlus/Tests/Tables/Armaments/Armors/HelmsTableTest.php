@@ -65,7 +65,7 @@ class HelmsTableTest extends AbstractArmorsTableTest
         $weight = new Weight(54, Weight::KG, Tables::getIt()->getWeightTable());
         $helmsTable = Tables::getIt()->getHelmsTable();
         for ($attempt = 1; $attempt < 3; $attempt++) {
-            $added = $helmsTable->addNewHelm($helmCode, $requiredStrength, $restriction, $protection, $weight);
+            $added = $helmsTable->addCustomHelm($helmCode, $requiredStrength, $restriction, $protection, $weight);
             if ($attempt === 1) {
                 self::assertTrue($added, 'Adding brand new helm should return true');
             } else {
@@ -124,7 +124,7 @@ class HelmsTableTest extends AbstractArmorsTableTest
     {
         $helmCode = $this->createHelm(uniqid('bar', true));
         $helmsTable = Tables::getIt()->getHelmsTable();
-        $added = $helmsTable->addNewHelm(
+        $added = $helmsTable->addCustomHelm(
             $helmCode,
             Strength::getIt($strengthValue),
             $restrictionValue,
@@ -132,7 +132,7 @@ class HelmsTableTest extends AbstractArmorsTableTest
             new Weight($weightValue, Weight::KG, Tables::getIt()->getWeightTable())
         );
         self::assertTrue($added, 'Adding brand new helm should return true');
-        $helmsTable->addNewHelm(
+        $helmsTable->addCustomHelm(
             $helmCode,
             Strength::getIt($newStrengthValue),
             $newRestrictionValue,

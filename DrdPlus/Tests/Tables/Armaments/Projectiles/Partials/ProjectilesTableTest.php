@@ -25,7 +25,7 @@ abstract class ProjectilesTableTest extends WoundingArmamentsTableTest
     /**
      * @return string
      */
-    abstract protected function getRowHeaderName();
+    abstract protected function getRowHeaderName(): string;
 
     /**
      * @test

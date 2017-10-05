@@ -50,9 +50,9 @@ class AxesTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::AXE),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::AXES),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

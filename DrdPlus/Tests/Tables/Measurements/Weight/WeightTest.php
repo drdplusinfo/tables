@@ -14,7 +14,7 @@ class WeightTest extends AbstractTestOfMeasurement
     /**
      * @return string
      */
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return Weight::KG;
     }

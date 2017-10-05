@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Amount;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use Granam\Integer\IntegerInterface;
 
 class AmountBonus extends AbstractBonus
 {
@@ -13,8 +14,9 @@ class AmountBonus extends AbstractBonus
     private $amountTable;
 
     /**
-     * @param int $bonusValue
+     * @param int|IntegerInterface $bonusValue
      * @param AmountTable $amountTable
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
     public function __construct($bonusValue, AmountTable $amountTable)
     {
@@ -25,7 +27,7 @@ class AmountBonus extends AbstractBonus
     /**
      * @return Amount
      */
-    public function getAmount()
+    public function getAmount(): Amount
     {
         return $this->amountTable->toAmount($this);
     }

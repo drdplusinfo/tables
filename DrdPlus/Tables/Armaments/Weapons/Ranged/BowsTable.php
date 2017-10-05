@@ -86,9 +86,9 @@ class BowsTable extends RangedWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewRangedWeapon(
+        return $this->addCustomRangedWeapon(
             $bowCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::BOW),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::BOWS),
             $requiredStrength,
             $range,
             $offensiveness,

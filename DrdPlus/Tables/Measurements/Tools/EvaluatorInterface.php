@@ -10,5 +10,5 @@ interface EvaluatorInterface
      * @param int $maxRollToGetValue
      * @return int
      */
-    public function evaluate($maxRollToGetValue);
+    public function evaluate(int $maxRollToGetValue): int;
 }

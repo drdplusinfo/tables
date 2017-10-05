@@ -103,7 +103,7 @@ class StaffsAndSpearsTableTest extends MeleeWeaponsTableTest
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
         $staffsAndSpearsTable = new StaffsAndSpearsTable();
-        foreach (MeleeWeaponCode::getStaffAndSpearValues(false /* without custom ones */) as $staffAndSpearValue) {
+        foreach (MeleeWeaponCode::getStaffsAndSpearsValues(false /* without custom ones */) as $staffAndSpearValue) {
             $row = $staffsAndSpearsTable->getRow([$staffAndSpearValue]);
             self::assertNotEmpty($row);
         }

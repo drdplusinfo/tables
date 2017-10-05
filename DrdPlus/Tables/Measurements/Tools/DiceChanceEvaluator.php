@@ -17,12 +17,7 @@ class DiceChanceEvaluator implements EvaluatorInterface
         $this->roller1d6 = $roller1d6;
     }
 
-    /**
-     * @param int $maxRollToGetValue
-     *
-     * @return int
-     */
-    public function evaluate($maxRollToGetValue)
+    public function evaluate(int $maxRollToGetValue): int
     {
         if ($this->roller1d6->roll()->getValue() <= $maxRollToGetValue) {
             return 1;

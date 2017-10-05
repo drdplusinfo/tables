@@ -77,7 +77,7 @@ class BodyArmorsTable extends AbstractArmorsTable
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentBodyArmorIsUnderSameName
      */
-    public function addNewBodyArmor(
+    public function addCustomBodyArmor(
         BodyArmorCode $bodyArmorCode,
         Strength $requiredStrength,
         int $restriction,

@@ -9,8 +9,6 @@ use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
 use DrdPlus\Tables\Combat\Actions\CombatActionsCompatibilityTable;
 use DrdPlus\Tables\Combat\Actions\CombatActionsWithWeaponTypeCompatibilityTable;
-use DrdPlus\Tables\Armaments\Armourer;
-use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 
 class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
@@ -49,7 +47,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
                     'aimed_shot',
                 ],
             ],
-            $current = (new CombatActionsWithWeaponTypeCompatibilityTable(Tables::getIt()->getArmourer()))->getHeader(),
+            $current = (new CombatActionsWithWeaponTypeCompatibilityTable())->getHeader(),
             implode(',', array_diff($expected[0], $current[0]))
         );
     }
@@ -59,7 +57,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
      */
     public function Pool_of_actions_is_same_as_from_combat_actions_compatibility_table()
     {
-        $current = (new CombatActionsWithWeaponTypeCompatibilityTable(Tables::getIt()->getArmourer()))->getHeader()[0];
+        $current = (new CombatActionsWithWeaponTypeCompatibilityTable())->getHeader()[0];
         array_shift($current); // remove rows header name
         sort($current);
         $shouldBe = (new CombatActionsCompatibilityTable())->getHeader()[0];
@@ -88,7 +86,7 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
     )
     {
         $weaponlikeCode = $this->createWeaponlikeCode($isMelee, $isThrowing, $isShooting);
-        $table = new CombatActionsWithWeaponTypeCompatibilityTable($this->createArmourer());
+        $table = new CombatActionsWithWeaponTypeCompatibilityTable();
         self::assertSame(
             $expectedActions = self::sort($expectedActions),
             $possibleActions = self::sort($table->getActionsPossibleWhenFightingWith($weaponlikeCode)),
@@ -238,14 +236,6 @@ class CombatActionsWithWeaponTypeCompatibilityTableTest extends TableTest
             MeleeCombatActionCode::PRESSURE,
             RangedCombatActionCode::AIMED_SHOT,
         ];
-    }
-
-    /**
-     * @return \Mockery\MockInterface|Armourer
-     */
-    private function createArmourer()
-    {
-        return $this->mockery(Armourer::class);
     }
 
     /**

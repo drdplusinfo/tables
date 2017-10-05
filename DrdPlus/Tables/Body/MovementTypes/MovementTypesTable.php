@@ -86,7 +86,7 @@ class MovementTypesTable extends AbstractFileTable
      * @return SpeedBonus
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getSpeedBonus($movementType)
+    public function getSpeedBonus(string $movementType): SpeedBonus
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

@@ -9,9 +9,10 @@ class DummyEvaluator implements EvaluatorInterface
 {
     /**
      * @param int $maxRollToGetValue
+     * @return int
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnsupportedMethodCalled
      */
-    public function evaluate($maxRollToGetValue)
+    public function evaluate(int $maxRollToGetValue): int
     {
         throw new UnsupportedMethodCalled('Dummy evaluator should never be called');
     }

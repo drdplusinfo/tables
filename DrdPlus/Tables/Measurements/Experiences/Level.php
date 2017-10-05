@@ -25,7 +25,10 @@ class Level extends AbstractBonus
 
     /**
      * Level is not limited by table values, so has to be in code
+     *
      * @param int $levelValue
+     * @throws \DrdPlus\Tables\Measurements\Experiences\Exceptions\MinLevelUnderflow
+     * @throws \DrdPlus\Tables\Measurements\Experiences\Exceptions\MaxLevelOverflow
      */
     private function guardLevelBoundaries($levelValue)
     {
@@ -44,7 +47,7 @@ class Level extends AbstractBonus
     /**
      * @return Experiences
      */
-    public function getExperiences()
+    public function getExperiences(): Experiences
     {
         return $this->experiencesTable->toExperiences($this);
     }
@@ -54,7 +57,7 @@ class Level extends AbstractBonus
      *
      * @return Experiences
      */
-    public function getTotalExperiences()
+    public function getTotalExperiences(): Experiences
     {
         return $this->experiencesTable->toTotalExperiences($this);
     }

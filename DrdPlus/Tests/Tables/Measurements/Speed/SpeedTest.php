@@ -15,7 +15,7 @@ use Mockery\MockInterface;
 class SpeedTest extends AbstractTestOfMeasurement
 {
 
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return SpeedUnitCode::METER_PER_ROUND;
     }

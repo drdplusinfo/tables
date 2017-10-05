@@ -60,7 +60,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
      */
-    public function addNewRangedWeapon(
+    public function addCustomRangedWeapon(
         RangedWeaponCode $rangedWeaponCode,
         WeaponCategoryCode $rangedWeaponCategoryCode,
         Strength $requiredStrength,

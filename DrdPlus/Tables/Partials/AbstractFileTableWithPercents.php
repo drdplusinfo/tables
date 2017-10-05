@@ -30,7 +30,7 @@ abstract class AbstractFileTableWithPercents extends AbstractFileTable
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound
      */
-    protected function getBonusBy($code, Percents $percents)
+    protected function getBonusBy($code, Percents $percents): int
     {
         if ($percents->getValue() > 100 && !$this->canBeMore($code)) {
             throw new Exceptions\UnexpectedPercents(

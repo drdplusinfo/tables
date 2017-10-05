@@ -48,7 +48,7 @@ class HelmsTable extends AbstractArmorsTable
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentHelmIsUnderSameName
      */
-    public function addNewHelm(
+    public function addCustomHelm(
         HelmCode $helmCode,
         Strength $requiredStrength,
         int $restriction,

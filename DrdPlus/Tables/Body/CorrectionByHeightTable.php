@@ -46,7 +46,7 @@ class CorrectionByHeightTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\Body\Exceptions\UnexpectedHeightToGetCorrectionFor
      */
-    public function getCorrectionByHeight(Height $height)
+    public function getCorrectionByHeight(Height $height): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

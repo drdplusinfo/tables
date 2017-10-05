@@ -38,7 +38,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
      * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
      * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnexpectedHealingConditionsPercents
      */
-    public function getHealingBonusByConditions($conditionsCode, HealingConditionsPercents $healingConditionsPercents)
+    public function getHealingBonusByConditions(string $conditionsCode, HealingConditionsPercents $healingConditionsPercents): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

@@ -72,7 +72,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
      * @param RidingAnimalMovementCode $ridingAnimalMovementCode
      * @return SpeedBonus
      */
-    public function getSpeedBonus(RidingAnimalMovementCode $ridingAnimalMovementCode)
+    public function getSpeedBonus(RidingAnimalMovementCode $ridingAnimalMovementCode): SpeedBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new SpeedBonus(

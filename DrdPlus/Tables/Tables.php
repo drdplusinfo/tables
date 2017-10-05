@@ -49,12 +49,12 @@ use DrdPlus\Tables\Armaments\Shields\ShieldUsageSkillTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\AxesTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\KnivesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MeleeWeaponStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MorningstarsAndMorgensternsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
-use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnifesTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\SabersAndBowieKnivesTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\StaffsAndSpearsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\SwordsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
@@ -428,15 +428,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return KnifesAndDaggersTable
+     * @return KnivesAndDaggersTable
      */
-    public function getKnifesAndDaggersTable(): KnifesAndDaggersTable
+    public function getKnivesAndDaggersTable(): KnivesAndDaggersTable
     {
-        if (!array_key_exists(KnifesAndDaggersTable::class, $this->tables)) {
-            $this->tables[KnifesAndDaggersTable::class] = new KnifesAndDaggersTable();
+        if (!array_key_exists(KnivesAndDaggersTable::class, $this->tables)) {
+            $this->tables[KnivesAndDaggersTable::class] = new KnivesAndDaggersTable();
         }
 
-        return $this->tables[KnifesAndDaggersTable::class];
+        return $this->tables[KnivesAndDaggersTable::class];
     }
 
     /**
@@ -464,15 +464,15 @@ class Tables extends StrictObject implements \IteratorAggregate
     }
 
     /**
-     * @return SabersAndBowieKnifesTable
+     * @return SabersAndBowieKnivesTable
      */
-    public function getSabersAndBowieKnifesTable(): SabersAndBowieKnifesTable
+    public function getSabersAndBowieKnivesTable(): SabersAndBowieKnivesTable
     {
-        if (!array_key_exists(SabersAndBowieKnifesTable::class, $this->tables)) {
-            $this->tables[SabersAndBowieKnifesTable::class] = new SabersAndBowieKnifesTable();
+        if (!array_key_exists(SabersAndBowieKnivesTable::class, $this->tables)) {
+            $this->tables[SabersAndBowieKnivesTable::class] = new SabersAndBowieKnivesTable();
         }
 
-        return $this->tables[SabersAndBowieKnifesTable::class];
+        return $this->tables[SabersAndBowieKnivesTable::class];
     }
 
     /**
@@ -760,9 +760,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getCombatActionsWithWeaponTypeCompatibilityTable(): CombatActionsWithWeaponTypeCompatibilityTable
     {
         if (!array_key_exists(CombatActionsWithWeaponTypeCompatibilityTable::class, $this->tables)) {
-            $this->tables[CombatActionsWithWeaponTypeCompatibilityTable::class] = new CombatActionsWithWeaponTypeCompatibilityTable(
-                $this->getArmourer()
-            );
+            $this->tables[CombatActionsWithWeaponTypeCompatibilityTable::class] = new CombatActionsWithWeaponTypeCompatibilityTable();
         }
 
         return $this->tables[CombatActionsWithWeaponTypeCompatibilityTable::class];
@@ -1070,10 +1068,10 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getShieldsTable(),
             $this->getShieldUsageSkillTable(),
             $this->getAxesTable(),
-            $this->getKnifesAndDaggersTable(),
+            $this->getKnivesAndDaggersTable(),
             $this->getMacesAndClubsTable(),
             $this->getMorningstarsAndMorgensternsTable(),
-            $this->getSabersAndBowieKnifesTable(),
+            $this->getSabersAndBowieKnivesTable(),
             $this->getStaffsAndSpearsTable(),
             $this->getSwordsTable(),
             $this->getVoulgesAndTridentsTable(),
@@ -1202,7 +1200,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             return $this->getAxesTable();
         }
         if ($meleeWeaponCode->isKnifeOrDagger()) {
-            return $this->getKnifesAndDaggersTable();
+            return $this->getKnivesAndDaggersTable();
         }
         if ($meleeWeaponCode->isMaceOrClub()) {
             return $this->getMacesAndClubsTable();
@@ -1211,7 +1209,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             return $this->getMorningstarsAndMorgensternsTable();
         }
         if ($meleeWeaponCode->isSaberOrBowieKnife()) {
-            return $this->getSabersAndBowieKnifesTable();
+            return $this->getSabersAndBowieKnivesTable();
         }
         if ($meleeWeaponCode->isStaffOrSpear()) {
             return $this->getStaffsAndSpearsTable();

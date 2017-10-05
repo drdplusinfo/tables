@@ -39,7 +39,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseIt($missingStrength)
+    public function canUseIt(int $missingStrength): bool
     {
         return $this->canMove($missingStrength);
     }
@@ -50,7 +50,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canMove($missingStrength)
+    public function canMove(int $missingStrength): bool
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(
@@ -62,12 +62,12 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
 
     /**
      * @param int $missingStrength
-     * @return int
+     * @return string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getSanctionDescription($missingStrength)
+    public function getSanctionDescription(int $missingStrength): string
     {
         return $this->getSanctionOf($missingStrength, self::SANCTION_DESCRIPTION, false /* do not check maximal missing strength */);
     }
@@ -76,12 +76,12 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @param int $missingStrength
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
-     * @return int
+     * @return int|bool|string
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseArmorBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
+    private function getSanctionOf(int $missingStrength, string $columnName, $guardMaximumMissingStrength = true)
     {
         if ($guardMaximumMissingStrength && !$this->canMove($missingStrength)) {
             throw new CanNotUseArmorBecauseOfMissingStrength(
@@ -99,7 +99,7 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAgilityMalus($missingStrength)
+    public function getAgilityMalus(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::AGILITY_SANCTION);
     }

@@ -70,7 +70,7 @@ class FatigueByLoadTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      * @throws \DrdPlus\Tables\Body\FatigueByLoad\Exceptions\OverloadedAndCanNotMove
      */
-    private function getRowFittingToMissingStrength($missingStrength, AthleticsInterface $athletics)
+    private function getRowFittingToMissingStrength($missingStrength, AthleticsInterface $athletics): array
     {
         $missingStrength = ToInteger::toInteger($missingStrength) - $athletics->getAthleticsBonus()->getValue();
         $usedMaximalMissingStrength = false;
@@ -104,7 +104,7 @@ class FatigueByLoadTable extends AbstractFileTable
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getLoadName($missingStrength, AthleticsInterface $athletics)
+    public function getLoadName(int $missingStrength, AthleticsInterface $athletics): string
     {
         $desiredRow = $this->getRowFittingToMissingStrength($missingStrength, $athletics);
 

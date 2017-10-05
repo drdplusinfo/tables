@@ -7,7 +7,6 @@ use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Codes\CombatActions\CombatActionCode;
 use DrdPlus\Codes\CombatActions\MeleeCombatActionCode;
 use DrdPlus\Codes\CombatActions\RangedCombatActionCode;
-use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 
 /**
@@ -16,19 +15,6 @@ use DrdPlus\Tables\Partials\AbstractFileTable;
  */
 class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
 {
-    /**
-     * @var Armourer
-     */
-    private $armourer;
-
-    /**
-     * @param Armourer $armourer
-     */
-    public function __construct(Armourer $armourer)
-    {
-        $this->armourer = $armourer;
-    }
-
     /**
      * @return string
      */
@@ -87,7 +73,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
      */
-    public function getActionsPossibleWhenFightingWith(WeaponlikeCode $weaponlikeCode)
+    public function getActionsPossibleWhenFightingWith(WeaponlikeCode $weaponlikeCode): array
     {
         $possibleActions = [];
         foreach ($this->getWeaponTypesByWeaponCode($weaponlikeCode) as $weaponType) {
@@ -120,7 +106,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
      * @param WeaponlikeCode $weaponlikeCode
      * @return array|string[]
      */
-    private function getWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode)
+    private function getWeaponTypesByWeaponCode(WeaponlikeCode $weaponlikeCode): array
     {
         $types = [];
         if ($weaponlikeCode->isMelee()) {

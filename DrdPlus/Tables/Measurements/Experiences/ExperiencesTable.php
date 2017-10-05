@@ -53,7 +53,7 @@ class ExperiencesTable extends AbstractTable
      * @param Experiences $experiences
      * @return Level
      */
-    public function toLevel(Experiences $experiences)
+    public function toLevel(Experiences $experiences): Level
     {
         $woundsBonus = $this->toWoundsBonus($experiences);
 
@@ -94,7 +94,7 @@ class ExperiencesTable extends AbstractTable
      * @param Experiences $experiences
      * @return Level
      */
-    public function toTotalLevel(Experiences $experiences)
+    public function toTotalLevel(Experiences $experiences): Level
     {
         $currentExperiences = 0;
         $usedExperiences = 0;
@@ -118,7 +118,7 @@ class ExperiencesTable extends AbstractTable
      * @param Level $level
      * @return Experiences
      */
-    public function toExperiences(Level $level)
+    public function toExperiences(Level $level): Experiences
     {
         if ($level->getValue() > 1) {
             $woundsBonus = new WoundsBonus($this->levelToBonusValue($level), $this->woundsTable);
@@ -144,7 +144,7 @@ class ExperiencesTable extends AbstractTable
      * @param Level $level
      * @return Experiences
      */
-    public function toTotalExperiences(Level $level)
+    public function toTotalExperiences(Level $level): Experiences
     {
         $experiencesSum = 0;
         for ($levelValueToCast = $level->getValue(); $levelValueToCast > 0; $levelValueToCast--) {

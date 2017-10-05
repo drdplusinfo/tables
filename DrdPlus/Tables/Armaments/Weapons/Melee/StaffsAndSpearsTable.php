@@ -50,9 +50,9 @@ class StaffsAndSpearsTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::STAFF_AND_SPEAR),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::STAFFS_AND_SPEARS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

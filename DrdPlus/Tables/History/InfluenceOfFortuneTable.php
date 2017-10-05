@@ -73,7 +73,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedDiceRoll
      */
-    public function getPrimaryPropertyOnFate(FateCode $fateCode, $diceRoll)
+    public function getPrimaryPropertyOnFate(FateCode $fateCode, $diceRoll): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -89,7 +89,7 @@ class InfluenceOfFortuneTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedDiceRoll
      */
-    public function getSecondaryPropertyOnFate(FateCode $fateCode, $diceRoll)
+    public function getSecondaryPropertyOnFate(FateCode $fateCode, $diceRoll): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

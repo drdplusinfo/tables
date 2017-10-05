@@ -46,7 +46,7 @@ class HealingByActivityTable extends AbstractFileTable
      * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence
      * @throws \DrdPlus\Tables\Partials\Exceptions\RequiredColumnNotFound
      */
-    public function getHealingBonusByActivity($activityCode)
+    public function getHealingBonusByActivity(string $activityCode): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

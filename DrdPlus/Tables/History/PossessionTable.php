@@ -45,7 +45,7 @@ class PossessionTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints
      */
-    public function getPossessionAsGoldCoins(PositiveInteger $backgroundPoints)
+    public function getPossessionAsGoldCoins(PositiveInteger $backgroundPoints): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

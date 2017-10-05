@@ -9,6 +9,7 @@ use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Experiences\Level;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfBonus;
+use Mockery\MockInterface;
 
 class LevelTest extends AbstractTestOfBonus
 {
@@ -68,15 +69,23 @@ class LevelTest extends AbstractTestOfBonus
         $experiencesTable->shouldReceive('toExperiences')
             ->atLeast()->once()
             ->with($level)
-            ->andReturn($experiences = 'foo');
+            ->andReturn($experiences = $this->createExperiences());
         self::assertSame($experiences, $level->getExperiences());
 
         $level = new Level(5, $experiencesTable = $this->getExperiencesTable());
         $experiencesTable->shouldReceive('toTotalExperiences')
             ->atLeast()->once()
             ->with($level)
-            ->andReturn($totalExperiences = 'bar');
+            ->andReturn($totalExperiences = $this->createExperiences());
         self::assertSame($totalExperiences, $level->getTotalExperiences());
+    }
+
+    /**
+     * @return Experiences|MockInterface
+     */
+    private function createExperiences(): Experiences
+    {
+        return $this->mockery(Experiences::class);
     }
 
     /**

@@ -26,8 +26,7 @@ abstract class WoundingArmamentsTableTest extends TableTest
     private function assembleIndexedValues(array $values)
     {
         $indexedValues = [];
-        foreach ($values as $row) {
-            list($weapon, $parameterName, $parameterValue) = $row;
+        foreach ($values as [$weapon, $parameterName, $parameterValue]) {
             if (!array_key_exists($weapon, $indexedValues)) {
                 $indexedValues[$weapon] = [];
             }

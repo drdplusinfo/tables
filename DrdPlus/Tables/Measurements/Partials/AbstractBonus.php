@@ -8,7 +8,6 @@ use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 
-/** @noinspection SingletonFactoryPatternViolationInspection */
 abstract class AbstractBonus extends StrictObject implements Bonus
 {
     /**

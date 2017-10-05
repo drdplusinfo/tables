@@ -9,23 +9,23 @@ interface WeaponStrengthSanctionsInterface extends StrengthSanctionsInterface
      * @param int $missingStrength
      * @return int
      */
-    public function getAttackNumberSanction($missingStrength);
+    public function getAttackNumberSanction(int $missingStrength): int;
 
     /**
      * @param int $missingStrength
      * @return int
      */
-    public function getBaseOfWoundsSanction($missingStrength);
+    public function getBaseOfWoundsSanction(int $missingStrength): int;
 
     /**
      * @param int $missingStrength
      * @return int
      */
-    public function getFightNumberSanction($missingStrength);
+    public function getFightNumberSanction(int $missingStrength): int;
 
     /**
      * @param $missingStrength
      * @return int
      */
-    public function getDefenseNumberSanction($missingStrength);
+    public function getDefenseNumberSanction(int $missingStrength): int;
 }

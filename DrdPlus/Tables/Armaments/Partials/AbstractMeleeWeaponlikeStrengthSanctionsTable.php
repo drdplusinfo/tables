@@ -38,7 +38,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getFightNumberSanction($missingStrength)
+    public function getFightNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::FIGHT_NUMBER);
     }
@@ -47,12 +47,12 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @param int $missingStrength
      * @param string $columnName
      * @param bool $guardMaximumMissingStrength
-     * @return int
+     * @return int|bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\CanNotUseWeaponBecauseOfMissingStrength
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    private function getSanctionOf($missingStrength, $columnName, $guardMaximumMissingStrength = true)
+    private function getSanctionOf(int $missingStrength, string $columnName, bool $guardMaximumMissingStrength = true)
     {
         if ($guardMaximumMissingStrength && !$this->canUseIt($missingStrength)) {
             throw new CanNotUseWeaponBecauseOfMissingStrength(
@@ -70,7 +70,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getAttackNumberSanction($missingStrength)
+    public function getAttackNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::ATTACK_NUMBER);
     }
@@ -82,7 +82,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getDefenseNumberSanction($missingStrength)
+    public function getDefenseNumberSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::DEFENSE_NUMBER);
     }
@@ -94,7 +94,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getBaseOfWoundsSanction($missingStrength)
+    public function getBaseOfWoundsSanction(int $missingStrength): int
     {
         return $this->getSanctionOf($missingStrength, self::BASE_OF_WOUNDS);
     }
@@ -105,7 +105,7 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function canUseIt($missingStrength)
+    public function canUseIt(int $missingStrength): bool
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getSanctionOf(

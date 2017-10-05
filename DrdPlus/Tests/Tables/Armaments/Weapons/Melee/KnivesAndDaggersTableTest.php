@@ -5,11 +5,11 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
-use DrdPlus\Tables\Armaments\Weapons\Melee\KnifesAndDaggersTable;
+use DrdPlus\Tables\Armaments\Weapons\Melee\KnivesAndDaggersTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
 
-class KnifesAndDaggersTableTest extends MeleeWeaponsTableTest
+class KnivesAndDaggersTableTest extends MeleeWeaponsTableTest
 {
     public function provideArmamentAndNameWithValue(): array
     {
@@ -66,9 +66,9 @@ class KnifesAndDaggersTableTest extends MeleeWeaponsTableTest
      */
     public function I_can_get_every_weapon_by_weapon_codes_library()
     {
-        $knifesAndDaggersTable = new KnifesAndDaggersTable();
-        foreach (MeleeWeaponCode::getKnifeAndDaggerValues(false /* without custom ones */) as $knifeAndDaggerValue) {
-            $row = $knifesAndDaggersTable->getRow([$knifeAndDaggerValue]);
+        $knivesAndDaggersTable = new KnivesAndDaggersTable();
+        foreach (MeleeWeaponCode::getKnivesAndDaggersValues(false /* without custom ones */) as $knifeAndDaggerValue) {
+            $row = $knivesAndDaggersTable->getRow([$knifeAndDaggerValue]);
             self::assertNotEmpty($row);
         }
     }

@@ -47,7 +47,7 @@ class BackgroundPointsTable extends AbstractFileTable
      * @return int
      * @throws \DrdPlus\Tables\History\Exceptions\UnknownFate
      */
-    public function getBackgroundPointsByPlayerDecision(FateCode $fateCode)
+    public function getBackgroundPointsByPlayerDecision(FateCode $fateCode): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

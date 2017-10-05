@@ -50,9 +50,9 @@ class MacesAndClubsTable extends MeleeWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewMeleeWeapon(
+        return $this->addCustomMeleeWeapon(
             $meleeWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::MACE_AND_CLUB),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::MACES_AND_CLUBS),
             $requiredStrength,
             $weaponLength,
             $offensiveness,

@@ -36,11 +36,12 @@ class SpeedTable extends AbstractMeasurementFileTable
     }
 
     /**
-     * @param int$bonusValue
+     * @param int $bonusValue
      * @return SpeedBonus|AbstractBonus
      */
     protected function createBonus(int $bonusValue): AbstractBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new SpeedBonus($bonusValue, $this);
     }
 
@@ -69,9 +70,11 @@ class SpeedTable extends AbstractMeasurementFileTable
      * @param float $value
      * @param string $unit
      * @return Speed|MeasurementWithBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Speed($value, $unit, $this);
     }
 }

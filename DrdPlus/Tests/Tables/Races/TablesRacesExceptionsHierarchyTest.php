@@ -11,7 +11,7 @@ class TablesRacesExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
     /**
      * @return string
      */
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
         return str_replace('\Tests', '', __NAMESPACE__);
     }
@@ -19,7 +19,7 @@ class TablesRacesExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
     /**
      * @return string
      */
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $reflection = new \ReflectionClass(Table::class);
 

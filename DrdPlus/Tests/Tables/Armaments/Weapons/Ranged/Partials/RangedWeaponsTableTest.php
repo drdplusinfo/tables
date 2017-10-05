@@ -12,7 +12,6 @@ use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;
-use Granam\String\StringTools;
 
 abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
 {
@@ -59,11 +58,11 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = uniqid('cannot', true);
-        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getWeaponCategory(), []);
         $cannot = RangedWeaponCode::getIt($name);
-        $added = $sut->addNewRangedWeapon(
+        $added = $sut->addCustomRangedWeapon(
             $cannot,
-            $this->getRangedWeaponCategory(),
+            $this->getWeaponCategory(),
             $requiredStrength = Strength::getIt(5),
             $range = new DistanceBonus(1, Tables::getIt()->getDistanceTable()),
             $offensiveness = 4,
@@ -91,23 +90,6 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         return new $sutClass();
     }
 
-    private $weaponCategory;
-
-    private function getRangedWeaponCategory(): WeaponCategoryCode
-    {
-        if ($this->weaponCategory === null) {
-            $sutClass = static::getSutClass();
-            $basename = preg_replace('~^.+\\\([^\\\]+)$~', '$1', $sutClass);
-            $keyword = preg_replace('~Table$~', '', $basename);
-            $categoryName = StringTools::camelCaseToSnakeCasedBasename($keyword);
-            $singular = rtrim(str_replace('s_', '_', $categoryName), 's');
-
-            $this->weaponCategory = WeaponCategoryCode::getIt($singular);
-        }
-
-        return $this->weaponCategory;
-    }
-
     /**
      * @test
      */
@@ -115,11 +97,8 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = uniqid('nailer', true);
-        $addNew = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $this->getRangedWeaponCategory()->getValue()),
-            'addNew'
-        );
-        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        $addNew = $this->assembleAddNewMethod();
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getWeaponCategory(), []);
         $nailer = RangedWeaponCode::getIt($name);
         $added = $sut->$addNew(
             $nailer,
@@ -152,11 +131,11 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = uniqid('cake', true);
-        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getWeaponCategory(), []);
         $cake = RangedWeaponCode::getIt($name);
-        $sut->addNewRangedWeapon(
+        $sut->addCustomRangedWeapon(
             $cake,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORD), // intentionally melee
+            WeaponCategoryCode::getIt(WeaponCategoryCode::SWORDS), // intentionally melee
             $requiredStrength = Strength::getIt(0),
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
@@ -210,11 +189,8 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     {
         $sut = $this->createSut();
         $name = 'hailstone_' . static::getSutClass(); // unique per SUT
-        $addNew = StringTools::assembleMethodName(
-            str_replace('_and_', '_or_', $this->getRangedWeaponCategory()->getValue()),
-            'addNew'
-        );
-        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getRangedWeaponCategory(), []);
+        $addNew = $this->assembleAddNewMethod();
+        RangedWeaponCode::addNewRangedWeaponCode($name, $this->getWeaponCategory(), []);
         $hailstone = RangedWeaponCode::getIt($name);
         $added = $sut->$addNew(
             $hailstone,

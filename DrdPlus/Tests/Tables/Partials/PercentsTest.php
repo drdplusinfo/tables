@@ -22,7 +22,7 @@ abstract class PercentsTest extends TestCase
     /**
      * @return string|Percents
      */
-    protected function getSutClass()
+    protected static function getSutClass()
     {
         return preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
     }

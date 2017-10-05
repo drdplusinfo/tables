@@ -12,7 +12,7 @@ class TablesMeasurementsPartialsExceptionsHierarchyTest extends AbstractExceptio
     /**
      * @return string
      */
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
         $abstractTableReflection = new \ReflectionClass(AbstractMeasurement::class);
 
@@ -22,7 +22,7 @@ class TablesMeasurementsPartialsExceptionsHierarchyTest extends AbstractExceptio
     /**
      * @return string
      */
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         $measurementReflection = new \ReflectionClass(Measurement::class);
 

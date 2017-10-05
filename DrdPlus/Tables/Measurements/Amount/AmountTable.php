@@ -58,6 +58,7 @@ class AmountTable extends AbstractMeasurementFileTable
      * @param float $value
      * @param string $unit
      * @return Amount|MeasurementWithBonus
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
     protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {

@@ -56,7 +56,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
         ExceptionalityCode $exceptionalityCode,
         AncestryTable $ancestryTable,
         AncestryCode $ancestryCode
-    )
+    ): int
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */

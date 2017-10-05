@@ -20,7 +20,7 @@ class AbstractMeasurementFileTableTest extends TestWithMockery
      */
     private $tempFilename;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         if ($this->tempFilename && file_exists($this->tempFilename)) {
@@ -404,7 +404,7 @@ class TestOfAbstractTable extends AbstractMeasurementFileTable
      * @param mixed $value
      * @return AbstractBonus
      */
-    public function toBonus($unit, $value)
+    public function toBonus(string $unit, $value): AbstractBonus
     {
         /** @var \Mockery\MockInterface|MeasurementWithBonus $measurement */
         $measurement = \Mockery::mock(MeasurementWithBonus::class);
@@ -443,7 +443,7 @@ class WithLessColumnHeaderRowsThenRowHeader extends AbstractTable
 
     public function getIndexedValues(): array
     {
-        throw new \LogicException;
+        throw new \LogicException('Should not be called at all');
     }
 
 }

@@ -44,6 +44,7 @@ class Speed extends AbstractMeasurementWithBonus
 
     /**
      * @return float
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     public function getMetersPerRound(): float
     {
@@ -53,6 +54,7 @@ class Speed extends AbstractMeasurementWithBonus
     /**
      * @param string $wantedUnit
      * @return float
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     private function convertTo($wantedUnit): float
     {
@@ -60,11 +62,13 @@ class Speed extends AbstractMeasurementWithBonus
             return $this->getValue();
         }
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getBonus()->getSpeed(self::KILOMETER_PER_HOUR)->getValue();
     }
 
     /**
      * @return float
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     public function getKilometersPerHour(): float
     {

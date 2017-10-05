@@ -54,7 +54,7 @@ class DistanceTest extends AbstractTestOfMeasurement
         $distanceWithInvalidUnit->getMeters();
     }
 
-    protected function getDefaultUnit()
+    protected function getDefaultUnit(): string
     {
         return DistanceUnitCode::METER;
     }

@@ -64,7 +64,7 @@ class FightTable extends AbstractTable
         BaseProperties $baseProperties,
         Height $height,
         Tables $tables
-    )
+    ): Fight
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return Fight::getIt($professionCode, $baseProperties, $height, $tables);

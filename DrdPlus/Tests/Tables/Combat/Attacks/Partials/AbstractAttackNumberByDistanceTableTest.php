@@ -29,7 +29,7 @@ abstract class AbstractAttackNumberByDistanceTableTest extends TableTest
     /**
      * @return array|mixed[][]
      */
-    abstract public function provideDistanceAndExpectedModifier();
+    abstract public function provideDistanceAndExpectedModifier(): array;
 
     /**
      * @param int $distanceInMeters

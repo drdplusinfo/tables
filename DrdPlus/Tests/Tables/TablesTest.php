@@ -168,7 +168,7 @@ class TablesTest extends TestWithMockery
      * @param string $class
      * @return array
      */
-    private function getCodes($class)
+    private function getCodes(string $class): array
     {
         $codes = [];
         /** @var AbstractCode $class */
@@ -185,7 +185,7 @@ class TablesTest extends TestWithMockery
      * @param $class
      * @return array
      */
-    private function pairCodesWithClass(array $codes, $class)
+    private function pairCodesWithClass(array $codes, string $class): array
     {
         return array_map(
             function ($code) use ($class) {

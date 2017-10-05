@@ -107,7 +107,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
         $roundsToPutOn = new PositiveIntegerObject(55);
         $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
         for ($attempt = 1; $attempt < 3; $attempt++) {
-            $added = $bodyArmorsTable->addNewBodyArmor($bodyArmorCode, $requiredStrength, $restriction, $protection, $weight, $roundsToPutOn);
+            $added = $bodyArmorsTable->addCustomBodyArmor($bodyArmorCode, $requiredStrength, $restriction, $protection, $weight, $roundsToPutOn);
             if ($attempt === 1) {
                 self::assertTrue($added, 'Adding brand new body armor should return true');
             } else {
@@ -171,7 +171,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
     {
         $bodyArmorCode = $this->createBodyArmorCode(uniqid('bar', true));
         $bodyArmorsTable = Tables::getIt()->getBodyArmorsTable();
-        $added = $bodyArmorsTable->addNewBodyArmor(
+        $added = $bodyArmorsTable->addCustomBodyArmor(
             $bodyArmorCode,
             Strength::getIt($strengthValue),
             $restrictionValue,
@@ -180,7 +180,7 @@ class BodyArmorsTableTest extends AbstractArmorsTableTest
             new PositiveIntegerObject($roundsToPutOnValue)
         );
         self::assertTrue($added, 'Adding brand new body armor should return true');
-        $bodyArmorsTable->addNewBodyArmor(
+        $bodyArmorsTable->addCustomBodyArmor(
             $bodyArmorCode,
             Strength::getIt($newStrengthValue),
             $newRestrictionValue,

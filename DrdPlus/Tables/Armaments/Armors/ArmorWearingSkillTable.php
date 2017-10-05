@@ -35,7 +35,7 @@ class ArmorWearingSkillTable extends AbstractArmamentSkillTable implements Missi
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Integer\Tools\Exceptions\ValueLostOnCast
      */
-    public function getRestrictionBonusForSkillRank($skillRank)
+    public function getRestrictionBonusForSkillRank($skillRank): int
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueForSkillRank($skillRank, self::RESTRICTION_BONUS);

@@ -29,7 +29,7 @@ class Ride extends StrictObject implements IntegerInterface
     /**
      * @return int
      */
-    public function getValue()
+    public function getValue(): int
     {
         return $this->rideValue;
     }

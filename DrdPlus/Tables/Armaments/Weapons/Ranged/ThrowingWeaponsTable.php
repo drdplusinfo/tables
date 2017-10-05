@@ -50,9 +50,9 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
         bool $twoHandedOnly
     ): bool
     {
-        return $this->addNewRangedWeapon(
+        return $this->addCustomRangedWeapon(
             $throwingWeaponCode,
-            WeaponCategoryCode::getIt(WeaponCategoryCode::THROWING_WEAPON),
+            WeaponCategoryCode::getIt(WeaponCategoryCode::THROWING_WEAPONS),
             $requiredStrength,
             $range,
             $offensiveness,
