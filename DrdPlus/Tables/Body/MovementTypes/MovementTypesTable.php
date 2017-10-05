@@ -82,21 +82,21 @@ class MovementTypesTable extends AbstractFileTable
     const SPRINT = MovementTypeCode::SPRINT;
 
     /**
-     * @param string $movementType
+     * @param string|MovementTypeCode $movementTypeCode
      * @return SpeedBonus
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getSpeedBonus(string $movementType): SpeedBonus
+    public function getSpeedBonus($movementTypeCode): SpeedBonus
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return new SpeedBonus(
-                $this->getValue([$movementType], self::BONUS_TO_MOVEMENT_SPEED),
+                $this->getValue([$movementTypeCode], self::BONUS_TO_MOVEMENT_SPEED),
                 $this->speedTable
             );
         } catch (RequiredRowNotFound $requiredRowDataNotFound) {
             throw new Exceptions\UnknownMovementType(
-                'Given movement type is not known ' . ValueDescriber::describe($movementType)
+                'Given movement type is not known ' . ValueDescriber::describe($movementTypeCode)
             );
         }
     }
