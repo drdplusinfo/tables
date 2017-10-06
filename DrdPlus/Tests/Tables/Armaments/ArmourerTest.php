@@ -24,6 +24,7 @@ use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\MissingProtectiveArmamentSkill;
 use DrdPlus\Tables\Armaments\Partials\AbstractArmamentsTable;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
+use DrdPlus\Tables\Armaments\Partials\StrengthSanctionsInterface;
 use DrdPlus\Tables\Armaments\Projectiles\Partials\ProjectilesTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
@@ -161,6 +162,46 @@ class ArmourerTest extends TestWithMockery
             ->andReturn(true);
 
         return $shieldCode;
+    }
+
+    /**
+     * @test
+     * @dataProvider provideValuesForWeaponUsability
+     * @param int $strength
+     * @param int $requiredStrength ,
+     * @param bool $canUseIt
+     */
+    public function I_can_find_out_if_can_use_weaponlike_with_a_strength(
+        int $strength,
+        int $requiredStrength,
+        bool $canUseIt
+    )
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        $weaponlike = $this->createMeleeWeaponlikeCode('foo', WeaponCategoryCode::AXES);
+        $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($strengthSanctionsTable = $this->mockery(StrengthSanctionsInterface::class));
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($armamentsTable = $this->mockery(AbstractArmamentsTable::class));
+        $armamentsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($weaponlike)
+            ->andReturn($requiredStrength);
+        $strengthSanctionsTable->shouldReceive('canUseIt')
+            ->with($requiredStrength - $strength /* missing strength */)
+            ->andReturn($canUseIt);
+        self::assertSame($canUseIt, $armourer->canUseWeaponlike($weaponlike, Strength::getIt($strength)));
+    }
+
+    public function provideValuesForWeaponUsability(): array
+    {
+        return [
+            [5, 10, true],
+            [-20, 80, false],
+        ];
     }
 
     /**
@@ -408,7 +449,7 @@ class ArmourerTest extends TestWithMockery
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
         foreach ($this->getMeleeWeaponGroups() as $weaponGroup) {
-            $code->shouldReceive($this->getIsWeaponMethodNameFromGroupName($weaponGroup))
+            $code->shouldReceive($this->getIsWeaponMethodNameFromCategoryName($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
         $code->shouldReceive('isWeapon')
@@ -667,7 +708,7 @@ class ArmourerTest extends TestWithMockery
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
         foreach ($this->getRangedWeaponGroups() as $weaponGroup) {
-            $code->shouldReceive($this->getIsWeaponMethodNameFromGroupName($weaponGroup))
+            $code->shouldReceive($this->getIsWeaponMethodNameFromCategoryName($weaponGroup))
                 ->andReturn($weaponGroup === $matchingWeaponGroup);
         }
         $code->shouldReceive('isShootingWeapon')
@@ -1176,10 +1217,10 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @param $value
-     * @param string $matchingMeleeWeaponlikeGroup
+     * @param string $matchingMeleeWeaponlikeCategory
      * @return \Mockery\MockInterface|MeleeWeaponlikeCode
      */
-    private function createMeleeWeaponlikeCode($value, $matchingMeleeWeaponlikeGroup)
+    private function createMeleeWeaponlikeCode($value, $matchingMeleeWeaponlikeCategory)
     {
         $code = $this->mockery(MeleeWeaponlikeCode::class);
         $code->shouldReceive('getValue')
@@ -1187,8 +1228,8 @@ class ArmourerTest extends TestWithMockery
         $code->shouldReceive('__toString')
             ->andReturn((string)$value);
         foreach ($this->getMeleeWeaponlikeGroups() as $meleeWeaponlikeGroup) {
-            $code->shouldReceive($this->getIsWeaponMethodNameFromGroupName($meleeWeaponlikeGroup))
-                ->andReturn($meleeWeaponlikeGroup === $matchingMeleeWeaponlikeGroup);
+            $code->shouldReceive($this->getIsWeaponMethodNameFromCategoryName($meleeWeaponlikeGroup))
+                ->andReturn($meleeWeaponlikeGroup === $matchingMeleeWeaponlikeCategory);
         }
         $code->shouldReceive('isMelee')
             ->andReturn(true);
@@ -1198,9 +1239,9 @@ class ArmourerTest extends TestWithMockery
         return $code;
     }
 
-    private function getIsWeaponMethodNameFromGroupName(string $groupName): string
+    private function getIsWeaponMethodNameFromCategoryName(string $categoryName): string
     {
-        return StringTools::assembleIsForName(rtrim($groupName, 's'));
+        return StringTools::assembleIsForName(rtrim($categoryName, 's'));
     }
 
     /**
@@ -2160,5 +2201,62 @@ class ArmourerTest extends TestWithMockery
         self::assertSame($protection, $helmsTable->getProtectionOf($paperCap));
         self::assertSame($weight->getKilograms(), $armourer->getWeightOfArmament($paperCap));
         self::assertSame($weight->getKilograms(), $helmsTable->getWeightOf($paperCap));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_power_of_destruction_of_melee_weaponlike()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        $weaponlike = $this->createMeleeWeaponlikeCode('foo', WeaponCategoryCode::SWORDS);
+        $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($strengthSanctionsTable = $this->mockery(StrengthSanctionsInterface::class));
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($armamentsTable = $this->mockery(AbstractArmamentsTable::class));
+        $armamentsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($weaponlike)
+            ->andReturn(false);
+        $strengthSanctionsTable->shouldReceive('canUseIt')
+            ->with(0)
+            ->andReturn(true);
+        $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($meleeWeaponlikesTable = $this->mockery(MeleeWeaponlikesTable::class));
+        $meleeWeaponlikesTable->shouldReceive('getWoundsOf')
+            ->with($weaponlike)->andReturn(123);
+        $power = $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(456), false /* hold by two hands */);
+        self::assertSame(123 + 456, $power);
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Armaments\Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength
+     * @expectedExceptionMessageRegExp ~'foo' is too heavy~
+     */
+    public function I_can_not_get_power_of_destruction_if_can_not_bear_weapon()
+    {
+        $armourer = new Armourer($tables = $this->createTables());
+        $weaponlike = $this->createMeleeWeaponlikeCode('foo', WeaponCategoryCode::SWORDS);
+        $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($strengthSanctionsTable = $this->mockery(StrengthSanctionsInterface::class));
+        $tables->shouldReceive('getArmamentsTableByArmamentCode')
+            ->once()
+            ->with($weaponlike)
+            ->andReturn($armamentsTable = $this->mockery(AbstractArmamentsTable::class));
+        $armamentsTable->shouldReceive('getRequiredStrengthOf')
+            ->with($weaponlike)
+            ->andReturn(20);
+        $strengthSanctionsTable->shouldReceive('canUseIt')
+            ->with(20)
+            ->andReturn(false);
+        $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(0), false /* hold by two hands */);
     }
 }

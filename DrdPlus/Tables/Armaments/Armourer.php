@@ -302,7 +302,7 @@ class Armourer extends StrictObject
      * Note: spear can be both range and melee, but required strength is for melee and range usages the same
      *
      * @param ArmamentCode $armamentCode
-     * @param Strength $currentStrength
+     * @param Strength $currentStrength INCLUDING bonus for holding
      * @param Size $bodySize
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
@@ -311,6 +311,23 @@ class Armourer extends StrictObject
     {
         return $this->tables->getArmamentStrengthSanctionsTableByCode($armamentCode)->canUseIt(
             $this->getMissingStrengthForArmament($armamentCode, $currentStrength, $bodySize)
+        );
+    }
+
+    /**
+     * Note: spear can be both range and melee, but required strength is for melee and range usages the same
+     *
+     * @param ArmamentCode $armamentCode
+     * @param Strength $currentStrength INCLUDING bonus for holding
+     * @return bool
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
+     */
+    public function canUseWeaponlike(ArmamentCode $armamentCode, Strength $currentStrength): bool
+    {
+        return $this->canUseArmament(
+            $armamentCode,
+            $currentStrength,
+            Size::getIt(0) /* whatever - is applied only to a body armor */
         );
     }
 
@@ -1087,6 +1104,8 @@ class Armourer extends StrictObject
      * @param Strength $strength
      * @param bool $weaponIsHoldByTwoHands
      * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
@@ -1097,6 +1116,12 @@ class Armourer extends StrictObject
         bool $weaponIsHoldByTwoHands
     ): int
     {
+        if (!$this->canUseWeaponlike($meleeWeaponlikeCode, $strength)) {
+            throw new Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength(
+                "'$meleeWeaponlikeCode' is too heavy to be used with a strength of $strength"
+            );
+        }
+
         return $strength->getValue()
             + $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getWoundsOf($meleeWeaponlikeCode)
             + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponIsHoldByTwoHands);
