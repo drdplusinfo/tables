@@ -862,14 +862,14 @@ class Armourer extends StrictObject
      * PPH page 92 right column
      *
      * @param WeaponlikeCode $weaponlikeCode
-     * @param bool $holdsWeaponByTwoHands
+     * @param ItemHoldingCode $weaponlikeHolding
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, bool $holdsWeaponByTwoHands): int
+    public function getBaseOfWoundsBonusForHolding(WeaponlikeCode $weaponlikeCode, ItemHoldingCode $weaponlikeHolding): int
     {
-        if (!$holdsWeaponByTwoHands) {
+        if (!$weaponlikeHolding->holdsByTwoHands()) {
             return 0;
         }
         if (!$weaponlikeCode->isMelee()) {
@@ -1104,29 +1104,31 @@ class Armourer extends StrictObject
      * @link https://pph.drdplus.info/#niceni
      * There is NO malus for missing strength (we are not fighting, just smashing)
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
-     * @param Strength $strength
-     * @param bool $weaponIsHoldByTwoHands
+     * @param Strength $strengthOfMainHand
+     * @param ItemHoldingCode $weaponlikeHolding
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByTwoHands
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotHoldWeaponByOneHand
      */
     public function getPowerOfDestruction(
         MeleeWeaponlikeCode $meleeWeaponlikeCode,
-        Strength $strength,
-        bool $weaponIsHoldByTwoHands
+        Strength $strengthOfMainHand,
+        ItemHoldingCode $weaponlikeHolding
     ): int
     {
-        if (!$this->canUseWeaponlike($meleeWeaponlikeCode, $strength)) {
+        $usedStrength = $this->getStrengthForWeaponOrShield($meleeWeaponlikeCode, $weaponlikeHolding, $strengthOfMainHand);
+        if (!$this->canUseWeaponlike($meleeWeaponlikeCode, $usedStrength)) {
             throw new Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength(
-                "'$meleeWeaponlikeCode' is too heavy to be used with a strength of $strength"
+                "'$meleeWeaponlikeCode' is too heavy to be used with a strength of $usedStrength"
             );
         }
 
-        return $strength->getValue()
+        return $usedStrength->getValue()
             + $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getWoundsOf($meleeWeaponlikeCode)
-            + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponIsHoldByTwoHands);
+            + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponlikeHolding);
     }
 }
