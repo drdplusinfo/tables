@@ -890,6 +890,9 @@ class Armourer extends StrictObject
     }
 
     /**
+     * If one-handed weapon or shield is kept by both hands, the required strength for weapon is lower
+     * (fighter strength is considered higher respectively), see details in PPH page 93, left column.
+     *
      * @param WeaponlikeCode $weaponOrShield
      * @param ItemHoldingCode $holding
      * @param Strength $strengthOfMainHand
