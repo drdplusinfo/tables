@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Tools;
 
-use Drd\DiceRolls\Templates\Rollers\Roller1d6;
+use DrdPlus\DiceRolls\Templates\Rollers\Roller1d6;
 
 class DiceChanceEvaluator implements EvaluatorInterface
 {

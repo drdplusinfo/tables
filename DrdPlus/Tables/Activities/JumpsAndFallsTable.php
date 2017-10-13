@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Activities;
 
-use Drd\DiceRolls\Templates\Rolls\Roll1d6;
+use DrdPlus\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpMovementCode;
@@ -162,6 +162,7 @@ class JumpsAndFallsTable extends AbstractFileTable
             $woundsValue = 0;
         }
 
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Wounds($woundsValue, $tables->getWoundsTable());
     }
 }

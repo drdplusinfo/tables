@@ -8,9 +8,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 class DistanceBonus extends AbstractBonus
 {
 
-    /**
-     * @var DistanceTable
-     */
+    /** @var DistanceTable */
     private $distanceTable;
 
     /**
@@ -27,7 +25,7 @@ class DistanceBonus extends AbstractBonus
     /**
      * @return Distance
      */
-    public function getDistance()
+    public function getDistance(): Distance
     {
         return $this->distanceTable->toDistance($this);
     }

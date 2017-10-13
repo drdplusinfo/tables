@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Wounds;
 
-use Drd\DiceRolls\Templates\Rollers\Roller1d6;
+use DrdPlus\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
@@ -39,6 +39,7 @@ class WoundsTable extends AbstractMeasurementFileTable
     public function toWounds(WoundsBonus $bonus): Wounds
     {
         if ($bonus->getValue() < -21) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return new Wounds(0, $this);
         }
 
@@ -71,6 +72,7 @@ class WoundsTable extends AbstractMeasurementFileTable
      */
     protected function convertToMeasurement(float $value, string $unit): MeasurementWithBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Wounds($value, $this);
     }
 

@@ -3,9 +3,9 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
-use Drd\DiceRolls\Templates\Rollers\Roller1d6;
+use DrdPlus\DiceRolls\Roll;
+use DrdPlus\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
-use Granam\Integer\IntegerObject;
 use Granam\Tests\Tools\TestWithMockery;
 
 class DiceChanceEvaluatorTest extends TestWithMockery
@@ -20,15 +20,15 @@ class DiceChanceEvaluatorTest extends TestWithMockery
         $roller = $this->mockery(Roller1d6::class);
         $evaluator = new DiceChanceEvaluator($roller);
         $roller->shouldReceive('roll')
-            ->andReturn($this->createNumber(321));
+            ->andReturn($this->createRoll(321));
         self::assertSame(0, $evaluator->evaluate(320), 'Higher roll than maximum should result into zero');
         self::assertSame(1, $evaluator->evaluate(321));
         self::assertSame(1, $evaluator->evaluate(322));
     }
 
-    private function createNumber($value)
+    private function createRoll($value)
     {
-        $number = $this->mockery(IntegerObject::class);
+        $number = $this->mockery(Roll::class);
         $number->shouldReceive('getValue')
             ->andReturn($value);
 

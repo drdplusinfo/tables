@@ -6,12 +6,12 @@ namespace DrdPlus\Tables\Measurements\Distance;
 use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
-use Granam\Float\Tools\ToFloat;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
 
 class Distance extends AbstractMeasurementWithBonus
 {
+    const DECIMETER = DistanceUnitCode::DECIMETER;
     const METER = DistanceUnitCode::METER;
     const KILOMETER = DistanceUnitCode::KILOMETER;
     const LIGHT_YEAR = DistanceUnitCode::LIGHT_YEAR;
@@ -41,7 +41,7 @@ class Distance extends AbstractMeasurementWithBonus
      */
     public function getPossibleUnits(): array
     {
-        return [self::METER, self::KILOMETER, self::LIGHT_YEAR];
+        return [self::DECIMETER, self::METER, self::KILOMETER, self::LIGHT_YEAR];
     }
 
     /**
@@ -55,34 +55,61 @@ class Distance extends AbstractMeasurementWithBonus
     /**
      * @return float
      */
-    public function getMeters(): float
+    public function getDecimeters(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::METER);
+        return $this->getValueInDifferentUnit(self::DECIMETER);
     }
 
     /**
-     * @param $value
-     * @param $fromUnit
-     * @param $toUnit
+     * @return float
+     */
+    public function getMeters(): float
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return $this->getValueInDifferentUnit(self::METER);
+    }
+
+    /**
+     * @param string $toUnit
      * @return float
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
-    private function getValueInDifferentUnit($value, $fromUnit, $toUnit): float
+    private function getValueInDifferentUnit(string $toUnit): float
     {
-        if ($fromUnit === $toUnit) {
-            return ToFloat::toFloat($value);
+        if ($this->getUnit() === $toUnit) {
+            return $this->getValue();
         }
-        if ($fromUnit === self::METER && $toUnit === self::KILOMETER) {
-            return $value / 1000;
-        }
-        if ($fromUnit === self::KILOMETER && $toUnit === self::METER) {
-            return $value * 1000;
+        switch ($this->getUnit()) {
+            case self::DECIMETER :
+                if ($toUnit === self::METER) {
+                    return $this->getValue() / 10;
+                }
+                if ($toUnit === self::KILOMETER) {
+                    return $this->getValue() / 10000;
+                }
+                break;
+            case self::METER :
+                if ($toUnit === self::KILOMETER) {
+                    return $this->getValue() / 1000;
+                }
+                if ($toUnit === self::DECIMETER) {
+                    return $this->getValue() * 10;
+                }
+                break;
+            case self::KILOMETER :
+                if ($toUnit === self::METER) {
+                    return $this->getValue() * 1000;
+                }
+                if ($toUnit === self::DECIMETER) {
+                    return $this->getValue() * 10000;
+                }
+                break;
         }
         throw new UnknownUnit(
-            'Unknown one or both from ' . ValueDescriber::describe($fromUnit)
+            'Unknown one or both from ' . ValueDescriber::describe($this->getUnit())
             . ' to ' . ValueDescriber::describe($toUnit) . ' unit(s)'
         );
     }
@@ -93,7 +120,7 @@ class Distance extends AbstractMeasurementWithBonus
     public function getKilometers(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::KILOMETER);
+        return $this->getValueInDifferentUnit(self::KILOMETER);
     }
 
     /**
@@ -102,7 +129,7 @@ class Distance extends AbstractMeasurementWithBonus
     public function getLightYears(): float
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValueInDifferentUnit($this->getValue(), $this->getUnit(), self::LIGHT_YEAR);
+        return $this->getValueInDifferentUnit(self::LIGHT_YEAR);
     }
 
     /**

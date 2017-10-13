@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Activities;
 
-use Drd\DiceRolls\Templates\Rolls\Roll1d6;
+use DrdPlus\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
@@ -288,6 +288,7 @@ class JumpsAndFallsTableTest extends TableTest
     {
         $woundsTable = $this->mockery(WoundsTable::class);
         $woundsTable->shouldReceive('toWounds')
+            ->zeroOrMoreTimes()
             ->with($this->type(WoundsBonus::class))
             ->andReturnUsing(function (WoundsBonus $woundsBonus)
             use ($expectedPowerOfWound, $powerOfWoundAsWounds, $expectedAgilityAndAthleticsValue, $agilityAsWounds) {
@@ -327,6 +328,7 @@ class JumpsAndFallsTableTest extends TableTest
     {
         $landingSurfacesTable = $this->mockery(LandingSurfacesTable::class);
         $landingSurfacesTable->shouldReceive('getBaseOfWoundsModifier')
+            ->zeroOrMoreTimes()
             ->with($landingSurfaceCode, $agility, $armorProtection)
             ->andReturn(new IntegerWithHistory($modifier));
 

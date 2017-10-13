@@ -57,9 +57,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     protected function getRowsHeader(): array
     {
-        return [
-            ['bonus'],
-        ];
+        return [['bonus']];
     }
 
     /**

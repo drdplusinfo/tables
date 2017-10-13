@@ -40,7 +40,7 @@ class DistanceTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     public function I_can_not_use_too_low_bonus_to_value()
     {
@@ -50,7 +50,7 @@ class DistanceTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
     public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
     {
@@ -87,7 +87,7 @@ class DistanceTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_low_value_to_bonus()
     {
@@ -98,7 +98,7 @@ class DistanceTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \OutOfRangeException
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     public function I_can_not_convert_too_high_value_to_bonus()
     {

@@ -14,23 +14,32 @@ class DistanceTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_create_distance_measurement_in_meters_or_kilometers_or_light_years()
+    public function I_can_create_distance_measurement_in_every_unit()
     {
         $distanceTable = new DistanceTable();
+
+        $inDm = new Distance($value = 10, $unit = DistanceUnitCode::DECIMETER, $distanceTable);
+        self::assertSame((float)$value, $inDm->getValue());
+        self::assertSame($unit, $inDm->getUnit());
+        self::assertSame((float)$value / 10, $inDm->getMeters());
+        self::assertSame((float)($value / 10000), $inDm->getKilometers());
+        self::assertSame(0, $inDm->getBonus()->getValue());
+
+        $inM = new Distance($value = 456, $unit = DistanceUnitCode::METER, $distanceTable);
+        self::assertSame((float)$value, $inM->getValue());
+        self::assertSame($unit, $inM->getUnit());
+        self::assertSame((float)$value * 10, $inM->getDecimeters());
+        self::assertSame((float)$value, $inM->getMeters());
+        self::assertSame((float)($value / 1000), $inM->getKilometers());
+        self::assertSame(53, $inM->getBonus()->getValue());
 
         $inKm = new Distance($value = 123, $unit = DistanceUnitCode::KILOMETER, $distanceTable);
         self::assertSame((float)$value, $inKm->getValue());
         self::assertSame($unit, $inKm->getUnit());
         self::assertSame((float)$value, $inKm->getKilometers());
         self::assertSame((float)($value * 1000), $inKm->getMeters());
+        self::assertSame((float)($value * 10000), $inKm->getDecimeters());
         self::assertSame(102, $inKm->getBonus()->getValue());
-
-        $inM = new Distance($value = 456, $unit = DistanceUnitCode::METER, $distanceTable);
-        self::assertSame((float)$value, $inM->getValue());
-        self::assertSame($unit, $inM->getUnit());
-        self::assertSame((float)$value, $inM->getMeters());
-        self::assertSame((float)($value / 1000), $inM->getKilometers());
-        self::assertSame(53, $inM->getBonus()->getValue());
 
         $inLightYears = new Distance($value = 1, $unit = DistanceUnitCode::LIGHT_YEAR, $distanceTable);
         self::assertSame((float)$value, $inLightYears->getValue());
@@ -61,7 +70,7 @@ class DistanceTest extends AbstractTestOfMeasurement
 
     public function getAllUnits(): array
     {
-        return [DistanceUnitCode::METER, DistanceUnitCode::KILOMETER, DistanceUnitCode::LIGHT_YEAR];
+        return DistanceUnitCode::getPossibleValues();
     }
 
     /**

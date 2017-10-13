@@ -34,7 +34,12 @@ class DistanceTable extends AbstractMeasurementFileTable
      */
     protected function getExpectedDataHeader(): array
     {
-        return [DistanceUnitCode::METER, DistanceUnitCode::KILOMETER, DistanceUnitCode::LIGHT_YEAR];
+        return [
+            DistanceUnitCode::DECIMETER,
+            DistanceUnitCode::METER,
+            DistanceUnitCode::KILOMETER,
+            DistanceUnitCode::LIGHT_YEAR,
+        ];
     }
 
     /**
