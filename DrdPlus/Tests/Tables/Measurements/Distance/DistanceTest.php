@@ -7,14 +7,25 @@ use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
+use Granam\String\StringTools;
 
 class DistanceTest extends AbstractTestOfMeasurement
 {
 
+    protected function getDefaultUnit(): string
+    {
+        return DistanceUnitCode::METER;
+    }
+
+    public function getAllUnits(): array
+    {
+        return DistanceUnitCode::getPossibleValues();
+    }
+
     /**
      * @test
      */
-    public function I_can_create_distance_measurement_in_every_unit()
+    public function I_can_get_it_in_every_unit_by_specific_getter()
     {
         $distanceTable = new DistanceTable();
 
@@ -50,27 +61,55 @@ class DistanceTest extends AbstractTestOfMeasurement
 
     /**
      * @test
+     * @dataProvider provideInSpecificUnitGetters
      * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @expectedExceptionMessageRegExp ~megastep~
+     * @param string $getInUnit
      */
-    public function Invalid_unit_of_inherited_distance_is_detected()
+    public function Can_not_cast_it_from_unknown_unit(string $getInUnit)
     {
         /** @var Distance|\Mockery\MockInterface $distanceWithInvalidUnit */
         $distanceWithInvalidUnit = $this->mockery(Distance::class);
         $distanceWithInvalidUnit->shouldReceive('getUnit')
-            ->andReturn('invalid unit');
+            ->andReturn('megastep');
         $distanceWithInvalidUnit->shouldDeferMissing();
-
-        $distanceWithInvalidUnit->getMeters();
+        $distanceWithInvalidUnit->$getInUnit();
     }
 
-    protected function getDefaultUnit(): string
+    public function provideInSpecificUnitGetters(): array
     {
-        return DistanceUnitCode::METER;
+        $getters = [];
+        foreach (DistanceUnitCode::getPossibleValues() as $distanceUnit) {
+            // like getMeters
+            $getters[] = [StringTools::assembleGetterForName($distanceUnit . 's' /* plural */)];
+        }
+
+        return $getters;
     }
 
-    public function getAllUnits(): array
+    /**
+     * @test
+     * @dataProvider provideDistanceUnits
+     * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @expectedExceptionMessageRegExp ~nanoinch~
+     * @param string $unit
+     */
+    public function Can_not_cast_it_to_unknown_unit(string $unit)
     {
-        return DistanceUnitCode::getPossibleValues();
+        $distance = new \ReflectionClass(Distance::class);
+        $getValueInDifferentUnit = $distance->getMethod('getValueInDifferentUnit');
+        $getValueInDifferentUnit->setAccessible(true);
+        $getValueInDifferentUnit->invoke(new Distance(123, $unit, new DistanceTable()), 'nanoinch');
+    }
+
+    public function provideDistanceUnits()
+    {
+        return array_map(
+            function (string $distanceUnit) {
+                return [$distanceUnit]; // just wrapped by an array to satisfy required PHPUnit format
+            },
+            DistanceUnitCode::getPossibleValues()
+        );
     }
 
     /**
