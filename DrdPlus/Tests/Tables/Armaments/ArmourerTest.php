@@ -193,7 +193,6 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $weaponlike = $this->createMeleeWeaponlikeCode('foo', WeaponCategoryCode::AXES);
         $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
-            ->once()
             ->zeroOrMoreTimes()
             ->with($weaponlike)
             ->andReturn($strengthSanctionsTable = $this->mockery(StrengthSanctionsInterface::class));
@@ -2375,12 +2374,10 @@ class ArmourerTest extends TestWithMockery
         $armourer = new Armourer($tables = $this->createTables());
         $weaponlike = $this->createMeleeWeaponlikeCode('foo', WeaponCategoryCode::SWORDS);
         $tables->shouldReceive('getArmamentStrengthSanctionsTableByCode')
-            ->once()
             ->zeroOrMoreTimes()
             ->with($weaponlike)
             ->andReturn($strengthSanctionsTable = $this->mockery(StrengthSanctionsInterface::class));
         $tables->shouldReceive('getArmamentsTableByArmamentCode')
-            ->once()
             ->zeroOrMoreTimes()
             ->with($weaponlike)
             ->andReturn($armamentsTable = $this->mockery(AbstractArmamentsTable::class));
@@ -2405,7 +2402,6 @@ class ArmourerTest extends TestWithMockery
             ->with(0)
             ->andReturn(true);
         $tables->shouldReceive('getMeleeWeaponlikeTableByMeleeWeaponlikeCode')
-            ->once()
             ->zeroOrMoreTimes()
             ->with($weaponlike)
             ->andReturn($meleeWeaponlikesTable = $this->mockery(MeleeWeaponlikesTable::class));
@@ -2413,8 +2409,20 @@ class ArmourerTest extends TestWithMockery
             ->atLeast()->once()
             ->zeroOrMoreTimes()
             ->with($weaponlike)->andReturn(123);
-        $power = $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(456), ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS));
+        $power = $armourer->getPowerOfDestruction(
+            $weaponlike,
+            Strength::getIt(456),
+            ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS),
+            false /* weapon is appropriate */
+        );
         self::assertSame(123 + 456, $power);
+        $power = $armourer->getPowerOfDestruction(
+            $weaponlike,
+            Strength::getIt(456),
+            ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS),
+            true /* weapon is inappropriate */
+        );
+        self::assertSame(123 + 456 - 6, $power);
     }
 
     /**
@@ -2450,6 +2458,6 @@ class ArmourerTest extends TestWithMockery
             ->zeroOrMoreTimes()
             ->with(20)
             ->andReturn(false);
-        $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(0), ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS));
+        $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(0), ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS), false);
     }
 }

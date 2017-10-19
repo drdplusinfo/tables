@@ -1106,6 +1106,7 @@ class Armourer extends StrictObject
      * @param MeleeWeaponlikeCode $meleeWeaponlikeCode
      * @param Strength $strengthOfMainHand
      * @param ItemHoldingCode $weaponlikeHolding
+     * @param bool $weaponIsInappropriate like bare hands
      * @return int
      * @throws \DrdPlus\Tables\Armaments\Exceptions\CanNotUseMeleeWeaponlikeBecauseOfMissingStrength
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
@@ -1117,7 +1118,8 @@ class Armourer extends StrictObject
     public function getPowerOfDestruction(
         MeleeWeaponlikeCode $meleeWeaponlikeCode,
         Strength $strengthOfMainHand,
-        ItemHoldingCode $weaponlikeHolding
+        ItemHoldingCode $weaponlikeHolding,
+        bool $weaponIsInappropriate
     ): int
     {
         $usedStrength = $this->getStrengthForWeaponOrShield($meleeWeaponlikeCode, $weaponlikeHolding, $strengthOfMainHand);
@@ -1129,6 +1131,7 @@ class Armourer extends StrictObject
 
         return $usedStrength->getValue()
             + $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getWoundsOf($meleeWeaponlikeCode)
-            + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponlikeHolding);
+            + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponlikeHolding)
+            + ($weaponIsInappropriate ? -6 : 0);
     }
 }
