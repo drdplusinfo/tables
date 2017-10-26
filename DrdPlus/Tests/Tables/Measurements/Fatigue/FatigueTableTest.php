@@ -118,31 +118,31 @@ class FatigueTableTest extends MeasurementTableTest
         $fatigueTable = new FatigueTable($this->woundsTable);
         self::assertSame(
             -10,
-            $fatigueTable->toBonus(new Fatigue(1, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(1, $fatigueTable))->getValue()
         );
 
         // there are more bonuses for wound 3, the lowest is taken
         self::assertSame(
             -2,
-            $fatigueTable->toBonus(new Fatigue(3, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(3, $fatigueTable))->getValue()
         );
 
         self::assertSame(
             30,
-            $fatigueTable->toBonus(new Fatigue(104, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(104, $fatigueTable))->getValue()
         ); // 30 is the closest bonus
         self::assertSame(
             31,
-            $fatigueTable->toBonus(new Fatigue(105, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(105, $fatigueTable))->getValue()
         ); // 30 and 31 are closest bonuses, 31 is taken because higher
         self::assertSame(
             31,
-            $fatigueTable->toBonus(new Fatigue(106, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(106, $fatigueTable))->getValue()
         ); // 31 is the closest bonus (higher in this case)
 
         self::assertSame(
             79,
-            $fatigueTable->toBonus(new Fatigue(28000, Fatigue::FATIGUE, $fatigueTable))->getValue()
+            $fatigueTable->toBonus(new Fatigue(28000, $fatigueTable))->getValue()
         );
     }
 
@@ -153,7 +153,7 @@ class FatigueTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_low_value_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
-        $fatigueTable->toBonus(new Fatigue(-1, Fatigue::FATIGUE, $fatigueTable));
+        $fatigueTable->toBonus(new Fatigue(-1, $fatigueTable));
     }
 
     /**
@@ -163,6 +163,6 @@ class FatigueTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_high_value_to_bonus()
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
-        $fatigueTable->toBonus(new Fatigue(28001, Fatigue::FATIGUE, $fatigueTable));
+        $fatigueTable->toBonus(new Fatigue(28001, $fatigueTable));
     }
 }

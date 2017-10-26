@@ -14,9 +14,7 @@ use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
  */
 class FatigueTable extends AbstractTable
 {
-    /**
-     * @var \DrdPlus\Tables\Measurements\Wounds\WoundsTable
-     */
+    /** @var \DrdPlus\Tables\Measurements\Wounds\WoundsTable */
     private $woundsTable;
 
     /**
@@ -57,8 +55,9 @@ class FatigueTable extends AbstractTable
      * @param Fatigue $fatigue
      * @return FatigueBonus
      */
-    public function toBonus(Fatigue $fatigue)
+    public function toBonus(Fatigue $fatigue): FatigueBonus
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new FatigueBonus(
             $this->woundsTable->toBonus(new Wounds($fatigue->getValue(), $this->woundsTable))->getValue(),
             $this
@@ -69,11 +68,11 @@ class FatigueTable extends AbstractTable
      * @param FatigueBonus $bonus
      * @return Fatigue
      */
-    public function toFatigue(FatigueBonus $bonus)
+    public function toFatigue(FatigueBonus $bonus): Fatigue
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Fatigue(
             $this->woundsTable->toWounds(new WoundsBonus($bonus->getValue(), $this->woundsTable))->getValue(),
-            Fatigue::FATIGUE,
             $this
         );
     }
