@@ -8,7 +8,7 @@ use Granam\Integer\Tools\ToInteger;
 
 /**
  * @method int getValue()
- * @see \DrdPlus\Tables\Measurements\Fatigue\Fatigue::normalizeValue
+ * @see Fatigue::normalizeValue()
  */
 class Fatigue extends AbstractMeasurementWithBonus
 {
@@ -19,6 +19,15 @@ class Fatigue extends AbstractMeasurementWithBonus
      */
     private $fatigueTable;
 
+    /**
+     * @param float|\Granam\Float\FloatInterface|\Granam\Integer\IntegerInterface|int $value
+     * @param \Granam\String\StringInterface|string $unit
+     * @param FatigueTable $fatigueTable
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
+     */
     public function __construct($value, $unit, FatigueTable $fatigueTable)
     {
         parent::__construct($value, $unit);
