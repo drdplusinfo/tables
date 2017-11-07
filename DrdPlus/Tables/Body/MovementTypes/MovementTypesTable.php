@@ -3,9 +3,11 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Body\MovementTypes;
 
+use DrdPlus\Codes\Partials\Exceptions\UnknownValueForCode;
 use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
 use DrdPlus\Properties\Derived\Endurance;
+use DrdPlus\Tables\Measurements\Fatigue\Fatigue;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
@@ -13,20 +15,19 @@ use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use DrdPlus\Tables\Tables;
+use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
+use DrdPlus\Calculations\SumAndRound;
 
 /**
  * See PPH page 112 right column, @link https://pph.drdplus.info/#tabulka_druhu_pohybu
  */
 class MovementTypesTable extends AbstractFileTable
 {
-    /**
-     * @var SpeedTable
-     */
+    /** @var SpeedTable */
     private $speedTable;
-    /**
-     * @var TimeTable
-     */
+    /** @var TimeTable */
     private $timeTable;
 
     /**
@@ -147,35 +148,36 @@ class MovementTypesTable extends AbstractFileTable
     }
 
     /**
-     * @param string $movementType
+     * @param string|StringInterface $movementType
      * @return Time|false
      * @throws \DrdPlus\Tables\Body\MovementTypes\Exceptions\UnknownMovementType
      */
-    public function getPeriodForPointOfFatigue($movementType)
+    public function getPeriodForPointOfFatigueOn($movementType)
     {
         try {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $hours = $this->getValue([$movementType], self::HOURS_PER_POINT_OF_FATIGUE);
-            if ($hours !== false) {
-                return new Time($hours, TimeUnitCode::HOUR, $this->timeTable);
-            }
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $minutes = $this->getValue([$movementType], self::MINUTES_PER_POINT_OF_FATIGUE);
-            if ($minutes !== false) {
-                return new Time($minutes, TimeUnitCode::MINUTE, $this->timeTable);
-            }
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $rounds = $this->getValue([$movementType], self::ROUNDS_PER_POINT_OF_FATIGUE);
-            if ($rounds !== false) {
-                return new Time($rounds, TimeUnitCode::ROUND, $this->timeTable);
-            }
-
-            return false;
-        } catch (RequiredRowNotFound $exception) {
+            $movementTypeCode = MovementTypeCode::getIt($movementType);
+        } catch (UnknownValueForCode $unknownValueForCode) {
             throw new Exceptions\UnknownMovementType(
                 'Given movement type ' . ValueDescriber::describe($movementType) . ' is not known'
             );
         }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $hours = $this->getValue([$movementTypeCode], self::HOURS_PER_POINT_OF_FATIGUE);
+        if ($hours !== false) {
+            return new Time($hours, TimeUnitCode::HOUR, $this->timeTable);
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $minutes = $this->getValue([$movementTypeCode], self::MINUTES_PER_POINT_OF_FATIGUE);
+        if ($minutes !== false) {
+            return new Time($minutes, TimeUnitCode::MINUTE, $this->timeTable);
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $rounds = $this->getValue([$movementTypeCode], self::ROUNDS_PER_POINT_OF_FATIGUE);
+        if ($rounds !== false) {
+            return new Time($rounds, TimeUnitCode::ROUND, $this->timeTable);
+        }
+
+        return false;
     }
 
     /**
@@ -184,7 +186,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnWalk(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::WALK);
+        return $this->getPeriodForPointOfFatigueOn(MovementTypeCode::WALK);
     }
 
     /**
@@ -193,7 +195,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnRush(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUSH);
+        return $this->getPeriodForPointOfFatigueOn(MovementTypeCode::RUSH);
     }
 
     /**
@@ -202,7 +204,7 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnRun(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::RUN);
+        return $this->getPeriodForPointOfFatigueOn(MovementTypeCode::RUN);
     }
 
     /**
@@ -211,7 +213,68 @@ class MovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigueOnSprint(): Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getPeriodForPointOfFatigue(MovementTypeCode::SPRINT);
+        return $this->getPeriodForPointOfFatigueOn(MovementTypeCode::SPRINT);
+    }
+
+    /**
+     * @param Time $timeOfWalk
+     * @param Tables $tables
+     * @return Fatigue
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     */
+    public function getFatigueOnWalk(Time $timeOfWalk, Tables $tables): Fatigue
+    {
+        return $this->getFatigueOn(MovementTypeCode::getIt(MovementTypeCode::WALK), $timeOfWalk, $tables);
+    }
+
+    /**
+     * @param MovementTypeCode $movementType
+     * @param Time $timeOfMove
+     * @param Tables $tables
+     * @return Fatigue
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     */
+    public function getFatigueOn(MovementTypeCode $movementType, Time $timeOfMove, Tables $tables): Fatigue
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $periodOnWalk = $this->getPeriodForPointOfFatigueOn($movementType)->getInUnit($timeOfMove->getUnit());
+        $fatigueValue = SumAndRound::round($timeOfMove->getValue() / $periodOnWalk->getValue());
+
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return new Fatigue($fatigueValue, $tables->getFatigueTable());
+    }
+
+    /**
+     * @param Time $timeOfRush
+     * @param Tables $tables
+     * @return Fatigue
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     */
+    public function getFatigueOnRush(Time $timeOfRush, Tables $tables): Fatigue
+    {
+        return $this->getFatigueOn(MovementTypeCode::getIt(MovementTypeCode::RUSH), $timeOfRush, $tables);
+    }
+
+    /**
+     * @param Time $timeOfRun
+     * @param Tables $tables
+     * @return Fatigue
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     */
+    public function getFatigueOnRun(Time $timeOfRun, Tables $tables): Fatigue
+    {
+        return $this->getFatigueOn(MovementTypeCode::getIt(MovementTypeCode::RUN), $timeOfRun, $tables);
+    }
+
+    /**
+     * @param Time $timeOfSprint
+     * @param Tables $tables
+     * @return Fatigue
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     */
+    public function getFatigueOnSprint(Time $timeOfSprint, Tables $tables): Fatigue
+    {
+        return $this->getFatigueOn(MovementTypeCode::getIt(MovementTypeCode::SPRINT), $timeOfSprint, $tables);
     }
 
     /**

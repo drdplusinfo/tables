@@ -59,7 +59,7 @@ class FatigueByLoadTable extends AbstractFileTable
         $desiredRow = $this->getRowFittingToMissingStrength($missingStrength, $athletics);
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $movementTypesTable->getPeriodForPointOfFatigue($desiredRow[self::WEARIES_LIKE]);
+        return $movementTypesTable->getPeriodForPointOfFatigueOn($desiredRow[self::WEARIES_LIKE]);
     }
 
     /**

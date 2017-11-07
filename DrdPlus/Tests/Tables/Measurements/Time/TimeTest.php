@@ -44,16 +44,16 @@ class TimeTest extends AbstractTestOfMeasurement
      * @dataProvider provideUnsupportedUnitToRoundsConversion
      * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      * @param $value
-     * @param $unit
+     * @param string $unit
      */
-    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_rounds_conversion($value, $unit)
+    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_rounds_conversion($value, string $unit)
     {
         $timeTable = new TimeTable();
         $time = new Time($value, $unit, $timeTable);
         try {
             self::assertNull($time->findRounds());
         } catch (\Exception $exception) {
-            self::fail('No exception expected so far, got ' . $exception->getTraceAsString());
+            self::fail('No exception expected so far, got ' . $exception->getMessage());
         }
         $time->getRounds();
     }
@@ -61,7 +61,7 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToRoundsConversion()
     {
         return [
-            [10, TimeUnitCode::DAY],
+            [22, TimeUnitCode::MONTH],
             [100, TimeUnitCode::YEAR],
         ];
     }
@@ -88,7 +88,7 @@ class TimeTest extends AbstractTestOfMeasurement
     public function provideUnsupportedUnitToMinutesConversion()
     {
         return [
-            [10, TimeUnitCode::DAY],
+            [22, TimeUnitCode::MONTH],
             [100, TimeUnitCode::YEAR],
         ];
     }

@@ -12,6 +12,7 @@ use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 
 class MovementTypesTableTest extends TableTest
@@ -102,9 +103,9 @@ class MovementTypesTableTest extends TableTest
         self::assertEquals($expectedBonus, $movementTypesTable->getSpeedBonus($type));
         if ($expectedPeriod instanceof Time) {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type));
+            self::assertEquals($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigueOn($type));
         } else {
-            self::assertSame($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigue($type));
+            self::assertSame($expectedPeriod, $movementTypesTable->getPeriodForPointOfFatigueOn($type));
         }
     }
 
@@ -224,7 +225,7 @@ class MovementTypesTableTest extends TableTest
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        $movementTypesTable->getPeriodForPointOfFatigue('sneaking');
+        $movementTypesTable->getPeriodForPointOfFatigueOn('sneaking');
     }
 
     /**
@@ -260,5 +261,53 @@ class MovementTypesTableTest extends TableTest
             ->andReturn($value);
 
         return $endurance;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_fatigue_on_walk()
+    {
+        $fatigueOnWalk = Tables::getIt()->getMovementTypesTable()->getFatigueOnWalk(
+            new Time(5, Time::HOUR, Tables::getIt()->getTimeTable()),
+            Tables::getIt()
+        );
+        self::assertSame(5, $fatigueOnWalk->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_fatigue_on_rush()
+    {
+        $fatigueOnRush = Tables::getIt()->getMovementTypesTable()->getFatigueOnRush(
+            new Time(5, Time::HOUR, Tables::getIt()->getTimeTable()),
+            Tables::getIt()
+        );
+        self::assertSame(10, $fatigueOnRush->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_fatigue_on_run()
+    {
+        $fatigueOnRun = Tables::getIt()->getMovementTypesTable()->getFatigueOnRun(
+            new Time(5, Time::HOUR, Tables::getIt()->getTimeTable()),
+            Tables::getIt()
+        );
+        self::assertSame(56, $fatigueOnRun->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_fatigue_on_sprint()
+    {
+        $fatigueOnRun = Tables::getIt()->getMovementTypesTable()->getFatigueOnSprint(
+            new Time(56, Time::MINUTE, Tables::getIt()->getTimeTable()),
+            Tables::getIt()
+        );
+        self::assertSame(170, $fatigueOnRun->getValue());
     }
 }

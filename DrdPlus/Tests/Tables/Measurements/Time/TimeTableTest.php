@@ -38,10 +38,10 @@ class TimeTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
      */
-    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
+    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
     {
         $timeTable = new TimeTable();
-        $timeTable->toTime(new TimeBonus(40, $timeTable))->getRounds();
+        $timeTable->toTime(new TimeBonus(100, $timeTable))->getRounds();
     }
 
     /**
@@ -55,7 +55,7 @@ class TimeTableTest extends MeasurementTableTest
         self::assertSame(4, $timeTable->toBonus(new Time(2, TimeUnitCode::ROUND, $timeTable))->getValue());
         self::assertSame(39, $timeTable->toBonus(new Time(90, TimeUnitCode::ROUND, $timeTable))->getValue());
 
-        self::assertSame(16, $timeTable->toBonus(new Time(1, TimeUnitCode::MINUTE, $timeTable))->getValue());
+        self::assertSame(15, $timeTable->toBonus(new Time(1, TimeUnitCode::MINUTE, $timeTable))->getValue());
         self::assertSame(51, $timeTable->toBonus(new Time(1, TimeUnitCode::HOUR, $timeTable))->getValue());
         self::assertSame(73, $timeTable->toBonus(new Time(1, TimeUnitCode::DAY, $timeTable))->getValue());
         self::assertSame(102, $timeTable->toBonus(new Time(1, TimeUnitCode::MONTH, $timeTable))->getValue());
@@ -101,6 +101,6 @@ class TimeTableTest extends MeasurementTableTest
     public function I_can_not_convert_too_high_value_to_bonus()
     {
         $timeTable = new TimeTable();
-        $timeTable->toBonus(new Time(91, TimeUnitCode::ROUND, $timeTable))->getValue();
+        $timeTable->toBonus(new Time(84001, TimeUnitCode::ROUND, $timeTable))->getValue();
     }
 }

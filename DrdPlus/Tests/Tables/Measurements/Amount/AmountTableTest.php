@@ -60,7 +60,7 @@ class AmountTableTest extends MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
+    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
     {
         $amountTable = new AmountTable();
         $amountTable->toAmount(new AmountBonus(100, $amountTable));

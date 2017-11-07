@@ -52,7 +52,7 @@ class DistanceTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    public function I_can_not_convert_too_high_bonus_to_too_detailed_unit()
+    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
     {
         $distanceTable = new DistanceTable();
         $distanceTable->toDistance(new DistanceBonus(120, $distanceTable));

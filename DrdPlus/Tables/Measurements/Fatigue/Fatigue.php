@@ -22,13 +22,12 @@ class Fatigue extends AbstractMeasurementWithBonus
     /**
      * @param float|\Granam\Float\FloatInterface|\Granam\Integer\IntegerInterface|int $value
      * @param FatigueTable $fatigueTable
-     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
-     * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
     public function __construct($value, FatigueTable $fatigueTable)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct($value, self::FATIGUE);
         $this->fatigueTable = $fatigueTable;
     }

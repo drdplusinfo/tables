@@ -13,7 +13,7 @@ abstract class MeasurementTableTest extends TableTest
 
     abstract public function I_can_convert_value_to_bonus();
 
-    abstract public function I_can_not_convert_too_high_bonus_to_too_detailed_unit();
+    abstract public function I_can_not_convert_too_high_bonus_into_too_detailed_unit();
 
     abstract public function I_can_not_convert_too_low_value_to_bonus();
 

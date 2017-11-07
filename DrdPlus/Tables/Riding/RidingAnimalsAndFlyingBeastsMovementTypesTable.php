@@ -140,7 +140,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
     public function getPeriodForPointOfFatigue(RidingAnimalMovementCode $ridingAnimalMovementCode)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->movementTypesTable->getPeriodForPointOfFatigue($this->getFatigueLike($ridingAnimalMovementCode));
+        return $this->movementTypesTable->getPeriodForPointOfFatigueOn($this->getFatigueLike($ridingAnimalMovementCode));
     }
 
     /**
