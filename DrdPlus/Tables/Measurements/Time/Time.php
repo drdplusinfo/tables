@@ -13,14 +13,14 @@ use Granam\Tools\ValueDescriber;
 
 class Time extends AbstractMeasurement implements MeasurementWithBonus
 {
-    const HOURS_PER_DAY = 12.0;
+    public const HOURS_PER_DAY = 12.0;
 
-    const ROUND = TimeUnitCode::ROUND;
-    const MINUTE = TimeUnitCode::MINUTE;
-    const HOUR = TimeUnitCode::HOUR;
-    const DAY = TimeUnitCode::DAY;
-    const MONTH = TimeUnitCode::MONTH;
-    const YEAR = TimeUnitCode::YEAR;
+    public const ROUND = TimeUnitCode::ROUND;
+    public const MINUTE = TimeUnitCode::MINUTE;
+    public const HOUR = TimeUnitCode::HOUR;
+    public const DAY = TimeUnitCode::DAY;
+    public const MONTH = TimeUnitCode::MONTH;
+    public const YEAR = TimeUnitCode::YEAR;
 
     /**
      * @var TimeTable
