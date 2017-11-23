@@ -12,7 +12,7 @@ use Granam\Integer\Tools\ToInteger;
  */
 class Fatigue extends AbstractMeasurementWithBonus
 {
-    const FATIGUE = 'fatigue';
+    public const FATIGUE = 'fatigue';
 
     /**
      * @var FatigueTable
@@ -20,7 +20,7 @@ class Fatigue extends AbstractMeasurementWithBonus
     private $fatigueTable;
 
     /**
-     * @param float|\Granam\Float\FloatInterface|\Granam\Integer\IntegerInterface|int $value
+     * @param float|int|\Granam\Number\NumberInterface $value
      * @param FatigueTable $fatigueTable
      * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
      * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
