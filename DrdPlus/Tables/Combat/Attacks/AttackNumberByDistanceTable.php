@@ -20,7 +20,7 @@ class AttackNumberByDistanceTable extends AbstractAttackNumberByDistanceTable
         return __DIR__ . '/data/attack_number_by_distance.csv';
     }
 
-    const DISTANCE_IN_METERS_FROM = 'distance_in_meters_from';
+    public const DISTANCE_IN_METERS_FROM = 'distance_in_meters_from';
 
     /**
      * @return array|string[]

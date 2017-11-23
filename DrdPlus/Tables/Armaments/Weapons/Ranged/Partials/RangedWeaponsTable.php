@@ -17,8 +17,8 @@ use Granam\Tools\ValueDescriber;
 
 abstract class RangedWeaponsTable extends WeaponsTable
 {
-    const RANGE = 'range';
-    const WEAPON = 'weapon';
+    public const RANGE = 'range';
+    public const WEAPON = 'weapon';
 
     /**
      * @return array|string[]

@@ -10,8 +10,8 @@ use Granam\Float\Tools\ToFloat;
 abstract class AbstractAttackNumberByDistanceTable extends AbstractFileTable
 {
 
-    const DISTANCE_BONUS = 'distance_bonus';
-    const RANGED_ATTACK_NUMBER_MODIFIER = 'ranged_attack_number_modifier';
+    public const DISTANCE_BONUS = 'distance_bonus';
+    public const RANGED_ATTACK_NUMBER_MODIFIER = 'ranged_attack_number_modifier';
 
     protected function getExpectedDataHeaderNamesToTypes(): array
     {

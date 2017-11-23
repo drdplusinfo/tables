@@ -23,7 +23,7 @@ class CorrectionByHeightTable extends AbstractFileTable
         return __DIR__ . '/data/correction_by_height.csv';
     }
 
-    const CORRECTION = 'correction';
+    public const CORRECTION = 'correction';
 
     /**
      * @return array|string[]

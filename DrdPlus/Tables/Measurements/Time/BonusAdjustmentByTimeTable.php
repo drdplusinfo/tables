@@ -36,7 +36,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
         return __DIR__ . '/data/bonus_adjustment_by_time.csv';
     }
 
-    const HOURS_OF_ACTIVITY_PER_DAY = 'hours_of_activity_per_day';
+    public const HOURS_OF_ACTIVITY_PER_DAY = 'hours_of_activity_per_day';
 
     /**
      * @return array|string[]
@@ -46,7 +46,7 @@ class BonusAdjustmentByTimeTable extends AbstractFileTable
         return [self::HOURS_OF_ACTIVITY_PER_DAY];
     }
 
-    const ADJUSTMENT = 'adjustment';
+    public const ADJUSTMENT = 'adjustment';
 
     /**
      * @return array|string[]

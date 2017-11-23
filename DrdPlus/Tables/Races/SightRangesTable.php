@@ -19,9 +19,9 @@ class SightRangesTable extends AbstractFileTable
         return __DIR__ . '/data/sight_ranges.csv';
     }
 
-    const MAXIMAL_LIGHTING = 'maximal_lighting';
-    const MINIMAL_LIGHTING = 'minimal_lighting';
-    const ADAPTABILITY = 'adaptability';
+    public const MAXIMAL_LIGHTING = 'maximal_lighting';
+    public const MINIMAL_LIGHTING = 'minimal_lighting';
+    public const ADAPTABILITY = 'adaptability';
 
     /**
      * @return array|string[]
@@ -35,7 +35,7 @@ class SightRangesTable extends AbstractFileTable
         ];
     }
 
-    const RACE = 'race';
+    public const RACE = 'race';
 
     /**
      * @return array|string[]

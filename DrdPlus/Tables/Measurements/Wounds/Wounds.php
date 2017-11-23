@@ -8,7 +8,7 @@ use Granam\Integer\Tools\ToInteger;
 
 class Wounds extends AbstractMeasurementWithBonus
 {
-    const WOUNDS = 'wounds';
+    public const WOUNDS = 'wounds';
 
     /**
      * @var WoundsTable

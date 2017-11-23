@@ -20,7 +20,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
         return __DIR__ . '/data/power_of_light_sources.csv';
     }
 
-    const POWER = 'power';
+    public const POWER = 'power';
 
     /**
      * @return array|string[]
@@ -30,7 +30,7 @@ class PowerOfLightSourcesTable extends AbstractFileTable
         return [self::POWER => self::INTEGER];
     }
 
-    const LIGHT_SOURCE = 'light_source';
+    public const LIGHT_SOURCE = 'light_source';
 
     /**
      * @return array|string[]

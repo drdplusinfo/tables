@@ -16,9 +16,9 @@ class ArmorStrengthSanctionsTable extends AbstractStrengthSanctionsTable
         return __DIR__ . '/data/armor_strength_sanctions.csv';
     }
 
-    const SANCTION_DESCRIPTION = 'sanction_description';
-    const AGILITY_SANCTION = 'agility_sanction';
-    const CAN_MOVE = 'can_move';
+    public const SANCTION_DESCRIPTION = 'sanction_description';
+    public const AGILITY_SANCTION = 'agility_sanction';
+    public const CAN_MOVE = 'can_move';
 
     /**
      * @return array|string[]

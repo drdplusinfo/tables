@@ -45,7 +45,7 @@ class MeasurementTest extends TestWithMockery
 /** inner */
 class DeAbstractedMeasurement extends AbstractMeasurement
 {
-    const POSSIBLE_UNIT = 'foo';
+    public const POSSIBLE_UNIT = 'foo';
 
     public function __construct($value, $unit)
     {

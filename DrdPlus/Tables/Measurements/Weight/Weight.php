@@ -4,11 +4,12 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Weight;
 
 use DrdPlus\Codes\Units\WeightUnitCode;
+use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 
 class Weight extends AbstractMeasurementWithBonus
 {
-    const KG = WeightUnitCode::KG;
+    public const KG = WeightUnitCode::KG;
 
     /**
      * @var WeightTable
@@ -30,7 +31,7 @@ class Weight extends AbstractMeasurementWithBonus
     }
 
     /**
-     * @return WeightBonus
+     * @return WeightBonus|AbstractBonus
      */
     public function getBonus(): WeightBonus
     {

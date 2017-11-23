@@ -9,7 +9,7 @@ use Granam\Integer\Tools\ToInteger;
 
 abstract class AbstractStrengthSanctionsTable extends AbstractFileTable implements StrengthSanctionsInterface
 {
-    const MISSING_STRENGTH = 'missing_strength';
+    public const MISSING_STRENGTH = 'missing_strength';
 
     protected function getRowsHeader(): array
     {

@@ -22,7 +22,7 @@ class HelmsTable extends AbstractArmorsTable
         return __DIR__ . '/data/helms.csv';
     }
 
-    const HELM = 'helm';
+    public const HELM = 'helm';
 
     /**
      * @return array|string[]

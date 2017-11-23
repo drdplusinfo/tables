@@ -7,7 +7,7 @@ use Granam\String\StringInterface;
 
 interface HeavyBearablesTable extends BearablesTable
 {
-    const REQUIRED_STRENGTH = 'required_strength';
+    public const REQUIRED_STRENGTH = 'required_strength';
 
     /**
      * @param string|StringInterface $wearableCode

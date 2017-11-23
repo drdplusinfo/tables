@@ -13,11 +13,11 @@ abstract class AbstractMeleeWeaponlikeStrengthSanctionsTable extends AbstractStr
         return __DIR__ . '/data/melee_weaponlike_strength_sanctions.csv';
     }
 
-    const FIGHT_NUMBER = 'fight_number';
-    const ATTACK_NUMBER = 'attack_number';
-    const DEFENSE_NUMBER = 'defense_number';
-    const BASE_OF_WOUNDS = 'base_of_wounds';
-    const CAN_USE_ARMAMENT = 'can_use_armament';
+    public const FIGHT_NUMBER = 'fight_number';
+    public const ATTACK_NUMBER = 'attack_number';
+    public const DEFENSE_NUMBER = 'defense_number';
+    public const BASE_OF_WOUNDS = 'base_of_wounds';
+    public const CAN_USE_ARMAMENT = 'can_use_armament';
 
     protected function getExpectedDataHeaderNamesToTypes(): array
     {

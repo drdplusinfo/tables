@@ -18,7 +18,7 @@ use Granam\Tools\ValueDescriber;
  */
 abstract class ProjectilesTable extends AbstractArmamentsTable implements WoundingArmamentsTable
 {
-    const RANGE = 'range';
+    public const RANGE = 'range';
 
     protected function getExpectedDataHeaderNamesToTypes(): array
     {

@@ -13,7 +13,7 @@ use Granam\Integer\Tools\ToInteger;
  */
 class Amount extends AbstractMeasurementWithBonus
 {
-    const AMOUNT = 'amount';
+    public const AMOUNT = 'amount';
 
     /**
      * @var AmountTable

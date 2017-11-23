@@ -7,9 +7,9 @@ use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 
 class Level extends AbstractBonus
 {
-    const LEVEL = 'level';
-    const MIN_LEVEL = 0;
-    const MAX_LEVEL = 20;
+    public const LEVEL = 'level';
+    public const MIN_LEVEL = 0;
+    public const MAX_LEVEL = 20;
 
     /**
      * @var ExperiencesTable

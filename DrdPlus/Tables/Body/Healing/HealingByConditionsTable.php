@@ -21,7 +21,7 @@ class HealingByConditionsTable extends AbstractFileTableWithPercents
         return __DIR__ . '/data/healing_by_conditions.csv';
     }
 
-    const SITUATION = 'situation';
+    public const SITUATION = 'situation';
 
     /**
      * @return array|string[]

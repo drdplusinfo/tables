@@ -20,7 +20,7 @@ class PossessionTable extends AbstractFileTable
         return __DIR__ . '/data/possession.csv';
     }
 
-    const GOLD_COINS = 'gold_coins';
+    public const GOLD_COINS = 'gold_coins';
 
     /**
      * @return array|string[]

@@ -22,13 +22,13 @@ class RangedWeaponStrengthSanctionsTable extends AbstractStrengthSanctionsTable
         return __DIR__ . '/data/range_weapon_strength_sanctions.csv';
     }
 
-    const FIGHT_NUMBER = 'fight_number';
-    const LOADING_IN_ROUNDS = 'loading_in_rounds';
-    const ATTACK_NUMBER = 'attack_number';
-    const DEFENSE_NUMBER = 'defense_number';
-    const ENCOUNTER_RANGE = 'encounter_range';
-    const BASE_OF_WOUNDS = 'base_of_wounds';
-    const CAN_USE_WEAPON = 'can_use_weapon';
+    public const FIGHT_NUMBER = 'fight_number';
+    public const LOADING_IN_ROUNDS = 'loading_in_rounds';
+    public const ATTACK_NUMBER = 'attack_number';
+    public const DEFENSE_NUMBER = 'defense_number';
+    public const ENCOUNTER_RANGE = 'encounter_range';
+    public const BASE_OF_WOUNDS = 'base_of_wounds';
+    public const CAN_USE_WEAPON = 'can_use_weapon';
 
     /**
      * @return array|string[]

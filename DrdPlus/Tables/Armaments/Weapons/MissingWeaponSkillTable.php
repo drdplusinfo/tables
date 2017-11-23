@@ -20,10 +20,10 @@ class MissingWeaponSkillTable extends AbstractArmamentSkillTable
         return __DIR__ . '/data/missing_weapon_skill.csv';
     }
 
-    const FIGHT_NUMBER = 'fight_number';
-    const ATTACK_NUMBER = 'attack_number';
-    const COVER = 'cover';
-    const BASE_OF_WOUNDS = 'base_of_wounds';
+    public const FIGHT_NUMBER = 'fight_number';
+    public const ATTACK_NUMBER = 'attack_number';
+    public const COVER = 'cover';
+    public const BASE_OF_WOUNDS = 'base_of_wounds';
 
     /**
      * @return array|string[]

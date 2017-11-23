@@ -20,8 +20,8 @@ class CatchQualitiesTable extends AbstractFileTable
         return __DIR__ . '/data/catch_qualities.csv';
     }
 
-    const CATCH_QUALITY = 'catch_quality';
-    const HEALING_AND_REST = 'healing_and_rest';
+    public const CATCH_QUALITY = 'catch_quality';
+    public const HEALING_AND_REST = 'healing_and_rest';
 
     /**
      * @return array|string[]
@@ -34,7 +34,7 @@ class CatchQualitiesTable extends AbstractFileTable
         ];
     }
 
-    const FOOD_TYPE = 'food_type';
+    public const FOOD_TYPE = 'food_type';
 
     /**
      * @return array|string[]

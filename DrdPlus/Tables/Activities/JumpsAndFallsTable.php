@@ -44,7 +44,7 @@ class JumpsAndFallsTable extends AbstractFileTable
         ];
     }
 
-    const JUMP_TYPE = 'jump_type';
+    public const JUMP_TYPE = 'jump_type';
 
     /**
      * @return array

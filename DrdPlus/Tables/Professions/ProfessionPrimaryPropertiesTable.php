@@ -22,8 +22,8 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
         return __DIR__ . '/data/profession_primary_properties.csv';
     }
 
-    const FIRST_PRIMARY_PROPERTY = 'first_primary_property';
-    const SECOND_PRIMARY_PROPERTY = 'second_primary_property';
+    public const FIRST_PRIMARY_PROPERTY = 'first_primary_property';
+    public const SECOND_PRIMARY_PROPERTY = 'second_primary_property';
 
     /**
      * @return array|string[]
@@ -33,7 +33,7 @@ class ProfessionPrimaryPropertiesTable extends AbstractFileTable
         return [self::FIRST_PRIMARY_PROPERTY => self::STRING, self::SECOND_PRIMARY_PROPERTY => self::STRING];
     }
 
-    const PROFESSION = 'profession';
+    public const PROFESSION = 'profession';
 
     /**
      * @return array|string[]

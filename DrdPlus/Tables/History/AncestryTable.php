@@ -21,7 +21,7 @@ class AncestryTable extends AbstractFileTable
         return __DIR__ . '/data/ancestry.csv';
     }
 
-    const ANCESTRY = 'ancestry';
+    public const ANCESTRY = 'ancestry';
 
     /**
      * @return array|string[]

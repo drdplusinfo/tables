@@ -20,7 +20,7 @@ class ShieldUsageSkillTable extends AbstractArmamentSkillTable implements Missin
         return __DIR__ . '/data/missing_shield_skill.csv';
     }
 
-    const COVER_MALUS = 'cover_malus';
+    public const COVER_MALUS = 'cover_malus';
 
     /**
      * @return array|string[]

@@ -22,9 +22,9 @@ class LandingSurfacesTable extends AbstractFileTable
         return __DIR__ . '/data/landing_surfaces.csv';
     }
 
-    const POWER_OF_WOUND_MODIFIER = 'power_of_wound_modifier';
-    const AGILITY_MULTIPLIER = 'agility_multiplier';
-    const ARMOR_MAX_PROTECTION = 'armor_max_protection';
+    public const POWER_OF_WOUND_MODIFIER = 'power_of_wound_modifier';
+    public const AGILITY_MULTIPLIER = 'agility_multiplier';
+    public const ARMOR_MAX_PROTECTION = 'armor_max_protection';
 
     /**
      * @return array|string[]
@@ -38,7 +38,7 @@ class LandingSurfacesTable extends AbstractFileTable
         ];
     }
 
-    const SURFACE = 'surface';
+    public const SURFACE = 'surface';
 
     /**
      * @return array|string[]

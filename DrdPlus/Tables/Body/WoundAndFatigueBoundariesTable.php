@@ -16,7 +16,7 @@ use DrdPlus\Tables\Tables;
  */
 class WoundAndFatigueBoundariesTable extends AbstractTable
 {
-    const BOUNDARY = 'boundary';
+    public const BOUNDARY = 'boundary';
 
     /**
      * @return array|string[]
@@ -26,7 +26,7 @@ class WoundAndFatigueBoundariesTable extends AbstractTable
         return [self::BOUNDARY];
     }
 
-    const PROPERTY = 'property';
+    public const PROPERTY = 'property';
 
     /**
      * @return array|string[]

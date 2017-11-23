@@ -8,7 +8,7 @@ use Granam\String\StringInterface;
 
 interface BearablesTable extends Table
 {
-    const WEIGHT = 'weight';
+    public const WEIGHT = 'weight';
 
     /**
      * @param string|StringInterface $itemCode

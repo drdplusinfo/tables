@@ -11,7 +11,7 @@ use Granam\Tools\ValueDescriber;
 
 abstract class AbstractArmamentSkillTable extends AbstractFileTable
 {
-    const SKILL_RANK = 'skill_rank';
+    public const SKILL_RANK = 'skill_rank';
 
     protected function getRowsHeader(): array
     {

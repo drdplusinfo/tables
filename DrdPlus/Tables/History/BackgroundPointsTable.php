@@ -20,7 +20,7 @@ class BackgroundPointsTable extends AbstractFileTable
         return __DIR__ . '/data/background_points.csv';
     }
 
-    const BACKGROUND_POINTS = 'background_points';
+    public const BACKGROUND_POINTS = 'background_points';
 
     /**
      * @return array|string[]

@@ -13,7 +13,7 @@ use Granam\Float\Tools\ToFloat;
  */
 class AttackNumberByContinuousDistanceTable extends AbstractAttackNumberByDistanceTable
 {
-    const DISTANCE_WITH_NO_IMPACT_TO_ATTACK_NUMBER = 8; // meters
+    public const DISTANCE_WITH_NO_IMPACT_TO_ATTACK_NUMBER = 8; // meters
 
     /**
      * @return string
@@ -23,7 +23,7 @@ class AttackNumberByContinuousDistanceTable extends AbstractAttackNumberByDistan
         return __DIR__ . '/data/attack_number_by_continuous_distance.csv';
     }
 
-    const DISTANCE_IN_METERS = 'distance_in_meters';
+    public const DISTANCE_IN_METERS = 'distance_in_meters';
 
     /**
      * @return array|string[]

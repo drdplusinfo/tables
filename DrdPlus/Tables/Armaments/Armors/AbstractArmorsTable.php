@@ -13,7 +13,7 @@ use Granam\Tools\ValueDescriber;
 abstract class AbstractArmorsTable extends AbstractArmamentsTable implements UnwieldyTable
 {
 
-    const PROTECTION = 'protection';
+    public const PROTECTION = 'protection';
 
     private $customArmors = [];
 

@@ -8,9 +8,9 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
 
 class Price extends AbstractMeasurement
 {
-    const COPPER_COIN = 'copper_coin';
-    const SILVER_COIN = 'silver_coin';
-    const GOLD_COIN = 'gold_coin';
+    public const COPPER_COIN = 'copper_coin';
+    public const SILVER_COIN = 'silver_coin';
+    public const GOLD_COIN = 'gold_coin';
 
     /**
      * @param float $value

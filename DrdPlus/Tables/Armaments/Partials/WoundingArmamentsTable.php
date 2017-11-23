@@ -7,7 +7,7 @@ use Granam\String\StringInterface;
 
 interface WoundingArmamentsTable extends BearablesTable
 {
-    const OFFENSIVENESS = 'offensiveness';
+    public const OFFENSIVENESS = 'offensiveness';
 
     /**
      * @param string|StringInterface $weaponlikeCode
@@ -15,7 +15,7 @@ interface WoundingArmamentsTable extends BearablesTable
      */
     public function getOffensivenessOf($weaponlikeCode): int;
 
-    const WOUNDS = 'wounds';
+    public const WOUNDS = 'wounds';
 
     /**
      * @param string|StringInterface $weaponlikeCode
@@ -23,7 +23,7 @@ interface WoundingArmamentsTable extends BearablesTable
      */
     public function getWoundsOf($weaponlikeCode): int;
 
-    const WOUNDS_TYPE = 'wounds_type';
+    public const WOUNDS_TYPE = 'wounds_type';
 
     /**
      * @param string|StringInterface $weaponlikeCode

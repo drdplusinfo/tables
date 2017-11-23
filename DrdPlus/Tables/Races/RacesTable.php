@@ -50,8 +50,8 @@ class RacesTable extends AbstractFileTable
         ];
     }
 
-    const RACE = 'race';
-    const SUBRACE = 'subrace';
+    public const RACE = 'race';
+    public const SUBRACE = 'subrace';
 
     /** @return array
      */

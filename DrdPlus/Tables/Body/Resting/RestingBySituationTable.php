@@ -21,7 +21,7 @@ class RestingBySituationTable extends AbstractFileTableWithPercents
         return __DIR__ . '/data/resting_by_situation.csv';
     }
 
-    const SITUATION = 'situation';
+    public const SITUATION = 'situation';
 
     /**
      * @return array|string[]

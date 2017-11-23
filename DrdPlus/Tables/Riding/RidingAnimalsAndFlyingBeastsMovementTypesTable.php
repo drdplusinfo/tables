@@ -44,7 +44,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
         return __DIR__ . '/data/riding_animals_and_flying_beasts_movement_types.csv';
     }
 
-    const MOVEMENT_TYPE = 'movement_type';
+    public const MOVEMENT_TYPE = 'movement_type';
 
     /**
      * @return array|string[]
@@ -54,8 +54,8 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
         return [self::MOVEMENT_TYPE];
     }
 
-    const BONUS_TO_MOVEMENT_SPEED = MovementTypesTable::BONUS_TO_MOVEMENT_SPEED;
-    const FATIGUE_LIKE = 'fatigue_like';
+    public const BONUS_TO_MOVEMENT_SPEED = MovementTypesTable::BONUS_TO_MOVEMENT_SPEED;
+    public const FATIGUE_LIKE = 'fatigue_like';
 
     /**
      * @return array|string[]
@@ -81,11 +81,11 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTable extends AbstractFileTable
         );
     }
 
-    const STILL = RidingAnimalMovementCode::STILL;
-    const GAIT = RidingAnimalMovementCode::GAIT;
-    const TROT = RidingAnimalMovementCode::TROT;
-    const CANTER = RidingAnimalMovementCode::CANTER;
-    const GALLOP = RidingAnimalMovementCode::GALLOP;
+    public const STILL = RidingAnimalMovementCode::STILL;
+    public const GAIT = RidingAnimalMovementCode::GAIT;
+    public const TROT = RidingAnimalMovementCode::TROT;
+    public const CANTER = RidingAnimalMovementCode::CANTER;
+    public const GALLOP = RidingAnimalMovementCode::GALLOP;
 
     /**
      * @return SpeedBonus

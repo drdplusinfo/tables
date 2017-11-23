@@ -16,7 +16,7 @@ class BodyArmorsTable extends AbstractArmorsTable
 {
     private $customBodyArmors = [];
 
-    const ROUNDS_TO_PUT_ON = 'rounds_to_put_on';
+    public const ROUNDS_TO_PUT_ON = 'rounds_to_put_on';
 
     /**
      * @return string
@@ -40,7 +40,7 @@ class BodyArmorsTable extends AbstractArmorsTable
         ];
     }
 
-    const BODY_ARMOR = 'body_armor';
+    public const BODY_ARMOR = 'body_armor';
 
     /**
      * @return array|string[]

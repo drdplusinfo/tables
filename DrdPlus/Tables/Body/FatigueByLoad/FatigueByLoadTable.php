@@ -21,7 +21,7 @@ class FatigueByLoadTable extends AbstractFileTable
         return __DIR__ . '/data/fatigue_by_load.csv';
     }
 
-    const MISSING_STRENGTH_UP_TO = 'missing_strength_up_to';
+    public const MISSING_STRENGTH_UP_TO = 'missing_strength_up_to';
 
     /**
      * @return array|string[]
@@ -31,8 +31,8 @@ class FatigueByLoadTable extends AbstractFileTable
         return ['missing_strength_up_to'];
     }
 
-    const LOAD = 'load';
-    const WEARIES_LIKE = 'wearies_like';
+    public const LOAD = 'load';
+    public const WEARIES_LIKE = 'wearies_like';
 
     /**
      * @return array|string[]

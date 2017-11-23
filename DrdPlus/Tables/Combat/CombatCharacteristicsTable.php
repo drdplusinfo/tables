@@ -17,7 +17,7 @@ use DrdPlus\Tables\Partials\AbstractTable;
  */
 class CombatCharacteristicsTable extends AbstractTable
 {
-    const CHARACTERISTIC = 'characteristic';
+    public const CHARACTERISTIC = 'characteristic';
 
     /**
      * @return array|string[]
@@ -27,10 +27,10 @@ class CombatCharacteristicsTable extends AbstractTable
         return [self::CHARACTERISTIC];
     }
 
-    const PROPERTY = 'property';
-    const DIVIDE_BY = 'divide_by';
-    const ROUND_UP = 'round_up';
-    const ROUND_DOWN = 'round_down';
+    public const PROPERTY = 'property';
+    public const DIVIDE_BY = 'divide_by';
+    public const ROUND_UP = 'round_up';
+    public const ROUND_DOWN = 'round_down';
 
     /**
      * @return array|string[]

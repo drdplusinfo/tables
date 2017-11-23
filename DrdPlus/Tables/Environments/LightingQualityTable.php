@@ -19,7 +19,7 @@ class LightingQualityTable extends AbstractFileTable
         return __DIR__ . '/data/lighting_quality.csv';
     }
 
-    const QUALITY = 'quality';
+    public const QUALITY = 'quality';
 
     /**
      * @return array|string[]
@@ -29,7 +29,7 @@ class LightingQualityTable extends AbstractFileTable
         return [self::QUALITY => self::INTEGER];
     }
 
-    const LIGHT_CONDITIONS = 'light_conditions';
+    public const LIGHT_CONDITIONS = 'light_conditions';
 
     /**
      * @return array|string[]

@@ -25,7 +25,7 @@ class ShieldsTable extends AbstractArmamentsTable implements UnwieldyTable, Mele
         return __DIR__ . '/data/shields.csv';
     }
 
-    const SHIELD = 'shield';
+    public const SHIELD = 'shield';
 
     /**
      * @return array|string[]

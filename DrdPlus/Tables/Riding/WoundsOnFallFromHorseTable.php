@@ -29,8 +29,8 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
         return ['activity'];
     }
 
-    const WOUNDS_MODIFICATION = 'wounds_modification';
-    const ADDITIONAL = 'additional';
+    public const WOUNDS_MODIFICATION = 'wounds_modification';
+    public const ADDITIONAL = 'additional';
 
     /**
      * @return array|string[]
@@ -40,12 +40,12 @@ class WoundsOnFallFromHorseTable extends AbstractFileTable
         return [self::WOUNDS_MODIFICATION => self::INTEGER, self::ADDITIONAL => self::BOOLEAN];
     }
 
-    const STILL = RidingAnimalMovementCode::STILL;
-    const GAIT = RidingAnimalMovementCode::GAIT;
-    const TROT = RidingAnimalMovementCode::TROT;
-    const CANTER = RidingAnimalMovementCode::CANTER;
-    const GALLOP = RidingAnimalMovementCode::GALLOP;
-    const JUMPING = RidingAnimalMovementCode::JUMPING;
+    public const STILL = RidingAnimalMovementCode::STILL;
+    public const GAIT = RidingAnimalMovementCode::GAIT;
+    public const TROT = RidingAnimalMovementCode::TROT;
+    public const CANTER = RidingAnimalMovementCode::CANTER;
+    public const GALLOP = RidingAnimalMovementCode::GALLOP;
+    public const JUMPING = RidingAnimalMovementCode::JUMPING;
 
     /**
      * @param RidingAnimalMovementCode $ridingAnimalMovementCode

@@ -20,7 +20,7 @@ class StealthinessTable extends AbstractFileTable
         return __DIR__ . '/data/stealthiness.csv';
     }
 
-    const STEALTHINESS = 'stealthiness';
+    public const STEALTHINESS = 'stealthiness';
 
     /**
      * @return array|string[]
@@ -32,7 +32,7 @@ class StealthinessTable extends AbstractFileTable
         ];
     }
 
-    const SITUATION = 'situation';
+    public const SITUATION = 'situation';
 
     /**
      * @return array|string[]

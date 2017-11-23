@@ -22,7 +22,7 @@ class MaterialResistancesTable extends AbstractFileTable
         return __DIR__ . '/data/material_resistances.csv';
     }
 
-    const RESISTANCE = 'resistance';
+    public const RESISTANCE = 'resistance';
 
     /**
      * @return array|string[]
@@ -34,7 +34,7 @@ class MaterialResistancesTable extends AbstractFileTable
         ];
     }
 
-    const MATERIAL = 'material';
+    public const MATERIAL = 'material';
 
     /**
      * @return array|string[]

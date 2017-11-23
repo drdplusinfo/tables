@@ -9,9 +9,9 @@ use Granam\Tools\ValueDescriber;
 abstract class AbstractFileTableWithPercents extends AbstractFileTable
 {
 
-    const BONUS_FROM = 'bonus_from';
-    const BONUS_TO = 'bonus_to';
-    const CAN_BE_MORE = 'can_be_more';
+    public const BONUS_FROM = 'bonus_from';
+    public const BONUS_TO = 'bonus_to';
+    public const CAN_BE_MORE = 'can_be_more';
 
     protected function getExpectedDataHeaderNamesToTypes(): array
     {

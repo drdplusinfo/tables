@@ -21,8 +21,8 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
         return __DIR__ . '/data/background_points_distribution.csv';
     }
 
-    const MAX_POINTS = 'max_points';
-    const MORE_THAN_FOR_ANCESTRY_UP_TO = 'more_than_for_ancestry_up_to';
+    public const MAX_POINTS = 'max_points';
+    public const MORE_THAN_FOR_ANCESTRY_UP_TO = 'more_than_for_ancestry_up_to';
 
     /**
      * @return array|string[]
@@ -35,7 +35,7 @@ class BackgroundPointsDistributionTable extends AbstractFileTable
         ];
     }
 
-    const BACKGROUND = 'background';
+    public const BACKGROUND = 'background';
 
     /**
      * @return array|string[]

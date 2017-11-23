@@ -20,7 +20,7 @@ class HealingByActivityTable extends AbstractFileTable
         return __DIR__ . '/data/healing_by_activity.csv';
     }
 
-    const BONUS = 'bonus';
+    public const BONUS = 'bonus';
 
     /**
      * @return array|string[]
@@ -30,7 +30,7 @@ class HealingByActivityTable extends AbstractFileTable
         return [self::BONUS => self::INTEGER];
     }
 
-    const SITUATION = 'situation';
+    public const SITUATION = 'situation';
 
     /**
      * @return array|string[]

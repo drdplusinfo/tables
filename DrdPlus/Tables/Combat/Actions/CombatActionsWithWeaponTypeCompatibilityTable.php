@@ -55,7 +55,7 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         ];
     }
 
-    const ATTACK_WITH_WEAPON_TYPE = 'attack_with_weapon_type';
+    public const ATTACK_WITH_WEAPON_TYPE = 'attack_with_weapon_type';
 
     /**
      * @return array|string[]
@@ -98,9 +98,9 @@ class CombatActionsWithWeaponTypeCompatibilityTable extends AbstractFileTable
         );
     }
 
-    const MELEE = 'melee';
-    const SHOOTING = 'shooting';
-    const THROWING = 'throwing';
+    public const MELEE = 'melee';
+    public const SHOOTING = 'shooting';
+    public const THROWING = 'throwing';
 
     /**
      * @param WeaponlikeCode $weaponlikeCode

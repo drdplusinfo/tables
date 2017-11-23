@@ -21,7 +21,7 @@ class RidingAnimalsTable extends AbstractFileTable
         return __DIR__ . '/data/riding_animals.csv';
     }
 
-    const ANIMAL = 'animal';
+    public const ANIMAL = 'animal';
 
     /**
      * @return array|string[]

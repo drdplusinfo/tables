@@ -16,7 +16,7 @@ use DrdPlus\Tables\Tables;
  */
 class FightTable extends AbstractTable
 {
-    const PROFESSION = 'profession';
+    public const PROFESSION = 'profession';
 
     /**
      * @return array|string[]
@@ -26,8 +26,8 @@ class FightTable extends AbstractTable
         return [self::PROFESSION];
     }
 
-    const FIRST_PROPERTY = 'first_property';
-    const SECOND_PROPERTY = 'second_property';
+    public const FIRST_PROPERTY = 'first_property';
+    public const SECOND_PROPERTY = 'second_property';
 
     /**
      * @return array|string[]

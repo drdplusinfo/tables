@@ -7,7 +7,7 @@ use DrdPlus\Codes\Armaments\WeaponlikeCode;
 
 interface WeaponlikeTable extends WoundingArmamentsTable, HeavyBearablesTable
 {
-    const COVER = 'cover';
+    public const COVER = 'cover';
 
     /**
      * @param string|WeaponlikeCode $weaponlikeCode
@@ -15,7 +15,7 @@ interface WeaponlikeTable extends WoundingArmamentsTable, HeavyBearablesTable
      */
     public function getCoverOf($weaponlikeCode): int;
 
-    const TWO_HANDED_ONLY = 'two_handed_only';
+    public const TWO_HANDED_ONLY = 'two_handed_only';
 
     /**
      * @param string|WeaponlikeCode $itemCode

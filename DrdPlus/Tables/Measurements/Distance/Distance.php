@@ -11,10 +11,10 @@ use Granam\Tools\ValueDescriber;
 
 class Distance extends AbstractMeasurementWithBonus
 {
-    const DECIMETER = DistanceUnitCode::DECIMETER;
-    const METER = DistanceUnitCode::METER;
-    const KILOMETER = DistanceUnitCode::KILOMETER;
-    const LIGHT_YEAR = DistanceUnitCode::LIGHT_YEAR;
+    public const DECIMETER = DistanceUnitCode::DECIMETER;
+    public const METER = DistanceUnitCode::METER;
+    public const KILOMETER = DistanceUnitCode::KILOMETER;
+    public const LIGHT_YEAR = DistanceUnitCode::LIGHT_YEAR;
 
     /**
      * @var DistanceTable

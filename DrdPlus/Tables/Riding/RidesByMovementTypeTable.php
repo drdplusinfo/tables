@@ -27,8 +27,8 @@ class RidesByMovementTypeTable extends AbstractFileTable
         return ['movement_type'];
     }
 
-    const RIDE = 'ride';
-    const ADDITIONAL = 'additional';
+    public const RIDE = 'ride';
+    public const ADDITIONAL = 'additional';
 
     /**
      * @return array|string[]

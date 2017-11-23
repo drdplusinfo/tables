@@ -24,7 +24,7 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         return __DIR__ . '/data/impassibility_of_terrain.csv';
     }
 
-    const TERRAIN = 'terrain';
+    public const TERRAIN = 'terrain';
 
     /**
      * @return array|string[]
@@ -34,8 +34,8 @@ class ImpassibilityOfTerrainTable extends AbstractFileTable
         return [self::TERRAIN];
     }
 
-    const IMPASSIBILITY_OF_TERRAIN_FROM = 'impassibility_of_terrain_from';
-    const IMPASSIBILITY_OF_TERRAIN_TO = 'impassibility_of_terrain_to';
+    public const IMPASSIBILITY_OF_TERRAIN_FROM = 'impassibility_of_terrain_from';
+    public const IMPASSIBILITY_OF_TERRAIN_TO = 'impassibility_of_terrain_to';
 
     /**
      * @return array|string[]

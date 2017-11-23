@@ -12,7 +12,7 @@ use Granam\Integer\Tools\ToInteger;
  */
 class Experiences extends AbstractMeasurementWithBonus
 {
-    const EXPERIENCES = 'experiences';
+    public const EXPERIENCES = 'experiences';
 
     /**
      * @var ExperiencesTable

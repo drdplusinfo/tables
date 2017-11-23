@@ -19,8 +19,8 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
         return __DIR__ . '/data/possible_activities_according_to_contrast.csv';
     }
 
-    const POSSIBLE_ACTIVITIES_EXAMPLE = 'possible_activities_example';
-    const FIGHT_TYPE_BY_CONTRAST = 'fight_type_by_contrast';
+    public const POSSIBLE_ACTIVITIES_EXAMPLE = 'possible_activities_example';
+    public const FIGHT_TYPE_BY_CONTRAST = 'fight_type_by_contrast';
 
     /**
      * @return array|string[]
@@ -30,7 +30,7 @@ class PossibleActivitiesAccordingToContrastTable extends AbstractFileTable
         return [self::POSSIBLE_ACTIVITIES_EXAMPLE => self::STRING, self::FIGHT_TYPE_BY_CONTRAST => self::STRING];
     }
 
-    const CONTRAST = 'contrast';
+    public const CONTRAST = 'contrast';
 
     /**
      * @return array|string[]

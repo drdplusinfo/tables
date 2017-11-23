@@ -7,7 +7,7 @@ use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 
 interface MeleeWeaponlikesTable extends WeaponlikeTable
 {
-    const LENGTH = 'length';
+    public const LENGTH = 'length';
 
     /**
      * @param string|MeleeWeaponCode $weaponlikeCode

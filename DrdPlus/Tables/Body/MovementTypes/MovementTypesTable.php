@@ -48,7 +48,7 @@ class MovementTypesTable extends AbstractFileTable
         return __DIR__ . '/data/movement_types.csv';
     }
 
-    const MOVEMENT_TYPE = 'movement_type';
+    public const MOVEMENT_TYPE = 'movement_type';
 
     /**
      * @return array|string[]
@@ -58,10 +58,10 @@ class MovementTypesTable extends AbstractFileTable
         return [self::MOVEMENT_TYPE,];
     }
 
-    const BONUS_TO_MOVEMENT_SPEED = 'bonus_to_movement_speed';
-    const HOURS_PER_POINT_OF_FATIGUE = 'hours_per_point_of_fatigue';
-    const MINUTES_PER_POINT_OF_FATIGUE = 'minutes_per_point_of_fatigue';
-    const ROUNDS_PER_POINT_OF_FATIGUE = 'rounds_per_point_of_fatigue';
+    public const BONUS_TO_MOVEMENT_SPEED = 'bonus_to_movement_speed';
+    public const HOURS_PER_POINT_OF_FATIGUE = 'hours_per_point_of_fatigue';
+    public const MINUTES_PER_POINT_OF_FATIGUE = 'minutes_per_point_of_fatigue';
+    public const ROUNDS_PER_POINT_OF_FATIGUE = 'rounds_per_point_of_fatigue';
 
     /**
      * @return array|string[]
@@ -76,11 +76,11 @@ class MovementTypesTable extends AbstractFileTable
         ];
     }
 
-    const WAITING = MovementTypeCode::WAITING;
-    const WALK = MovementTypeCode::WALK;
-    const RUSH = MovementTypeCode::RUSH;
-    const RUN = MovementTypeCode::RUN;
-    const SPRINT = MovementTypeCode::SPRINT;
+    public const WAITING = MovementTypeCode::WAITING;
+    public const WALK = MovementTypeCode::WALK;
+    public const RUSH = MovementTypeCode::RUSH;
+    public const RUN = MovementTypeCode::RUN;
+    public const SPRINT = MovementTypeCode::SPRINT;
 
     /**
      * @param string|MovementTypeCode $movementTypeCode

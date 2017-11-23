@@ -7,7 +7,7 @@ use Granam\String\StringInterface;
 
 interface UnwieldyTable extends HeavyBearablesTable
 {
-    const RESTRICTION = 'restriction';
+    public const RESTRICTION = 'restriction';
 
     /**
      * @param string|StringInterface $coverCode

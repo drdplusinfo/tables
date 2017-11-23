@@ -10,9 +10,9 @@ use Granam\Tools\ValueDescriber;
 
 class Volume extends AbstractMeasurementWithBonus
 {
-    const LITER = VolumeUnitCode::LITER;
-    const CUBIC_METER = VolumeUnitCode::CUBIC_METER;
-    const CUBIC_KILOMETER = VolumeUnitCode::CUBIC_KILOMETER;
+    public const LITER = VolumeUnitCode::LITER;
+    public const CUBIC_METER = VolumeUnitCode::CUBIC_METER;
+    public const CUBIC_KILOMETER = VolumeUnitCode::CUBIC_KILOMETER;
 
     /** @var VolumeTable */
     private $volumeTable;

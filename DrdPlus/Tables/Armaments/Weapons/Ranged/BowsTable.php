@@ -26,7 +26,7 @@ class BowsTable extends RangedWeaponsTable
         return __DIR__ . '/data/bows.csv';
     }
 
-    const MAXIMAL_APPLICABLE_STRENGTH = 'maximal_applicable_strength';
+    public const MAXIMAL_APPLICABLE_STRENGTH = 'maximal_applicable_strength';
 
     /**
      * @return array|string[]

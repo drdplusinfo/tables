@@ -56,7 +56,7 @@ class CombatActionsCompatibilityTable extends AbstractFileTable
         ];
     }
 
-    const ACTION = 'action';
+    public const ACTION = 'action';
 
     /**
      * @return array|string[]

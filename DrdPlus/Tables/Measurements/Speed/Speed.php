@@ -11,8 +11,8 @@ use Granam\Number\NumberInterface;
 
 class Speed extends AbstractMeasurementWithBonus
 {
-    const METER_PER_ROUND = SpeedUnitCode::METER_PER_ROUND;
-    const KILOMETER_PER_HOUR = SpeedUnitCode::KILOMETER_PER_HOUR;
+    public const METER_PER_ROUND = SpeedUnitCode::METER_PER_ROUND;
+    public const KILOMETER_PER_HOUR = SpeedUnitCode::KILOMETER_PER_HOUR;
 
     /**
      * @var SpeedTable

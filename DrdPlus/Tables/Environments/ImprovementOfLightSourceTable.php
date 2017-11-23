@@ -19,7 +19,7 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
         return __DIR__ . '/data/improvement_of_light_source.csv';
     }
 
-    const IMPROVEMENT_OF_LIGHT_SOURCE = 'improvement_of_light_source';
+    public const IMPROVEMENT_OF_LIGHT_SOURCE = 'improvement_of_light_source';
 
     /**
      * @return array|string[]
@@ -29,7 +29,7 @@ class ImprovementOfLightSourceTable extends AbstractFileTable
         return [self::IMPROVEMENT_OF_LIGHT_SOURCE => self::POSITIVE_INTEGER];
     }
 
-    const ENVIRONMENT = 'environment';
+    public const ENVIRONMENT = 'environment';
 
     /**
      * @return array|string[]

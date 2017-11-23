@@ -20,7 +20,7 @@ use DrdPlus\Tables\Partials\AbstractTable;
  */
 class AspectsOfVisageTable extends AbstractTable
 {
-    const ASPECT_OF_VISAGE = 'aspect_of_visage';
+    public const ASPECT_OF_VISAGE = 'aspect_of_visage';
 
     /**
      * @return array|string[]
@@ -30,11 +30,11 @@ class AspectsOfVisageTable extends AbstractTable
         return [self::ASPECT_OF_VISAGE];
     }
 
-    const FIRST_PROPERTY = 'first_property';
-    const SECOND_PROPERTY = 'second_property';
-    const SUM_OF_FIRST_AND_SECOND_PROPERTY_DIVISOR = 'sum_of_first_and_second_property_divisor';
-    const THIRD_PROPERTY = 'third_property';
-    const THIRD_PROPERTY_DIVISOR = 'third_property_divisor';
+    public const FIRST_PROPERTY = 'first_property';
+    public const SECOND_PROPERTY = 'second_property';
+    public const SUM_OF_FIRST_AND_SECOND_PROPERTY_DIVISOR = 'sum_of_first_and_second_property_divisor';
+    public const THIRD_PROPERTY = 'third_property';
+    public const THIRD_PROPERTY_DIVISOR = 'third_property_divisor';
 
     /**
      * @return array|string[]

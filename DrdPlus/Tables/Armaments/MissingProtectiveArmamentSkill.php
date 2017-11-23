@@ -7,7 +7,7 @@ use Granam\Integer\PositiveInteger;
 
 interface MissingProtectiveArmamentSkill
 {
-    const RESTRICTION_BONUS = 'restriction_bonus';
+    public const RESTRICTION_BONUS = 'restriction_bonus';
 
     /**
      * @param int|PositiveInteger $skillRank

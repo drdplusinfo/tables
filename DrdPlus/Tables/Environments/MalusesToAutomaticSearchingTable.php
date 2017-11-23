@@ -20,7 +20,7 @@ class MalusesToAutomaticSearchingTable extends AbstractFileTable
         return __DIR__ . '/data/maluses_to_automatic_searching.csv';
     }
 
-    const MALUS = 'malus';
+    public const MALUS = 'malus';
 
     /**
      * @return string[]|array
@@ -30,7 +30,7 @@ class MalusesToAutomaticSearchingTable extends AbstractFileTable
         return [self::MALUS => self::NEGATIVE_INTEGER];
     }
 
-    const AT_THE_SAME_TIME_WITH = 'at_the_same_time_with';
+    public const AT_THE_SAME_TIME_WITH = 'at_the_same_time_with';
 
     /**
      * @return array
