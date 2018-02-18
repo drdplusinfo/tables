@@ -12,6 +12,7 @@ use DrdPlus\Codes\Armaments\MeleeWeaponlikeCode;
 use DrdPlus\Codes\Armaments\ProjectileCode;
 use DrdPlus\Codes\Armaments\ProtectiveArmamentCode;
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
 use DrdPlus\Codes\Body\WoundTypeCode;
@@ -282,7 +283,7 @@ class Armourer extends StrictObject
         if (!$weaponlikeCode->isShootingWeapon()) {
             return $currentStrength;
         }
-        assert($weaponlikeCode instanceof RangedWeaponCode);
+        \assert($weaponlikeCode instanceof RangedWeaponCode);
         /** @var RangedWeaponCode $weaponlikeCode */
         if ($weaponlikeCode->isBow()) {
             $strengthValue = min(
@@ -292,7 +293,7 @@ class Armourer extends StrictObject
 
             return Strength::getIt($strengthValue);
         }
-        assert($weaponlikeCode->isCrossbow());
+        \assert($weaponlikeCode->isCrossbow());
 
         // crossbow as a machine does not apply shooter strength, just its own - see PPH page 94 right column
         return Strength::getIt($this->tables->getCrossbowsTable()->getRequiredStrengthOf($weaponlikeCode));
@@ -675,7 +676,7 @@ class Armourer extends StrictObject
             return MaximalRange::getItForMeleeWeapon($encounterRange); // that is without change and that is zero
         }
 
-        assert($weaponlikeCode->isRanged());
+        \assert($weaponlikeCode->isRanged());
 
         return MaximalRange::getItForRangedWeapon($encounterRange);
     }
@@ -767,7 +768,7 @@ class Armourer extends StrictObject
         if ($weaponOrShield->isWeapon()) {
             return $this->tables->getMissingWeaponSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
         }
-        assert($weaponOrShield->isShield());
+        \assert($weaponOrShield->isShield());
 
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->tables->getShieldUsageSkillTable()->getCoverMalusForSkillRank($weaponTypeSkillRank->getValue());
@@ -1133,5 +1134,51 @@ class Armourer extends StrictObject
             + $this->tables->getMeleeWeaponlikeTableByMeleeWeaponlikeCode($meleeWeaponlikeCode)->getWoundsOf($meleeWeaponlikeCode)
             + $this->getBaseOfWoundsBonusForHolding($meleeWeaponlikeCode, $weaponlikeHolding)
             + ($weaponIsInappropriate ? -6 : 0);
+    }
+
+    /**
+     * @param string $weaponLikeValue
+     * @param bool $preferMelee
+     * @return WeaponlikeCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     */
+    public function getWeaponlikeCode(string $weaponLikeValue, bool $preferMelee = true): WeaponlikeCode
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (MeleeWeaponCode::hasIt($weaponLikeValue)) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            if ($preferMelee || !RangedWeaponCode::hasIt($weaponLikeValue)) {
+                return MeleeWeaponCode::getIt($weaponLikeValue);
+            }
+
+            return RangedWeaponCode::getIt($weaponLikeValue);
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (RangedWeaponCode::hasIt($weaponLikeValue)) {
+            return RangedWeaponCode::getIt($weaponLikeValue);
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (ShieldCode::hasIt($weaponLikeValue)) {
+            return ShieldCode::getIt($weaponLikeValue);
+        }
+        throw new Exceptions\UnknownWeaponlike("Given '{$weaponLikeValue}' value is not known as any weapon-like code");
+    }
+
+    /**
+     * @param string $meleeWeaponLikeValue
+     * @return MeleeWeaponlikeCode
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
+     */
+    public function getMeleeWeaponlikeCode(string $meleeWeaponLikeValue): MeleeWeaponlikeCode
+    {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (MeleeWeaponCode::hasIt($meleeWeaponLikeValue)) {
+            return MeleeWeaponCode::getIt($meleeWeaponLikeValue);
+        }
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        if (ShieldCode::hasIt($meleeWeaponLikeValue)) {
+            return ShieldCode::getIt($meleeWeaponLikeValue);
+        }
+        throw new Exceptions\UnknownMeleeWeaponlike("Given '{$meleeWeaponLikeValue}' value is not known as any melee weapon-like code");
     }
 }

@@ -874,7 +874,7 @@ class ArmourerTest extends TestWithMockery
         if ($inMeters !== false) {
             $maximalRange->shouldReceive('getInMeters')
                 ->zeroOrMoreTimes()
-            ->with($this->type(Tables::class))
+                ->with($this->type(Tables::class))
                 ->andReturnUsing(function (Tables $tables) use ($inMeters, $distanceTable) {
                     self::assertSame($distanceTable, $tables->getDistanceTable());
 
@@ -2250,6 +2250,7 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
+     * @runInSeparateProcess
      */
     public function I_can_add_new_melee_weapon()
     {
@@ -2282,6 +2283,7 @@ class ArmourerTest extends TestWithMockery
 
     /**
      * @test
+     * @runInSeparateProcess
      */
     public function I_can_add_new_ranged_weapon()
     {
@@ -2459,5 +2461,75 @@ class ArmourerTest extends TestWithMockery
             ->with(20)
             ->andReturn(false);
         $armourer->getPowerOfDestruction($weaponlike, Strength::getIt(0), ItemHoldingCode::getIt(ItemHoldingCode::TWO_HANDS), false);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_weapon_like_code_from_value(): void
+    {
+        $armourer = new Armourer(Tables::getIt());
+        foreach (MeleeWeaponCode::getPossibleValues() as $meleeWeaponValue) {
+            $meleeWeaponCode = $armourer->getWeaponlikeCode($meleeWeaponValue);
+            self::assertSame(
+                MeleeWeaponCode::getIt($meleeWeaponValue),
+                $meleeWeaponCode,
+                "$meleeWeaponValue should result into instance of " . MeleeWeaponCode::class
+            );
+        }
+        foreach (RangedWeaponCode::getPossibleValues() as $rangedWeaponValue) {
+            $rangedWeaponCode = $armourer->getWeaponlikeCode($rangedWeaponValue, false /* do NOT prefer melee = use ranged if possible */);
+            self::assertSame(
+                RangedWeaponCode::getIt($rangedWeaponValue),
+                $rangedWeaponCode,
+                "$rangedWeaponValue should result into instance of " . RangedWeaponCode::class
+            );
+            if ($rangedWeaponCode->isMelee()) {
+                $preferredMeleeWeaponCode = $armourer->getWeaponlikeCode($rangedWeaponValue, true /* prefer melee */);
+                self::assertSame(
+                    MeleeWeaponCode::getIt($rangedWeaponValue),
+                    $preferredMeleeWeaponCode,
+                    "$rangedWeaponValue preferred as melee should result into instance of " . MeleeWeaponCode::class
+                );
+                $defaultMeleeWeaponCode = $armourer->getWeaponlikeCode($rangedWeaponValue);
+                self::assertSame(
+                    MeleeWeaponCode::getIt($rangedWeaponValue),
+                    $defaultMeleeWeaponCode,
+                    "$rangedWeaponValue should result by default into instance of " . MeleeWeaponCode::class
+                );
+            }
+        }
+        foreach (ShieldCode::getPossibleValues() as $shieldValue) {
+            $shieldCode = $armourer->getWeaponlikeCode($shieldValue);
+            self::assertSame(
+                ShieldCode::getIt($shieldValue),
+                $shieldCode,
+                "$shieldValue should result into instance of " . ShieldCode::class
+            );
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_melee_weapon_like_code_from_value(): void
+    {
+        $armourer = new Armourer(Tables::getIt());
+        foreach (MeleeWeaponCode::getPossibleValues() as $meleeWeaponValue) {
+            $meleeWeaponCode = $armourer->getMeleeWeaponlikeCode($meleeWeaponValue);
+            self::assertSame(
+                MeleeWeaponCode::getIt($meleeWeaponValue),
+                $meleeWeaponCode,
+                "$meleeWeaponValue should result into instance of " . MeleeWeaponCode::class
+            );
+        }
+        foreach (ShieldCode::getPossibleValues() as $shieldValue) {
+            $shieldCode = $armourer->getMeleeWeaponlikeCode($shieldValue);
+            self::assertSame(
+                ShieldCode::getIt($shieldValue),
+                $shieldCode,
+                "$shieldValue should result into instance of " . ShieldCode::class
+            );
+        }
     }
 }
