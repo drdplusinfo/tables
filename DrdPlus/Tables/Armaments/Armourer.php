@@ -318,15 +318,15 @@ class Armourer extends StrictObject
     /**
      * Note: spear can be both range and melee, but required strength is for melee and range usages the same
      *
-     * @param ArmamentCode $armamentCode
+     * @param WeaponlikeCode $weaponlikeCode
      * @param Strength $currentStrength INCLUDING bonus for holding
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function canUseWeaponlike(ArmamentCode $armamentCode, Strength $currentStrength): bool
+    public function canUseWeaponlike(WeaponlikeCode $weaponlikeCode, Strength $currentStrength): bool
     {
         return $this->canUseArmament(
-            $armamentCode,
+            $weaponlikeCode,
             $currentStrength,
             Size::getIt(0) /* whatever - is applied only to a body armor */
         );
