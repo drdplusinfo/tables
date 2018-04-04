@@ -16,14 +16,9 @@ use Granam\Strict\Object\StrictObject;
 abstract class AbstractMeasurement extends StrictObject implements Measurement
 {
 
-    /**
-     * @var float
-     */
+    /** @var float */
     private $value;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     private $unit;
 
     /**
@@ -59,7 +54,7 @@ abstract class AbstractMeasurement extends StrictObject implements Measurement
      */
     protected function checkUnit(string $unit): void
     {
-        if (!in_array($unit, $this->getPossibleUnits(), true)) {
+        if (!\in_array($unit, $this->getPossibleUnits(), true)) {
             throw new UnknownUnit('Unknown unit ' . ValueDescriber::describe($unit));
         }
     }
