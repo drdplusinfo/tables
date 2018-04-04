@@ -89,6 +89,7 @@ use DrdPlus\Tables\History\BackgroundPointsTable;
 use DrdPlus\Tables\History\InfluenceOfFortuneTable;
 use DrdPlus\Tables\History\PlayerDecisionsTable;
 use DrdPlus\Tables\History\PossessionTable;
+use DrdPlus\Tables\Measurements\Square\SquareTable;
 use DrdPlus\Tables\Measurements\Volume\VolumeTable;
 use DrdPlus\Tables\Riding\RidesByMovementTypeTable;
 use DrdPlus\Tables\Riding\RidingAnimalsAndFlyingBeastsMovementTypesTable;
@@ -1042,6 +1043,19 @@ class Tables extends StrictObject implements \IteratorAggregate
 
         return $this->tables[MaterialResistancesTable::class];
     }
+
+    /**
+     * @return SquareTable
+     */
+    public function getSquareTable(): SquareTable
+    {
+        if (!array_key_exists(SquareTable::class, $this->tables)) {
+            $this->tables[SquareTable::class] = new SquareTable();
+        }
+
+        return $this->tables[SquareTable::class];
+    }
+
     /**
      * @return VolumeTable
      */
@@ -1135,6 +1149,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getStealthinessTable(),
             $this->getCatchQualitiesTable(),
             $this->getMaterialResistancesTable(),
+            $this->getSquareTable(),
             $this->getVolumeTable(),
         ]);
     }

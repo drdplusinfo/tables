@@ -16,7 +16,7 @@ class AttackNumberByContinuousDistanceTableTest extends AbstractAttackNumberByDi
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         self::assertSame(
             [
@@ -44,7 +44,7 @@ class AttackNumberByContinuousDistanceTableTest extends AbstractAttackNumberByDi
      * @expectedException \DrdPlus\Tables\Combat\Attacks\Exceptions\DistanceOutOfKnownValues
      * @expectedExceptionMessageRegExp ~999999 m~
      */
-    public function I_can_not_get_attack_number_modifier_with_enormous_distance()
+    public function I_can_not_get_attack_number_modifier_with_enormous_distance(): void
     {
         (new AttackNumberByContinuousDistanceTable())
             ->getAttackNumberModifierByDistance(new Distance(999999, DistanceUnitCode::METER, new DistanceTable()));
@@ -53,7 +53,7 @@ class AttackNumberByContinuousDistanceTableTest extends AbstractAttackNumberByDi
     /**
      * @test
      */
-    public function I_can_use_constant_with_distance_not_affecting_attack_number()
+    public function I_can_use_constant_with_distance_not_affecting_attack_number(): void
     {
         self::assertSame(
             0,
