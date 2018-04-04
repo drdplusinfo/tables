@@ -98,7 +98,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired
      * @throws \DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile
      */
-    private function loadData()
+    private function loadData(): void
     {
         $rawData = $this->fetchDataFromFile($this->getDataFileName());
         $indexed = $this->normalizeAndIndex($rawData);
@@ -113,17 +113,17 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function fetchDataFromFile(string $dataSourceFile): array
     {
-        $resource = fopen($dataSourceFile, 'rb');
+        $resource = \fopen($dataSourceFile, 'rb');
         if (!$resource) {
             throw new FileCanNotBeRead("File with table data could not be read from $dataSourceFile");
         }
         $data = [];
         do {
-            $row = fgetcsv($resource);
-            if ($row !== false && count($row)) { // otherwise skipp empty row
+            $row = \fgetcsv($resource);
+            if ($row !== false && \count($row)) { // otherwise skipp empty row
                 $data[] = $row;
             }
-        } while (is_array($row));
+        } while (\is_array($row));
 
         if (!$data) {
             throw new FileIsEmpty("No data have been read from $dataSourceFile");
@@ -141,27 +141,28 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function normalizeAndIndex(array $data): array
     {
-        $expectedHeader = array_merge(['bonus'], $this->getExpectedDataHeader());
-        if (!array_key_exists(0, $data) || $data[0] !== $expectedHeader) {
+        $expectedHeader = \array_merge(['bonus'], $this->getExpectedDataHeader());
+        if (!\array_key_exists(0, $data) || $data[0] !== $expectedHeader) {
             throw new DataFromFileAreCorrupted(
-                'Data file is corrupted. Expected header with ' . implode(',', $expectedHeader)
+                "Data file is corrupted. Expected header with '" . \implode(',', $expectedHeader) . "'"
+                . ", got '" . \implode(',', $data[0]) . "'"
             );
         }
         $indexed = [];
         unset($data[0]); // removing human header
         foreach ($data as $row) {
-            if (count($row) > 0) {
+            if (\count($row) > 0) {
                 $formattedRow = $this->formatRow($row, $expectedHeader);
-                if (array_key_exists(key($formattedRow), $indexed)) {
+                if (\array_key_exists(key($formattedRow), $indexed)) {
                     throw new BonusAlreadyPaired(
-                        'Bonus ' . key($formattedRow) . ' is already paired with value(s) ' . implode(',', $indexed[key($formattedRow)])
-                        . ', got ' . implode(',', current($formattedRow))
+                        'Bonus ' . \key($formattedRow) . ' is already paired with value(s) ' . \implode(',', $indexed[\key($formattedRow)])
+                        . ', got ' . \implode(',', \current($formattedRow))
                     );
                 }
-                $indexed[key($formattedRow)] = current($formattedRow);
+                $indexed[key($formattedRow)] = \current($formattedRow);
             }
         }
-        if (count($indexed) === 0) {
+        if (\count($indexed) === 0) {
             throw new DataRowsAreMissingInFile(
                 'Data file is empty. Expected at least single row with values (header excluded)'
             );
@@ -178,7 +179,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function formatRow(array $row, array $expectedHeader): array
     {
-        $indexedValues = array_combine($expectedHeader, $row);
+        $indexedValues = \array_combine($expectedHeader, $row);
         try {
             $bonus = $this->parseBonus($indexedValues['bonus']);
             unset($indexedValues['bonus']); // left values only
@@ -216,7 +217,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function parseNumber(string $value): string
     {
-        return str_replace(
+        return \str_replace(
             ['−' /* from ASCII 226 */, ','], // unified minus sign and float format (decimal delimiter)
             ['-' /* to ASCII 45 */, '.'],
             $value
@@ -231,7 +232,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function parseValue(string $value)
     {
-        $value = trim($value);
+        $value = \trim($value);
         if ($value === '') {
             return false;
         }
@@ -248,7 +249,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function isItDiceRollChance($value): bool
     {
-        return preg_match('~^\d+/\d+$~', (string)$value) > 0;
+        return \preg_match('~^\d+/\d+$~', (string)$value) > 0;
     }
 
     /**
@@ -273,9 +274,9 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param int $bonusValue
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    private function guardBonusExisting(int $bonusValue)
+    private function guardBonusExisting(int $bonusValue): void
     {
-        if (!array_key_exists($bonusValue, $this->getIndexedValues())) {
+        if (!\array_key_exists($bonusValue, $this->getIndexedValues())) {
             throw new Exceptions\UnknownBonus("Value to bonus {$bonusValue} is not defined.");
         }
     }
@@ -304,9 +305,9 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @param string $unit
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    protected function checkUnitExistence(string $unit)
+    protected function checkUnitExistence(string $unit): void
     {
-        if (!in_array($unit, $this->getExpectedDataHeader(), true)) {
+        if (!\in_array($unit, $this->getExpectedDataHeader(), true)) {
             throw new UnknownUnit(
                 'Expected one of units ' . implode(',', $this->getExpectedDataHeader()) . ", got $unit"
             );
@@ -329,7 +330,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function evaluate($rawValue): float
     {
-        if (is_float($rawValue)) {
+        if (\is_float($rawValue)) {
             return $rawValue;
         }
 
@@ -344,8 +345,8 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      */
     private function parseMaxRollToGetValue(string $chance): int
     {
-        $chanceParts = explode('/', $chance);
-        if (!array_key_exists(0, $chanceParts) || !array_key_exists(1, $chanceParts) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
+        $chanceParts = \explode('/', $chance);
+        if (!\array_key_exists(0, $chanceParts) || !\array_key_exists(1, $chanceParts) || (int)$chanceParts[0] < 0 || (int)$chanceParts[0] > 6
             || (int)$chanceParts[1] !== 6
         ) {
             throw new UnexpectedChanceNotation("Expected only 0..6/6 chance, got $chance");
@@ -387,7 +388,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     private function determineBonusValue(MeasurementWithBonus $measurement): int
     {
         $finds = $this->getBonusMatchingOrClosestTo($measurement);
-        if (is_int($finds)) {
+        if (\is_int($finds)) {
             return $finds; // we found the bonus by value exact match
         }
 
@@ -406,7 +407,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $searchedUnit = $measurement->getUnit();
         $closest = ['lower' => [], 'higher' => []]; // value to bonuses
         foreach ($this->getIndexedValues() as $bonus => $relatedValues) {
-            if (!array_key_exists($searchedUnit, $relatedValues)) { // current row doesn't have required unit
+            if (!\array_key_exists($searchedUnit, $relatedValues)) { // current row doesn't have required unit
                 continue;
             }
             $relatedValue = $relatedValues[$searchedUnit];
@@ -416,23 +417,23 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
             if ($this->isItDiceRollChance($relatedValue)) {
                 continue; // dice roll chance fractions are skipped (example '2/6')
             }
-            $stringRelatedValue = "$relatedValue"; // because PHP is silently converting float to int
+            $stringRelatedValue = (string)$relatedValue; // because PHP is silently converting float to int
             if ($searchedValue > $relatedValue) {
-                if (count($closest['lower']) === 0 || key($closest['lower']) < $stringRelatedValue) {
+                if (\count($closest['lower']) === 0 || \key($closest['lower']) < $stringRelatedValue) {
                     $closest['lower'] = [$stringRelatedValue => [$bonus]]; // new value to [bonus] pair
-                } else if (count($closest['lower']) > 0 && key($closest['lower']) === $stringRelatedValue) {
+                } elseif (\count($closest['lower']) > 0 && \key($closest['lower']) === $stringRelatedValue) {
                     $closest['lower'][$stringRelatedValue][] = $bonus; // adding bonus for same value
                 }
-            } else if ($searchedValue < $relatedValue) {
-                if (count($closest['higher']) === 0 || key($closest['higher']) > $stringRelatedValue) {
+            } elseif ($searchedValue < $relatedValue) {
+                if (\count($closest['higher']) === 0 || \key($closest['higher']) > $stringRelatedValue) {
                     $closest['higher'] = [$stringRelatedValue => [$bonus]]; // new value to bonus pair
-                } else if (count($closest['higher']) > 0 && key($closest['higher']) === $stringRelatedValue) {
+                } elseif (\count($closest['higher']) > 0 && \key($closest['higher']) === $stringRelatedValue) {
                     $closest['higher'][$stringRelatedValue][] = $bonus; // adding bonus for same value
                 }
             }
         }
 
-        if (count($closest['lower']) === 0 || count($closest['higher']) === 0) {
+        if (\count($closest['lower']) === 0 || \count($closest['higher']) === 0) {
             throw new Exceptions\RequestedDataOutOfTableRange(
                 "Value $searchedValue (unit '$searchedUnit') is out of table values."
             );
@@ -453,32 +454,32 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         $closerValue = $this->getCloserValue(
             $searchedValue,
             // because float keys are encoded as string (otherwise PHP will cast them silently to int when used as array keys)
-            ToFloat::toFloat(key($closestLower)),
-            ToFloat::toFloat(key($closestHigher))
+            ToFloat::toFloat(\key($closestLower)),
+            ToFloat::toFloat(\key($closestHigher))
         );
         if ($closerValue !== false) {
-            if (array_key_exists("$closerValue", $closestLower)) {
-                $bonuses = $closestLower["$closerValue"];
+            if (\array_key_exists((string)$closerValue, $closestLower)) {
+                $bonuses = $closestLower[(string)$closerValue];
             } else {
-                $bonuses = $closestHigher["$closerValue"];
+                $bonuses = $closestHigher[(string)$closerValue];
             }
 
             // matched single table-value, maybe with more bonuses, the lowest bonus should be taken
-            return min($bonuses); // PPH page 11, right column
+            return \min($bonuses); // PPH page 11, right column
         }
         // both table border-values are equally close to the value, we will choose from bonuses of both borders
-        $bonuses = array_merge(
-            count($closestLower) > 0
-                ? current($closestLower)
+        $bonuses = \array_merge(
+            \count($closestLower) > 0
+                ? \current($closestLower)
                 : []
             ,
-            count($closestHigher) > 0
-                ? current($closestHigher)
+            \count($closestHigher) > 0
+                ? \current($closestHigher)
                 : []
         );
 
         // matched two table-values, more bonuses for sure, the highest bonus should be taken
-        return max($bonuses); // PPH page 11, right column
+        return \max($bonuses); // PPH page 11, right column
     }
 
     /**
@@ -491,10 +492,10 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
     {
         $firstDifference = $toValue - $firstValue;
         $secondDifference = $toValue - $secondValue;
-        if (abs($firstDifference) < abs($secondDifference)) {
+        if (\abs($firstDifference) < \abs($secondDifference)) {
             return $firstValue;
         }
-        if (abs($secondDifference) < abs($firstDifference)) {
+        if (\abs($secondDifference) < \abs($firstDifference)) {
             return $secondValue;
         }
 
