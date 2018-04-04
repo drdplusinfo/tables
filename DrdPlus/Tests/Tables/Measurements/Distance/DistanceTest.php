@@ -25,7 +25,7 @@ class DistanceTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_it_in_every_unit_by_specific_getter()
+    public function I_can_get_it_in_every_unit_by_specific_getter(): void
     {
         $distanceTable = new DistanceTable();
 
@@ -66,13 +66,13 @@ class DistanceTest extends AbstractTestOfMeasurement
      * @expectedExceptionMessageRegExp ~megastep~
      * @param string $getInUnit
      */
-    public function Can_not_cast_it_from_unknown_unit(string $getInUnit)
+    public function Can_not_cast_it_from_unknown_unit(string $getInUnit): void
     {
         /** @var Distance|\Mockery\MockInterface $distanceWithInvalidUnit */
         $distanceWithInvalidUnit = $this->mockery(Distance::class);
         $distanceWithInvalidUnit->shouldReceive('getUnit')
             ->andReturn('megastep');
-        $distanceWithInvalidUnit->shouldDeferMissing();
+        $distanceWithInvalidUnit->makePartial();
         $distanceWithInvalidUnit->$getInUnit();
     }
 
@@ -93,8 +93,9 @@ class DistanceTest extends AbstractTestOfMeasurement
      * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @expectedExceptionMessageRegExp ~nanoinch~
      * @param string $unit
+     * @throws \ReflectionException
      */
-    public function Can_not_cast_it_to_unknown_unit(string $unit)
+    public function Can_not_cast_it_to_unknown_unit(string $unit): void
     {
         $distance = new \ReflectionClass(Distance::class);
         $getValueInDifferentUnit = $distance->getMethod('getValueInDifferentUnit');
@@ -102,7 +103,7 @@ class DistanceTest extends AbstractTestOfMeasurement
         $getValueInDifferentUnit->invoke(new Distance(123, $unit, new DistanceTable()), 'nanoinch');
     }
 
-    public function provideDistanceUnits()
+    public function provideDistanceUnits(): array
     {
         return array_map(
             function (string $distanceUnit) {
@@ -115,7 +116,7 @@ class DistanceTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_unit_as_a_code_instance()
+    public function I_can_get_unit_as_a_code_instance(): void
     {
         $distanceTable = new DistanceTable();
 

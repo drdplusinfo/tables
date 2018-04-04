@@ -17,8 +17,15 @@ class Volume extends AbstractMeasurementWithBonus
     /** @var VolumeTable */
     private $volumeTable;
 
+    /**
+     * @param float $value
+     * @param string $unit
+     * @param VolumeTable $volumeTable
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     */
     public function __construct(float $value, string $unit, VolumeTable $volumeTable)
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct($value, $unit);
         $this->volumeTable = $volumeTable;
     }
@@ -38,8 +45,12 @@ class Volume extends AbstractMeasurementWithBonus
         return VolumeUnitCode::getIt($this->getUnit());
     }
 
+    /**
+     * @return float
+     */
     public function getLiters(): float
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit(self::LITER);
     }
 
@@ -47,8 +58,6 @@ class Volume extends AbstractMeasurementWithBonus
      * @param string $toUnit
      * @return float
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
-     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
-     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
      */
     private function getValueInDifferentUnit(string $toUnit): float
     {
@@ -61,7 +70,7 @@ class Volume extends AbstractMeasurementWithBonus
                     return $this->getValue() / (10 ** 3);
                 }
                 if ($toUnit === self::CUBIC_KILOMETER) {
-                    return $this->getValue() / (10000 ** 3);
+                    return $this->getValue() / ((10 * 1000) ** 3);
                 }
                 break;
             case self::CUBIC_METER :
@@ -69,7 +78,7 @@ class Volume extends AbstractMeasurementWithBonus
                     return $this->getValue() / (1000 ** 3);
                 }
                 if ($toUnit === self::LITER) {
-                    return $this->getValue() * 1000;
+                    return $this->getValue() * (10 ** 3);
                 }
                 break;
             case self::CUBIC_KILOMETER :
@@ -77,7 +86,7 @@ class Volume extends AbstractMeasurementWithBonus
                     return $this->getValue() * (1000 ** 3);
                 }
                 if ($toUnit === self::LITER) {
-                    return $this->getValue() * (10000 ** 3);
+                    return $this->getValue() * ((10 * 1000) ** 3);
                 }
                 break;
         }
@@ -89,11 +98,13 @@ class Volume extends AbstractMeasurementWithBonus
 
     public function getCubicMeters(): float
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit(self::CUBIC_METER);
     }
 
     public function getCubicKilometers(): float
     {
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValueInDifferentUnit(self::CUBIC_KILOMETER);
     }
 }

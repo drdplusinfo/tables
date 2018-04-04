@@ -14,11 +14,11 @@ class VolumeTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_value()
+    public function I_can_convert_bonus_to_value(): void
     {
         $volumeTable = new VolumeTable();
 
-        $cubicMeterToKilometer = 10 ** 9;
+        $cubicMeterToKilometer = 1000 ** 3;
         $bonus = new VolumeBonus(-40, $volumeTable);
         $volume = $volumeTable->toVolume($bonus);
         self::assertSame(0.01, $volume->getCubicMeters());
@@ -33,8 +33,8 @@ class VolumeTableTest extends MeasurementTableTest
 
         $bonus = new VolumeBonus(119, $volumeTable);
         $volume = $volumeTable->toVolume($bonus);
-        self::assertSame(0.9 * $cubicMeterToKilometer, $volume->getCubicMeters());
-        self::assertSame(0.9, $volume->getCubicKilometers());
+        self::assertSame(0.009 * $cubicMeterToKilometer, $volume->getCubicMeters());
+        self::assertSame(0.009, $volume->getCubicKilometers());
         self::assertSame($bonus->getValue(), $volume->getBonus()->getValue());
     }
 
@@ -42,7 +42,7 @@ class VolumeTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    public function I_can_not_use_too_low_bonus_to_value()
+    public function I_can_not_use_too_low_bonus_to_value(): void
     {
         $distanceTable = new VolumeTable();
         $distanceTable->toVolume(new VolumeBonus(-41, $distanceTable));
@@ -52,7 +52,7 @@ class VolumeTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      */
-    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
+    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit(): void
     {
         $distanceTable = new VolumeTable();
         $distanceTable->toVolume(new VolumeBonus(120, $distanceTable));
@@ -61,7 +61,7 @@ class VolumeTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_convert_value_to_bonus()
+    public function I_can_convert_value_to_bonus(): void
     {
         $distanceTable = new VolumeTable();
 
@@ -81,7 +81,7 @@ class VolumeTableTest extends MeasurementTableTest
         $distance = new Volume(106, VolumeUnitCode::CUBIC_METER, $distanceTable);
         self::assertSame(41, $distance->getBonus()->getValue()); // 41 is the closest bonus (higher in this case)
 
-        $distance = new Volume(0.9, VolumeUnitCode::CUBIC_KILOMETER, $distanceTable);
+        $distance = new Volume(0.009, VolumeUnitCode::CUBIC_KILOMETER, $distanceTable);
         self::assertSame(119, $distance->getBonus()->getValue());
     }
 
@@ -89,7 +89,7 @@ class VolumeTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
-    public function I_can_not_convert_too_low_value_to_bonus()
+    public function I_can_not_convert_too_low_value_to_bonus(): void
     {
         $distanceTable = new VolumeTable();
         $distance = new Volume(0.009, VolumeUnitCode::CUBIC_METER, $distanceTable);
@@ -100,7 +100,7 @@ class VolumeTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
-    public function I_can_not_convert_too_high_value_to_bonus()
+    public function I_can_not_convert_too_high_value_to_bonus(): void
     {
         $distanceTable = new VolumeTable();
         $distance = new Volume(901, VolumeUnitCode::CUBIC_KILOMETER, $distanceTable);

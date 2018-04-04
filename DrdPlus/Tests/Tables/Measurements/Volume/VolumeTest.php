@@ -24,7 +24,7 @@ class VolumeTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_unit_as_a_code_instance()
+    public function I_can_get_unit_as_a_code_instance(): void
     {
         $volumeTable = new VolumeTable();
         foreach ($this->getAllUnits() as $unitName) {
@@ -36,7 +36,7 @@ class VolumeTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_it_in_every_unit_by_specific_getter()
+    public function I_can_get_it_in_every_unit_by_specific_getter(): void
     {
         $volumeTable = new VolumeTable();
 
@@ -59,7 +59,7 @@ class VolumeTest extends AbstractTestOfMeasurement
         self::assertSame((float)($value * $cubicMeterToCubicKilometer), $meters->getCubicKilometers());
         self::assertSame(53, $meters->getBonus()->getValue());
 
-        $kilometers = new Volume($value = 0.9, $unit = VolumeUnitCode::CUBIC_KILOMETER, $volumeTable);
+        $kilometers = new Volume($value = 0.009, $unit = VolumeUnitCode::CUBIC_KILOMETER, $volumeTable);
         self::assertSame($value, $kilometers->getValue());
         self::assertSame($unit, $kilometers->getUnit());
         self::assertSame($value, $kilometers->getCubicKilometers());
@@ -75,13 +75,13 @@ class VolumeTest extends AbstractTestOfMeasurement
      * @expectedExceptionMessageRegExp ~drop~
      * @param string $getInUnit
      */
-    public function Can_not_cast_it_from_unknown_unit(string $getInUnit)
+    public function Can_not_cast_it_from_unknown_unit(string $getInUnit): void
     {
         /** @var Volume|\Mockery\MockInterface $volumeWithInvalidUnit */
         $volumeWithInvalidUnit = $this->mockery(Volume::class);
         $volumeWithInvalidUnit->shouldReceive('getUnit')
             ->andReturn('drop');
-        $volumeWithInvalidUnit->shouldDeferMissing();
+        $volumeWithInvalidUnit->makePartial();
         $volumeWithInvalidUnit->$getInUnit();
     }
 
@@ -102,8 +102,9 @@ class VolumeTest extends AbstractTestOfMeasurement
      * @expectedException \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @expectedExceptionMessageRegExp ~first~
      * @param string $unit
+     * @throws \ReflectionException
      */
-    public function Can_not_cast_it_to_unknown_unit(string $unit)
+    public function Can_not_cast_it_to_unknown_unit(string $unit): void
     {
         $volume = new \ReflectionClass(Volume::class);
         $getValueInDifferentUnit = $volume->getMethod('getValueInDifferentUnit');
@@ -111,7 +112,7 @@ class VolumeTest extends AbstractTestOfMeasurement
         $getValueInDifferentUnit->invoke(new Volume(123, $unit, new VolumeTable()), 'first');
     }
 
-    public function provideVolumeUnits()
+    public function provideVolumeUnits(): array
     {
         return array_map(
             function (string $volumeUnit) {
