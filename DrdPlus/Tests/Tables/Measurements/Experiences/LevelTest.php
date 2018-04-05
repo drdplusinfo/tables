@@ -16,7 +16,7 @@ class LevelTest extends AbstractTestOfBonus
     /**
      * @test
      */
-    public function I_can_create_bonus()
+    public function I_can_create_bonus(): void
     {
         $sut = $this->createSut($value = 20);
         self::assertInstanceOf(Bonus::class, $sut);
@@ -28,12 +28,12 @@ class LevelTest extends AbstractTestOfBonus
         return new ExperiencesTable(new WoundsTable());
     }
 
-    protected function getNameOfMeasurementGetter()
+    protected function getNameOfMeasurementGetter(): string
     {
         return 'getExperiences';
     }
 
-    protected function getMeasurementClass()
+    protected function getMeasurementClass(): string
     {
         return Experiences::class;
     }
@@ -41,7 +41,7 @@ class LevelTest extends AbstractTestOfBonus
     /**
      * @test
      */
-    public function I_can_get_level_value()
+    public function I_can_get_level_value(): void
     {
         $level = new Level($levelValue = 20, $this->getExperiencesTable());
         self::assertSame($levelValue, $level->getValue());

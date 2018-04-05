@@ -14,7 +14,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_value_and_unit()
+    public function I_can_get_value_and_unit(): void
     {
         $measurement = $this->createSut($amount = 123);
         self::assertEquals($amount, $measurement->getValue());
@@ -52,10 +52,10 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
 
     protected function getDefaultUnit(): string
     {
-        return constant($this->getConstantAbsoluteName());
+        return \constant($this->getConstantAbsoluteName());
     }
 
-    protected function getConstantAbsoluteName()
+    protected function getConstantAbsoluteName(): string
     {
         $constantBaseName = $this->getConstantBaseName();
         $class = self::getSutClass();
@@ -63,12 +63,12 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
         return "$class::$constantBaseName";
     }
 
-    protected function getConstantBaseName()
+    protected function getConstantBaseName(): string
     {
         $classBaseName = $this->parseClassBaseName(self::getSutClass());
-        $underscored = ltrim(preg_replace('~([A-Z])~', '_$1', $classBaseName), '_');
+        $underscored = \ltrim(\preg_replace('~([A-Z])~', '_$1', $classBaseName), '_');
 
-        return strtoupper($underscored);
+        return \strtoupper($underscored);
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
      */
     protected function parseClassBaseName(string $className): string
     {
-        return preg_replace('~.+\\\(\w+)$~', '$1', $className);
+        return \preg_replace('~.+\\\(\w+)$~', '$1', $className);
     }
 
     /**
@@ -104,12 +104,12 @@ abstract class AbstractTestOfMeasurement extends TestWithMockery
     /**
      * @return string|null
      */
-    protected function getTableClass():? string
+    protected function getTableClass(): ? string
     {
         $measurementClass = self::getSutClass();
         $tableClass = "{$measurementClass}Table";
 
-        if (!class_exists($tableClass)) {
+        if (!\class_exists($tableClass)) {
             return null;
         }
 

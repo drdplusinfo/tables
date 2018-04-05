@@ -46,8 +46,8 @@ abstract class AbstractTable extends StrictObject implements Table
     {
         $rowsHeader = $this->toFlatStructure($this->getRowsHeader());
         $columnsHeader = $this->toFlatStructure($this->getColumnsHeader());
-        $rowsHeaderRowCount = count(current($rowsHeader));
-        $columnsHeaderRowCount = count(current($columnsHeader));
+        $rowsHeaderRowCount = \count(\current($rowsHeader));
+        $columnsHeaderRowCount = \count(\current($columnsHeader));
         $maxRowsCount = max($rowsHeaderRowCount, $columnsHeaderRowCount);
         $rowsHeaderIndexShift = $rowsHeaderRowCount - $maxRowsCount;
         $columnsHeaderIndexShift = $columnsHeaderRowCount - $maxRowsCount;
@@ -71,9 +71,9 @@ abstract class AbstractTable extends StrictObject implements Table
                     $headerRowFromColumnsHeader[] = $columnsHeaderColumn[$columnsHeaderRowIndex];
                 }
             }
-            $header[] = array_merge(
+            $header[] = \array_merge(
                 $headerRowFromRowsHeader,
-                array_diff($headerRowFromColumnsHeader, $headerRowFromRowsHeader) // only those not already included by rows header
+                \array_diff($headerRowFromColumnsHeader, $headerRowFromRowsHeader) // only those not already included by rows header
             );
         }
 
@@ -89,16 +89,16 @@ abstract class AbstractTable extends StrictObject implements Table
     {
         $inFlatStructure = [];
         foreach ($values as $key => $wrappedValues) {
-            if (!is_array($wrappedValues)) {
+            if (!\is_array($wrappedValues)) {
                 $rows = [[$wrappedValues]];
-            } elseif (!is_array(current($wrappedValues))) {
-                $rows = [array_values($wrappedValues)];
+            } elseif (!\is_array(current($wrappedValues))) {
+                $rows = [\array_values($wrappedValues)];
             } else {
                 $rows = $this->toFlatStructure($wrappedValues, $convertTopKeysToValues);
             }
             if ($convertTopKeysToValues) {
                 foreach ($rows as &$row) {
-                    array_unshift($row, $key);
+                    \array_unshift($row, $key);
                 }
                 unset($row);
             }
@@ -153,7 +153,7 @@ abstract class AbstractTable extends StrictObject implements Table
         if ($row === null) {
             throw new Exceptions\RequiredRowNotFound(
                 'Row has not been found by index(es) "' . ValueDescriber::describe($singleRowIndexes) . '"'
-                . ', possible indexes are ' . implode(',', array_keys($this->getIndexedValues()))
+                . ', possible indexes are ' . \implode(',', \array_keys($this->getIndexedValues()))
             );
         }
 
@@ -169,21 +169,21 @@ abstract class AbstractTable extends StrictObject implements Table
     public function findRow($singleRowIndexes):? array
     {
         /** @noinspection ArrayCastingEquivalentInspection */
-        $arraySingleRowIndexes = is_array($singleRowIndexes)
+        $arraySingleRowIndexes = \is_array($singleRowIndexes)
             ? $singleRowIndexes
             : [$singleRowIndexes];
-        if (count($arraySingleRowIndexes) === 0) {
+        if (\count($arraySingleRowIndexes) === 0) {
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }
         $values = $this->getIndexedValues();
         /** @noinspection ForeachSourceInspection */
         foreach ($arraySingleRowIndexes as $rowIndex) {
             $stringRowIndex = ToString::toString($rowIndex);
-            if (!array_key_exists($stringRowIndex, $values)) {
+            if (!\array_key_exists($stringRowIndex, $values)) {
                 return null;
             }
             $values = $values[$stringRowIndex];
-            if (!is_array(current($values))) { // flat array found
+            if (!\is_array(\current($values))) { // flat array found
                 break;
             }
         }
@@ -201,7 +201,7 @@ abstract class AbstractTable extends StrictObject implements Table
     private function getValueInRow(array $row, $columnIndex)
     {
         $stringColumnIndex = ToString::toString($columnIndex);
-        if (!array_key_exists($stringColumnIndex, $row)) {
+        if (!\array_key_exists($stringColumnIndex, $row)) {
             throw new Exceptions\RequiredColumnNotFound(
                 'Column of name ' . ValueDescriber::describe($columnIndex) . ' does not exist'
             );

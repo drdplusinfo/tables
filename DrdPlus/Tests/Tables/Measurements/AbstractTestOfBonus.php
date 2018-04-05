@@ -13,7 +13,7 @@ abstract class AbstractTestOfBonus extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_create_bonus()
+    public function I_can_create_bonus(): void
     {
         $sut = $this->createSut(123);
         self::assertInstanceOf(Bonus::class, $sut);
@@ -39,7 +39,7 @@ abstract class AbstractTestOfBonus extends TestWithMockery
 
     protected function getBonusClass()
     {
-        return preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
+        return \preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
     }
 
     protected function getTableInstance()
@@ -51,7 +51,7 @@ abstract class AbstractTestOfBonus extends TestWithMockery
 
     protected function getTableClass()
     {
-        return preg_replace('~Bonus$~', 'Table', $this->getBonusClass());
+        return \preg_replace('~Bonus$~', 'Table', $this->getBonusClass());
     }
 
     /**

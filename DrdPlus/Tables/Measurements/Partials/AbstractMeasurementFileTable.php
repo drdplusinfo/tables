@@ -139,7 +139,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\BonusAlreadyPaired
      * @throws \DrdPlus\Tables\Measurements\Exceptions\DataRowsAreMissingInFile
      */
-    private function normalizeAndIndex(array $data): array
+    protected function normalizeAndIndex(array $data): array
     {
         $expectedHeader = \array_merge(['bonus'], $this->getExpectedDataHeader());
         if (!\array_key_exists(0, $data) || $data[0] !== $expectedHeader) {
@@ -293,7 +293,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
         if ($wantedUnit === null) {
             $this->guardBonusExisting($bonusValue);
             /** @noinspection CallableParameterUseCaseInTypeContextInspection */
-            $wantedUnit = key($this->getIndexedValues()[$bonusValue]);
+            $wantedUnit = \key($this->getIndexedValues()[$bonusValue]);
         } else {
             $this->checkUnitExistence($wantedUnit);
         }

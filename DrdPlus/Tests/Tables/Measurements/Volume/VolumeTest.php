@@ -4,13 +4,19 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Measurements\Volume;
 
 use DrdPlus\Codes\Units\VolumeUnitCode;
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Volume\Volume;
-use DrdPlus\Tables\Measurements\Volume\VolumeTable;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfMeasurement;
 use Granam\String\StringTools;
 
 class VolumeTest extends AbstractTestOfMeasurement
 {
+    protected function getTableClass(): string
+    {
+        return DistanceTable::class;
+    }
+
     protected function getDefaultUnit(): string
     {
         return VolumeUnitCode::CUBIC_METER;
@@ -26,9 +32,9 @@ class VolumeTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_unit_as_a_code_instance(): void
     {
-        $volumeTable = new VolumeTable();
+        $distanceTable = Tables::getIt()->getDistanceTable();
         foreach ($this->getAllUnits() as $unitName) {
-            $volume = new Volume(123.456, $unitName, $volumeTable);
+            $volume = new Volume(123.456, $unitName, $distanceTable);
             self::assertSame(VolumeUnitCode::getIt($unitName), $volume->getUnitCode());
         }
     }
@@ -38,34 +44,34 @@ class VolumeTest extends AbstractTestOfMeasurement
      */
     public function I_can_get_it_in_every_unit_by_specific_getter(): void
     {
-        $volumeTable = new VolumeTable();
+        $distanceTable = Tables::getIt()->getDistanceTable();
 
         $literToCubicMeter = 10 ** -3;
         $cubicMeterToCubicKilometer = 10 ** -9;
         $literToCubicKilometer = $literToCubicMeter * $cubicMeterToCubicKilometer;
 
-        $liters = new Volume($value = 10, $unit = VolumeUnitCode::LITER, $volumeTable);
+        $liters = new Volume($value = 10, $unit = VolumeUnitCode::LITER, $distanceTable);
         self::assertSame((float)$value, $liters->getValue());
         self::assertSame($unit, $liters->getUnit());
         self::assertSame((float)$value * $literToCubicMeter, $liters->getCubicMeters());
         self::assertSame((float)($value * $literToCubicKilometer), $liters->getCubicKilometers());
-        self::assertSame(-40, $liters->getBonus()->getValue());
+        self::assertSame(-48, $liters->getBonus()->getValue());
 
-        $meters = new Volume($value = 456, $unit = VolumeUnitCode::CUBIC_METER, $volumeTable);
+        $meters = new Volume($value = 456, $unit = VolumeUnitCode::CUBIC_METER, $distanceTable);
         self::assertSame((float)$value, $meters->getValue());
         self::assertSame($unit, $meters->getUnit());
         self::assertSame((float)$value / $literToCubicMeter, $meters->getLiters());
         self::assertSame((float)$value, $meters->getCubicMeters());
         self::assertSame((float)($value * $cubicMeterToCubicKilometer), $meters->getCubicKilometers());
-        self::assertSame(53, $meters->getBonus()->getValue());
+        self::assertSame(54, $meters->getBonus()->getValue());
 
-        $kilometers = new Volume($value = 0.009, $unit = VolumeUnitCode::CUBIC_KILOMETER, $volumeTable);
+        $kilometers = new Volume($value = 1.0, $unit = VolumeUnitCode::CUBIC_KILOMETER, $distanceTable);
         self::assertSame($value, $kilometers->getValue());
         self::assertSame($unit, $kilometers->getUnit());
         self::assertSame($value, $kilometers->getCubicKilometers());
         self::assertSame(round($value / $cubicMeterToCubicKilometer), $kilometers->getCubicMeters());
         self::assertSame(round($value / $literToCubicKilometer), $kilometers->getLiters());
-        self::assertSame(119, $kilometers->getBonus()->getValue());
+        self::assertSame(180, $kilometers->getBonus()->getValue());
     }
 
     /**
@@ -109,7 +115,7 @@ class VolumeTest extends AbstractTestOfMeasurement
         $volume = new \ReflectionClass(Volume::class);
         $getValueInDifferentUnit = $volume->getMethod('getValueInDifferentUnit');
         $getValueInDifferentUnit->setAccessible(true);
-        $getValueInDifferentUnit->invoke(new Volume(123, $unit, new VolumeTable()), 'first');
+        $getValueInDifferentUnit->invoke(new Volume(123, $unit, Tables::getIt()->getDistanceTable()), 'first');
     }
 
     public function provideVolumeUnits(): array
@@ -122,4 +128,23 @@ class VolumeTest extends AbstractTestOfMeasurement
         );
     }
 
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
+     */
+    public function I_can_not_convert_too_low_value_to_bonus(): void
+    {
+        $distance = new Volume(0.000000009, VolumeUnitCode::CUBIC_METER, Tables::getIt()->getDistanceTable());
+        $distance->getBonus();
+    }
+
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
+     */
+    public function I_can_not_convert_too_high_value_to_bonus(): void
+    {
+        $distance = new Volume(9999999999, VolumeUnitCode::CUBIC_KILOMETER, Tables::getIt()->getDistanceTable());
+        $distance->getBonus();
+    }
 }
