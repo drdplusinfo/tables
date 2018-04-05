@@ -3,7 +3,10 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Square;
 
+use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Codes\Units\SquareUnitCode;
+use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Exceptions\UnknownUnit;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
 use Granam\Tools\ValueDescriber;
@@ -14,20 +17,20 @@ class Square extends AbstractMeasurementWithBonus
     public const SQUARE_METER = SquareUnitCode::SQUARE_METER;
     public const SQUARE_KILOMETER = SquareUnitCode::SQUARE_KILOMETER;
 
-    /** @var SquareTable */
-    private $volumeTable;
+    /** @var DistanceTable */
+    private $distanceTable;
 
     /**
      * @param float $value
      * @param string $unit
-     * @param SquareTable $squareTable
+     * @param DistanceTable $distanceTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      */
-    public function __construct(float $value, string $unit, SquareTable $squareTable)
+    public function __construct(float $value, string $unit, DistanceTable $distanceTable)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         parent::__construct($value, $unit);
-        $this->volumeTable = $squareTable;
+        $this->distanceTable = $distanceTable;
     }
 
     public function getPossibleUnits(): array
@@ -37,7 +40,36 @@ class Square extends AbstractMeasurementWithBonus
 
     public function getBonus(): SquareBonus
     {
-        return $this->volumeTable->toBonus($this);
+        $squareValue = $this->getValue();
+        $squareSideValue = $squareValue ** (1 / 2);
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        $squareSideDistance = new Distance($squareSideValue, $this->getDistanceUnitBySquareUnit($this->getUnit()), $this->distanceTable);
+        $squareSideBonus = $squareSideDistance->getBonus();
+        $squareBonusValue = $squareSideBonus->getValue() * 2;
+
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        return new SquareBonus($squareBonusValue, $this->distanceTable);
+    }
+
+    /**
+     * @param string $volumeUnit
+     * @return string
+     * @throws \DrdPlus\Tables\Measurements\Square\Exceptions\UnknownSquareUnit
+     */
+    private function getDistanceUnitBySquareUnit(string $volumeUnit): string
+    {
+        switch ($volumeUnit) {
+            case SquareUnitCode::SQUARE_DECIMETER :
+                return DistanceUnitCode::DECIMETER;
+            case SquareUnitCode::SQUARE_METER :
+                return DistanceUnitCode::METER;
+            case SquareUnitCode::SQUARE_KILOMETER :
+                return DistanceUnitCode::KILOMETER;
+            default :
+                throw new Exceptions\UnknownSquareUnit(
+                    "Do not know how to get distance unit of a cube side by cube unit {$volumeUnit}"
+                );
+        }
     }
 
     public function getUnitCode(): SquareUnitCode
