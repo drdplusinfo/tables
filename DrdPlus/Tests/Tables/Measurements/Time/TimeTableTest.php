@@ -36,7 +36,7 @@ class TimeTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
     {

@@ -220,7 +220,7 @@ class MovementTypesTable extends AbstractFileTable
      * @param Time $timeOfWalk
      * @param Tables $tables
      * @return Fatigue
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getFatigueOnWalk(Time $timeOfWalk, Tables $tables): Fatigue
     {
@@ -232,7 +232,7 @@ class MovementTypesTable extends AbstractFileTable
      * @param Time $timeOfMove
      * @param Tables $tables
      * @return Fatigue
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getFatigueOn(MovementTypeCode $movementType, Time $timeOfMove, Tables $tables): Fatigue
     {
@@ -248,7 +248,7 @@ class MovementTypesTable extends AbstractFileTable
      * @param Time $timeOfRush
      * @param Tables $tables
      * @return Fatigue
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getFatigueOnRush(Time $timeOfRush, Tables $tables): Fatigue
     {
@@ -259,7 +259,7 @@ class MovementTypesTable extends AbstractFileTable
      * @param Time $timeOfRun
      * @param Tables $tables
      * @return Fatigue
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getFatigueOnRun(Time $timeOfRun, Tables $tables): Fatigue
     {
@@ -270,7 +270,7 @@ class MovementTypesTable extends AbstractFileTable
      * @param Time $timeOfSprint
      * @param Tables $tables
      * @return Fatigue
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getFatigueOnSprint(Time $timeOfSprint, Tables $tables): Fatigue
     {

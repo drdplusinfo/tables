@@ -80,14 +80,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findRounds():? Time
+    public function findRounds(): ?Time
     {
-        return $this->findIn(TimeUnitCode::ROUND);
+        return $this->findInUnit(TimeUnitCode::ROUND);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getRounds(): Time
     {
@@ -97,15 +97,15 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @param string|StringInterface $unit
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getInUnit($unit): Time
     {
-        $inDifferentUnit = $this->findIn($unit);
+        $inDifferentUnit = $this->findInUnit($unit);
         if ($inDifferentUnit !== null) {
             return $inDifferentUnit;
         }
-        throw new Exceptions\CanNotConvertTimeToUnit(
+        throw new Exceptions\CanNotConvertTimeToRequiredUnit(
             'Can not convert ' . $this->getValue() . ' ' . $this->getUnit() . '(s)'
             . ' into ' . ValueDescriber::describe($unit)
         );
@@ -115,7 +115,7 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
      * @param string|StringInterface $unit
      * @return Time|null
      */
-    public function findIn($unit):? Time
+    public function findInUnit($unit): ?Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         if (ToString::toString($unit) === $this->getUnit()) {
@@ -132,14 +132,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findMinutes():? Time
+    public function findMinutes(): ?Time
     {
-        return $this->findIn(TimeUnitCode::MINUTE);
+        return $this->findInUnit(TimeUnitCode::MINUTE);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getMinutes(): Time
     {
@@ -149,14 +149,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findHours():? Time
+    public function findHours(): ?Time
     {
-        return $this->findIn(TimeUnitCode::HOUR);
+        return $this->findInUnit(TimeUnitCode::HOUR);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getHours(): Time
     {
@@ -166,14 +166,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findDays():? Time
+    public function findDays(): ?Time
     {
-        return $this->findIn(TimeUnitCode::DAY);
+        return $this->findInUnit(TimeUnitCode::DAY);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getDays(): Time
     {
@@ -183,14 +183,14 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findMonths():? Time
+    public function findMonths(): ?Time
     {
-        return $this->findIn(TimeUnitCode::MONTH);
+        return $this->findInUnit(TimeUnitCode::MONTH);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getMonths(): Time
     {
@@ -200,18 +200,48 @@ class Time extends AbstractMeasurement implements MeasurementWithBonus
     /**
      * @return Time|null
      */
-    public function findYears():? Time
+    public function findYears(): ?Time
     {
-        return $this->findIn(TimeUnitCode::YEAR);
+        return $this->findInUnit(TimeUnitCode::YEAR);
     }
 
     /**
      * @return Time
-     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      */
     public function getYears(): Time
     {
         return $this->getInUnit(TimeUnitCode::YEAR);
     }
 
+    /**
+     * @return Time|null
+     */
+    public function findInLesserUnit(): ?Time
+    {
+        $lesserUnit = $this->findLesserUnit($this->getUnit());
+        if ($lesserUnit === null) {
+            return null; // there is no lesser unit
+        }
+
+        return $this->findInUnit($lesserUnit);
+    }
+
+    /**
+     * @param string $currentUnit
+     * @return null|string
+     * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\UnknownTimeUnit
+     */
+    private function findLesserUnit(string $currentUnit): ?string
+    {
+        $currentIndex = \array_search($currentUnit, TimeUnitCode::getPossibleValues(), true);
+        if ($currentIndex === false) {
+            throw new Exceptions\UnknownTimeUnit("Given time unit '{$currentUnit}' is not known");
+        }
+        if ($currentIndex === 0) {
+            return null; // there is no lesser unit than current
+        }
+
+        return TimeUnitCode::getPossibleValues()[$currentIndex - 1];
+    }
 }

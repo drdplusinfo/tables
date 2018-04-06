@@ -30,6 +30,7 @@ class TimeTest extends AbstractTestOfMeasurement
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function I_can_use_local_constants_instead_of_those_from_unit_code_class()
     {
@@ -42,7 +43,7 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToRoundsConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param string $unit
      */
@@ -69,7 +70,7 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToMinutesConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param $unit
      */
@@ -96,7 +97,7 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToHoursConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param $unit
      */
@@ -112,7 +113,7 @@ class TimeTest extends AbstractTestOfMeasurement
         $time->getHours();
     }
 
-    public function provideUnsupportedUnitToHoursConversion()
+    public function provideUnsupportedUnitToHoursConversion(): array
     {
         return [
             [1, TimeUnitCode::ROUND],
@@ -123,11 +124,11 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToDaysConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param $unit
      */
-    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_days_conversion($value, $unit)
+    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_days_conversion(int $value, string $unit)
     {
         $timeTable = new TimeTable();
         $time = new Time($value, $unit, $timeTable);
@@ -139,7 +140,7 @@ class TimeTest extends AbstractTestOfMeasurement
         $time->getDays();
     }
 
-    public function provideUnsupportedUnitToDaysConversion()
+    public function provideUnsupportedUnitToDaysConversion(): array
     {
         return [
             [1, TimeUnitCode::ROUND],
@@ -150,11 +151,11 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToMonthsConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param $unit
      */
-    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_months_conversion($value, $unit)
+    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_months_conversion(int $value, string $unit): void
     {
         $timeTable = new TimeTable();
         $time = new Time($value, $unit, $timeTable);
@@ -166,7 +167,7 @@ class TimeTest extends AbstractTestOfMeasurement
         $time->getMonths();
     }
 
-    public function provideUnsupportedUnitToMonthsConversion()
+    public function provideUnsupportedUnitToMonthsConversion(): array
     {
         return [
             [1, TimeUnitCode::ROUND],
@@ -178,11 +179,11 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      * @dataProvider provideUnsupportedUnitToYearsConversion
-     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToUnit
+     * @expectedException \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertTimeToRequiredUnit
      * @param $value
      * @param $unit
      */
-    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_years_conversion($value, $unit)
+    public function I_got_null_on_find_and_exception_on_get_of_unsupported_to_years_conversion(int $value, string $unit): void
     {
         $timeTable = new TimeTable();
         $time = new Time($value, $unit, $timeTable);
@@ -194,7 +195,7 @@ class TimeTest extends AbstractTestOfMeasurement
         $time->getYears();
     }
 
-    public function provideUnsupportedUnitToYearsConversion()
+    public function provideUnsupportedUnitToYearsConversion(): array
     {
         return [
             [1, TimeUnitCode::ROUND],
@@ -205,7 +206,7 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_hours_per_day_as_constant()
+    public function I_can_get_hours_per_day_as_constant(): void
     {
         self::assertSame((new Time(1, TimeUnitCode::DAY, new TimeTable()))->getHours()->getValue(), Time::HOURS_PER_DAY);
     }
@@ -215,7 +216,7 @@ class TimeTest extends AbstractTestOfMeasurement
      *
      * @test
      */
-    public function I_get_zero_as_bonus_for_one_round()
+    public function I_get_zero_as_bonus_for_one_round(): void
     {
         self::assertSame(
             0,
@@ -227,11 +228,24 @@ class TimeTest extends AbstractTestOfMeasurement
     /**
      * @test
      */
-    public function I_can_get_unit_as_code()
+    public function I_can_get_unit_as_code(): void
     {
         $day = new Time(1, TimeUnitCode::DAY, new TimeTable());
         self::assertSame(TimeUnitCode::getIt(TimeUnitCode::DAY), $day->getUnitCode());
         $year = new Time(1, TimeUnitCode::YEAR, new TimeTable());
         self::assertSame(TimeUnitCode::getIt(TimeUnitCode::YEAR), $year->getUnitCode());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_it_in_lesser_unit(): void
+    {
+        $day = new Time(1, TimeUnitCode::DAY, new TimeTable());
+        $inHours = $day->findInLesserUnit();
+        self::assertEquals($day->getHours(), $inHours);
+        $inMinutes = $inHours->findInLesserUnit();
+        self::assertEquals($inHours->getMinutes(), $inMinutes);
+        self::assertEquals($inMinutes->getRounds(), $inMinutes->findInLesserUnit());
     }
 }

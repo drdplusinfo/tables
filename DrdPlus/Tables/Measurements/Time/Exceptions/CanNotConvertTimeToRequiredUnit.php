@@ -3,7 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Time\Exceptions;
 
-class CanNotConvertTimeToUnit extends \LogicException implements Logic
+class CanNotConvertTimeToRequiredUnit extends \LogicException implements Logic
 {
 
 }
