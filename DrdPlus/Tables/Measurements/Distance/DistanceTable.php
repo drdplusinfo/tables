@@ -10,6 +10,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
+use Granam\String\StringInterface;
 
 /**
  * See PPH page 162 top, @link https://pph.drdplus.info/#tabulka_vzdalenosti
@@ -44,12 +45,13 @@ class DistanceTable extends AbstractMeasurementFileTable
 
     /**
      * @param DistanceBonus $distanceBonus
+     * @param string|StringInterface $wantedUnit = null
      * @return Distance|MeasurementWithBonus
      */
-    public function toDistance(DistanceBonus $distanceBonus)
+    public function toDistance(DistanceBonus $distanceBonus, $wantedUnit = null)
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->toMeasurement($distanceBonus);
+        return $this->toMeasurement($distanceBonus, $wantedUnit);
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Distance;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use Granam\String\StringInterface;
 
 class DistanceBonus extends AbstractBonus
 {
@@ -23,11 +24,17 @@ class DistanceBonus extends AbstractBonus
     }
 
     /**
+     * @param string|StringInterface $wantedUnit = null
      * @return Distance
      */
-    public function getDistance(): Distance
+    public function getDistance($wantedUnit = null): Distance
     {
-        return $this->distanceTable->toDistance($this);
+        $distance = $this->distanceTable->toDistance($this);
+        if ($wantedUnit === null) {
+            return $distance;
+        }
+
+        return $distance->getInUnit($wantedUnit);
     }
 
 }

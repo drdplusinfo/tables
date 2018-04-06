@@ -71,6 +71,18 @@ class Distance extends AbstractMeasurementWithBonus
     }
 
     /**
+     * @param string|StringInterface $wantedUnit
+     * @return Distance
+     * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \Granam\Float\Tools\Exceptions\WrongParameterType
+     * @throws \Granam\Float\Tools\Exceptions\ValueLostOnCast
+     */
+    public function getInUnit($wantedUnit): Distance
+    {
+        return new Distance($this->getValueInDifferentUnit((string)$wantedUnit), $wantedUnit, $this->distanceTable);
+    }
+
+    /**
      * @param string $toUnit
      * @return float
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit

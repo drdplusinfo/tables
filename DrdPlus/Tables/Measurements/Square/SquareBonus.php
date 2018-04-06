@@ -3,6 +3,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Square;
 
+use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Codes\Units\SquareUnitCode;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -32,7 +33,7 @@ class SquareBonus extends AbstractBonus
     public function getSquare(): Square
     {
         $squareBonusValue = $this->getValue();
-        $squareSideBonusValue = $squareBonusValue / 2;
+        $squareSideBonusValue = SumAndRound::round($squareBonusValue / 2);
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $squareSideDistanceBonus = new DistanceBonus($squareSideBonusValue, $this->distanceTable);
         $squareSideDistance = $squareSideDistanceBonus->getDistance();

@@ -258,13 +258,19 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
      * @return MeasurementWithBonus
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\UnknownBonus
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
     protected function toMeasurement(AbstractBonus $bonus, string $wantedUnit = null): MeasurementWithBonus
     {
         $bonusValue = $bonus->getValue();
         $this->guardBonusExisting($bonusValue);
         $wantedUnit = $this->determineUnit($bonusValue, $wantedUnit);
-        $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit];
+        $rawValue = $this->getIndexedValues()[$bonusValue][$wantedUnit] ?? null;
+        if ($rawValue === null) {
+            throw new Exceptions\RequestedDataOutOfTableRange(
+                "Can not convert bonus {$bonusValue} to measurement value in unit '{$wantedUnit}'"
+            );
+        }
         $wantedValue = $this->evaluate($rawValue);
 
         return $this->convertToMeasurement($wantedValue, $wantedUnit);
@@ -435,7 +441,7 @@ abstract class AbstractMeasurementFileTable extends AbstractTable
 
         if (\count($closest['lower']) === 0 || \count($closest['higher']) === 0) {
             throw new Exceptions\RequestedDataOutOfTableRange(
-                "Value $searchedValue (unit '$searchedUnit') is out of table values."
+                "$searchedValue '$searchedUnit' is out of " . static::class . ' values.'
             );
         }
 
