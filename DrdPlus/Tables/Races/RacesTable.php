@@ -188,174 +188,194 @@ class RacesTable extends AbstractFileTable
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleStrength(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::STRENGTH);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::STRENGTH);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleStrength(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleStrength(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleStrength($raceCode, $subraceCode) + $femaleModifiersTable->getStrength($raceCode);
+        return $this->getMaleStrength($raceCode, $subRaceCode) + $femaleModifiersTable->getStrength($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param string $propertyName
      * @return int|float|string|bool
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    private function getProperty(RaceCode $raceCode, SubRaceCode $subraceCode, $propertyName)
+    private function getProperty(RaceCode $raceCode, SubRaceCode $subRaceCode, $propertyName)
     {
+        if (!$subRaceCode->isRace($raceCode)) {
+            throw new Exceptions\RaceToSubRaceMismatch("Given race '{$raceCode}' does not have given sub-race '{$subRaceCode}'");
+        }
+
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-        return $this->getValue([$raceCode, $subraceCode], $propertyName);
+        return $this->getValue([$raceCode, $subRaceCode], $propertyName);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleAgility(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGILITY);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::AGILITY);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleAgility(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleAgility(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleAgility($raceCode, $subraceCode) + $femaleModifiersTable->getAgility($raceCode);
+        return $this->getMaleAgility($raceCode, $subRaceCode) + $femaleModifiersTable->getAgility($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleKnack(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::KNACK);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::KNACK);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleKnack($raceCode, $subraceCode) + $femaleModifiersTable->getKnack($raceCode);
+        return $this->getMaleKnack($raceCode, $subRaceCode) + $femaleModifiersTable->getKnack($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleWill(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleWill(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::WILL);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::WILL);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleWill($raceCode, $subraceCode) + $femaleModifiersTable->getWill($raceCode);
+        return $this->getMaleWill($raceCode, $subRaceCode) + $femaleModifiersTable->getWill($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleIntelligence(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::INTELLIGENCE);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::INTELLIGENCE);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleIntelligence(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleIntelligence(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleIntelligence($raceCode, $subraceCode) + $femaleModifiersTable->getIntelligence($raceCode);
+        return $this->getMaleIntelligence($raceCode, $subRaceCode) + $femaleModifiersTable->getIntelligence($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleCharisma(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::CHARISMA);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::CHARISMA);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleCharisma(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleCharisma(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleCharisma($raceCode, $subraceCode) + $femaleModifiersTable->getCharisma($raceCode);
+        return $this->getMaleCharisma($raceCode, $subRaceCode) + $femaleModifiersTable->getCharisma($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getToughness(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getToughness(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::TOUGHNESS);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::TOUGHNESS);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return float
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getHeightInCm(RaceCode $raceCode, SubRaceCode $subraceCode): float
+    public function getHeightInCm(RaceCode $raceCode, SubRaceCode $subRaceCode): float
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::HEIGHT_IN_CM);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::HEIGHT_IN_CM);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param GenderCode $genderCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @param WeightTable $weightTable
      * @return float
      * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
     public function getWeightInKg(
         RaceCode $raceCode,
-        SubRaceCode $subraceCode,
+        SubRaceCode $subRaceCode,
         GenderCode $genderCode,
         FemaleModifiersTable $femaleModifiersTable,
         WeightTable $weightTable
@@ -363,9 +383,9 @@ class RacesTable extends AbstractFileTable
     {
         switch ($genderCode) {
             case GenderCode::MALE :
-                return $this->getMaleWeightInKg($raceCode, $subraceCode);
+                return $this->getMaleWeightInKg($raceCode, $subRaceCode);
             case GenderCode::FEMALE :
-                return $this->getFemaleWeightInKg($raceCode, $subraceCode, $femaleModifiersTable, $weightTable);
+                return $this->getFemaleWeightInKg($raceCode, $subRaceCode, $femaleModifiersTable, $weightTable);
             default :
                 throw new Exceptions\UnknownGender(
                     'Unknown gender ' . ValueDescriber::describe($genderCode)
@@ -375,29 +395,31 @@ class RacesTable extends AbstractFileTable
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return float
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subraceCode): float
+    public function getMaleWeightInKg(RaceCode $raceCode, SubRaceCode $subRaceCode): float
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::BODY_WEIGHT_IN_KG);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::BODY_WEIGHT_IN_KG);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @param WeightTable $weightTable
      * @return float
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
     public function getFemaleWeightInKg(
         $raceCode,
-        $subraceCode,
+        $subRaceCode,
         FemaleModifiersTable $femaleModifiersTable,
         WeightTable $weightTable
     ): float
     {
-        $maleWeightValue = $this->getMaleWeightInKg($raceCode, $subraceCode);
+        $maleWeightValue = $this->getMaleWeightInKg($raceCode, $subRaceCode);
         $maleWeightBonus = $weightTable->toBonus(new Weight($maleWeightValue, Weight::KG, $weightTable));
         $femaleWeightBonusModifier = $femaleModifiersTable->getWeightBonus($raceCode);
         $femaleWeightBonusValue = $maleWeightBonus->getValue() + $femaleWeightBonusModifier;
@@ -409,40 +431,43 @@ class RacesTable extends AbstractFileTable
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getMaleSize(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getMaleSize(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::SIZE);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::SIZE);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subraceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleSize(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
     {
-        return $this->getMaleSize($raceCode, $subraceCode) + $femaleModifiersTable->getSize($raceCode);
+        return $this->getMaleSize($raceCode, $subRaceCode) + $femaleModifiersTable->getSize($raceCode);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @param GenderCode $genderCode
      * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      * @throws \DrdPlus\Tables\Races\Exceptions\UnknownGender
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getSize(RaceCode $raceCode, SubRaceCode $subraceCode, GenderCode $genderCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getSize(RaceCode $raceCode, SubRaceCode $subRaceCode, GenderCode $genderCode, FemaleModifiersTable $femaleModifiersTable): int
     {
         switch ($genderCode) {
             case GenderCode::MALE :
-                return $this->getMaleSize($raceCode, $subraceCode);
+                return $this->getMaleSize($raceCode, $subRaceCode);
             case GenderCode::FEMALE :
-                return $this->getFemaleSize($raceCode, $subraceCode, $femaleModifiersTable);
+                return $this->getFemaleSize($raceCode, $subRaceCode, $femaleModifiersTable);
             default :
                 throw new Exceptions\UnknownGender(
                     'Expected one of ' . GenderCode::MALE . ' or ' . GenderCode::FEMALE
@@ -453,63 +478,69 @@ class RacesTable extends AbstractFileTable
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return string
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getRemarkableSense(RaceCode $raceCode, SubRaceCode $subraceCode): string
+    public function getRemarkableSense(RaceCode $raceCode, SubRaceCode $subRaceCode): string
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::REMARKABLE_SENSE);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::REMARKABLE_SENSE);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return bool
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function hasInfravision(RaceCode $raceCode, SubRaceCode $subraceCode): bool
+    public function hasInfravision(RaceCode $raceCode, SubRaceCode $subRaceCode): bool
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::INFRAVISION);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::INFRAVISION);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return bool
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function hasNativeRegeneration(RaceCode $raceCode, SubRaceCode $subraceCode): bool
+    public function hasNativeRegeneration(RaceCode $raceCode, SubRaceCode $subRaceCode): bool
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::NATIVE_REGENERATION);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::NATIVE_REGENERATION);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getSenses(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getSenses(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::SENSES);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::SENSES);
     }
 
     /**
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return bool
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subraceCode): bool
+    public function requiresDmAgreement(RaceCode $raceCode, SubRaceCode $subRaceCode): bool
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::REQUIRES_DM_AGREEMENT);
     }
 
     /**
      * Gives usual age of a race on his first great adventure - like 15 years for common human or 25 for hobbit.
      *
      * @param RaceCode $raceCode
-     * @param SubraceCode $subraceCode
+     * @param SubRaceCode $subRaceCode
      * @return int
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getAge(RaceCode $raceCode, SubRaceCode $subraceCode): int
+    public function getAge(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subraceCode, PropertyCode::AGE);
+        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::AGE);
     }
 }

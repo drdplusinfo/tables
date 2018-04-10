@@ -18,7 +18,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         $racesTable = new RacesTable();
         self::assertEquals(
@@ -49,7 +49,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_values_in_simple_structure()
+    public function I_can_get_values_in_simple_structure(): void
     {
         $racesTable = new RacesTable();
         self::assertEquals(
@@ -76,7 +76,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_human_modifiers()
+    public function I_can_get_common_human_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonHumanModifiers();
@@ -106,7 +106,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_highlander_modifiers()
+    public function I_can_get_highlander_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getHighlanderModifiers();
@@ -136,7 +136,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_dwarf_modifiers()
+    public function I_can_get_common_dwarf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonDwarfModifiers();
@@ -165,8 +165,18 @@ class RacesTableTest extends TableTest
 
     /**
      * @test
+     * @expectedException \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
+     * @expectedExceptionMessageRegExp ~human.+green~
      */
-    public function I_can_get_wood_dwarf_modifiers()
+    public function I_can_not_se_invalid_race_and_sub_race_combination(): void
+    {
+        (new RacesTable())->getAge(RaceCode::getIt(RaceCode::HUMAN), SubRaceCode::getIt(SubRaceCode::GREEN));
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_wood_dwarf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getWoodDwarfModifiers();
@@ -196,7 +206,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_mountain_dwarf_modifiers()
+    public function I_can_get_mountain_dwarf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getMountainDwarfModifiers();
@@ -226,7 +236,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_elf_modifiers()
+    public function I_can_get_common_elf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonElfModifiers();
@@ -256,7 +266,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_green_elf_modifiers()
+    public function I_can_get_green_elf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getGreenElfModifiers();
@@ -286,7 +296,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_dark_elf_modifiers()
+    public function I_can_get_dark_elf_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getDarkElfModifiers();
@@ -316,7 +326,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_hobbit_modifiers()
+    public function I_can_get_common_hobbit_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonHobbitModifiers();
@@ -346,7 +356,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_kroll_modifiers()
+    public function I_can_get_common_kroll_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonKrollModifiers();
@@ -376,7 +386,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_wild_kroll_modifiers()
+    public function I_can_get_wild_kroll_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getWildKrollModifiers();
@@ -406,7 +416,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_common_orc_modifiers()
+    public function I_can_get_common_orc_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getCommonOrcModifiers();
@@ -436,7 +446,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_skurut_modifiers()
+    public function I_can_get_skurut_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getSkurutModifiers();
@@ -466,7 +476,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_goblin_modifiers()
+    public function I_can_get_goblin_modifiers(): void
     {
         $racesTable = new RacesTable();
         $modifiers = $racesTable->getGoblinModifiers();
@@ -496,7 +506,7 @@ class RacesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_expected_values()
+    public function I_can_get_expected_values(): void
     {
         $racesTable = new RacesTable();
         self::assertEquals(
@@ -655,7 +665,7 @@ class RacesTableTest extends TableTest
      * @param int $maleStrength
      * @param int $femaleStrength
      */
-    public function I_can_get_strength_of_any_race($race, $subRace, $maleStrength, $femaleStrength)
+    public function I_can_get_strength_of_any_race(string $race, string $subRace, int $maleStrength, int $femaleStrength): void
     {
         $racesTable = new RacesTable();
         self::assertSame($maleStrength, $racesTable->getMaleStrength(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
@@ -665,7 +675,7 @@ class RacesTableTest extends TableTest
         );
     }
 
-    public function provideStrengthOfRace()
+    public function provideStrengthOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, -1],
@@ -693,7 +703,7 @@ class RacesTableTest extends TableTest
      * @param int $maleAgility
      * @param int $femaleAgility
      */
-    public function I_can_get_agility_of_any_race($race, $subRace, $maleAgility, $femaleAgility)
+    public function I_can_get_agility_of_any_race(string $race, string $subRace, int $maleAgility, int $femaleAgility): void
     {
         $racesTable = new RacesTable();
         self::assertSame($maleAgility, $racesTable->getMaleAgility(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
@@ -703,7 +713,7 @@ class RacesTableTest extends TableTest
         );
     }
 
-    public function provideAgilityOfRace()
+    public function provideAgilityOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0],
@@ -731,14 +741,14 @@ class RacesTableTest extends TableTest
      * @param int $maleKnack
      * @param int $femaleKnack
      */
-    public function I_can_get_knack_of_any_race($race, $subRace, $maleKnack, $femaleKnack)
+    public function I_can_get_knack_of_any_race(string $race, string $subRace, int $maleKnack, int $femaleKnack): void
     {
         $racesTable = new RacesTable();
         self::assertSame($maleKnack, $racesTable->getMaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         self::assertSame($femaleKnack, $racesTable->getFemaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subRace), new FemaleModifiersTable()));
     }
 
-    public function provideKnackOfRace()
+    public function provideKnackOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0],
@@ -766,7 +776,7 @@ class RacesTableTest extends TableTest
      * @param int $maleWill
      * @param int $femaleWill
      */
-    public function I_can_get_will_of_any_race($race, $subRace, $maleWill, $femaleWill)
+    public function I_can_get_will_of_any_race(string $race, string $subRace, int $maleWill, int $femaleWill): void
     {
         $racesTable = new RacesTable();
         self::assertSame($maleWill, $racesTable->getMaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
