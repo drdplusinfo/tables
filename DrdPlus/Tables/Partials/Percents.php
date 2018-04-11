@@ -11,13 +11,11 @@ use \Granam\Integer\Tools\Exceptions\Exception as ToIntegerException;
 
 abstract class Percents extends StrictObject implements PositiveInteger
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     private $value;
 
     /**
-     * @param mixed $value
+     * @param int|PositiveInteger $value
      * @throws \DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents
      */
     public function __construct($value)

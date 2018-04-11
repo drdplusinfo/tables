@@ -5,12 +5,13 @@ namespace DrdPlus\Tables\Riding;
 
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use DrdPlus\Tables\Partials\Percents;
+use Granam\Integer\PositiveInteger;
 use Granam\Tools\ValueDescriber;
 
 class DefianceOfWildPercents extends Percents
 {
     /**
-     * @param mixed $value
+     * @param int|PositiveInteger $value
      * @throws \DrdPlus\Tables\Riding\Exceptions\UnexpectedDefianceOfWildPercents
      */
     public function __construct($value)

@@ -5,11 +5,12 @@ namespace DrdPlus\Tables\Body\Healing;
 
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use DrdPlus\Tables\Partials\Percents;
+use Granam\Integer\PositiveInteger;
 
 class HealingConditionsPercents extends Percents
 {
     /**
-     * @param int $value
+     * @param int|PositiveInteger $value
      * @throws \DrdPlus\Tables\Body\Healing\Exceptions\UnexpectedHealingConditionsPercents
      */
     public function __construct($value)

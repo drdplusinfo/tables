@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Partials;
 
 use DrdPlus\Tables\Partials\Percents;
+use Granam\Integer\IntegerObject;
 use PHPUnit\Framework\TestCase;
 
 abstract class PercentsTest extends TestCase
@@ -11,26 +12,28 @@ abstract class PercentsTest extends TestCase
     /**
      * @test
      */
-    public function I_can_use_it()
+    public function I_can_use_it(): void
     {
         $sutClass = self::getSutClass();
         /** @var Percents $percents */
         $percents = new $sutClass(12);
         self::assertSame(12, $percents->getValue());
+        $percents = new $sutClass(new IntegerObject(55));
+        self::assertSame(55, $percents->getValue());
     }
 
     /**
      * @return string|Percents
      */
-    protected static function getSutClass()
+    protected static function getSutClass(): string
     {
-        return preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
+        return \preg_replace('~[\\\]Tests(.+)Test$~', '$1', static::class);
     }
 
     /**
      * @test
      */
-    public function I_can_turn_it_into_percents_string()
+    public function I_can_turn_it_into_percents_string(): void
     {
         $sutClass = self::getSutClass();
         /** @var Percents $percents */
@@ -41,7 +44,7 @@ abstract class PercentsTest extends TestCase
     /**
      * @test
      */
-    public function I_can_get_rate()
+    public function I_can_get_rate(): void
     {
         $sutClass = self::getSutClass();
         /** @var Percents $percents */
@@ -70,7 +73,7 @@ abstract class PercentsTest extends TestCase
      * @expectedException \DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents
      * @expectedExceptionMessageRegExp ~-1~
      */
-    public function I_can_not_create_negative_percents()
+    public function I_can_not_create_negative_percents(): void
     {
         $sutClass = self::getSutClass();
         new $sutClass(-1);
@@ -81,9 +84,14 @@ abstract class PercentsTest extends TestCase
      * @expectedException \DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents
      * @expectedExceptionMessageRegExp ~half of quarter~
      */
-    public function I_can_not_create_it_from_non_integer()
+    public function I_can_not_create_it_from_non_integer(): void
     {
         $sutClass = self::getSutClass();
+        try {
+            new $sutClass(1);
+        } catch (\Exception $exception) {
+            self::fail('No exception expected so far: ' . $exception->getMessage());
+        }
         new $sutClass('half of quarter');
     }
 

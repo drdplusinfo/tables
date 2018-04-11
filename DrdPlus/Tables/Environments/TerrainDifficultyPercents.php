@@ -5,13 +5,14 @@ namespace DrdPlus\Tables\Environments;
 
 use DrdPlus\Tables\Partials\Exceptions\UnexpectedPercents;
 use DrdPlus\Tables\Partials\Percents;
+use Granam\Integer\PositiveInteger;
 use Granam\Tools\ValueDescriber;
 
 class TerrainDifficultyPercents extends Percents
 {
 
     /**
-     * @param mixed $value
+     * @param int|PositiveInteger $value
      * @throws \DrdPlus\Tables\Environments\Exceptions\UnexpectedDifficultyPercents
      */
     public function __construct($value)
