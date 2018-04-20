@@ -4,7 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTest;
 
@@ -23,7 +23,7 @@ class BowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SHORT_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 3],
             [RangedWeaponCode::SHORT_BOW, BowsTable::OFFENSIVENESS, 2],
             [RangedWeaponCode::SHORT_BOW, BowsTable::WOUNDS, 1],
-            [RangedWeaponCode::SHORT_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::SHORT_BOW, BowsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::STAB],
             [RangedWeaponCode::SHORT_BOW, BowsTable::RANGE, 24],
             [RangedWeaponCode::SHORT_BOW, BowsTable::COVER, 2],
             [RangedWeaponCode::SHORT_BOW, BowsTable::WEIGHT, 1.0],
@@ -33,7 +33,7 @@ class BowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::LONG_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 7],
             [RangedWeaponCode::LONG_BOW, BowsTable::OFFENSIVENESS, 3],
             [RangedWeaponCode::LONG_BOW, BowsTable::WOUNDS, 4],
-            [RangedWeaponCode::LONG_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::LONG_BOW, BowsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::STAB],
             [RangedWeaponCode::LONG_BOW, BowsTable::RANGE, 27],
             [RangedWeaponCode::LONG_BOW, BowsTable::COVER, 2],
             [RangedWeaponCode::LONG_BOW, BowsTable::WEIGHT, 1.2],
@@ -43,7 +43,7 @@ class BowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 6],
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::OFFENSIVENESS, 3],
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WOUNDS, 2],
-            [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::STAB],
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::RANGE, 26],
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::COVER, 2],
             [RangedWeaponCode::SHORT_COMPOSITE_BOW, BowsTable::WEIGHT, 1.0],
@@ -53,7 +53,7 @@ class BowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 9],
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::OFFENSIVENESS, 4],
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WOUNDS, 5],
-            [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::STAB],
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::RANGE, 29],
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::COVER, 2],
             [RangedWeaponCode::LONG_COMPOSITE_BOW, BowsTable::WEIGHT, 1.5],
@@ -63,7 +63,7 @@ class BowsTableTest extends RangedWeaponsTableTest
             [RangedWeaponCode::POWER_BOW, BowsTable::MAXIMAL_APPLICABLE_STRENGTH, 12],
             [RangedWeaponCode::POWER_BOW, BowsTable::OFFENSIVENESS, 5],
             [RangedWeaponCode::POWER_BOW, BowsTable::WOUNDS, 6],
-            [RangedWeaponCode::POWER_BOW, BowsTable::WOUNDS_TYPE, WoundTypeCode::STAB],
+            [RangedWeaponCode::POWER_BOW, BowsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::STAB],
             [RangedWeaponCode::POWER_BOW, BowsTable::RANGE, 31],
             [RangedWeaponCode::POWER_BOW, BowsTable::COVER, 2],
             [RangedWeaponCode::POWER_BOW, BowsTable::WEIGHT, 2.0],

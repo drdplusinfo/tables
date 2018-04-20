@@ -5,7 +5,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Ranged\Partials;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon;
 use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
@@ -52,7 +52,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
      * @param DistanceBonus $range
      * @param int $offensiveness
      * @param int $wounds
-     * @param WoundTypeCode $woundTypeCode
+     * @param PhysicalWoundTypeCode $woundTypeCode
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
@@ -67,7 +67,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
         DistanceBonus $range,
         int $offensiveness,
         int $wounds,
-        WoundTypeCode $woundTypeCode,
+        PhysicalWoundTypeCode $woundTypeCode,
         int $cover,
         Weight $weight,
         bool $twoHandedOnly

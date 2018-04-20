@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Tables\Armaments\Shields\ShieldsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\UnarmedTable;
 use DrdPlus\Tests\Tables\Armaments\Partials\WeaponlikeTableTest;
@@ -21,7 +21,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::RESTRICTION, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS, -2],
-            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             // note: shield provides another cover per round, therefore WITHOUT shield this fades
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::COVER, 0],
             [ShieldCode::WITHOUT_SHIELD, ShieldsTable::WEIGHT, 0.0],
@@ -32,7 +32,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::BUCKLER, ShieldsTable::RESTRICTION, -1],
             [ShieldCode::BUCKLER, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::BUCKLER, ShieldsTable::WOUNDS, 0],
-            [ShieldCode::BUCKLER, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::BUCKLER, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [ShieldCode::BUCKLER, ShieldsTable::COVER, 2],
             [ShieldCode::BUCKLER, ShieldsTable::WEIGHT, 0.8],
             [ShieldCode::BUCKLER, ShieldsTable::TWO_HANDED_ONLY, false],
@@ -42,7 +42,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::SMALL_SHIELD, ShieldsTable::RESTRICTION, -2],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS, 1],
-            [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::SMALL_SHIELD, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::COVER, 4],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::WEIGHT, 1.5],
             [ShieldCode::SMALL_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
@@ -52,7 +52,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::RESTRICTION, -3],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS, 2],
-            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::COVER, 5],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::WEIGHT, 2.5],
             [ShieldCode::MEDIUM_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
@@ -62,7 +62,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::RESTRICTION, -4],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS, 3],
-            [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::HEAVY_SHIELD, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::COVER, 6],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::WEIGHT, 4.0],
             [ShieldCode::HEAVY_SHIELD, ShieldsTable::TWO_HANDED_ONLY, false],
@@ -72,7 +72,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
             [ShieldCode::PAVISE, ShieldsTable::RESTRICTION, -5],
             [ShieldCode::PAVISE, ShieldsTable::OFFENSIVENESS, 0],
             [ShieldCode::PAVISE, ShieldsTable::WOUNDS, 4],
-            [ShieldCode::PAVISE, ShieldsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [ShieldCode::PAVISE, ShieldsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [ShieldCode::PAVISE, ShieldsTable::COVER, 7],
             [ShieldCode::PAVISE, ShieldsTable::WEIGHT, 6.0],
             [ShieldCode::PAVISE, ShieldsTable::TWO_HANDED_ONLY, false],

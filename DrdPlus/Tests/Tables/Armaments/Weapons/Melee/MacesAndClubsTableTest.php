@@ -4,7 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Tables\Armaments\Weapons\Melee\MacesAndClubsTable;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTableTest;
@@ -19,7 +19,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::LENGTH, 1],
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::OFFENSIVENESS, 1],
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::WOUNDS, 2],
-            [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::COVER, 1],
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::WEIGHT, 0.4],
             [MeleeWeaponCode::CUDGEL, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -28,7 +28,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::LENGTH, 1],
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::OFFENSIVENESS, 2],
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::WOUNDS, 3],
-            [MeleeWeaponCode::CLUB, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::CLUB, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::WEIGHT, 1.0],
             [MeleeWeaponCode::CLUB, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -37,7 +37,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::LENGTH, 1],
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::OFFENSIVENESS, 2],
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::WOUNDS, 5],
-            [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::WEIGHT, 2.0],
             [MeleeWeaponCode::HOBNAILED_CLUB, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -46,7 +46,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::LENGTH, 2],
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::OFFENSIVENESS, 3],
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::WOUNDS, 4],
-            [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::WEIGHT, 2.5],
             [MeleeWeaponCode::LIGHT_MACE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -55,7 +55,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::LENGTH, 2],
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::OFFENSIVENESS, 4],
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::WOUNDS, 6],
-            [MeleeWeaponCode::MACE, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::MACE, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::WEIGHT, 4.0],
             [MeleeWeaponCode::MACE, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -64,7 +64,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::LENGTH, 2],
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::OFFENSIVENESS, 3],
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::WOUNDS, 7],
-            [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::WEIGHT, 3.5],
             [MeleeWeaponCode::HEAVY_CLUB, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -73,7 +73,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::LENGTH, 3],
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::OFFENSIVENESS, 5],
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::WOUNDS, 7],
-            [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::COVER, 3],
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::WEIGHT, 4.5],
             [MeleeWeaponCode::WAR_HAMMER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -82,7 +82,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::LENGTH, 2],
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::OFFENSIVENESS, 3],
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::WOUNDS, 10],
-            [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::WEIGHT, 5.0],
             [MeleeWeaponCode::TWO_HANDED_CLUB, MeleeWeaponsTable::TWO_HANDED_ONLY, false],
@@ -91,7 +91,7 @@ class MacesAndClubsTableTest extends MeleeWeaponsTableTest
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::LENGTH, 3],
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::OFFENSIVENESS, 4],
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::WOUNDS, 11],
-            [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::WOUNDS_TYPE, WoundTypeCode::CRUSH],
+            [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::WOUNDS_TYPE, PhysicalWoundTypeCode::CRUSH],
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::COVER, 2],
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::WEIGHT, 5.0],
             [MeleeWeaponCode::HEAVY_SLEDGEHAMMER, MeleeWeaponsTable::TWO_HANDED_ONLY, false],

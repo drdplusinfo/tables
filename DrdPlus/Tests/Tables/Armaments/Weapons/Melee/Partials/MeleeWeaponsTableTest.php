@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Melee\Partials\MeleeWeaponsTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
@@ -82,7 +82,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
@@ -128,7 +128,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
@@ -157,7 +157,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $weaponLength = 1;
         $offensiveness = 2;
         $wounds = 3;
-        $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT);
+        $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT);
         $cover = 4;
         $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable());
         $twoHandedOnly = false;
@@ -169,7 +169,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
                 $weaponLength,
                 $offensiveness,
                 $wounds,
-                $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+                $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
                 $cover,
                 $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
                 $twoHandedOnly = false
@@ -198,7 +198,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
      * @param $templateWeaponLength
      * @param $templateOffensiveness
      * @param $templateWounds
-     * @param $templateWoundTypeCode
+     * @param $templatePhysicalWoundTypeCode
      * @param $templateCover
      * @param $templateWeight
      * @param $templateTwoHandedOnly
@@ -216,7 +216,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         $templateWeaponLength,
         $templateOffensiveness,
         $templateWounds,
-        $templateWoundTypeCode,
+        $templatePhysicalWoundTypeCode,
         $templateCover,
         $templateWeight,
         $templateTwoHandedOnly,
@@ -241,7 +241,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $templateWeaponLength,
             $templateOffensiveness,
             $templateWounds,
-            $templateWoundTypeCode,
+            $templatePhysicalWoundTypeCode,
             $templateCover,
             $templateWeight,
             $templateTwoHandedOnly
@@ -258,7 +258,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             'weaponLength' => 1,
             'offensiveness' => 2,
             'wounds' => 3,
-            'woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CUT),
+            'woundTypeCode' => PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             'cover' => 4,
             'weight' => new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             'twoHandedOnly' => false,
@@ -271,7 +271,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             array_merge($templateValues, array_values(array_merge($template, ['offensiveness' => $template['offensiveness'] - 1]))),
             array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
             array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
-            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CRUSH)]))),
+            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CRUSH)]))),
             array_merge($templateValues, array_values(array_merge($template, ['cover' => $template['cover'] + 2]))),
             array_merge($templateValues, array_values(array_merge($template, ['weight' => new Weight(3, Weight::KG, Tables::getIt()->getWeightTable())]))),
             array_merge($templateValues, array_values(array_merge($template, ['twoHandedOnly' => !$template['twoHandedOnly']]))),
@@ -296,7 +296,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false

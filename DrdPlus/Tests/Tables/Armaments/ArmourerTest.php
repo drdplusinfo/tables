@@ -12,7 +12,7 @@ use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\ShieldCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Armaments\WeaponlikeCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Codes\ItemHoldingCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Properties\Body\Size;
@@ -2265,7 +2265,7 @@ class ArmourerTest extends TestWithMockery
             $weaponLength = 1,
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::STAB),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
@@ -2298,7 +2298,7 @@ class ArmourerTest extends TestWithMockery
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::STAB),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false

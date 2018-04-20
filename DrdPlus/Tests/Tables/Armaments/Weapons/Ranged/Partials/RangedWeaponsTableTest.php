@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
-use DrdPlus\Codes\Body\WoundTypeCode;
+use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
 use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTable;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
@@ -67,7 +67,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $range = new DistanceBonus(1, Tables::getIt()->getDistanceTable()),
             $offensiveness = 4,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::STAB),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
             $cover = 2,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = true
@@ -106,7 +106,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
@@ -140,7 +140,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $range = new DistanceBonus(123, Tables::getIt()->getDistanceTable()),
             $offensiveness = 2,
             $wounds = 3,
-            $woundTypeCode = WoundTypeCode::getIt(WoundTypeCode::CUT),
+            $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             $twoHandedOnly = false
@@ -155,7 +155,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @param DistanceBonus $templateRange
      * @param $templateOffensiveness
      * @param $templateWounds
-     * @param WoundTypeCode $templateWoundTypeCode
+     * @param PhysicalWoundTypeCode $templatePhysicalWoundTypeCode
      * @param $templateCover
      * @param $templateWeight
      * @param bool $templateTwoHandedOnly
@@ -163,7 +163,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @param DistanceBonus $range
      * @param $offensiveness
      * @param $wounds
-     * @param WoundTypeCode $woundTypeCode
+     * @param PhysicalWoundTypeCode $woundTypeCode
      * @param $cover
      * @param $weight
      * @param bool $twoHandedOnly
@@ -173,7 +173,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $templateRange,
         $templateOffensiveness,
         $templateWounds,
-        $templateWoundTypeCode,
+        $templatePhysicalWoundTypeCode,
         $templateCover,
         $templateWeight,
         $templateTwoHandedOnly,
@@ -198,7 +198,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $templateRange,
             $templateOffensiveness,
             $templateWounds,
-            $templateWoundTypeCode,
+            $templatePhysicalWoundTypeCode,
             $templateCover,
             $templateWeight,
             $templateTwoHandedOnly
@@ -214,7 +214,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             'range' => new DistanceBonus(1, Tables::getIt()->getDistanceTable()),
             'offensiveness' => 2,
             'wounds' => 3,
-            'woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::STAB),
+            'woundTypeCode' => PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
             'cover' => 4,
             'weight' => new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
             'twoHandedOnly' => false,
@@ -227,7 +227,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             array_merge($templateValues, array_values(array_merge($template, ['offensiveness' => $template['offensiveness'] - 1]))),
             array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
             array_merge($templateValues, array_values(array_merge($template, ['wounds' => $template['wounds'] - 1]))),
-            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => WoundTypeCode::getIt(WoundTypeCode::CRUSH)]))),
+            array_merge($templateValues, array_values(array_merge($template, ['woundTypeCode' => PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CRUSH)]))),
             array_merge($templateValues, array_values(array_merge($template, ['cover' => $template['cover'] + 2]))),
             array_merge($templateValues, array_values(array_merge($template, ['weight' => new Weight(3, Weight::KG, Tables::getIt()->getWeightTable())]))),
             array_merge($templateValues, array_values(array_merge($template, ['twoHandedOnly' => !$template['twoHandedOnly']]))),
