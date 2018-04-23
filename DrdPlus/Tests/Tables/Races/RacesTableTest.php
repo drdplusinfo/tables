@@ -10,6 +10,7 @@ use DrdPlus\Codes\SubRaceCode;
 use DrdPlus\Tables\Measurements\Weight\WeightTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 
 class RacesTableTest extends TableTest
@@ -20,7 +21,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_header(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertEquals(
             [[
                 RacesTable::RACE,
@@ -51,7 +52,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_values_in_simple_structure(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertEquals(
             [
                 [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0, 0, 0, 0, 0, 0, 180.0, 80.0, 0, 0, '', false, false, false, 15],
@@ -78,7 +79,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_human_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonHumanModifiers();
         self::assertEquals(
             [
@@ -108,7 +109,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_highlander_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getHighlanderModifiers();
         self::assertEquals(
             [
@@ -138,7 +139,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_dwarf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonDwarfModifiers();
         self::assertEquals(
             [
@@ -170,7 +171,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_not_se_invalid_race_and_sub_race_combination(): void
     {
-        (new RacesTable())->getAge(RaceCode::getIt(RaceCode::HUMAN), SubRaceCode::getIt(SubRaceCode::GREEN));
+        (new RacesTable(Tables::getIt()->getFemaleModifiersTable()))->getAge(RaceCode::getIt(RaceCode::HUMAN), SubRaceCode::getIt(SubRaceCode::GREEN));
     }
 
     /**
@@ -178,7 +179,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_wood_dwarf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getWoodDwarfModifiers();
         self::assertEquals(
             [
@@ -208,7 +209,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_mountain_dwarf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getMountainDwarfModifiers();
         self::assertEquals(
             [
@@ -238,7 +239,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_elf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonElfModifiers();
         self::assertEquals(
             [
@@ -268,7 +269,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_green_elf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getGreenElfModifiers();
         self::assertEquals(
             [
@@ -298,7 +299,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_dark_elf_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getDarkElfModifiers();
         self::assertEquals(
             [
@@ -328,7 +329,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_hobbit_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonHobbitModifiers();
         self::assertEquals(
             [
@@ -358,7 +359,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_kroll_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonKrollModifiers();
         self::assertEquals(
             [
@@ -388,7 +389,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_wild_kroll_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getWildKrollModifiers();
         self::assertEquals(
             [
@@ -418,7 +419,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_common_orc_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getCommonOrcModifiers();
         self::assertEquals(
             [
@@ -448,7 +449,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_skurut_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getSkurutModifiers();
         self::assertEquals(
             [
@@ -478,7 +479,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_goblin_modifiers(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $modifiers = $racesTable->getGoblinModifiers();
         self::assertEquals(
             [
@@ -508,7 +509,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_expected_values(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertEquals(
             [
                 RaceCode::HUMAN => [
@@ -667,7 +668,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_strength_of_any_race(string $race, string $subRace, int $maleStrength, int $femaleStrength): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleStrength, $racesTable->getMaleStrength(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         self::assertSame(
             $femaleStrength,
@@ -705,7 +706,7 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_agility_of_any_race(string $race, string $subRace, int $maleAgility, int $femaleAgility): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleAgility, $racesTable->getMaleAgility(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         self::assertSame(
             $femaleAgility,
@@ -743,9 +744,9 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_knack_of_any_race(string $race, string $subRace, int $maleKnack, int $femaleKnack): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleKnack, $racesTable->getMaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
-        self::assertSame($femaleKnack, $racesTable->getFemaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subRace), new FemaleModifiersTable()));
+        self::assertSame($femaleKnack, $racesTable->getFemaleKnack(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
     public function provideKnackOfRace(): array
@@ -778,12 +779,12 @@ class RacesTableTest extends TableTest
      */
     public function I_can_get_will_of_any_race(string $race, string $subRace, int $maleWill, int $femaleWill): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleWill, $racesTable->getMaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
-        self::assertSame($femaleWill, $racesTable->getFemaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subRace), new FemaleModifiersTable()));
+        self::assertSame($femaleWill, $racesTable->getFemaleWill(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideWillOfRace()
+    public function provideWillOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0],
@@ -811,14 +812,14 @@ class RacesTableTest extends TableTest
      * @param int $maleIntelligence
      * @param int $femaleIntelligence
      */
-    public function I_can_get_intelligence_of_any_race($race, $subRace, $maleIntelligence, $femaleIntelligence)
+    public function I_can_get_intelligence_of_any_race(string $race, string $subRace, int $maleIntelligence, int $femaleIntelligence): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleIntelligence, $racesTable->getMaleIntelligence(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         self::assertSame($femaleIntelligence, $racesTable->getFemaleIntelligence(RaceCode::getIt($race), SubRaceCode::getIt($subRace), new FemaleModifiersTable()));
     }
 
-    public function provideIntelligenceOfRace()
+    public function provideIntelligenceOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 0],
@@ -846,14 +847,14 @@ class RacesTableTest extends TableTest
      * @param int $maleCharisma
      * @param int $femaleCharisma
      */
-    public function I_can_get_charisma_of_any_race($race, $subRace, $maleCharisma, $femaleCharisma)
+    public function I_can_get_charisma_of_any_race(string $race, string $subRace, int $maleCharisma, int $femaleCharisma): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleCharisma, $racesTable->getMaleCharisma(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         self::assertSame($femaleCharisma, $racesTable->getFemaleCharisma(RaceCode::getIt($race), SubRaceCode::getIt($subRace), new FemaleModifiersTable()));
     }
 
-    public function provideCharismaOfRace()
+    public function provideCharismaOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, 1],
@@ -880,13 +881,13 @@ class RacesTableTest extends TableTest
      * @param string $subRace
      * @param int $toughness
      */
-    public function I_can_get_toughness_of_any_race($race, $subRace, $toughness)
+    public function I_can_get_toughness_of_any_race(string $race, string $subRace, int $toughness): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($toughness, $racesTable->getToughness(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideToughnessOfRace()
+    public function provideToughnessOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0],
@@ -911,15 +912,15 @@ class RacesTableTest extends TableTest
      * @dataProvider provideHeightOfRace
      * @param string $race
      * @param string $subRace
-     * @param int $heightInCm
+     * @param float $heightInCm
      */
-    public function I_can_get_height_of_any_race($race, $subRace, $heightInCm)
+    public function I_can_get_height_of_any_race(string $race, string $subRace, float $heightInCm): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($heightInCm, $racesTable->getHeightInCm(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideHeightOfRace()
+    public function provideHeightOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 180.0],
@@ -944,12 +945,12 @@ class RacesTableTest extends TableTest
      * @dataProvider provideWeightOfRace
      * @param string $race
      * @param string $subRace
-     * @param int $maleWeightInKg
-     * @param int $femaleWeightInKg
+     * @param float $maleWeightInKg
+     * @param float $femaleWeightInKg
      */
-    public function I_can_get_weight_of_any_race($race, $subRace, $maleWeightInKg, $femaleWeightInKg)
+    public function I_can_get_weight_of_any_race(string $race, string $subRace, float $maleWeightInKg, float $femaleWeightInKg): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($maleWeightInKg, $racesTable->getMaleWeightInKg(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
         $femaleModifiersTable = new FemaleModifiersTable();
         $weightTable = new WeightTable();
@@ -967,7 +968,7 @@ class RacesTableTest extends TableTest
         );
     }
 
-    public function provideWeightOfRace()
+    public function provideWeightOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 80.0, 70.0],
@@ -991,9 +992,9 @@ class RacesTableTest extends TableTest
      * @test
      * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
      */
-    public function I_can_not_get_weight_of_unknown_gender()
+    public function I_can_not_get_weight_of_unknown_gender(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $racesTable->getWeightInKg(
             RaceCode::getIt(RaceCode::HUMAN),
             SubRaceCode::getIt(SubRaceCode::COMMON),
@@ -1024,9 +1025,9 @@ class RacesTableTest extends TableTest
      * @param int $maleSize
      * @param int $femaleSize
      */
-    public function I_can_get_size_of_any_race($race, $subRace, $maleSize, $femaleSize)
+    public function I_can_get_size_of_any_race(string $race, string $subRace, int $maleSize, int $femaleSize): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $femaleModifiersTable = new FemaleModifiersTable();
 
         self::assertSame($maleSize, $racesTable->getMaleSize(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
@@ -1036,7 +1037,7 @@ class RacesTableTest extends TableTest
         self::assertSame($femaleSize, $racesTable->getSize(RaceCode::getIt($race), SubRaceCode::getIt($subRace), GenderCode::getIt(GenderCode::FEMALE), $femaleModifiersTable));
     }
 
-    public function provideSizeOfRace()
+    public function provideSizeOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0, -1],
@@ -1060,9 +1061,9 @@ class RacesTableTest extends TableTest
      * @test
      * @expectedException \DrdPlus\Tables\Races\Exceptions\UnknownGender
      */
-    public function I_can_not_get_size_for_unknown_gender()
+    public function I_can_not_get_size_for_unknown_gender(): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         $racesTable->getSize(
             RaceCode::getIt(RaceCode::HUMAN),
             SubRaceCode::getIt(SubRaceCode::COMMON),
@@ -1078,13 +1079,13 @@ class RacesTableTest extends TableTest
      * @param string $subRace
      * @param int $senses
      */
-    public function I_can_get_senses_of_any_race($race, $subRace, $senses)
+    public function I_can_get_senses_of_any_race(string $race, string $subRace, int $senses): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($senses, $racesTable->getSenses(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideSensesOfRace()
+    public function provideSensesOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 0],
@@ -1111,13 +1112,13 @@ class RacesTableTest extends TableTest
      * @param string $subRace
      * @param string $remarkableSense
      */
-    public function I_can_get_remarkable_sense_of_any_race($race, $subRace, $remarkableSense)
+    public function I_can_get_remarkable_sense_of_any_race(string $race, string $subRace, string $remarkableSense): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($remarkableSense, $racesTable->getRemarkableSense(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideRemarkableSenseOfRace()
+    public function provideRemarkableSenseOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, ''],
@@ -1142,15 +1143,15 @@ class RacesTableTest extends TableTest
      * @dataProvider provideInfravisionOfRace
      * @param string $race
      * @param string $subRace
-     * @param bool $infravision
+     * @param bool $hasInfravision
      */
-    public function I_can_get_infravision_of_any_race($race, $subRace, $infravision)
+    public function I_can_get_infravision_of_any_race(string $race, string $subRace, bool $hasInfravision): void
     {
-        $racesTable = new RacesTable();
-        self::assertSame($infravision, $racesTable->hasInfravision(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
+        self::assertSame($hasInfravision, $racesTable->hasInfravision(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideInfravisionOfRace()
+    public function provideInfravisionOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, false],
@@ -1175,15 +1176,15 @@ class RacesTableTest extends TableTest
      * @dataProvider provideNativeRegenerationOfRace
      * @param string $race
      * @param string $subRace
-     * @param bool $nativeRegeneration
+     * @param bool $hasNativeRegeneration
      */
-    public function I_can_get_nativeRegeneration_of_any_race($race, $subRace, $nativeRegeneration)
+    public function I_can_get_nativeRegeneration_of_any_race(string $race, string $subRace, bool $hasNativeRegeneration): void
     {
-        $racesTable = new RacesTable();
-        self::assertSame($nativeRegeneration, $racesTable->hasNativeRegeneration(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
+        self::assertSame($hasNativeRegeneration, $racesTable->hasNativeRegeneration(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideNativeRegenerationOfRace()
+    public function provideNativeRegenerationOfRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, false],
@@ -1208,15 +1209,15 @@ class RacesTableTest extends TableTest
      * @dataProvider provideRequirementOfDmForRace
      * @param string $race
      * @param string $subRace
-     * @param bool $requiredDmAgreement
+     * @param bool $requiresDmAgreement
      */
-    public function I_can_detect_requirement_of_dm_agreement_of_any_race($race, $subRace, $requiredDmAgreement)
+    public function I_can_detect_requirement_of_dm_agreement_of_any_race(string $race, string $subRace, bool $requiresDmAgreement): void
     {
-        $racesTable = new RacesTable();
-        self::assertSame($requiredDmAgreement, $racesTable->requiresDmAgreement(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
+        self::assertSame($requiresDmAgreement, $racesTable->requiresDmAgreement(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideRequirementOfDmForRace()
+    public function provideRequirementOfDmForRace(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, false],
@@ -1243,13 +1244,13 @@ class RacesTableTest extends TableTest
      * @param string $subRace
      * @param int $expectedAge
      */
-    public function I_can_get_default_age_for_every_race_on_first_level(string $race, string $subRace, int $expectedAge)
+    public function I_can_get_default_age_for_every_race_on_first_level(string $race, string $subRace, int $expectedAge): void
     {
-        $racesTable = new RacesTable();
+        $racesTable = new RacesTable(Tables::getIt()->getFemaleModifiersTable());
         self::assertSame($expectedAge, $racesTable->getAge(RaceCode::getIt($race), SubRaceCode::getIt($subRace)));
     }
 
-    public function provideExpectedAge()
+    public function provideExpectedAge(): array
     {
         return [
             [RaceCode::HUMAN, SubRaceCode::COMMON, 15],

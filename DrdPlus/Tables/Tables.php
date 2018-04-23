@@ -277,7 +277,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getRacesTable(): RacesTable
     {
         if (!array_key_exists(RacesTable::class, $this->tables)) {
-            $this->tables[RacesTable::class] = new RacesTable();
+            $this->tables[RacesTable::class] = new RacesTable($this->getFemaleModifiersTable());
         }
 
         return $this->tables[RacesTable::class];

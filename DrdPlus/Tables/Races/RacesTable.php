@@ -18,6 +18,15 @@ use Granam\Tools\ValueDescriber;
  */
 class RacesTable extends AbstractFileTable
 {
+    /**
+     * @var FemaleModifiersTable
+     */
+    private $femaleModifiersTable;
+
+    public function __construct(FemaleModifiersTable $femaleModifiersTable)
+    {
+        $this->femaleModifiersTable = $femaleModifiersTable;
+    }
 
     /** @return string
      */
@@ -216,7 +225,7 @@ class RacesTable extends AbstractFileTable
      * @return int|float|string|bool
      * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    private function getProperty(RaceCode $raceCode, SubRaceCode $subRaceCode, $propertyName)
+    private function getProperty(RaceCode $raceCode, SubRaceCode $subRaceCode, string $propertyName)
     {
         if (!$subRaceCode->isRace($raceCode)) {
             throw new Exceptions\RaceToSubRaceMismatch("Given race '{$raceCode}' does not have given sub-race '{$subRaceCode}'");
@@ -263,13 +272,29 @@ class RacesTable extends AbstractFileTable
     /**
      * @param RaceCode $raceCode
      * @param SubRaceCode $subRaceCode
-     * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleKnack(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getMaleKnack($raceCode, $subRaceCode) + $femaleModifiersTable->getKnack($raceCode);
+        return $this->getMaleKnack($raceCode, $subRaceCode) + $this->femaleModifiersTable->getKnack($raceCode);
+    }
+
+    /**
+     * @param RaceCode $raceCode
+     * @param SubRaceCode $subRaceCode
+     * @param GenderCode $genderCode
+     * @return bool|float|int|string
+     * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
+     */
+    public function getWill(RaceCode $raceCode, SubRaceCode $subRaceCode, GenderCode $genderCode)
+    {
+        $maleWill = $this->getProperty($raceCode, $subRaceCode, PropertyCode::WILL);
+        if ($genderCode->isMale()) {
+            return $maleWill;
+        }
+
+        return $maleWill + $this->femaleModifiersTable->getWill($raceCode);
     }
 
     /**
@@ -280,19 +305,18 @@ class RacesTable extends AbstractFileTable
      */
     public function getMaleWill(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getProperty($raceCode, $subRaceCode, PropertyCode::WILL);
+        return $this->getWill($raceCode, $subRaceCode, GenderCode::getIt(GenderCode::MALE));
     }
 
     /**
      * @param RaceCode $raceCode
      * @param SubRaceCode $subRaceCode
-     * @param FemaleModifiersTable $femaleModifiersTable
      * @return int
      * @throws \DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch
      */
-    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subRaceCode, FemaleModifiersTable $femaleModifiersTable): int
+    public function getFemaleWill(RaceCode $raceCode, SubRaceCode $subRaceCode): int
     {
-        return $this->getMaleWill($raceCode, $subRaceCode) + $femaleModifiersTable->getWill($raceCode);
+        return $this->getWill($raceCode, $subRaceCode, GenderCode::getIt(GenderCode::FEMALE));
     }
 
     /**
