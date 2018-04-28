@@ -22,12 +22,12 @@ class FatigueTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         $this->I_can_get_headers_same_as_from_wounds_table();
     }
 
-    private function I_can_get_headers_same_as_from_wounds_table()
+    private function I_can_get_headers_same_as_from_wounds_table(): void
     {
         $experiencesTable = new FatigueTable($this->woundsTable);
 
@@ -37,7 +37,7 @@ class FatigueTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_get_values_same_as_from_wounds_table()
+    public function I_can_get_values_same_as_from_wounds_table(): void
     {
         $experiencesTable = new FatigueTable($woundsTable = new WoundsTable());
 
@@ -48,7 +48,7 @@ class FatigueTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_convert_bonus_to_value()
+    public function I_can_convert_bonus_to_value(): void
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $attempt = 1;
@@ -92,7 +92,7 @@ class FatigueTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_not_use_too_low_bonus_to_value()
+    public function I_can_not_use_too_low_bonus_to_value(): void
     {
         self::assertFalse(
             false,
@@ -104,7 +104,7 @@ class FatigueTableTest extends MeasurementTableTest
      * @test
      * @expectedException \OutOfRangeException
      */
-    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit()
+    public function I_can_not_convert_too_high_bonus_into_too_detailed_unit(): void
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toFatigue(new FatigueBonus(80, $fatigueTable));
@@ -113,7 +113,7 @@ class FatigueTableTest extends MeasurementTableTest
     /**
      * @test
      */
-    public function I_can_convert_value_to_bonus()
+    public function I_can_convert_value_to_bonus(): void
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         self::assertSame(
@@ -148,9 +148,9 @@ class FatigueTableTest extends MeasurementTableTest
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
+     * @expectedException \DrdPlus\Tables\Measurements\Fatigue\Exceptions\FatigueCanNotBeNegative
      */
-    public function I_can_not_convert_too_low_value_to_bonus()
+    public function I_can_not_convert_too_low_value_to_bonus(): void
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toBonus(new Fatigue(-1, $fatigueTable));
@@ -160,7 +160,7 @@ class FatigueTableTest extends MeasurementTableTest
      * @test
      * @expectedException \DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange
      */
-    public function I_can_not_convert_too_high_value_to_bonus()
+    public function I_can_not_convert_too_high_value_to_bonus(): void
     {
         $fatigueTable = new FatigueTable($this->woundsTable);
         $fatigueTable->toBonus(new Fatigue(28001, $fatigueTable));
