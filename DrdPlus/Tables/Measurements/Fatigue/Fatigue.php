@@ -4,6 +4,7 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Fatigue;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
+use Granam\Integer\PositiveInteger;
 use Granam\Integer\Tools\Exceptions\PositiveIntegerCanNotBeNegative;
 use Granam\Integer\Tools\ToInteger;
 
@@ -11,7 +12,7 @@ use Granam\Integer\Tools\ToInteger;
  * @method int getValue()
  * @see Fatigue::normalizeValue()
  */
-class Fatigue extends AbstractMeasurementWithBonus
+class Fatigue extends AbstractMeasurementWithBonus implements PositiveInteger
 {
     public const FATIGUE = 'fatigue';
 
