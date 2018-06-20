@@ -8,6 +8,7 @@ use DrdPlus\Tables\Measurements\Experiences\Experiences;
 use DrdPlus\Tables\Measurements\Experiences\ExperiencesTable;
 use DrdPlus\Tables\Measurements\Experiences\Level;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tests\Tables\Measurements\AbstractTestOfBonus;
 use Mockery\MockInterface;
 
@@ -23,7 +24,7 @@ class LevelTest extends AbstractTestOfBonus
         self::assertSame($value, $sut->getValue());
     }
 
-    protected function getTableInstance()
+    protected function getTableInstance(): AbstractTable
     {
         return new ExperiencesTable(new WoundsTable());
     }

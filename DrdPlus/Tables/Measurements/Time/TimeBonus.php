@@ -4,18 +4,28 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Measurements\Time;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
-use Granam\Integer\IntegerInterface;
-use Granam\String\StringInterface;
+use DrdPlus\Tables\Tables;
 
 class TimeBonus extends AbstractBonus
 {
+    /**
+     * @param int|\Granam\Integer\IntegerInterface $bonusValue
+     * @param Tables $tables
+     * @return TimeBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     */
+    public static function getIt($bonusValue, Tables $tables): TimeBonus
+    {
+        return new static($bonusValue, $tables->getTimeTable());
+    }
+
     /**
      * @var TimeTable
      */
     private $timeTable;
 
     /**
-     * @param int|IntegerInterface $value
+     * @param int|\Granam\Integer\IntegerInterface $value
      * @param TimeTable $timeTable
      * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
      */
@@ -26,10 +36,10 @@ class TimeBonus extends AbstractBonus
     }
 
     /**
-     * @param string|StringInterface|null $wantedUnit
+     * @param string|\Granam\String\StringInterface|null $wantedUnit
      * @return Time|null
      */
-    public function findTime($wantedUnit = null)
+    public function findTime($wantedUnit = null): ?Time
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->timeTable->hasTimeFor($this, $wantedUnit)
@@ -38,7 +48,7 @@ class TimeBonus extends AbstractBonus
     }
 
     /**
-     * @param string|StringInterface|null $wantedUnit
+     * @param string|\Granam\String\StringInterface|null $wantedUnit
      * @return Time
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */

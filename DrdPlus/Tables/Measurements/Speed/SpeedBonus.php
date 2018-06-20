@@ -7,9 +7,20 @@ use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Tables\Tables;
 
 class SpeedBonus extends AbstractBonus
 {
+    /**
+     * @param $bonusValue
+     * @param Tables $tables
+     * @return SpeedBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     */
+    public static function getIt($bonusValue, Tables $tables): SpeedBonus
+    {
+        return new static($bonusValue, $tables->getSpeedTable());
+    }
 
     /**
      * @var SpeedTable

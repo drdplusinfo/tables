@@ -9,9 +9,21 @@ use DrdPlus\Codes\Units\SquareUnitCode;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Tables\Tables;
 
 class SquareBonus extends AbstractBonus
 {
+    /**
+     * @param int|\Granam\Integer\IntegerInterface $bonusValue
+     * @param Tables $tables
+     * @return SquareBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     */
+    public static function getIt($bonusValue, Tables $tables): SquareBonus
+    {
+        return new static($bonusValue, $tables->getDistanceTable());
+    }
+
     /** @var DistanceTable */
     private $distanceTable;
 

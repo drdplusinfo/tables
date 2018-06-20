@@ -29,8 +29,8 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
     {
         /** like @see RangedWeaponCode::isBow() */
         $isType = StringTools::assembleIsForName(
-            rtrim(
-                str_replace(
+            \rtrim(
+                \str_replace(
                     ['knives', 's_and_', '_and_'], ['knife', '_or_', '_or_'],
                     $weaponCategoryCode->getValue()
                 ),
@@ -39,13 +39,13 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
         );
         /** like @see RangedWeaponCode::getBowValues() */
         $getTypeCodes = StringTools::assembleGetterForName($weaponCategoryCode->getValue()) . 'Values';
-        if (!method_exists($weaponCode, $isType) || !$weaponCode->$isType()
-            || !method_exists($weaponCode, $getTypeCodes)
-            || !in_array($weaponCode->getValue(), $weaponCode::$getTypeCodes(), true)
+        if (!\method_exists($weaponCode, $isType) || !$weaponCode->$isType()
+            || !\method_exists($weaponCode, $getTypeCodes)
+            || !\in_array($weaponCode->getValue(), $weaponCode::$getTypeCodes(), true)
         ) {
             throw new Exceptions\NewWeaponIsNotOfRequiredType(
                 "Expected new weapon to be '$weaponCategoryCode' type, got {$weaponCode}"
-                . ' with values ' . implode(',', $weaponCode::getPossibleValues())
+                . ' with values ' . \implode(',', $weaponCode::getPossibleValues())
             );
         }
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -57,7 +57,7 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
             throw new Exceptions\DifferentWeaponIsUnderSameName(
                 "New weapon {$weaponCode} can not be added as there is already a weapon under same name"
                 . ' but with different parameters: '
-                . var_export(array_diff_assoc($previousParameters, $newWeaponParameters), true)
+                . \var_export(\array_diff_assoc($previousParameters, $newWeaponParameters), true)
             );
         }
         $this->customWeapons[static::class][$weaponCode->getValue()] = $newWeaponParameters;
@@ -69,7 +69,7 @@ abstract class WeaponsTable extends AbstractArmamentsTable implements Weaponlike
     {
         $indexedValues = parent::getIndexedValues();
 
-        return array_merge($indexedValues, $this->customWeapons[static::class] ?? []);
+        return \array_merge($indexedValues, $this->customWeapons[static::class] ?? []);
     }
 
 }

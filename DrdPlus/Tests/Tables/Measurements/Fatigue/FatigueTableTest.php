@@ -14,7 +14,7 @@ class FatigueTableTest extends MeasurementTableTest
     /** @var  WoundsTable */
     private $woundsTable;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->woundsTable = new WoundsTable();
     }

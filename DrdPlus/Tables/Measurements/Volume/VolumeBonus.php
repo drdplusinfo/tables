@@ -9,9 +9,21 @@ use DrdPlus\Codes\Units\VolumeUnitCode;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
+use DrdPlus\Tables\Tables;
 
 class VolumeBonus extends AbstractBonus
 {
+    /**
+     * @param int|\Granam\Integer\IntegerInterface $bonusValue
+     * @param Tables $tables
+     * @return VolumeBonus
+     * @throws \DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger
+     */
+    public static function getIt($bonusValue, Tables $tables): VolumeBonus
+    {
+        return new static($bonusValue, $tables->getDistanceTable());
+    }
+
     /** @var DistanceTable */
     private $distanceTable;
 
