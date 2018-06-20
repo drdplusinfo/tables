@@ -60,7 +60,8 @@ class ThrowingWeaponsTable extends RangedWeaponsTable
             $woundTypeCode,
             $cover,
             $weight,
-            $twoHandedOnly
+            $twoHandedOnly,
+            [] // no custom parameters
         );
     }
 }

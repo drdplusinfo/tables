@@ -41,8 +41,9 @@ class TablesTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_any_table()
+    public function I_can_get_any_table(): void
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $reflectionClass = new \ReflectionClass(Tables::class);
         $tablesInstance = $reflectionClass->getProperty('tablesInstance');
         $tablesInstance->setAccessible(true);
@@ -50,14 +51,15 @@ class TablesTest extends TestWithMockery
         $tablesInstance->setAccessible(false);
         $tables = Tables::getIt();
         foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
-            $baseName = preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);
+            $baseName = \preg_replace('~(?:.+[\\\])?(\w+)$~', '$1', $expectedTableClass);
             $getTable = "get{$baseName}";
             self::assertTrue(
-                method_exists($tables, $getTable),
+                \method_exists($tables, $getTable),
                 "'Tables' factory should has getter {$getTable} for {$expectedTableClass} (or the class should be abstract ?)"
             );
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);
+            /** @noinspection PhpUnhandledExceptionInspection */
             $getterReflection = new \ReflectionMethod($tables, $getTable);
             self::assertContains("@return $baseName", $getterReflection->getDocComment());
         }
@@ -66,46 +68,48 @@ class TablesTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_iterate_through_tables()
+    public function I_can_iterate_through_tables(): void
     {
         $tables = Tables::getIt();
         $fetchedTableClasses = [];
         foreach ($tables as $table) {
-            $fetchedTableClasses[] = get_class($table);
+            $fetchedTableClasses[] = \get_class($table);
         }
         $expectedTableClasses = $this->getExpectedTableClasses();
-        sort($expectedTableClasses);
-        sort($fetchedTableClasses);
+        \sort($expectedTableClasses);
+        \sort($fetchedTableClasses);
 
         self::assertSameSize(
             $expectedTableClasses,
             $fetchedTableClasses,
-            'Tables factory should give ' . implode(',', array_diff($expectedTableClasses, $fetchedTableClasses))
+            'Tables factory should give ' . \implode(',', \array_diff($expectedTableClasses, $fetchedTableClasses))
             . ' on iterating'
         );
         self::assertEquals($expectedTableClasses, $fetchedTableClasses);
     }
 
-    private function getExpectedTableClasses()
+    private function getExpectedTableClasses(): array
     {
+        /** @noinspection PhpUnhandledExceptionInspection */
         $tablesReflection = new \ReflectionClass(Tables::class);
-        $rootDir = dirname($tablesReflection->getFileName());
+        $rootDir = \dirname($tablesReflection->getFileName());
         $rootNamespace = $tablesReflection->getNamespaceName();
 
         return $this->scanForTables($rootDir, $rootNamespace);
     }
 
-    private function scanForTables($rootDir, $rootNamespace)
+    private function scanForTables(string $rootDir, string $rootNamespace): array
     {
         $tableClasses = [];
-        foreach (scandir($rootDir, SCANDIR_SORT_NONE) as $folder) {
+        foreach (\scandir($rootDir, SCANDIR_SORT_NONE) as $folder) {
             $folderFullPath = $rootDir . DIRECTORY_SEPARATOR . $folder;
             if ($folder !== '.' && $folder !== '..') {
-                if (is_dir($folderFullPath)) {
+                if (\is_dir($folderFullPath)) {
                     foreach ($this->scanForTables($folderFullPath, $rootNamespace . '\\' . $folder) as $foundTable) {
                         $tableClasses[] = $foundTable;
                     }
-                } else if (is_file($folderFullPath) && preg_match('~(?<classBasename>\w+(?:Table)?)\.php$~', $folder, $matches)) {
+                } elseif (\is_file($folderFullPath) && \preg_match('~(?<classBasename>\w+(?:Table)?)\.php$~', $folder, $matches)) {
+                    /** @noinspection PhpUnhandledExceptionInspection */
                     $reflectionClass = new \ReflectionClass($rootNamespace . '\\' . $matches['classBasename']);
                     if ($reflectionClass->isInstantiable() && $reflectionClass->implementsInterface(Table::class)) {
                         self::assertRegExp(
@@ -125,7 +129,7 @@ class TablesTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_armourer()
+    public function I_can_get_armourer(): void
     {
         $tables = Tables::getIt();
         self::assertInstanceOf(Armourer::class, $armourer = $tables->getArmourer());
@@ -138,12 +142,12 @@ class TablesTest extends TestWithMockery
      * @param ArmamentCode $armamentCode
      * @param string $expectedTableClass
      */
-    public function I_can_get_every_armament_table_by_armament_code(ArmamentCode $armamentCode, $expectedTableClass)
+    public function I_can_get_every_armament_table_by_armament_code(ArmamentCode $armamentCode, $expectedTableClass): void
     {
         self::assertInstanceOf($expectedTableClass, Tables::getIt()->getArmamentsTableByArmamentCode($armamentCode));
     }
 
-    public function provideArmamentCodeAndExpectedTableClass()
+    public function provideArmamentCodeAndExpectedTableClass(): array
     {
         $values = [];
         foreach ([
@@ -172,6 +176,7 @@ class TablesTest extends TestWithMockery
     {
         $codes = [];
         /** @var AbstractCode $class */
+        /** @noinspection PhpUnhandledExceptionInspection */
         $reflectionClass = new \ReflectionClass($class);
         foreach ($reflectionClass->getConstants() as $constant) {
             $codes[] = $class::getIt($constant);
@@ -199,7 +204,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function I_do_not_get_any_armament_table_by_unknown_code()
+    public function I_do_not_get_any_armament_table_by_unknown_code(): void
     {
         /** @var ArmamentCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
@@ -210,7 +215,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function I_do_not_get_any_weaponlike_table_by_unknown_code()
+    public function I_do_not_get_any_weaponlike_table_by_unknown_code(): void
     {
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
@@ -221,7 +226,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
-    public function I_do_not_get_any_melee_weaponlike_table_by_unknown_code()
+    public function I_do_not_get_any_melee_weaponlike_table_by_unknown_code(): void
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
@@ -233,7 +238,7 @@ class TablesTest extends TestWithMockery
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon
      * @expectedExceptionMessageRegExp ~denigration~
      */
-    public function I_do_not_get_any_melee_weapons_table_by_unknown_code()
+    public function I_do_not_get_any_melee_weapons_table_by_unknown_code(): void
     {
         /** @var MeleeWeaponCode $meleeWeaponCode */
         $meleeWeaponCode = $this->createMeleeWeaponCode('denigration', 'poisonous language');
@@ -272,8 +277,8 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_table_with_sanctions_by_missing_strength_for_every_armament(
         ArmamentCode $armamentCode,
-        $expectedTableClass
-    )
+        string $expectedTableClass
+    ): void
     {
         self::assertInstanceOf(
             $expectedTableClass,
@@ -281,7 +286,7 @@ class TablesTest extends TestWithMockery
         );
     }
 
-    public function provideArmamentCodeAndExpectedSanctionsTable()
+    public function provideArmamentCodeAndExpectedSanctionsTable(): array
     {
         return [
             [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorStrengthSanctionsTable::class],
@@ -296,7 +301,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownArmament
      */
-    public function I_do_not_get_any_sanctions_table_by_unknown_code()
+    public function I_do_not_get_any_sanctions_table_by_unknown_code(): void
     {
         /** @var ArmorCode $armamentCode */
         $armamentCode = $this->mockery(ArmamentCode::class);
@@ -307,7 +312,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
      */
-    public function I_do_not_get_any_weaponlike_sanctions_table_by_unknown_code()
+    public function I_do_not_get_any_weaponlike_sanctions_table_by_unknown_code(): void
     {
         /** @var WeaponlikeCode $weaponlikeCode */
         $weaponlikeCode = $this->mockery(WeaponlikeCode::class);
@@ -318,7 +323,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike
      */
-    public function I_do_not_get_any_melee_weaponlike_sanctions_table_by_unknown_code()
+    public function I_do_not_get_any_melee_weaponlike_sanctions_table_by_unknown_code(): void
     {
         /** @var MeleeWeaponlikeCode $meleeWeaponlikeCode */
         $meleeWeaponlikeCode = $this->mockery(MeleeWeaponlikeCode::class);
@@ -330,7 +335,7 @@ class TablesTest extends TestWithMockery
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @expectedExceptionMessageRegExp ~wallop~
      */
-    public function I_do_not_get_range_weapons_table_by_unknown_code()
+    public function I_do_not_get_range_weapons_table_by_unknown_code(): void
     {
         /** @var RangedWeaponCode $rangeWeaponCode */
         $rangeWeaponCode = $this->createRangedWeaponCode('wallop', 'bio weapons');
@@ -342,17 +347,22 @@ class TablesTest extends TestWithMockery
      * @param string $matchingWeaponGroup
      * @return \Mockery\MockInterface|RangedWeaponCode
      */
-    private function createRangedWeaponCode($value, $matchingWeaponGroup)
+    private function createRangedWeaponCode(string $value, string $matchingWeaponGroup)
     {
         $code = $this->mockery(RangedWeaponCode::class);
         $code->shouldReceive('getValue')
             ->andReturn($value);
         $code->shouldReceive('__toString')
-            ->andReturn((string)$value);
+            ->andReturn($value);
         $rangeWeaponGroups = ['bow', 'arrow', 'crossbow', 'dart', 'throwingWeapon', 'slingStone'];
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $codeReflection = new \ReflectionClass(RangedWeaponCode::class);
         foreach ($rangeWeaponGroups as $weaponGroup) {
-            $code->shouldReceive('is' . ucfirst($weaponGroup))
-                ->andReturn($weaponGroup === $matchingWeaponGroup);
+            $isType = 'is' . \ucfirst($weaponGroup);
+            if ($codeReflection->hasMethod($isType)) {
+                $code->shouldReceive('is' . \ucfirst($weaponGroup))
+                    ->andReturn($weaponGroup === $matchingWeaponGroup);
+            }
         }
 
         return $code;
@@ -362,7 +372,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownArmor
      */
-    public function I_do_not_get_any_armors_table_by_unknown_code()
+    public function I_do_not_get_any_armors_table_by_unknown_code(): void
     {
         /** @var ArmorCode $armorCode */
         $armorCode = $this->mockery(ArmorCode::class);
@@ -377,8 +387,8 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_table_with_sanctions_by_missing_skill_for_every_protective_armament(
         ProtectiveArmamentCode $protectiveArmamentCode,
-        $expectedTableClass
-    )
+        string $expectedTableClass
+    ): void
     {
         self::assertInstanceOf(
             $expectedTableClass,
@@ -386,7 +396,7 @@ class TablesTest extends TestWithMockery
         );
     }
 
-    public function provideProtectiveArmamentCodeAndExpectedSanctionsTable()
+    public function provideProtectiveArmamentCodeAndExpectedSanctionsTable(): array
     {
         return [
             [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), ArmorWearingSkillTable::class],
@@ -399,7 +409,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function I_do_not_get_table_any_sanctions_by_missing_skill_table_for_unknown_code()
+    public function I_do_not_get_table_any_sanctions_by_missing_skill_table_for_unknown_code(): void
     {
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
@@ -414,8 +424,8 @@ class TablesTest extends TestWithMockery
      */
     public function I_can_get_table_with_restriction_for_every_protective_armament(
         ProtectiveArmamentCode $protectiveArmamentCode,
-        $expectedTableClass
-    )
+        string $expectedTableClass
+    ): void
     {
         self::assertInstanceOf(
             $expectedTableClass,
@@ -423,7 +433,7 @@ class TablesTest extends TestWithMockery
         );
     }
 
-    public function provideProtectiveArmamentCodeAndExpectedRestrictionTable()
+    public function provideProtectiveArmamentCodeAndExpectedRestrictionTable(): array
     {
         return [
             [BodyArmorCode::getIt(BodyArmorCode::HOBNAILED_ARMOR), BodyArmorsTable::class],
@@ -436,7 +446,7 @@ class TablesTest extends TestWithMockery
      * @test
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProtectiveArmament
      */
-    public function I_do_not_get_table_any_restriction_table_for_unknown_code()
+    public function I_do_not_get_table_any_restriction_table_for_unknown_code(): void
     {
         /** @var ProtectiveArmamentCode $protectiveArmamentCode */
         $protectiveArmamentCode = $this->mockery(ProtectiveArmamentCode::class);
@@ -446,7 +456,7 @@ class TablesTest extends TestWithMockery
     /**
      * @test
      */
-    public function Every_table_is_tested_by_default_test()
+    public function Every_table_is_tested_by_default_test(): void
     {
         foreach ($this->getExpectedTableClasses() as $expectedTableClass) {
             $expectedTableTestClass = str_replace('\Tables\\', '\Tests\Tables\\', $expectedTableClass) . 'Test';
@@ -463,7 +473,7 @@ class TablesTest extends TestWithMockery
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile
      * @expectedExceptionMessageRegExp ~foo~
      */
-    public function I_can_not_get_projectiles_table_for_unknown_projectile()
+    public function I_can_not_get_projectiles_table_for_unknown_projectile(): void
     {
         $projectile = $this->mockery(ProjectileCode::class);
         $projectile->shouldReceive('isArrow')->andReturn(false);

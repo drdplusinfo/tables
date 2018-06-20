@@ -145,6 +145,20 @@ class Armourer extends StrictObject
     }
 
     /**
+     * @param WeaponlikeCode $weaponlikeCode
+     * @return int
+     * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownWeaponlike
+     */
+    public function getMaximalApplicableStrength(WeaponlikeCode $weaponlikeCode): int
+    {
+        if ($weaponlikeCode instanceof RangedWeaponCode && $weaponlikeCode->isBow()) {
+            return $this->tables->getBowsTable()->getMaximalApplicableStrengthOf($weaponlikeCode);
+        }
+
+        return 999;
+    }
+
+    /**
      * There are weapons so small so can not be hold by two hands
      *
      * @param WeaponlikeCode $weaponlikeCode
@@ -1012,6 +1026,7 @@ class Armourer extends StrictObject
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @param Strength $maximalApplicableStrength
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
@@ -1027,9 +1042,24 @@ class Armourer extends StrictObject
         PhysicalWoundTypeCode $woundTypeCode,
         int $cover,
         Weight $weight,
-        bool $twoHandedOnly
+        bool $twoHandedOnly,
+        Strength $maximalApplicableStrength
     ): bool
     {
+        if ($rangedWeaponCode->isBow()) {
+            return Tables::getIt()->getBowsTable()->addNewBow(
+                $rangedWeaponCode,
+                $requiredStrength,
+                $range,
+                $offensiveness,
+                $wounds,
+                $woundTypeCode,
+                $cover,
+                $weight,
+                $twoHandedOnly,
+                $maximalApplicableStrength
+            );
+        }
         $rangedWeaponTable = Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangedWeaponCode);
 
         return $rangedWeaponTable->addCustomRangedWeapon(
@@ -1042,7 +1072,8 @@ class Armourer extends StrictObject
             $woundTypeCode,
             $cover,
             $weight,
-            $twoHandedOnly
+            $twoHandedOnly,
+            [] // no custom parameters
         );
     }
 

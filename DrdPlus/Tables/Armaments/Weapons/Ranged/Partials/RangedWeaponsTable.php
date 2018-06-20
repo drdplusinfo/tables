@@ -56,6 +56,7 @@ abstract class RangedWeaponsTable extends WeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @param array $additionalParameters
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
@@ -70,22 +71,26 @@ abstract class RangedWeaponsTable extends WeaponsTable
         PhysicalWoundTypeCode $woundTypeCode,
         int $cover,
         Weight $weight,
-        bool $twoHandedOnly
+        bool $twoHandedOnly,
+        array $additionalParameters
     ): bool
     {
         return $this->addNewCustomWeapon(
             $rangedWeaponCode,
             $rangedWeaponCategoryCode,
-            [
-                self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
-                self::OFFENSIVENESS => $offensiveness,
-                self::RANGE => $range->getValue(), // distance bonus in fact
-                self::WOUNDS => $wounds,
-                self::WOUNDS_TYPE => $woundTypeCode->getValue(),
-                self::COVER => $cover,
-                self::WEIGHT => $weight->getKilograms(),
-                self::TWO_HANDED_ONLY => $twoHandedOnly,
-            ]
+            \array_merge(
+                $additionalParameters,
+                [
+                    self::REQUIRED_STRENGTH => $requiredStrength->getValue(),
+                    self::OFFENSIVENESS => $offensiveness,
+                    self::RANGE => $range->getValue(), // distance bonus in fact
+                    self::WOUNDS => $wounds,
+                    self::WOUNDS_TYPE => $woundTypeCode->getValue(),
+                    self::COVER => $cover,
+                    self::WEIGHT => $weight->getKilograms(),
+                    self::TWO_HANDED_ONLY => $twoHandedOnly,
+                ]
+            )
         );
     }
 

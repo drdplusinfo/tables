@@ -70,6 +70,7 @@ class BowsTable extends RangedWeaponsTable
      * @param int $cover
      * @param Weight $weight
      * @param bool $twoHandedOnly
+     * @param Strength $maximalApplicableStrength
      * @return bool
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType
      * @throws \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
@@ -83,7 +84,8 @@ class BowsTable extends RangedWeaponsTable
         PhysicalWoundTypeCode $woundTypeCode,
         int $cover,
         Weight $weight,
-        bool $twoHandedOnly
+        bool $twoHandedOnly,
+        Strength $maximalApplicableStrength
     ): bool
     {
         return $this->addCustomRangedWeapon(
@@ -96,7 +98,8 @@ class BowsTable extends RangedWeaponsTable
             $woundTypeCode,
             $cover,
             $weight,
-            $twoHandedOnly
+            $twoHandedOnly,
+            [static::MAXIMAL_APPLICABLE_STRENGTH => $maximalApplicableStrength->getValue()]
         );
     }
 }

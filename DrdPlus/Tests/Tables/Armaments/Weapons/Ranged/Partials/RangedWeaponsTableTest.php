@@ -28,7 +28,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @expectedException \DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon
      * @expectedExceptionMessageRegExp ~skull_crasher~
      */
-    public function I_can_not_get_value_of_unknown_melee_weapon(string $valueName)
+    public function I_can_not_get_value_of_unknown_melee_weapon(string $valueName): void
     {
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $sutClass = self::getSutClass();
@@ -37,7 +37,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
         $shootingArmamentsTable->$getValueNameOf('skull_crasher');
     }
 
-    public function provideValueName()
+    public function provideValueName(): array
     {
         return [
             [RangedWeaponsTable::REQUIRED_STRENGTH],
@@ -54,7 +54,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     /**
      * @test
      */
-    public function I_can_add_new_ranged_weapon()
+    public function I_can_add_new_ranged_weapon(): void
     {
         $sut = $this->createSut();
         $name = uniqid('cannot', true);
@@ -70,7 +70,8 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
             $cover = 2,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
-            $twoHandedOnly = true
+            $twoHandedOnly = true,
+            [] // no custom parameters
         );
         self::assertTrue($added);
         self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($cannot));
@@ -93,7 +94,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     /**
      * @test
      */
-    public function I_can_add_new_ranged_weapon_by_specific_method()
+    public function I_can_add_new_ranged_weapon_by_specific_method(): void
     {
         $sut = $this->createSut();
         $name = uniqid('nailer', true);
@@ -109,7 +110,8 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
-            $twoHandedOnly = false
+            $twoHandedOnly = false,
+            $maximalApplicableStrength = Strength::getIt(456) // not used
         );
         self::assertTrue($added);
         self::assertSame($requiredStrength->getValue(), $sut->getRequiredStrengthOf($nailer));
@@ -143,7 +145,8 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $woundTypeCode = PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::CUT),
             $cover = 4,
             $weight = new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
-            $twoHandedOnly = false
+            $twoHandedOnly = false,
+            [] // no custom parameters
         );
     }
 
@@ -151,13 +154,13 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @test
      * @dataProvider provideNewWeaponSlightlyChangedParameters
      * @expectedException \DrdPlus\Tables\Armaments\Weapons\Exceptions\DifferentWeaponIsUnderSameName
-     * @param $templateRequiredStrength
+     * @param int $templateRequiredStrength
      * @param DistanceBonus $templateRange
-     * @param $templateOffensiveness
-     * @param $templateWounds
+     * @param int $templateOffensiveness
+     * @param int $templateWounds
      * @param PhysicalWoundTypeCode $templatePhysicalWoundTypeCode
-     * @param $templateCover
-     * @param $templateWeight
+     * @param int $templateCover
+     * @param Weight $templateWeight
      * @param bool $templateTwoHandedOnly
      * @param $requiredStrength
      * @param DistanceBonus $range
@@ -169,23 +172,23 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
      * @param bool $twoHandedOnly
      */
     public function I_can_not_add_same_named_weapon_with_different_parameters(
-        $templateRequiredStrength,
-        $templateRange,
-        $templateOffensiveness,
-        $templateWounds,
-        $templatePhysicalWoundTypeCode,
-        $templateCover,
-        $templateWeight,
-        $templateTwoHandedOnly,
-        $requiredStrength,
-        $range,
-        $offensiveness,
-        $wounds,
-        $woundTypeCode,
-        $cover,
-        $weight,
-        $twoHandedOnly
-    )
+        int $templateRequiredStrength,
+        DistanceBonus $templateRange,
+        int $templateOffensiveness,
+        int $templateWounds,
+        PhysicalWoundTypeCode $templatePhysicalWoundTypeCode,
+        int $templateCover,
+        Weight $templateWeight,
+        bool $templateTwoHandedOnly,
+        int $requiredStrength,
+        DistanceBonus $range,
+        int $offensiveness,
+        int $wounds,
+        PhysicalWoundTypeCode $woundTypeCode,
+        int $cover,
+        Weight $weight,
+        bool $twoHandedOnly
+    ): void
     {
         $sut = $this->createSut();
         $name = 'hailstone_' . static::getSutClass(); // unique per SUT
@@ -201,10 +204,22 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
             $templatePhysicalWoundTypeCode,
             $templateCover,
             $templateWeight,
-            $templateTwoHandedOnly
+            $templateTwoHandedOnly,
+            $maximalApplicableStrength = Strength::getIt(456)
         );
         self::assertTrue($added);
-        $sut->$addNew($hailstone, Strength::getIt($requiredStrength), $range, $offensiveness, $wounds, $woundTypeCode, $cover, $weight, $twoHandedOnly);
+        $sut->$addNew(
+            $hailstone,
+            Strength::getIt($requiredStrength),
+            $range,
+            $offensiveness,
+            $wounds,
+            $woundTypeCode,
+            $cover,
+            $weight,
+            $twoHandedOnly,
+            $maximalApplicableStrength
+        );
     }
 
     public function provideNewWeaponSlightlyChangedParameters(): array

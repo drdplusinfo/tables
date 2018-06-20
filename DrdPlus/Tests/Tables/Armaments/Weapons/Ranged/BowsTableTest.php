@@ -4,8 +4,13 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
+use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
+use DrdPlus\Properties\Base\Strength;
 use DrdPlus\Tables\Armaments\Weapons\Ranged\BowsTable;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
+use DrdPlus\Tables\Measurements\Weight\Weight;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials\RangedWeaponsTableTest;
 
 class BowsTableTest extends RangedWeaponsTableTest
@@ -74,7 +79,7 @@ class BowsTableTest extends RangedWeaponsTableTest
     /**
      * @test
      */
-    public function I_can_get_maximal_applicable_strength_easily()
+    public function I_can_get_maximal_applicable_strength_easily(): void
     {
         $bowsTable = new BowsTable();
         self::assertSame(
@@ -89,10 +94,41 @@ class BowsTableTest extends RangedWeaponsTableTest
 
     /**
      * @test
+     */
+    public function I_can_get_maximal_applicable_strength_for_custom_bow(): void
+    {
+        self::assertTrue(
+            RangedWeaponCode::addNewRangedWeaponCode(
+                'David Bowie',
+                WeaponCategoryCode::getIt(WeaponCategoryCode::BOWS),
+                []
+            )
+        );
+        $customBowCode = RangedWeaponCode::getIt('David Bowie');
+        $bowsTable = new BowsTable();
+        self::assertTrue(
+            $bowsTable->addNewBow(
+                $customBowCode,
+                Strength::getIt(123),
+                new DistanceBonus(5, Tables::getIt()->getDistanceTable()),
+                1,
+                2,
+                PhysicalWoundTypeCode::getIt(PhysicalWoundTypeCode::STAB),
+                3,
+                new Weight(5, Weight::KG, Tables::getIt()->getWeightTable()),
+                true,
+                Strength::getIt(12) // maximal applicable strength
+            )
+        );
+        self::assertSame(12, $bowsTable->getMaximalApplicableStrengthOf($customBowCode));
+    }
+
+    /**
+     * @test
      * @expectedException \DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow
      * @expectedExceptionMessageRegExp ~javelin~
      */
-    public function I_can_not_get_maximal_applicable_strength_for_unknown_bow()
+    public function I_can_not_get_maximal_applicable_strength_for_unknown_bow(): void
     {
         (new BowsTable())->getMaximalApplicableStrengthOf(RangedWeaponCode::JAVELIN);
     }

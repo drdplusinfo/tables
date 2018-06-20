@@ -60,7 +60,8 @@ class CrossbowsTable extends RangedWeaponsTable
             $woundTypeCode,
             $cover,
             $weight,
-            $twoHandedOnly
+            $twoHandedOnly,
+            [] // no custom parameters
         );
     }
 }
