@@ -4,6 +4,8 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Measurements\Volume;
 
 use DrdPlus\Codes\Units\VolumeUnitCode;
+use DrdPlus\Tables\Measurements\Distance\Distance;
+use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Tables\Measurements\Distance\DistanceTable;
 use DrdPlus\Tables\Measurements\Volume\Volume;
 use DrdPlus\Tables\Tables;
@@ -134,8 +136,8 @@ class VolumeTest extends AbstractTestOfMeasurement
      */
     public function I_can_not_convert_too_low_value_to_bonus(): void
     {
-        $distance = new Volume(0.000000009, VolumeUnitCode::CUBIC_METER, Tables::getIt()->getDistanceTable());
-        $distance->getBonus();
+        $volume = new Volume(0.000000009, VolumeUnitCode::CUBIC_METER, Tables::getIt()->getDistanceTable());
+        $volume->getBonus();
     }
 
     /**
@@ -144,7 +146,20 @@ class VolumeTest extends AbstractTestOfMeasurement
      */
     public function I_can_not_convert_too_high_value_to_bonus(): void
     {
-        $distance = new Volume(9999999999, VolumeUnitCode::CUBIC_KILOMETER, Tables::getIt()->getDistanceTable());
-        $distance->getBonus();
+        $volume = new Volume(9999999999, VolumeUnitCode::CUBIC_KILOMETER, Tables::getIt()->getDistanceTable());
+        $volume->getBonus();
+    }
+
+    /**
+     * @test
+     * @link https://pph.drdplus.info/#vypocet_objemu_petilitroveho_korbele_v_prikladu
+     */
+    public function Liters_to_meters_match_expected_conversion(): void
+    {
+        $distance = new Distance(10, Distance::METER, Tables::getIt()->getDistanceTable());
+        self::assertSame(20, $distance->getBonus()->getValue());
+        $cubicMetersBonusValue = $distance->getBonus()->getValue() - 60;
+        $cubicMetersAsDistanceBonus = new DistanceBonus($cubicMetersBonusValue, Tables::getIt()->getDistanceTable());
+        self::assertSame(0.01, $cubicMetersAsDistanceBonus->getDistance(Distance::METER)->getValue());
     }
 }

@@ -5,8 +5,10 @@ namespace DrdPlus\Tables\Measurements\Amount;
 
 use DrdPlus\Tables\Measurements\Bonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementWithBonus;
+use DrdPlus\Tables\Tables;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;
+use Granam\String\StringInterface;
 
 /**
  * @method int getValue
@@ -16,13 +18,21 @@ class Amount extends AbstractMeasurementWithBonus
     public const AMOUNT = 'amount';
 
     /**
-     * @var AmountTable
+     * @param int|IntegerInterface $value
+     * @param Tables $tables
+     * @return Amount
      */
+    public static function getIt($value, Tables $tables): Amount
+    {
+        return new static($value, static::AMOUNT, $tables->getAmountTable());
+    }
+
+    /** @var AmountTable */
     private $amountTable;
 
     /**
      * @param int|IntegerInterface $value
-     * @param string $unit
+     * @param string|StringInterface $unit
      * @param AmountTable $amountTable
      * @throws \DrdPlus\Tables\Measurements\Exceptions\UnknownUnit
      * @throws \Granam\Integer\Tools\Exceptions\WrongParameterType
