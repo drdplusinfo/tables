@@ -22,7 +22,6 @@ use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorWearingSkillTable;
-use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Projectiles\ArrowsTable;
 use DrdPlus\Tables\Armaments\Projectiles\DartsTable;
 use DrdPlus\Tables\Armaments\Projectiles\SlingStonesTable;
@@ -128,16 +127,6 @@ class TablesTest extends TestWithMockery
 
     /**
      * @test
-     */
-    public function I_can_get_armourer(): void
-    {
-        $tables = Tables::getIt();
-        self::assertInstanceOf(Armourer::class, $armourer = $tables->getArmourer());
-        self::assertSame($armourer, $tables->getArmourer(), 'Expected the same instance of ' . Armourer::class);
-    }
-
-    /**
-     * @test
      * @dataProvider provideArmamentCodeAndExpectedTableClass
      * @param ArmamentCode $armamentCode
      * @param string $expectedTableClass
@@ -147,6 +136,10 @@ class TablesTest extends TestWithMockery
         self::assertInstanceOf($expectedTableClass, Tables::getIt()->getArmamentsTableByArmamentCode($armamentCode));
     }
 
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
     public function provideArmamentCodeAndExpectedTableClass(): array
     {
         $values = [];
@@ -171,12 +164,12 @@ class TablesTest extends TestWithMockery
     /**
      * @param string $class
      * @return array
+     * @throws \ReflectionException
      */
     private function getCodes(string $class): array
     {
         $codes = [];
         /** @var AbstractCode $class */
-        /** @noinspection PhpUnhandledExceptionInspection */
         $reflectionClass = new \ReflectionClass($class);
         foreach ($reflectionClass->getConstants() as $constant) {
             $codes[] = $class::getIt($constant);

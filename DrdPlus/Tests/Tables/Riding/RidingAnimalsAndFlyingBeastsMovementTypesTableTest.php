@@ -5,8 +5,8 @@ namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Codes\Transport\RidingAnimalMovementCode;
-use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
+use DrdPlus\Tables\Properties\EnduranceInterface;
 use DrdPlus\Tables\Riding\RidingAnimalsAndFlyingBeastsMovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
@@ -19,7 +19,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_header()
+    public function I_can_get_header(): void
     {
         self::assertSame(
             [
@@ -35,7 +35,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_all_values()
+    public function I_can_get_all_values(): void
     {
         self::assertSame(
             [
@@ -266,11 +266,11 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
 
     /**
      * @param $value
-     * @return \Mockery\MockInterface|Endurance
+     * @return \Mockery\MockInterface|EnduranceInterface
      */
-    private function createEndurance($value)
+    private function createEndurance($value): EnduranceInterface
     {
-        $endurance = $this->mockery(Endurance::class);
+        $endurance = $this->mockery(EnduranceInterface::class);
         $endurance->shouldReceive('getValue')
             ->andReturn($value);
 
@@ -280,7 +280,7 @@ class RidingAnimalsAndFlyingBeastsMovementTypesTableTest extends TableTest
     /**
      * @test
      */
-    public function I_can_get_required_time_bonus_to_walk_after_full_gallop()
+    public function I_can_get_required_time_bonus_to_walk_after_full_gallop(): void
     {
         $speedTable = new SpeedTable();
         $timeTable = new TimeTable();

@@ -25,7 +25,6 @@ use DrdPlus\Tables\Armaments\Armors\ArmorWearingSkillTable;
 use DrdPlus\Tables\Armaments\Armors\ArmorStrengthSanctionsTable;
 use DrdPlus\Tables\Armaments\Armors\BodyArmorsTable;
 use DrdPlus\Tables\Armaments\Armors\HelmsTable;
-use DrdPlus\Tables\Armaments\Armourer;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmament;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownArmor;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeaponlike;
@@ -130,14 +129,8 @@ class Tables extends StrictObject implements \IteratorAggregate
     {
     }
 
-    /**
-     * @var array|Table[]
-     */
+    /** @var array|Table[] */
     private $tables = [];
-    /**
-     * @var Armourer
-     */
-    private $armourer;
 
     /**
      * @return AmountTable
@@ -1124,18 +1117,6 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getCatchQualitiesTable(),
             $this->getMaterialResistancesTable(),
         ]);
-    }
-
-    /**
-     * @return Armourer
-     */
-    public function getArmourer(): Armourer
-    {
-        if ($this->armourer === null) {
-            $this->armourer = new Armourer($this);
-        }
-
-        return $this->armourer;
     }
 
     /**

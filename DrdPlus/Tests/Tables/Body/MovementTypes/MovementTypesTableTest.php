@@ -5,13 +5,12 @@ namespace DrdPlus\Tests\Tables\Body\MovementTypes;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
-use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
-use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
+use DrdPlus\Tables\Properties\EnduranceInterface;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 
@@ -235,7 +234,6 @@ class MovementTypesTableTest extends TableTest
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         $timeBonus = $movementTypesTable->getMaximumTimeBonusToSprint($this->createEndurance(123));
-        self::assertInstanceOf(TimeBonus::class, $timeBonus);
         self::assertSame(123, $timeBonus->getValue());
     }
 
@@ -246,17 +244,16 @@ class MovementTypesTableTest extends TableTest
     {
         $movementTypesTable = new MovementTypesTable($this->speedTable, $this->timeTable);
         $timeBonus = $movementTypesTable->getRequiredTimeBonusToWalkAfterFullSprint($this->createEndurance(456));
-        self::assertInstanceOf(TimeBonus::class, $timeBonus);
         self::assertSame(476, $timeBonus->getValue());
     }
 
     /**
      * @param $value
-     * @return \Mockery\MockInterface|Endurance
+     * @return \Mockery\MockInterface|EnduranceInterface
      */
-    private function createEndurance($value)
+    private function createEndurance($value): EnduranceInterface
     {
-        $endurance = $this->mockery(Endurance::class);
+        $endurance = $this->mockery(EnduranceInterface::class);
         $endurance->shouldReceive('getValue')
             ->andReturn($value);
 

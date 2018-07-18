@@ -5,11 +5,6 @@ namespace DrdPlus\Tables\Combat;
 
 use DrdPlus\Codes\CombatCharacteristicCode;
 use DrdPlus\Codes\Properties\PropertyCode;
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Combat\Attack;
-use DrdPlus\Properties\Combat\Defense;
-use DrdPlus\Properties\Combat\Shooting;
 use DrdPlus\Tables\Partials\AbstractTable;
 
 /**
@@ -55,39 +50,6 @@ class CombatCharacteristicsTable extends AbstractTable
             CombatCharacteristicCode::DEFENSE => [self::PROPERTY => PropertyCode::AGILITY, self::DIVIDE_BY => 2, self::ROUND_UP => true, self::ROUND_DOWN => false],
             CombatCharacteristicCode::SHOOTING => [self::PROPERTY => PropertyCode::KNACK, self::DIVIDE_BY => 2, self::ROUND_UP => false, self::ROUND_DOWN => true],
         ];
-    }
-
-    /**
-     * As you can see Attack can be created safely directly, without this table.
-     *
-     * @param Agility $agility
-     * @return Attack
-     */
-    public function getAttack(Agility $agility): Attack
-    {
-        return Attack::getIt($agility);
-    }
-
-    /**
-     * As you can see Defense can be created safely directly, without this table.
-     *
-     * @param Agility $agility
-     * @return Defense
-     */
-    public function getDefense(Agility $agility): Defense
-    {
-        return Defense::getIt($agility);
-    }
-
-    /**
-     * As you can see Shooting can be created safely directly, without this table.
-     *
-     * @param Knack $knack
-     * @return Shooting
-     */
-    public function getShooting(Knack $knack): Shooting
-    {
-        return Shooting::getIt($knack);
     }
 
 }

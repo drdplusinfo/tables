@@ -9,14 +9,14 @@ use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpMovementCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Body\BodyWeight;
-use DrdPlus\Properties\Derived\Athletics;
-use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Properties\AthleticsInterface;
+use DrdPlus\Tables\Properties\BodyWeightInterface;
+use DrdPlus\Tables\Properties\SpeedInterface;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\PositiveInteger;
 
@@ -63,7 +63,6 @@ class JumpsAndFallsTable extends AbstractFileTable
      */
     public function getModifierToJump(JumpTypeCode $jumpTypeCode, Distance $ranDistance): int
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getValue($jumpTypeCode, $this->getJumpMovementCodeByRanDistance($ranDistance));
     }
 
@@ -81,16 +80,16 @@ class JumpsAndFallsTable extends AbstractFileTable
     }
 
     /**
-     * @param Speed $speed
-     * @param Athletics $athletics
+     * @param SpeedInterface $speed
+     * @param AthleticsInterface $athletics
      * @param JumpTypeCode $jumpTypeCode
      * @param Distance $ranDistance
      * @param Roll1d6 $roll1D6
      * @return int
      */
     public function getJumpLength(
-        Speed $speed,
-        Athletics $athletics,
+        SpeedInterface $speed,
+        AthleticsInterface $athletics,
         JumpTypeCode $jumpTypeCode,
         Distance $ranDistance,
         Roll1d6 $roll1D6
@@ -104,12 +103,12 @@ class JumpsAndFallsTable extends AbstractFileTable
 
     /**
      * @param Distance $fallHeight
-     * @param BodyWeight $bodyWeight
+     * @param BodyWeightInterface $bodyWeight
      * @param Weight|null $weightOfItemsOverwhelmedBy
      * @param Roll1d6 $roll1D6
      * @param bool $itIsControlledJump
      * @param Agility $agility
-     * @param Athletics $athletics
+     * @param AthleticsInterface $athletics
      * @param LandingSurfaceCode $landingSurfaceCode
      * @param PositiveInteger $bodyArmorProtection
      * @param bool $hitToHead
@@ -119,12 +118,12 @@ class JumpsAndFallsTable extends AbstractFileTable
      */
     public function getWoundsFromJumpOrFall(
         Distance $fallHeight,
-        BodyWeight $bodyWeight,
+        BodyWeightInterface $bodyWeight,
         Weight $weightOfItemsOverwhelmedBy = null,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
         Agility $agility,
-        Athletics $athletics,
+        AthleticsInterface $athletics,
         LandingSurfaceCode $landingSurfaceCode,
         PositiveInteger $bodyArmorProtection,
         bool $hitToHead,
@@ -162,7 +161,6 @@ class JumpsAndFallsTable extends AbstractFileTable
             $woundsValue = 0;
         }
 
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new Wounds($woundsValue, $tables->getWoundsTable());
     }
 }

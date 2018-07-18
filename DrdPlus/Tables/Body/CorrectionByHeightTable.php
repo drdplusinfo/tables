@@ -4,9 +4,9 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Body;
 
 use DrdPlus\Codes\Properties\PropertyCode;
-use DrdPlus\Properties\Body\Height;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use DrdPlus\Tables\Properties\HeightInterface;
 
 /**
  * See PPH page 40 right column bottom, @link https://pph.drdplus.info/#tabulka_oprav_za_vysku
@@ -42,14 +42,13 @@ class CorrectionByHeightTable extends AbstractFileTable
     }
 
     /**
-     * @param Height $height
+     * @param HeightInterface $height
      * @return int
      * @throws \DrdPlus\Tables\Body\Exceptions\UnexpectedHeightToGetCorrectionFor
      */
-    public function getCorrectionByHeight(Height $height): int
+    public function getCorrectionByHeight(HeightInterface $height): int
     {
         try {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return $this->getValue($height, self::CORRECTION);
         } catch (RequiredRowNotFound $requiredRowNotFound) {
             throw new Exceptions\UnexpectedHeightToGetCorrectionFor(

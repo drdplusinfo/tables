@@ -4,14 +4,15 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tests\Tables\Body\FatigueByLoad;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
-use DrdPlus\Tables\Body\FatigueByLoad\AthleticsInterface;
 use DrdPlus\Tables\Body\FatigueByLoad\FatigueByLoadTable;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
+use DrdPlus\Tables\Properties\AthleticsInterface;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerInterface;
+use Granam\Integer\PositiveInteger;
 
 class FatigueByLoadTableTest extends TableTest
 {
@@ -66,11 +67,11 @@ class FatigueByLoadTableTest extends TableTest
      * @param int $bonusValue
      * @return \Mockery\MockInterface|AthleticsInterface
      */
-    private function createAthletic($bonusValue)
+    private function createAthletic($bonusValue): AthleticsInterface
     {
         $athletics = $this->mockery(AthleticsInterface::class);
         $athletics->shouldReceive('getAthleticsBonus')
-            ->andReturn($bonus = $this->mockery(IntegerInterface::class));
+            ->andReturn($bonus = $this->mockery(PositiveInteger::class));
         $bonus->shouldReceive('getValue')
             ->andReturn($bonusValue);
 
@@ -99,7 +100,7 @@ class FatigueByLoadTableTest extends TableTest
         }
     }
 
-    public function provideMissingStrengthAthleticsAndExpectedPeriod()
+    public function provideMissingStrengthAthleticsAndExpectedPeriod(): array
     {
         $timeTable = new TimeTable();
 

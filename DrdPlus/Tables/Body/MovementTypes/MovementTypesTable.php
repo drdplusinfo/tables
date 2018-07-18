@@ -6,7 +6,6 @@ namespace DrdPlus\Tables\Body\MovementTypes;
 use DrdPlus\Codes\Partials\Exceptions\UnknownValueForCode;
 use DrdPlus\Codes\Units\TimeUnitCode;
 use DrdPlus\Codes\Transport\MovementTypeCode;
-use DrdPlus\Properties\Derived\Endurance;
 use DrdPlus\Tables\Measurements\Fatigue\Fatigue;
 use DrdPlus\Tables\Measurements\Speed\SpeedBonus;
 use DrdPlus\Tables\Measurements\Speed\SpeedTable;
@@ -15,6 +14,7 @@ use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Measurements\Time\TimeTable;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
+use DrdPlus\Tables\Properties\EnduranceInterface;
 use DrdPlus\Tables\Tables;
 use Granam\String\StringInterface;
 use Granam\Tools\ValueDescriber;
@@ -278,22 +278,22 @@ class MovementTypesTable extends AbstractFileTable
     }
 
     /**
-     * @param Endurance $endurance
+     * @param EnduranceInterface $endurance
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getMaximumTimeBonusToSprint(Endurance $endurance): TimeBonus
+    public function getMaximumTimeBonusToSprint(EnduranceInterface $endurance): TimeBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new TimeBonus($endurance->getValue(), $this->timeTable);
     }
 
     /**
-     * @param Endurance $endurance
+     * @param EnduranceInterface $endurance
      * @return TimeBonus
      * @throws \DrdPlus\Tables\Measurements\Time\Exceptions\CanNotConvertThatBonusToTime
      */
-    public function getRequiredTimeBonusToWalkAfterFullSprint(Endurance $endurance): TimeBonus
+    public function getRequiredTimeBonusToWalkAfterFullSprint(EnduranceInterface $endurance): TimeBonus
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new TimeBonus($endurance->getValue() + 20, $this->timeTable);

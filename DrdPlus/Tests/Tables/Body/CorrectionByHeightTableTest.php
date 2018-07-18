@@ -6,6 +6,7 @@ namespace DrdPlus\Tests\Tables\Body;
 use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Properties\Body\Height;
 use DrdPlus\Tables\Body\CorrectionByHeightTable;
+use DrdPlus\Tables\Properties\HeightInterface;
 use DrdPlus\Tests\Tables\TableTest;
 
 class CorrectionByHeightTableTest extends TableTest
@@ -48,11 +49,11 @@ class CorrectionByHeightTableTest extends TableTest
 
     /**
      * @param $value
-     * @return \Mockery\MockInterface|Height
+     * @return \Mockery\MockInterface|HeightInterface
      */
     private function createHeight($value)
     {
-        $height = $this->mockery(Height::class);
+        $height = $this->mockery(HeightInterface::class);
         $height->shouldReceive('getValue')
             ->andReturn($value);
         $height->shouldReceive('__toString')

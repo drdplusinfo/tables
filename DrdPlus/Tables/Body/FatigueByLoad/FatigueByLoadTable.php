@@ -6,6 +6,7 @@ namespace DrdPlus\Tables\Body\FatigueByLoad;
 use DrdPlus\Tables\Body\MovementTypes\MovementTypesTable;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Partials\AbstractFileTable;
+use DrdPlus\Tables\Properties\AthleticsInterface;
 use Granam\Integer\Tools\ToInteger;
 
 /**

@@ -7,9 +7,6 @@ use DrdPlus\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Body\BodyWeight;
-use DrdPlus\Properties\Derived\Athletics;
-use DrdPlus\Properties\Derived\Speed;
 use DrdPlus\Tables\Activities\JumpsAndFallsTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;
@@ -18,6 +15,9 @@ use DrdPlus\Tables\Measurements\Weight\WeightBonus;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;
 use DrdPlus\Tables\Measurements\Wounds\WoundsBonus;
 use DrdPlus\Tables\Measurements\Wounds\WoundsTable;
+use DrdPlus\Tables\Properties\AthleticsInterface;
+use DrdPlus\Tables\Properties\BodyWeightInterface;
+use DrdPlus\Tables\Properties\SpeedInterface;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerWithHistory;
@@ -72,11 +72,11 @@ class JumpsAndFallsTableTest extends TableTest
 
     /**
      * @param int $value
-     * @return \Mockery\MockInterface|Speed
+     * @return \Mockery\MockInterface|SpeedInterface
      */
     private function createSpeed($value)
     {
-        $speed = $this->mockery(Speed::class);
+        $speed = $this->mockery(SpeedInterface::class);
         $speed->shouldReceive('getValue')
             ->andReturn($value);
 
@@ -85,11 +85,11 @@ class JumpsAndFallsTableTest extends TableTest
 
     /**
      * @param int $value
-     * @return \Mockery\MockInterface|Athletics
+     * @return \Mockery\MockInterface|AthleticsInterface
      */
     private function createAthletics($value)
     {
-        $athletics = $this->mockery(Athletics::class);
+        $athletics = $this->mockery(AthleticsInterface::class);
         $athletics->shouldReceive('getAthleticsBonus')
             ->andReturn($athleticsBonus = $this->mockery(PositiveInteger::class));
         $athleticsBonus->shouldReceive('getValue')
@@ -171,7 +171,6 @@ class JumpsAndFallsTableTest extends TableTest
                     )
                 )
             );
-        self::assertInstanceOf(Wounds::class, $wounds);
         self::assertSame($expectedWounds, $wounds->getValue());
     }
 
@@ -223,11 +222,11 @@ class JumpsAndFallsTableTest extends TableTest
 
     /**
      * @param int $value
-     * @return \Mockery\MockInterface|BodyWeight
+     * @return \Mockery\MockInterface|BodyWeightInterface
      */
-    private function createBodyWeight($value): BodyWeight
+    private function createBodyWeight($value): BodyWeightInterface
     {
-        $weight = $this->mockery(BodyWeight::class);
+        $weight = $this->mockery(BodyWeightInterface::class);
         $weight->shouldReceive('getValue')
             ->andReturn($value);
 

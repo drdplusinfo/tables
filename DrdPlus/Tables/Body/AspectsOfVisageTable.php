@@ -4,15 +4,6 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 namespace DrdPlus\Tables\Body;
 
 use DrdPlus\Codes\Properties\PropertyCode;
-use DrdPlus\Properties\Base\Agility;
-use DrdPlus\Properties\Base\Charisma;
-use DrdPlus\Properties\Base\Intelligence;
-use DrdPlus\Properties\Base\Knack;
-use DrdPlus\Properties\Base\Strength;
-use DrdPlus\Properties\Base\Will;
-use DrdPlus\Properties\Derived\Beauty;
-use DrdPlus\Properties\Derived\Dangerousness;
-use DrdPlus\Properties\Derived\Dignity;
 use DrdPlus\Tables\Partials\AbstractTable;
 
 /**
@@ -79,38 +70,4 @@ class AspectsOfVisageTable extends AbstractTable
             ],
         ];
     }
-
-    /**
-     * @param Agility $agility
-     * @param Knack $knack
-     * @param Charisma $charisma
-     * @return Beauty
-     */
-    public function getBeauty(Agility $agility, Knack $knack, Charisma $charisma): Beauty
-    {
-        return Beauty::getIt($agility, $knack, $charisma);
-    }
-
-    /**
-     * @param Strength $strength
-     * @param Will $will
-     * @param Charisma $charisma
-     * @return Dangerousness
-     */
-    public function getDangerousness(Strength $strength, Will $will, Charisma $charisma): Dangerousness
-    {
-        return Dangerousness::getIt($strength, $will, $charisma);
-    }
-
-    /**
-     * @param Intelligence $intelligence
-     * @param Will $will
-     * @param Charisma $charisma
-     * @return Dignity
-     */
-    public function getDignity(Intelligence $intelligence, Will $will, Charisma $charisma): Dignity
-    {
-        return Dignity::getIt($intelligence, $will, $charisma);
-    }
-
 }
