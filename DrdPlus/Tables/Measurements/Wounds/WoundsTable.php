@@ -3,11 +3,11 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Measurements\Wounds;
 
-use DrdPlus\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\MeasurementWithBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractBonus;
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
+use Granam\DiceRolls\Templates\Rollers\Roller1d6;
 
 /**
  * Note: fatigue table is equal to wounds table.

@@ -3,10 +3,10 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Environments;
 
-use DrdPlus\DiceRolls\Templates\Rolls\Roll2d6DrdPlus;
 use DrdPlus\Codes\Environment\MaterialCode;
 use DrdPlus\Tables\Environments\MaterialResistancesTable;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\DiceRolls\Templates\Rolls\Roll2d6DrdPlus;
 use Granam\Integer\IntegerObject;
 
 class MaterialResistancesTableTest extends TableTest

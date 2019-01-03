@@ -3,7 +3,6 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Activities;
 
-use DrdPlus\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
 use DrdPlus\Properties\Base\Agility;
@@ -20,6 +19,7 @@ use DrdPlus\Tables\Properties\BodyWeightInterface;
 use DrdPlus\Tables\Properties\SpeedInterface;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tests\Tables\TableTest;
+use Granam\DiceRolls\Templates\Rolls\Roll1d6;
 use Granam\Integer\IntegerWithHistory;
 use Granam\Integer\PositiveInteger;
 use Granam\Integer\PositiveIntegerObject;
@@ -102,7 +102,7 @@ class JumpsAndFallsTableTest extends TableTest
      * @param int $value
      * @return \Mockery\MockInterface|Roll1d6
      */
-    private function createRoll1d6($value)
+    private function createRoll1d6($value): Roll1d6
     {
         $roll1d6 = $this->mockery(Roll1d6::class);
         $roll1d6->shouldReceive('getValue')
@@ -133,7 +133,7 @@ class JumpsAndFallsTableTest extends TableTest
     public function I_can_get_wounds_from_jump_or_fall(
         float $distanceInMeters,
         int $bodyWeight,
-        int $itemsWeightBonus = null,
+        ?int $itemsWeightBonus,
         int $roll1d6,
         bool $itIsControlledJump,
         int $bodyArmorProtectionValue,

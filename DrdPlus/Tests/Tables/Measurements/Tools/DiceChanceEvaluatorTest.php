@@ -3,10 +3,11 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
-use DrdPlus\DiceRolls\Roll;
-use DrdPlus\DiceRolls\Templates\Rollers\Roller1d6;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
+use Granam\DiceRolls\Roll;
+use Granam\DiceRolls\Templates\Rollers\Roller1d6;
 use Granam\Tests\Tools\TestWithMockery;
+use Mockery\MockInterface;
 
 class DiceChanceEvaluatorTest extends TestWithMockery
 {
@@ -26,12 +27,16 @@ class DiceChanceEvaluatorTest extends TestWithMockery
         self::assertSame(1, $evaluator->evaluate(322));
     }
 
-    private function createRoll($value)
+    /**
+     * @param $value
+     * @return Roll|MockInterface
+     */
+    private function createRoll($value): Roll
     {
-        $number = $this->mockery(Roll::class);
-        $number->shouldReceive('getValue')
+        $roll = $this->mockery(Roll::class);
+        $roll->shouldReceive('getValue')
             ->andReturn($value);
 
-        return $number;
+        return $roll;
     }
 }

@@ -3,7 +3,6 @@ declare(strict_types=1); // on PHP 7+ are standard PHP methods strict to types o
 
 namespace DrdPlus\Tables\Activities;
 
-use DrdPlus\DiceRolls\Templates\Rolls\Roll1d6;
 use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpMovementCode;
@@ -18,6 +17,7 @@ use DrdPlus\Tables\Properties\AthleticsInterface;
 use DrdPlus\Tables\Properties\BodyWeightInterface;
 use DrdPlus\Tables\Properties\SpeedInterface;
 use DrdPlus\Tables\Tables;
+use Granam\DiceRolls\Templates\Rolls\Roll1d6;
 use Granam\Integer\PositiveInteger;
 
 /**
@@ -119,7 +119,7 @@ class JumpsAndFallsTable extends AbstractFileTable
     public function getWoundsFromJumpOrFall(
         Distance $fallHeight,
         BodyWeightInterface $bodyWeight,
-        Weight $weightOfItemsOverwhelmedBy = null,
+        ?Weight $weightOfItemsOverwhelmedBy,
         Roll1d6 $roll1D6,
         bool $itIsControlledJump,
         Agility $agility,

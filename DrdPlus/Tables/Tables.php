@@ -107,15 +107,16 @@ use DrdPlus\Tables\Professions\ProfessionPrimaryPropertiesTable;
 use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Races\SightRangesTable;
+use DrdPlus\Tables\Theurgist\Spells\FormulasTable;
+use DrdPlus\Tables\Theurgist\Spells\ModifiersTable;
+use DrdPlus\Tables\Theurgist\Spells\ProfilesTable;
+use DrdPlus\Tables\Theurgist\Spells\SpellTraitsTable;
 use Granam\Strict\Object\StrictObject;
 
 class Tables extends StrictObject implements \IteratorAggregate
 {
     private static $tablesInstance;
 
-    /**
-     * @return Tables
-     */
     public static function getIt(): Tables
     {
         if (self::$tablesInstance === null) {
@@ -132,9 +133,6 @@ class Tables extends StrictObject implements \IteratorAggregate
     /** @var array|Table[] */
     private $tables = [];
 
-    /**
-     * @return AmountTable
-     */
     public function getAmountTable(): AmountTable
     {
         if (!\array_key_exists(AmountTable::class, $this->tables)) {
@@ -144,9 +142,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AmountTable::class];
     }
 
-    /**
-     * @return BaseOfWoundsTable
-     */
     public function getBaseOfWoundsTable(): BaseOfWoundsTable
     {
         if (!\array_key_exists(BaseOfWoundsTable::class, $this->tables)) {
@@ -156,9 +151,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BaseOfWoundsTable::class];
     }
 
-    /**
-     * @return DistanceTable
-     */
     public function getDistanceTable(): DistanceTable
     {
         if (!\array_key_exists(DistanceTable::class, $this->tables)) {
@@ -168,9 +160,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[DistanceTable::class];
     }
 
-    /**
-     * @return ExperiencesTable
-     */
     public function getExperiencesTable(): ExperiencesTable
     {
         if (!\array_key_exists(ExperiencesTable::class, $this->tables)) {
@@ -180,9 +169,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ExperiencesTable::class];
     }
 
-    /**
-     * @return FatigueTable
-     */
     public function getFatigueTable(): FatigueTable
     {
         if (!\array_key_exists(FatigueTable::class, $this->tables)) {
@@ -192,9 +178,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[FatigueTable::class];
     }
 
-    /**
-     * @return SpeedTable
-     */
     public function getSpeedTable(): SpeedTable
     {
         if (!\array_key_exists(SpeedTable::class, $this->tables)) {
@@ -204,9 +187,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SpeedTable::class];
     }
 
-    /**
-     * @return TimeTable
-     */
     public function getTimeTable(): TimeTable
     {
         if (!\array_key_exists(TimeTable::class, $this->tables)) {
@@ -216,9 +196,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[TimeTable::class];
     }
 
-    /**
-     * @return BonusAdjustmentByTimeTable
-     */
     public function getBonusAdjustmentByTimeTable(): BonusAdjustmentByTimeTable
     {
         if (!\array_key_exists(BonusAdjustmentByTimeTable::class, $this->tables)) {
@@ -228,9 +205,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BonusAdjustmentByTimeTable::class];
     }
 
-    /**
-     * @return WeightTable
-     */
     public function getWeightTable(): WeightTable
     {
         if (!\array_key_exists(WeightTable::class, $this->tables)) {
@@ -240,9 +214,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[WeightTable::class];
     }
 
-    /**
-     * @return WoundsTable
-     */
     public function getWoundsTable(): WoundsTable
     {
         if (!\array_key_exists(WoundsTable::class, $this->tables)) {
@@ -252,9 +223,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[WoundsTable::class];
     }
 
-    /**
-     * @return FemaleModifiersTable
-     */
     public function getFemaleModifiersTable(): FemaleModifiersTable
     {
         if (!\array_key_exists(FemaleModifiersTable::class, $this->tables)) {
@@ -264,9 +232,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[FemaleModifiersTable::class];
     }
 
-    /**
-     * @return RacesTable
-     */
     public function getRacesTable(): RacesTable
     {
         if (!\array_key_exists(RacesTable::class, $this->tables)) {
@@ -276,9 +241,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RacesTable::class];
     }
 
-    /**
-     * @return SkillsByBackgroundPointsTable
-     */
     public function getSkillsByBackgroundPointsTable(): SkillsByBackgroundPointsTable
     {
         if (!\array_key_exists(SkillsByBackgroundPointsTable::class, $this->tables)) {
@@ -288,9 +250,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SkillsByBackgroundPointsTable::class];
     }
 
-    /**
-     * @return BodyArmorsTable
-     */
     public function getBodyArmorsTable(): BodyArmorsTable
     {
         if (!\array_key_exists(BodyArmorsTable::class, $this->tables)) {
@@ -300,9 +259,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BodyArmorsTable::class];
     }
 
-    /**
-     * @return HelmsTable
-     */
     public function getHelmsTable(): HelmsTable
     {
         if (!\array_key_exists(HelmsTable::class, $this->tables)) {
@@ -312,9 +268,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[HelmsTable::class];
     }
 
-    /**
-     * @return ArmorStrengthSanctionsTable
-     */
     public function getArmorStrengthSanctionsTable(): ArmorStrengthSanctionsTable
     {
         if (!\array_key_exists(ArmorStrengthSanctionsTable::class, $this->tables)) {
@@ -324,9 +277,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ArmorStrengthSanctionsTable::class];
     }
 
-    /**
-     * @return ArmorWearingSkillTable
-     */
     public function getArmorWearingSkillTable(): ArmorWearingSkillTable
     {
         if (!\array_key_exists(ArmorWearingSkillTable::class, $this->tables)) {
@@ -336,9 +286,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ArmorWearingSkillTable::class];
     }
 
-    /**
-     * @return MeleeWeaponStrengthSanctionsTable
-     */
     public function getMeleeWeaponStrengthSanctionsTable(): MeleeWeaponStrengthSanctionsTable
     {
         if (!\array_key_exists(MeleeWeaponStrengthSanctionsTable::class, $this->tables)) {
@@ -348,9 +295,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MeleeWeaponStrengthSanctionsTable::class];
     }
 
-    /**
-     * @return RangedWeaponStrengthSanctionsTable
-     */
     public function getRangedWeaponStrengthSanctionsTable(): RangedWeaponStrengthSanctionsTable
     {
         if (!\array_key_exists(RangedWeaponStrengthSanctionsTable::class, $this->tables)) {
@@ -360,9 +304,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RangedWeaponStrengthSanctionsTable::class];
     }
 
-    /**
-     * @return MissingWeaponSkillTable
-     */
     public function getMissingWeaponSkillTable(): MissingWeaponSkillTable
     {
         if (!\array_key_exists(MissingWeaponSkillTable::class, $this->tables)) {
@@ -372,9 +313,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MissingWeaponSkillTable::class];
     }
 
-    /**
-     * @return ShieldsTable
-     */
     public function getShieldsTable(): ShieldsTable
     {
         if (!\array_key_exists(ShieldsTable::class, $this->tables)) {
@@ -384,9 +322,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ShieldsTable::class];
     }
 
-    /**
-     * @return ShieldStrengthSanctionsTable
-     */
     public function getShieldStrengthSanctionsTable(): ShieldStrengthSanctionsTable
     {
         if (!\array_key_exists(ShieldStrengthSanctionsTable::class, $this->tables)) {
@@ -396,9 +331,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ShieldStrengthSanctionsTable::class];
     }
 
-    /**
-     * @return ShieldUsageSkillTable
-     */
     public function getShieldUsageSkillTable(): ShieldUsageSkillTable
     {
         if (!\array_key_exists(ShieldUsageSkillTable::class, $this->tables)) {
@@ -408,9 +340,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ShieldUsageSkillTable::class];
     }
 
-    /**
-     * @return AxesTable
-     */
     public function getAxesTable(): AxesTable
     {
         if (!\array_key_exists(AxesTable::class, $this->tables)) {
@@ -420,9 +349,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AxesTable::class];
     }
 
-    /**
-     * @return KnivesAndDaggersTable
-     */
     public function getKnivesAndDaggersTable(): KnivesAndDaggersTable
     {
         if (!\array_key_exists(KnivesAndDaggersTable::class, $this->tables)) {
@@ -432,9 +358,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[KnivesAndDaggersTable::class];
     }
 
-    /**
-     * @return MacesAndClubsTable
-     */
     public function getMacesAndClubsTable(): MacesAndClubsTable
     {
         if (!\array_key_exists(MacesAndClubsTable::class, $this->tables)) {
@@ -444,9 +367,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MacesAndClubsTable::class];
     }
 
-    /**
-     * @return MorningstarsAndMorgensternsTable
-     */
     public function getMorningstarsAndMorgensternsTable(): MorningstarsAndMorgensternsTable
     {
         if (!\array_key_exists(MorningstarsAndMorgensternsTable::class, $this->tables)) {
@@ -456,9 +376,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MorningstarsAndMorgensternsTable::class];
     }
 
-    /**
-     * @return SabersAndBowieKnivesTable
-     */
     public function getSabersAndBowieKnivesTable(): SabersAndBowieKnivesTable
     {
         if (!\array_key_exists(SabersAndBowieKnivesTable::class, $this->tables)) {
@@ -468,9 +385,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SabersAndBowieKnivesTable::class];
     }
 
-    /**
-     * @return StaffsAndSpearsTable
-     */
     public function getStaffsAndSpearsTable(): StaffsAndSpearsTable
     {
         if (!\array_key_exists(StaffsAndSpearsTable::class, $this->tables)) {
@@ -480,9 +394,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[StaffsAndSpearsTable::class];
     }
 
-    /**
-     * @return SwordsTable
-     */
     public function getSwordsTable(): SwordsTable
     {
         if (!\array_key_exists(SwordsTable::class, $this->tables)) {
@@ -492,9 +403,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SwordsTable::class];
     }
 
-    /**
-     * @return VoulgesAndTridentsTable
-     */
     public function getVoulgesAndTridentsTable(): VoulgesAndTridentsTable
     {
         if (!\array_key_exists(VoulgesAndTridentsTable::class, $this->tables)) {
@@ -504,9 +412,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[VoulgesAndTridentsTable::class];
     }
 
-    /**
-     * @return UnarmedTable
-     */
     public function getUnarmedTable(): UnarmedTable
     {
         if (!\array_key_exists(UnarmedTable::class, $this->tables)) {
@@ -516,9 +421,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[UnarmedTable::class];
     }
 
-    /**
-     * @return ArrowsTable
-     */
     public function getArrowsTable(): ArrowsTable
     {
         if (!\array_key_exists(ArrowsTable::class, $this->tables)) {
@@ -528,9 +430,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ArrowsTable::class];
     }
 
-    /**
-     * @return BowsTable
-     */
     public function getBowsTable(): BowsTable
     {
         if (!\array_key_exists(BowsTable::class, $this->tables)) {
@@ -540,9 +439,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BowsTable::class];
     }
 
-    /**
-     * @return DartsTable
-     */
     public function getDartsTable(): DartsTable
     {
         if (!\array_key_exists(DartsTable::class, $this->tables)) {
@@ -552,9 +448,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[DartsTable::class];
     }
 
-    /**
-     * @return CrossbowsTable
-     */
     public function getCrossbowsTable(): CrossbowsTable
     {
         if (!\array_key_exists(CrossbowsTable::class, $this->tables)) {
@@ -564,9 +457,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CrossbowsTable::class];
     }
 
-    /**
-     * @return SlingStonesTable
-     */
     public function getSlingStonesTable(): SlingStonesTable
     {
         if (!\array_key_exists(SlingStonesTable::class, $this->tables)) {
@@ -576,9 +466,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SlingStonesTable::class];
     }
 
-    /**
-     * @return ThrowingWeaponsTable
-     */
     public function getThrowingWeaponsTable(): ThrowingWeaponsTable
     {
         if (!\array_key_exists(ThrowingWeaponsTable::class, $this->tables)) {
@@ -588,9 +475,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ThrowingWeaponsTable::class];
     }
 
-    /**
-     * @return HealingByActivityTable
-     */
     public function getHealingByActivityTable(): HealingByActivityTable
     {
         if (!\array_key_exists(HealingByActivityTable::class, $this->tables)) {
@@ -600,9 +484,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[HealingByActivityTable::class];
     }
 
-    /**
-     * @return HealingByConditionsTable
-     */
     public function getHealingByConditionsTable(): HealingByConditionsTable
     {
         if (!\array_key_exists(HealingByConditionsTable::class, $this->tables)) {
@@ -612,9 +493,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[HealingByConditionsTable::class];
     }
 
-    /**
-     * @return MovementTypesTable
-     */
     public function getMovementTypesTable(): MovementTypesTable
     {
         if (!\array_key_exists(MovementTypesTable::class, $this->tables)) {
@@ -624,9 +502,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MovementTypesTable::class];
     }
 
-    /**
-     * @return ImpassibilityOfTerrainTable
-     */
     public function getImpassibilityOfTerrainTable(): ImpassibilityOfTerrainTable
     {
         if (!\array_key_exists(ImpassibilityOfTerrainTable::class, $this->tables)) {
@@ -636,9 +511,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ImpassibilityOfTerrainTable::class];
     }
 
-    /**
-     * @return AttackNumberByDistanceTable
-     */
     public function getAttackNumberByDistanceTable(): AttackNumberByDistanceTable
     {
         if (!\array_key_exists(AttackNumberByDistanceTable::class, $this->tables)) {
@@ -648,9 +520,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AttackNumberByDistanceTable::class];
     }
 
-    /**
-     * @return AttackNumberByContinuousDistanceTable
-     */
     public function getAttackNumberByContinuousDistanceTable(): AttackNumberByContinuousDistanceTable
     {
         if (!\array_key_exists(AttackNumberByContinuousDistanceTable::class, $this->tables)) {
@@ -660,9 +529,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AttackNumberByContinuousDistanceTable::class];
     }
 
-    /**
-     * @return FatigueByLoadTable
-     */
     public function getFatigueByLoadTable(): FatigueByLoadTable
     {
         if (!\array_key_exists(FatigueByLoadTable::class, $this->tables)) {
@@ -672,9 +538,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[FatigueByLoadTable::class];
     }
 
-    /**
-     * @return RestingBySituationTable
-     */
     public function getRestingBySituationTable(): RestingBySituationTable
     {
         if (!\array_key_exists(RestingBySituationTable::class, $this->tables)) {
@@ -684,9 +547,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RestingBySituationTable::class];
     }
 
-    /**
-     * @return RidesByMovementTypeTable
-     */
     public function getRidesByMovementTypeTable(): RidesByMovementTypeTable
     {
         if (!\array_key_exists(RidesByMovementTypeTable::class, $this->tables)) {
@@ -696,9 +556,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RidesByMovementTypeTable::class];
     }
 
-    /**
-     * @return RidingAnimalsAndFlyingBeastsMovementTypesTable
-     */
     public function getRidingAnimalsAndFlyingBeastsMovementTypesTable(): RidingAnimalsAndFlyingBeastsMovementTypesTable
     {
         if (!\array_key_exists(RidingAnimalsAndFlyingBeastsMovementTypesTable::class, $this->tables)) {
@@ -711,9 +568,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RidingAnimalsAndFlyingBeastsMovementTypesTable::class];
     }
 
-    /**
-     * @return RidingAnimalsTable
-     */
     public function getRidingAnimalsTable(): RidingAnimalsTable
     {
         if (!\array_key_exists(RidingAnimalsTable::class, $this->tables)) {
@@ -723,9 +577,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[RidingAnimalsTable::class];
     }
 
-    /**
-     * @return WoundsOnFallFromHorseTable
-     */
     public function getWoundsOnFallFromHorseTable(): WoundsOnFallFromHorseTable
     {
         if (!\array_key_exists(WoundsOnFallFromHorseTable::class, $this->tables)) {
@@ -735,9 +586,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[WoundsOnFallFromHorseTable::class];
     }
 
-    /**
-     * @return CombatActionsCompatibilityTable
-     */
     public function getCombatActionsCompatibilityTable(): CombatActionsCompatibilityTable
     {
         if (!\array_key_exists(CombatActionsCompatibilityTable::class, $this->tables)) {
@@ -747,9 +595,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CombatActionsCompatibilityTable::class];
     }
 
-    /**
-     * @return CombatActionsWithWeaponTypeCompatibilityTable
-     */
     public function getCombatActionsWithWeaponTypeCompatibilityTable(): CombatActionsWithWeaponTypeCompatibilityTable
     {
         if (!\array_key_exists(CombatActionsWithWeaponTypeCompatibilityTable::class, $this->tables)) {
@@ -759,9 +604,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CombatActionsWithWeaponTypeCompatibilityTable::class];
     }
 
-    /**
-     * @return LightingQualityTable
-     */
     public function getLightingQualityTable(): LightingQualityTable
     {
         if (!\array_key_exists(LightingQualityTable::class, $this->tables)) {
@@ -771,9 +613,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[LightingQualityTable::class];
     }
 
-    /**
-     * @return PowerOfLightSourcesTable
-     */
     public function getPowerOfLightSourcesTable(): PowerOfLightSourcesTable
     {
         if (!\array_key_exists(PowerOfLightSourcesTable::class, $this->tables)) {
@@ -783,9 +622,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[PowerOfLightSourcesTable::class];
     }
 
-    /**
-     * @return ImprovementOfLightSourceTable
-     */
     public function getImprovementOfLightSourceTable(): ImprovementOfLightSourceTable
     {
         if (!\array_key_exists(ImprovementOfLightSourceTable::class, $this->tables)) {
@@ -795,9 +631,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ImprovementOfLightSourceTable::class];
     }
 
-    /**
-     * @return PossibleActivitiesAccordingToContrastTable
-     */
     public function getPossibleActivitiesAccordingToContrastTable(): PossibleActivitiesAccordingToContrastTable
     {
         if (!\array_key_exists(PossibleActivitiesAccordingToContrastTable::class, $this->tables)) {
@@ -807,9 +640,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[PossibleActivitiesAccordingToContrastTable::class];
     }
 
-    /**
-     * @return SightRangesTable
-     */
     public function getSightRangesTable(): SightRangesTable
     {
         if (!\array_key_exists(SightRangesTable::class, $this->tables)) {
@@ -819,9 +649,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[SightRangesTable::class];
     }
 
-    /**
-     * @return ProfessionPrimaryPropertiesTable
-     */
     public function getProfessionPrimaryPropertiesTable(): ProfessionPrimaryPropertiesTable
     {
         if (!\array_key_exists(ProfessionPrimaryPropertiesTable::class, $this->tables)) {
@@ -831,9 +658,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[ProfessionPrimaryPropertiesTable::class];
     }
 
-    /**
-     * @return BackgroundPointsTable
-     */
     public function getBackgroundPointsTable(): BackgroundPointsTable
     {
         if (!\array_key_exists(BackgroundPointsTable::class, $this->tables)) {
@@ -843,9 +667,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BackgroundPointsTable::class];
     }
 
-    /**
-     * @return PlayerDecisionsTable
-     */
     public function getPlayerDecisionsTable(): PlayerDecisionsTable
     {
         if (!\array_key_exists(PlayerDecisionsTable::class, $this->tables)) {
@@ -855,9 +676,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[PlayerDecisionsTable::class];
     }
 
-    /**
-     * @return InfluenceOfFortuneTable
-     */
     public function getInfluenceOfFortuneTable(): InfluenceOfFortuneTable
     {
         if (!\array_key_exists(InfluenceOfFortuneTable::class, $this->tables)) {
@@ -867,9 +685,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[InfluenceOfFortuneTable::class];
     }
 
-    /**
-     * @return AncestryTable
-     */
     public function getAncestryTable(): AncestryTable
     {
         if (!\array_key_exists(AncestryTable::class, $this->tables)) {
@@ -879,9 +694,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AncestryTable::class];
     }
 
-    /**
-     * @return BackgroundPointsDistributionTable
-     */
     public function getBackgroundPointsDistributionTable(): BackgroundPointsDistributionTable
     {
         if (!\array_key_exists(BackgroundPointsDistributionTable::class, $this->tables)) {
@@ -891,9 +703,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[BackgroundPointsDistributionTable::class];
     }
 
-    /**
-     * @return PossessionTable
-     */
     public function getPossessionTable(): PossessionTable
     {
         if (!\array_key_exists(PossessionTable::class, $this->tables)) {
@@ -903,9 +712,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[PossessionTable::class];
     }
 
-    /**
-     * @return CorrectionByHeightTable
-     */
     public function getCorrectionByHeightTable(): CorrectionByHeightTable
     {
         if (!\array_key_exists(CorrectionByHeightTable::class, $this->tables)) {
@@ -915,9 +721,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CorrectionByHeightTable::class];
     }
 
-    /**
-     * @return CombatCharacteristicsTable
-     */
     public function getCombatCharacteristicsTable(): CombatCharacteristicsTable
     {
         if (!\array_key_exists(CombatCharacteristicsTable::class, $this->tables)) {
@@ -927,9 +730,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CombatCharacteristicsTable::class];
     }
 
-    /**
-     * @return FightTable
-     */
     public function getFightTable(): FightTable
     {
         if (!\array_key_exists(FightTable::class, $this->tables)) {
@@ -939,9 +739,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[FightTable::class];
     }
 
-    /**
-     * @return WoundAndFatigueBoundariesTable
-     */
     public function getWoundAndFatigueBoundariesTable(): WoundAndFatigueBoundariesTable
     {
         if (!\array_key_exists(WoundAndFatigueBoundariesTable::class, $this->tables)) {
@@ -951,9 +748,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[WoundAndFatigueBoundariesTable::class];
     }
 
-    /**
-     * @return AspectsOfVisageTable
-     */
     public function getAspectsOfVisageTable(): AspectsOfVisageTable
     {
         if (!\array_key_exists(AspectsOfVisageTable::class, $this->tables)) {
@@ -963,9 +757,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[AspectsOfVisageTable::class];
     }
 
-    /**
-     * @return LandingSurfacesTable
-     */
     public function getLandingSurfacesTable(): LandingSurfacesTable
     {
         if (!\array_key_exists(LandingSurfacesTable::class, $this->tables)) {
@@ -975,9 +766,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[LandingSurfacesTable::class];
     }
 
-    /**
-     * @return JumpsAndFallsTable
-     */
     public function getJumpsAndFallsTable(): JumpsAndFallsTable
     {
         if (!\array_key_exists(JumpsAndFallsTable::class, $this->tables)) {
@@ -987,9 +775,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[JumpsAndFallsTable::class];
     }
 
-    /**
-     * @return MalusesToAutomaticSearchingTable
-     */
     public function getMalusesToAutomaticSearchingTable(): MalusesToAutomaticSearchingTable
     {
         if (!\array_key_exists(MalusesToAutomaticSearchingTable::class, $this->tables)) {
@@ -999,9 +784,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MalusesToAutomaticSearchingTable::class];
     }
 
-    /**
-     * @return StealthinessTable
-     */
     public function getStealthinessTable(): StealthinessTable
     {
         if (!\array_key_exists(StealthinessTable::class, $this->tables)) {
@@ -1011,9 +793,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[StealthinessTable::class];
     }
 
-    /**
-     * @return CatchQualitiesTable
-     */
     public function getCatchQualitiesTable(): CatchQualitiesTable
     {
         if (!\array_key_exists(CatchQualitiesTable::class, $this->tables)) {
@@ -1023,9 +802,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[CatchQualitiesTable::class];
     }
 
-    /**
-     * @return MaterialResistancesTable
-     */
     public function getMaterialResistancesTable(): MaterialResistancesTable
     {
         if (!\array_key_exists(MaterialResistancesTable::class, $this->tables)) {
@@ -1035,9 +811,6 @@ class Tables extends StrictObject implements \IteratorAggregate
         return $this->tables[MaterialResistancesTable::class];
     }
 
-    /**
-     * @return \ArrayObject
-     */
     public function getIterator(): \ArrayObject
     {
         return new \ArrayObject([
@@ -1116,6 +889,10 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getStealthinessTable(),
             $this->getCatchQualitiesTable(),
             $this->getMaterialResistancesTable(),
+            $this->getSpellTraitsTable(),
+            $this->getFormulasTable(),
+            $this->getModifiersTable(),
+            $this->getProfilesTable(),
         ]);
     }
 
@@ -1350,6 +1127,42 @@ class Tables extends StrictObject implements \IteratorAggregate
             return $this->getShieldsTable();
         }
         throw new UnknownProtectiveArmament("Unknown type of protective armament {$protectiveArmamentCode}");
+    }
+
+    public function getSpellTraitsTable(): SpellTraitsTable
+    {
+        if (!\array_key_exists(SpellTraitsTable::class, $this->tables)) {
+            $this->tables[SpellTraitsTable::class] = new SpellTraitsTable();
+        }
+
+        return $this->tables[SpellTraitsTable::class];
+    }
+
+    public function getFormulasTable(): FormulasTable
+    {
+        if (!\array_key_exists(FormulasTable::class, $this->tables)) {
+            $this->tables[FormulasTable::class] = new FormulasTable();
+        }
+
+        return $this->tables[FormulasTable::class];
+    }
+
+    public function getModifiersTable(): ModifiersTable
+    {
+        if (!\array_key_exists(ModifiersTable::class, $this->tables)) {
+            $this->tables[ModifiersTable::class] = new ModifiersTable();
+        }
+
+        return $this->tables[ModifiersTable::class];
+    }
+
+    public function getProfilesTable(): ProfilesTable
+    {
+        if (!\array_key_exists(ProfilesTable::class, $this->tables)) {
+            $this->tables[ProfilesTable::class] = new ProfilesTable();
+        }
+
+        return $this->tables[ProfilesTable::class];
     }
 
 }

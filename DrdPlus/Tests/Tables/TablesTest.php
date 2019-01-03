@@ -58,9 +58,6 @@ class TablesTest extends TestWithMockery
             );
             $table = $tables->$getTable();
             self::assertInstanceOf($expectedTableClass, $table);
-            /** @noinspection PhpUnhandledExceptionInspection */
-            $getterReflection = new \ReflectionMethod($tables, $getTable);
-            self::assertContains("@return $baseName", $getterReflection->getDocComment());
         }
     }
 
