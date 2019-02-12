@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace DrdPlus\Tests\Tables\Measurements\BaseOfWounds;
 
-use DrdPlus\Properties\Base\Strength;
+use DrdPlus\BaseProperties\Strength;
 use DrdPlus\Tables\Measurements\BaseOfWounds\BaseOfWoundsTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerObject;

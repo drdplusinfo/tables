@@ -7,7 +7,7 @@ use DrdPlus\Calculations\SumAndRound;
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpMovementCode;
 use DrdPlus\Codes\JumpTypeCode;
-use DrdPlus\Properties\Base\Agility;
+use DrdPlus\BaseProperties\Agility;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Measurements\Wounds\Wounds;

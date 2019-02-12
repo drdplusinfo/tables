@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Activities;
 
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
 use DrdPlus\Codes\JumpTypeCode;
-use DrdPlus\Properties\Base\Agility;
+use DrdPlus\BaseProperties\Agility;
 use DrdPlus\Tables\Activities\JumpsAndFallsTable;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tables\Measurements\Distance\Distance;

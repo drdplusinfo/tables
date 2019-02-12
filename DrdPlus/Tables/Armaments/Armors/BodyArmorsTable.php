@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DrdPlus\Tables\Armaments\Armors;
 
 use DrdPlus\Codes\Armaments\BodyArmorCode;
-use DrdPlus\Properties\Base\Strength;
+use DrdPlus\BaseProperties\Strength;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use Granam\Integer\PositiveInteger;
 use Granam\String\StringInterface;

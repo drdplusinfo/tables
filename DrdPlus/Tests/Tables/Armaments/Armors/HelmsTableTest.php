@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DrdPlus\Tests\Tables\Armaments\Armors;
 
 use DrdPlus\Codes\Armaments\HelmCode;
-use DrdPlus\Properties\Base\Strength;
+use DrdPlus\BaseProperties\Strength;
 use DrdPlus\Tables\Armaments\Armors\AbstractArmorsTable;
 use DrdPlus\Tables\Measurements\Weight\Weight;
 use DrdPlus\Tables\Tables;

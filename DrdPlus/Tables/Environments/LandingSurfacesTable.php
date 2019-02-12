@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DrdPlus\Tables\Environments;
 
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
-use DrdPlus\Properties\Base\Agility;
+use DrdPlus\BaseProperties\Agility;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use Granam\Integer\IntegerWithHistory;
 use Granam\Integer\PositiveInteger;

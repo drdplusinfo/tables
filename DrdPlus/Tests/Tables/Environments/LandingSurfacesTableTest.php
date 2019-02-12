@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Codes\Environment\LandingSurfaceCode;
-use DrdPlus\Properties\Base\Agility;
+use DrdPlus\BaseProperties\Agility;
 use DrdPlus\Tables\Environments\LandingSurfacesTable;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\Integer\IntegerWithHistory;

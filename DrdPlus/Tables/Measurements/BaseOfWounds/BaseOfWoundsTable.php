@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
 use DrdPlus\Calculations\SumAndRound;
-use DrdPlus\Properties\Base\Strength;
+use DrdPlus\BaseProperties\Strength;
 use DrdPlus\Tables\Table;
 use Granam\Integer\IntegerInterface;
 use Granam\Integer\Tools\ToInteger;

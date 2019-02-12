@@ -6,7 +6,7 @@ namespace DrdPlus\Tables\Armaments\Weapons\Melee\Partials;
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
 use DrdPlus\Codes\Armaments\WeaponCategoryCode;
 use DrdPlus\Codes\Body\PhysicalWoundTypeCode;
-use DrdPlus\Properties\Base\Strength;
+use DrdPlus\BaseProperties\Strength;
 use DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon;
 use DrdPlus\Tables\Armaments\Partials\MeleeWeaponlikesTable;
 use DrdPlus\Tables\Armaments\Weapons\WeaponsTable;
