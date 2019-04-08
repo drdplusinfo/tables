@@ -12,7 +12,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\CastingRounds;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DifficultyChange;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\FormulaDifficulty;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Radius;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
@@ -76,7 +76,7 @@ class FormulaTest extends TestWithMockery
     }
 
     /**
-     * @return \Mockery\MockInterface|FormulasTable
+     * @return MockInterface|FormulasTable
      */
     private function createFormulasTable()
     {
@@ -85,7 +85,7 @@ class FormulaTest extends TestWithMockery
 
     /**
      * @param string $parameterName
-     * @return CastingParameter|\Mockery\MockInterface
+     * @return CastingParameter|MockInterface
      */
     private function createExpectedParameter(string $parameterName): CastingParameter
     {
@@ -239,7 +239,7 @@ class FormulaTest extends TestWithMockery
             $this->addFormulaDifficultyGetter($formulasTable, $formulaCode, 0);
             $formula = new Formula($formulaCode, $formulasTable, $this->createDistanceTable());
             self::assertSame(
-                $formulasTable->getFormulaDifficulty($formulaCode)->createWithChange(0),
+                $formulasTable->getDifficulty($formulaCode)->createWithChange(0),
                 $formula->getCurrentDifficulty()
             );
         }
@@ -249,15 +249,15 @@ class FormulaTest extends TestWithMockery
         MockInterface $formulaTable,
         FormulaCode $expectedFormulaCode,
         int $expectedDifficultyChange,
-        FormulaDifficulty $formulaChangedDifficulty = null
+        Difficulty $formulaChangedDifficulty = null
     ): void
     {
-        $formulaTable->shouldReceive('getFormulaDifficulty')
+        $formulaTable->shouldReceive('getDifficulty')
             ->with($expectedFormulaCode)
-            ->andReturn($formulaDifficulty = $this->mockery(FormulaDifficulty::class));
+            ->andReturn($formulaDifficulty = $this->mockery(Difficulty::class));
         $formulaDifficulty->shouldReceive('createWithChange')
             ->with($expectedDifficultyChange)
-            ->andReturn($formulaChangedDifficulty ?? $this->mockery(FormulaDifficulty::class));
+            ->andReturn($formulaChangedDifficulty ?? $this->mockery(Difficulty::class));
     }
 
     /**
@@ -289,9 +289,9 @@ class FormulaTest extends TestWithMockery
             );
             self::assertSame([$modifier1, $modifier2], $formula->getModifiers());
             try {
-                self::assertNotEquals($formulasTable->getFormulaDifficulty($formulaCode), $formula->getCurrentDifficulty());
+                self::assertNotEquals($formulasTable->getDifficulty($formulaCode), $formula->getCurrentDifficulty());
                 self::assertEquals(
-                    $formulasTable->getFormulaDifficulty($formulaCode)->createWithChange(
+                    $formulasTable->getDifficulty($formulaCode)->createWithChange(
                         123 + 456 + 789 + 789 + 159 + array_sum($parameterDifficulties)
                     ),
                     $formula->getCurrentDifficulty()
@@ -504,7 +504,7 @@ class FormulaTest extends TestWithMockery
             }
             $this->addBaseParameterGetter($mutableParameterName, $formulaCode, $formulasTable, $baseParameter);
         }
-        $changedDifficulty = $this->createFormulaDifficulty();
+        $changedDifficulty = $this->createDifficulty();
         $this->addFormulaDifficultyGetter(
             $formulasTable,
             $formulaCode,
@@ -536,11 +536,11 @@ class FormulaTest extends TestWithMockery
     }
 
     /**
-     * @return FormulaDifficulty|MockInterface
+     * @return Difficulty|MockInterface
      */
-    private function createFormulaDifficulty(): FormulaDifficulty
+    private function createDifficulty(): Difficulty
     {
-        return $this->mockery(FormulaDifficulty::class);
+        return $this->mockery(Difficulty::class);
     }
 
     private function addCurrentRealmsIncrementGetter(MockInterface $formulaDifficulty, int $currentRealmsIncrement): void

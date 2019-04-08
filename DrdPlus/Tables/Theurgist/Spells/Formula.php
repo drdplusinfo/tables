@@ -18,7 +18,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DetailLevel;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Duration;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\FormulaDifficulty;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Power;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Radius;
@@ -53,14 +53,14 @@ class Formula extends StrictObject
      * @param FormulasTable $formulasTable
      * @param DistanceTable $distanceTable
      * @param array $formulaSpellParameterValues Current values of spell parameters (changes will be calculated from them)
-     * by @see FormulaMutableSpellParameterCode value indexed its value change
-     * @param array|Modifier[] $modifiers
+     * by @param array|Modifier[] $modifiers
      * @param array|SpellTrait[] $formulaSpellTraits
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UselessValueForUnusedSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidModifier
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellTrait
+     * @see FormulaMutableSpellParameterCode value indexed its value change
      */
     public function __construct(
         FormulaCode $formulaCode,
@@ -176,31 +176,13 @@ class Formula extends StrictObject
     }
 
     /**
-     * @return FormulaDifficulty
+     * @return Difficulty
      * @throws \Granam\Integer\Tools\Exceptions\Exception
      */
-    public function getCurrentDifficulty(): FormulaDifficulty
+    public function getCurrentDifficulty(): Difficulty
     {
-        $formulaParameters = [
-            $this->getAttackWithAddition(),
-            $this->getBrightnessWithAddition(),
-            $this->getDetailLevelWithAddition(),
-            $this->getDurationWithAddition(),
-            $this->getEpicenterShiftWithAddition(),
-            $this->getPowerWithAddition(),
-            $this->getRadiusWithAddition(),
-            $this->getSizeChangeWithAddition(),
-            $this->getSpellSpeedWithAddition(),
-        ];
-        $formulaParameters = array_filter(
-            $formulaParameters,
-            function (CastingParameter $formulaParameter = null) {
-                return $formulaParameter !== null;
-            }
-        );
         $parametersDifficultyChangeSum = 0;
-        /** @var CastingParameter $formulaParameter */
-        foreach ($formulaParameters as $formulaParameter) {
+        foreach ($this->getFormulaParameters() as $formulaParameter) {
             $parametersDifficultyChangeSum += $formulaParameter->getAdditionByDifficulty()->getCurrentDifficultyIncrement();
         }
         $modifiersDifficultyChangeSum = 0;
@@ -211,12 +193,36 @@ class Formula extends StrictObject
         foreach ($this->formulaSpellTraits as $spellTrait) {
             $spellTraitsDifficultyChangeSum += $spellTrait->getDifficultyChange()->getValue();
         }
-        $formulaDifficulty = $this->formulasTable->getFormulaDifficulty($this->getFormulaCode());
+        $difficulty = $this->formulasTable->getDifficulty($this->getFormulaCode());
 
-        return $formulaDifficulty->createWithChange(
+        return $difficulty->createWithChange(
             $parametersDifficultyChangeSum
             + $modifiersDifficultyChangeSum
             + $spellTraitsDifficultyChangeSum
+        );
+    }
+
+    /**
+     * @return array|CastingParameter[]
+     * @throws \Granam\Integer\Tools\Exceptions\Exception
+     */
+    private function getFormulaParameters(): array
+    {
+        return array_filter(
+            [
+                $this->getAttackWithAddition(),
+                $this->getBrightnessWithAddition(),
+                $this->getDetailLevelWithAddition(),
+                $this->getDurationWithAddition(),
+                $this->getEpicenterShiftWithAddition(),
+                $this->getPowerWithAddition(),
+                $this->getRadiusWithAddition(),
+                $this->getSizeChangeWithAddition(),
+                $this->getSpellSpeedWithAddition(),
+            ],
+            function (CastingParameter $formulaParameter = null) {
+                return $formulaParameter !== null;
+            }
         );
     }
 

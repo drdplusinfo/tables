@@ -16,7 +16,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Attack;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Brightness;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DetailLevel;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\FormulaDifficulty;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Duration;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Power;
@@ -38,7 +38,7 @@ class FormulasTable extends AbstractFileTable
     public const REALM = 'realm';
     public const REALMS_AFFECTION = 'realms_affection';
     public const EVOCATION = 'evocation';
-    public const FORMULA_DIFFICULTY = 'formula_difficulty';
+    public const DIFFICULTY = 'difficulty';
     public const RADIUS = 'radius';
     public const DURATION = 'duration';
     public const POWER = 'power';
@@ -59,7 +59,7 @@ class FormulasTable extends AbstractFileTable
             self::REALM => self::POSITIVE_INTEGER,
             self::REALMS_AFFECTION => self::ARRAY,
             self::EVOCATION => self::ARRAY,
-            self::FORMULA_DIFFICULTY => self::ARRAY,
+            self::DIFFICULTY => self::ARRAY,
             self::RADIUS => self::ARRAY,
             self::DURATION => self::ARRAY,
             self::POWER => self::ARRAY,
@@ -129,11 +129,11 @@ class FormulasTable extends AbstractFileTable
 
     /**
      * @param FormulaCode $formulaCode
-     * @return FormulaDifficulty
+     * @return Difficulty
      */
-    public function getFormulaDifficulty(FormulaCode $formulaCode): FormulaDifficulty
+    public function getDifficulty(FormulaCode $formulaCode): Difficulty
     {
-        return new FormulaDifficulty($this->getValue($formulaCode, self::FORMULA_DIFFICULTY));
+        return new Difficulty($this->getValue($formulaCode, self::DIFFICULTY));
     }
 
     /**

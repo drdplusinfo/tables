@@ -31,6 +31,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function I_can_get_every_mandatory_parameter(): void
     {
@@ -38,10 +39,10 @@ class FormulasTableTest extends AbstractTheurgistTableTest
          * @see FormulasTable::getRealm()
          * @see FormulasTable::getRealmsAffection()
          * @see FormulasTable::getEvocation()
-         * @see FormulasTable::getFormulaDifficulty()
+         * @see FormulasTable::getDifficulty()
          * @see FormulasTable::getDuration()
          */
-        $mandatoryParameters = ['realm', 'realms_affection', 'evocation', 'formula_difficulty', 'duration'];
+        $mandatoryParameters = ['realm', 'realms_affection', 'evocation', 'difficulty', 'duration'];
         foreach ($mandatoryParameters as $mandatoryParameter) {
             $this->I_can_get_mandatory_parameter($mandatoryParameter, FormulaCode::class);
         }
@@ -49,6 +50,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function I_can_get_every_optional_parameter(): void
     {
@@ -190,7 +192,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
         $formulasTable = new FormulasTable();
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
             $modifierCodes = $formulasTable->getModifierCodes(FormulaCode::getIt($formulaValue));
-            self::assertInternalType('array', $modifierCodes);
+            self::assertIsArray($modifierCodes);
             self::assertNotEmpty($modifierCodes);
             $collectedModifierValues = [];
             /** @var ModifierCode $modifierCode */
@@ -320,7 +322,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
         $formulasTable = new FormulasTable();
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
             $profileCodes = $formulasTable->getProfiles(FormulaCode::getIt($formulaValue));
-            self::assertInternalType('array', $profileCodes);
+            self::assertIsArray($profileCodes);
             self::assertNotEmpty($profileCodes);
             $profileValues = [];
             foreach ($profileCodes as $profileCode) {
