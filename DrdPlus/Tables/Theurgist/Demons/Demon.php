@@ -7,10 +7,11 @@ use DrdPlus\BaseProperties\Will;
 use DrdPlus\Codes\Theurgist\DemonBodyCode;
 use DrdPlus\Codes\Theurgist\DemonCode;
 use DrdPlus\Codes\Theurgist\DemonKindCode;
-use DrdPlus\Tables\Measurements\Time\TimeBonus;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonCapacity;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonEndurance;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Duration;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
 use Granam\Strict\Object\StrictObject;
@@ -26,9 +27,9 @@ class Demon extends StrictObject
      */
     private $realm;
     /**
-     * @var TimeBonus
+     * @var Evocation
      */
-    private $summoningTimeBonus;
+    private $evocation;
     /**
      * @var DemonBodyCode
      */
@@ -46,9 +47,13 @@ class Demon extends StrictObject
      */
     private $will;
     /**
-     * @var DemonDifficulty
+     * @var Difficulty
      */
-    private $demonDifficulty;
+    private $difficulty;
+    /**
+     * @var Duration
+     */
+    private $duration;
     /**
      * @var DemonCapacity
      */
@@ -58,36 +63,53 @@ class Demon extends StrictObject
      */
     private $demonEndurance;
     /**
-     * @var DemonTrait
+     * @var DemonTraits
      */
-    private $demonTrait;
+    private $demonTraits;
 
+    // speed,quality,duration,radius,strength,agility,knack,armor,area,invisibility
     public function __construct(
         DemonCode $demonCode,
         Realm $realm,
-        TimeBonus $summoningTimeBonus,
+        Evocation $evocation,
         DemonBodyCode $demonBodyCode,
         DemonKindCode $demonKindCode,
         RealmsAffection $realmsAffection,
-        Will $will,
         Duration $duration,
-        DemonDifficulty $demonDifficulty,
+        Difficulty $difficulty,
+        DemonTraits $demonTraits,
         DemonCapacity $demonCapacity,
         DemonEndurance $demonEndurance,
-        DemonTrait $demonTrait
+        Will $will,
+        DemonSpeed $demonSpeed,
+        DemonQuality $demonQuality,
+        DemonDuration $demonDuration,
+        DemonRadius $demonRadius,
+        DemonStrength $demonStrength,
+        DemonAgility $demonAgility,
+        DemonKnack $demonKnack,
+        DemonArmor $demonArmor,
+        Area $area,
+        DemonInvisibility $demonInvisibility
     )
     {
         $this->demonCode = $demonCode;
         $this->realm = $realm;
-        $this->summoningTimeBonus = $summoningTimeBonus;
+        $this->evocation = $evocation;
         $this->demonBodyCode = $demonBodyCode;
         $this->demonKindCode = $demonKindCode;
         $this->realmsAffection = $realmsAffection;
         $this->will = $will;
-        $this->demonDifficulty = $demonDifficulty;
+        $this->duration = $duration;
+        $this->difficulty = $difficulty;
         $this->demonCapacity = $demonCapacity;
         $this->demonEndurance = $demonEndurance;
-        $this->demonTrait = $demonTrait;
+        $this->demonTraits = $demonTraits;
+    }
+
+    public function getDemonCode(): DemonCode
+    {
+        return $this->demonCode;
     }
 
     public function getRealm(): Realm
@@ -95,9 +117,9 @@ class Demon extends StrictObject
         return $this->realm;
     }
 
-    public function getSummoningTimeBonus(): TimeBonus
+    public function getEvocation(): Evocation
     {
-        return $this->summoningTimeBonus;
+        return $this->evocation;
     }
 
     public function getDemonBodyCode(): DemonBodyCode
@@ -120,9 +142,14 @@ class Demon extends StrictObject
         return $this->will;
     }
 
-    public function getDemonDifficulty(): DemonDifficulty
+    public function getDifficulty(): Difficulty
     {
-        return $this->demonDifficulty;
+        return $this->difficulty;
+    }
+
+    public function getDuration(): Duration
+    {
+        return $this->duration;
     }
 
     public function getDemonCapacity(): DemonCapacity
@@ -135,8 +162,8 @@ class Demon extends StrictObject
         return $this->demonEndurance;
     }
 
-    public function getDemonTrait(): DemonTrait
+    public function getDemonTraits(): DemonTraits
     {
-        return $this->demonTrait;
+        return $this->demonTraits;
     }
 }
