@@ -5,7 +5,9 @@ namespace DrdPlus\Tests\Tables\Theurgist\Spells;
 
 use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Codes\Theurgist\AbstractTheurgistCode;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Attack;
+use DrdPlus\Tables\Tables;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack;
 use DrdPlus\Tests\Tables\TableTest;
 use Granam\String\StringTools;
 
@@ -47,13 +49,27 @@ abstract class AbstractTheurgistTableTest extends TableTest
     {
         $getMandatoryParameter = StringTools::assembleGetterForName($mandatoryParameter);
         $parameterClass = $this->assembleParameterClassName($mandatoryParameter);
-        $sutClass = self::getSutClass();
-        $sut = new $sutClass();
+        $sut = $this->createSut();
         foreach ($codeClass::getPossibleValues() as $codeValue) {
             $expectedParameterValue = $this->getValueFromTable($sut, $codeValue, $mandatoryParameter);
+            $expectedParameterObject = $this->createParameter($parameterClass, $expectedParameterValue);
             $parameterObject = $sut->$getMandatoryParameter($codeClass::getIt($codeValue));
-            $expectedParameterObject = new $parameterClass($expectedParameterValue);
             self::assertEquals($expectedParameterObject, $parameterObject);
+        }
+    }
+
+    private function createSut(): AbstractTable
+    {
+        $sutClass = self::getSutClass();
+        return new $sutClass(Tables::getIt());
+    }
+
+    private function createParameter(string $parameterClass, $parameterValue)
+    {
+        if (is_a($parameterClass, CastingParameter::class, true)) {
+            return new $parameterClass($parameterValue, Tables::getIt());
+        } else {
+            return new $parameterClass($parameterValue);
         }
     }
 
@@ -71,7 +87,7 @@ abstract class AbstractTheurgistTableTest extends TableTest
             explode('_', $parameter)
         ));
 
-        $namespace = (new \ReflectionClass(Attack::class))->getNamespaceName();
+        $namespace = (new \ReflectionClass(SpellAttack::class))->getNamespaceName();
 
         return $namespace . '\\' . $basename;
     }
@@ -85,14 +101,13 @@ abstract class AbstractTheurgistTableTest extends TableTest
     {
         $getOptionalParameter = StringTools::assembleGetterForName($optionalParameter);
         $parameterClass = $this->assembleParameterClassName($optionalParameter);
-        $sutClass = self::getSutClass();
-        $sut = new $sutClass();
+        $sut = $this->createSut();
         foreach ($codeClass::getPossibleValues() as $codeValue) {
             $expectedParameterValue = $this->getValueFromTable($sut, $codeValue, $optionalParameter);
-            $parameterObject = $sut->$getOptionalParameter($codeClass::getIt($codeValue));
             $expectedParameterObject = count($expectedParameterValue) !== 0
-                ? new $parameterClass($expectedParameterValue)
+                ? $this->createParameter($parameterClass, $expectedParameterValue)
                 : null;
+            $parameterObject = $sut->$getOptionalParameter($codeClass::getIt($codeValue));
             self::assertEquals($expectedParameterObject, $parameterObject);
         }
     }

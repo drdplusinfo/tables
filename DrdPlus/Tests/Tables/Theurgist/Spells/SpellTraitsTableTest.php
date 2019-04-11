@@ -17,6 +17,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function I_can_get_every_mandatory_parameter()
     {
@@ -28,6 +29,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
 
     /**
      * @test
+     * @throws \ReflectionException
      */
     public function I_can_get_every_optional_parameter()
     {
@@ -42,7 +44,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
      */
     public function I_can_get_modifiers()
     {
-        $spellTraitsTable = new SpellTraitsTable();
+        $spellTraitsTable = new SpellTraitsTable(Tables::getIt());
         foreach (SpellTraitCode::getPossibleValues() as $spellTraitValue) {
             $modifierCodes = $spellTraitsTable->getModifiers(SpellTraitCode::getIt($spellTraitValue));
             self::assertTrue(is_array($modifierCodes));
@@ -130,7 +132,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
      */
     public function I_can_get_formulas()
     {
-        $spellTraitsTable = new SpellTraitsTable();
+        $spellTraitsTable = new SpellTraitsTable(Tables::getIt());
         foreach (SpellTraitCode::getPossibleValues() as $spellTraitValue) {
             $formulaCodes = $spellTraitsTable->getFormulas(SpellTraitCode::getIt($spellTraitValue));
             self::assertTrue(is_array($formulaCodes));
@@ -199,7 +201,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
     private function getFormulaValuesFromFormulasTable(string $spellTraitValue): array
     {
         $matchingFormulaValues = [];
-        $formulasTable = new FormulasTable();
+        $formulasTable = new FormulasTable(Tables::getIt());
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
             $spellTraitCodes = $formulasTable->getSpellTraitCodes(FormulaCode::getIt($formulaValue));
             foreach ($spellTraitCodes as $spellTrait) {
@@ -220,7 +222,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
     {
         self::assertEquals(
             new DifficultyChange(18),
-            (new SpellTraitsTable())->sumDifficultyChanges(
+            (new SpellTraitsTable(Tables::getIt()))->sumDifficultyChanges(
                 [
                     SpellTraitCode::getIt(SpellTraitCode::DEFORMATION), // +3
                     SpellTraitCode::getIt(SpellTraitCode::ODORLESS), // +3

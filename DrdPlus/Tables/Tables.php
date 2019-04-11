@@ -1132,7 +1132,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getSpellTraitsTable(): SpellTraitsTable
     {
         if (!\array_key_exists(SpellTraitsTable::class, $this->tables)) {
-            $this->tables[SpellTraitsTable::class] = new SpellTraitsTable();
+            $this->tables[SpellTraitsTable::class] = new SpellTraitsTable($this);
         }
 
         return $this->tables[SpellTraitsTable::class];
@@ -1141,7 +1141,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getFormulasTable(): FormulasTable
     {
         if (!\array_key_exists(FormulasTable::class, $this->tables)) {
-            $this->tables[FormulasTable::class] = new FormulasTable();
+            $this->tables[FormulasTable::class] = new FormulasTable($this);
         }
 
         return $this->tables[FormulasTable::class];
@@ -1150,7 +1150,7 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getModifiersTable(): ModifiersTable
     {
         if (!\array_key_exists(ModifiersTable::class, $this->tables)) {
-            $this->tables[ModifiersTable::class] = new ModifiersTable();
+            $this->tables[ModifiersTable::class] = new ModifiersTable($this);
         }
 
         return $this->tables[ModifiersTable::class];

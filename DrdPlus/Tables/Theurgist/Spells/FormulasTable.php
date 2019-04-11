@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace DrdPlus\Tables\Theurgist\Spells;
 
+use DrdPlus\Codes\Theurgist\FormulaMutableSpellParameterCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Codes\Theurgist\FormCode;
@@ -10,17 +11,18 @@ use DrdPlus\Codes\Theurgist\FormulaCode;
 use DrdPlus\Codes\Theurgist\ModifierCode;
 use DrdPlus\Codes\Theurgist\ProfileCode;
 use DrdPlus\Codes\Theurgist\SpellTraitCode;
+use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\CastingRounds;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Attack;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Brightness;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellBrightness;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DetailLevel;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Duration;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellDuration;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Power;
-use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Radius;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SizeChange;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed;
@@ -30,6 +32,11 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed;
  */
 class FormulasTable extends AbstractFileTable
 {
+    /**
+     * @var Tables
+     */
+    private $tables;
+
     protected function getDataFileName(): string
     {
         return __DIR__ . '/data/formulas.csv';
@@ -39,15 +46,15 @@ class FormulasTable extends AbstractFileTable
     public const REALMS_AFFECTION = 'realms_affection';
     public const EVOCATION = 'evocation';
     public const DIFFICULTY = 'difficulty';
-    public const RADIUS = 'radius';
-    public const DURATION = 'duration';
-    public const POWER = 'power';
-    public const ATTACK = 'attack';
-    public const SIZE_CHANGE = 'size_change';
-    public const DETAIL_LEVEL = 'detail_level';
-    public const BRIGHTNESS = 'brightness';
-    public const SPELL_SPEED = 'spell_speed';
-    public const EPICENTER_SHIFT = 'epicenter_shift';
+    public const SPELL_RADIUS = FormulaMutableSpellParameterCode::SPELL_RADIUS;
+    public const SPELL_DURATION = 'spell_duration';
+    public const SPELL_POWER = FormulaMutableSpellParameterCode::SPELL_POWER;
+    public const SPELL_ATTACK = FormulaMutableSpellParameterCode::SPELL_ATTACK;
+    public const SIZE_CHANGE = FormulaMutableSpellParameterCode::SIZE_CHANGE;
+    public const DETAIL_LEVEL = FormulaMutableSpellParameterCode::DETAIL_LEVEL;
+    public const SPELL_BRIGHTNESS = FormulaMutableSpellParameterCode::SPELL_BRIGHTNESS;
+    public const SPELL_SPEED = FormulaMutableSpellParameterCode::SPELL_SPEED;
+    public const EPICENTER_SHIFT = FormulaMutableSpellParameterCode::EPICENTER_SHIFT;
     public const FORMS = 'forms';
     public const SPELL_TRAITS = 'spell_traits';
     public const PROFILES = 'profiles';
@@ -60,13 +67,13 @@ class FormulasTable extends AbstractFileTable
             self::REALMS_AFFECTION => self::ARRAY,
             self::EVOCATION => self::ARRAY,
             self::DIFFICULTY => self::ARRAY,
-            self::RADIUS => self::ARRAY,
-            self::DURATION => self::ARRAY,
-            self::POWER => self::ARRAY,
-            self::ATTACK => self::ARRAY,
+            self::SPELL_RADIUS => self::ARRAY,
+            self::SPELL_DURATION => self::ARRAY,
+            self::SPELL_POWER => self::ARRAY,
+            self::SPELL_ATTACK => self::ARRAY,
             self::SIZE_CHANGE => self::ARRAY,
             self::DETAIL_LEVEL => self::ARRAY,
-            self::BRIGHTNESS => self::ARRAY,
+            self::SPELL_BRIGHTNESS => self::ARRAY,
             self::SPELL_SPEED => self::ARRAY,
             self::EPICENTER_SHIFT => self::ARRAY,
             self::FORMS => self::ARRAY,
@@ -77,6 +84,11 @@ class FormulasTable extends AbstractFileTable
     }
 
     public const FORMULA = 'formula';
+
+    public function __construct(Tables $tables)
+    {
+        $this->tables = $tables;
+    }
 
     protected function getRowsHeader(): array
     {
@@ -111,7 +123,7 @@ class FormulasTable extends AbstractFileTable
      */
     public function getEvocation(FormulaCode $formulaCode): Evocation
     {
-        return new Evocation($this->getValue($formulaCode, self::EVOCATION));
+        return new Evocation($this->getValue($formulaCode, self::EVOCATION), $this->tables);
     }
 
     /**
@@ -124,7 +136,7 @@ class FormulasTable extends AbstractFileTable
     public function getCastingRounds(/** @noinspection PhpUnusedParameterInspection to keep same interface with others */
         FormulaCode $formulaCode): CastingRounds
     {
-        return new CastingRounds([1]);
+        return new CastingRounds([1, 0], $this->tables);
     }
 
     /**
@@ -138,53 +150,49 @@ class FormulasTable extends AbstractFileTable
 
     /**
      * @param FormulaCode $formulaCode
-     * @return Radius|null
+     * @return SpellRadius|null
      */
-    public function getRadius(FormulaCode $formulaCode): ?Radius
+    public function getSpellRadius(FormulaCode $formulaCode): ?SpellRadius
     {
-        $radiusValues = $this->getValue($formulaCode, self::RADIUS);
+        $radiusValues = $this->getValue($formulaCode, self::SPELL_RADIUS);
         if (!$radiusValues) {
             return null;
         }
 
-        return new Radius($radiusValues);
+        return new SpellRadius($radiusValues, $this->tables);
+    }
+
+    public function getSpellDuration(FormulaCode $formulaCode): SpellDuration
+    {
+        return new SpellDuration($this->getValue($formulaCode, self::SPELL_DURATION), $this->tables);
     }
 
     /**
      * @param FormulaCode $formulaCode
-     * @return Duration
+     * @return SpellPower|null
      */
-    public function getDuration(FormulaCode $formulaCode): Duration
+    public function getSpellPower(FormulaCode $formulaCode): ?SpellPower
     {
-        return new Duration($this->getValue($formulaCode, self::DURATION));
-    }
-
-    /**
-     * @param FormulaCode $formulaCode
-     * @return Power|null
-     */
-    public function getPower(FormulaCode $formulaCode): ?Power
-    {
-        $powerValues = $this->getValue($formulaCode, self::POWER);
+        $powerValues = $this->getValue($formulaCode, self::SPELL_POWER);
         if (!$powerValues) {
             return null;
         }
 
-        return new Power($powerValues);
+        return new SpellPower($powerValues, $this->tables);
     }
 
     /**
      * @param FormulaCode $formulaCode
-     * @return Attack|null
+     * @return SpellAttack|null
      */
-    public function getAttack(FormulaCode $formulaCode): ?Attack
+    public function getSpellAttack(FormulaCode $formulaCode): ?SpellAttack
     {
-        $attackValues = $this->getValue($formulaCode, self::ATTACK);
+        $attackValues = $this->getValue($formulaCode, self::SPELL_ATTACK);
         if (!$attackValues) {
             return null;
         }
 
-        return new Attack($attackValues);
+        return new SpellAttack($attackValues, $this->tables);
     }
 
     /**
@@ -198,7 +206,7 @@ class FormulasTable extends AbstractFileTable
             return null;
         }
 
-        return new SizeChange($sizeChangeValues);
+        return new SizeChange($sizeChangeValues, $this->tables);
     }
 
     /**
@@ -212,21 +220,21 @@ class FormulasTable extends AbstractFileTable
             return null;
         }
 
-        return new DetailLevel($detailLevelValues);
+        return new DetailLevel($detailLevelValues, $this->tables);
     }
 
     /**
      * @param FormulaCode $formulaCode
-     * @return Brightness|null
+     * @return SpellBrightness|null
      */
-    public function getBrightness(FormulaCode $formulaCode): ?Brightness
+    public function getSpellBrightness(FormulaCode $formulaCode): ?SpellBrightness
     {
-        $brightnessValues = $this->getValue($formulaCode, self::BRIGHTNESS);
+        $brightnessValues = $this->getValue($formulaCode, self::SPELL_BRIGHTNESS);
         if (!$brightnessValues) {
             return null;
         }
 
-        return new Brightness($brightnessValues);
+        return new SpellBrightness($brightnessValues, $this->tables);
     }
 
     /**
@@ -240,7 +248,7 @@ class FormulasTable extends AbstractFileTable
             return null;
         }
 
-        return new SpellSpeed($speedValues);
+        return new SpellSpeed($speedValues, $this->tables);
     }
 
     /**
@@ -254,7 +262,7 @@ class FormulasTable extends AbstractFileTable
             return null;
         }
 
-        return new EpicenterShift($epicenterShift);
+        return new EpicenterShift($epicenterShift, $this->tables);
     }
 
     /**

@@ -56,10 +56,6 @@ class SpellTrait extends StrictObject
         return $spellTraitTrapPropertyValue - $baseTrap->getDefaultValue();
     }
 
-    /**
-     * @return DifficultyChange
-     * @throws \Granam\Integer\Tools\Exceptions\Exception
-     */
     public function getDifficultyChange(): DifficultyChange
     {
         $difficultyChange = $this->spellTraitsTable->getDifficultyChange($this->getSpellTraitCode());
@@ -71,26 +67,16 @@ class SpellTrait extends StrictObject
         return $difficultyChange->add($trap->getAdditionByDifficulty()->getCurrentDifficultyIncrement());
     }
 
-    /**
-     * @return SpellTraitCode
-     */
     public function getSpellTraitCode(): SpellTraitCode
     {
         return $this->spellTraitCode;
     }
 
-    /**
-     * @return Trap|null
-     */
     public function getBaseTrap(): ?Trap
     {
         return $this->spellTraitsTable->getTrap($this->getSpellTraitCode());
     }
 
-    /**
-     * @return Trap|null
-     * @throws \Granam\Integer\Tools\Exceptions\Exception
-     */
     public function getCurrentTrap(): ?Trap
     {
         $trap = $this->getBaseTrap();

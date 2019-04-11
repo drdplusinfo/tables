@@ -23,7 +23,6 @@ class DifficultyTest extends TestWithMockery
 /**
  * @param int|float|NumberInterface \$difficultyChangeValue
  * @return {$classBaseName}
- * @throws \Granam\Integer\Tools\Exceptions\Exception
  */
 PHPDOC
             , preg_replace('~ {2,}~', ' ', $add->getDocComment()),

@@ -7,9 +7,7 @@ use DrdPlus\Tables\Tables;
 use DrdPlus\Codes\Theurgist\FormulaCode;
 use DrdPlus\Codes\Theurgist\ModifierCode;
 use DrdPlus\Codes\Theurgist\ProfileCode;
-use DrdPlus\Tables\Theurgist\Spells\SpellTraitsTable;
 use DrdPlus\Tables\Theurgist\Spells\FormulasTable;
-use DrdPlus\Tables\Theurgist\Spells\ModifiersTable;
 use DrdPlus\Tables\Theurgist\Spells\ProfilesTable;
 
 class ProfilesTableTest extends AbstractTheurgistTableTest
@@ -21,11 +19,7 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
 
     protected function setUp()
     {
-        $this->formulasTable = new FormulasTable(
-            Tables::getIt(),
-            new ModifiersTable(Tables::getIt()),
-            new SpellTraitsTable()
-        );
+        $this->formulasTable = new FormulasTable(Tables::getIt());
     }
 
     /**

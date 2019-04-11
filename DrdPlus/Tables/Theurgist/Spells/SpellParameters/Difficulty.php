@@ -127,7 +127,6 @@ class Difficulty extends StrictObject implements PositiveInteger
     /**
      * @param int|float|NumberInterface $difficultyChangeValue
      * @return Difficulty
-     * @throws \Granam\Integer\Tools\Exceptions\Exception
      */
     public function createWithChange($difficultyChangeValue): Difficulty
     {
