@@ -71,7 +71,7 @@ class Demon extends StrictObject
      */
     private $demonEndurance;
     /**
-     * @var DemonTraits
+     * @var DemonTrait[]
      */
     private $demonTraits;
     /**
@@ -107,6 +107,29 @@ class Demon extends StrictObject
      */
     private $demonArmor;
 
+    /**
+     * Demon constructor.
+     * @param DemonCode $demonCode
+     * @param Realm $realm
+     * @param Evocation $evocation
+     * @param DemonBodyCode $demonBodyCode
+     * @param DemonKindCode $demonKindCode
+     * @param RealmsAffection $realmsAffection
+     * @param SpellDuration $duration
+     * @param Difficulty $difficulty
+     * @param array|DemonTrait[] $demonTraits
+     * @param DemonCapacity $demonCapacity
+     * @param DemonEndurance $demonEndurance
+     * @param Will $will
+     * @param SpellSpeed $spellSpeed
+     * @param Quality $quality
+     * @param SpellRadius $spellRadius
+     * @param Invisibility $invisibility
+     * @param DemonStrength $demonStrength
+     * @param DemonAgility $demonAgility
+     * @param DemonKnack $demonKnack
+     * @param DemonArmor $demonArmor
+     */
     public function __construct(
         DemonCode $demonCode,
         Realm $realm,
@@ -116,7 +139,7 @@ class Demon extends StrictObject
         RealmsAffection $realmsAffection,
         SpellDuration $duration,
         Difficulty $difficulty,
-        DemonTraits $demonTraits,
+        array $demonTraits,
         DemonCapacity $demonCapacity,
         DemonEndurance $demonEndurance,
         Will $will,
@@ -207,7 +230,10 @@ class Demon extends StrictObject
         return $this->demonEndurance;
     }
 
-    public function getDemonTraits(): DemonTraits
+    /**
+     * @return array|DemonTrait[]
+     */
+    public function getDemonTraits(): array
     {
         return $this->demonTraits;
     }
