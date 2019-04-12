@@ -108,6 +108,7 @@ use DrdPlus\Tables\Races\FemaleModifiersTable;
 use DrdPlus\Tables\Races\RacesTable;
 use DrdPlus\Tables\Races\SightRangesTable;
 use DrdPlus\Tables\Theurgist\Demons\DemonsTable;
+use DrdPlus\Tables\Theurgist\Demons\DemonTraitsTable;
 use DrdPlus\Tables\Theurgist\Spells\FormulasTable;
 use DrdPlus\Tables\Theurgist\Spells\ModifiersTable;
 use DrdPlus\Tables\Theurgist\Spells\ProfilesTable;
@@ -819,6 +820,7 @@ class Tables extends StrictObject implements \IteratorAggregate
             $this->getModifiersTable(),
             $this->getProfilesTable(),
             $this->getDemonsTable(),
+            $this->getDemonTraitsTable(),
         ]);
     }
 
@@ -1090,9 +1092,17 @@ class Tables extends StrictObject implements \IteratorAggregate
     public function getDemonsTable(): DemonsTable
     {
         if (!\array_key_exists(DemonsTable::class, $this->tables)) {
-            $this->tables[DemonsTable::class] = new DemonsTable();
+            $this->tables[DemonsTable::class] = new DemonsTable($this);
         }
         return $this->tables[DemonsTable::class];
+    }
+
+    public function getDemonTraitsTable(): DemonTraitsTable
+    {
+        if (!\array_key_exists(DemonTraitsTable::class, $this->tables)) {
+            $this->tables[DemonTraitsTable::class] = new DemonTraitsTable($this);
+        }
+        return $this->tables[DemonTraitsTable::class];
     }
 
 }

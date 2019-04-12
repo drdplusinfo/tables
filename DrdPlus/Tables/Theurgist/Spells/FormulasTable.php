@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace DrdPlus\Tables\Theurgist\Spells;
 
-use DrdPlus\Codes\Theurgist\FormulaMutableSpellParameterCode;
 use DrdPlus\Tables\Partials\AbstractFileTable;
 use DrdPlus\Tables\Partials\Exceptions\RequiredRowNotFound;
 use DrdPlus\Codes\Theurgist\FormCode;
@@ -97,19 +96,11 @@ class FormulasTable extends AbstractFileTable
         ];
     }
 
-    /**
-     * @param FormulaCode $formulaCode
-     * @return Realm
-     */
     public function getRealm(FormulaCode $formulaCode): Realm
     {
         return new Realm($this->getValue($formulaCode, self::REALM));
     }
 
-    /**
-     * @param FormulaCode $formulaCode
-     * @return RealmsAffection
-     */
     public function getRealmsAffection(FormulaCode $formulaCode): RealmsAffection
     {
         return new RealmsAffection($this->getValue($formulaCode, self::REALMS_AFFECTION));
@@ -281,13 +272,14 @@ class FormulasTable extends AbstractFileTable
 
     /**
      * @param FormulaCode $formulaCode
-     * @return array|SpellTraitCode[]
+     * @return array|SpellTrait[]
      */
-    public function getSpellTraitCodes(FormulaCode $formulaCode): array
+    public function getSpellTraits(FormulaCode $formulaCode): array
     {
         return array_map(
             function (string $spellTraitValue) {
-                return SpellTraitCode::getIt($spellTraitValue);
+                $spellTraitCode = SpellTraitCode::getIt($spellTraitValue);
+                return new SpellTrait($spellTraitCode, $this->tables);
             },
             $this->getValue($formulaCode, self::SPELL_TRAITS)
         );
@@ -317,7 +309,7 @@ class FormulasTable extends AbstractFileTable
      * @return array|ModifierCode[]
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaToGetModifiersFor
      */
-    public function getModifierCodes(FormulaCode $formulaCode): array
+    public function getModifiers(FormulaCode $formulaCode): array
     {
         try {
             return array_map(

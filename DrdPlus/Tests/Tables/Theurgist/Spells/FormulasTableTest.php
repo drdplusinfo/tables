@@ -14,6 +14,8 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\CastingRounds;
 use DrdPlus\Tables\Theurgist\Spells\FormulasTable;
 use DrdPlus\Tables\Theurgist\Spells\ModifiersTable;
 use DrdPlus\Tables\Theurgist\Spells\ProfilesTable;
+use DrdPlus\Tables\Theurgist\Spells\SpellTrait;
+use DrdPlus\Tests\Tables\Theurgist\AbstractTheurgistTableTest;
 
 class FormulasTableTest extends AbstractTheurgistTableTest
 {
@@ -28,42 +30,19 @@ class FormulasTableTest extends AbstractTheurgistTableTest
         $this->modifiersTable = new ModifiersTable(Tables::getIt());
     }
 
-    /**
-     * @test
-     * @throws \ReflectionException
-     */
-    public function I_can_get_every_mandatory_parameter(): void
+    protected function getMainCodeClass(): string
     {
-        /**
-         * @see FormulasTable::getRealm()
-         * @see FormulasTable::getRealmsAffection()
-         * @see FormulasTable::getEvocation()
-         * @see FormulasTable::getDifficulty()
-         * @see FormulasTable::getSpellDuration()
-         */
-        $mandatoryParameters = [FormulasTable::REALM, FormulasTable::REALMS_AFFECTION, FormulasTable::EVOCATION, FormulasTable::DIFFICULTY, FormulasTable::SPELL_DURATION];
-        foreach ($mandatoryParameters as $mandatoryParameter) {
-            $this->I_can_get_mandatory_parameter($mandatoryParameter, FormulaCode::class);
-        }
+        return FormulaCode::class;
     }
 
-    /**
-     * @test
-     * @throws \ReflectionException
-     */
-    public function I_can_get_every_optional_parameter(): void
+    protected function getMandatoryParameters(): array
     {
-        /**
-         * @see FormulasTable::getSpellRadius()
-         * @see FormulasTable::getSpellPower()
-         * @see FormulasTable::getSpellAttack()
-         * @see FormulasTable::getSizeChange()
-         * @see FormulasTable::getDetailLevel()
-         * @see FormulasTable::getSpellBrightness()
-         * @see FormulasTable::getSpellSpeed()
-         * @see FormulasTable::getEpicenterShift()
-         */
-        $optionalParameters = [
+        return [FormulasTable::REALM, FormulasTable::REALMS_AFFECTION, FormulasTable::EVOCATION, FormulasTable::DIFFICULTY, FormulasTable::SPELL_DURATION];
+    }
+
+    protected function getOptionalParameters(): array
+    {
+        return [
             FormulasTable::SPELL_RADIUS,
             FormulasTable::SPELL_POWER,
             FormulasTable::SPELL_ATTACK,
@@ -73,9 +52,6 @@ class FormulasTableTest extends AbstractTheurgistTableTest
             FormulasTable::SPELL_SPEED,
             FormulasTable::EPICENTER_SHIFT,
         ];
-        foreach ($optionalParameters as $optionalParameter) {
-            $this->I_can_get_optional_parameter($optionalParameter, FormulaCode::class);
-        }
     }
 
     /**
@@ -145,19 +121,19 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     {
         $formulasTable = new FormulasTable(Tables::getIt());
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
-            $spellTraitCodes = $formulasTable->getSpellTraitCodes(FormulaCode::getIt($formulaValue));
+            $spellTraits = $formulasTable->getSpellTraits(FormulaCode::getIt($formulaValue));
             /** @var array|string[] $expectedTraitValues */
-            $expectedTraitValues = $this->getValueFromTable($formulasTable, $formulaValue, 'spell_traits');
-            $expectedSpellTraitCodes = [];
+            $expectedTraitValues = $this->getValueFromTable($formulasTable, $formulaValue, FormulasTable::SPELL_TRAITS);
+            $expectedSpellTraits = [];
             foreach ($expectedTraitValues as $expectedTraitValue) {
-                $expectedSpellTraitCodes[] = SpellTraitCode::getIt($expectedTraitValue);
+                $expectedSpellTraits[] = new SpellTrait(SpellTraitCode::getIt($expectedTraitValue), Tables::getIt());
             }
-            self::assertEquals($expectedSpellTraitCodes, $spellTraitCodes);
+            self::assertEquals($expectedSpellTraits, $spellTraits);
 
             $spellTraitCodeValues = [];
-            foreach ($spellTraitCodes as $spellTraitCode) {
-                self::assertInstanceOf(SpellTraitCode::class, $spellTraitCode);
-                $spellTraitCodeValues[] = $spellTraitCode->getValue();
+            foreach ($spellTraits as $spellTrait) {
+                self::assertInstanceOf(SpellTrait::class, $spellTrait);
+                $spellTraitCodeValues[] = $spellTrait->getSpellTraitCode()->getValue();
             }
             self::assertSame($spellTraitCodeValues, array_unique($spellTraitCodeValues));
             sort($spellTraitCodeValues);
@@ -197,7 +173,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     {
         $formulasTable = new FormulasTable(Tables::getIt());
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
-            $modifierCodes = $formulasTable->getModifierCodes(FormulaCode::getIt($formulaValue));
+            $modifierCodes = $formulasTable->getModifiers(FormulaCode::getIt($formulaValue));
             self::assertIsArray($modifierCodes);
             self::assertNotEmpty($modifierCodes);
             $collectedModifierValues = [];
@@ -264,7 +240,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     {
         $modifierValues = [];
         foreach (ModifierCode::getPossibleValues() as $modifierValue) {
-            $formulaCodes = $this->modifiersTable->getFormulaCodes(ModifierCode::getIt($modifierValue));
+            $formulaCodes = $this->modifiersTable->getFormulas(ModifierCode::getIt($modifierValue));
             foreach ($formulaCodes as $formulaCode) {
                 if ($formulaCode->getValue() === $formulaValue) {
                     $modifierValues[] = $modifierValue;
@@ -286,7 +262,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
         $profilesTable = new ProfilesTable();
         $matchingModifierValues = [];
         foreach ($matchingProfileValues as $matchingProfileValue) {
-            foreach ($profilesTable->getModifiersForProfile(ProfileCode::getIt($matchingProfileValue)) as $modifierCode) {
+            foreach ($profilesTable->getModifiers(ProfileCode::getIt($matchingProfileValue)) as $modifierCode) {
                 $matchingModifierValues[] = $modifierCode->getValue();
             }
         }
@@ -302,7 +278,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_modifiers_to_unknown_formula(): void
     {
         (new FormulasTable(Tables::getIt()))
-            ->getModifierCodes($this->createFormulaCode('Abraka dabra'));
+            ->getModifiers($this->createFormulaCode('Abraka dabra'));
     }
 
     /**
@@ -404,7 +380,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
         $profilesTable = new ProfilesTable();
         $matchingProfiles = [];
         foreach (ProfileCode::getPossibleValues() as $profileValue) {
-            foreach ($profilesTable->getFormulasForProfile(ProfileCode::getIt($profileValue)) as $formulaCode) {
+            foreach ($profilesTable->getFormulas(ProfileCode::getIt($profileValue)) as $formulaCode) {
                 if ($formulaCode->getValue() === $formulaValue) {
                     $oppositeProfile = $this->reverseProfileGender($profileValue);
                     $matchingProfiles[] = $oppositeProfile;

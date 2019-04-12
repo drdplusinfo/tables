@@ -58,7 +58,6 @@ class ModifiersTable extends AbstractFileTable
 
     public const REALM = FormulasTable::REALM;
     public const REALMS_AFFECTION = FormulasTable::REALMS_AFFECTION;
-    public const AFFECTION_TYPE = 'affection_type';
     public const CASTING_ROUNDS = 'casting_rounds';
     public const DIFFICULTY_CHANGE = 'difficulty_change';
     public const RADIUS = FormulasTable::SPELL_RADIUS;
@@ -134,7 +133,6 @@ class ModifiersTable extends AbstractFileTable
         if (count($affectionValues) === 0) {
             return null;
         }
-
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new RealmsAffection($affectionValues);
     }
@@ -338,7 +336,7 @@ class ModifiersTable extends AbstractFileTable
      * @param ModifierCode $modifierCode
      * @return array|SpellTraitCode[]
      */
-    public function getSpellTraitCodes(ModifierCode $modifierCode): array
+    public function getSpellTraits(ModifierCode $modifierCode): array
     {
         /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return array_map(
@@ -375,7 +373,7 @@ class ModifiersTable extends AbstractFileTable
      * @return array|FormulaCode[]
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetFormulasFor
      */
-    public function getFormulaCodes(ModifierCode $modifierCode): array
+    public function getFormulas(ModifierCode $modifierCode): array
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
@@ -395,7 +393,7 @@ class ModifiersTable extends AbstractFileTable
      * @return array|ModifierCode[]
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetParentModifiersFor
      */
-    public function getParentModifierCodes(ModifierCode $modifierCode): array
+    public function getParentModifiers(ModifierCode $modifierCode): array
     {
         try {
             /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
