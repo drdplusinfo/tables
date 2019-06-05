@@ -6,6 +6,7 @@ namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters\Partials;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
+use Granam\String\StringTools;
 use Granam\Tests\Tools\TestWithMockery;
 
 abstract class CastingParameterTest extends TestWithMockery
@@ -98,4 +99,32 @@ abstract class CastingParameterTest extends TestWithMockery
         self::assertNotSame($original, $decreased);
     }
 
+    /**
+     * @test
+     * @throws \ReflectionException
+     */
+    public function I_get_whispered_current_casting_parameter_as_return_value_of_getter_with_addition(): void
+    {
+        $className = static::getSutClass();
+        $reflectionClass = new \ReflectionClass($className);
+        $classBaseName = StringTools::getClassBaseName($className);
+        if (strpos($reflectionClass->getDocComment() ?: '', 'getWithAddition') !== false) {
+            self::assertContains(<<<PHPDOC
+ * @method {$classBaseName} getWithAddition(\$additionValue)
+PHPDOC
+                ,
+                $reflectionClass->getDocComment(),
+                "Missing getWithAddition method annotation in $className"
+            );
+        } else {
+            $reflectionMethod = $reflectionClass->getMethod('getWithAddition');
+            self::assertContains(<<<PHPDOC
+ * @return {$classBaseName}|CastingParameter
+PHPDOC
+                ,
+                $reflectionMethod->getDocComment(),
+                "Missing getWithAddition method annotation in $className"
+            );
+        }
+    }
 }
