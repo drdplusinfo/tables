@@ -52,7 +52,7 @@ class Formula extends StrictObject
      * @param array $formulaSpellParameterValues Current values of spell parameters (changes will be calculated from them)
      * @param array|Modifier[] $modifiers
      * @param array|SpellTrait[] $formulaSpellTraits
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UselessValueForUnusedSpellParameter
+     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidModifier
@@ -78,7 +78,7 @@ class Formula extends StrictObject
     /**
      * @param array $spellParameterValues
      * @return array
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UselessValueForUnusedSpellParameter
+     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      */
@@ -103,7 +103,7 @@ class Formula extends StrictObject
             /** @var CastingParameter $baseParameter */
             $baseParameter = $this->tables->getFormulasTable()->$getParameter($this->getFormulaCode());
             if ($baseParameter === null) {
-                throw new Exceptions\UselessValueForUnusedSpellParameter(
+                throw new Exceptions\InvalidSpellParameter(
                     "Casting parameter {$mutableSpellParameter} is not used for formula {$this->formulaCode}"
                     . ', so given non-zero addition ' . ValueDescriber::describe($spellParameterValues[$mutableSpellParameter])
                     . ' is thrown away'
@@ -152,7 +152,7 @@ class Formula extends StrictObject
         foreach ($spellTraits as $spellTrait) {
             if (!is_a($spellTrait, SpellTrait::class)) {
                 throw new Exceptions\InvalidSpellTrait(
-                    'Expected instance of ' . Modifier::class . ', got ' . ValueDescriber::describe($spellTrait)
+                    'Expected instance of ' . SpellTrait::class . ', got ' . ValueDescriber::describe($spellTrait)
                 );
             }
         }
@@ -284,8 +284,8 @@ class Formula extends StrictObject
      */
     public function getRequiredRealm(): Realm
     {
-        $realmsIncrement = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
         $realm = $this->tables->getFormulasTable()->getRealm($this->getFormulaCode());
+        $realmsIncrement = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
         $requiredRealm = $realm->add($realmsIncrement);
 
         foreach ($this->modifiers as $modifier) {
@@ -331,7 +331,7 @@ class Formula extends StrictObject
      */
     private function getRadiusWithAddition(): ?SpellRadius
     {
-        $baseSpellRadius = $this->tables->getFormulasTable()->getSpellRadius($this->formulaCode);
+        $baseSpellRadius = $this->tables->getFormulasTable()->getSpellRadius($this->getFormulaCode());
         if ($baseSpellRadius === null) {
             return null;
         }
@@ -372,7 +372,7 @@ class Formula extends StrictObject
 
     private function getEpicenterShiftWithAddition(): ?EpicenterShift
     {
-        $baseEpicenterShift = $this->tables->getFormulasTable()->getEpicenterShift($this->formulaCode);
+        $baseEpicenterShift = $this->tables->getFormulasTable()->getEpicenterShift($this->getFormulaCode());
         if ($baseEpicenterShift === null) {
             return null;
         }
@@ -407,7 +407,7 @@ class Formula extends StrictObject
 
     private function getSpellPowerWithAddition(): ?SpellPower
     {
-        $basePower = $this->tables->getFormulasTable()->getSpellPower($this->formulaCode);
+        $basePower = $this->tables->getFormulasTable()->getSpellPower($this->getFormulaCode());
         if ($basePower === null) {
             return null;
         }
@@ -439,7 +439,7 @@ class Formula extends StrictObject
 
     private function getSpellAttackWithAddition(): ?SpellAttack
     {
-        $baseSpellAttack = $this->tables->getFormulasTable()->getSpellAttack($this->formulaCode);
+        $baseSpellAttack = $this->tables->getFormulasTable()->getSpellAttack($this->getFormulaCode());
         if ($baseSpellAttack === null) {
             return null;
         }
@@ -519,7 +519,7 @@ class Formula extends StrictObject
 
     private function getSpellSpeedWithAddition(): ?SpellSpeed
     {
-        $baseSpellSpeed = $this->tables->getFormulasTable()->getSpellSpeed($this->formulaCode);
+        $baseSpellSpeed = $this->tables->getFormulasTable()->getSpellSpeed($this->getFormulaCode());
         if ($baseSpellSpeed === null) {
             return null;
         }
@@ -534,7 +534,7 @@ class Formula extends StrictObject
 
     private function getDetailLevelWithAddition(): ?DetailLevel
     {
-        $baseDetailLevel = $this->tables->getFormulasTable()->getDetailLevel($this->formulaCode);
+        $baseDetailLevel = $this->tables->getFormulasTable()->getDetailLevel($this->getFormulaCode());
         if ($baseDetailLevel === null) {
             return null;
         }
@@ -549,7 +549,7 @@ class Formula extends StrictObject
 
     private function getSpellBrightnessWithAddition(): ?SpellBrightness
     {
-        $baseSpellBrightness = $this->tables->getFormulasTable()->getSpellBrightness($this->formulaCode);
+        $baseSpellBrightness = $this->tables->getFormulasTable()->getSpellBrightness($this->getFormulaCode());
         if ($baseSpellBrightness === null) {
             return null;
         }
@@ -564,7 +564,7 @@ class Formula extends StrictObject
 
     private function getDurationWithAddition(): SpellDuration
     {
-        $baseDuration = $this->tables->getFormulasTable()->getSpellDuration($this->formulaCode);
+        $baseDuration = $this->tables->getFormulasTable()->getSpellDuration($this->getFormulaCode());
 
         return $baseDuration->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_DURATION]);
     }
@@ -576,7 +576,7 @@ class Formula extends StrictObject
 
     private function getSizeChangeWithAddition(): ?SizeChange
     {
-        $baseSizeChange = $this->tables->getFormulasTable()->getSizeChange($this->formulaCode);
+        $baseSizeChange = $this->tables->getFormulasTable()->getSizeChange($this->getFormulaCode());
         if ($baseSizeChange === null) {
             return null;
         }

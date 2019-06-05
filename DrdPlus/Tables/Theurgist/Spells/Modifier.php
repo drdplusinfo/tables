@@ -48,7 +48,7 @@ class Modifier extends StrictObject
      * @param Tables $tables
      * @param array|int[] $modifierSpellParameterValues spell parameters current values (delta will be calculated from them)
      * by @param array|SpellTrait[] $modifierSpellTraits
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UselessValueForUnusedSpellParameter
+     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForModifierParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellTrait
@@ -70,7 +70,7 @@ class Modifier extends StrictObject
     /**
      * @param array $spellParameterValues
      * @return array
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UselessValueForUnusedSpellParameter
+     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForModifierParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierParameter
      */
@@ -95,7 +95,7 @@ class Modifier extends StrictObject
             /** @var CastingParameter $baseParameter */
             $baseParameter = $this->$getBaseParameter();
             if ($baseParameter === null) {
-                throw new Exceptions\UselessValueForUnusedSpellParameter(
+                throw new Exceptions\InvalidSpellParameter(
                     "Casting parameter {$mutableSpellParameter} is not used for modifier {$this->modifierCode}"
                     . ', so given spell parameter value ' . ValueDescriber::describe($spellParameterValues[$mutableSpellParameter])
                     . ' is thrown away'
