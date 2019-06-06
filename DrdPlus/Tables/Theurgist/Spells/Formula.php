@@ -202,15 +202,25 @@ class Formula extends StrictObject
         );
     }
 
+    public function getBaseCastingRounds(): CastingRounds
+    {
+        return $this->tables->getFormulasTable()->getCastingRounds($this->getFormulaCode());
+    }
+
     public function getCurrentCastingRounds(): CastingRounds
     {
         $castingRoundsSum = 0;
         foreach ($this->modifiers as $modifier) {
             $castingRoundsSum += $modifier->getCastingRounds()->getValue();
         }
-        $castingRoundsSum += $this->tables->getFormulasTable()->getCastingRounds($this->getFormulaCode())->getValue();
+        $castingRoundsSum += $this->getBaseCastingRounds()->getValue();
 
         return new CastingRounds([$castingRoundsSum, 0], $this->tables);
+    }
+
+    public function getBaseEvocation(): Evocation
+    {
+        return $this->tables->getFormulasTable()->getEvocation($this->getFormulaCode());
     }
 
     /**
@@ -220,7 +230,12 @@ class Formula extends StrictObject
      */
     public function getCurrentEvocation(): Evocation
     {
-        return $this->tables->getFormulasTable()->getEvocation($this->getFormulaCode());
+        return $this->getBaseEvocation();
+    }
+
+    public function getBaseRealmAffection(): RealmsAffection
+    {
+        return $this->tables->getFormulasTable()->getRealmsAffection($this->getFormulaCode());
     }
 
     /**
@@ -243,7 +258,7 @@ class Formula extends StrictObject
      */
     private function getRealmsAffectionsSum(): array
     {
-        $baseRealmsAffection = $this->tables->getFormulasTable()->getRealmsAffection($this->getFormulaCode());
+        $baseRealmsAffection = $this->getBaseRealmAffection();
         $realmsAffectionsSum = [
             // like daily => -2
             $baseRealmsAffection->getAffectionPeriodCode()->getValue() => $baseRealmsAffection->getValue(),
@@ -263,6 +278,11 @@ class Formula extends StrictObject
         return $realmsAffectionsSum;
     }
 
+    public function getBaseRealm(): Realm
+    {
+        return $this->tables->getFormulasTable()->getRealm($this->getFormulaCode());
+    }
+
     /**
      * Gives the highest required realm (by difficulty, by formula itself or by one of its modifiers)
      *
@@ -270,9 +290,9 @@ class Formula extends StrictObject
      */
     public function getRequiredRealm(): Realm
     {
-        $realm = $this->tables->getFormulasTable()->getRealm($this->getFormulaCode());
+        $baseRealm = $this->getBaseRealm();
         $realmsIncrement = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
-        $requiredRealm = $realm->add($realmsIncrement);
+        $requiredRealm = $baseRealm->add($realmsIncrement);
 
         foreach ($this->modifiers as $modifier) {
             $byModifierRequiredRealm = $modifier->getRequiredRealm();
@@ -288,6 +308,11 @@ class Formula extends StrictObject
     public function getFormulaCode(): FormulaCode
     {
         return $this->formulaCode;
+    }
+
+    public function getBaseSpellRadius(): ?SpellRadius
+    {
+        return $this->tables->getFormulasTable()->getSpellRadius($this->getFormulaCode());
     }
 
     /**
@@ -317,7 +342,7 @@ class Formula extends StrictObject
      */
     private function getRadiusWithAddition(): ?SpellRadius
     {
-        $baseSpellRadius = $this->tables->getFormulasTable()->getSpellRadius($this->getFormulaCode());
+        $baseSpellRadius = $this->getBaseSpellRadius();
         if ($baseSpellRadius === null) {
             return null;
         }
@@ -356,9 +381,14 @@ class Formula extends StrictObject
         return new EpicenterShift([$distance->getBonus(), 0 /* no added difficulty */], $this->tables, $distance);
     }
 
+    public function getBaseEpicenterShift(): ?EpicenterShift
+    {
+        return $this->tables->getFormulasTable()->getEpicenterShift($this->getFormulaCode());
+    }
+
     private function getEpicenterShiftWithAddition(): ?EpicenterShift
     {
-        $baseEpicenterShift = $this->tables->getFormulasTable()->getEpicenterShift($this->getFormulaCode());
+        $baseEpicenterShift = $this->getBaseEpicenterShift();
         if ($baseEpicenterShift === null) {
             return null;
         }
@@ -391,14 +421,19 @@ class Formula extends StrictObject
         );
     }
 
+    public function getBaseSpellPower(): ?SpellPower
+    {
+        return $this->tables->getFormulasTable()->getSpellPower($this->getFormulaCode());
+    }
+
     private function getSpellPowerWithAddition(): ?SpellPower
     {
-        $basePower = $this->tables->getFormulasTable()->getSpellPower($this->getFormulaCode());
-        if ($basePower === null) {
+        $baseSpellPower = $this->getBaseSpellPower();
+        if ($baseSpellPower === null) {
             return null;
         }
 
-        return $basePower->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_POWER]);
+        return $baseSpellPower->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_POWER]);
     }
 
     /**
@@ -423,9 +458,14 @@ class Formula extends StrictObject
         );
     }
 
+    public function getBaseSpellAttack(): ?SpellAttack
+    {
+        return $this->tables->getFormulasTable()->getSpellAttack($this->getFormulaCode());
+    }
+
     private function getSpellAttackWithAddition(): ?SpellAttack
     {
-        $baseSpellAttack = $this->tables->getFormulasTable()->getSpellAttack($this->getFormulaCode());
+        $baseSpellAttack = $this->getBaseSpellAttack();
         if ($baseSpellAttack === null) {
             return null;
         }
@@ -503,9 +543,14 @@ class Formula extends StrictObject
         );
     }
 
+    public function getBaseSpellSpeed(): ?SpellSpeed
+    {
+        return $this->tables->getFormulasTable()->getSpellSpeed($this->getFormulaCode());
+    }
+
     private function getSpellSpeedWithAddition(): ?SpellSpeed
     {
-        $baseSpellSpeed = $this->tables->getFormulasTable()->getSpellSpeed($this->getFormulaCode());
+        $baseSpellSpeed = $this->getBaseSpellSpeed();
         if ($baseSpellSpeed === null) {
             return null;
         }
@@ -518,9 +563,14 @@ class Formula extends StrictObject
         return $this->getDetailLevelWithAddition();
     }
 
+    public function getBaseDetailLevel(): ?DetailLevel
+    {
+        return $this->tables->getFormulasTable()->getDetailLevel($this->getFormulaCode());
+    }
+
     private function getDetailLevelWithAddition(): ?DetailLevel
     {
-        $baseDetailLevel = $this->tables->getFormulasTable()->getDetailLevel($this->getFormulaCode());
+        $baseDetailLevel = $this->getBaseDetailLevel();
         if ($baseDetailLevel === null) {
             return null;
         }
@@ -533,9 +583,14 @@ class Formula extends StrictObject
         return $this->getSpellBrightnessWithAddition();
     }
 
+    public function getBaseSpellBrightness(): ?SpellBrightness
+    {
+        return $this->tables->getFormulasTable()->getSpellBrightness($this->getFormulaCode());
+    }
+
     private function getSpellBrightnessWithAddition(): ?SpellBrightness
     {
-        $baseSpellBrightness = $this->tables->getFormulasTable()->getSpellBrightness($this->getFormulaCode());
+        $baseSpellBrightness = $this->getBaseSpellBrightness();
         if ($baseSpellBrightness === null) {
             return null;
         }
@@ -548,11 +603,16 @@ class Formula extends StrictObject
         return $this->getDurationWithAddition();
     }
 
+    public function getBaseSpellDuration()
+    {
+        return $this->tables->getFormulasTable()->getSpellDuration($this->getFormulaCode());
+    }
+
     private function getDurationWithAddition(): SpellDuration
     {
-        $baseDuration = $this->tables->getFormulasTable()->getSpellDuration($this->getFormulaCode());
+        $baseSpellDuration = $this->getBaseSpellDuration();
 
-        return $baseDuration->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_DURATION]);
+        return $baseSpellDuration->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_DURATION]);
     }
 
     public function getCurrentSizeChange(): ?SizeChange
@@ -560,9 +620,14 @@ class Formula extends StrictObject
         return $this->getSizeChangeWithAddition();
     }
 
+    public function getBaseSizeChange(): ?SizeChange
+    {
+        return $this->tables->getFormulasTable()->getSizeChange($this->getFormulaCode());
+    }
+
     private function getSizeChangeWithAddition(): ?SizeChange
     {
-        $baseSizeChange = $this->tables->getFormulasTable()->getSizeChange($this->getFormulaCode());
+        $baseSizeChange = $this->getBaseSizeChange();
         if ($baseSizeChange === null) {
             return null;
         }
