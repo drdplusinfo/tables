@@ -702,7 +702,7 @@ class FormulaTest extends TestWithMockery
 
     /**
      * @test
-     * @expectedException \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
+     * @expectedException \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      * @expectedExceptionMessageRegExp ~4~
      */
     public function I_can_not_add_non_zero_addition_to_unused_parameter()

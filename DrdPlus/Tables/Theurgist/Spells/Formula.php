@@ -11,6 +11,11 @@ use DrdPlus\Codes\Theurgist\FormulaMutableSpellParameterCode;
 use DrdPlus\Codes\Theurgist\ModifierCode;
 use DrdPlus\Codes\Theurgist\ModifierMutableSpellParameterCode;
 use DrdPlus\Tables\Tables;
+use DrdPlus\Tables\Theurgist\Exceptions\InvalidValueForMutableParameter;
+use DrdPlus\Tables\Theurgist\Exceptions\UnknownParameter;
+use DrdPlus\Tables\Theurgist\Partials\SanitizeMutableParameterChangesTrait;
+use DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter;
+use DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellBrightness;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\CastingRounds;
@@ -26,7 +31,6 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SizeChange;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed;
-use Granam\Integer\Tools\ToInteger;
 use Granam\Strict\Object\StrictObject;
 use Granam\String\StringTools;
 use Granam\Tools\ValueDescriber;
@@ -34,6 +38,7 @@ use Granam\Tools\ValueDescriber;
 class Formula extends StrictObject
 {
     use ToFlatArrayTrait;
+    use SanitizeMutableParameterChangesTrait;
 
     /** @var FormulaCode */
     private $formulaCode;
@@ -78,50 +83,31 @@ class Formula extends StrictObject
     /**
      * @param array $spellParameterValues
      * @return array
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      */
     private function sanitizeSpellParameterChanges(array $spellParameterValues): array
     {
-        $sanitizedChanges = [];
-        foreach (FormulaMutableSpellParameterCode::getPossibleValues() as $mutableSpellParameter) {
-            if (!\array_key_exists($mutableSpellParameter, $spellParameterValues)) {
-                $sanitizedChanges[$mutableSpellParameter] = 0;
-                continue;
-            }
-            try {
-                $sanitizedValue = ToInteger::toInteger($spellParameterValues[$mutableSpellParameter]);
-            } catch (\Granam\Integer\Tools\Exceptions\Exception $exception) {
-                throw new Exceptions\InvalidValueForFormulaParameter(
-                    'Expected integer, got ' . ValueDescriber::describe($spellParameterValues[$mutableSpellParameter])
-                    . ' for ' . $mutableSpellParameter . ": '{$exception->getMessage()}'"
-                );
-            }
-            /** like @see FormulasTable::getCastingRounds() */
-            $getParameter = StringTools::assembleGetterForName($mutableSpellParameter);
-            /** @var CastingParameter $baseParameter */
-            $baseParameter = $this->tables->getFormulasTable()->$getParameter($this->getFormulaCode());
-            if ($baseParameter === null) {
-                throw new Exceptions\InvalidSpellParameter(
-                    "Casting parameter {$mutableSpellParameter} is not used for formula {$this->formulaCode}"
-                    . ', so given non-zero addition ' . ValueDescriber::describe($spellParameterValues[$mutableSpellParameter])
-                    . ' is thrown away'
-                );
-            }
-            $parameterChange = $sanitizedValue - $baseParameter->getDefaultValue();
-            $sanitizedChanges[$mutableSpellParameter] = $parameterChange;
-
-            unset($spellParameterValues[$mutableSpellParameter]);
-        }
-        if (\count($spellParameterValues) > 0) { // there are some remains
-            throw new Exceptions\UnknownFormulaParameter(
-                'Unexpected mutable spells parameter(s) [' . \implode(', ', array_keys($spellParameterValues)) . ']. Expected only '
-                . \implode(', ', FormulaMutableSpellParameterCode::getPossibleValues())
+        try {
+            return $this->sanitizeMutableParameterChanges(
+                $spellParameterValues,
+                FormulaMutableSpellParameterCode::getPossibleValues(),
+                $this->getFormulaCode(),
+                $this->tables->getFormulasTable()
+            );
+        } catch (InvalidValueForMutableParameter $invalidValueForMutableParameter) {
+            throw new InvalidValueForFormulaParameter(
+                $invalidValueForMutableParameter->getMessage(),
+                $invalidValueForMutableParameter->getCode(),
+                $invalidValueForMutableParameter
+            );
+        } catch (UnknownParameter $unknownParameter) {
+            throw new UnknownFormulaParameter(
+                $unknownParameter->getMessage(),
+                $unknownParameter->getCode(),
+                $unknownParameter
             );
         }
-
-        return $sanitizedChanges;
     }
 
     /**
