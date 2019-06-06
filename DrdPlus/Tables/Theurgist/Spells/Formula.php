@@ -67,9 +67,9 @@ class Formula extends StrictObject
     public function __construct(
         FormulaCode $formulaCode,
         Tables $tables,
-        array $formulaSpellParameterValues = [],
-        array $modifiers = [],
-        array $formulaSpellTraits = []
+        array $formulaSpellParameterValues,
+        array $modifiers,
+        array $formulaSpellTraits
     )
     {
         $this->formulaCode = $formulaCode;
