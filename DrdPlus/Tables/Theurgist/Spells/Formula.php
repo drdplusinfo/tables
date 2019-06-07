@@ -57,7 +57,6 @@ class Formula extends StrictObject
      * @param array $formulaSpellParameterValues Current values of spell parameters (changes will be calculated from them)
      * @param array|Modifier[] $modifiers
      * @param array|SpellTrait[] $formulaSpellTraits
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidModifier

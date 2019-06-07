@@ -29,14 +29,14 @@ class DemonsTableTest extends AbstractTheurgistTableTest
             DemonsTable::DEMON_CAPACITY,
             DemonsTable::DEMON_ENDURANCE,
             DemonsTable::SPELL_SPEED,
-            DemonsTable::QUALITY,
-            DemonsTable::SPELL_DURATION,
-            DemonsTable::SPELL_RADIUS,
+            DemonsTable::DEMON_QUALITY,
+            DemonsTable::DEMON_ACTIVATION_DURATION,
+            DemonsTable::DEMON_RADIUS,
             DemonsTable::DEMON_STRENGTH,
             DemonsTable::DEMON_AGILITY,
             DemonsTable::DEMON_KNACK,
             DemonsTable::DEMON_ARMOR,
-            DemonsTable::INVISIBILITY,
+            DemonsTable::DEMON_INVISIBILITY,
         ];
     }
 // TODO test parameters like demon body, will...

@@ -5,9 +5,9 @@ namespace DrdPlus\Tables\Theurgist\Demons\DemonParameters;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\PositiveCastingParameter;
 
 /**
- * @method DemonEndurance getWithAddition($additionValue)
+ * @method DemonInvisibility getWithAddition($additionValue)
  */
-class DemonEndurance extends PositiveCastingParameter
+class DemonInvisibility extends PositiveCastingParameter
 {
 
 }

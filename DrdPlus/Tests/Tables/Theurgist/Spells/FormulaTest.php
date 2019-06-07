@@ -29,14 +29,16 @@ use Mockery\MockInterface;
 
 class FormulaTest extends TestWithMockery
 {
-    private $parameterNamespace;
+    private static $parameterNamespace;
 
     /**
      * @throws \ReflectionException
      */
     protected function setUp(): void
     {
-        $this->parameterNamespace = (new \ReflectionClass(SpellSpeed::class))->getNamespaceName();
+        if (self::$parameterNamespace === null) {
+            self::$parameterNamespace = (new \ReflectionClass(SpellSpeed::class))->getNamespaceName();
+        }
     }
 
     /**
@@ -69,9 +71,9 @@ class FormulaTest extends TestWithMockery
         }
     }
 
-    private function createFormula(FormulaCode $formulaCode, Tables $tables, array $spellParameterValues = [], array $modifiers = []): Formula
+    private function createFormula(FormulaCode $formulaCode, Tables $tables, array $formulaSpellParameterValues = [], array $modifiers = []): Formula
     {
-        return new Formula($formulaCode, $tables, $spellParameterValues, $modifiers, []);
+        return new Formula($formulaCode, $tables, $formulaSpellParameterValues, $modifiers, []);
     }
 
     /**
@@ -116,7 +118,7 @@ class FormulaTest extends TestWithMockery
     {
         $parameterClassBasename = ucfirst(StringTools::assembleMethodName($parameterName));
 
-        $baseParameterClass = $this->parameterNamespace . '\\' . $parameterClassBasename;
+        $baseParameterClass = self::$parameterNamespace . '\\' . $parameterClassBasename;
         self::assertTrue(class_exists($baseParameterClass), 'Can not find class ' . $baseParameterClass);
 
         return $baseParameterClass;
@@ -193,6 +195,12 @@ class FormulaTest extends TestWithMockery
             FormulaMutableSpellParameterCode::SPELL_SPEED => 8,
             FormulaMutableSpellParameterCode::EPICENTER_SHIFT => 9,
         ];
+        $missedParameters = array_diff(FormulaMutableSpellParameterCode::getPossibleValues(), array_keys($parameterValues));
+        self::assertCount(
+            0,
+            $missedParameters,
+            'We have missed some mutable parameters: ' . implode(',', $missedParameters)
+        );
         $parameterChanges = [];
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
             $formulaCode = FormulaCode::getIt($formulaValue);

@@ -15,6 +15,9 @@ class DemonWillTest extends CastingParameterTest
     public function I_can_get_will()
     {
         $demonWill = new DemonWill([123, 0], Tables::getIt());
-        self::assertSame(Will::getIt(123), $demonWill->getWill());
+        $expectedWill = Will::getIt(123);
+        $currentWill = $demonWill->getWill();
+        self::assertEquals($expectedWill, $currentWill);
+        self::assertSame($expectedWill, $currentWill);
     }
 }

@@ -52,7 +52,6 @@ class Modifier extends StrictObject
      * @param Tables $tables
      * @param array|int[] $modifierSpellParameterValues spell parameters current values (delta will be calculated from them)
      * by @param array|SpellTrait[] $modifierSpellTraits
-     * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForModifierParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellTrait
