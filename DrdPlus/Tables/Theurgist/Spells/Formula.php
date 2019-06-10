@@ -405,18 +405,18 @@ class Formula extends StrictObject
      */
     public function getCurrentSpellPower(): ?SpellPower
     {
-        $powerWithAddition = $this->getSpellPowerWithAddition();
-        $powerBonus = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_POWER);
-        if (!$powerWithAddition && $powerBonus === false) {
+        $spellPowerWithAddition = $this->getSpellPowerWithAddition();
+        $spellPowerBonus = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_POWER);
+        if (!$spellPowerWithAddition && $spellPowerBonus === false) {
             return null;
         }
 
         return new SpellPower(
             [
-                ($powerWithAddition
-                    ? $powerWithAddition->getValue()
+                ($spellPowerWithAddition
+                    ? $spellPowerWithAddition->getValue()
                     : 0)
-                + (int)$powerBonus,
+                + (int)$spellPowerBonus,
                 self::NO_ADDITION_BY_DIFFICULTY,
             ],
             Tables::getIt()

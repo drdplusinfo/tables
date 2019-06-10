@@ -17,6 +17,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
@@ -164,6 +165,126 @@ class FormulaTest extends TestWithMockery
         $parameter->shouldReceive('getWithAddition')
             ->with($addition)
             ->andReturn($modifiedParameter);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_not_affect_current_formula_parameter_by_gate_modifier(): void
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::GREAT_MASSACRE);
+        $formulasTable = $this->createFormulasTable();
+        $byModifiersMutableParameterNames = array_intersect(
+            FormulaMutableSpellParameterCode::getPossibleValues(),
+            ModifierMutableSpellParameterCode::getPossibleValues()
+        );
+        self::assertNotEmpty($byModifiersMutableParameterNames);
+        foreach ($byModifiersMutableParameterNames as $mutableParameterName) {
+            /** like instance of @see SpellSpeed */
+            $baseParameter = $this->createExpectedParameter($mutableParameterName);
+            $this->addBaseParameterGetter($mutableParameterName, $formulaCode, $formulasTable, $baseParameter);
+
+            $this->addWithAdditionGetter(0, $baseParameter, $baseParameter);
+            $this->addValueGetter($baseParameter, 123);
+
+            $modifier = $this->createModifier(ModifierCode::getIt(ModifierCode::GATE));
+            $getParameterWithAddition = StringTools::assembleGetterForName($mutableParameterName . 'WithAddition');
+            $modifier->shouldReceive($getParameterWithAddition)
+                ->andReturn($castingParameter = $this->mockery(CastingParameter::class));
+            $castingParameter->shouldReceive('getValue')
+                ->andReturn(99999); // this should be skipped
+
+            /** like @see Formula::getCurrentSpellRadius() */
+            $formula = $this->createFormula(
+                $formulaCode,
+                $this->createTables($formulasTable),
+                [],
+                [$modifier]
+            );
+
+            $getCurrentParameter = StringTools::assembleGetterForName('current' . ucfirst($mutableParameterName));
+            /** @var CastingParameter $currentParameter */
+            $currentParameter = $formula->$getCurrentParameter();
+            self::assertSame(123, $currentParameter->getValue());
+        }
+    }
+
+    /**
+     * @param ModifierCode $modifierCode
+     * @return MockInterface|Modifier
+     */
+    private function createModifier(ModifierCode $modifierCode)
+    {
+        $modifier = $this->mockery(Modifier::class);
+        $modifier->shouldReceive('getModifierCode')
+            ->andReturn($modifierCode);
+        return $modifier;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_not_affect_formula_spell_power_by_thunder_modifier(): void
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::GREAT_MASSACRE);
+        $formulasTable = $this->createFormulasTable();
+        /** like instance of @see SpellPower */
+        $baseParameter = $this->createExpectedParameter(ModifierMutableSpellParameterCode::SPELL_POWER);
+        $this->addBaseParameterGetter(ModifierMutableSpellParameterCode::SPELL_POWER, $formulaCode, $formulasTable, $baseParameter);
+
+        $this->addWithAdditionGetter(0, $baseParameter, $baseParameter);
+        $this->addValueGetter($baseParameter, 123);
+
+        $thunderModifier = $this->createModifier(ModifierCode::getIt(ModifierCode::THUNDER));
+        $getParameterWithAddition = StringTools::assembleGetterForName(ModifierMutableSpellParameterCode::SPELL_POWER . 'WithAddition');
+        $thunderModifier->shouldReceive($getParameterWithAddition)
+            ->never();
+
+        /** like @see Formula::getCurrentSpellRadius() */
+        $formula = $this->createFormula(
+            $formulaCode,
+            $this->createTables($formulasTable),
+            [],
+            [$thunderModifier]
+        );
+
+        $getCurrentParameter = StringTools::assembleGetterForName('current' . ucfirst(ModifierMutableSpellParameterCode::SPELL_POWER));
+        /** @var CastingParameter $currentParameter */
+        $currentParameter = $formula->$getCurrentParameter();
+        self::assertSame(123, $currentParameter->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_not_affect_formula_parameter_by_modifier_without_that_parameter_affection(): void
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::GREAT_MASSACRE);
+        $formulasTable = $this->createFormulasTable();
+        /** like instance of @see SpellPower */
+        $baseParameter = $this->createExpectedParameter(ModifierMutableSpellParameterCode::SPELL_POWER);
+        $this->addBaseParameterGetter(ModifierMutableSpellParameterCode::SPELL_POWER, $formulaCode, $formulasTable, $baseParameter);
+
+        $this->addWithAdditionGetter(0, $baseParameter, $baseParameter);
+        $this->addValueGetter($baseParameter, 123);
+
+        $modifier = $this->createModifier(ModifierCode::getIt(ModifierCode::TRANSPOSITION));
+        $getParameterWithAddition = StringTools::assembleGetterForName(ModifierMutableSpellParameterCode::SPELL_POWER . 'WithAddition');
+        $modifier->shouldReceive($getParameterWithAddition)
+            ->andReturnNull();
+
+        /** like @see Formula::getCurrentSpellRadius() */
+        $formula = $this->createFormula(
+            $formulaCode,
+            $this->createTables($formulasTable),
+            [],
+            [$modifier]
+        );
+
+        $getCurrentParameter = StringTools::assembleGetterForName('current' . ucfirst(ModifierMutableSpellParameterCode::SPELL_POWER));
+        /** @var CastingParameter $currentParameter */
+        $currentParameter = $formula->$getCurrentParameter();
+        self::assertSame(123, $currentParameter->getValue());
     }
 
     /**
@@ -387,7 +508,7 @@ class FormulaTest extends TestWithMockery
             FormulaCode::getIt(FormulaCode::PORTAL),
             $this->createTables($formulasTable),
             [],
-            [$this->createModifier(1), [$this->createModifier(2), [$this->createModifier(3), $this->createModifier(4)]]]
+            [$this->createModifierWithCastingRounds(1), [$this->createModifierWithCastingRounds(2), [$this->createModifierWithCastingRounds(3), $this->createModifierWithCastingRounds(4)]]]
         );
         $formulasTable->shouldReceive('getCastingRounds')
             ->andReturn($this->createCastingRounds(123));
@@ -408,12 +529,11 @@ class FormulaTest extends TestWithMockery
      * @param int $castingRoundsValue
      * @return MockInterface|Modifier
      */
-    private function createModifier(int $castingRoundsValue)
+    private function createModifierWithCastingRounds(int $castingRoundsValue)
     {
         $modifier = $this->mockery(Modifier::class);
         $modifier->shouldReceive('getCastingRounds')
             ->andReturn($this->createCastingRounds($castingRoundsValue));
-
         return $modifier;
     }
 
@@ -426,7 +546,6 @@ class FormulaTest extends TestWithMockery
         $castingRounds = $this->mockery(CastingRounds::class);
         $castingRounds->shouldReceive('getValue')
             ->andReturn($value);
-
         return $castingRounds;
     }
 
@@ -685,7 +804,91 @@ class FormulaTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_epicenter_shift_changed_by_modifiers_only()
+    public function I_can_get_current_spell_power_without_power_addition()
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::BARRIER);
+        $formulasTable = $this->createFormulasTable();
+        $formulasTable->shouldReceive('getSpellPower')
+            ->with($formulaCode)
+            ->andReturnNull(); // no spell power directly
+        $modifiers = [$this->createModifierWithSpellPowerAddition(123, ModifierCode::getIt(ModifierCode::BREACH))];
+        $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), [], $modifiers);
+        self::assertSame(123, $formula->getCurrentSpellPower()->getValue());
+    }
+
+    /**
+     * @param int $spellPowerAddition
+     * @param ModifierCode $modifierCode
+     * @return MockInterface|Modifier
+     */
+    private function createModifierWithSpellPowerAddition(int $spellPowerAddition, ModifierCode $modifierCode)
+    {
+        $modifier = $this->mockery(Modifier::class);
+        $modifier->shouldReceive('getSpellPowerWithAddition')
+            ->andReturn($this->createSpellPower($spellPowerAddition));
+        $modifier->shouldReceive('getModifierCode')
+            ->andReturn($modifierCode);
+        return $modifier;
+    }
+
+    /**
+     * @param int $spellPowerValue
+     * @return MockInterface|SpellPower
+     */
+    private function createSpellPower(int $spellPowerValue)
+    {
+        $spellPower = $this->mockery(SpellPower::class);
+        $spellPower->shouldReceive('getValue')
+            ->andReturn($spellPowerValue);
+        return $spellPower;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_current_spell_speed_without_power_addition()
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::BARRIER);
+        $formulasTable = $this->createFormulasTable();
+        $formulasTable->shouldReceive('getSpellSpeed')
+            ->with($formulaCode)
+            ->andReturnNull(); // no spell power directly
+        $modifiers = [$this->createModifierWithSpellSpeedAddition(123, ModifierCode::getIt(ModifierCode::BREACH))];
+        $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), [], $modifiers);
+        self::assertSame(123, $formula->getCurrentSpellSpeed()->getValue());
+    }
+
+    /**
+     * @param int $spellSpeedAddition
+     * @param ModifierCode $modifierCode
+     * @return MockInterface|Modifier
+     */
+    private function createModifierWithSpellSpeedAddition(int $spellSpeedAddition, ModifierCode $modifierCode)
+    {
+        $modifier = $this->mockery(Modifier::class);
+        $modifier->shouldReceive('getSpellSpeedWithAddition')
+            ->andReturn($this->createSpellSpeed($spellSpeedAddition));
+        $modifier->shouldReceive('getModifierCode')
+            ->andReturn($modifierCode);
+        return $modifier;
+    }
+
+    /**
+     * @param int $spellSpeedValue
+     * @return MockInterface|SpellSpeed
+     */
+    private function createSpellSpeed(int $spellSpeedValue)
+    {
+        $spellSpeed = $this->mockery(SpellSpeed::class);
+        $spellSpeed->shouldReceive('getValue')
+            ->andReturn($spellSpeedValue);
+        return $spellSpeed;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_current_epicenter_shift_changed_by_modifiers_only()
     {
         $formulaCode = FormulaCode::getIt(FormulaCode::TSUNAMI_FROM_CLAY_AND_STONES);
         $formulasTable = $this->createFormulasTable();
@@ -708,7 +911,7 @@ class FormulaTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_get_epicenter_shift_changed_both_by_formula_and_modifiers()
+    public function I_can_get_current_epicenter_shift_changed_both_by_formula_and_modifiers()
     {
         $formulaCode = FormulaCode::getIt(FormulaCode::GREAT_MASSACRE);
         $formulasTable = $this->createFormulasTable();
