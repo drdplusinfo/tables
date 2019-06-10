@@ -40,6 +40,8 @@ class Formula extends StrictObject
     use ToFlatArrayTrait;
     use SanitizeMutableParameterChangesTrait;
 
+    private const NO_ADDITION_BY_DIFFICULTY = 0;
+
     /** @var FormulaCode */
     private $formulaCode;
     /** @var Tables */
@@ -364,7 +366,7 @@ class Formula extends StrictObject
             }
 
             return new EpicenterShift(
-                [$epicenterShiftByModifiers['bonus'], 0 /* no added difficulty*/],
+                [$epicenterShiftByModifiers['bonus'], self::NO_ADDITION_BY_DIFFICULTY],
                 $this->tables,
                 new Distance($epicenterShiftByModifiers['meters'], DistanceUnitCode::METER, $this->tables->getDistanceTable())
             );
@@ -377,7 +379,7 @@ class Formula extends StrictObject
 
         $distance = new Distance($meters, DistanceUnitCode::METER, $this->tables->getDistanceTable());
 
-        return new EpicenterShift([$distance->getBonus(), 0 /* no added difficulty */], $this->tables, $distance);
+        return new EpicenterShift([$distance->getBonus(), self::NO_ADDITION_BY_DIFFICULTY], $this->tables, $distance);
     }
 
     public function getBaseEpicenterShift(): ?EpicenterShift
@@ -414,7 +416,7 @@ class Formula extends StrictObject
                     ? $powerWithAddition->getValue()
                     : 0)
                 + (int)$powerBonus,
-                0, // no addition
+                self::NO_ADDITION_BY_DIFFICULTY,
             ],
             Tables::getIt()
         );
@@ -451,7 +453,7 @@ class Formula extends StrictObject
             [
                 $spellAttackWithAddition->getValue()
                 + (int)$this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_ATTACK),
-                0 // no addition
+                self::NO_ADDITION_BY_DIFFICULTY,
             ],
             Tables::getIt()
         );
