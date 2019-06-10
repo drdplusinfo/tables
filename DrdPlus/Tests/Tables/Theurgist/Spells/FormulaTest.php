@@ -6,11 +6,14 @@ use DrdPlus\Codes\Theurgist\AffectionPeriodCode;
 use DrdPlus\Codes\Theurgist\FormulaCode;
 use DrdPlus\Codes\Theurgist\FormulaMutableSpellParameterCode;
 use DrdPlus\Codes\Theurgist\ModifierCode;
+use DrdPlus\Codes\Theurgist\ModifierMutableSpellParameterCode;
+use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Time\Time;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\CastingRounds;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DifficultyChange;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
@@ -39,6 +42,15 @@ class FormulaTest extends TestWithMockery
         if (self::$parameterNamespace === null) {
             self::$parameterNamespace = (new \ReflectionClass(SpellSpeed::class))->getNamespaceName();
         }
+    }
+
+    /**
+     * @test
+     */
+    public function I_will_get_its_code_name_as_string_representation()
+    {
+        $formula = $this->createFormula(FormulaCode::getIt(FormulaCode::BARRIER), Tables::getIt());
+        self::assertSame(FormulaCode::BARRIER, (string)$formula);
     }
 
     /**
@@ -184,23 +196,7 @@ class FormulaTest extends TestWithMockery
      */
     public function I_can_create_it_with_addition_for_every_formula(): void
     {
-        $parameterValues = [
-            FormulaMutableSpellParameterCode::SPELL_RADIUS => 1,
-            FormulaMutableSpellParameterCode::SPELL_DURATION => 2,
-            FormulaMutableSpellParameterCode::SPELL_POWER => 3,
-            FormulaMutableSpellParameterCode::SPELL_ATTACK => 4,
-            FormulaMutableSpellParameterCode::SIZE_CHANGE => 5,
-            FormulaMutableSpellParameterCode::DETAIL_LEVEL => 6,
-            FormulaMutableSpellParameterCode::SPELL_BRIGHTNESS => 7,
-            FormulaMutableSpellParameterCode::SPELL_SPEED => 8,
-            FormulaMutableSpellParameterCode::EPICENTER_SHIFT => 9,
-        ];
-        $missedParameters = array_diff(FormulaMutableSpellParameterCode::getPossibleValues(), array_keys($parameterValues));
-        self::assertCount(
-            0,
-            $missedParameters,
-            'We have missed some mutable parameters: ' . implode(',', $missedParameters)
-        );
+        $parametersWithValues = $this->getParametersWithValues();
         $parameterChanges = [];
         foreach (FormulaCode::getPossibleValues() as $formulaValue) {
             $formulaCode = FormulaCode::getIt($formulaValue);
@@ -212,9 +208,9 @@ class FormulaTest extends TestWithMockery
                 $this->addBaseParameterGetter($mutableParameterName, $formulaCode, $formulasTable, $baseParameter);
                 $this->addDefaultValueGetter($baseParameter, $defaultValue = \random_int(-5, 5));
                 $baseParameters[$mutableParameterName] = $baseParameter;
-                $parameterChanges[$mutableParameterName] = $parameterValues[$mutableParameterName] - $defaultValue;
+                $parameterChanges[$mutableParameterName] = $parametersWithValues[$mutableParameterName] - $defaultValue;
             }
-            $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), $parameterValues);
+            $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), $parametersWithValues);
             self::assertSame($formulaCode, $formula->getFormulaCode());
             foreach (FormulaMutableSpellParameterCode::getPossibleValues() as $mutableParameterName) {
                 $baseParameter = $baseParameters[$mutableParameterName];
@@ -233,6 +229,28 @@ class FormulaTest extends TestWithMockery
                 self::assertSame(123, $currentParameter->getValue());
             }
         }
+    }
+
+    private function getParametersWithValues(): array
+    {
+        $parametersWithValues = [
+            FormulaMutableSpellParameterCode::SPELL_RADIUS => 1,
+            FormulaMutableSpellParameterCode::SPELL_DURATION => 2,
+            FormulaMutableSpellParameterCode::SPELL_POWER => 3,
+            FormulaMutableSpellParameterCode::SPELL_ATTACK => 4,
+            FormulaMutableSpellParameterCode::SIZE_CHANGE => 5,
+            FormulaMutableSpellParameterCode::DETAIL_LEVEL => 6,
+            FormulaMutableSpellParameterCode::SPELL_BRIGHTNESS => 7,
+            FormulaMutableSpellParameterCode::SPELL_SPEED => 8,
+            FormulaMutableSpellParameterCode::EPICENTER_SHIFT => 9,
+        ];
+        $missedParameters = array_diff(FormulaMutableSpellParameterCode::getPossibleValues(), array_keys($parametersWithValues));
+        self::assertCount(
+            0,
+            $missedParameters,
+            'We have missed some mutable parameters: ' . implode(',', $missedParameters)
+        );
+        return $parametersWithValues;
     }
 
     /**
@@ -662,6 +680,54 @@ class FormulaTest extends TestWithMockery
             ->andReturn($value);
 
         return $radius;
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_epicenter_shift_changed_by_modifiers_only()
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::TSUNAMI_FROM_CLAY_AND_STONES);
+        $formulasTable = $this->createFormulasTable();
+        $formulasTable->shouldReceive('getEpicenterShift')
+            ->with($formulaCode)
+            ->andReturnNull(); // no epicenter shift directly
+        $modifiers = [new Modifier(ModifierCode::getIt(ModifierCode::TRANSPOSITION), Tables::getIt(), [], [])];
+        $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), [], $modifiers);
+        $expectedEpicenterShiftDistance = new Distance(1, Distance::METER, Tables::getIt()->getDistanceTable());
+        self::assertSame(
+            $expectedEpicenterShiftDistance->getMeters(),
+            $formula->getCurrentEpicenterShift()->getDistance()->getMeters()
+        );
+        self::assertSame(
+            $expectedEpicenterShiftDistance->getBonus()->getValue(),
+            $formula->getCurrentEpicenterShift()->getDistanceBonus()->getValue()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_epicenter_shift_changed_both_by_formula_and_modifiers()
+    {
+        $formulaCode = FormulaCode::getIt(FormulaCode::GREAT_MASSACRE);
+        $formulasTable = $this->createFormulasTable();
+        $formulasTable->shouldReceive('getEpicenterShift')
+            ->with($formulaCode)
+            ->andReturn(new EpicenterShift([20 /* distance bonus 20 = 10 meters */, 0], Tables::getIt()));
+        $modifiers = [
+            new Modifier(
+                ModifierCode::getIt(ModifierCode::TRANSPOSITION),
+                Tables::getIt(),
+                [ModifierMutableSpellParameterCode::EPICENTER_SHIFT => 30 /* = 32 meters */], []
+            ),
+        ];
+        $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable), [], $modifiers);
+        $expectedEpicenterShiftDistance = new Distance(42, Distance::METER, Tables::getIt()->getDistanceTable());
+        self::assertSame(
+            $expectedEpicenterShiftDistance->getMeters(),
+            $formula->getCurrentEpicenterShift()->getDistance()->getMeters()
+        );
     }
 
     /**

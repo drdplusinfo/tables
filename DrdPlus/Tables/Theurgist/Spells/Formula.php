@@ -365,6 +365,7 @@ class Formula extends StrictObject
                 return null;
             }
 
+            // Transposition modifier can shift epicenter even if formula itself can not (if formula supports Transposition of course)
             return new EpicenterShift(
                 [$epicenterShiftByModifiers['bonus'], self::NO_ADDITION_BY_DIFFICULTY],
                 $this->tables,
