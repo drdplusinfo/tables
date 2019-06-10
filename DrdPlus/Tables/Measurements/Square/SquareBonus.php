@@ -75,9 +75,11 @@ class SquareBonus extends AbstractBonus
             case DistanceUnitCode::KILOMETER :
                 return SquareUnitCode::SQUARE_KILOMETER;
             default :
+                // @codeCoverageIgnoreStart
                 throw new Exceptions\SquareFromSquareBonusIsOutOfRange(
                     "Can not convert square bonus {$this->getValue()} to a square value as it is out of known values"
                 );
+            // @codeCoverageIgnoreEnd
         }
     }
 
