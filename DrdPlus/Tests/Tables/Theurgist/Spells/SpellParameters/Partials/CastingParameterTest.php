@@ -37,7 +37,7 @@ abstract class CastingParameterTest extends TestWithMockery
         $this->I_can_create_it_negative();
         $this->I_can_create_it_with_zero();
         $this->I_can_create_it_positive();
-        $this->I_can_create_it_with_current_addition();
+        $this->I_can_not_change_initial_addition();
     }
 
     protected function I_can_create_it_negative()
@@ -64,12 +64,12 @@ abstract class CastingParameterTest extends TestWithMockery
         self::assertSame('35689 (0 {1=>332211})', (string)$sut);
     }
 
-    protected function I_can_create_it_with_current_addition()
+    protected function I_can_not_change_initial_addition()
     {
-        $sut = $this->createSut(['1', '2', '3']);
-        self::assertSame(4, $sut->getValue());
-        self::assertEquals(new AdditionByDifficulty('2', 3), $sut->getAdditionByDifficulty());
-        self::assertSame('4 (3 {1=>2})', (string)$sut);
+        $sut = $this->createSut(['1', '2', '3' /* this should be ignored */]);
+        self::assertSame(1, $sut->getValue());
+        self::assertEquals(new AdditionByDifficulty('2'), $sut->getAdditionByDifficulty());
+        self::assertSame('1 (0 {1=>2})', (string)$sut);
     }
 
     /**
