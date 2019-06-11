@@ -52,7 +52,7 @@ abstract class CastingParameter extends StrictObject implements IntegerInterface
                 . ' for ' . $this->getParameterName()
             );
         }
-        $this->additionByDifficulty = new AdditionByDifficulty($values[1], $values[2] ?? null);
+        $this->additionByDifficulty = new AdditionByDifficulty($values[1], ToInteger::toIntegerOrNull($values[2] ?? null));
         $this->tables = $tables;
     }
 
