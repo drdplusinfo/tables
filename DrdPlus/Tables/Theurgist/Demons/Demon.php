@@ -57,34 +57,34 @@ class Demon extends StrictObject
     /**
      * @param DemonCode $demonCode
      * @param Tables $tables
-     * @param array $demonParameterValues
+     * @param array $demonParameterChanges
      * @param array|DemonTrait[] $demonTraits
      */
     public function __construct(
         DemonCode $demonCode,
         Tables $tables,
-        array $demonParameterValues,
+        array $demonParameterChanges,
         array $demonTraits
     )
     {
         $this->demonCode = $demonCode;
         $this->tables = $tables;
         // gets demon parameter changes as delta of current values and default values
-        $this->demonParameterChanges = $this->sanitizeDemonParameterChanges($demonParameterValues);
+        $this->demonParameterChanges = $this->sanitizeDemonParameterChanges($demonParameterChanges);
         $this->demonTraits = $this->checkDemonTraits($demonTraits);
     }
 
     /**
-     * @param array|int[]|string[] $demonParameterValues
+     * @param array|int[]|string[] $demonParameterChanges
      * @return array|int[]
      * @throws \DrdPlus\Tables\Theurgist\Demons\Exceptions\UnknownDemonParameter
      * @throws \DrdPlus\Tables\Theurgist\Demons\Exceptions\InvalidValueForDemonParameter
      */
-    private function sanitizeDemonParameterChanges(array $demonParameterValues): array
+    private function sanitizeDemonParameterChanges(array $demonParameterChanges): array
     {
         try {
             return $this->sanitizeMutableParameterChanges(
-                $demonParameterValues,
+                $demonParameterChanges,
                 DemonMutableParameterCode::getPossibleValues(),
                 $this->demonCode,
                 $this->tables->getDemonsTable()
@@ -150,16 +150,20 @@ class Demon extends StrictObject
         foreach ($this->getDemonParameters() as $demonParameter) {
             $parametersDifficultyChangeSum += $demonParameter->getAdditionByDifficulty()->getCurrentDifficultyIncrement();
         }
-        $spellTraitsDifficultyChangeSum = 0;
-        foreach ($this->getDemonTraits() as $spellTrait) {
-            $spellTraitsDifficultyChangeSum += $spellTrait->getDifficultyChange()->getValue();
+        $realmsAffectionByDemonTraitsSum = 0;
+        foreach ($this->getDemonTraits() as $demonTrait) {
+            $realmsAffectionByDemonTraitsSum += $demonTrait->getRealmsAffection()->getValue();
         }
-        $difficulty = $this->getBaseDifficulty();
 
-        return $difficulty->createWithChange(
-            $parametersDifficultyChangeSum
-            + $spellTraitsDifficultyChangeSum
-        );
+        $difficulty = $this->getBaseDifficulty();
+        if ($parametersDifficultyChangeSum !== 0) {
+            $difficulty = $difficulty->getWithDifficultyChange($parametersDifficultyChangeSum);
+        }
+        if ($realmsAffectionByDemonTraitsSum !== 0) {
+            $difficulty = $difficulty->getWithRealmsChange($realmsAffectionByDemonTraitsSum);
+        }
+
+        return $difficulty;
     }
 
     public function getBaseDifficulty(): Difficulty
@@ -174,14 +178,18 @@ class Demon extends StrictObject
     {
         return array_filter(
             [
+                $this->getDemonCapacityWithAddition(),
+                $this->getDemonEnduranceWithAddition(),
+                $this->getDemonActivationDurationWithAddition(),
+                $this->getDemonQualityWithAddition(),
+                $this->getDemonRadiusWithAddition(),
+                $this->getDemonAreaWithAddition(),
+                $this->getDemonInvisibilityWithAddition(),
+                $this->getDemonArmorWithAddition(),
+                $this->getSpellSpeedWithAddition(),
                 $this->getDemonStrengthWithAddition(),
                 $this->getDemonAgilityWithAddition(),
                 $this->getDemonKnackWithAddition(),
-                $this->getDemonInvisibilityWithAddition(),
-                $this->getDemonQualityWithAddition(),
-                $this->getDemonActivationDurationWithAddition(),
-                $this->getDemonRadiusWithAddition(),
-                $this->getSpellSpeedWithAddition(),
             ],
             function (CastingParameter $formulaParameter = null) {
                 return $formulaParameter !== null;

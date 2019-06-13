@@ -173,7 +173,7 @@ class Formula extends StrictObject
         }
         $difficulty = $this->tables->getFormulasTable()->getDifficulty($this->getFormulaCode());
 
-        return $difficulty->createWithChange(
+        return $difficulty->getWithDifficultyChange(
             $parametersDifficultyChangeSum
             + $modifiersDifficultyChangeSum
             + $spellTraitsDifficultyChangeSum

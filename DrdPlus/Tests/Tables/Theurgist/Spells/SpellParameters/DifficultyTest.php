@@ -1,5 +1,4 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters;
 
@@ -12,22 +11,36 @@ class DifficultyTest extends TestWithMockery
 
     /**
      * @test
+     * @dataProvider provideDifficultyChangingMethod
+     * @param string $difficultyChangeMethodName
+     * @param string $methodParameterName
      * @throws \ReflectionException
      */
-    public function I_get_whispered_current_class_as_return_value_of_set_addition()
+    public function I_get_whispered_current_class_as_return_value_for_difficulty_change(
+        string $difficultyChangeMethodName,
+        string $methodParameterName
+    )
     {
         $reflectionClass = new \ReflectionClass(Difficulty::class);
         $classBaseName = preg_replace('~^.*[\\\](\w+)$~', '$1', Difficulty::class);
-        $add = $reflectionClass->getMethod('createWithChange');
+        $add = $reflectionClass->getMethod($difficultyChangeMethodName);
         self::assertSame($phpDoc = <<<PHPDOC
 /**
- * @param int|float|NumberInterface \$difficultyChangeValue
+ * @param int|float|NumberInterface \${$methodParameterName}
  * @return {$classBaseName}
  */
 PHPDOC
             , preg_replace('~ {2,}~', ' ', $add->getDocComment()),
-            "Expected:\n$phpDoc\nfor method 'getWithAddition'"
+            "Expected:\n$phpDoc\nfor method '{$difficultyChangeMethodName}'"
         );
+    }
+
+    public function provideDifficultyChangingMethod(): array
+    {
+        return [
+            ['getWithDifficultyChange', 'difficultyChangeValue'],
+            ['getWithRealmsChange', 'realmsChangeValue'],
+        ];
     }
 
     /**
@@ -68,27 +81,46 @@ PHPDOC
     /**
      * @test
      */
-    public function I_can_get_its_clone_changed_by_addition()
+    public function I_can_get_its_clone_changed_by_difficulty_change()
     {
         $original = new Difficulty(['123', '345', '456=789']);
-        $increased = $original->createWithChange(456);
+        self::assertSame(0, $original->getDifficultyAddition()->getCurrentAddition());
+
+        $increased = $original->getWithDifficultyChange(456);
         self::assertSame(579, $increased->getValue());
         self::assertSame($original->getDifficultyAddition()->getNotation(), $increased->getDifficultyAddition()->getNotation());
         self::assertSame(456, $increased->getDifficultyAddition()->getCurrentAddition());
         self::assertNotSame($original, $increased);
 
-        $zeroed = $increased->createWithChange(-123);
+        $zeroed = $increased->getWithDifficultyChange(-123);
         self::assertSame(0, $zeroed->getValue());
         self::assertNotSame($original, $zeroed);
         self::assertNotSame($original, $increased);
         self::assertSame(-123, $zeroed->getDifficultyAddition()->getCurrentAddition());
         self::assertSame($original->getDifficultyAddition()->getNotation(), $zeroed->getDifficultyAddition()->getNotation());
 
-        $decreased = $zeroed->createWithChange(-234);
+        $decreased = $zeroed->getWithDifficultyChange(-234);
         self::assertSame(-111, $decreased->getValue());
         self::assertSame($zeroed->getDifficultyAddition()->getNotation(), $decreased->getDifficultyAddition()->getNotation());
         self::assertSame(-234, $decreased->getDifficultyAddition()->getCurrentAddition());
         self::assertNotSame($zeroed, $decreased);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_its_clone_changed_by_realms_change()
+    {
+        $minimalDifficulty = 123;
+        $realmsPerStep = 111;
+        $difficultyPerStep = 456;
+        $steps = 5;
+        $original = new Difficulty([(string)$minimalDifficulty, '345', "$realmsPerStep=$difficultyPerStep"]);
+        $increased = $original->getWithRealmsChange($steps * $realmsPerStep);
+        self::assertSame($minimalDifficulty + $steps * $difficultyPerStep, $increased->getValue());
+        self::assertSame($original->getDifficultyAddition()->getNotation(), $increased->getDifficultyAddition()->getNotation());
+        self::assertSame($steps * $difficultyPerStep, $increased->getDifficultyAddition()->getCurrentAddition());
+        self::assertNotSame($original, $increased);
     }
 
     /**
@@ -126,13 +158,13 @@ PHPDOC
         $formulaDifficulty = new Difficulty([1, 5, '2=3']);
         self::assertSame($formulaDifficulty->getValue(), $formulaDifficulty->getMinimal());
         self::assertSame(0, $formulaDifficulty->getCurrentRealmsIncrement());
-        $maximalDifficulty = $formulaDifficulty->createWithChange(4);
+        $maximalDifficulty = $formulaDifficulty->getWithDifficultyChange(4);
         self::assertSame(5, $maximalDifficulty->getValue());
         self::assertSame(0, $maximalDifficulty->getCurrentRealmsIncrement());
-        $higherThanMaximalDifficulty = $formulaDifficulty->createWithChange(5);
+        $higherThanMaximalDifficulty = $formulaDifficulty->getWithDifficultyChange(5);
         self::assertSame(6, $higherThanMaximalDifficulty->getValue());
         self::assertSame(1, $higherThanMaximalDifficulty->getCurrentRealmsIncrement());
-        $damnBigDifficulty = $formulaDifficulty->createWithChange(999);
+        $damnBigDifficulty = $formulaDifficulty->getWithDifficultyChange(999);
         self::assertSame(1000, $damnBigDifficulty->getValue());
         self::assertSame(664 /* 995 over maximal, 3 realms per 2 points */, $damnBigDifficulty->getCurrentRealmsIncrement());
     }
@@ -144,7 +176,12 @@ PHPDOC
     {
         $formulaDifficulty = new Difficulty([1, 2, '3=4']);
         $beforeChange = serialize($formulaDifficulty);
-        $withoutChange = $formulaDifficulty->createWithChange(0);
+
+        $withoutChange = $formulaDifficulty->getWithDifficultyChange(0);
+        self::assertSame($formulaDifficulty, $withoutChange);
+        self::assertSame($beforeChange, serialize($formulaDifficulty));
+
+        $withoutChange = $formulaDifficulty->getWithRealmsChange(0);
         self::assertSame($formulaDifficulty, $withoutChange);
         self::assertSame($beforeChange, serialize($formulaDifficulty));
     }

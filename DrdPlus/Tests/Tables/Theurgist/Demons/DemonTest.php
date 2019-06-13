@@ -1,18 +1,22 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tests\Tables\Theurgist\Demons;
 
 use DrdPlus\Codes\Theurgist\DemonCode;
 use DrdPlus\Codes\Theurgist\DemonMutableParameterCode;
+use DrdPlus\Codes\Theurgist\DemonTraitCode;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Demons\Demon;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonKnack;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonStrength;
 use DrdPlus\Tables\Theurgist\Demons\DemonsTable;
+use DrdPlus\Tables\Theurgist\Demons\DemonTrait;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Evocation;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\CastingParameter;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Realm;
+use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed;
 use Granam\String\StringTools;
 use Granam\Tests\Tools\TestWithMockery;
@@ -26,7 +30,7 @@ class DemonTest extends TestWithMockery
     /**
      * @throws \ReflectionException
      */
-    protected function setUp(): void
+    protected function setUp()
     {
         if (self::$demonParameterNamespace === null) {
             self::$demonParameterNamespace = (new \ReflectionClass(DemonStrength::class))->getNamespaceName();
@@ -39,7 +43,7 @@ class DemonTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_can_create_it_without_any_change_for_every_demon(): void
+    public function I_can_create_it_without_any_change_for_every_demon()
     {
         foreach (DemonCode::getPossibleValues() as $demonValue) {
             $demonCode = DemonCode::getIt($demonValue);
@@ -48,8 +52,8 @@ class DemonTest extends TestWithMockery
             self::assertSame($demonCode, $demon->getDemonCode());
             foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
                 /** like instance of @see DemonStrength */
-                $baseParameter = $this->createExpectedParameter($mutableParameterName);
-                $this->addBaseParameterGetter($mutableParameterName, $demonCode, $demonsTable, $baseParameter);
+                $baseParameter = $this->createParameter($mutableParameterName);
+                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, $baseParameter);
 
                 $this->addWithAdditionGetter(0, $baseParameter, $baseParameter);
                 $this->addValueGetter($baseParameter, 123);
@@ -57,7 +61,7 @@ class DemonTest extends TestWithMockery
                 $getCurrentParameter = StringTools::assembleGetterForName('current' . ucfirst($mutableParameterName));
                 /** @var CastingParameter $currentParameter */
                 $currentParameter = $demon->$getCurrentParameter();
-                self::assertInstanceOf($this->getParameterClass($mutableParameterName), $currentParameter);
+                self::assertInstanceOf($this->getDemonParameterClass($mutableParameterName), $currentParameter);
                 self::assertSame(123, $currentParameter->getValue());
                 /** @noinspection DisconnectedForeachInstructionInspection */
                 self::assertSame($demonValue, (string)$demonCode);
@@ -83,7 +87,7 @@ class DemonTest extends TestWithMockery
         return $tables;
     }
 
-    private function addValueGetter(MockInterface $object, $value): void
+    private function addValueGetter(MockInterface $object, $value)
     {
         $object->shouldReceive('getValue')
             ->andReturn($value);
@@ -101,17 +105,17 @@ class DemonTest extends TestWithMockery
      * @param string $parameterName
      * @return CastingParameter|MockInterface
      */
-    private function createExpectedParameter(string $parameterName): CastingParameter
+    private function createParameter(string $parameterName): CastingParameter
     {
-        $parameterClass = $this->getParameterClass($parameterName);
+        $parameterClass = $this->getDemonParameterClass($parameterName);
 
         return $this->mockery($parameterClass);
     }
 
-    private function getParameterClass(string $parameterName): string
+    private function getDemonParameterClass(string $demonParameterName): string
     {
-        $parameterClassBasename = ucfirst(StringTools::assembleMethodName($parameterName));
-        $namespace = strpos($parameterName, 'demon') !== false
+        $parameterClassBasename = ucfirst(StringTools::assembleMethodName($demonParameterName));
+        $namespace = strpos($demonParameterName, 'demon') !== false
             ? self::$demonParameterNamespace
             : self::$spellParameterNamespace;
 
@@ -121,20 +125,20 @@ class DemonTest extends TestWithMockery
         return $baseParameterClass;
     }
 
-    private function addBaseParameterGetter(
+    private function addParameterGetter(
         string $parameterName,
         DemonCode $demonCode,
         MockInterface $demonsTable,
-        CastingParameter $property = null
-    ): void
+        CastingParameter $parameter = null
+    )
     {
         $getProperty = StringTools::assembleGetterForName($parameterName);
         $demonsTable->shouldReceive($getProperty)
             ->with($demonCode)
-            ->andReturn($property);
+            ->andReturn($parameter);
     }
 
-    private function addDefaultValueGetter(MockInterface $property, int $defaultValue = 0): void
+    private function addDefaultValueGetter(MockInterface $property, int $defaultValue = 0)
     {
         $property->shouldReceive('getDefaultValue')
             ->andReturn($defaultValue);
@@ -144,7 +148,7 @@ class DemonTest extends TestWithMockery
         int $addition,
         MockInterface $parameter,
         CastingParameter $modifiedParameter
-    ): void
+    )
     {
         $parameter->shouldReceive('getWithAddition')
             ->with($addition)
@@ -154,7 +158,7 @@ class DemonTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_get_null_for_unused_parameters_for_every_demon(): void
+    public function I_get_null_for_unused_parameters_for_every_demon()
     {
         foreach (DemonCode::getPossibleValues() as $demonValue) {
             $demonCode = DemonCode::getIt($demonValue);
@@ -163,7 +167,7 @@ class DemonTest extends TestWithMockery
             self::assertSame([], $demon->getDemonTraits());
             self::assertSame($demonCode, $demon->getDemonCode());
             foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
-                $this->addBaseParameterGetter($mutableParameterName, $demonCode, $demonsTable, null);
+                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null);
                 /** like @see Demon::getCurrentDemonCapacity() */
                 $getCurrentParameter = StringTools::assembleGetterForName('current' . $mutableParameterName);
                 self::assertNull($demon->$getCurrentParameter());
@@ -175,7 +179,7 @@ class DemonTest extends TestWithMockery
      * @test
      * @throws \Exception
      */
-    public function I_can_create_it_with_addition_for_every_demon(): void
+    public function I_can_create_it_with_addition_for_every_demon()
     {
         $parameterValues = [
             DemonMutableParameterCode::DEMON_CAPACITY => 1,
@@ -204,8 +208,8 @@ class DemonTest extends TestWithMockery
             $baseParameters = [];
             foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
                 /** like instance of @see SpellSpeed */
-                $baseParameter = $this->createExpectedParameter($mutableParameterName);
-                $this->addBaseParameterGetter($mutableParameterName, $demonCode, $demonsTable, $baseParameter);
+                $baseParameter = $this->createParameter($mutableParameterName);
+                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, $baseParameter);
                 $this->addDefaultValueGetter($baseParameter, $defaultValue = \random_int(-5, 5));
                 $baseParameters[$mutableParameterName] = $baseParameter;
                 $parameterChanges[$mutableParameterName] = $parameterValues[$mutableParameterName] - $defaultValue;
@@ -218,14 +222,14 @@ class DemonTest extends TestWithMockery
                 $this->addWithAdditionGetter(
                     $change,
                     $baseParameter,
-                    $changedParameter = $this->createExpectedParameter($mutableParameterName)
+                    $changedParameter = $this->createParameter($mutableParameterName)
                 );
                 $this->addValueGetter($changedParameter, 123);
                 /** like @see Demon::getCurrentSpellRadius() */
                 $getCurrentParameter = StringTools::assembleGetterForName('current' . $mutableParameterName);
                 /** @var CastingParameter $currentParameter */
                 $currentParameter = $demon->$getCurrentParameter();
-                self::assertInstanceOf($this->getParameterClass($mutableParameterName), $currentParameter);
+                self::assertInstanceOf($this->getDemonParameterClass($mutableParameterName), $currentParameter);
                 self::assertSame(123, $currentParameter->getValue());
             }
         }
@@ -234,37 +238,26 @@ class DemonTest extends TestWithMockery
     /**
      * @test
      */
-    public function I_get_basic_difficulty_change_without_any_parameter(): void
+    public function I_get_basic_difficulty_change_without_any_parameter()
     {
         foreach (DemonCode::getPossibleValues() as $demonValue) {
             $demonCode = DemonCode::getIt($demonValue);
             $demonsTable = $this->createDemonsTable();
             foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
-                $baseParameter = null;
-                $this->addBaseParameterGetter($mutableParameterName, $demonCode, $demonsTable, $baseParameter);
+                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
             }
-            $this->addDemonDifficultyGetter($demonsTable, $demonCode, 0);
+            $currentDifficulty = $this->createDifficulty();
+            $this->addDifficultyGetter($demonsTable, $demonCode, $currentDifficulty);
             $demon = $this->createDemon($demonCode, $this->createTables($demonsTable));
-            self::assertSame(
-                $demonsTable->getDifficulty($demonCode)->createWithChange(0),
-                $demon->getCurrentDifficulty()
-            );
+            self::assertSame($currentDifficulty, $demon->getCurrentDifficulty());
         }
     }
 
-    private function addDemonDifficultyGetter(
-        MockInterface $demonTable,
-        DemonCode $expectedDemonCode,
-        int $expectedDifficultyChange,
-        Difficulty $demonChangedDifficulty = null
-    ): void
+    private function addDifficultyGetter(MockInterface $demonsTable, DemonCode $demonCode, Difficulty $difficulty)
     {
-        $demonTable->shouldReceive('getDifficulty')
-            ->with($expectedDemonCode)
-            ->andReturn($demonDifficulty = $this->mockery(Difficulty::class));
-        $demonDifficulty->shouldReceive('createWithChange')
-            ->with($expectedDifficultyChange)
-            ->andReturn($demonChangedDifficulty ?? $this->mockery(Difficulty::class));
+        $demonsTable->shouldReceive('getDifficulty')
+            ->with($demonCode)
+            ->andReturn($difficulty);
     }
 
     /**
@@ -288,7 +281,7 @@ class DemonTest extends TestWithMockery
     public function I_can_not_add_non_zero_addition_to_unused_parameter()
     {
         $addParameterGetter = function (MockInterface $demonsTable, ?DemonKnack $demonKnack) {
-            $this->addBaseParameterGetter(
+            $this->addParameterGetter(
                 DemonMutableParameterCode::DEMON_KNACK,
                 DemonCode::getIt(DemonCode::DEADY),
                 $demonsTable,
@@ -305,7 +298,7 @@ class DemonTest extends TestWithMockery
         };
         try {
             $demonsTable = $this->createDemonsTable();
-            $demonKnack = $this->createExpectedParameter(DemonMutableParameterCode::DEMON_KNACK);
+            $demonKnack = $this->createParameter(DemonMutableParameterCode::DEMON_KNACK);
             /** @var DemonKnack $demonKnack */
             $addParameterGetter($demonsTable, $demonKnack);
             $this->addDefaultValueGetter($demonKnack, 1);
@@ -348,4 +341,212 @@ class DemonTest extends TestWithMockery
         );
     }
 
+    /**
+     * @test
+     * @expectedException \DrdPlus\Tables\Theurgist\Demons\Exceptions\InvalidValueForDemonParameter
+     * @expectedExceptionMessageRegExp ~indefinite~
+     */
+    public function I_can_not_create_it_with_invalid_mutable_parameter()
+    {
+        new Demon(DemonCode::getIt(DemonCode::WARDEN), Tables::getIt(), [DemonMutableParameterCode::DEMON_CAPACITY => 'indefinite'], []);
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_current_difficulty_affected_by_parameters()
+    {
+        foreach (DemonCode::getPossibleValues() as $demonValue) {
+            $demonCode = DemonCode::getIt($demonValue);
+            $demonsTable = $this->createDemonsTable();
+            $currentDifficultyIncrement = 1;
+            $expectedDifficultyChange = 0;
+            foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
+                $parameter = $this->createParameter($mutableParameterName);
+                $parameter->shouldReceive('getWithAddition')
+                    ->with(0)
+                    ->andReturn($parameter); // no change here
+                $parameter->shouldReceive('getAdditionByDifficulty')
+                    ->andReturn($additionByDifficulty = $this->createAdditionByDifficulty($currentDifficultyIncrement));
+                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, $parameter);
+                $expectedDifficultyChange += $currentDifficultyIncrement;
+                $currentDifficultyIncrement++; // just some change
+            }
+            $difficulty = $this->createDifficulty();
+            $this->addDemonChangedDifficultyGetter($demonsTable, $demonCode, $expectedDifficultyChange, $difficulty);
+            $demon = $this->createDemon($demonCode, $this->createTables($demonsTable));
+            self::assertSame(
+                $difficulty,
+                $demon->getCurrentDifficulty(),
+                "Expected difficulty change $expectedDifficultyChange"
+            );
+        }
+    }
+
+    private function addDemonChangedDifficultyGetter(
+        MockInterface $demonTable,
+        DemonCode $expectedDemonCode,
+        int $expectedDifficultyChange,
+        Difficulty $demonChangedDifficulty = null
+    )
+    {
+        $demonTable->shouldReceive('getDifficulty')
+            ->with($expectedDemonCode)
+            ->andReturn($demonDifficulty = $this->mockery(Difficulty::class));
+        $demonDifficulty->shouldReceive('getWithDifficultyChange')
+            ->with($expectedDifficultyChange)
+            ->andReturn($demonChangedDifficulty ?? $this->mockery(Difficulty::class));
+    }
+
+    /**
+     * @param int|null $currentRealmsIncrement
+     * @return Difficulty|MockInterface
+     */
+    private function createDifficulty(int $currentRealmsIncrement = null): Difficulty
+    {
+        $difficulty = $this->mockery(Difficulty::class);
+        if ($currentRealmsIncrement !== null) {
+            $difficulty->shouldReceive('getCurrentRealmsIncrement')
+                ->andReturn($currentRealmsIncrement);
+        }
+        return $difficulty;
+    }
+
+    /**
+     * @param int|null $currentDifficultyIncrement
+     * @return AdditionByDifficulty|MockInterface
+     */
+    private function createAdditionByDifficulty(int $currentDifficultyIncrement = null): AdditionByDifficulty
+    {
+        $additionByDifficulty = $this->mockery(AdditionByDifficulty::class);
+        if ($currentDifficultyIncrement !== null) {
+            $additionByDifficulty->shouldReceive('getCurrentDifficultyIncrement')
+                ->andReturn($currentDifficultyIncrement);
+        }
+        return $additionByDifficulty;
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_current_difficulty_affected_by_traits()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEADY);
+        $demonsTable = $this->createDemonsTable();
+        $currentRealmsChange = 1;
+        $expectedRealmsChange = 0;
+        foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
+            // just fulfill requirements by empty parameters
+            $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
+        }
+        $demonTraits = [];
+        foreach (DemonTraitCode::getPossibleValues() as $traitName) {
+            $demonTrait = $this->createDemonTrait();
+            $demonTrait->shouldReceive('getRealmsAffection')
+                ->andReturn($this->createRealmsAffection($currentRealmsChange));
+            $demonTrait->shouldReceive('getDemonTraitCode')
+                ->andReturn(DemonTraitCode::getIt($traitName));
+            $demonTraits[] = $demonTrait;
+            $expectedRealmsChange += $currentRealmsChange;
+            $currentRealmsChange++; // just some change
+        }
+        $currentDifficulty = $this->createDifficulty();
+        $this->addDemonRealmsChangedDifficultyGetter($demonsTable, $demonCode, $expectedRealmsChange, $currentDifficulty);
+        $demon = new Demon($demonCode, $this->createTables($demonsTable), [], $demonTraits);
+        self::assertSame(
+            $currentDifficulty,
+            $demon->getCurrentDifficulty(),
+            "Expected different difficulty change caused by realms change $expectedRealmsChange"
+        );
+    }
+
+    /**
+     * @param int $realmsChange
+     * @return RealmsAffection|MockInterface
+     */
+    private function createRealmsAffection(int $realmsChange): RealmsAffection
+    {
+        $realmsAffection = $this->mockery(RealmsAffection::class);
+        $realmsAffection->shouldReceive('getValue')
+            ->andReturn($realmsChange);
+        return $realmsAffection;
+    }
+
+    private function addDemonRealmsChangedDifficultyGetter(
+        MockInterface $demonTable,
+        DemonCode $expectedDemonCode,
+        int $expectedRealmsChange,
+        Difficulty $currentDifficulty
+    )
+    {
+        $demonTable->shouldReceive('getDifficulty')
+            ->with($expectedDemonCode)
+            ->andReturn($demonDifficulty = $this->mockery(Difficulty::class));
+        $demonDifficulty->shouldReceive('getWithRealmsChange')
+            ->with($expectedRealmsChange)
+            ->andReturn($currentDifficulty);
+    }
+
+    /**
+     * @return DemonTrait|MockInterface
+     */
+    private function createDemonTrait(): DemonTrait
+    {
+        return $this->mockery(DemonTrait::class);
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_required_realm()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::WARDEN);
+        $demonsTable = $this->createDemonsTable();
+        foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
+            // just fulfill requirements by empty parameters
+            $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
+        }
+        $realmsIncrementByDifficulty = 123456;
+        $this->addDifficultyGetterWithRealmsIncrement($demonsTable, $demonCode, $realmsIncrementByDifficulty);
+        $requiredRealm = $this->createRealm();
+        $this->addRealmGetter($demonsTable, $demonCode, $realmsIncrementByDifficulty, $requiredRealm);
+        $demon = new Demon($demonCode, $this->createTables($demonsTable), [], []);
+        self::assertSame(
+            $requiredRealm,
+            $demon->getRequiredRealm(),
+            "Expected different realm"
+        );
+    }
+
+    /**
+     * @return Realm|MockInterface
+     */
+    private function createRealm(): Realm
+    {
+        return $this->mockery(Realm::class);
+    }
+
+    private function addDifficultyGetterWithRealmsIncrement(MockInterface $demonsTable, DemonCode $demonCode, int $realmsIncrement)
+    {
+        $demonsTable->shouldReceive('getDifficulty')
+            ->with($demonCode)
+            ->andReturn($difficulty = $this->createDifficulty());
+        $difficulty->shouldReceive('getCurrentRealmsIncrement')
+            ->andReturn($realmsIncrement);
+    }
+
+    private function addRealmGetter(
+        MockInterface $demonsTable,
+        DemonCode $demonCode,
+        int $expectedRealmsIncrement,
+        Realm $requiredRealm
+    )
+    {
+        $demonsTable->shouldReceive('getRealm')
+            ->with($demonCode)
+            ->andReturn($realm = $this->createRealm());
+        $realm->shouldReceive('add')
+            ->with($expectedRealmsIncrement)
+            ->andReturn($requiredRealm);
+    }
 }

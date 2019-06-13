@@ -392,16 +392,16 @@ class FormulaTest extends TestWithMockery
                 }
                 $this->addBaseParameterGetter($mutableParameterName, $formulaCode, $formulasTable, $baseParameter);
             }
-            $this->addFormulaDifficultyGetter($formulasTable, $formulaCode, 0);
+            $this->addDemonDifficultyGetter($formulasTable, $formulaCode, 0);
             $formula = $this->createFormula($formulaCode, $this->createTables($formulasTable));
             self::assertSame(
-                $formulasTable->getDifficulty($formulaCode)->createWithChange(0),
+                $formulasTable->getDifficulty($formulaCode)->getWithDifficultyChange(0),
                 $formula->getCurrentDifficulty()
             );
         }
     }
 
-    private function addFormulaDifficultyGetter(
+    private function addDemonDifficultyGetter(
         MockInterface $formulaTable,
         FormulaCode $expectedFormulaCode,
         int $expectedDifficultyChange,
@@ -410,8 +410,8 @@ class FormulaTest extends TestWithMockery
     {
         $formulaTable->shouldReceive('getDifficulty')
             ->with($expectedFormulaCode)
-            ->andReturn($formulaDifficulty = $this->mockery(Difficulty::class));
-        $formulaDifficulty->shouldReceive('createWithChange')
+            ->andReturn($difficulty = $this->mockery(Difficulty::class));
+        $difficulty->shouldReceive('getWithDifficultyChange')
             ->with($expectedDifficultyChange)
             ->andReturn($formulaChangedDifficulty ?? $this->mockery(Difficulty::class));
     }
@@ -434,7 +434,7 @@ class FormulaTest extends TestWithMockery
                 $parameterDifficulties[] = $difficultyChange = random_int(-10, 10);
                 $this->addAdditionByDifficultyGetter($difficultyChange, $changedParameter);
             }
-            $this->addFormulaDifficultyGetter($formulasTable, $formulaCode, 123 + 456 + 789 + 789 + 159 + array_sum($parameterDifficulties));
+            $this->addDemonDifficultyGetter($formulasTable, $formulaCode, 123 + 456 + 789 + 789 + 159 + array_sum($parameterDifficulties));
             $formula = new Formula(
                 $formulaCode,
                 $this->createTables($formulasTable),
@@ -446,7 +446,7 @@ class FormulaTest extends TestWithMockery
             try {
                 self::assertNotEquals($formulasTable->getDifficulty($formulaCode), $formula->getCurrentDifficulty());
                 self::assertEquals(
-                    $formulasTable->getDifficulty($formulaCode)->createWithChange(
+                    $formulasTable->getDifficulty($formulaCode)->getWithDifficultyChange(
                         123 + 456 + 789 + 789 + 159 + array_sum($parameterDifficulties)
                     ),
                     $formula->getCurrentDifficulty()
@@ -663,7 +663,7 @@ class FormulaTest extends TestWithMockery
             $this->addBaseParameterGetter($mutableParameterName, $formulaCode, $formulasTable, $baseParameter);
         }
         $changedDifficulty = $this->createDifficulty();
-        $this->addFormulaDifficultyGetter(
+        $this->addDemonDifficultyGetter(
             $formulasTable,
             $formulaCode,
             0,
