@@ -265,11 +265,15 @@ class Demon extends StrictObject
      */
     private function getRealmsAffectionsSum(): array
     {
+        $realmsAffectionsSum = [];
+        foreach ($this->getDemonTraits() as $demonTrait) {
+            $affectionPeriodName = $demonTrait->getRealmsAffection()->getAffectionPeriodCode()->getValue();
+            // like ['daily' => -2]
+            $realmsAffectionsSum[$affectionPeriodName] = ($realmsAffectionsSum[$affectionPeriodName] ?? 0) + $demonTrait->getRealmsAffection()->getValue();
+        }
         $baseRealmsAffection = $this->getBaseRealmsAffection();
-        $realmsAffectionsSum = [
-            // like daily => -2
-            $baseRealmsAffection->getAffectionPeriodCode()->getValue() => $baseRealmsAffection->getValue(),
-        ];
+        $affectionPeriodName = $baseRealmsAffection->getAffectionPeriodCode()->getValue();
+        $realmsAffectionsSum[$affectionPeriodName] = ($realmsAffectionsSum[$affectionPeriodName] ?? 0) + $baseRealmsAffection->getValue();
         return $realmsAffectionsSum;
     }
 

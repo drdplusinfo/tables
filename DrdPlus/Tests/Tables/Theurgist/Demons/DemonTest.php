@@ -2,13 +2,17 @@
 
 namespace DrdPlus\Tests\Tables\Theurgist\Demons;
 
+use DrdPlus\Codes\Theurgist\AffectionPeriodCode;
+use DrdPlus\Codes\Theurgist\DemonBodyCode;
 use DrdPlus\Codes\Theurgist\DemonCode;
+use DrdPlus\Codes\Theurgist\DemonKindCode;
 use DrdPlus\Codes\Theurgist\DemonMutableParameterCode;
 use DrdPlus\Codes\Theurgist\DemonTraitCode;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Demons\Demon;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonKnack;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonStrength;
+use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonWill;
 use DrdPlus\Tables\Theurgist\Demons\DemonsTable;
 use DrdPlus\Tables\Theurgist\Demons\DemonTrait;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
@@ -462,13 +466,20 @@ class DemonTest extends TestWithMockery
 
     /**
      * @param int $realmsChange
+     * @param string|null $affectionPeriodCodeValue
      * @return RealmsAffection|MockInterface
      */
-    private function createRealmsAffection(int $realmsChange): RealmsAffection
+    private function createRealmsAffection(int $realmsChange, string $affectionPeriodCodeValue = null): RealmsAffection
     {
         $realmsAffection = $this->mockery(RealmsAffection::class);
         $realmsAffection->shouldReceive('getValue')
             ->andReturn($realmsChange);
+        if ($affectionPeriodCodeValue !== null) {
+            $realmsAffection->shouldReceive('getAffectionPeriodCode')
+                ->andReturn($affectionPeriodCode = $this->mockery(AffectionPeriodCode::class));
+            $affectionPeriodCode->shouldReceive('getValue')
+                ->andReturn($affectionPeriodCodeValue);
+        }
         return $realmsAffection;
     }
 
@@ -548,5 +559,103 @@ class DemonTest extends TestWithMockery
         $realm->shouldReceive('add')
             ->with($expectedRealmsIncrement)
             ->andReturn($requiredRealm);
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_demon_body_code()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::WARDEN);
+        $demonsTable = $this->createDemonsTable();
+        $demonsTable->shouldReceive('getDemonBodyCode')
+            ->with($demonCode)
+            ->andReturn($demonBodyCode = $this->mockery(DemonBodyCode::class));
+        $tables = $this->createTables($demonsTable);
+        $demon = new Demon($demonCode, $tables, [], []);
+        self::assertSame($demonBodyCode, $demon->getDemonBodyCode());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_demon_kind_code()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEMON_OF_MOVEMENT);
+        $demonsTable = $this->createDemonsTable();
+        $demonsTable->shouldReceive('getDemonKindCode')
+            ->with($demonCode)
+            ->andReturn($demonKindCode = $this->mockery(DemonKindCode::class));
+        $tables = $this->createTables($demonsTable);
+        $demon = new Demon($demonCode, $tables, [], []);
+        self::assertSame($demonKindCode, $demon->getDemonKindCode());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_demon_will()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEMON_OF_MOVEMENT);
+        $demonsTable = $this->createDemonsTable();
+        $demonsTable->shouldReceive('getDemonWill')
+            ->with($demonCode)
+            ->andReturn($demonWill = $this->mockery(DemonWill::class));
+        $tables = $this->createTables($demonsTable);
+        $demon = new Demon($demonCode, $tables, [], []);
+        self::assertSame($demonWill, $demon->getBaseDemonWill());
+        self::assertSame($demonWill, $demon->getCurrentDemonWill());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_base_realms_affection()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEMON_OF_MOVEMENT);
+        $demonsTable = $this->createDemonsTable();
+        $demonsTable->shouldReceive('getRealmsAffection')
+            ->with($demonCode)
+            ->andReturn($realmsAffection = $this->mockery(RealmsAffection::class));
+        $tables = $this->createTables($demonsTable);
+        $demon = new Demon($demonCode, $tables, [], []);
+        self::assertSame($realmsAffection, $demon->getBaseRealmsAffection());
+    }
+
+    /**
+     * @test
+     */
+    public function I_can_get_current_realms_affection()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEMON_OF_MOVEMENT);
+        $demonsTable = $this->createDemonsTable();
+        $demonsTable->shouldReceive('getRealmsAffection')
+            ->with($demonCode)
+            ->atLeast()->once()
+            ->andReturn($realmsAffection = $this->createRealmsAffection(-1, AffectionPeriodCode::LIFE));
+        $demonTraits = [];
+        $realmsAffectionValue = -10;
+        $realmsAffectionValueSum = 0;
+        foreach (DemonTraitCode::getPossibleValues() as $demonTraitValue) {
+            $demonTraitCode = DemonTraitCode::getIt($demonTraitValue);
+            $demonTrait = $this->createDemonTrait();
+            $demonTrait->shouldReceive('getDemonTraitCode')
+                ->andReturn($demonTraitCode);
+            $demonTrait->shouldReceive('getRealmsAffection')
+                ->atLeast()->once()
+                ->andReturn($this->createRealmsAffection($realmsAffectionValue, AffectionPeriodCode::MONTHLY));
+            $demonTraits[] = $demonTrait;
+            $realmsAffectionValueSum += $realmsAffectionValue;
+            $realmsAffectionValue--; // just some change
+        }
+        $tables = $this->createTables($demonsTable);
+        $demon = new Demon($demonCode, $tables, [], $demonTraits);
+        self::assertEquals(
+            [
+                AffectionPeriodCode::LIFE => new RealmsAffection([-1, AffectionPeriodCode::LIFE]),
+                AffectionPeriodCode::MONTHLY => new RealmsAffection([$realmsAffectionValueSum, AffectionPeriodCode::MONTHLY]),
+            ],
+            $demon->getCurrentRealmsAffections()
+        );
     }
 }
