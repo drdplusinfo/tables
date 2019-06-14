@@ -7,9 +7,9 @@ use DrdPlus\Codes\Units\DistanceUnitCode;
 use DrdPlus\Tables\Measurements\Distance\Distance;
 use DrdPlus\Tables\Measurements\Distance\DistanceBonus;
 use DrdPlus\Codes\Theurgist\FormulaCode;
-use DrdPlus\Codes\Theurgist\FormulaMutableSpellParameterCode;
+use DrdPlus\Codes\Theurgist\FormulaMutableParameterCode;
 use DrdPlus\Codes\Theurgist\ModifierCode;
-use DrdPlus\Codes\Theurgist\ModifierMutableSpellParameterCode;
+use DrdPlus\Codes\Theurgist\ModifierMutableParameterCode;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Exceptions\InvalidValueForMutableParameter;
 use DrdPlus\Tables\Theurgist\Exceptions\UnknownParameter;
@@ -63,7 +63,7 @@ class Formula extends StrictObject
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForFormulaParameter
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidModifier
      * @throws \DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellTrait
-     * @see FormulaMutableSpellParameterCode value indexed its value change
+     * @see FormulaMutableParameterCode value indexed its value change
      */
     public function __construct(
         FormulaCode $formulaCode,
@@ -92,7 +92,7 @@ class Formula extends StrictObject
         try {
             return $this->sanitizeMutableParameterChanges(
                 $spellParameterValues,
-                FormulaMutableSpellParameterCode::getPossibleValues(),
+                FormulaMutableParameterCode::getPossibleValues(),
                 $this->getFormulaCode(),
                 $this->tables->getFormulasTable()
             );
@@ -326,7 +326,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        $radiusModifiersChange = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_RADIUS);
+        $radiusModifiersChange = $this->getParameterBonusFromModifiers(ModifierMutableParameterCode::SPELL_RADIUS);
         if (!$radiusModifiersChange) {
             return new SpellRadius([$radiusWithAddition->getValue(), 0], $this->tables);
         }
@@ -346,7 +346,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSpellRadius->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_RADIUS]);
+        return $baseSpellRadius->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_RADIUS]);
     }
 
     /**
@@ -357,7 +357,7 @@ class Formula extends StrictObject
     public function getCurrentEpicenterShift(): ?EpicenterShift
     {
         $epicenterShiftWithAddition = $this->getEpicenterShiftWithAddition();
-        $epicenterShiftByModifiers = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::EPICENTER_SHIFT);
+        $epicenterShiftByModifiers = $this->getParameterBonusFromModifiers(ModifierMutableParameterCode::EPICENTER_SHIFT);
         if ($epicenterShiftWithAddition === null) {
             if ($epicenterShiftByModifiers === false) {
                 return null;
@@ -393,7 +393,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseEpicenterShift->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::EPICENTER_SHIFT]);
+        return $baseEpicenterShift->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::EPICENTER_SHIFT]);
     }
 
     /**
@@ -404,7 +404,7 @@ class Formula extends StrictObject
     public function getCurrentSpellPower(): ?SpellPower
     {
         $spellPowerWithAddition = $this->getSpellPowerWithAddition();
-        $spellPowerBonus = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_POWER);
+        $spellPowerBonus = $this->getParameterBonusFromModifiers(ModifierMutableParameterCode::SPELL_POWER);
         if (!$spellPowerWithAddition && $spellPowerBonus === false) {
             return null;
         }
@@ -433,7 +433,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSpellPower->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_POWER]);
+        return $baseSpellPower->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_POWER]);
     }
 
     /**
@@ -451,7 +451,7 @@ class Formula extends StrictObject
         return new SpellAttack(
             [
                 $spellAttackWithAddition->getValue()
-                + (int)$this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_ATTACK),
+                + (int)$this->getParameterBonusFromModifiers(ModifierMutableParameterCode::SPELL_ATTACK),
                 self::NO_ADDITION_BY_DIFFICULTY,
             ],
             Tables::getIt()
@@ -470,7 +470,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSpellAttack->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_ATTACK]);
+        return $baseSpellAttack->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_ATTACK]);
     }
 
     /**
@@ -484,7 +484,7 @@ class Formula extends StrictObject
             if ($modifier->getModifierCode()->getValue() === ModifierCode::GATE) {
                 continue; // gate does not give bonus to a parameter, it is standalone being with its own parameters
             }
-            if ($parameterName === ModifierMutableSpellParameterCode::SPELL_POWER
+            if ($parameterName === ModifierMutableParameterCode::SPELL_POWER
                 && $modifier->getModifierCode()->getValue() === ModifierCode::THUNDER
             ) {
                 continue; // thunder power means a noise, does not affects formula power
@@ -503,7 +503,7 @@ class Formula extends StrictObject
         }
 
         // transpositions are chained in sequence and their values (distances) have to be summed, not bonuses
-        if ($parameterName === ModifierMutableSpellParameterCode::EPICENTER_SHIFT) {
+        if ($parameterName === ModifierMutableParameterCode::EPICENTER_SHIFT) {
             $meters = 0;
             foreach ($bonusParts as $bonusPart) {
                 $meters += (new DistanceBonus($bonusPart, $this->tables->getDistanceTable()))->getDistance()->getMeters();
@@ -526,7 +526,7 @@ class Formula extends StrictObject
     public function getCurrentSpellSpeed(): ?SpellSpeed
     {
         $spellSpeedWithAddition = $this->getSpellSpeedWithAddition();
-        $spellSpeedBonus = $this->getParameterBonusFromModifiers(ModifierMutableSpellParameterCode::SPELL_SPEED);
+        $spellSpeedBonus = $this->getParameterBonusFromModifiers(ModifierMutableParameterCode::SPELL_SPEED);
         if (!$spellSpeedWithAddition && $spellSpeedBonus === false) {
             return null;
         }
@@ -555,7 +555,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSpellSpeed->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_SPEED]);
+        return $baseSpellSpeed->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_SPEED]);
     }
 
     public function getCurrentDetailLevel(): ?DetailLevel
@@ -575,7 +575,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseDetailLevel->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::DETAIL_LEVEL]);
+        return $baseDetailLevel->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::DETAIL_LEVEL]);
     }
 
     public function getCurrentSpellBrightness(): ?SpellBrightness
@@ -595,7 +595,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSpellBrightness->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_BRIGHTNESS]);
+        return $baseSpellBrightness->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_BRIGHTNESS]);
     }
 
     public function getCurrentSpellDuration(): SpellDuration
@@ -612,7 +612,7 @@ class Formula extends StrictObject
     {
         $baseSpellDuration = $this->getBaseSpellDuration();
 
-        return $baseSpellDuration->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SPELL_DURATION]);
+        return $baseSpellDuration->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SPELL_DURATION]);
     }
 
     public function getCurrentSizeChange(): ?SizeChange
@@ -632,7 +632,7 @@ class Formula extends StrictObject
             return null;
         }
 
-        return $baseSizeChange->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableSpellParameterCode::SIZE_CHANGE]);
+        return $baseSizeChange->getWithAddition($this->formulaSpellParameterChanges[FormulaMutableParameterCode::SIZE_CHANGE]);
     }
 
     public function __toString()
