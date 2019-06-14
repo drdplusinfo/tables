@@ -270,10 +270,7 @@ class Formula extends StrictObject
                 continue;
             }
             $modifierRealmsAffectionPeriod = $modifierRealmsAffection->getAffectionPeriodCode()->getValue();
-            if (!array_key_exists($modifierRealmsAffectionPeriod, $realmsAffectionsSum)) {
-                $realmsAffectionsSum[$modifierRealmsAffectionPeriod] = 0;
-            }
-            $realmsAffectionsSum[$modifierRealmsAffectionPeriod] += $modifierRealmsAffection->getValue();
+            $realmsAffectionsSum[$modifierRealmsAffectionPeriod] = ($realmsAffectionsSum[$modifierRealmsAffectionPeriod] ?? 0) + $modifierRealmsAffection->getValue();
         }
 
         return $realmsAffectionsSum;
@@ -292,10 +289,11 @@ class Formula extends StrictObject
     public function getRequiredRealm(): Realm
     {
         $baseRealm = $this->getBaseRealm();
-        $realmsIncrement = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
-        $requiredRealm = $baseRealm->add($realmsIncrement);
 
-        foreach ($this->modifiers as $modifier) {
+        $realmsIncrementBecauseOfDifficulty = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
+        $requiredRealm = $baseRealm->add($realmsIncrementBecauseOfDifficulty);
+
+        foreach ($this->getModifiers() as $modifier) {
             $byModifierRequiredRealm = $modifier->getRequiredRealm();
             if ($requiredRealm->getValue() < $byModifierRequiredRealm->getValue()) {
                 // some modifier requires even higher realm, so we are forced to increase it

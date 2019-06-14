@@ -247,13 +247,18 @@ class DemonTest extends TestWithMockery
         foreach (DemonCode::getPossibleValues() as $demonValue) {
             $demonCode = DemonCode::getIt($demonValue);
             $demonsTable = $this->createDemonsTable();
-            foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
-                $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
-            }
+            $this->addEmptyParameterGetters($demonsTable, $demonCode);
             $currentDifficulty = $this->createDifficulty();
             $this->addDifficultyGetter($demonsTable, $demonCode, $currentDifficulty);
             $demon = $this->createDemon($demonCode, $this->createTables($demonsTable));
             self::assertSame($currentDifficulty, $demon->getCurrentDifficulty());
+        }
+    }
+
+    private function addEmptyParameterGetters(MockInterface $demonsTable, DemonCode $demonCode)
+    {
+        foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
+            $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
         }
     }
 
@@ -431,40 +436,6 @@ class DemonTest extends TestWithMockery
     }
 
     /**
-     * @test
-     */
-    public function I_get_current_difficulty_affected_by_traits()
-    {
-        $demonCode = DemonCode::getIt(DemonCode::DEADY);
-        $demonsTable = $this->createDemonsTable();
-        $currentRealmsChange = 1;
-        $expectedRealmsChange = 0;
-        foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
-            // just fulfill requirements by empty parameters
-            $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
-        }
-        $demonTraits = [];
-        foreach (DemonTraitCode::getPossibleValues() as $traitName) {
-            $demonTrait = $this->createDemonTrait();
-            $demonTrait->shouldReceive('getRealmsAffection')
-                ->andReturn($this->createRealmsAffection($currentRealmsChange));
-            $demonTrait->shouldReceive('getDemonTraitCode')
-                ->andReturn(DemonTraitCode::getIt($traitName));
-            $demonTraits[] = $demonTrait;
-            $expectedRealmsChange += $currentRealmsChange;
-            $currentRealmsChange++; // just some change
-        }
-        $currentDifficulty = $this->createDifficulty();
-        $this->addDemonRealmsChangedDifficultyGetter($demonsTable, $demonCode, $expectedRealmsChange, $currentDifficulty);
-        $demon = new Demon($demonCode, $this->createTables($demonsTable), [], $demonTraits);
-        self::assertSame(
-            $currentDifficulty,
-            $demon->getCurrentDifficulty(),
-            "Expected different difficulty change caused by realms change $expectedRealmsChange"
-        );
-    }
-
-    /**
      * @param int $realmsChange
      * @param string|null $affectionPeriodCodeValue
      * @return RealmsAffection|MockInterface
@@ -483,40 +454,28 @@ class DemonTest extends TestWithMockery
         return $realmsAffection;
     }
 
-    private function addDemonRealmsChangedDifficultyGetter(
-        MockInterface $demonTable,
-        DemonCode $expectedDemonCode,
-        int $expectedRealmsChange,
-        Difficulty $currentDifficulty
-    )
-    {
-        $demonTable->shouldReceive('getDifficulty')
-            ->with($expectedDemonCode)
-            ->andReturn($demonDifficulty = $this->mockery(Difficulty::class));
-        $demonDifficulty->shouldReceive('getWithRealmsChange')
-            ->with($expectedRealmsChange)
-            ->andReturn($currentDifficulty);
-    }
-
     /**
+     * @param DemonTraitCode $demonTraitCode
      * @return DemonTrait|MockInterface
      */
-    private function createDemonTrait(): DemonTrait
+    private function createDemonTrait(DemonTraitCode $demonTraitCode): DemonTrait
     {
-        return $this->mockery(DemonTrait::class);
+        $demonTrait = $this->mockery(DemonTrait::class);
+        $demonTrait->shouldReceive('getDemonTraitCode')
+            ->andReturn($demonTraitCode);
+
+        return $demonTrait;
     }
 
     /**
      * @test
      */
-    public function I_get_required_realm()
+    public function I_get_required_realm_of_demon_without_traits()
     {
         $demonCode = DemonCode::getIt(DemonCode::WARDEN);
         $demonsTable = $this->createDemonsTable();
-        foreach (DemonMutableParameterCode::getPossibleValues() as $mutableParameterName) {
-            // just fulfill requirements by empty parameters
-            $this->addParameterGetter($mutableParameterName, $demonCode, $demonsTable, null /* no parameter */);
-        }
+        $this->addEmptyParameterGetters($demonsTable, $demonCode);
+
         $realmsIncrementByDifficulty = 123456;
         $this->addDifficultyGetterWithRealmsIncrement($demonsTable, $demonCode, $realmsIncrementByDifficulty);
         $requiredRealm = $this->createRealm();
@@ -559,6 +518,47 @@ class DemonTest extends TestWithMockery
         $realm->shouldReceive('add')
             ->with($expectedRealmsIncrement)
             ->andReturn($requiredRealm);
+    }
+
+    /**
+     * @test
+     */
+    public function I_get_required_realm_of_demon_with_traits()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::WARDEN);
+        $demonsTable = $this->createDemonsTable();
+        $this->addEmptyParameterGetters($demonsTable, $demonCode);
+
+        $realmsIncrementByDifficulty = 123456;
+        $this->addDifficultyGetterWithRealmsIncrement($demonsTable, $demonCode, $realmsIncrementByDifficulty);
+        $demonRequiredRealm = $this->createRealm();
+        $demonRequiredRealm->shouldReceive('getValue')
+            ->andReturn($demonRequiredRealmValue = 654321);
+        $this->addRealmGetter($demonsTable, $demonCode, $realmsIncrementByDifficulty, $demonRequiredRealm);
+        $expectedHighestRealm = $demonRequiredRealm;
+
+        $demonTraits = [];
+        $demonTraitRealmValue = $demonRequiredRealmValue + 1; // just a little bit higher
+        foreach (DemonTraitCode::getPossibleValues() as $demonTraitName) {
+            $demonTraitCode = DemonTraitCode::getIt($demonTraitName);
+            $demonTrait = $this->createDemonTrait($demonTraitCode);
+            $demonTrait->shouldReceive('getRequiredRealm')
+                ->atLeast()->once()
+                ->andReturn($traitRealm = $this->createRealm());
+            $traitRealm->shouldReceive('getValue')
+                ->atLeast()->once()
+                ->andReturn($demonTraitRealmValue);
+            $demonTraits[] = $demonTrait;
+            $demonTraitRealmValue++; // just a little increment to test using highest realm
+            $expectedHighestRealm = $traitRealm;
+        }
+
+        $demon = new Demon($demonCode, $this->createTables($demonsTable), [], $demonTraits);
+        self::assertSame(
+            $expectedHighestRealm,
+            $demon->getRequiredRealm(),
+            "Expected different realm, got with value {$demon->getRequiredRealm()->getValue()}, but expected with value {$expectedHighestRealm->getValue()}"
+        );
     }
 
     /**
@@ -638,9 +638,7 @@ class DemonTest extends TestWithMockery
         $realmsAffectionValueSum = 0;
         foreach (DemonTraitCode::getPossibleValues() as $demonTraitValue) {
             $demonTraitCode = DemonTraitCode::getIt($demonTraitValue);
-            $demonTrait = $this->createDemonTrait();
-            $demonTrait->shouldReceive('getDemonTraitCode')
-                ->andReturn($demonTraitCode);
+            $demonTrait = $this->createDemonTrait($demonTraitCode);
             $demonTrait->shouldReceive('getRealmsAffection')
                 ->atLeast()->once()
                 ->andReturn($this->createRealmsAffection($realmsAffectionValue, AffectionPeriodCode::MONTHLY));

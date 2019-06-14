@@ -128,15 +128,26 @@ class Demon extends StrictObject
     }
 
     /**
-     * Gives the highest required realm (by difficulty or by demon itself)
+     * Gives the highest required realm (by difficulty and by demon itself or by active traits)
      *
      * @return Realm
      */
     public function getRequiredRealm(): Realm
     {
         $baseRealm = $this->getBaseRealm();
-        $realmsIncrement = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
-        return $baseRealm->add($realmsIncrement);
+
+        $realmsIncrementBecauseOfDifficulty = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
+        $requiredRealm = $baseRealm->add($realmsIncrementBecauseOfDifficulty);
+
+        foreach ($this->getDemonTraits() as $demonTrait) {
+            $byTraitRequiredRealm = $demonTrait->getRequiredRealm();
+            if ($requiredRealm->getValue() < $byTraitRequiredRealm->getValue()) {
+                // some trait requires even higher realm, so we are forced to increase it
+                $requiredRealm = $byTraitRequiredRealm;
+            }
+        }
+
+        return $requiredRealm;
     }
 
     public function getBaseRealm(): Realm
@@ -146,24 +157,15 @@ class Demon extends StrictObject
 
     public function getCurrentDifficulty(): Difficulty
     {
+        if (!$this->getDemonParameters()) {
+            return $this->getBaseDifficulty();
+        }
+
         $parametersDifficultyChangeSum = 0;
         foreach ($this->getDemonParameters() as $demonParameter) {
             $parametersDifficultyChangeSum += $demonParameter->getAdditionByDifficulty()->getCurrentDifficultyIncrement();
         }
-        $realmsAffectionByDemonTraitsSum = 0;
-        foreach ($this->getDemonTraits() as $demonTrait) {
-            $realmsAffectionByDemonTraitsSum += $demonTrait->getRealmsAffection()->getValue();
-        }
-
-        $difficulty = $this->getBaseDifficulty();
-        if ($parametersDifficultyChangeSum !== 0) {
-            $difficulty = $difficulty->getWithDifficultyChange($parametersDifficultyChangeSum);
-        }
-        if ($realmsAffectionByDemonTraitsSum !== 0) {
-            $difficulty = $difficulty->getWithRealmsChange($realmsAffectionByDemonTraitsSum);
-        }
-
-        return $difficulty;
+        return $this->getBaseDifficulty()->getWithDifficultyChange($parametersDifficultyChangeSum);
     }
 
     public function getBaseDifficulty(): Difficulty
@@ -241,6 +243,11 @@ class Demon extends StrictObject
         return $this->tables->getDemonsTable()->getDemonKindCode($this->getDemonCode());
     }
 
+    public function getBaseRealmsAffection(): ?RealmsAffection
+    {
+        return $this->tables->getDemonsTable()->getRealmsAffection($this->getDemonCode());
+    }
+
     /**
      * Daily, monthly and lifetime affections of realms
      *
@@ -253,11 +260,6 @@ class Demon extends StrictObject
             $realmsAffections[$periodName] = new RealmsAffection([$periodSum, $periodName]);
         }
         return $realmsAffections;
-    }
-
-    public function getBaseRealmsAffection(): ?RealmsAffection
-    {
-        return $this->tables->getDemonsTable()->getRealmsAffection($this->getDemonCode());
     }
 
     /**

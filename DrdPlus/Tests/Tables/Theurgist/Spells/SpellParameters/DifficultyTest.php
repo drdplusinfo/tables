@@ -11,36 +11,22 @@ class DifficultyTest extends TestWithMockery
 
     /**
      * @test
-     * @dataProvider provideDifficultyChangingMethod
-     * @param string $difficultyChangeMethodName
-     * @param string $methodParameterName
      * @throws \ReflectionException
      */
-    public function I_get_whispered_current_class_as_return_value_for_difficulty_change(
-        string $difficultyChangeMethodName,
-        string $methodParameterName
-    )
+    public function I_get_whispered_current_class_as_return_value_for_difficulty_change()
     {
         $reflectionClass = new \ReflectionClass(Difficulty::class);
         $classBaseName = preg_replace('~^.*[\\\](\w+)$~', '$1', Difficulty::class);
-        $add = $reflectionClass->getMethod($difficultyChangeMethodName);
+        $add = $reflectionClass->getMethod('getWithDifficultyChange');
         self::assertSame($phpDoc = <<<PHPDOC
 /**
- * @param int|float|NumberInterface \${$methodParameterName}
+ * @param int|float|NumberInterface \$difficultyChangeValue
  * @return {$classBaseName}
  */
 PHPDOC
             , preg_replace('~ {2,}~', ' ', $add->getDocComment()),
-            "Expected:\n$phpDoc\nfor method '{$difficultyChangeMethodName}'"
+            "Expected:\n$phpDoc\nfor method 'getWithDifficultyChange'"
         );
-    }
-
-    public function provideDifficultyChangingMethod(): array
-    {
-        return [
-            ['getWithDifficultyChange', 'difficultyChangeValue'],
-            ['getWithRealmsChange', 'realmsChangeValue'],
-        ];
     }
 
     /**
@@ -109,23 +95,6 @@ PHPDOC
     /**
      * @test
      */
-    public function I_can_get_its_clone_changed_by_realms_change()
-    {
-        $minimalDifficulty = 123;
-        $realmsPerStep = 111;
-        $difficultyPerStep = 456;
-        $steps = 5;
-        $original = new Difficulty([(string)$minimalDifficulty, '345', "$realmsPerStep=$difficultyPerStep"]);
-        $increased = $original->getWithRealmsChange($steps * $realmsPerStep);
-        self::assertSame($minimalDifficulty + $steps * $difficultyPerStep, $increased->getValue());
-        self::assertSame($original->getDifficultyAddition()->getNotation(), $increased->getDifficultyAddition()->getNotation());
-        self::assertSame($steps * $difficultyPerStep, $increased->getDifficultyAddition()->getCurrentAddition());
-        self::assertNotSame($original, $increased);
-    }
-
-    /**
-     * @test
-     */
     public function I_can_use_it()
     {
         $zeroMinimalDifficulty = new Difficulty(['0', '65', '12=13']);
@@ -178,10 +147,6 @@ PHPDOC
         $beforeChange = serialize($formulaDifficulty);
 
         $withoutChange = $formulaDifficulty->getWithDifficultyChange(0);
-        self::assertSame($formulaDifficulty, $withoutChange);
-        self::assertSame($beforeChange, serialize($formulaDifficulty));
-
-        $withoutChange = $formulaDifficulty->getWithRealmsChange(0);
         self::assertSame($formulaDifficulty, $withoutChange);
         self::assertSame($beforeChange, serialize($formulaDifficulty));
     }

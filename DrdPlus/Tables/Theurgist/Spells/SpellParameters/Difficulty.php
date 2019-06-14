@@ -125,22 +125,6 @@ class Difficulty extends StrictObject implements PositiveInteger
     }
 
     /**
-     * @param int|float|NumberInterface $realmsChangeValue
-     * @return Difficulty
-     */
-    public function getWithRealmsChange($realmsChangeValue): Difficulty
-    {
-        $realmsChangeValue = ToInteger::toInteger($realmsChangeValue);
-        if ($realmsChangeValue === 0) {
-            return $this; // no change needed
-        }
-        $steps = $realmsChangeValue / $this->getDifficultyAddition()->getRealmsChangePerAdditionStep();
-        $difficultyChangeValue = $steps * $this->getDifficultyAddition()->getDifficultyAdditionPerStep();
-
-        return $this->getWithDifficultyChange($difficultyChangeValue);
-    }
-
-    /**
      * @param int|float|NumberInterface $difficultyChangeValue
      * @return Difficulty
      */
