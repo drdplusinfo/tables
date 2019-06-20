@@ -6,6 +6,7 @@ use DrdPlus\Codes\Theurgist\DemonBodyCode;
 use DrdPlus\Codes\Theurgist\DemonCode;
 use DrdPlus\Codes\Theurgist\DemonKindCode;
 use DrdPlus\Codes\Theurgist\DemonMutableParameterCode;
+use DrdPlus\Codes\Theurgist\DemonTraitCode;
 use DrdPlus\Tables\Tables;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonActivationDuration;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonAgility;
@@ -359,6 +360,16 @@ class Demon extends StrictObject
     public function getDemonTraits(): array
     {
         return $this->demonTraits;
+    }
+
+    public function hasUnlimitedEndurance(): bool
+    {
+        foreach ($this->getDemonTraits() as $demonTrait) {
+            if ($demonTrait->getDemonTraitCode()->is(DemonTraitCode::UNLIMITED_ENDURANCE)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function getCurrentSpellSpeed(): ?SpellSpeed

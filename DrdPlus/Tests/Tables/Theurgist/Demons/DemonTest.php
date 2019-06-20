@@ -178,6 +178,33 @@ class DemonTest extends TestWithMockery
 
     /**
      * @test
+     */
+    public function I_can_ask_demon_if_has_unlimited_endurance()
+    {
+        $demonCode = DemonCode::getIt(DemonCode::DEMON_OF_MOVEMENT);
+        $demonsTable = $this->createDemonsTable();
+        $nonUnlimitedEnduranceDemonTraits = [];
+        foreach (DemonTraitCode::getPossibleValues() as $demonTraitCodeValue) {
+            if ($demonTraitCodeValue === DemonTraitCode::UNLIMITED_ENDURANCE) {
+                continue;
+            }
+            $nonUnlimitedEnduranceDemonTraits[] = $this->createDemonTrait(DemonTraitCode::getIt($demonTraitCodeValue));
+        }
+
+        $demon = $this->createDemon($demonCode, $this->createTables($demonsTable), [], $nonUnlimitedEnduranceDemonTraits);
+        self::assertFalse($demon->hasUnlimitedEndurance(), 'Unlimited endurance has not been expected');
+
+        $demon = $this->createDemon(
+            $demonCode,
+            $this->createTables($demonsTable),
+            [],
+            [$this->createDemonTrait(DemonTraitCode::getIt(DemonTraitCode::UNLIMITED_ENDURANCE))]
+        );
+        self::assertTrue($demon->hasUnlimitedEndurance(), 'Unlimited endurance has been expected');
+    }
+
+    /**
+     * @test
      * @throws \Exception
      */
     public function I_can_create_it_with_addition_for_every_demon()
