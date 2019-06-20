@@ -134,20 +134,26 @@ class Demon extends StrictObject
      */
     public function getRequiredRealm(): Realm
     {
+        $requiredRealm = $this->getEffectiveRealm();
+
+        $realmsAdditionSum = 0;
+        foreach ($this->getDemonTraits() as $demonTrait) {
+            $realmsAdditionSum += $demonTrait->getRealmsAddition()->getValue();
+        }
+
+        if ($realmsAdditionSum === 0) {
+            return $requiredRealm;
+        }
+
+        return $requiredRealm->add($realmsAdditionSum);
+    }
+
+    public function getEffectiveRealm(): Realm
+    {
         $baseRealm = $this->getBaseRealm();
 
         $realmsIncrementBecauseOfDifficulty = $this->getCurrentDifficulty()->getCurrentRealmsIncrement();
-        $requiredRealm = $baseRealm->add($realmsIncrementBecauseOfDifficulty);
-
-        foreach ($this->getDemonTraits() as $demonTrait) {
-            $byTraitRequiredRealm = $demonTrait->getRequiredRealm();
-            if ($requiredRealm->getValue() < $byTraitRequiredRealm->getValue()) {
-                // some trait requires even higher realm, so we are forced to increase it
-                $requiredRealm = $byTraitRequiredRealm;
-            }
-        }
-
-        return $requiredRealm;
+        return $baseRealm->add($realmsIncrementBecauseOfDifficulty);
     }
 
     public function getBaseRealm(): Realm
