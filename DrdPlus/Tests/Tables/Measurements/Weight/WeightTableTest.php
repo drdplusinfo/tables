@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Weight;
 
 use DrdPlus\BaseProperties\Strength;
@@ -115,7 +113,7 @@ class WeightTableTest extends MeasurementTableTest
     public function I_can_not_convert_non_number_as_simplified_weight_bonus_to_bonus()
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Partials\Exceptions\BonusRequiresInteger::class);
-        $this->expectExceptionMessageRegExp('~tiny~');
+        $this->expectExceptionMessageMatches('~tiny~');
         $weightTable = new WeightTable();
         $weightTable->getBonusFromSimplifiedBonus('tiny');
     }

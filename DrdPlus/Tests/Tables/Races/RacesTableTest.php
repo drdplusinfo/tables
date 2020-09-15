@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Races;
 
 use DrdPlus\Codes\GenderCode;
@@ -171,7 +169,7 @@ class RacesTableTest extends TableTest
     public function I_can_not_se_invalid_race_and_sub_race_combination(): void
     {
         $this->expectException(\DrdPlus\Tables\Races\Exceptions\RaceToSubRaceMismatch::class);
-        $this->expectExceptionMessageRegExp('~human.+green~');
+        $this->expectExceptionMessageMatches('~human.+green~');
         (new RacesTable(Tables::getIt()->getFemaleModifiersTable()))->getAge(RaceCode::getIt(RaceCode::HUMAN), SubRaceCode::getIt(SubRaceCode::GREEN));
     }
 

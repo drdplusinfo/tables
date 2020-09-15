@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Shields;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
@@ -88,7 +86,7 @@ class ShieldsTableTest extends WeaponlikeTableTest
     public function I_can_not_get_value_of_unknown_shield($valueName)
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownShield::class);
-        $this->expectExceptionMessageRegExp('~protector_of_masses~');
+        $this->expectExceptionMessageMatches('~protector_of_masses~');
         $getValueNameOf = $this->assembleValueGetter($valueName);
         (new ShieldsTable())->$getValueNameOf('protector_of_masses');
     }

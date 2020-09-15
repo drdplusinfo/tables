@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Activities;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;
@@ -38,7 +36,7 @@ class PossibleActivitiesAccordingToContrastTableTest extends TableTest
         $possibleActionsExample = $possibleActionsAccordingToLighting
             ->getPossibleActionsExample(new PositiveIntegerObject($contrastValue));
         foreach ($expectedActionExamples as $expectedActionExample) {
-            self::assertRegExp(
+            self::assertMatchesRegularExpression(
                 '~(^|\W)' . $expectedActionExample . '(\W|$)~',
                 $possibleActionsExample
             );

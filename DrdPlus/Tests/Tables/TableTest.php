@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables;
 
 use Granam\Tests\Tools\TestWithMockery;
@@ -26,7 +24,7 @@ abstract class TableTest extends TestWithMockery
         );
         $expectedDomainByNamespace = $this->getExpectedDomainByNamespace($reflectionClass->getNamespaceName());
         $escapedExpectedDomain = preg_quote($expectedDomainByNamespace, '~');
-        self::assertRegExp(<<<REGEXP
+        self::assertMatchesRegularExpression(<<<REGEXP
 ~\s+([Ss]ee PPH page \d+(,? ((left|right) column( top| bottom)?|top|bottom)( \(table without name\))?)?, )?@link {$escapedExpectedDomain}/#.+~
 REGEXP
             ,

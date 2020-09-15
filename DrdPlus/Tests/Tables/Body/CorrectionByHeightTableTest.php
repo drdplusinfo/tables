@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Body;
 
 use DrdPlus\Calculations\SumAndRound;
@@ -69,7 +67,7 @@ class CorrectionByHeightTableTest extends TableTest
     public function I_can_not_get_correction_for_too_low_height()
     {
         $this->expectException(\DrdPlus\Tables\Body\Exceptions\UnexpectedHeightToGetCorrectionFor::class);
-        $this->expectExceptionMessageRegExp('~0~');
+        $this->expectExceptionMessageMatches('~0~');
         (new CorrectionByHeightTable())->getCorrectionByHeight($this->createHeight(0));
     }
 
@@ -79,7 +77,7 @@ class CorrectionByHeightTableTest extends TableTest
     public function I_can_not_get_correction_for_too_high_height()
     {
         $this->expectException(\DrdPlus\Tables\Body\Exceptions\UnexpectedHeightToGetCorrectionFor::class);
-        $this->expectExceptionMessageRegExp('~10~');
+        $this->expectExceptionMessageMatches('~10~');
         (new CorrectionByHeightTable())->getCorrectionByHeight($this->createHeight(10));
     }
 }

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Body\Healing;
 
 use DrdPlus\Codes\Body\ConditionsAffectingHealingCode;
@@ -91,7 +89,7 @@ class HealingByConditionsTableTest extends TableTest
     public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
     {
         $this->expectException(\DrdPlus\Tables\Body\Healing\Exceptions\UnexpectedHealingConditionsPercents::class);
-        $this->expectExceptionMessageRegExp('~101~');
+        $this->expectExceptionMessageMatches('~101~');
         (new HealingByConditionsTable())->getHealingBonusByConditions(
             ConditionsAffectingHealingCode::IMPAIRED_CONDITIONS,
             new HealingConditionsPercents(101)
@@ -104,7 +102,7 @@ class HealingByConditionsTableTest extends TableTest
     public function I_can_not_get_bonus_for_unknown_condition()
     {
         $this->expectException(\DrdPlus\Tables\Body\Healing\Exceptions\UnknownCodeOfHealingInfluence::class);
-        $this->expectExceptionMessageRegExp('~frozen~');
+        $this->expectExceptionMessageMatches('~frozen~');
         (new HealingByConditionsTable())->getHealingBonusByConditions('frozen', $this->createHealingConditionsPercents(0));
     }
 }

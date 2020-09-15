@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Combat\Actions;
 
 use DrdPlus\Codes\CombatActions\CombatActionCode;

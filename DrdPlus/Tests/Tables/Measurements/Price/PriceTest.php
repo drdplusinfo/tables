@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Price;
 
 use DrdPlus\Tables\Measurements\Price\Price;

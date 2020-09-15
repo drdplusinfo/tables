@@ -345,7 +345,7 @@ class DemonTest extends TestWithMockery
     public function I_can_not_add_non_zero_addition_to_unused_parameter()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Demons\Exceptions\UnknownDemonParameter::class);
-        $this->expectExceptionMessageRegExp('~4~');
+        $this->expectExceptionMessageMatches('~4~');
         $addParameterGetter = function (MockInterface $demonsTable, ?DemonKnack $demonKnack) {
             $this->addParameterGetter(
                 DemonMutableParameterCode::DEMON_KNACK,
@@ -383,7 +383,7 @@ class DemonTest extends TestWithMockery
     public function I_can_not_create_it_with_unknown_parameter()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Demons\Exceptions\UnknownDemonParameter::class);
-        $this->expectExceptionMessageRegExp('~fat~');
+        $this->expectExceptionMessageMatches('~fat~');
         new Demon(
             DemonCode::getIt(DemonCode::GOLEM),
             $this->createTables($this->createDemonsTable()),
@@ -398,7 +398,7 @@ class DemonTest extends TestWithMockery
     public function I_can_not_create_it_with_invalid_demon_trait()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Demons\Exceptions\InvalidDemonTrait::class);
-        $this->expectExceptionMessageRegExp('~stdClass~');
+        $this->expectExceptionMessageMatches('~stdClass~');
         new Demon(
             DemonCode::getIt(DemonCode::IMP),
             $this->createTables($this->createDemonsTable()),
@@ -413,7 +413,7 @@ class DemonTest extends TestWithMockery
     public function I_can_not_create_it_with_invalid_mutable_parameter()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Demons\Exceptions\InvalidValueForDemonParameter::class);
-        $this->expectExceptionMessageRegExp('~indefinite~');
+        $this->expectExceptionMessageMatches('~indefinite~');
         new Demon(DemonCode::getIt(DemonCode::WARDEN), Tables::getIt(), [DemonMutableParameterCode::DEMON_CAPACITY => 'indefinite'], []);
     }
 

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\History\FateCode;
@@ -48,7 +46,7 @@ class BackgroundPointsTableTest extends TableTest
     public function I_can_not_get_background_points_for_unknown_fate()
     {
         $this->expectException(\DrdPlus\Tables\History\Exceptions\UnknownFate::class);
-        $this->expectExceptionMessageRegExp('~homeless~');
+        $this->expectExceptionMessageMatches('~homeless~');
         (new BackgroundPointsTable())->getBackgroundPointsByPlayerDecision($this->createPlayerDecision('homeless'));
     }
 

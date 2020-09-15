@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Partials;
 
 use DrdPlus\Tests\Tables\TableTest;

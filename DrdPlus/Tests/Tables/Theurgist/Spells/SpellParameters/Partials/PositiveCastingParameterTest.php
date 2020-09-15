@@ -27,7 +27,7 @@ abstract class PositiveCastingParameterTest extends CastingParameterTest
     public function I_can_not_create_it_negative()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\Exceptions\InvalidValueForPositiveCastingParameter::class);
-        $this->expectExceptionMessageRegExp('~-5~');
+        $this->expectExceptionMessageMatches('~-5~');
         $sutClass = self::getSutClass();
         new $sutClass(['-5'], Tables::getIt());
     }

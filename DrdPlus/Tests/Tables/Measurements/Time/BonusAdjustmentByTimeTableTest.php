@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
@@ -75,7 +73,7 @@ class BonusAdjustmentByTimeTableTest extends TableTest
     public function I_can_not_adjust_less_than_a_day()
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Time\Exceptions\NotApplicableOnShorterThanDay::class);
-        $this->expectExceptionMessageRegExp('~at least one day~');
+        $this->expectExceptionMessageMatches('~at least one day~');
         $bonusAdjustmentByTimeTable = new BonusAdjustmentByTimeTable(new TimeTable());
         $bonusAdjustmentByTimeTable->adjustTimeByHoursPerDay(new Time(0.9, TimeUnitCode::DAY, new TimeTable()), 15, false);
     }

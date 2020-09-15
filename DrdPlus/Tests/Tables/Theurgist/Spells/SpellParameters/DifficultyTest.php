@@ -35,7 +35,7 @@ PHPDOC
     public function I_can_not_create_it_with_invalid_points_to_annotation()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\Exceptions\MissingValueForFormulaDifficultyAddition::class);
-        $this->expectExceptionMessageRegExp('~123~');
+        $this->expectExceptionMessageMatches('~123~');
         new Difficulty([123, 456]);
     }
 
@@ -157,7 +157,7 @@ PHPDOC
     public function I_can_not_create_it_with_negative_minimum()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Exceptions\InvalidValueForMinimalDifficulty::class);
-        $this->expectExceptionMessageRegExp('~-1~');
+        $this->expectExceptionMessageMatches('~-1~');
         new Difficulty(['-1', '65', '12=13']);
     }
 
@@ -167,7 +167,7 @@ PHPDOC
     public function I_can_not_create_it_with_negative_maximum()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Exceptions\InvalidValueForMaximalDifficulty::class);
-        $this->expectExceptionMessageRegExp('~-15~');
+        $this->expectExceptionMessageMatches('~-15~');
         new Difficulty(['6', '-15', '12=13']);
     }
 
@@ -177,7 +177,7 @@ PHPDOC
     public function I_can_not_create_it_with_lesser_maximum_than_minimum()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Exceptions\MinimalDifficultyCanNotBeGreaterThanMaximal::class);
-        $this->expectExceptionMessageRegExp('~12.+11~');
+        $this->expectExceptionMessageMatches('~12.+11~');
         new Difficulty(['12', '11', '12=13']);
     }
 }

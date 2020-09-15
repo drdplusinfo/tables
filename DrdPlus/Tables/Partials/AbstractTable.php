@@ -1,6 +1,4 @@
-<?php declare(strict_types = 1);
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tables\Partials;
 
@@ -20,7 +18,7 @@ abstract class AbstractTable extends StrictObject implements Table
     private $headerInFlatStructure;
 
     /**
-     * @return array|\string[][]
+     * @return array|string[][]
      */
     public function getValues(): array
     {
@@ -43,7 +41,7 @@ abstract class AbstractTable extends StrictObject implements Table
         return $this->headerInFlatStructure;
     }
 
-    private function createHeader()
+    private function createHeader(): array
     {
         $rowsHeader = $this->toFlatStructure($this->getRowsHeader());
         $columnsHeader = $this->toFlatStructure($this->getColumnsHeader());
@@ -167,9 +165,8 @@ abstract class AbstractTable extends StrictObject implements Table
      * @throws \DrdPlus\Tables\Partials\Exceptions\NoRowRequested
      * @throws \Granam\Scalar\Tools\Exceptions\WrongParameterType
      */
-    public function findRow($singleRowIndexes):? array
+    public function findRow($singleRowIndexes): ?array
     {
-        /** @noinspection ArrayCastingEquivalentInspection */
         $arraySingleRowIndexes = \is_array($singleRowIndexes)
             ? $singleRowIndexes
             : [$singleRowIndexes];
@@ -177,7 +174,6 @@ abstract class AbstractTable extends StrictObject implements Table
             throw new Exceptions\NoRowRequested('Expected row indexes, got empty array');
         }
         $values = $this->getIndexedValues();
-        /** @noinspection ForeachSourceInspection */
         foreach ($arraySingleRowIndexes as $rowIndex) {
             $stringRowIndex = ToString::toString($rowIndex);
             if (!\array_key_exists($stringRowIndex, $values)) {

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Distance;
 
 use DrdPlus\Codes\Units\DistanceUnitCode;
@@ -68,7 +66,7 @@ class DistanceTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_from_unknown_unit(string $getInUnit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~megastep~');
+        $this->expectExceptionMessageMatches('~megastep~');
         /** @var Distance|\Mockery\MockInterface $distanceWithInvalidUnit */
         $distanceWithInvalidUnit = $this->mockery(Distance::class);
         $distanceWithInvalidUnit->shouldReceive('getUnit')
@@ -97,7 +95,7 @@ class DistanceTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_to_unknown_unit(string $unit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~nanoinch~');
+        $this->expectExceptionMessageMatches('~nanoinch~');
         $distance = new \ReflectionClass(Distance::class);
         $getValueInDifferentUnit = $distance->getMethod('getValueInDifferentUnit');
         $getValueInDifferentUnit->setAccessible(true);

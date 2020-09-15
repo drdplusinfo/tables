@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tables;
 
 use DrdPlus\Codes\Armaments\ArmamentCode;
@@ -109,7 +107,7 @@ class TablesTest extends TestWithMockery
                     /** @noinspection PhpUnhandledExceptionInspection */
                     $reflectionClass = new \ReflectionClass($rootNamespace . '\\' . $matches['classBasename']);
                     if ($reflectionClass->isInstantiable() && $reflectionClass->implementsInterface(Table::class)) {
-                        self::assertRegExp(
+                        self::assertMatchesRegularExpression(
                             '~Table$~',
                             $reflectionClass->getName(),
                             'Every single table should ends by "Table"'
@@ -230,7 +228,7 @@ class TablesTest extends TestWithMockery
     public function I_do_not_get_any_melee_weapons_table_by_unknown_code(): void
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon::class);
-        $this->expectExceptionMessageRegExp('~denigration~');
+        $this->expectExceptionMessageMatches('~denigration~');
         /** @var MeleeWeaponCode $meleeWeaponCode */
         $meleeWeaponCode = $this->createMeleeWeaponCode('denigration', 'poisonous language');
         Tables::getIt()->getMeleeWeaponsTableByMeleeWeaponCode($meleeWeaponCode);
@@ -328,7 +326,7 @@ class TablesTest extends TestWithMockery
     public function I_do_not_get_range_weapons_table_by_unknown_code(): void
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon::class);
-        $this->expectExceptionMessageRegExp('~wallop~');
+        $this->expectExceptionMessageMatches('~wallop~');
         /** @var RangedWeaponCode $rangeWeaponCode */
         $rangeWeaponCode = $this->createRangedWeaponCode('wallop', 'bio weapons');
         Tables::getIt()->getRangedWeaponsTableByRangedWeaponCode($rangeWeaponCode);
@@ -466,7 +464,7 @@ class TablesTest extends TestWithMockery
     public function I_can_not_get_projectiles_table_for_unknown_projectile(): void
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownProjectile::class);
-        $this->expectExceptionMessageRegExp('~foo~');
+        $this->expectExceptionMessageMatches('~foo~');
         $projectile = $this->mockery(ProjectileCode::class);
         $projectile->shouldReceive('isArrow')->andReturn(false);
         $projectile->shouldReceive('isDart')->andReturn(false);

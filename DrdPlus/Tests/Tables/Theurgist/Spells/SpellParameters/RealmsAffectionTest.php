@@ -47,7 +47,7 @@ class RealmsAffectionTest extends TestWithMockery
     public function I_can_not_create_positive_affection()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Exceptions\InvalidFormatForNegativeCastingParameter::class);
-        $this->expectExceptionMessageRegExp('~1~');
+        $this->expectExceptionMessageMatches('~1~');
         new RealmsAffection(['1']);
     }
 

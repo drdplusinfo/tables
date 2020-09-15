@@ -1,6 +1,4 @@
-<?php declare(strict_types = 1);
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace DrdPlus\Tables\Measurements\BaseOfWounds;
 
@@ -29,7 +27,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     private $axisY;
 
     /**
-     * @return array|null|\string[][]|\int[][]
+     * @return array|null|string[][]|int[][]
      */
     public function getValues(): array
     {
@@ -54,7 +52,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
         $handle = fopen(__DIR__ . '/data/base_of_wounds.csv', 'rb');
         while ($row = fgetcsv($handle)) {
             $data[] = array_map(
-                function ($value) {
+                static function ($value) {
                     $number = str_replace('−' /* ASCII 226 */, '-' /* ASCII 45 */, $value);
 
                     return is_numeric($number)
@@ -84,7 +82,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     }
 
     /**
-     * @return array|null|\string[][]
+     * @return array|null|string[][]
      */
     public function getIndexedValues(): array
     {
@@ -113,9 +111,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function sumValuesViaBonuses(array $bonuses): int
     {
         while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $firstBonus = ToInteger::toInteger($firstBonus);
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $secondBonus = ToInteger::toInteger($secondBonus);
             $intersection = $this->getBonusesIntersection([$firstBonus, $secondBonus]);
             /** see note on PPH page 164, bottom, @link https://pph.drdplus.info/#soucet_bonusu */
@@ -126,12 +122,10 @@ class BaseOfWoundsTable extends StrictObject implements Table
             array_unshift($bonuses, $sum);
         }
 
-        if ($firstBonus !== null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            return ToInteger::toInteger($firstBonus); // the first if single bonus
+        if ($firstBonus === null) {
+            throw new Exceptions\SumOfBonusesResultsIntoNull('Sum of ' . count($bonuses) . ' bonuses resulted into NULL');
         }
-
-        throw new Exceptions\SumOfBonusesResultsIntoNull('Sum of ' . count($bonuses) . ' bonuses resulted into NULL');
+        return ToInteger::toInteger($firstBonus); // the first if single bonus
     }
 
     /**
@@ -147,7 +141,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function getBonusesIntersection(array $bonuses): int
     {
         while (($firstBonus = array_shift($bonuses)) !== null && ($secondBonus = array_shift($bonuses)) !== null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             $bonusesSum = $this->getBonusesSum(ToInteger::toInteger($firstBonus), ToInteger::toInteger($secondBonus));
             if (count($bonuses) === 0) { // noting more to count
                 return $bonusesSum;
@@ -156,7 +149,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
             array_unshift($bonuses, $bonusesSum); // add the sum to the beginning and run another sum-iteration
         }
         if ($firstBonus !== null) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
             return ToInteger::toInteger($firstBonus); // the first if single bonus
         }
 
@@ -170,7 +162,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
-    private function getBonusesSum($firstBonus, $secondBonus): int
+    private function getBonusesSum(int $firstBonus, int $secondBonus): int
     {
         $columnRank = $this->getColumnRank($firstBonus);
         if ($columnRank === null) {
@@ -188,7 +180,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
     {
         $strengthAsValue = $this->calculateValueFromBonus($strength);
         $weaponBaseOfWoundsAsValue = $this->calculateValueFromBonus($weaponBaseOfWounds);
-        $sumAsBonus = $this->calculateBonus($strengthAsValue + $weaponBaseOfWoundsAsValue);
+        $sumAsBonus = $this->calculateBonusFromValue($strengthAsValue + $weaponBaseOfWoundsAsValue);
 
         /** @link https://pph.drdplus.info/#vypocet_zakladu_zraneni */
         return $sumAsBonus - 5;
@@ -199,13 +191,9 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @return int|null
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoColumnExistsOnProvidedIndex
      */
-    private function getColumnRank($bonus):? int
+    private function getColumnRank(int $bonus): ?int
     {
-        if (array_key_exists($bonus, $this->getAxisX())) {
-            return $this->getAxisX()[$bonus];
-        }
-
-        return null;
+        return $this->getAxisX()[$bonus] ?? null;
     }
 
     /**
@@ -246,13 +234,9 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @return int|null
      * @throws \DrdPlus\Tables\Measurements\BaseOfWounds\Exceptions\NoRowExistsOnProvidedIndex
      */
-    private function getRowRank(int $bonus):? int
+    private function getRowRank(int $bonus): ?int
     {
-        if (array_key_exists($bonus, $this->getAxisY())) {
-            return $this->getAxisY()[$bonus];
-        }
-
-        return null;
+        return $this->getAxisY()[$bonus] ?? null;
     }
 
     /**
@@ -304,7 +288,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
      */
     public function getValue($singleRowIndex, $columnIndex): int
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $integerRowIndex = ToInteger::toInteger($singleRowIndex);
         $values = $this->getValues();
         if (!array_key_exists($integerRowIndex, $values)) {
@@ -312,7 +295,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
                 'No row exists for given row index ' . ValueDescriber::describe($singleRowIndex)
             );
         }
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $integerColumnIndex = ToInteger::toInteger($columnIndex);
         if (!array_key_exists($integerColumnIndex, $values[$integerRowIndex])) {
             throw new Exceptions\NoColumnExistsOnProvidedIndex(
@@ -332,7 +314,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
      */
     public function getBaseOfWounds(Strength $strength, IntegerInterface $weaponBaseOfWounds): int
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->getBonusesIntersection([$strength, $weaponBaseOfWounds]);
     }
 
@@ -349,7 +330,7 @@ class BaseOfWoundsTable extends StrictObject implements Table
      * @param float $value
      * @return int
      */
-    private function calculateBonus(float $value): int
+    private function calculateBonusFromValue(float $value): int
     {
         /**
          * Because doubled bonus = bonus + 6 and ten-multiply bonus = bonus + 20
@@ -366,7 +347,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function halfBonus($bonus): int
     {
         // see PPH page 72, left column
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return ToInteger::toInteger($bonus) - 6;
     }
 
@@ -377,7 +357,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function doubleBonus($bonus): int
     {
         // see PPH page 72, left column
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return ToInteger::toInteger($bonus) + 6;
     }
 
@@ -388,7 +367,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function tenMultipleBonus($bonus): int
     {
         // see PPH page 72, left column
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return ToInteger::toInteger($bonus) + 20;
     }
 
@@ -399,7 +377,6 @@ class BaseOfWoundsTable extends StrictObject implements Table
     public function tenMinifyBonus($bonus): int
     {
         // see PPH page 72, left column
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return ToInteger::toInteger($bonus) - 20;
     }
 

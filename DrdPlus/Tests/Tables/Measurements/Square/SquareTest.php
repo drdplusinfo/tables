@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Square;
 
 use DrdPlus\Codes\Units\SquareUnitCode;
@@ -95,7 +93,7 @@ class SquareTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_from_unknown_unit(string $getInUnit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~drop~');
+        $this->expectExceptionMessageMatches('~drop~');
         /** @var Square|\Mockery\MockInterface $squareWithInvalidUnit */
         $squareWithInvalidUnit = $this->mockery(Square::class);
         $squareWithInvalidUnit->shouldReceive('getUnit')
@@ -124,7 +122,7 @@ class SquareTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_to_unknown_unit(string $unit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~first~');
+        $this->expectExceptionMessageMatches('~first~');
         $square = new \ReflectionClass(Square::class);
         $getValueInDifferentUnit = $square->getMethod('getValueInDifferentUnit');
         $getValueInDifferentUnit->setAccessible(true);
@@ -200,7 +198,7 @@ class SquareTest extends AbstractTestOfMeasurement
     public function Exception_is_thrown_if_unit_is_somehow_broken_after_initial_check()
     {
         $this->expectException( \DrdPlus\Tables\Measurements\Square\Exceptions\UnknownSquareUnit::class);
-        $this->expectExceptionMessageRegExp('~penny~');
+        $this->expectExceptionMessageMatches('~penny~');
         $cheapSquare = new class(123, Square::SQUARE_METER, Tables::getIt()->getDistanceTable()) extends Square
         {
             public function getUnit(): string

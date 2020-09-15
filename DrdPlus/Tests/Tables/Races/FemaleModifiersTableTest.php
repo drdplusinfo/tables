@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Races;
 
 use DrdPlus\Codes\Properties\PropertyCode;
@@ -444,7 +442,7 @@ class FemaleModifiersTableTest extends TableTest
     public function I_can_not_get_property_for_unknown_race()
     {
         $this->expectException(\DrdPlus\Tables\Races\Exceptions\UnknownRace::class);
-        $this->expectExceptionMessageRegExp('~money money money~');
+        $this->expectExceptionMessageMatches('~money money money~');
         $femaleModifiersTable = new FemaleModifiersTable();
         $raceCode = $this->mockery(RaceCode::class);
         $raceCode->shouldReceive('getValue')->andReturn('tax_collector');

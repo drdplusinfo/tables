@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Tables\History\PossessionTable;
@@ -53,7 +51,7 @@ class PossessionTableTest extends TableTest
     public function I_can_not_get_value_of_possession_for_unsupported_background_points()
     {
         $this->expectException(\DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints::class);
-        $this->expectExceptionMessageRegExp('~9~');
+        $this->expectExceptionMessageMatches('~9~');
         (new PossessionTable())->getPossessionAsGoldCoins(new PositiveIntegerObject(9));
     }
 }

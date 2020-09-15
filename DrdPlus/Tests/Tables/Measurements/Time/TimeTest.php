@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Time;
 
 use DrdPlus\Codes\Units\TimeUnitCode;
@@ -265,7 +263,7 @@ class TimeTest extends AbstractTestOfMeasurement
     public function It_will_throw_an_exception_on_unknown_unit(): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Time\Exceptions\UnknownTimeUnit::class);
-        $this->expectExceptionMessageRegExp('~cake~');
+        $this->expectExceptionMessageMatches('~cake~');
         $round = new class(1, TimeUnitCode::ROUND, new TimeTable()) extends Time
         {
             public function getUnit(): string

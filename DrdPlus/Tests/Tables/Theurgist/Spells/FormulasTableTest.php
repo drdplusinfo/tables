@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Theurgist\Spells;
 
 use DrdPlus\Tables\Measurements\Time\Time;
@@ -277,7 +275,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_modifiers_to_unknown_formula(): void
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaToGetModifiersFor::class);
-        $this->expectExceptionMessageRegExp('~Abraka dabra~');
+        $this->expectExceptionMessageMatches('~Abraka dabra~');
         (new FormulasTable(Tables::getIt()))
             ->getModifierCodes($this->createFormulaCode('Abraka dabra'));
     }
@@ -399,7 +397,7 @@ class FormulasTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_profiles_to_unknown_formula(): void
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownFormulaToGetProfilesFor::class);
-        $this->expectExceptionMessageRegExp('~Charge!~');
+        $this->expectExceptionMessageMatches('~Charge!~');
         (new FormulasTable(Tables::getIt()))->getProfileCodes($this->createFormulaCode('Charge!'));
     }
 }

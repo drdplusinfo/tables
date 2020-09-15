@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Theurgist\Spells;
 
 use DrdPlus\Tables\Tables;
@@ -391,7 +389,7 @@ class ModifierTest extends TestWithMockery
     public function I_can_not_create_it_with_non_integer_addition()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidValueForModifierParameter::class);
-        $this->expectExceptionMessageRegExp('~0\.1~');
+        $this->expectExceptionMessageMatches('~0\.1~');
         $modifiersTable = $this->createModifiersTable();
         $tables = $this->createTables($modifiersTable);
         $this->addBaseParameterGetter(
@@ -432,7 +430,7 @@ class ModifierTest extends TestWithMockery
     public function I_can_not_add_non_zero_addition_to_unused_parameter()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierParameter::class);
-        $this->expectExceptionMessageRegExp('~4~');
+        $this->expectExceptionMessageMatches('~4~');
         $modifiersTable = $this->createModifiersTable();
         $tables = $this->createTables($modifiersTable);
         try {
@@ -468,7 +466,7 @@ class ModifierTest extends TestWithMockery
     public function I_can_not_create_it_with_addition_of_unknown_parameter()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierParameter::class);
-        $this->expectExceptionMessageRegExp('~useless~');
+        $this->expectExceptionMessageMatches('~useless~');
         new Modifier(ModifierCode::getIt(ModifierCode::TRANSPOSITION), Tables::getIt(), ['useless' => 0], []);
     }
 
@@ -478,7 +476,7 @@ class ModifierTest extends TestWithMockery
     public function I_can_create_it_with_non_spell_trait_as_spell_trait()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\InvalidSpellTrait::class);
-        $this->expectExceptionMessageRegExp('~DateTime~');
+        $this->expectExceptionMessageMatches('~DateTime~');
         new Modifier(ModifierCode::getIt(ModifierCode::TRANSPOSITION), Tables::getIt(), [], [new \DateTime()]);
     }
 }

@@ -56,7 +56,7 @@ class AllDemonParametersTest extends TestWithMockery
                     }
                     $reflectionClass = new \ReflectionClass($className);
                     if (!$reflectionClass->isAbstract() && !$reflectionClass->isInterface() && !$reflectionClass->isInterface()) {
-                        self::assertRegExp(
+                        self::assertMatchesRegularExpression(
                             '~\\Demon[[:alpha:]]+$~',
                             $reflectionClass->getName(),
                             'Every single demon parameter should starts by "Demon"'

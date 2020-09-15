@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\History;
 
 use DrdPlus\Codes\ProfessionCode;
@@ -131,7 +129,7 @@ class SkillsByBackgroundPointsTableTest extends TableTest
     public function I_can_not_get_skill_points_for_invalid_background_points()
     {
         $this->expectException(\DrdPlus\Tables\History\Exceptions\UnexpectedBackgroundPoints::class);
-        $this->expectExceptionMessageRegExp('~9~');
+        $this->expectExceptionMessageMatches('~9~');
         (new SkillsByBackgroundPointsTable())->getSkillPoints(
             new PositiveIntegerObject(9),
             ProfessionCode::getIt(ProfessionCode::FIGHTER),
@@ -145,7 +143,7 @@ class SkillsByBackgroundPointsTableTest extends TableTest
     public function I_can_not_get_skill_points_for_unknown_profession()
     {
         $this->expectException(\DrdPlus\Tables\History\Exceptions\UnexpectedProfessionAndSkillTypeCombination::class);
-        $this->expectExceptionMessageRegExp('~baker~');
+        $this->expectExceptionMessageMatches('~baker~');
         (new SkillsByBackgroundPointsTable())->getSkillPoints(
             new PositiveIntegerObject(6),
             $this->createProfessionCode('baker'),
@@ -174,7 +172,7 @@ class SkillsByBackgroundPointsTableTest extends TableTest
     public function I_can_not_get_skill_points_for_unknown_skill_type()
     {
         $this->expectException(\DrdPlus\Tables\History\Exceptions\UnexpectedProfessionAndSkillTypeCombination::class);
-        $this->expectExceptionMessageRegExp('~godlike~');
+        $this->expectExceptionMessageMatches('~godlike~');
         (new SkillsByBackgroundPointsTable())->getSkillPoints(
             new PositiveIntegerObject(7),
             ProfessionCode::getIt(ProfessionCode::PRIEST),

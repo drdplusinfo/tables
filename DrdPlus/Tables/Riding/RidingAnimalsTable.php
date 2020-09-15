@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tables\Riding;
 
 use DrdPlus\Codes\Transport\RidingAnimalCode;

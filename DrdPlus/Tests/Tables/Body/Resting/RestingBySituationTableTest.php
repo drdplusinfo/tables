@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Body\Resting;
 
 use DrdPlus\Codes\Body\RestConditionsCode;
@@ -100,7 +98,7 @@ class RestingBySituationTableTest extends TableTest
     public function I_can_not_get_higher_bonus_than_hundred_percents_if_conditions_do_not_allow_it()
     {
         $this->expectException(\DrdPlus\Tables\Body\Resting\Exceptions\UnexpectedRestingSituationPercents::class);
-        $this->expectExceptionMessageRegExp('~101~');
+        $this->expectExceptionMessageMatches('~101~');
         (new RestingBySituationTable())->getRestingMalusBySituation(
             RestConditionsCode::IMPAIRED_CONDITIONS,
             new RestingSituationPercents(101)
@@ -113,7 +111,7 @@ class RestingBySituationTableTest extends TableTest
     public function I_can_not_get_bonus_for_unknown_situation()
     {
         $this->expectException(\DrdPlus\Tables\Body\Resting\Exceptions\UnknownCodeOfRestingInfluence::class);
-        $this->expectExceptionMessageRegExp('~arrested~');
+        $this->expectExceptionMessageMatches('~arrested~');
         (new RestingBySituationTable())->getRestingMalusBySituation('arrested', $this->createRestingSituationPercents(0));
     }
 }

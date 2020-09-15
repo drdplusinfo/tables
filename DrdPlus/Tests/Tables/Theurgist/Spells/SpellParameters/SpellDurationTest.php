@@ -32,7 +32,7 @@ class SpellDurationTest extends PositiveCastingParameterTest
     public function I_can_not_create_it_negative()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\SpellParameters\Partials\Exceptions\InvalidValueForPositiveCastingParameter::class);
-        $this->expectExceptionMessageRegExp('~-5~');
+        $this->expectExceptionMessageMatches('~-5~');
         new SpellDuration(['-5'], Tables::getIt());
     }
 

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Theurgist\Spells;
 
 use DrdPlus\Codes\Theurgist\FormCode;
@@ -122,7 +120,7 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_formulas_to_unknown_profile()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownProfileToGetFormulasFor::class);
-        $this->expectExceptionMessageRegExp('~Sexy texy~');
+        $this->expectExceptionMessageMatches('~Sexy texy~');
         (new ProfilesTable())->getFormulaCodes($this->createProfileCode('Sexy texy'));
     }
 
@@ -222,7 +220,7 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_modifiers_to_unknown_profile()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownProfileToGetModifiersFor::class);
-        $this->expectExceptionMessageRegExp('~Lazy lizard~');
+        $this->expectExceptionMessageMatches('~Lazy lizard~');
         (new ProfilesTable())->getModifierCodes($this->createProfileCode('Lazy lizard'));
     }
 

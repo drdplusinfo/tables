@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Riding;
 
 use DrdPlus\Tables\Riding\DefianceOfWildPercents;
@@ -20,7 +18,7 @@ class DefianceOfWildPercentsTest extends PercentsTest
     public function I_can_not_create_more_than_hundred_of_percents()
     {
         $this->expectException(\DrdPlus\Tables\Riding\Exceptions\UnexpectedDefianceOfWildPercents::class);
-        $this->expectExceptionMessageRegExp('~\s101~');
+        $this->expectExceptionMessageMatches('~\s101~');
         new DefianceOfWildPercents(101);
     }
 

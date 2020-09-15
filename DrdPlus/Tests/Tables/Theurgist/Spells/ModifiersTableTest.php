@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Theurgist\Spells;
 
 use DrdPlus\Codes\Theurgist\FormCode;
@@ -256,7 +254,7 @@ class ModifiersTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_formulas_to_unknown_modifier()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetFormulasFor::class);
-        $this->expectExceptionMessageRegExp('~black and white~');
+        $this->expectExceptionMessageMatches('~black and white~');
         (new ModifiersTable(Tables::getIt()))->getFormulaCodes($this->createModifierCode('black and white'));
     }
 
@@ -372,7 +370,7 @@ class ModifiersTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_profiles_to_unknown_modifiers()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetProfilesFor::class);
-        $this->expectExceptionMessageRegExp('~magnified~');
+        $this->expectExceptionMessageMatches('~magnified~');
         (new ModifiersTable(Tables::getIt()))->getProfileCodes($this->createModifierCode('magnified'));
     }
 
@@ -494,7 +492,7 @@ class ModifiersTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_parent_modifiers_for_unknown_modifier()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetParentModifiersFor::class);
-        $this->expectExceptionMessageRegExp('~dancing~');
+        $this->expectExceptionMessageMatches('~dancing~');
         $modifiersTable = new ModifiersTable(Tables::getIt());
         $modifiersTable->getParentModifierCodes($this->createModifierCode('dancing'));
     }
@@ -505,7 +503,7 @@ class ModifiersTableTest extends AbstractTheurgistTableTest
     public function I_can_not_get_child_modifiers_for_unknown_modifier()
     {
         $this->expectException(\DrdPlus\Tables\Theurgist\Spells\Exceptions\UnknownModifierToGetChildModifiersFor::class);
-        $this->expectExceptionMessageRegExp('~lazy~');
+        $this->expectExceptionMessageMatches('~lazy~');
         $modifiersTable = new ModifiersTable(Tables::getIt());
         $modifiersTable->getChildModifierCodes($this->createModifierCode('lazy'));
     }

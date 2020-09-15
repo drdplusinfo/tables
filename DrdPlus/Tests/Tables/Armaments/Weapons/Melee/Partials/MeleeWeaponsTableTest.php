@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Melee\Partials;
 
 use DrdPlus\Codes\Armaments\MeleeWeaponCode;
@@ -43,7 +41,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_get_value_of_unknown_melee_weapon($valueName)
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownMeleeWeapon::class);
-        $this->expectExceptionMessageRegExp('~skull_crasher~');
+        $this->expectExceptionMessageMatches('~skull_crasher~');
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $meleeWeaponsTable = $this->createSut();
         $meleeWeaponsTable->$getValueNameOf('skull_crasher');
@@ -285,7 +283,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_add_new_melee_weapon_with_unexpected_category()
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType::class);
-        $this->expectExceptionMessageRegExp('~crossbow.+ham&axe~');
+        $this->expectExceptionMessageMatches('~crossbow.+ham&axe~');
         $sut = $this->createSut();
         $name = uniqid('ham&axe', true);
         MeleeWeaponCode::addNewMeleeWeaponCode($name, $this->getMeleeWeaponCategory(), []);

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Environments;
 
 use DrdPlus\Codes\Environment\TerrainCode;
@@ -176,7 +174,7 @@ class ImpassibilityOfTerrainTableTest extends TableTest
     public function I_can_not_get_values_for_unknown_terrain()
     {
         $this->expectException(\DrdPlus\Tables\Environments\Exceptions\UnknownTerrainCode::class);
-        $this->expectExceptionMessageRegExp('~seabed~');
+        $this->expectExceptionMessageMatches('~seabed~');
         (new ImpassibilityOfTerrainTable())->getSpeedMalusValuesRangeForTerrain($this->createTerrainCode('seabed'));
     }
 

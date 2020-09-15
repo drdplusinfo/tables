@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters;
 
 use DrdPlus\Tables\Measurements\Time\TimeBonus;

@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
@@ -130,7 +128,7 @@ class BowsTableTest extends RangedWeaponsTableTest
     public function I_can_not_get_maximal_applicable_strength_for_unknown_bow(): void
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Weapons\Ranged\Exceptions\UnknownBow::class);
-        $this->expectExceptionMessageRegExp('~javelin~');
+        $this->expectExceptionMessageMatches('~javelin~');
         (new BowsTable())->getMaximalApplicableStrengthOf(RangedWeaponCode::JAVELIN);
     }
 

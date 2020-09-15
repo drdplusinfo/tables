@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Weapons\Ranged\Partials;
 
 use DrdPlus\Codes\Armaments\RangedWeaponCode;
@@ -30,7 +28,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_get_value_of_unknown_melee_weapon(string $valueName): void
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Exceptions\UnknownRangedWeapon::class);
-        $this->expectExceptionMessageRegExp('~skull_crasher~');
+        $this->expectExceptionMessageMatches('~skull_crasher~');
         $getValueNameOf = $this->assembleValueGetter($valueName);
         $sutClass = self::getSutClass();
         /** @var RangedWeaponsTable $shootingArmamentsTable */
@@ -131,7 +129,7 @@ abstract class RangedWeaponsTableTest extends WeaponlikeTableTest
     public function I_can_not_add_new_melee_weapon_with_unexpected_category()
     {
         $this->expectException(\DrdPlus\Tables\Armaments\Weapons\Exceptions\NewWeaponIsNotOfRequiredType::class);
-        $this->expectExceptionMessageRegExp('~sword.+cake~');
+        $this->expectExceptionMessageMatches('~sword.+cake~');
         $sut = $this->createSut();
         $name = uniqid('cake', true);
         RangedWeaponCode::addNewRangedWeaponCode($name, $this->getWeaponCategory(), []);

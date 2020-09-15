@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Armaments\Projectiles;
 
 use DrdPlus\Codes\Armaments\SlingStoneCode;

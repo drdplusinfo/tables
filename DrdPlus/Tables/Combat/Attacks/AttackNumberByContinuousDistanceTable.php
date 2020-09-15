@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tables\Combat\Attacks;
 
 use DrdPlus\Tables\Combat\Attacks\Partials\AbstractAttackNumberByDistanceTable;

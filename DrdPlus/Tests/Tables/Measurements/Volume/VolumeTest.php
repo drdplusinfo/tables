@@ -1,7 +1,5 @@
 <?php declare(strict_types = 1);
 
-declare(strict_types=1);
-
 namespace DrdPlus\Tests\Tables\Measurements\Volume;
 
 use DrdPlus\Codes\Units\VolumeUnitCode;
@@ -85,7 +83,7 @@ class VolumeTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_from_unknown_unit(string $getInUnit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~drop~');
+        $this->expectExceptionMessageMatches('~drop~');
         /** @var Volume|\Mockery\MockInterface $volumeWithInvalidUnit */
         $volumeWithInvalidUnit = $this->mockery(Volume::class);
         $volumeWithInvalidUnit->shouldReceive('getUnit')
@@ -114,7 +112,7 @@ class VolumeTest extends AbstractTestOfMeasurement
     public function Can_not_cast_it_to_unknown_unit(string $unit): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Exceptions\UnknownUnit::class);
-        $this->expectExceptionMessageRegExp('~first~');
+        $this->expectExceptionMessageMatches('~first~');
         $volume = new \ReflectionClass(Volume::class);
         $getValueInDifferentUnit = $volume->getMethod('getValueInDifferentUnit');
         $getValueInDifferentUnit->setAccessible(true);
