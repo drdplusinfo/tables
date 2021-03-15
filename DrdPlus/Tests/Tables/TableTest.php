@@ -2,7 +2,7 @@
 
 namespace DrdPlus\Tests\Tables;
 
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 abstract class TableTest extends TestWithMockery
 {

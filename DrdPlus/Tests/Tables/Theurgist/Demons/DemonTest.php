@@ -24,7 +24,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAddition;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed;
 use Granam\String\StringTools;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 use Mockery\MockInterface;
 
 class DemonTest extends TestWithMockery

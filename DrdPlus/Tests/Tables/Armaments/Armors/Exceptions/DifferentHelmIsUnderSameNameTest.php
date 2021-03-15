@@ -3,7 +3,7 @@
 namespace DrdPlus\Tests\Tables\Armaments\Armors\Exceptions;
 
 use DrdPlus\Tables\Armaments\Armors\Exceptions\DifferentHelmIsUnderSameName;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class DifferentHelmIsUnderSameNameTest extends TestWithMockery
 {

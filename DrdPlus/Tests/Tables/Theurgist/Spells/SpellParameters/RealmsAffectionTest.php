@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters;
 
 use DrdPlus\Codes\Theurgist\AffectionPeriodCode;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class RealmsAffectionTest extends TestWithMockery
 {

@@ -3,7 +3,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\Partials;
 
 use DrdPlus\Tables\Measurements\Partials\AbstractMeasurement;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class MeasurementTest extends TestWithMockery
 {

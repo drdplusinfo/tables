@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Measurements;
 use DrdPlus\Tables\Measurements\Measurement;
 use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Table;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 abstract class AbstractTestOfMeasurement extends TestWithMockery
 {

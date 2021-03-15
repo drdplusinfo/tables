@@ -9,7 +9,7 @@ use DrdPlus\Tables\Measurements\Partials\AbstractMeasurementFileTable;
 use DrdPlus\Tables\Measurements\Partials\Exceptions\LoadingDataFailed;
 use DrdPlus\Tables\Measurements\Tools\EvaluatorInterface;
 use DrdPlus\Tables\Partials\AbstractTable;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class AbstractMeasurementFileTableTest extends TestWithMockery
 {

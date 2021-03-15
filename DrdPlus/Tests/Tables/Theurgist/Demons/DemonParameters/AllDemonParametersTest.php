@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Theurgist\Demons\DemonParameters;
 
 use DrdPlus\Codes\Partials\AbstractCode;
 use DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonCapacity;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class AllDemonParametersTest extends TestWithMockery
 {

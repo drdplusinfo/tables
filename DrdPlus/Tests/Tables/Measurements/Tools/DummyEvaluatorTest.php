@@ -3,7 +3,7 @@
 namespace DrdPlus\Tests\Tables\Measurements\Tools;
 
 use DrdPlus\Tables\Measurements\Tools\DummyEvaluator;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class DummyEvaluatorTest extends TestWithMockery
 {

@@ -9,7 +9,7 @@ use DrdPlus\Tables\Partials\AbstractTable;
 use DrdPlus\Tables\Tables;
 use Granam\Integer\IntegerObject;
 use Granam\String\StringTools;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 use Mockery\MockInterface;
 
 abstract class AbstractTestOfBonus extends TestWithMockery

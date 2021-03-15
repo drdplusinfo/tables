@@ -27,7 +27,7 @@ use DrdPlus\Tables\Theurgist\Spells\FormulasTable;
 use DrdPlus\Tables\Theurgist\Spells\Modifier;
 use DrdPlus\Tables\Theurgist\Spells\SpellTrait;
 use Granam\String\StringTools;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 use Mockery\Exception\NoMatchingExpectationException;
 use Mockery\MockInterface;
 

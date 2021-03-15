@@ -4,7 +4,7 @@ namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters;
 
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DifficultyAddition;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Difficulty;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class DifficultyTest extends TestWithMockery
 {

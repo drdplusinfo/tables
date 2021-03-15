@@ -3,7 +3,7 @@
 namespace DrdPlus\Tests\Tables\Theurgist\Spells\SpellParameters;
 
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\AdditionByDifficulty;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 
 class AdditionByDifficultyTest extends TestWithMockery
 {

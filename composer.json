@@ -9,7 +9,7 @@
     }
   },
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.3",
     "granam/float": "^5.0",
     "granam/boolean": "^3.2",
     "drdplus/base-properties": "^2.1",
@@ -17,9 +17,13 @@
     "granam/dice-rolls": "^6.0"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master",
-    "mockery/mockery": "^1.2",
-    "granam/exceptions-hierarchy": "^5.0",
-    "phpunit/phpunit": "^9.3"
+    "granam/exceptions-hierarchy": "~5.0",
+    "granam/test-with-mockery": "^2.0",
+    "mockery/mockery": "~1.2",
+    "phpunit/phpunit": "~9.3",
+    "roave/security-advisories": "dev-master"
+  },
+  "config": {
+    "sort-packages": true
   }
 }

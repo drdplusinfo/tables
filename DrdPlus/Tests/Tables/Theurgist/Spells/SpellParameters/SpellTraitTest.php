@@ -9,7 +9,7 @@ use DrdPlus\Tables\Theurgist\Spells\SpellParameters\DifficultyChange;
 use DrdPlus\Tables\Theurgist\Spells\SpellParameters\Trap;
 use DrdPlus\Tables\Theurgist\Spells\SpellTrait;
 use DrdPlus\Tables\Theurgist\Spells\SpellTraitsTable;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 use Mockery\MockInterface;
 
 class SpellTraitTest extends TestWithMockery

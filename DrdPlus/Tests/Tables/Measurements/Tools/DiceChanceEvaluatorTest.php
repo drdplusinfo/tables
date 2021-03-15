@@ -5,7 +5,7 @@ namespace DrdPlus\Tests\Tables\Measurements\Tools;
 use DrdPlus\Tables\Measurements\Tools\DiceChanceEvaluator;
 use Granam\DiceRolls\Roll;
 use Granam\DiceRolls\Templates\Rollers\Roller1d6;
-use Granam\Tests\Tools\TestWithMockery;
+use Granam\TestWithMockery\TestWithMockery;
 use Mockery\MockInterface;
 
 class DiceChanceEvaluatorTest extends TestWithMockery
