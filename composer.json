@@ -5,7 +5,12 @@
   "description": "Drd+ tables and their units conversion",
   "autoload": {
     "psr-4": {
-      "DrdPlus\\": "DrdPlus/"
+      "DrdPlus\\Tables\\": "Tables"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DrdPlus\\Tests\\": "tests"
     }
   },
   "require": {
