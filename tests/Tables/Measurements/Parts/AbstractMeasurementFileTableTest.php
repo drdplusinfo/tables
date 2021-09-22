@@ -464,10 +464,8 @@ class WithLessColumnHeaderRowsThenRowHeader extends AbstractTable
 
 class JustSomeMeasurementWithBonus implements MeasurementWithBonus
 {
-    /** @var float */
-    private $value;
-    /** @var string */
-    private $unit;
+    private float $value;
+    private string $unit;
 
     public function __construct(float $value, string $unit)
     {

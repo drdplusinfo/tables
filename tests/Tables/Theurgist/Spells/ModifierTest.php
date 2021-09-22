@@ -21,7 +21,7 @@ use Mockery\MockInterface;
 
 class ModifierTest extends TestWithMockery
 {
-    private $parameterNamespace;
+    private string $parameterNamespace;
 
     protected function setUp(): void
     {

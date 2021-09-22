@@ -145,7 +145,7 @@ class VolumeTest extends AbstractTestOfMeasurement
     public function I_can_not_convert_too_high_value_to_bonus(): void
     {
         $this->expectException(\DrdPlus\Tables\Measurements\Partials\Exceptions\RequestedDataOutOfTableRange::class);
-        $volume = new Volume(9999999999, VolumeUnitCode::CUBIC_KILOMETER, Tables::getIt()->getDistanceTable());
+        $volume = new Volume(9_999_999_999, VolumeUnitCode::CUBIC_KILOMETER, Tables::getIt()->getDistanceTable());
         $volume->getBonus();
     }
 

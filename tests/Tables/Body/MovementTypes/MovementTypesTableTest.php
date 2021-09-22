@@ -15,14 +15,8 @@ use DrdPlus\Tests\Tables\TableTest;
 
 class MovementTypesTableTest extends TableTest
 {
-    /**
-     * @var SpeedTable
-     */
-    private $speedTable;
-    /**
-     * @var TimeTable
-     */
-    private $timeTable;
+    private \DrdPlus\Tables\Measurements\Speed\SpeedTable $speedTable;
+    private \DrdPlus\Tables\Measurements\Time\TimeTable $timeTable;
 
     protected function setUp(): void
     {

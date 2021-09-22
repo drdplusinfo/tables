@@ -54,7 +54,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
         }
     }
 
-    private static $impossibleModifiers = [
+    private static array $impossibleModifiers = [
         SpellTraitCode::AFFECTING => [ModifierCode::COLOR, ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::FILTER, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::HAMMER, ModifierCode::CAMOUFLAGE, ModifierCode::INVISIBILITY, ModifierCode::MOVEMENT, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::TRANSPOSITION, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
         SpellTraitCode::INVISIBLE => [ModifierCode::COLOR, ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::FILTER, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::INTERACTIVE_ILLUSION, ModifierCode::HAMMER, ModifierCode::INVISIBILITY, ModifierCode::MOVEMENT, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::TRANSPOSITION, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
         SpellTraitCode::SILENT => [ModifierCode::COLOR, ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::FILTER, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::INTERACTIVE_ILLUSION, ModifierCode::HAMMER, ModifierCode::INVISIBILITY, ModifierCode::MOVEMENT, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::TRANSPOSITION, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
@@ -142,7 +142,7 @@ class SpellTraitsTableTest extends AbstractTheurgistTableTest
         }
     }
 
-    private static $impossibleFormulas = [
+    private static array $impossibleFormulas = [
         SpellTraitCode::AFFECTING => [FormulaCode::BARRIER, FormulaCode::SMOKE, FormulaCode::ILLUSION, FormulaCode::METAMORPHOSIS, FormulaCode::FIRE, FormulaCode::PORTAL, FormulaCode::LIGHT, FormulaCode::FLOW_OF_TIME, FormulaCode::TSUNAMI_FROM_CLAY_AND_STONES, FormulaCode::HIT, FormulaCode::GREAT_MASSACRE, FormulaCode::DISCHARGE, FormulaCode::LOCK],
         SpellTraitCode::INVISIBLE => [FormulaCode::BARRIER, FormulaCode::SMOKE, FormulaCode::ILLUSION, FormulaCode::METAMORPHOSIS, FormulaCode::FIRE, FormulaCode::PORTAL, FormulaCode::LIGHT, FormulaCode::FLOW_OF_TIME, FormulaCode::TSUNAMI_FROM_CLAY_AND_STONES, FormulaCode::HIT, FormulaCode::GREAT_MASSACRE, FormulaCode::DISCHARGE, FormulaCode::LOCK],
         SpellTraitCode::SILENT => [FormulaCode::BARRIER, FormulaCode::SMOKE, FormulaCode::ILLUSION, FormulaCode::METAMORPHOSIS, FormulaCode::FIRE, FormulaCode::PORTAL, FormulaCode::LIGHT, FormulaCode::FLOW_OF_TIME, FormulaCode::TSUNAMI_FROM_CLAY_AND_STONES, FormulaCode::HIT, FormulaCode::GREAT_MASSACRE, FormulaCode::DISCHARGE, FormulaCode::LOCK],

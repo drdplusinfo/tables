@@ -18,7 +18,7 @@ trait CastingParameterSetAdditionTrait
         $reflectionClass = new \ReflectionClass(self::getSutClass());
         $classBaseName = preg_replace('~^.*[\\\](\w+)$~', '$1', self::getSutClass());
         $getWithAddition = $reflectionClass->getMethod('getWithAddition');
-        if (strpos($getWithAddition->getDocComment(), $classBaseName) !== false) {
+        if (strpos($getWithAddition->getDocComment(), (string) $classBaseName) !== false) {
             self::assertSame($phpDoc = <<<PHPDOC
 /**
  * @param int|float|NumberInterface \$additionValue

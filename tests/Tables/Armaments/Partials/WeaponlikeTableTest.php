@@ -21,7 +21,7 @@ abstract class WeaponlikeTableTest extends WoundingArmamentsTableTest
         );
     }
 
-    private $weaponCategory;
+    private ?\DrdPlus\Codes\Armaments\WeaponCategoryCode $weaponCategory = null;
 
     protected function getWeaponCategory(): WeaponCategoryCode
     {

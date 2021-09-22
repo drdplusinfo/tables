@@ -29,8 +29,8 @@ use Mockery\MockInterface;
 
 class DemonTest extends TestWithMockery
 {
-    private static $demonParameterNamespace;
-    private static $spellParameterNamespace;
+    private static ?string $demonParameterNamespace = null;
+    private static ?string $spellParameterNamespace = null;
 
     /**
      * @throws \ReflectionException
@@ -354,14 +354,12 @@ class DemonTest extends TestWithMockery
                 $demonKnack
             );
         };
-        $createDemon = function (DemonsTable $demonsTable) {
-            return new Demon(
-                DemonCode::getIt(DemonCode::DEADY),
-                $this->createTables($demonsTable),
-                [DemonMutableParameterCode::DEMON_KNACK => 4],
-                []
-            );
-        };
+        $createDemon = fn(DemonsTable $demonsTable) => new Demon(
+            DemonCode::getIt(DemonCode::DEADY),
+            $this->createTables($demonsTable),
+            [DemonMutableParameterCode::DEMON_KNACK => 4],
+            []
+        );
         try {
             $demonsTable = $this->createDemonsTable();
             $demonKnack = $this->createParameter(DemonMutableParameterCode::DEMON_KNACK);

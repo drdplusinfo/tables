@@ -6,12 +6,12 @@ use Granam\Tests\ExceptionsHierarchy\Exceptions\AbstractExceptionsHierarchyTest;
 
 class TheurgistExceptionsHierarchyTest extends AbstractExceptionsHierarchyTest
 {
-    protected function getTestedNamespace()
+    protected function getTestedNamespace(): string
     {
         return $this->getRootNamespace();
     }
 
-    protected function getRootNamespace()
+    protected function getRootNamespace(): string
     {
         return str_replace('\Tests', '', __NAMESPACE__);
     }

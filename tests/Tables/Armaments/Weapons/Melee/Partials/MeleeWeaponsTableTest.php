@@ -96,7 +96,7 @@ abstract class MeleeWeaponsTableTest extends WeaponlikeTableTest
         self::assertSame($twoHandedOnly, $sut->getTwoHandedOnlyOf($chopa));
     }
 
-    private $meleeWeaponCategory;
+    private ?\DrdPlus\Codes\Armaments\WeaponCategoryCode $meleeWeaponCategory = null;
 
     private function getMeleeWeaponCategory(): WeaponCategoryCode
     {

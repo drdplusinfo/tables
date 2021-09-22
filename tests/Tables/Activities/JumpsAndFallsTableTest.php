@@ -294,7 +294,7 @@ class JumpsAndFallsTableTest extends TableTest
                 if ($woundsBonus->getValue() === $expectedPowerOfWound) {
                     $wounds->shouldReceive('getValue')
                         ->andReturn($powerOfWoundAsWounds);
-                } else if ($woundsBonus->getValue() === $expectedAgilityAndAthleticsValue) {
+                } elseif ($woundsBonus->getValue() === $expectedAgilityAndAthleticsValue) {
                     $wounds->shouldReceive('getValue')
                         ->andReturn($agilityAsWounds);
                 } else {

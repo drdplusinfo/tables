@@ -60,9 +60,7 @@ class DemonsTableTest extends AbstractTheurgistTableTest
         $demonsTable = new DemonsTable(Tables::getIt());
         $demonTraits = $demonsTable->getDemonTraits(DemonCode::getIt($demonCodeValue));
         $expectedDemonTraits = array_map(
-            function (string $demonTraitCodeValue) {
-                return new DemonTrait(DemonTraitCode::getIt($demonTraitCodeValue), Tables::getIt());
-            },
+            fn(string $demonTraitCodeValue) => new DemonTrait(DemonTraitCode::getIt($demonTraitCodeValue), Tables::getIt()),
             $expectedDemonTraitCodeValues
         );
         self::assertEquals($expectedDemonTraits, $demonTraits);

@@ -23,7 +23,7 @@ abstract class AbstractTheurgistTableTest extends TableTest
      */
     public function I_can_get_every_mandatory_parameter(): void
     {
-        if (count($this->getMandatoryParameters()) === 0) {
+        if ($this->getMandatoryParameters() === []) {
             self::assertGreaterThan(
                 0,
                 count($this->getOptionalParameters()),
@@ -49,7 +49,7 @@ abstract class AbstractTheurgistTableTest extends TableTest
      */
     public function I_can_get_every_optional_parameter()
     {
-        if (count($this->getOptionalParameters()) === 0) {
+        if ($this->getOptionalParameters() === []) {
             self::assertGreaterThan(
                 0,
                 count($this->getMandatoryParameters()),

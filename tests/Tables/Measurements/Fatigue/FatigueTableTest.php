@@ -10,8 +10,7 @@ use DrdPlus\Tests\Tables\Measurements\MeasurementTableTest;
 
 class FatigueTableTest extends MeasurementTableTest
 {
-    /** @var  WoundsTable */
-    private $woundsTable;
+    private \DrdPlus\Tables\Measurements\Wounds\WoundsTable $woundsTable;
 
     protected function setUp(): void
     {

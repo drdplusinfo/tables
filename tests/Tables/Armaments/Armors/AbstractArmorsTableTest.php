@@ -57,9 +57,7 @@ abstract class AbstractArmorsTableTest extends TableTest
         $rawHeaderName = str_replace('sTable', '', $baseName);
 
         return implode('_', array_map(
-            function ($headerNamePart) {
-                return lcfirst($headerNamePart);
-            },
+            fn($headerNamePart) => lcfirst($headerNamePart),
             preg_split('~([A-Z][a-z]+)~', $rawHeaderName, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY)
         ));
     }

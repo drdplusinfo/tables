@@ -40,7 +40,7 @@ class FemaleModifiersTableTest extends TableTest
         );
     }
 
-    private static $femaleModifiersTable;
+    private static ?\DrdPlus\Tables\Races\FemaleModifiersTable $femaleModifiersTable = null;
 
     /**
      * @return FemaleModifiersTable

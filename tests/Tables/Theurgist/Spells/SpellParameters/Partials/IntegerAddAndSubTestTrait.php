@@ -18,7 +18,7 @@ trait IntegerAddAndSubTestTrait
         $classBaseName = preg_replace('~^.*[\\\](\w+)$~', '$1', self::getSutClass());
         $add = $reflectionClass->getMethod('add');
         $sub = $reflectionClass->getMethod('sub');
-        if (strpos($add->getDocComment(), $classBaseName) !== false && strpos($sub->getDocComment(), $classBaseName) !== false) {
+        if (strpos($add->getDocComment(), (string) $classBaseName) !== false && strpos($sub->getDocComment(), (string) $classBaseName) !== false) {
             self::assertSame($phpDoc = <<<PHPDOC
 /**
  * @param int|float|NumberInterface \$value

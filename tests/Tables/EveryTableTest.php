@@ -53,7 +53,7 @@ class EveryTableTest extends TestCase
                     foreach (self::scanForTables($fullPath, $rootNamespace . '\\' . $fileOrDir) as $tableClass) {
                         $tableClasses[] = $tableClass;
                     }
-                } else if (is_file($fullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
+                } elseif (is_file($fullPath) && preg_match('~(?<tableBasename>\w+Table)\.php$~', $fileOrDir, $matches)) {
                     $assembledTableClass = $rootNamespace . '\\' . $matches['tableBasename'];
                     self::assertTrue(
                         class_exists($assembledTableClass) || interface_exists($assembledTableClass),

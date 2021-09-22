@@ -182,9 +182,7 @@ class TablesTest extends TestWithMockery
     private function pairCodesWithClass(array $codes, string $class): array
     {
         return array_map(
-            function ($code) use ($class) {
-                return [$code, $class];
-            },
+            fn($code) => [$code, $class],
             $codes
         );
     }

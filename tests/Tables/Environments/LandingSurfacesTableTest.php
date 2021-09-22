@@ -43,9 +43,9 @@ class LandingSurfacesTableTest extends TableTest
         // surface, agility, armor, expected power of wounds
         return [
             [LandingSurfaceCode::DEEP_POWDER, 9999, 888888, -15],
-            [LandingSurfaceCode::WATER, 0, 987654321, -15],
-            [LandingSurfaceCode::WATER, -5, 987654321, -10 /* -15 - (3 * -5 / 3) = -15 - -5 = -10 */],
-            [LandingSurfaceCode::WATER, 8, 987654321, -39],
+            [LandingSurfaceCode::WATER, 0, 987_654_321, -15],
+            [LandingSurfaceCode::WATER, -5, 987_654_321, -10 /* -15 - (3 * -5 / 3) = -15 - -5 = -10 */],
+            [LandingSurfaceCode::WATER, 8, 987_654_321, -39],
             [LandingSurfaceCode::SHARP_ROCKS_OR_POINTED_PALES, 99999, 0, 15],
             [LandingSurfaceCode::SHARP_ROCKS_OR_POINTED_PALES, 99999, 8, 7],
             [LandingSurfaceCode::SHARP_ROCKS_OR_POINTED_PALES, 99999, 876543, 7],

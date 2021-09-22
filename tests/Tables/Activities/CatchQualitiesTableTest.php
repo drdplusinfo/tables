@@ -50,9 +50,7 @@ class CatchQualitiesTableTest extends TableTest
             $catchQualitiesTable->getPossibleFoodTypesByCatchQuality(new IntegerObject(10))
         );
         self::assertSame(
-            array_map(function ($foodTypeValue) {
-                return FoodTypeCode::getIt($foodTypeValue);
-            }, FoodTypeCode::getPossibleValues()),
+            array_map(fn($foodTypeValue) => FoodTypeCode::getIt($foodTypeValue), FoodTypeCode::getPossibleValues()),
             $catchQualitiesTable->getPossibleFoodTypesByCatchQuality(new IntegerObject(20))
         );
     }

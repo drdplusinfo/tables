@@ -33,7 +33,7 @@ use Mockery\MockInterface;
 
 class FormulaTest extends TestWithMockery
 {
-    private static $parameterNamespace;
+    private static ?string $parameterNamespace = null;
 
     /**
      * @throws \ReflectionException

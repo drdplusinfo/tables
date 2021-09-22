@@ -13,10 +13,7 @@ use DrdPlus\Tests\Tables\Theurgist\AbstractTheurgistTableTest;
 
 class ProfilesTableTest extends AbstractTheurgistTableTest
 {
-    /**
-     * @var FormulasTable
-     */
-    private $formulasTable;
+    private \DrdPlus\Tables\Theurgist\Spells\FormulasTable $formulasTable;
 
     protected function setUp(): void
     {
@@ -80,11 +77,11 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
                 $expectedFormulaValues,
                 $collectedFormulaValues,
                 'Expected different formulas for profile ' . $profileValue
-                . (count($missing = array_diff($expectedFormulaValues, $collectedFormulaValues)) > 0
+                . (($missing = array_diff($expectedFormulaValues, $collectedFormulaValues)) !== []
                     ? ', missing: ' . implode(', ', $missing)
                     : ''
                 )
-                . (count($redundant = array_diff($collectedFormulaValues, $expectedFormulaValues)) > 0
+                . (($redundant = array_diff($collectedFormulaValues, $expectedFormulaValues)) !== []
                     ? ', not expecting: ' . implode(', ', $redundant)
                     : ''
                 )
@@ -160,11 +157,11 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
                 $expectedModifiers,
                 $modifierValues,
                 "Expected different modifiers for profile '{$profileValue}'"
-                . (count($redundant = array_diff($modifierValues, $expectedModifiers)) > 0
+                . (($redundant = array_diff($modifierValues, $expectedModifiers)) !== []
                     ? ', not expecting: ' . implode(', ', $redundant)
                     : ''
                 )
-                . (count($missing = array_diff($expectedModifiers, $modifierValues)) > 0
+                . (($missing = array_diff($expectedModifiers, $modifierValues)) !== []
                     ? ', missing: ' . implode(', ', $missing)
                     : ''
                 )
@@ -172,7 +169,7 @@ class ProfilesTableTest extends AbstractTheurgistTableTest
         }
     }
 
-    private static $impossibleModifiers = [
+    private static array $impossibleModifiers = [
         ProfileCode::BARRIER_VENUS => [ModifierCode::COLOR, ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::INTERACTIVE_ILLUSION, ModifierCode::HAMMER, ModifierCode::INVISIBILITY, ModifierCode::MOVEMENT, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::TRANSPOSITION, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
         ProfileCode::BARRIER_MARS => [ModifierCode::COLOR, ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::FILTER, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::INTERACTIVE_ILLUSION, ModifierCode::HAMMER, ModifierCode::CAMOUFLAGE, ModifierCode::INVISIBILITY, ModifierCode::MOVEMENT, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::TRANSPOSITION, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
         ProfileCode::SPARK_VENUS => [ModifierCode::GATE, ModifierCode::EXPLOSION, ModifierCode::FILTER, ModifierCode::WATCHER, ModifierCode::THUNDER, ModifierCode::INTERACTIVE_ILLUSION, ModifierCode::HAMMER, ModifierCode::CAMOUFLAGE, ModifierCode::BREACH, ModifierCode::RECEPTOR, ModifierCode::STEP_TO_FUTURE, ModifierCode::STEP_TO_PAST, ModifierCode::RELEASE, ModifierCode::FRAGRANCE],
