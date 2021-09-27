@@ -261,7 +261,7 @@ class Formula extends StrictObject
         ];
         foreach ($this->modifiers as $modifier) {
             $modifierRealmsAffection = $modifier->getRealmsAffection();
-            if (!$modifierRealmsAffection instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection) {
+            if (!($modifierRealmsAffection instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\RealmsAffection)) {
                 continue;
             }
             $modifierRealmsAffectionPeriod = $modifierRealmsAffection->getAffectionPeriodCode()->getValue();
@@ -317,7 +317,7 @@ class Formula extends StrictObject
     public function getCurrentSpellRadius(): ?SpellRadius
     {
         $radiusWithAddition = $this->getRadiusWithAddition();
-        if ($radiusWithAddition === null) {
+        if (!($radiusWithAddition instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius)) {
             return null;
         }
 
@@ -337,7 +337,7 @@ class Formula extends StrictObject
     private function getRadiusWithAddition(): ?SpellRadius
     {
         $baseSpellRadius = $this->getBaseSpellRadius();
-        if (!$baseSpellRadius instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius) {
+        if (!($baseSpellRadius instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius)) {
             return null;
         }
 
@@ -353,7 +353,7 @@ class Formula extends StrictObject
     {
         $epicenterShiftWithAddition = $this->getEpicenterShiftWithAddition();
         $epicenterShiftByModifiers = $this->getParameterBonusFromModifiers(ModifierMutableParameterCode::EPICENTER_SHIFT);
-        if (!$epicenterShiftWithAddition instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift) {
+        if (!($epicenterShiftWithAddition instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift)) {
             if ($epicenterShiftByModifiers === false) {
                 return null;
             }
@@ -384,7 +384,7 @@ class Formula extends StrictObject
     private function getEpicenterShiftWithAddition(): ?EpicenterShift
     {
         $baseEpicenterShift = $this->getBaseEpicenterShift();
-        if (!$baseEpicenterShift instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift) {
+        if (!($baseEpicenterShift instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift)) {
             return null;
         }
 
@@ -424,7 +424,7 @@ class Formula extends StrictObject
     private function getSpellPowerWithAddition(): ?SpellPower
     {
         $baseSpellPower = $this->getBaseSpellPower();
-        if (!$baseSpellPower instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower) {
+        if (!($baseSpellPower instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower)) {
             return null;
         }
 
@@ -439,7 +439,7 @@ class Formula extends StrictObject
     public function getCurrentSpellAttack(): ?SpellAttack
     {
         $spellAttackWithAddition = $this->getSpellAttackWithAddition();
-        if ($spellAttackWithAddition === null) {
+        if (!($spellAttackWithAddition instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack)) {
             return null;
         }
 
@@ -461,7 +461,7 @@ class Formula extends StrictObject
     private function getSpellAttackWithAddition(): ?SpellAttack
     {
         $baseSpellAttack = $this->getBaseSpellAttack();
-        if (!$baseSpellAttack instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack) {
+        if (!($baseSpellAttack instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack)) {
             return null;
         }
 
@@ -546,7 +546,7 @@ class Formula extends StrictObject
     private function getSpellSpeedWithAddition(): ?SpellSpeed
     {
         $baseSpellSpeed = $this->getBaseSpellSpeed();
-        if (!$baseSpellSpeed instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed) {
+        if (!($baseSpellSpeed instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed)) {
             return null;
         }
 
@@ -566,7 +566,7 @@ class Formula extends StrictObject
     private function getDetailLevelWithAddition(): ?DetailLevel
     {
         $baseDetailLevel = $this->getBaseDetailLevel();
-        if (!$baseDetailLevel instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\DetailLevel) {
+        if (!($baseDetailLevel instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\DetailLevel)) {
             return null;
         }
 
@@ -586,7 +586,7 @@ class Formula extends StrictObject
     private function getSpellBrightnessWithAddition(): ?SpellBrightness
     {
         $baseSpellBrightness = $this->getBaseSpellBrightness();
-        if (!$baseSpellBrightness instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellBrightness) {
+        if (!($baseSpellBrightness instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellBrightness)) {
             return null;
         }
 
@@ -623,7 +623,7 @@ class Formula extends StrictObject
     private function getSizeChangeWithAddition(): ?SizeChange
     {
         $baseSizeChange = $this->getBaseSizeChange();
-        if (!$baseSizeChange instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SizeChange) {
+        if (!($baseSizeChange instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SizeChange)) {
             return null;
         }
 

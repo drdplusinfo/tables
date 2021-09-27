@@ -181,7 +181,7 @@ class Modifier extends StrictObject
     public function getSpellRadiusWithAddition(): ?SpellRadius
     {
         $baseRadius = $this->getBaseSpellRadius();
-        if (!$baseRadius instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius) {
+        if (!($baseRadius instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellRadius)) {
             return null;
         }
 
@@ -201,7 +201,7 @@ class Modifier extends StrictObject
     public function getEpicenterShiftWithAddition(): ?EpicenterShift
     {
         $baseEpicenterShift = $this->getBaseEpicenterShift();
-        if (!$baseEpicenterShift instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift) {
+        if (!($baseEpicenterShift instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\EpicenterShift)) {
             return null;
         }
 
@@ -221,7 +221,7 @@ class Modifier extends StrictObject
     public function getSpellPowerWithAddition(): ?SpellPower
     {
         $basePower = $this->getBaseSpellPower();
-        if (!$basePower instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower) {
+        if (!($basePower instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellPower)) {
             return null;
         }
 
@@ -241,7 +241,7 @@ class Modifier extends StrictObject
     public function getNoiseWithAddition(): ?Noise
     {
         $baseNoise = $this->getBaseNoise();
-        if (!$baseNoise instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Noise) {
+        if (!($baseNoise instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Noise)) {
             return null;
         }
 
@@ -261,7 +261,7 @@ class Modifier extends StrictObject
     public function getSpellAttackWithAddition(): ?SpellAttack
     {
         $spellBaseAttack = $this->getBaseSpellAttack();
-        if (!$spellBaseAttack instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack) {
+        if (!($spellBaseAttack instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellAttack)) {
             return null;
         }
 
@@ -281,7 +281,7 @@ class Modifier extends StrictObject
     public function getGraftsWithAddition(): ?Grafts
     {
         $baseGrafts = $this->getBaseGrafts();
-        if (!$baseGrafts instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Grafts) {
+        if (!($baseGrafts instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Grafts)) {
             return null;
         }
 
@@ -301,7 +301,7 @@ class Modifier extends StrictObject
     public function getSpellSpeedWithAddition(): ?SpellSpeed
     {
         $baseSpellSpeed = $this->getBaseSpellSpeed();
-        if (!$baseSpellSpeed instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed) {
+        if (!($baseSpellSpeed instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed)) {
             return null;
         }
 
@@ -321,7 +321,7 @@ class Modifier extends StrictObject
     public function getInvisibilityWithAddition(): ?Invisibility
     {
         $baseInvisibility = $this->getBaseInvisibility();
-        if (!$baseInvisibility instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Invisibility) {
+        if (!($baseInvisibility instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Invisibility)) {
             return null;
         }
 
@@ -341,7 +341,7 @@ class Modifier extends StrictObject
     public function getQualityWithAddition(): ?Quality
     {
         $baseQuality = $this->getBaseQuality();
-        if (!$baseQuality instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Quality) {
+        if (!($baseQuality instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Quality)) {
             return null;
         }
 
@@ -361,7 +361,7 @@ class Modifier extends StrictObject
     public function getNumberOfConditionsWithAddition(): ?NumberOfConditions
     {
         $baseConditions = $this->getBaseNumberOfConditions();
-        if (!$baseConditions instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfConditions) {
+        if (!($baseConditions instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfConditions)) {
             return null;
         }
 
@@ -381,7 +381,7 @@ class Modifier extends StrictObject
     public function getResistanceWithAddition(): ?Resistance
     {
         $baseResistance = $this->getBaseResistance();
-        if (!$baseResistance instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Resistance) {
+        if (!($baseResistance instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Resistance)) {
             return null;
         }
 
@@ -401,7 +401,7 @@ class Modifier extends StrictObject
     public function getNumberOfSituationsWithAddition(): ?NumberOfSituations
     {
         $baseNumberOfSituations = $this->getBaseNumberOfSituations();
-        if (!$baseNumberOfSituations instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfSituations) {
+        if (!($baseNumberOfSituations instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfSituations)) {
             return null;
         }
 
@@ -421,7 +421,7 @@ class Modifier extends StrictObject
     public function getThresholdWithAddition(): ?Threshold
     {
         $baseThreshold = $this->getBaseThreshold();
-        if (!$baseThreshold instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Threshold) {
+        if (!($baseThreshold instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Threshold)) {
             return null;
         }
 
@@ -441,7 +441,7 @@ class Modifier extends StrictObject
     public function getNumberOfWaypointsWithAddition(): ?NumberOfWaypoints
     {
         $baseNumberOfWaypoints = $this->getBaseNumberOfWaypoints();
-        if (!$baseNumberOfWaypoints instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfWaypoints) {
+        if (!($baseNumberOfWaypoints instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\NumberOfWaypoints)) {
             return null;
         }
 

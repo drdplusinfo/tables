@@ -38,13 +38,14 @@ use Granam\Tools\ValueDescriber;
 class Demon extends StrictObject
 {
     use SanitizeMutableParameterChangesTrait;
+
     private \DrdPlus\Codes\Theurgist\DemonCode $demonCode;
     private \DrdPlus\Tables\Tables $tables;
     private array $demonParameterChanges;
     /**
      * @var DemonTrait[]
      */
-    private $demonTraits;
+    private array $demonTraits;
 
     /**
      * @param DemonCode $demonCode
@@ -191,14 +192,14 @@ class Demon extends StrictObject
                 $this->getDemonAgilityWithAddition(),
                 $this->getDemonKnackWithAddition(),
             ],
-            fn(CastingParameter $formulaParameter = null) => $formulaParameter !== null
+            static fn(CastingParameter $formulaParameter = null) => $formulaParameter !== null
         );
     }
 
     public function getCurrentDemonRadius(): ?DemonRadius
     {
         $radiusWithAddition = $this->getDemonRadiusWithAddition();
-        if ($radiusWithAddition === null) {
+        if (!($radiusWithAddition instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonRadius)) {
             return null;
         }
         return new DemonRadius([$radiusWithAddition->getValue(), 0], $this->tables);
@@ -212,7 +213,7 @@ class Demon extends StrictObject
     private function getDemonRadiusWithAddition(): ?DemonRadius
     {
         $baseDemonRadius = $this->getBaseDemonRadius();
-        if (!$baseDemonRadius instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonRadius) {
+        if (!($baseDemonRadius instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonRadius)) {
             return null;
         }
         return $baseDemonRadius->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_RADIUS]);
@@ -299,7 +300,7 @@ class Demon extends StrictObject
     private function getDemonActivationDurationWithAddition(): ?DemonActivationDuration
     {
         $activationDuration = $this->getBaseDemonActivationDuration();
-        if ($activationDuration === null) {
+        if (!($activationDuration instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonActivationDuration)) {
             return null;
         }
         return $activationDuration->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_ACTIVATION_DURATION]);
@@ -318,7 +319,7 @@ class Demon extends StrictObject
     private function getDemonCapacityWithAddition(): ?DemonCapacity
     {
         $demonCapacity = $this->getBaseDemonCapacity();
-        if ($demonCapacity === null) {
+        if (!($demonCapacity instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonCapacity)) {
             return null;
         }
         return $demonCapacity->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_CAPACITY]);
@@ -337,7 +338,7 @@ class Demon extends StrictObject
     private function getDemonEnduranceWithAddition(): ?DemonEndurance
     {
         $demonEndurance = $this->getBaseDemonEndurance();
-        if ($demonEndurance === null) {
+        if (!($demonEndurance instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonEndurance)) {
             return null;
         }
         return $demonEndurance->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_ENDURANCE]);
@@ -385,7 +386,7 @@ class Demon extends StrictObject
     private function getSpellSpeedWithAddition(): ?SpellSpeed
     {
         $spellSpeed = $this->getBaseSpellSpeed();
-        if ($spellSpeed === null) {
+        if (!($spellSpeed instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\SpellSpeed)) {
             return null;
         }
         return $spellSpeed->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::SPELL_SPEED]);
@@ -404,7 +405,7 @@ class Demon extends StrictObject
     private function getDemonQualityWithAddition(): ?DemonQuality
     {
         $demonQuality = $this->getBaseDemonQuality();
-        if ($demonQuality === null) {
+        if (!($demonQuality instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonQuality)) {
             return null;
         }
         return $demonQuality->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_QUALITY]);
@@ -423,7 +424,7 @@ class Demon extends StrictObject
     private function getDemonInvisibilityWithAddition(): ?DemonInvisibility
     {
         $baseDemonInvisibility = $this->getBaseDemonInvisibility();
-        if ($baseDemonInvisibility === null) {
+        if (!($baseDemonInvisibility instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonInvisibility)) {
             return null;
         }
         return $baseDemonInvisibility->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_INVISIBILITY]);
@@ -442,7 +443,7 @@ class Demon extends StrictObject
     private function getDemonStrengthWithAddition(): ?DemonStrength
     {
         $demonStrength = $this->getBaseDemonStrength();
-        if ($demonStrength === null) {
+        if (!($demonStrength instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonStrength)) {
             return null;
         }
         return $demonStrength->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_STRENGTH]);
@@ -461,7 +462,7 @@ class Demon extends StrictObject
     private function getDemonAgilityWithAddition(): ?DemonAgility
     {
         $demonAgility = $this->getBaseDemonAgility();
-        if ($demonAgility === null) {
+        if (!($demonAgility instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonAgility)) {
             return null;
         }
         return $demonAgility->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_AGILITY]);
@@ -480,7 +481,7 @@ class Demon extends StrictObject
     private function getDemonKnackWithAddition(): ?DemonKnack
     {
         $demonKnack = $this->getBaseDemonKnack();
-        if ($demonKnack === null) {
+        if (!($demonKnack instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonKnack)) {
             return null;
         }
         return $demonKnack->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_KNACK]);
@@ -499,7 +500,7 @@ class Demon extends StrictObject
     private function getDemonArmorWithAddition(): ?DemonArmor
     {
         $demonArmor = $this->getBaseDemonArmor();
-        if ($demonArmor === null) {
+        if (!($demonArmor instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonArmor)) {
             return null;
         }
         return $demonArmor->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_ARMOR]);
@@ -518,7 +519,7 @@ class Demon extends StrictObject
     private function getDemonAreaWithAddition(): ?DemonArea
     {
         $demonArea = $this->getBaseDemonArea();
-        if ($demonArea === null) {
+        if (!($demonArea instanceof \DrdPlus\Tables\Theurgist\Demons\DemonParameters\DemonArea)) {
             return null;
         }
         return $demonArea->getWithAddition($this->demonParameterChanges[DemonMutableParameterCode::DEMON_AREA]);

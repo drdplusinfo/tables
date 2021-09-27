@@ -43,7 +43,7 @@ class SpellTrait extends StrictObject
             return 0; // no change
         }
         $baseTrap = $this->getBaseTrap();
-        if ($baseTrap === null) {
+        if (!($baseTrap instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Trap)) {
             throw new Exceptions\CanNotChangeNotExistingTrap(
                 "Spell trait {$this->getSpellTraitCode()} does not have a trap. Got trap change "
                 . ValueDescriber::describe($spellTraitTrapPropertyValue)
@@ -57,7 +57,7 @@ class SpellTrait extends StrictObject
     {
         $difficultyChange = $this->tables->getSpellTraitsTable()->getDifficultyChange($this->getSpellTraitCode());
         $trap = $this->getCurrentTrap();
-        if ($trap === null) {
+        if (!($trap instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Trap)) {
             return $difficultyChange;
         }
 
@@ -77,7 +77,7 @@ class SpellTrait extends StrictObject
     public function getCurrentTrap(): ?Trap
     {
         $trap = $this->getBaseTrap();
-        if ($trap === null) {
+        if (!($trap instanceof \DrdPlus\Tables\Theurgist\Spells\SpellParameters\Trap)) {
             return null;
         }
 
